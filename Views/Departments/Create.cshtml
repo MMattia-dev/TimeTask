@@ -1,14 +1,72 @@
-﻿@using Newtonsoft.Json
+﻿@model TimeTask.Models.Department
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Create";
 }
 
-@*<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@*<h1>Create</h1>
+
+<h4>Department</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>*@
+
+@*<div>
+    <a asp-action="Index">Back to List</a>
 </div>
 *@
+
+<style>
+    .right-nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn {
+        width: 300px;
+        height: 30px;
+        font-family: Arial;
+        font-size: 14px;
+    }
+
+    .form-control {
+        /*border: none;
+        outline: none;*/
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        width: 300px;
+        font-size: 14px;
+        background-color: transparent;
+
+    }
+
+    .control-label {
+        color: rgba(255, 255, 255, 0.7);
+        font-family: Arial;
+        font-size: 14px;
+        user-select: none;
+    }
+
+    form {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+    }
+</style>
 
 <div class="parent">
     <section class="left-nav">
@@ -54,10 +112,10 @@
         <div class="departments">
             <span class="departmentsSpan">@Resource.Departments:</span>
             @*<button>
-                <svg viewBox="0 0 1920 1920" width="17" height="17">
-                    <path d="M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z"></path>
-                </svg>
-                <span>Magazyn</span>
+            <svg viewBox="0 0 1920 1920" width="17" height="17">
+            <path d="M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z"></path>
+            </svg>
+            <span>Magazyn</span>
             </button>*@
 
             @if (((IEnumerable<Department>)ViewBag.Department).Count() == 0)
@@ -71,10 +129,10 @@
             }
             else
             {
-                
+
             }
 
-            
+
         </div>
 
     </section>
@@ -84,12 +142,23 @@
 
 
     <section class="right-nav">
-        
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" autocomplete="off"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
     </section>
 </div>
 
-@*<a target="_blank" href="https://icons8.com/icon/2797/home">Home</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>*@
 
-<script type="text/javascript">
 
-</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

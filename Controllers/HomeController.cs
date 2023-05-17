@@ -23,6 +23,8 @@ namespace TimeTask.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Department = _context.Department;
+
             return View();
         }
 

@@ -22,6 +22,8 @@ html {
 body {
     /*margin-bottom: 60px;*/
     background-color: transparent;
+    background: url(https://wallpaperbat.com/img/70483-island-night-ultra-hd-desktop-background-wallpaper-for-4k-uhd-tv.jpg) no-repeat fixed center;
+    background-size: cover;
 }
 
 .container {
@@ -32,6 +34,34 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh !important;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-family: Arial;
+    user-select: none;
+}
+
+    a:hover {
+        color: white;
+    }
+
+span {
+    user-select: none;
+}
+
+p {
+    user-select: none;
+}
+
+button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    /*color: white;*/
+    user-select: none;
+    font-family: Arial;
 }
 
 .parent {
@@ -48,7 +78,7 @@ body {
     width: 20vw;
     min-width: 250px;
     height: 100%;
-    padding: 30px
+    padding: 25px 30px 25px 30px;
 
 }
 
@@ -61,12 +91,125 @@ body {
 
 }
 
-a {
-    text-decoration: none;
-    color: white;
+.left-nav a:first-child {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    height: 32px;
+    margin-bottom: 35px;
 }
 
-.left-nav a {
-    font-size: 19px;
-    font-weight: bold;
+    .left-nav a:first-child:hover {
+        opacity: 0.8;
+    }
+
+    .left-nav a:first-child svg {
+        fill: white;
+    }
+
+    .left-nav a:first-child span {
+        font-size: 17px;
+        margin-top: 5px;
+        font-weight: bold;
+    }
+
+.left-nav button {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.7);
+    transition: color 0.2s;
+    transform: translateX(-5px);
 }
+
+    .left-nav button span {
+        font-size: 14px;
+    }
+
+    .left-nav button:hover {
+        color: rgba(255, 255, 255, 0.9);
+        transition: color 0.2s;
+    }
+
+        .left-nav button:hover svg {
+            fill: rgba(255, 255, 255, 0.9);
+            transition: fill 0.2s;
+        }
+
+    .left-nav button svg {
+        fill: rgba(255, 255, 255, 0.7);
+        transition: fill 0.2s;
+    }
+
+.search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+    .search button span {
+        font-size: 14px;
+    }
+
+    .search:nth-child(2) {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 13px;
+    }
+
+.departmentTasks {
+    margin-bottom: 10px;
+}
+
+    .departmentTasks button span {
+        transform: translateY(-1px);
+    }
+
+.vacation {
+    margin-bottom: 10px;
+}
+
+.workingTime {
+    margin-bottom: 35px;
+}
+
+.departmentsSpan {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 15px;
+    /*margin-bottom: 100px;*/
+}
+
+.departments {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+    .departments a {
+
+    }
+
+        .departments a span {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: normal;
+            font-size: 14px;           
+        }
+
+        .departments a svg {
+            fill: rgba(255, 255, 255, 0.7);
+        }
+
+        .departments a:hover {
+            opacity: 0.8;
+        }
+
+
+
+
+
+
+
+
+
+
