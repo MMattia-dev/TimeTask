@@ -117,8 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="AddDepartments" xml:space="preserve">
-    <value>Add departments and workers</value>
+    <value>Add departments</value>
   </data>
   <data name="Departments" xml:space="preserve">
     <value>Departments</value>

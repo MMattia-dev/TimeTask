@@ -1,4 +1,5 @@
 ﻿@model TimeTask.Models.Department
+@using Newtonsoft.Json
 
 @{
     ViewData["Title"] = "Create";
@@ -29,41 +30,10 @@
 </div>
 *@
 
+<link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
+
 <style>
-    .right-nav {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .btn {
-        width: 300px;
-        height: 30px;
-        font-family: Arial;
-        font-size: 14px;
-    }
-
-    .form-control {
-        -webkit-box-shadow: none !important;
-        box-shadow: none !important;
-        width: 300px;
-        font-size: 14px;
-        background-color: transparent;
-
-    }
-
-    .control-label {
-        color: rgba(255, 255, 255, 0.7);
-        font-family: Arial;
-        font-size: 14px;
-        user-select: none;
-    }
-
-    form {
-        display: flex;
-        gap: 10px;
-        flex-direction: column;
-    }
+    
 </style>
 
 
@@ -82,7 +52,7 @@
                 </svg>
                 <span>@Resource.Search</span>
             </button>
-            <span>Ctrl + F</span>
+            <span>Ctrl + J</span>
         </div>
         <div class="departmentTasks">
             <button>
@@ -109,17 +79,9 @@
             </button>
         </div>
         <div class="departments">
-            <span class="departmentsSpan">@Resource.Departments:</span>
-            @*<button>
-            <svg viewBox="0 0 1920 1920" width="17" height="17">
-            <path d="M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z"></path>
-            </svg>
-            <span>Magazyn</span>
-            </button>*@
-
             @if (((IEnumerable<Department>)ViewBag.Department).Count() == 0)
             {
-                <a asp-area="" asp-controller="Departments" asp-action="Create">
+                <a asp-area="" asp-controller="Departments" asp-action="Create" class="addDepart">
                     <svg viewBox="0 0 17 17" width="17" height="17">
                         <path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path>
                     </svg>
@@ -128,36 +90,69 @@
             }
             else
             {
+                <div class="departments_">
+                    <span class="departmentsSpan">@Resource.Departments:</span>
+                    <a asp-area="" asp-controller="Departments" asp-action="Create" title="@Resource.AddDepartments">
+                        <svg viewBox="0 0 17 17" width="17" height="17">
+                            <path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path>
+                        </svg>
+                        <span>@Resource.Add</span>
+                    </a>
+                </div>
 
+                foreach (var item in ((IEnumerable<Department>)ViewBag.Department).OrderBy(x => x.Name))
+                {
+                    <button>
+                        <svg viewBox="0 0 1920 1920" width="17" height="17">
+                            <path d="M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z"></path>
+                        </svg>
+                        <span>@item.Name</span>
+                    </button>
+                }
             }
-
-
         </div>
-
     </section>
-
-
-
-
 
     <section class="right-nav">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" autocomplete="off"/>
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <input asp-for="Name" class="form-control" autocomplete="off" placeholder="wpisz tutaj nazwę działu..."/>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Zapisz" class="btn-custom" />
+            </div>
+            <div class="form-group">
+                @*<input value="Wróć" type="button" class="btn-custom" />*@
+                <a asp-area="" asp-controller="Home" asp-action="Index"><input value="Wróć" type="button" class="btn-custom_" /></a>
             </div>
         </form>
     </section>
 </div>
 
 
-
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script type="text/javascript">
+
+    var model_d = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Department));
+    if (model_d.length == 0)
+    {
+        let buttons = document.querySelectorAll("button");
+        for (let i = 0; i < buttons.length; i++)
+        {
+            buttons[i].setAttribute('disabled', '');
+        }
+    }
+    else {
+        //document.getElementById("ifAny").setAttribute('disabled', '');
+        let buttons = document.querySelectorAll(".departments button");
+        for (let i = 0; i < buttons.length; i++)
+        {
+            buttons[i].setAttribute('disabled', '');
+        }
+    }
+
+</script>

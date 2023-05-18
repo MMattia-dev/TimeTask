@@ -61,7 +61,16 @@ namespace TimeTask {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Dodaj działy i pracowników.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Dodaj.
+        /// </summary>
+        public static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Dodaj działy.
         /// </summary>
         public static string AddDepartments {
             get {

@@ -15,14 +15,17 @@ html {
 html {
     position: relative;
     min-height: 100%;
-    background: url(https://wallpaperbat.com/img/70483-island-night-ultra-hd-desktop-background-wallpaper-for-4k-uhd-tv.jpg) no-repeat fixed center;
+    /*background: url(https://wallpaperbat.com/img/70483-island-night-ultra-hd-desktop-background-wallpaper-for-4k-uhd-tv.jpg) no-repeat fixed center;*/
+    background: url(img/70483.jpg) no-repeat fixed center;
     background-size: cover;
+    background-color: black;
 }
 
 body {
     /*margin-bottom: 60px;*/
     background-color: transparent;
-    background: url(https://wallpaperbat.com/img/70483-island-night-ultra-hd-desktop-background-wallpaper-for-4k-uhd-tv.jpg) no-repeat fixed center;
+    /*background: url(https://wallpaperbat.com/img/70483-island-night-ultra-hd-desktop-background-wallpaper-for-4k-uhd-tv.jpg) no-repeat fixed center;*/
+    background: url(img/70483.jpg) no-repeat fixed center;
     background-size: cover;
 }
 
@@ -55,11 +58,15 @@ p {
     user-select: none;
 }
 
+.h {
+    width: 100%;
+    height: 10px;
+}
+
 button {
     border: none;
     outline: none;
     background-color: transparent;
-    /*color: white;*/
     user-select: none;
     font-family: Arial;
 }
@@ -71,15 +78,30 @@ button {
     width: 97vw;
     display: flex;
     justify-content: left;
-
+    backdrop-filter: blur(3px);
 }
 
 .left-nav {
     width: 20vw;
     min-width: 250px;
+    max-width: 320px;
     height: 100%;
     padding: 25px 30px 25px 30px;
+    overflow-y: auto;
+}
 
+*::-webkit-scrollbar {
+    width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(36, 110, 142, 0.7);
+    /*border-radius: 10px;*/
+    border: none;
 }
 
 .right-nav {
@@ -157,6 +179,14 @@ button {
         font-size: 13px;
     }
 
+    .search button:disabled span {
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    .search button:disabled svg {
+        fill: rgba(255, 255, 255, 0.4);
+    }
+
 .departmentTasks {
     margin-bottom: 10px;
 }
@@ -165,25 +195,48 @@ button {
         transform: translateY(-1px);
     }
 
+    .departmentTasks button:disabled span {
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    .departmentTasks button:disabled svg {
+        fill: rgba(255, 255, 255, 0.4);
+    }
+
 .vacation {
     margin-bottom: 10px;
 }
+
+    .vacation button:disabled span {
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    .vacation button:disabled svg {
+        fill: rgba(255, 255, 255, 0.4);
+    }
 
 .workingTime {
     margin-bottom: 35px;
 }
 
+    .workingTime button:disabled span {
+        color: rgba(255, 255, 255, 0.4);
+    }
+
+    .workingTime button:disabled svg {
+        fill: rgba(255, 255, 255, 0.4);
+    }
+
 .departmentsSpan {
     color: rgba(255, 255, 255, 0.5);
     font-size: 15px;
-    /*margin-bottom: 100px;*/
 }
 
 .departments {
     margin-bottom: 30px;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
 }
 
     .departments a {
@@ -191,25 +244,74 @@ button {
     }
 
         .departments a span {
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.7);
             font-weight: normal;
-            font-size: 14px;           
+            font-size: 14px;
+            transition: color 0.2s;
         }
 
         .departments a svg {
             fill: rgba(255, 255, 255, 0.7);
+            transition: fill 0.2s;
         }
 
-        .departments a:hover {
-            opacity: 0.8;
+        .departments a:hover span {
+            color: rgba(255, 255, 255, 0.9) !important;
+            transition: color 0.2s;
         }
 
+        .departments a:hover svg {
+            fill: rgba(255, 255, 255, 0.9);
+            transition: fill 0.2s;
+        }
 
+    .departments button:disabled span {
+        color: rgba(255, 255, 255, 0.4);
+    }
 
+    .departments button:disabled svg {
+        fill: rgba(255, 255, 255, 0.4);
+    }
 
+.departments_ {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
+/*.departments__ {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
+    .departments__ a svg {
+        fill: rgba(255, 255, 255, 0.6);
+    }*/
 
+.addDepart {
+    display: flex;
+    align-items: center;
+}
 
+    .addDepart span {
+        margin: 0 !important;
+        padding: 0 !important;
+        color: rgba(255, 255, 255, 1) !important;
+        font-weight: normal !important;
+        font-size: 14px !important;
+        transition: none !important;
+    }
 
+    .addDepart svg {
+        fill: rgba(255, 255, 255, 1) !important;
+        transition: none !important;
+    }
 
+    .addDepart:hover span {
+        transition: none !important;
+    }
+
+    .addDepart:hover svg {
+        transition: none !important;
+    }
