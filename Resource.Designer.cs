@@ -79,6 +79,60 @@ namespace TimeTask {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Dodaj pracowników.
+        /// </summary>
+        public static string AddEmployees {
+            get {
+                return ResourceManager.GetString("AddEmployees", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Czy na pewno chcesz usunąć dział?.
+        /// </summary>
+        public static string AreYouSureYouWantToDeleteDepartment {
+            get {
+                return ResourceManager.GetString("AreYouSureYouWantToDeleteDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Kliknij poniżej, aby usunąć.
+        /// </summary>
+        public static string ClickBelowToDelete {
+            get {
+                return ResourceManager.GetString("ClickBelowToDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Usuń.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Dział.
+        /// </summary>
+        public static string Department {
+            get {
+                return ResourceManager.GetString("Department", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu dział.
+        /// </summary>
+        public static string DepartmentLowecase {
+            get {
+                return ResourceManager.GetString("DepartmentLowecase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Działy.
         /// </summary>
         public static string Departments {
@@ -88,11 +142,56 @@ namespace TimeTask {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Edytuj.
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Pracownicy.
+        /// </summary>
+        public static string Employees {
+            get {
+                return ResourceManager.GetString("Employees", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Home.
         /// </summary>
         public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Chcę usunąć dział.
+        /// </summary>
+        public static string IWantToDeleteDepartment {
+            get {
+                return ResourceManager.GetString("IWantToDeleteDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Nie.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Zapisz.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
             }
         }
         
@@ -129,6 +228,15 @@ namespace TimeTask {
         public static string WorkTime {
             get {
                 return ResourceManager.GetString("WorkTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Tak.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

@@ -10,92 +10,87 @@ using TimeTask.Models;
 
 namespace TimeTask.Controllers
 {
-    public class DepartmentsController : Controller
+    public class WorkersController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public DepartmentsController(ApplicationDbContext context)
+        public WorkersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Departments
+        // GET: Workers
         public async Task<IActionResult> Index()
         {
-              return _context.Department != null ? 
-                          View(await _context.Department.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Department'  is null.");
+              return _context.Workers != null ? 
+                          View(await _context.Workers.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Workers'  is null.");
         }
 
-        // GET: Departments/Details/5
+        // GET: Workers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Department == null)
+            if (id == null || _context.Workers == null)
             {
                 return NotFound();
             }
 
-            var department = await _context.Department
+            var workers = await _context.Workers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (department == null)
+            if (workers == null)
             {
                 return NotFound();
             }
 
-            return View(department);
+            return View(workers);
         }
 
-        // GET: Departments/Create
+        // GET: Workers/Create
         public IActionResult Create()
         {
-            ViewBag.Department = _context.Department;
-
             return View();
         }
 
-        // POST: Departments/Create
+        // POST: Workers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Department department)
+        public async Task<IActionResult> Create([Bind("Id,Name,DepartmentID,Employed")] Workers workers)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(department);
+                _context.Add(workers);
                 await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index));
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(Index));
             }
-            return View(department);
+            return View(workers);
         }
 
-        // GET: Departments/Edit/5
+        // GET: Workers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            ViewBag.Department = _context.Department;
-
-            if (id == null || _context.Department == null)
+            if (id == null || _context.Workers == null)
             {
                 return NotFound();
             }
 
-            var department = await _context.Department.FindAsync(id);
-            if (department == null)
+            var workers = await _context.Workers.FindAsync(id);
+            if (workers == null)
             {
                 return NotFound();
             }
-            return View(department);
+            return View(workers);
         }
 
-        // POST: Departments/Edit/5
+        // POST: Workers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Department department)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,DepartmentID,Employed")] Workers workers)
         {
-            if (id != department.Id)
+            if (id != workers.Id)
             {
                 return NotFound();
             }
@@ -104,12 +99,12 @@ namespace TimeTask.Controllers
             {
                 try
                 {
-                    _context.Update(department);
+                    _context.Update(workers);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DepartmentExists(department.Id))
+                    if (!WorkersExists(workers.Id))
                     {
                         return NotFound();
                     }
@@ -118,53 +113,51 @@ namespace TimeTask.Controllers
                         throw;
                     }
                 }
-                //return RedirectToAction(nameof(Index));
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(Index));
             }
-            return View(department);
+            return View(workers);
         }
 
-        // GET: Departments/Delete/5
+        // GET: Workers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Department == null)
+            if (id == null || _context.Workers == null)
             {
                 return NotFound();
             }
 
-            var department = await _context.Department
+            var workers = await _context.Workers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (department == null)
+            if (workers == null)
             {
                 return NotFound();
             }
 
-            return View(department);
+            return View(workers);
         }
 
-        // POST: Departments/Delete/5
+        // POST: Workers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Department == null)
+            if (_context.Workers == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Department'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Workers'  is null.");
             }
-            var department = await _context.Department.FindAsync(id);
-            if (department != null)
+            var workers = await _context.Workers.FindAsync(id);
+            if (workers != null)
             {
-                _context.Department.Remove(department);
+                _context.Workers.Remove(workers);
             }
             
             await _context.SaveChangesAsync();
-            //return RedirectToAction(nameof(Index));
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(Index));
         }
 
-        private bool DepartmentExists(int id)
+        private bool WorkersExists(int id)
         {
-          return (_context.Department?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Workers?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

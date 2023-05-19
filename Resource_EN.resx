@@ -123,11 +123,44 @@
   <data name="AddDepartments" xml:space="preserve">
     <value>Add departments</value>
   </data>
+  <data name="AddEmployees" xml:space="preserve">
+    <value>Add employees</value>
+  </data>
+  <data name="AreYouSureYouWantToDeleteDepartment" xml:space="preserve">
+    <value>Are you sure you want to delete department?</value>
+  </data>
+  <data name="ClickBelowToDelete" xml:space="preserve">
+    <value>Click below to delete </value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="DepartmentLowecase" xml:space="preserve">
+    <value>department</value>
+  </data>
   <data name="Departments" xml:space="preserve">
     <value>Departments</value>
   </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Employees" xml:space="preserve">
+    <value>Employees</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
+  </data>
+  <data name="IWantToDeleteDepartment" xml:space="preserve">
+    <value>I want to delete department</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
@@ -140,5 +173,8 @@
   </data>
   <data name="WorkTime" xml:space="preserve">
     <value>Working time</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

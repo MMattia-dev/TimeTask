@@ -32,11 +32,6 @@
 
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
 
-<style>
-    
-</style>
-
-
 <div class="parent">
     <section class="left-nav">
         <a asp-area="" asp-controller="Home" asp-action="Index">
@@ -102,12 +97,14 @@
 
                 foreach (var item in ((IEnumerable<Department>)ViewBag.Department).OrderBy(x => x.Name))
                 {
-                    <button>
-                        <svg viewBox="0 0 1920 1920" width="17" height="17">
-                            <path d="M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z"></path>
-                        </svg>
-                        <span>@item.Name</span>
-                    </button>
+                    <div class="departments__">
+                        <button onclick="departmentClick(this)">
+                            <svg viewBox="0 0 1920 1920" width="17" height="17">
+                                <path d="M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z"></path>
+                            </svg>
+                            <span>@item.Name</span>
+                        </button>
+                    </div>
                 }
             }
         </div>
@@ -116,7 +113,7 @@
     <section class="right-nav">
         <form asp-action="Create">
             @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
-            <div class="form-group">
+            <div class="form-group form-group-margin">
                 <input asp-for="Name" class="form-control" autocomplete="off" placeholder="wpisz tutaj nazwę działu..."/>
             </div>
             <div class="form-group">
@@ -154,5 +151,15 @@
             buttons[i].setAttribute('disabled', '');
         }
     }
+
+    function hideA() 
+    {
+        let a = document.querySelectorAll(".departments__ a");
+        for (let i = 0; i < a.length; i++)
+        {
+            a[i].style.display = 'none';
+        }
+    };
+    hideA();
 
 </script>

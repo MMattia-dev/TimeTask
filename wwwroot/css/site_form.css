@@ -73,6 +73,93 @@ form {
     box-shadow: 0px 0px 25px 5px rgba(0, 0, 0, 1);
 }
 
-.form-group:first-child {
+    form label {
+        color: rgba(255, 255, 255, 0.8);
+        font-family: Arial;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        user-select: none;
+    }
+
+.form-group-margin {
     margin-bottom: 10px;
 }
+
+.right-nav-forms {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+    .right-nav-forms form:nth-child(2) {
+        /*height: 90px;*/
+        display: flex;
+        /*flex-direction: row;*/
+    }
+
+    .right-nav-forms form span {
+        color: rgba(255, 255, 255, 0.8);
+        font-family: Arial;
+        font-size: 13px;
+    }
+
+.btn-danger-div {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    /*position: absolute;
+    margin-top: 28px;*/
+}
+
+    .btn-danger-div input {
+        width: 115px;
+        font-family: Arial;
+        font-size: 13px;
+        height: 35px;
+        color: rgba(255, 255, 255, 0.8);
+        border-radius: 5px;
+    }
+
+        .btn-danger-div input:first-child {
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            background-color: rgba(212, 9, 9, 0.6);
+        }
+
+            .btn-danger-div input:first-child:hover {
+                background-color: rgba(212, 9, 9, 0.8);
+            }
+
+            .btn-danger-div input:first-child:disabled {
+                background-color: rgba(85, 85, 85, 0.8);
+            }
+
+        .btn-danger-div input:nth-child(2) {
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            background-color: rgba(85, 85, 85, 0.8)
+        }
+
+            .btn-danger-div input:nth-child(2):hover {
+                background-color: rgba(85, 85, 85, 0.6)
+            }
+
+.btn-danger-custom {
+    width: 250px;
+    font-family: Arial;
+    font-size: 13px;
+    background-color: rgba(212, 9, 9, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    height: 35px;
+    color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+}
+
+    .btn-danger-custom:hover {
+        background-color: rgba(212, 9, 9, 0.8);
+    }
+
+    /*.btn-danger-custom:disabled {
+        background-color: rgba(85, 85, 85, 0.8);
+    }*/

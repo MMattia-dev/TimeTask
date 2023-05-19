@@ -75,25 +75,42 @@
 
                 foreach (var item in ((IEnumerable<Department>)ViewBag.Department).OrderBy(x => x.Name))
                 {
-                    @*<div class="departments__">
-                        <button onclick="departmentClick(this)">
+                    <div class="departments__">
+                        <button onclick="departmentClick(this)" id="@item.Id">
                             <svg viewBox="0 0 1920 1920" width="17" height="17">
                                 <path d="M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z"></path>
                             </svg>
                             <span>@item.Name</span>
                         </button>
-                        <a href="#" title="">
-                            <svg viewBox="0 0 1920 1920" width="16" height="16">
+                        <a href="@Url.Action("Edit", "Departments", new { id = item.Id })" class="departments__a" id="@item.Id">
+                            <svg viewBox="0 0 1920 1920" width="17" height="17">
                                 <path d="M1703.534 960c0-41.788-3.84-84.48-11.633-127.172l210.184-182.174-199.454-340.856-265.186 88.433c-66.974-55.567-143.323-99.389-223.85-128.415L1158.932 0h-397.78L706.49 269.704c-81.43 29.138-156.423 72.282-223.962 128.414l-265.073-88.32L18 650.654l210.184 182.174C220.39 875.52 216.55 918.212 216.55 960s3.84 84.48 11.633 127.172L18 1269.346l199.454 340.856 265.186-88.433c66.974 55.567 143.322 99.389 223.85 128.415L761.152 1920h397.779l54.663-269.704c81.318-29.138 156.424-72.282 223.963-128.414l265.073 88.433 199.454-340.856-210.184-182.174c7.793-42.805 11.633-85.497 11.633-127.285m-743.492 395.294c-217.976 0-395.294-177.318-395.294-395.294 0-217.976 177.318-395.294 395.294-395.294 217.977 0 395.294 177.318 395.294 395.294 0 217.976-177.317 395.294-395.294 395.294"></path>
                             </svg>
+                            <span>@Resource.Edit</span>
                         </a>
-                    </div>*@
-                    <button onclick="departmentClick(this)">
-                        <svg viewBox="0 0 1920 1920" width="17" height="17">
-                            <path d="M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z"></path>
-                        </svg>
-                        <span>@item.Name</span>       
-                    </button>
+
+                        @if (((IEnumerable<Workers>)ViewBag.Workers).Count() == 0) 
+                        {
+                            <a href="#" class="departments__a3" id="@item.Id">
+                                <svg viewBox="0 0 17 17" width="17" height="17">
+                                    <path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path>
+                                </svg>
+                                <span>@Resource.AddEmployees</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="#" class="departments__a2" id="@item.Id" onclick="departmentClick2(this)">
+                                <svg viewBox="0 0 1920 1920" width="17" height="17">
+                                    <path d="M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z"></path>
+                                </svg>
+                                <span>@Resource.Employees</span>
+                            </a>
+
+
+                        }
+
+                    </div>
                 }
             }
         </div>
@@ -120,29 +137,83 @@
     function departmentClick(t)
     {
         let span = t.querySelector("span");
-        //console.log(span.innerText);
         let svg = t.querySelector("svg");
         let svgPath = t.querySelector("svg path");
+        let id = t.getAttribute('id');
+        let departA = document.querySelectorAll(".departments__a");
+        let departA2 = document.querySelectorAll(".departments__a2");
+        let departA3 = document.querySelectorAll(".departments__a3");
 
         if (!t.hasAttribute('opened'))
         {
-            //span.style.color = "rgba(255, 255, 255, 1)";
-            //svg.style.fill = "rgba(255, 255, 255, 1)";
             svgPath.setAttribute('d', 'm572.501 747-254.933 815.893-101.867-31.786 278.507-890.774h1105.813v-320H783.808L612.181 107H.021v1546.667c0 88.213 71.787 160 160 160h1388.054c75.946 0 141.973-54.08 156.906-128.64L1892.608 747H572.501Z')
             t.setAttribute('opened', '');
-
-
-            //po hover pokaz ikone settings ktora przeniesie do edit
+            for (let i = 0; i < departA.length; i++)
+            {
+                if (departA[i].getAttribute('id') == id)
+                    departA[i].style.display = '';
+            }
+            for (let i = 0; i < departA2.length; i++)
+            {
+                if (departA2[i].getAttribute('id') == id)
+                    departA2[i].style.display = '';
+            }
+            for (let i = 0; i < departA3.length; i++)
+            {
+                if (departA3[i].getAttribute('id') == id)
+                    departA3[i].style.display = '';
+            }
         }
         else 
         {
-            //span.style.color = "rgba(255, 255, 255, 0.7)";
-            //svg.style.fill = "rgba(255, 255, 255, 0.7)";
+            svgPath.setAttribute('d', 'M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z');
+            t.removeAttribute('opened');
+            for (let i = 0; i < departA.length; i++)
+            {
+                if (departA[i].getAttribute('id') == id)
+                    departA[i].style.display = 'none';
+            }
+            for (let i = 0; i < departA2.length; i++)
+            {
+                if (departA2[i].getAttribute('id') == id)
+                    departA2[i].style.display = 'none';
+            }
+            for (let i = 0; i < departA3.length; i++)
+            {
+                if (departA3[i].getAttribute('id') == id)
+                    departA3[i].style.display = 'none';
+            }
+        }
+    };
+
+    function departmentClick2(t) 
+    {
+        let svg = t.querySelector("svg");
+        let svgPath = t.querySelector("svg path");
+
+        if (!t.hasAttribute('opened')) 
+        {
+            svgPath.setAttribute('d', 'm572.501 747-254.933 815.893-101.867-31.786 278.507-890.774h1105.813v-320H783.808L612.181 107H.021v1546.667c0 88.213 71.787 160 160 160h1388.054c75.946 0 141.973-54.08 156.906-128.64L1892.608 747H572.501Z')
+            t.setAttribute('opened', '');
+        }
+        else 
+        {
             svgPath.setAttribute('d', 'M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z');
             t.removeAttribute('opened');
         }
+    };
 
-    }
+    function hideA() 
+    {
+        let a = document.querySelectorAll(".departments__ a");
+        for (let i = 0; i < a.length; i++)
+        {
+            a[i].style.display = 'none';
+        }
+    };
+    hideA();
+
+    
 
 </script>
 
