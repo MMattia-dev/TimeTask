@@ -5,31 +5,6 @@
     ViewData["Title"] = "Edit";
 }
 
-@*<h1>Edit</h1>
-
-<h4>Department</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>*@
-
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
 
 <div class="parent">
@@ -126,13 +101,11 @@
         </form>
         <form asp-action="Delete">
             <input type="hidden" asp-for="Id" />
-            @*<label><input onchange="IWantToDeleteDepartment(this)" type="checkbox"/>@Resource.IWantToDeleteDepartment</label>*@
-            @*<input type="submit" value="@Resource.Delete" class="btn-danger-custom" id="deleteID" />*@
             <span id="deleteText">@Resource.ClickBelowToDelete @Resource.DepartmentLowecase.</span>
             <input type="button" value="@Resource.Delete" class="btn-danger-custom" id="deleteID" onclick="IWantToDeleteDepartment(this)" />
             <div class="btn-danger-div">
-                <input type="button" value="Tak" id="yes"/>
-                <input type="button" value="Nie" id="no"/>
+                <input type="submit" value="Tak" id="yes"/>
+                <input type="button" value="Nie" onclick="no()"/>
             </div>
         </form>
     </section>
@@ -181,21 +154,37 @@
         let a = document.querySelector(".btn-danger-div");
         a.style.display = '';
         t.style.display = 'none';
+        document.getElementById("deleteText").innerHTML = '@Resource.AreYouSureYouWantToDeleteDepartment';
 
-        
-        //document.getElementById("deleteText").innerText = @Resource.AreYouSureYouWantToDeleteDepartment;
-        document.getElementById("deleteText").innerText = '@Resource.AreYouSureYouWantToDeleteDepartment';
+        /*timer*/
+        let count = 9;
+        document.getElementById("yes").value = '@Resource.Yes' + ' ' + '(' + 10 + ')';
+        setInterval(function() {
+            if (count > 0) {
+                document.getElementById("yes").value = '@Resource.Yes' + ' ' + '(' + count + ')';
+                count--;
+            }
+            else {
+                document.getElementById("yes").value = '@Resource.Yes';
+            }
+        }, 1000);
 
+        document.getElementById("yes").setAttribute('disabled', '');
+        setTimeout(function() {
+            document.getElementById("yes").removeAttribute('disabled');
+        }, 10000);
+        /**/
     };
 
-    //function IWantToDeleteDepartment(t) 
-    //{
-    //    let d = document.getElementById("deleteID");
 
-    //    if (t.checked == true)
-    //        d.removeAttribute('disabled');
-    //    else
-    //        d.setAttribute('disabled', '');
-    //};
+    function no() 
+    {
+        let a = document.querySelector(".btn-danger-div");
+        a.style.display = 'none';
+        let b = document.getElementById("deleteID");
+        b.style.display = '';
+        document.getElementById("deleteText").innerHTML = '@Resource.ClickBelowToDelete' + ' ' + '@Resource.DepartmentLowecase.';
+    };
+
 
 </script>

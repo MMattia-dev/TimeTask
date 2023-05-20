@@ -294,7 +294,7 @@ button {
     /*align-items: center;*/
     flex-direction: column;
     /*gap: 10px;*/
-    gap: 5px;
+    gap: 8px;
 }
 
     .departments__ a svg {
@@ -310,7 +310,7 @@ button {
     }
 
     .departments__ a:last-child {
-        margin-bottom: 8px;
+        /*margin-bottom: 8px;*/
     }
 
 .departments__a {
