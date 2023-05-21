@@ -48,6 +48,9 @@ namespace TimeTask.Controllers
         // GET: Workers/Create
         public IActionResult Create()
         {
+            ViewBag.Department = _context.Department;
+            ViewBag.Workers = _context.Workers;
+
             return View();
         }
 

@@ -49,6 +49,7 @@ namespace TimeTask.Controllers
         public IActionResult Create()
         {
             ViewBag.Department = _context.Department;
+            ViewBag.Workers = _context.Workers;
 
             return View();
         }
@@ -74,6 +75,7 @@ namespace TimeTask.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             ViewBag.Department = _context.Department;
+            ViewBag.Workers = _context.Workers;
 
             if (id == null || _context.Department == null)
             {

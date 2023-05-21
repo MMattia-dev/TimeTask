@@ -115,7 +115,8 @@ form {
 }
 
     .btn-danger-div input {
-        width: 115px;
+        /*width: 115px;*/
+        width: 250px;
         font-family: Arial;
         font-size: 13px;
         height: 35px;
@@ -136,14 +137,14 @@ form {
                 background-color: rgba(85, 85, 85, 0.8);
             }
 
-        .btn-danger-div input:nth-child(2) {
+        /*.btn-danger-div input:nth-child(2) {
             border: 1px solid rgba(255, 255, 255, 0.4);
             background-color: rgba(9, 112, 9, 0.8);
         }
 
             .btn-danger-div input:nth-child(2):hover {
                 background-color: rgba(9, 132, 9, 0.8);
-            }
+            }*/
 
 .btn-danger-custom {
     width: 250px;

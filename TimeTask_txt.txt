@@ -1,0 +1,3 @@
+1) Section o klasie "left-nav" musi dzia³aæ jak navbar, tak aby by³ na ka¿dej stronie bez powtarzania kodu (priorytet!)
+2) Je¿eli dzia³ (niepusty) zostanie usuniêty:
+	a) stwórz folder "Nieprzypisani pracownicy" i do³¹cz do niego wszystkich tych którzy byli w tym dziale kiedy by³ usuniêty.

@@ -150,6 +150,9 @@
   <data name="Employees" xml:space="preserve">
     <value>Pracownicy</value>
   </data>
+  <data name="GoBack" xml:space="preserve">
+    <value>Wróć</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>

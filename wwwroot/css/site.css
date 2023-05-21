@@ -186,12 +186,17 @@ button {
         font-size: 13px;
     }
 
-    .search button:disabled span {
+    /*.search button:disabled span {
         color: rgba(255, 255, 255, 0.4);
     }
 
     .search button:disabled svg {
         fill: rgba(255, 255, 255, 0.4);
+    }*/
+
+    .search button:disabled {
+        opacity: 0.6;
+        pointer-events: none;
     }
 
 .departmentTasks {
@@ -202,36 +207,51 @@ button {
         transform: translateY(-1px);
     }
 
-    .departmentTasks button:disabled span {
+    /*.departmentTasks button:disabled span {
         color: rgba(255, 255, 255, 0.4);
     }
 
     .departmentTasks button:disabled svg {
         fill: rgba(255, 255, 255, 0.4);
+    }*/
+
+    .departmentTasks button:disabled {
+        opacity: 0.6;
+        pointer-events: none;
     }
 
 .vacation {
     margin-bottom: 10px;
 }
 
-    .vacation button:disabled span {
+    /*.vacation button:disabled span {
         color: rgba(255, 255, 255, 0.4);
     }
 
     .vacation button:disabled svg {
         fill: rgba(255, 255, 255, 0.4);
+    }*/
+
+    .vacation button:disabled {
+        opacity: 0.6;
+        pointer-events: none;
     }
 
 .workingTime {
     margin-bottom: 35px;
 }
 
-    .workingTime button:disabled span {
+    /*.workingTime button:disabled span {
         color: rgba(255, 255, 255, 0.4);
     }
 
     .workingTime button:disabled svg {
         fill: rgba(255, 255, 255, 0.4);
+    }*/
+
+    .workingTime button:disabled {
+        opacity: 0.6;
+        pointer-events: none;
     }
 
 .departmentsSpan {
@@ -274,12 +294,17 @@ button {
             transition: fill 0.2s;
         }
 
-    .departments button:disabled span {
+    /*.departments button:disabled span {
         color: rgba(255, 255, 255, 0.4);
     }
 
     .departments button:disabled svg {
         fill: rgba(255, 255, 255, 0.4);
+    }*/
+
+    .departments button:disabled {
+        opacity: 0.6;
+        pointer-events: none;
     }
 
 .departments_ {
@@ -312,6 +337,7 @@ button {
     .departments__ a:last-child {
         /*margin-bottom: 8px;*/
     }
+
 
 .departments__a {
     margin-top: 1px;
