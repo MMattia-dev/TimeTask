@@ -27,12 +27,6 @@
         }
     }
 
-    if(localStorage.length > 0){
-        if(localStorage.getItem("opened") != null){
-            console.log(localStorage.getItem("opened"));
-        }
-    }
-
     function departmentClick(t)
     {
         let span = t.querySelector("span");
@@ -109,16 +103,30 @@
     {
         let svg = t.querySelector("svg");
         let svgPath = t.querySelector("svg path");
+        let workers = document.querySelectorAll(".departments__worker");
+        let id = t.getAttribute("id");
 
-        if (!t.hasAttribute('opened')) 
+        if (!t.hasAttribute('opened2')) 
         {
             svgPath.setAttribute('d', 'm572.501 747-254.933 815.893-101.867-31.786 278.507-890.774h1105.813v-320H783.808L612.181 107H.021v1546.667c0 88.213 71.787 160 160 160h1388.054c75.946 0 141.973-54.08 156.906-128.64L1892.608 747H572.501Z')
-            t.setAttribute('opened', '');
+            t.setAttribute('opened2', '');
+
+            for(let i = 0; i < workers.length; i++){
+                if(workers[i].getAttribute("id") == id){
+                    workers[i].style.display = '';
+                }
+            }
         }
         else 
         {
             svgPath.setAttribute('d', 'M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z');
-            t.removeAttribute('opened');
+            t.removeAttribute('opened2');
+
+            for(let i = 0; i < workers.length; i++){
+                if(workers[i].getAttribute("id") == id){
+                    workers[i].style.display = 'none';
+                }
+            }
         }
     };
 
@@ -163,6 +171,11 @@
         }
     }
 
+    function addWorkerSaveToStorage(t) {
+        localStorage.removeItem("storage_AddWorker");
+        let id = t.getAttribute("id");
+        localStorage.setItem("storage_AddWorker", id);
+    };
 
 </script>
 

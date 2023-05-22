@@ -1,46 +1,110 @@
 ﻿@model TimeTask.Models.Workers
-
+@using Newtonsoft.Json
 
 @{
     ViewData["Title"] = "Create";
 }
 
-@*<h1>Create</h1>
+<link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
 
-<h4>Workers</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="parent">
+    <section class="left-nav">
+        @Html.Partial("_Menu")
+    </section>
+
+    <section class="right-nav">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+            <div class="form-group form-group-margin">
+                <input asp-for="Name" class="form-control" autocomplete="off" placeholder="imię i nazwisko pracownika..." />
             </div>
-            <div class="form-group">
-                <label asp-for="DepartmentID" class="control-label"></label>
-                <input asp-for="DepartmentID" class="form-control" />
-                <span asp-validation-for="DepartmentID" class="text-danger"></span>
+            <div class="form-group" hidden>
+                <input asp-for="DepartmentID" class="form-control" autocomplete="off" id="depID"/>
             </div>
-            <div class="form-group form-check">
+            <div class="form-group form-check" hidden>
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Employed" /> @Html.DisplayNameFor(model => model.Employed)
+                    <input class="form-check-input" type="checkbox" asp-for="Employed" /> @*@Html.DisplayNameFor(model => model.Employed)*@
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Zapisz" class="btn-custom" />
+            </div>
+            <div class="form-group">
+                <a asp-area="" asp-controller="Home" asp-action="Index"><input value="Wróć" type="button" class="btn-custom_" /></a>
             </div>
         </form>
-    </div>
+    </section>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>*@
-
 
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script type="text/javascript">
+    let checkbox = document.querySelector("input[type=checkbox]")
+    checkbox.checked = true;
+    document.getElementById("depID").value = localStorage.getItem("storage_AddWorker");
+
+
+    var model_d = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Department));
+    if (model_d.length == 0)
+    {
+        let buttons = document.querySelectorAll("button");
+        for (let i = 0; i < buttons.length; i++)
+        {
+            buttons[i].setAttribute('disabled', '');
+        }
+    }
+    else
+    {
+        let buttons = document.querySelectorAll(".departments button");
+        for (let i = 0; i < buttons.length; i++)
+        {
+            buttons[i].setAttribute('disabled', '');
+        }
+    }
+
+    function hideA() 
+    {
+        let a = document.querySelectorAll(".departments__ a");
+        for (let i = 0; i < a.length; i++)
+        {
+            a[i].style.display = 'none';
+        }
+    };
+    hideA();
+
+
+
+    
+    if(localStorage.length > 0){
+        if(localStorage.getItem("opened") != null){
+            let id = localStorage.getItem("opened")
+
+            let departA1 = document.querySelectorAll(".departments__a");
+            let departA2 = document.querySelectorAll(".departments__a2");
+            let departA3 = document.querySelectorAll(".departments__a3");
+
+            let d = document.querySelectorAll(".departments__ button");
+            let d_svgPath = document.querySelectorAll(".departments__ button svg path");
+            for(let i = 0; i < d.length; i++){
+                if(d[i].getAttribute('id') == id){
+                    d_svgPath[i].setAttribute('d', 'm572.501 747-254.933 815.893-101.867-31.786 278.507-890.774h1105.813v-320H783.808L612.181 107H.021v1546.667c0 88.213 71.787 160 160 160h1388.054c75.946 0 141.973-54.08 156.906-128.64L1892.608 747H572.501Z');
+                    d[i].setAttribute('opened', '');
+                    for(let j = 0; j < departA1.length; j++){
+                        departA1[i].style.display = ''; departA1[i].style.opacity = '0.6'; departA1[i].style.pointerEvents = 'none';
+                    }
+                    for(let j = 0; j < departA2.length; j++){
+                        departA2[i].style.display = ''; departA2[i].style.opacity = '0.6'; departA2[i].style.pointerEvents = 'none';
+                    }
+                    for(let j = 0; j < departA3.length; j++){
+                        departA3[i].style.display = ''; departA3[i].style.opacity = '0.6'; departA3[i].style.pointerEvents = 'none';
+                    }
+                }
+            }
+        }
+    }
+
+
+</script>

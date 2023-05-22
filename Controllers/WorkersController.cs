@@ -65,7 +65,8 @@ namespace TimeTask.Controllers
             {
                 _context.Add(workers);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             return View(workers);
         }
@@ -116,7 +117,8 @@ namespace TimeTask.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Home");
             }
             return View(workers);
         }

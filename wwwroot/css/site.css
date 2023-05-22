@@ -338,6 +338,9 @@ button {
         /*margin-bottom: 8px;*/
     }
 
+.departments__worker {
+    margin-left: 20px !important;
+}
 
 .departments__a {
     margin-top: 1px;

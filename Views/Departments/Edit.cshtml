@@ -10,80 +10,6 @@
 <div class="parent">
     <section class="left-nav">
         @Html.Partial("_Menu")
-        @*<a asp-area="" asp-controller="Home" asp-action="Index">
-            <svg viewBox="0 0 50 50" width="22" height="22">
-                <path d="M 25 1.0507812 C 24.7825 1.0507812 24.565859 1.1197656 24.380859 1.2597656 L 1.3808594 19.210938 C 0.95085938 19.550938 0.8709375 20.179141 1.2109375 20.619141 C 1.5509375 21.049141 2.1791406 21.129062 2.6191406 20.789062 L 4 19.710938 L 4 46 C 4 46.55 4.45 47 5 47 L 19 47 L 19 29 L 31 29 L 31 47 L 45 47 C 45.55 47 46 46.55 46 46 L 46 19.710938 L 47.380859 20.789062 C 47.570859 20.929063 47.78 21 48 21 C 48.3 21 48.589063 20.869141 48.789062 20.619141 C 49.129063 20.179141 49.049141 19.550938 48.619141 19.210938 L 25.619141 1.2597656 C 25.434141 1.1197656 25.2175 1.0507812 25 1.0507812 z M 35 5 L 35 6.0507812 L 41 10.730469 L 41 5 L 35 5 z"></path>
-            </svg>
-            <span>@Resource.Home</span>
-        </a>
-        <div class="search">
-            <button>
-                <svg viewBox="0 0 50 50" width="17" height="17">
-                    <path d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z"></path>
-                </svg>
-                <span>@Resource.Search</span>
-            </button>
-            <span>Ctrl + J</span>
-        </div>
-        <div class="departmentTasks">
-            <button>
-                <svg viewBox="0 0 512 512" width="17" height="17">
-                    <path d="M1.20792265e-13,197.76 C54.5835501,218.995667 112.186031,231.452204 170.666667,234.666667 L170.666667,277.333333 L256,277.333333 L256,234.666667 C314.339546,231.013 371.833936,218.86731 426.666667,198.613333 L426.666667,362.666667 L1.20792265e-13,362.666667 L1.20792265e-13,197.76 Z M277.333333,-1.42108547e-14 L298.666667,21.3333333 L298.666667,64 L426.666667,64 L426.666667,175.146667 C361.254942,199.569074 292.110481,212.488551 222.293333,213.333333 L222.293333,213.333333 L206.933333,213.333333 C136.179047,212.568604 66.119345,199.278929 7.10542736e-15,174.08 L7.10542736e-15,174.08 L7.10542736e-15,64 L128,64 L128,21.3333333 L149.333333,-1.42108547e-14 L277.333333,-1.42108547e-14 Z M256,42.6666667 L170.666667,42.6666667 L170.666667,64 L256,64 L256,42.6666667 Z"></path>
-                </svg>
-                <span>@Resource.WorkSchedule</span>
-            </button>
-        </div>
-        <div class="vacation">
-            <button>
-                <svg viewBox="0 0 20 20" width="17" height="17">
-                    <path d="M8.4 12H2.8L1 15H0V5h1l1.8 3h5.6L6 0h2l4.8 8H18a2 2 0 1 1 0 4h-5.2L8 20H6l2.4-8z"></path>
-                </svg>
-                <span>@Resource.Vacation</span>
-            </button>
-        </div>
-        <div class="workingTime">
-            <button>
-                <svg viewBox="0 0 1920 1920" width="17" height="17">
-                    <path d="M1377.882 1344 903.53 988.235v-592.94h112.942v536.47l429.176 321.77-67.765 90.465ZM960 0C430.645 0 0 430.645 0 960c0 529.242 430.645 960 960 960 529.242 0 960-430.758 960-960 0-529.355-430.758-960-960-960Z"></path>
-                </svg>
-                <span>@Resource.WorkTime</span>
-            </button>
-        </div>
-        <div class="departments">
-            @if (((IEnumerable<Department>)ViewBag.Department).Count() == 0)
-            {
-                <a asp-area="" asp-controller="Departments" asp-action="Create" class="addDepart">
-                    <svg viewBox="0 0 17 17" width="17" height="17">
-                        <path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path>
-                    </svg>
-                    <span>@Resource.AddDepartments</span>
-                </a>
-            }
-            else
-            {
-                <div class="departments_">
-                    <span class="departmentsSpan">@Resource.Departments:</span>
-                    <a asp-area="" asp-controller="Departments" asp-action="Create" title="@Resource.AddDepartments">
-                        <svg viewBox="0 0 17 17" width="17" height="17">
-                            <path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path>
-                        </svg>
-                        <span>@Resource.Add</span>
-                    </a>
-                </div>
-
-                foreach (var item in ((IEnumerable<Department>)ViewBag.Department).OrderBy(x => x.Name))
-                {
-                    <div class="departments__">
-                        <button onclick="departmentClick(this)">
-                            <svg viewBox="0 0 1920 1920" width="17" height="17">
-                                <path d="M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z"></path>
-                            </svg>
-                            <span>@item.Name</span>
-                        </button>
-                    </div>
-                }
-            }
-        </div>*@
     </section>
 
     <section class="right-nav right-nav-forms">
@@ -97,7 +23,7 @@
                 <input type="submit" value="@Resource.Edit" class="btn-custom" />
             </div>
             <div class="form-group">
-                <a asp-area="" asp-controller="Home" asp-action="Index"><input value="@Resource.GoBack" type="button" class="btn-custom_" /></a>
+                <a asp-area="" asp-controller="Home" asp-action="Index"><input value="Wróć" type="button" class="btn-custom_" /></a>
             </div>
         </form>
         <form asp-action="Delete">
@@ -105,7 +31,7 @@
             <span id="deleteText">@Resource.ClickBelowToDelete @Resource.DepartmentLowecase.</span>
             <input type="button" value="@Resource.Delete" class="btn-danger-custom" id="deleteID" onclick="IWantToDeleteDepartment(this)" />
             <div class="btn-danger-div">
-                <input type="submit" value="@Resource.Delete" id="yes"/>
+                <input type="submit" value="Tak" id="yes"/>
             </div>
         </form>
     </section>
@@ -157,14 +83,14 @@
 
         /*timer*/
         let count = 9;
-        document.getElementById("yes").value = '@Resource.Delete' + ' ' + '(' + 10 + ')';
+        document.getElementById("yes").value = '@Resource.Yes' + ' ' + '(' + 10 + ')';
         setInterval(function() {
             if (count > 0) {
-                document.getElementById("yes").value = '@Resource.Delete' + ' ' + '(' + count + ')';
+                document.getElementById("yes").value = '@Resource.Yes' + ' ' + '(' + count + ')';
                 count--;
             }
             else {
-                document.getElementById("yes").value = '@Resource.Delete';
+                document.getElementById("yes").value = '@Resource.Yes';
             }
         }, 1000);
 
