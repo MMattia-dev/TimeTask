@@ -123,14 +123,23 @@
   <data name="AddDepartments" xml:space="preserve">
     <value>Add departments</value>
   </data>
+  <data name="AddEmployee" xml:space="preserve">
+    <value>Add employee</value>
+  </data>
   <data name="AddEmployees" xml:space="preserve">
     <value>Add employees</value>
   </data>
   <data name="AreYouSureYouWantToDeleteDepartment" xml:space="preserve">
     <value>Are you sure you want to delete department?</value>
   </data>
+  <data name="AreYouSureYouWantToDeleteWorker" xml:space="preserve">
+    <value>Are you sure you want to delete worker?</value>
+  </data>
   <data name="ClickBelowToDelete" xml:space="preserve">
     <value>Click below to delete </value>
+  </data>
+  <data name="ClickBelowToDeleteWorker" xml:space="preserve">
+    <value>Click below to delete worker</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>

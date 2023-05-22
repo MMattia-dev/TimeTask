@@ -2,3 +2,19 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+
+function sortArray(array) {
+    array.sort(function (a, b)
+    {
+        if (a.Name < b.Name)
+        {
+            return -1;
+        }
+        if (a.Name > b.Name)
+        {
+            return 1;
+        }
+        return 0;
+    });
+};
+

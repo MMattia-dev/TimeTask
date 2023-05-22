@@ -123,14 +123,23 @@
   <data name="AddDepartments" xml:space="preserve">
     <value>Dodaj działy</value>
   </data>
+  <data name="AddEmployee" xml:space="preserve">
+    <value>Dodaj pracownika</value>
+  </data>
   <data name="AddEmployees" xml:space="preserve">
     <value>Dodaj pracowników</value>
   </data>
   <data name="AreYouSureYouWantToDeleteDepartment" xml:space="preserve">
     <value>Czy na pewno chcesz usunąć dział?</value>
   </data>
+  <data name="AreYouSureYouWantToDeleteWorker" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć pracownika?</value>
+  </data>
   <data name="ClickBelowToDelete" xml:space="preserve">
     <value>Kliknij poniżej, aby usunąć</value>
+  </data>
+  <data name="ClickBelowToDeleteWorker" xml:space="preserve">
+    <value>Kliknij poniżej, aby usunąć pracownika</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Usuń</value>

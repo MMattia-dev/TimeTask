@@ -35,6 +35,7 @@
         let departA1 = document.querySelectorAll(".departments__a");
         let departA2 = document.querySelectorAll(".departments__a2");
         let departA3 = document.querySelectorAll(".departments__a3");
+        let departW = document.querySelectorAll(".departments__worker");
 
         let b = document.querySelectorAll(".departments__ button");
         let c = document.querySelectorAll(".departments__ button svg path");
@@ -49,11 +50,16 @@
                     t.setAttribute('opened', '');
 
                     localStorage.setItem('opened', id);
+                    localStorage.removeItem("opened2");
                 }
                 else {
                     departA1[i].style.display = 'none';
                     b[i].removeAttribute('opened');
                     c[i].setAttribute('d', 'M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z');
+                    
+                    for(let j = 0; j < departW.length; j++){
+                        departW[j].style.display = 'none';
+                    }
                 }    
             }
             for (let i = 0; i < departA2.length; i++)
@@ -63,6 +69,11 @@
                 }   
                 else {
                     departA2[i].style.display = 'none';
+                    departA2[i].removeAttribute('opened');
+                    let departA2_svg = departA2[i].querySelectorAll("svg path");
+                    for(let j = 0; j < departA2_svg.length; j++){
+                        departA2_svg[j].setAttribute('d', 'M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z');
+                    }
                 }     
             }
             for (let i = 0; i < departA3.length; i++)
@@ -86,16 +97,30 @@
             }
             for (let i = 0; i < departA2.length; i++)
             {
-                if (departA2[i].getAttribute('id') == id)
+                if (departA2[i].getAttribute('id') == id){
                     departA2[i].style.display = 'none';
+                    let svgD2 = departA2[i].querySelectorAll("svg path");
+                    for (let j = 0; j < svgD2.length; j++) {
+                        svgD2[j].setAttribute('d', 'M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z');
+                    }
+                    departA2[i].removeAttribute('opened');
+                }     
             }
             for (let i = 0; i < departA3.length; i++)
             {
                 if (departA3[i].getAttribute('id') == id)
                     departA3[i].style.display = 'none';
             }
+            for (let i = 0; i < departW.length; i++) 
+            {
+                if (departW[i].getAttribute('worker') == id) {
+                    departW[i].style.display = 'none';
+
+                }   
+            }
 
             localStorage.removeItem("opened");
+            localStorage.removeItem("opened2");
         }
     };
 
@@ -104,29 +129,32 @@
         let svg = t.querySelector("svg");
         let svgPath = t.querySelector("svg path");
         let workers = document.querySelectorAll(".departments__worker");
-        let id = t.getAttribute("id");
+        let id = t.getAttribute("worker");
 
-        if (!t.hasAttribute('opened2')) 
+        if (!t.hasAttribute('opened')) 
         {
             svgPath.setAttribute('d', 'm572.501 747-254.933 815.893-101.867-31.786 278.507-890.774h1105.813v-320H783.808L612.181 107H.021v1546.667c0 88.213 71.787 160 160 160h1388.054c75.946 0 141.973-54.08 156.906-128.64L1892.608 747H572.501Z')
-            t.setAttribute('opened2', '');
+            t.setAttribute('opened', '');
 
             for(let i = 0; i < workers.length; i++){
-                if(workers[i].getAttribute("id") == id){
+                if(workers[i].getAttribute("worker") == id){
                     workers[i].style.display = '';
+                    localStorage.setItem('opened2', id);
                 }
             }
         }
         else 
         {
             svgPath.setAttribute('d', 'M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z');
-            t.removeAttribute('opened2');
+            t.removeAttribute('opened');
 
             for(let i = 0; i < workers.length; i++){
-                if(workers[i].getAttribute("id") == id){
+                if(workers[i].getAttribute("worker") == id){
                     workers[i].style.display = 'none';
                 }
             }
+
+            localStorage.removeItem("opened2");
         }
     };
 
@@ -135,6 +163,12 @@
         let a = document.querySelectorAll(".departments__ a");
         for (let i = 0; i < a.length; i++)
         {
+            //if(!a[i].getAttribute("id").includes("Worker_")){
+            //    a[i].style.display = 'none';
+            //}
+            //else {
+            //    a[i].style.display = 'none';
+            //}
             a[i].style.display = 'none';
         }
     };
@@ -158,17 +192,45 @@
                     d_svgPath[i].setAttribute('d', 'm572.501 747-254.933 815.893-101.867-31.786 278.507-890.774h1105.813v-320H783.808L612.181 107H.021v1546.667c0 88.213 71.787 160 160 160h1388.054c75.946 0 141.973-54.08 156.906-128.64L1892.608 747H572.501Z');
                     d[i].setAttribute('opened', '');
                     for(let j = 0; j < departA1.length; j++){
-                        departA1[i].style.display = ''; /*departA1[i].style.opacity = '0.6'; departA1[i].style.pointerEvents = 'none';*/
+                        if (departA1[j].getAttribute("id") == id)
+                            departA1[j].style.display = '';
+                        //departA1[j].style.display = '';
                     }
                     for(let j = 0; j < departA2.length; j++){
-                        departA2[i].style.display = ''; /*departA2[i].style.opacity = '0.6'; departA2[i].style.pointerEvents = 'none';*/
+                        if (departA2[j].getAttribute("id") == id)
+                            departA2[j].style.display = '';
+                        //departA2[j].style.display = '';
                     }
                     for(let j = 0; j < departA3.length; j++){
-                        departA3[i].style.display = ''; /*departA3[i].style.opacity = '0.6'; departA3[i].style.pointerEvents = 'none';*/
+                        if (departA3[j].getAttribute("id") == id)
+                            departA3[j].style.display = '';
+                        //departA3[j].style.display = '';
                     }
                 }
             }
         }
+
+        if(localStorage.getItem('opened2') != null){
+            let id = localStorage.getItem("opened2")
+
+            let departA2 = document.querySelectorAll(".departments__a2");
+            let departWorker = document.querySelectorAll('.departments__worker');
+            for(let i = 0; i < departA2.length; i++){
+                if(departA2[i].getAttribute('id') == id){
+                    let svg = departA2[i].querySelectorAll('svg path');
+                    for(let j = 0; j < svg.length; j++){
+                        svg[j].setAttribute('d', 'm572.501 747-254.933 815.893-101.867-31.786 278.507-890.774h1105.813v-320H783.808L612.181 107H.021v1546.667c0 88.213 71.787 160 160 160h1388.054c75.946 0 141.973-54.08 156.906-128.64L1892.608 747H572.501Z');
+                    }
+                    departA2[i].setAttribute('opened', '');
+                }
+            }
+            for(let i = 0; i < departWorker.length; i++){
+                if(departWorker[i].getAttribute('id') == id){
+                    departWorker[i].style.display = '';
+                }
+            }
+        }
+
     }
 
     function addWorkerSaveToStorage(t) {

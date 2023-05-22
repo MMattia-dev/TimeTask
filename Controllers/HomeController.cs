@@ -24,7 +24,7 @@ namespace TimeTask.Controllers
         public IActionResult Index()
         {
             ViewBag.Department = _context.Department;
-            ViewBag.Workers = _context.Workers;
+            ViewBag.Workers = _context.Workers2;
 
             return View();
         }

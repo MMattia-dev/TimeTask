@@ -1,4 +1,4 @@
-﻿@model TimeTask.Models.Workers
+﻿@model TimeTask.Models.Workers2
 @using Newtonsoft.Json
 
 @{
@@ -13,10 +13,13 @@
     </section>
 
     <section class="right-nav">
-        <form asp-action="Create">
+        <form asp-action="Create" class="form_">
             @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+            <div class="form-group">
+                <input asp-for="Name" class="form-control" autocomplete="off" placeholder="wpisz imię pracownika..." />
+            </div>
             <div class="form-group form-group-margin">
-                <input asp-for="Name" class="form-control" autocomplete="off" placeholder="imię i nazwisko pracownika..." />
+                <input asp-for="Surname" class="form-control" autocomplete="off" placeholder="wpisz nazwisko pracownika..." />
             </div>
             <div class="form-group" hidden>
                 <input asp-for="DepartmentID" class="form-control" autocomplete="off" id="depID"/>

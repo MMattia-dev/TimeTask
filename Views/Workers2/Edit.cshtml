@@ -1,8 +1,8 @@
-﻿@model TimeTask.Models.Workers
+﻿@model TimeTask.Models.Workers2
 @using Newtonsoft.Json
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
@@ -11,43 +11,78 @@
     <section class="left-nav">
         @Html.Partial("_Menu")
     </section>
-
-    <section class="right-nav">
-        <form asp-action="Create">
+    
+    <section class="right-nav right-nav-forms">
+        <form asp-action="Edit" class="form_2">
             @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
-            <div class="form-group form-group-margin">
-                <input asp-for="Name" class="form-control" autocomplete="off" placeholder="imię i nazwisko pracownika..." />
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <input asp-for="Name" class="form-control" />
             </div>
-            <div class="form-group" hidden>
-                <input asp-for="DepartmentID" class="form-control" autocomplete="off" id="depID"/>
+            <div class="form-group">
+                <input asp-for="Surname" class="form-control" />
+            </div>
+            <div class="form-group form-group-margin">
+                <input asp-for="DepartmentID" class="form-control" id="eh3l65gbmt94" hidden/>
+                <select asp-for="DepartmentID" id="pprtmqifroub" class="form-control form-select uxgwrznm185b" onchange="wy07gj8jq8xq(this)"></select>
             </div>
             <div class="form-group form-check" hidden>
                 <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" asp-for="Employed" /> @*@Html.DisplayNameFor(model => model.Employed)*@
+                    <input class="form-check-input" asp-for="Employed" /> @Html.DisplayNameFor(model => model.Employed)
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Zapisz" class="btn-custom" />
+                <input type="submit" value="@Resource.Edit" class="btn-custom" />
             </div>
             <div class="form-group">
                 <a asp-area="" asp-controller="Home" asp-action="Index"><input value="Wróć" type="button" class="btn-custom_" /></a>
             </div>
         </form>
-    </section>
-</div>
+        <form asp-action="Delete" class="jbiihcodqinw">
+            <input type="hidden" asp-for="Id" />
+            @*<input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-action="Index">Back to List</a>*@
+            <span id="deleteText">@Resource.ClickBelowToDeleteWorker.</span>
+            <input type="button" value="@Resource.Delete" class="btn-danger-custom" id="deleteID" onclick="IWantToDeleteDepartment(this)" />
+            <div class="btn-danger-div">
+                <input type="submit" value="Tak" id="yes"/>
+            </div>
+        </form>
 
+    </section>
+
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
-<script type="text/javascript">
-    let checkbox = document.querySelector("input[type=checkbox]")
-    checkbox.checked = true;
-    document.getElementById("depID").value = localStorage.getItem("storage_AddWorker");
+<script src="~/js/site.js" asp-append-version="true"></script>
 
+<script type="text/javascript">
 
     var model_d = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Department));
+    //var model_w = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Workers));
+
+    sortArray(model_d);
+
+    let pprtmqifroub = document.getElementById("pprtmqifroub");
+    for (let i = 0; i < model_d.length; i++) {
+        pprtmqifroub.innerHTML += '<option value=' + model_d[i].Id + '>' + model_d[i].Name + '</option>';
+    }
+    for (let i = 0; i < model_d.length; i++) {
+        if(model_d[i].Id == document.getElementById('eh3l65gbmt94').value){
+            pprtmqifroub.value = model_d[i].Id;
+        }
+    }
+
+    function wy07gj8jq8xq(t) {
+        let hiddenValue = document.getElementById('eh3l65gbmt94');
+        hiddenValue.value = t.value;
+    };
+
+
+
     if (model_d.length == 0)
     {
         let buttons = document.querySelectorAll("button");
@@ -56,7 +91,7 @@
             buttons[i].setAttribute('disabled', '');
         }
     }
-    else
+    else 
     {
         let buttons = document.querySelectorAll(".departments button");
         for (let i = 0; i < buttons.length; i++)
@@ -72,12 +107,41 @@
         {
             a[i].style.display = 'none';
         }
+
+        let b = document.querySelector(".btn-danger-div");
+        b.style.display = 'none';
     };
     hideA();
 
+    function IWantToDeleteDepartment(t)
+    {
+        document.getElementById("deleteText").innerHTML = '@Resource.AreYouSureYouWantToDeleteWorker';
+
+        let a = document.querySelector(".btn-danger-div");
+        a.style.display = '';
+        t.style.display = 'none';
+
+        /*timer*/
+        let count = 9;
+        document.getElementById("yes").value = '@Resource.Yes' + ' ' + '(' + 10 + ')';
+        setInterval(function() {
+            if (count > 0) {
+                document.getElementById("yes").value = '@Resource.Yes' + ' ' + '(' + count + ')';
+                count--;
+            }
+            else {
+                document.getElementById("yes").value = '@Resource.Yes';
+            }
+        }, 1000);
+
+        document.getElementById("yes").setAttribute('disabled', '');
+        setTimeout(function() {
+            document.getElementById("yes").removeAttribute('disabled');
+        }, 10000);
+        /**/
+    };
 
 
-    
     if(localStorage.length > 0){
         if(localStorage.getItem("opened") != null){
             let id = localStorage.getItem("opened")
@@ -134,6 +198,5 @@
         }
 
     }
-
 
 </script>

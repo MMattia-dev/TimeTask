@@ -26,7 +26,7 @@
                 <a asp-area="" asp-controller="Home" asp-action="Index"><input value="Wróć" type="button" class="btn-custom_" /></a>
             </div>
         </form>
-        <form asp-action="Delete">
+        <form asp-action="Delete" class="jbiihcodqinw">
             <input type="hidden" asp-for="Id" />
             <span id="deleteText">@Resource.ClickBelowToDelete @Resource.DepartmentLowecase.</span>
             <input type="button" value="@Resource.Delete" class="btn-danger-custom" id="deleteID" onclick="IWantToDeleteDepartment(this)" />
@@ -44,6 +44,8 @@
 <script type="text/javascript">
 
     var model_d = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Department));
+    var model_w = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Workers));
+
     if (model_d.length == 0)
     {
         let buttons = document.querySelectorAll("button");
@@ -76,10 +78,20 @@
 
     function IWantToDeleteDepartment(t)
     {
+        document.getElementById("deleteText").innerHTML = '@Resource.AreYouSureYouWantToDeleteDepartment';
+        let id = localStorage.getItem("opened");
+        for(let i = 0; i < model_w.length; i++){
+            if(model_w[i].DepartmentID == id){
+                if(model_w.length != 0){
+                    document.getElementById("deleteText").innerHTML = 'Dział nie jest pusty!' + '<br>' + '@Resource.AreYouSureYouWantToDeleteDepartment';
+                }
+            }
+        }
+
+
         let a = document.querySelector(".btn-danger-div");
         a.style.display = '';
         t.style.display = 'none';
-        document.getElementById("deleteText").innerHTML = '@Resource.AreYouSureYouWantToDeleteDepartment';
 
         /*timer*/
         let count = 9;
@@ -119,17 +131,46 @@
                     d_svgPath[i].setAttribute('d', 'm572.501 747-254.933 815.893-101.867-31.786 278.507-890.774h1105.813v-320H783.808L612.181 107H.021v1546.667c0 88.213 71.787 160 160 160h1388.054c75.946 0 141.973-54.08 156.906-128.64L1892.608 747H572.501Z');
                     d[i].setAttribute('opened', '');
                     for(let j = 0; j < departA1.length; j++){
-                        departA1[i].style.display = ''; departA1[i].style.opacity = '0.6'; departA1[i].style.pointerEvents = 'none';
+                        if(departA1[j].getAttribute("id") == id){
+                            departA1[j].style.display = ''; departA1[j].style.opacity = '0.6'; departA1[j].style.pointerEvents = 'none';
+                        }
                     }
                     for(let j = 0; j < departA2.length; j++){
-                        departA2[i].style.display = ''; departA2[i].style.opacity = '0.6'; departA2[i].style.pointerEvents = 'none';
+                        if(departA2[j].getAttribute("id") == id){
+                            departA2[j].style.display = ''; departA2[j].style.opacity = '0.6'; departA2[j].style.pointerEvents = 'none';
+                        }
                     }
                     for(let j = 0; j < departA3.length; j++){
-                        departA3[i].style.display = ''; departA3[i].style.opacity = '0.6'; departA3[i].style.pointerEvents = 'none';
+                        if(departA3[j].getAttribute("id") == id){
+                            departA3[j].style.display = ''; departA3[j].style.opacity = '0.6'; departA3[j].style.pointerEvents = 'none';
+                        }
                     }
                 }
             }
         }
+
+        if(localStorage.getItem('opened2') != null){
+            let id = localStorage.getItem("opened2")
+
+            let departA2 = document.querySelectorAll(".departments__a2");
+            let departWorker = document.querySelectorAll('.departments__worker');
+            for(let i = 0; i < departA2.length; i++){
+                if(departA2[i].getAttribute('id') == id){
+                    let svg = departA2[i].querySelectorAll('svg path');
+                    for(let j = 0; j < svg.length; j++){
+                        svg[j].setAttribute('d', 'm572.501 747-254.933 815.893-101.867-31.786 278.507-890.774h1105.813v-320H783.808L612.181 107H.021v1546.667c0 88.213 71.787 160 160 160h1388.054c75.946 0 141.973-54.08 156.906-128.64L1892.608 747H572.501Z');
+                    }
+                    departA2[i].setAttribute('opened', '');
+                }
+            }
+            for(let i = 0; i < departWorker.length; i++){
+                if(departWorker[i].getAttribute('id') == id){
+                    departWorker[i].style.display = '';
+                    departWorker[i].style.opacity = '0.6'; departWorker[i].style.pointerEvents = 'none';
+                }
+            }
+        }
+
     }
 
 

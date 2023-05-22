@@ -74,19 +74,11 @@ form {
 }
 
 form.form_ {
-    display: flex;
-    gap: 8px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(34, 36, 48, 0.7);
-    width: 450px;
-    height: 350px;
-    /*golden rectangle ratio -> 1:1.618*/
-    border-radius: 10px;
-    -webkit-box-shadow: 0px 0px 25px 5px rgba(0, 0, 0, 1);
-    -moz-box-shadow: 0px 0px 25px 5px rgba(0, 0, 0, 1);
-    box-shadow: 0px 0px 25px 5px rgba(0, 0, 0, 1);
+    height: 320px;
+}
+
+form.form_2 {
+    height: 340px;
 }
 
     /*form label {
@@ -180,3 +172,16 @@ form.form_ {
     /*.btn-danger-custom:disabled {
         background-color: rgba(85, 85, 85, 0.8);
     }*/
+
+#deleteText {
+    text-align: center;
+}
+
+.uxgwrznm185b option {
+    color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(34, 36, 48, 0.9);
+}
+
+.jbiihcodqinw {
+    height: 200px;
+}

@@ -79,6 +79,15 @@ namespace TimeTask {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Add employee.
+        /// </summary>
+        public static string AddEmployee {
+            get {
+                return ResourceManager.GetString("AddEmployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Add employees.
         /// </summary>
         public static string AddEmployees {
@@ -97,11 +106,29 @@ namespace TimeTask {
         }
         
         /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Are you sure you want to delete worker?.
+        /// </summary>
+        public static string AreYouSureYouWantToDeleteWorker {
+            get {
+                return ResourceManager.GetString("AreYouSureYouWantToDeleteWorker", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         /// Wyszukuje zlokalizowany ciąg podobny do ciągu Click below to delete .
         /// </summary>
         public static string ClickBelowToDelete {
             get {
                 return ResourceManager.GetString("ClickBelowToDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Click below to delete worker.
+        /// </summary>
+        public static string ClickBelowToDeleteWorker {
+            get {
+                return ResourceManager.GetString("ClickBelowToDeleteWorker", resourceCulture);
             }
         }
         
