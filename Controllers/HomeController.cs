@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TimeTask.Data;
 using TimeTask.Models;
@@ -21,6 +22,7 @@ namespace TimeTask.Controllers
             _context = context;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             ViewBag.Department = _context.Department;
