@@ -6,6 +6,7 @@ using TimeTask.Models;
 
 namespace TimeTask.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         //private readonly ILogger<HomeController> _logger;
@@ -22,7 +23,6 @@ namespace TimeTask.Controllers
             _context = context;
         }
 
-        [Authorize]
         public IActionResult Index()
         {
             ViewBag.Department = _context.Department;
