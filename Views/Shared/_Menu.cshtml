@@ -1,106 +1,146 @@
-﻿<a asp-area="" asp-controller="Home" asp-action="Index">
-    <svg viewBox="0 0 50 50" width="22" height="22"><path d="M 25 1.0507812 C 24.7825 1.0507812 24.565859 1.1197656 24.380859 1.2597656 L 1.3808594 19.210938 C 0.95085938 19.550938 0.8709375 20.179141 1.2109375 20.619141 C 1.5509375 21.049141 2.1791406 21.129062 2.6191406 20.789062 L 4 19.710938 L 4 46 C 4 46.55 4.45 47 5 47 L 19 47 L 19 29 L 31 29 L 31 47 L 45 47 C 45.55 47 46 46.55 46 46 L 46 19.710938 L 47.380859 20.789062 C 47.570859 20.929063 47.78 21 48 21 C 48.3 21 48.589063 20.869141 48.789062 20.619141 C 49.129063 20.179141 49.049141 19.550938 48.619141 19.210938 L 25.619141 1.2597656 C 25.434141 1.1197656 25.2175 1.0507812 25 1.0507812 z M 35 5 L 35 6.0507812 L 41 10.730469 L 41 5 L 35 5 z"></path></svg>
-    <span>@Resource.Home</span>
-</a>
-<div class="search">
-    <button>
-        <svg viewBox="0 0 50 50" width="17" height="17"><path d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z"></path></svg>
-        <span>@Resource.Search</span>
-    </button>
-    <span>Ctrl + J</span>
-</div>
-<div class="departmentTasks">
-    <button>
-        <svg viewBox="0 0 512 512" width="17" height="17"><path d="M1.20792265e-13,197.76 C54.5835501,218.995667 112.186031,231.452204 170.666667,234.666667 L170.666667,277.333333 L256,277.333333 L256,234.666667 C314.339546,231.013 371.833936,218.86731 426.666667,198.613333 L426.666667,362.666667 L1.20792265e-13,362.666667 L1.20792265e-13,197.76 Z M277.333333,-1.42108547e-14 L298.666667,21.3333333 L298.666667,64 L426.666667,64 L426.666667,175.146667 C361.254942,199.569074 292.110481,212.488551 222.293333,213.333333 L222.293333,213.333333 L206.933333,213.333333 C136.179047,212.568604 66.119345,199.278929 7.10542736e-15,174.08 L7.10542736e-15,174.08 L7.10542736e-15,64 L128,64 L128,21.3333333 L149.333333,-1.42108547e-14 L277.333333,-1.42108547e-14 Z M256,42.6666667 L170.666667,42.6666667 L170.666667,64 L256,64 L256,42.6666667 Z"></path></svg>
-        <span>@Resource.WorkSchedule</span>
-    </button>
-</div>
-<div class="vacation">
-    <button>
-        <svg viewBox="0 0 20 20" width="17" height="17"><path d="M8.4 12H2.8L1 15H0V5h1l1.8 3h5.6L6 0h2l4.8 8H18a2 2 0 1 1 0 4h-5.2L8 20H6l2.4-8z"></path></svg>
-        <span>@Resource.Vacation</span>
-    </button>
-</div>
-<div class="workingTime">
-    <button>
-        <svg viewBox="0 0 1920 1920" width="17" height="17"><path d="M1377.882 1344 903.53 988.235v-592.94h112.942v536.47l429.176 321.77-67.765 90.465ZM960 0C430.645 0 0 430.645 0 960c0 529.242 430.645 960 960 960 529.242 0 960-430.758 960-960 0-529.355-430.758-960-960-960Z"></path></svg>
-        <span>@Resource.WorkTime</span>
-    </button>
-</div>
-<div class="departments">
-    @if (((IEnumerable<Department>)ViewBag.Department).Count() == 0)
-    {
-        <a asp-area="" asp-controller="Departments" asp-action="Create" class="addDepart">
-            <svg viewBox="0 0 17 17" width="17" height="17"><path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path></svg>
-            <span>@Resource.AddDepartments</span>
-        </a>
-    }
-    else
-    {
-        <div class="departments_">
-            <span class="departmentsSpan">@Resource.Departments:</span>
-            <a asp-area="" asp-controller="Departments" asp-action="Create" title="@Resource.Add @Resource.DepartmentLowecase">
-                <svg viewBox="0 0 17 17" width="17" height="17"><path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path></svg>
-                <span>@Resource.Add</span>
-            </a>
-        </div>
+﻿@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
-        foreach (var item in ((IEnumerable<Department>)ViewBag.Department).OrderBy(x => x.Name))
+@{
+    var claimsIdentity = User.Identity as ClaimsIdentity;
+    var userID = "";
+    if (claimsIdentity != null)
+    {
+        var userIdClaim = claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+        if (userIdClaim != null)
         {
-            <div class="departments__">
-                <button onclick="departmentClick(this)" id="@item.Id">
-                    <svg viewBox="0 0 1920 1920" width="17" height="17"><path d="M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z"></path></svg>
-                    <span>@item.Name</span>
-                </button>
-                <a href="@Url.Action("Edit", "Departments", new { id = item.Id })" class="departments__a" id="@item.Id">
-                    <svg viewBox="0 0 1920 1920" width="17" height="17"><path d="M1703.534 960c0-41.788-3.84-84.48-11.633-127.172l210.184-182.174-199.454-340.856-265.186 88.433c-66.974-55.567-143.323-99.389-223.85-128.415L1158.932 0h-397.78L706.49 269.704c-81.43 29.138-156.423 72.282-223.962 128.414l-265.073-88.32L18 650.654l210.184 182.174C220.39 875.52 216.55 918.212 216.55 960s3.84 84.48 11.633 127.172L18 1269.346l199.454 340.856 265.186-88.433c66.974 55.567 143.322 99.389 223.85 128.415L761.152 1920h397.779l54.663-269.704c81.318-29.138 156.424-72.282 223.963-128.414l265.073 88.433 199.454-340.856-210.184-182.174c7.793-42.805 11.633-85.497 11.633-127.285m-743.492 395.294c-217.976 0-395.294-177.318-395.294-395.294 0-217.976 177.318-395.294 395.294-395.294 217.977 0 395.294 177.318 395.294 395.294 0 217.976-177.317 395.294-395.294 395.294"></path></svg>
-                    <span>@Resource.Edit</span>
-                </a>
-
-                @if (((IEnumerable<Workers2>)ViewBag.Workers).Count() == 0)
-                {
-                    <a href="@Url.Action("Create", "Workers2")" class="departments__a3" id="@item.Id" onclick="addWorkerSaveToStorage(this)">
-                        <svg viewBox="0 0 17 17" width="17" height="17"><path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path></svg>
-                        <span>@Resource.AddEmployee</span>
-                    </a>
-                }
-                else
-                {
-                    <a href="@Url.Action("Create", "Workers2")" class="departments__a3" id="@item.Id" onclick="addWorkerSaveToStorage(this)">
-                        <svg viewBox="0 0 17 17" width="17" height="17"><path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path></svg>
-                        <span>@Resource.AddEmployee</span>
-                    </a>
-
-                    foreach (var item2 in ((IEnumerable<Workers2>)ViewBag.Workers))
-                    {
-                        if (item.Id == item2.DepartmentID)
-                        {
-                            <a href="#" class="departments__a2" id="@item.Id" worker="@item2.DepartmentID" onclick="departmentClick2(this)">
-                                <svg viewBox="0 0 1920 1920" width="17" height="17"><path d="M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z"></path></svg>
-                                <span>@Resource.Employees</span>
-                            </a>
-                            break;
-                        }
-                    }
-
-                    foreach (var item2 in ((IEnumerable<Workers2>)ViewBag.Workers).OrderBy(x => x.Surname))
-                    {
-                        if (item.Id == item2.DepartmentID)
-                        {
-                            <a href="@Url.Action("Edit", "Workers2", new { id = item2.Id })" class="departments__worker" id="@item.Id" worker="@item2.DepartmentID">
-                                <svg viewBox="0 0 24 24" width="17" height="17">
-                                    <path d="M12 1C8.96243 1 6.5 3.46243 6.5 6.5C6.5 9.53757 8.96243 12 12 12C15.0376 12 17.5 9.53757 17.5 6.5C17.5 3.46243 15.0376 1 12 1Z"></path>
-                                    <path d="M7 14C4.23858 14 2 16.2386 2 19V22C2 22.5523 2.44772 23 3 23H21C21.5523 23 22 22.5523 22 22V19C22 16.2386 19.7614 14 17 14H7Z"></path>
-                                </svg>
-                                <span>@item2.Surname @item2.Name</span>
-                            </a>
-                        }
-                    }
-
-
-                }
-
-            </div>
+            userID = userIdClaim.Value;
         }
     }
+}
+
+<div class="IdRKPExyAQSewBL">
+    <a asp-area="" asp-controller="Home" asp-action="Index" class="home">
+        <svg viewBox="0 0 50 50" width="22" height="22"><path d="M 25 1.0507812 C 24.7825 1.0507812 24.565859 1.1197656 24.380859 1.2597656 L 1.3808594 19.210938 C 0.95085938 19.550938 0.8709375 20.179141 1.2109375 20.619141 C 1.5509375 21.049141 2.1791406 21.129062 2.6191406 20.789062 L 4 19.710938 L 4 46 C 4 46.55 4.45 47 5 47 L 19 47 L 19 29 L 31 29 L 31 47 L 45 47 C 45.55 47 46 46.55 46 46 L 46 19.710938 L 47.380859 20.789062 C 47.570859 20.929063 47.78 21 48 21 C 48.3 21 48.589063 20.869141 48.789062 20.619141 C 49.129063 20.179141 49.049141 19.550938 48.619141 19.210938 L 25.619141 1.2597656 C 25.434141 1.1197656 25.2175 1.0507812 25 1.0507812 z M 35 5 L 35 6.0507812 L 41 10.730469 L 41 5 L 35 5 z"></path></svg>
+        <span>@Resource.Home</span>
+    </a>
+    @*<div class="search">
+    <button>
+    <svg viewBox="0 0 50 50" width="17" height="17"><path d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z"></path></svg>
+    <span>@Resource.Search</span>
+    </button>
+    <span class="searchSpan">Ctrl + J</span>
+    </div>*@
+    <div class="departmentTasks">
+        <button>
+            <svg viewBox="0 0 512 512" width="17" height="17"><path d="M1.20792265e-13,197.76 C54.5835501,218.995667 112.186031,231.452204 170.666667,234.666667 L170.666667,277.333333 L256,277.333333 L256,234.666667 C314.339546,231.013 371.833936,218.86731 426.666667,198.613333 L426.666667,362.666667 L1.20792265e-13,362.666667 L1.20792265e-13,197.76 Z M277.333333,-1.42108547e-14 L298.666667,21.3333333 L298.666667,64 L426.666667,64 L426.666667,175.146667 C361.254942,199.569074 292.110481,212.488551 222.293333,213.333333 L222.293333,213.333333 L206.933333,213.333333 C136.179047,212.568604 66.119345,199.278929 7.10542736e-15,174.08 L7.10542736e-15,174.08 L7.10542736e-15,64 L128,64 L128,21.3333333 L149.333333,-1.42108547e-14 L277.333333,-1.42108547e-14 Z M256,42.6666667 L170.666667,42.6666667 L170.666667,64 L256,64 L256,42.6666667 Z"></path></svg>
+            <span>@Resource.WorkSchedule</span>
+        </button>
+    </div>
+    <div class="vacation">
+        <button>
+            <svg viewBox="0 0 20 20" width="17" height="17"><path d="M8.4 12H2.8L1 15H0V5h1l1.8 3h5.6L6 0h2l4.8 8H18a2 2 0 1 1 0 4h-5.2L8 20H6l2.4-8z"></path></svg>
+            <span>@Resource.Vacation</span>
+        </button>
+    </div>
+    <div class="workingTime">
+        <button>
+            <svg viewBox="0 0 1920 1920" width="17" height="17"><path d="M1377.882 1344 903.53 988.235v-592.94h112.942v536.47l429.176 321.77-67.765 90.465ZM960 0C430.645 0 0 430.645 0 960c0 529.242 430.645 960 960 960 529.242 0 960-430.758 960-960 0-529.355-430.758-960-960-960Z"></path></svg>
+            <span>@Resource.WorkTime</span>
+        </button>
+    </div>
+    <div class="departments">
+        @if (((IEnumerable<Department>)ViewBag.Department).Count() == 0)
+        {
+            <a asp-area="" asp-controller="Departments" asp-action="Create" class="addDepart">
+                <svg viewBox="0 0 17 17" width="17" height="17"><path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path></svg>
+                <span>@Resource.AddDepartments</span>
+            </a>
+        }
+        else
+        {
+            <div class="departments_">
+                <span class="departmentsSpan">@Resource.Departments:</span>
+                <a asp-area="" asp-controller="Departments" asp-action="Create" title="@Resource.Add @Resource.DepartmentLowecase">
+                    <svg viewBox="0 0 17 17" width="17" height="17"><path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path></svg>
+                    <span>@Resource.Add</span>
+                </a>
+            </div>
+
+            foreach (var item in ((IEnumerable<Department>)ViewBag.Department).OrderBy(x => x.Name))
+            {
+                <div class="departments__">
+                    <button onclick="departmentClick(this)" id="@item.Id">
+                        <svg viewBox="0 0 1920 1920" width="17" height="17"><path d="M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z"></path></svg>
+                        <span>@item.Name</span>
+                    </button>
+                    <a href="@Url.Action("Edit", "Departments", new { id = item.Id })" class="departments__a" id="@item.Id">
+                        <svg viewBox="0 0 1920 1920" width="17" height="17"><path d="M1703.534 960c0-41.788-3.84-84.48-11.633-127.172l210.184-182.174-199.454-340.856-265.186 88.433c-66.974-55.567-143.323-99.389-223.85-128.415L1158.932 0h-397.78L706.49 269.704c-81.43 29.138-156.423 72.282-223.962 128.414l-265.073-88.32L18 650.654l210.184 182.174C220.39 875.52 216.55 918.212 216.55 960s3.84 84.48 11.633 127.172L18 1269.346l199.454 340.856 265.186-88.433c66.974 55.567 143.322 99.389 223.85 128.415L761.152 1920h397.779l54.663-269.704c81.318-29.138 156.424-72.282 223.963-128.414l265.073 88.433 199.454-340.856-210.184-182.174c7.793-42.805 11.633-85.497 11.633-127.285m-743.492 395.294c-217.976 0-395.294-177.318-395.294-395.294 0-217.976 177.318-395.294 395.294-395.294 217.977 0 395.294 177.318 395.294 395.294 0 217.976-177.317 395.294-395.294 395.294"></path></svg>
+                        <span>@Resource.Edit</span>
+                    </a>
+
+                    @if (((IEnumerable<Workers2>)ViewBag.Workers).Count() == 0)
+                    {
+                        <a href="@Url.Action("Create", "Workers2")" class="departments__a3" id="@item.Id" onclick="addWorkerSaveToStorage(this)">
+                            <svg viewBox="0 0 17 17" width="17" height="17"><path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path></svg>
+                            <span>@Resource.AddEmployee</span>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Create", "Workers2")" class="departments__a3" id="@item.Id" onclick="addWorkerSaveToStorage(this)">
+                            <svg viewBox="0 0 17 17" width="17" height="17"><path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path></svg>
+                            <span>@Resource.AddEmployee</span>
+                        </a>
+
+                        foreach (var item2 in ((IEnumerable<Workers2>)ViewBag.Workers))
+                        {
+                            if (item.Id == item2.DepartmentID)
+                            {
+                                <a href="#" class="departments__a2" id="@item.Id" worker="@item2.DepartmentID" onclick="departmentClick2(this)">
+                                    <svg viewBox="0 0 1920 1920" width="17" height="17"><path d="M225.882 564.765V451.824h764.386L764.386 113H0v1524.706c0 93.402 76.01 169.412 169.412 169.412h1581.176c93.403 0 169.412-76.01 169.412-169.412V564.765H225.882Z"></path></svg>
+                                    <span>@Resource.Employees</span>
+                                </a>
+                                break;
+                            }
+                        }
+
+                        foreach (var item2 in ((IEnumerable<Workers2>)ViewBag.Workers).OrderBy(x => x.Surname))
+                        {
+                            if (item.Id == item2.DepartmentID)
+                            {
+                                <a href="@Url.Action("Edit", "Workers2", new { id = item2.Id })" class="departments__worker" id="@item.Id" worker="@item2.DepartmentID">
+                                    <svg viewBox="0 0 24 24" width="17" height="17">
+                                        <path d="M12 1C8.96243 1 6.5 3.46243 6.5 6.5C6.5 9.53757 8.96243 12 12 12C15.0376 12 17.5 9.53757 17.5 6.5C17.5 3.46243 15.0376 1 12 1Z"></path>
+                                        <path d="M7 14C4.23858 14 2 16.2386 2 19V22C2 22.5523 2.44772 23 3 23H21C21.5523 23 22 22.5523 22 22V19C22 16.2386 19.7614 14 17 14H7Z"></path>
+                                    </svg>
+                                    <span>@item2.Surname @item2.Name</span>
+                                </a>
+                            }
+                        }
+
+
+                    }
+
+                </div>
+            }
+        }
+    </div>
+
+</div>
+
+<div class="user">
+    <a href="#" class="userFirstA" title="Edytuj awatar">
+        <svg viewBox="0 0 512 512" width="48" height="48">
+            <path d="M213.333333,3.55271368e-14 C269.912851,3.55271368e-14 324.175019,22.4761259 364.18278,62.4838867 C404.190541,102.491647 426.666667,156.753816 426.666667,213.333333 C426.666667,331.15408 331.15408,426.666667 213.333333,426.666667 C95.5125867,426.666667 2.84217094e-14,331.15408 2.84217094e-14,213.333333 C2.84217094e-14,95.5125867 95.5125867,3.55271368e-14 213.333333,3.55271368e-14 Z M234.666667,234.666667 L192,234.666667 C139.18529,234.666667 93.8415802,266.653822 74.285337,312.314895 C105.229171,355.70638 155.977088,384 213.333333,384 C270.689579,384 321.437496,355.70638 352.381644,312.31198 C332.825087,266.653822 287.481377,234.666667 234.666667,234.666667 L234.666667,234.666667 Z M213.333333,64 C177.987109,64 149.333333,92.653776 149.333333,128 C149.333333,163.346224 177.987109,192 213.333333,192 C248.679557,192 277.333333,163.346224 277.333333,128 C277.333333,92.653776 248.679557,64 213.333333,64 Z"></path>
+        </svg>
+    </a>
+    <div class="userDiv">
+        <a>@User.Identity?.Name?.Split('@')[0]</a>
+        <a asp-area="Identity" asp-page="/Account/Manage/Index">Edytuj konto</a>
+    </div>
+    <form class="logOut" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+        <button type="submit" title="Wyloguj">
+            <svg viewBox="-2 0 19 19" width="37" height="37">
+                <path d="M7.498 17.1a7.128 7.128 0 0 1-.98-.068 7.455 7.455 0 0 1-1.795-.483 7.26 7.26 0 0 1-3.028-2.332A7.188 7.188 0 0 1 .73 12.52a7.304 7.304 0 0 1 .972-7.128 7.221 7.221 0 0 1 1.387-1.385 1.03 1.03 0 0 1 1.247 1.638 5.176 5.176 0 0 0-.993.989 5.313 5.313 0 0 0-.678 1.181 5.23 5.23 0 0 0-.348 1.292 5.22 5.22 0 0 0 .326 2.653 5.139 5.139 0 0 0 .69 1.212 5.205 5.205 0 0 0 .992.996 5.257 5.257 0 0 0 1.178.677 5.37 5.37 0 0 0 1.297.35 5.075 5.075 0 0 0 1.332.008 5.406 5.406 0 0 0 1.32-.343 5.289 5.289 0 0 0 2.211-1.682 5.18 5.18 0 0 0 1.02-2.465 5.2 5.2 0 0 0 .01-1.336 5.315 5.315 0 0 0-.343-1.318 5.195 5.195 0 0 0-.695-1.222 5.134 5.134 0 0 0-.987-.989 1.03 1.03 0 1 1 1.24-1.643 7.186 7.186 0 0 1 1.384 1.386 7.259 7.259 0 0 1 .97 1.706 7.413 7.413 0 0 1 .473 1.827 7.296 7.296 0 0 1-4.522 7.65 7.476 7.476 0 0 1-1.825.471 7.203 7.203 0 0 1-.89.056zM7.5 9.613a1.03 1.03 0 0 1-1.03-1.029V2.522a1.03 1.03 0 0 1 2.06 0v6.062a1.03 1.03 0 0 1-1.03 1.03z"></path>
+            </svg>
+        </button>
+    </form>
 </div>

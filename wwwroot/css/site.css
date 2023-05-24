@@ -90,7 +90,7 @@ button {
 }
 
 .parent {
-    /*border-radius: 10px;*/
+    border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.4);
     height: 93vh;
     width: 97vw;
@@ -104,38 +104,111 @@ button {
     min-width: 300px;
     max-width: 300px;
     height: 100%;
+    /*padding: 25px 25px 0 25px;*/
+    /*overflow-y: auto;*/
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
+    border-start-start-radius: 10px;
+    border-end-start-radius: 10px;
+}
+
+
+.IdRKPExyAQSewBL {
     overflow-y: auto;
-    padding: 25px 25px 0 25px
+    /*height: 86.4vh;*/
+    height: calc(100% - 80px);
+    padding: 25px 25px 0 25px;
+    --mask: linear-gradient(to bottom, rgba(0,0,0, 1) 0, rgba(0,0,0, 1) 50%, rgba(0,0,0, 1) 70%, rgba(0,0,0, 1) 95%, rgba(0,0,0, 0) 100%, rgba(0,0,0, 0) 0 ) 100% 50% / 100% 100% repeat-x;
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
+    
 }
 
 .right-nav {
     width: 100vw;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    /*border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;*/
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     padding: 25px;
 }
 
-.left-nav a:first-child {
+.user {
+    height: 80px;
+    min-height: 80px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    -webkit-box-shadow: 0px -18px 22px -22px rgba(100, 100, 100, 1);
+    -moz-box-shadow: 0px -18px 22px -22px rgba(100, 100, 100, 1);
+    box-shadow: 0px -18px 22px -22px rgba(100, 100, 100, 1);
+    gap: 10px; 
+    padding: 0 25px 0 25px;
+    min-width: 300px;
+    width: 300px;
+}
+
+.userDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 150px;
+    width: 150px;
+}
+
+    .userDiv a:first-child {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.5);
+        pointer-events: none;
+        letter-spacing: 0.025em;
+    }
+
+    .userDiv a:nth-child(2) {
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+        .userDiv a:nth-child(2):hover {
+            color: rgba(255, 255, 255, 1);
+        }
+
+
+.userFirstA svg {
+    fill: rgba(255, 255, 255, 0.7);
+    transform: translateY(4px);
+}
+
+.userFirstA:hover svg {
+    fill: rgba(255, 255, 255, 0.8);
+}
+
+.logOut a svg {
+    fill: rgba(255, 255, 255, 0.5);
+}
+
+.logOut a:hover svg {
+    fill: rgba(255, 255, 255, 0.7);
+}
+
+    
+.left-nav .home {
     display: flex;
     gap: 7px;
     align-items: center;
     height: 32px;
-    margin-bottom: 35px;
-    /*margin-left: 25px;*/
-    /*padding: 25px;*/
+    /*margin-bottom: 35px;*/
+    margin-bottom: 25px;
 }
 
-    .left-nav a:first-child:hover {
+    .left-nav .home:hover {
         opacity: 0.8;
     }
 
-    .left-nav a:first-child svg {
+    .left-nav .home svg {
         fill: white;
     }
 
-    .left-nav a:first-child span {
+    .left-nav .home span {
         font-size: 17px;
         margin-top: 5px;
         font-weight: bold;
@@ -180,10 +253,10 @@ button {
         font-size: 14px;
     }
 
-    .search:nth-child(2) {
-        color: rgba(255, 255, 255, 0.4);
-        font-size: 13px;
-    }
+.searchSpan {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 13px;
+}
 
     /*.search button:disabled span {
         color: rgba(255, 255, 255, 0.4);
@@ -237,7 +310,7 @@ button {
     }
 
 .workingTime {
-    margin-bottom: 35px;
+    margin-bottom: 25px;
 }
 
     /*.workingTime button:disabled span {

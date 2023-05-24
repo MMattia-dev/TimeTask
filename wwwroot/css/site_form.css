@@ -63,7 +63,7 @@
     user-select: none;
 }
 
-form {
+form:not(.logOut) {
     display: flex;
     gap: 8px;
     flex-direction: column;

@@ -241,7 +241,7 @@ namespace TimeTask {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Mój urlop.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Urlopy.
         /// </summary>
         public static string Vacation {
             get {
@@ -259,7 +259,7 @@ namespace TimeTask {
         }
         
         /// <summary>
-        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Mój czas pracy.
+        /// Wyszukuje zlokalizowany ciąg podobny do ciągu Czas pracy.
         /// </summary>
         public static string WorkTime {
             get {

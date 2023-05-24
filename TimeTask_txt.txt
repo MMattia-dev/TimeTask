@@ -2,5 +2,6 @@ zrobione 1) Section o klasie "left-nav" musi dzia³aæ jak navbar, tak aby by³ na 
 2) Je¿eli dzia³ (niepusty) zostanie usuniêty:
 	a) stwórz folder "Nieprzypisani pracownicy" i do³¹cz do niego wszystkich tych którzy byli w tym dziale kiedy by³ usuniêty.
 
-3) Nowa tabela Workers gdzie jest kolumna Surname (priorytet!)
+zrobione 3) Nowa tabela Workers gdzie jest kolumna Surname (priorytet!)
 4) w³¹cz timer w dzial -> edytuj -> usun tylko je¿eli dzia³ nie jest pusty
+5) Nowa tabela Workers gdzie jest kolumna email (priorytet!)

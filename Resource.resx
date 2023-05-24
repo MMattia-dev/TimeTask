@@ -178,13 +178,13 @@
     <value>Szukaj</value>
   </data>
   <data name="Vacation" xml:space="preserve">
-    <value>Mój urlop</value>
+    <value>Urlopy</value>
   </data>
   <data name="WorkSchedule" xml:space="preserve">
     <value>Grafik działu</value>
   </data>
   <data name="WorkTime" xml:space="preserve">
-    <value>Mój czas pracy</value>
+    <value>Czas pracy</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Tak</value>
