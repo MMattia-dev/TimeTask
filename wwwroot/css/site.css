@@ -157,14 +157,14 @@ button {
 }
 
     .userDiv a:first-child {
-        font-size: 14px;
+        font-size: 13px;
         color: rgba(255, 255, 255, 0.5);
         pointer-events: none;
         letter-spacing: 0.025em;
     }
 
     .userDiv a:nth-child(2) {
-        font-size: 15px;
+        font-size: 14px;
         color: rgba(255, 255, 255, 0.8);
     }
 
