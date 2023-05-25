@@ -22,7 +22,7 @@
     </section>*@
 
     <section class="right-nav">
-        <form id="account" method="post" class="form_2">
+        <form id="account" method="post" class="form_2" style="display: none;">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-group">
                 <input asp-for="Input.Email" type="email" placeholder="e-mail" aria-required="true" autocomplete="username" class="form-control" />
@@ -39,7 +39,8 @@
                 </label>
             </div>*@
             <div class="form-group form-group-margin">
-                <button id="login-submit" type="submit" class="btn-custom">Log in</button>
+                <button id="login-submit" type="button" class="btn-custom" onclick="logIn()">Log in</button>
+                <button id="logInClick" type="submit"></button>
             </div>
             <div class="form-group form-group2">
                 <a class="btn-custom_" id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
