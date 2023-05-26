@@ -8,18 +8,18 @@
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
 
 <style type="text/css">
-    .right-nav {
+    /*.right-nav {
         border-top-right-radius: 10px;
         border-top-left-radius: 10px;
         border-bottom-right-radius: 10px;
         border-bottom-left-radius: 10px;
-    }
+    }*/
 </style>
 
 <div class="parent">
-    @*<section class="left-nav">
+    <section class="left-nav">
 
-    </section>*@
+    </section>
 
     <section class="right-nav">
         <form id="account" method="post" class="form_2" style="display: none;">
@@ -130,3 +130,7 @@
     <partial name="_ValidationScriptsPartial" />
 }
 
+<script type="text/javascript">
+    document.getElementById('info').style.right = '15px !important';
+    document.getElementById('info').style.bottom = '15px !important';
+</script>

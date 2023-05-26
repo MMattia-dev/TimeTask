@@ -84,7 +84,6 @@ html {
     align-items: center;
     gap: 3px;
 }
-
 /**/
 
 html {
@@ -170,7 +169,7 @@ button {
     border-end-start-radius: 10px;
     transition: min-width 0.75s, max-width 0.75s, width 0.75s;
 
-
+    
 }
 
 
@@ -194,6 +193,16 @@ button {
     border-bottom-right-radius: 10px;
     padding: 25px;
     transition: border-top-left-radius 1s, border-bottom-left-radius 1s;
+}
+
+#info {
+    position: fixed;
+    /*right: 15px;
+    bottom: 15px;*/
+    right: 99999px;
+    bottom: 99999px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .user {

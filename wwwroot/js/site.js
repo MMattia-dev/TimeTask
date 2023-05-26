@@ -9,19 +9,15 @@ loader.className = 'loader';
 var lds = document.createElement('div');
 lds.className = 'lds-ring';
 lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
-if (performance.navigation.type == performance.navigation.TYPE_RELOAD) //https://stackoverflow.com/questions/5004978/check-if-page-gets-reloaded-or-refreshed-in-javascript
-{
-    loader.style.display = 'none';
-} else
-{
-    //loader.style.display = '';
-    loader.style.display = 'none';
-}
+loader.style.display = 'none';
 loader.appendChild(lds);
 main.appendChild(loader);
 
 
-
+//var spanInfo = document.createElement('span');
+//spanInfo.id = 'info';
+//spanInfo.innerHTML = 'Aplikcja TimeTask nalepiej działa na przeglądarce Mozilla Firefox.';
+//main.appendChild(spanInfo);
 
 
 
@@ -43,25 +39,12 @@ function sortArray(array) {
 
 function logOut() {
     $(loader).fadeIn();
-    //document.getElementById('spanLoaderID').innerHTML = 'wylogowuję';
 
     let a = document.querySelector('.IdRKPExyAQSewBL');
     let b = document.querySelector('.user');
     $(a).fadeOut();
     $(b).fadeOut();
 
-    let c = document.querySelector('.left-nav');
-    setTimeout(function() 
-    {
-        c.style.maxWidth = '0px';
-        c.style.minWidth = '0px';
-        c.style.width = '0px';
-    }, 300);
-    
-    let d = document.querySelector('.right-nav');
-    d.style.borderTopLeftRadius = '10px';
-    d.style.borderBottomLeftRadius = '10px';
-    
     setTimeout(function ()
     {
         $('#logOutClick').trigger('click');
@@ -69,7 +52,11 @@ function logOut() {
 };
 
 function logIn() {
+    localStorage.setItem('logged', 'true');
+
     $(loader).fadeIn();
+
+    //$('#info').fadeOut();
 
     setTimeout(function ()
     {
@@ -81,8 +68,6 @@ function logIn() {
         }, 300);
 
     }, 1000);
-
-
 };
 
 $(document).ready(function ()
@@ -97,7 +82,7 @@ $(document).ready(function ()
     //}
     //https://stackoverflow.com/questions/5004978/check-if-page-gets-reloaded-or-refreshed-in-javascript
 
-    
+    localStorage.removeItem('logged');
     
 
 });

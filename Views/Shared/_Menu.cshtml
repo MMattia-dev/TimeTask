@@ -147,7 +147,22 @@
 </div>
 
 <script type="text/javascript">
+    let a = document.querySelector('.IdRKPExyAQSewBL');
+    let b = document.querySelector('.user');
 
-    
+    a.style.display = 'none';
+    b.style.display = 'none';
+
+    if(localStorage.getItem('logged') != null){
+        $(a).fadeIn();
+        $(b).fadeIn();
+
+        
+    }
+    else {
+        a.style.display = '';
+        b.style.display = '';
+
+    }
 
 </script>
