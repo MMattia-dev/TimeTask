@@ -1,35 +1,52 @@
 ﻿@page
 @model LoginModel
+@using Microsoft.AspNetCore.Identity
+@using System.Security.Claims;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @{
     ViewData["Title"] = "Log in";
+
+    //var claimsIdentity = User.Identity as ClaimsIdentity;
+    //var userID = "";
+    //if (claimsIdentity != null)
+    //{
+    //    var userIdClaim = claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+    //    if (userIdClaim != null)
+    //    {
+    //        userID = userIdClaim.Value;
+    //    }
+    //}
 }
 
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
 
 <style type="text/css">
-    /*.right-nav {
+    .right-nav {
         border-top-right-radius: 10px;
         border-top-left-radius: 10px;
         border-bottom-right-radius: 10px;
         border-bottom-left-radius: 10px;
-    }*/
+    }
 </style>
 
-<div class="parent">
-    <section class="left-nav">
+@*@Html.AntiForgeryToken()*@
 
-    </section>
+<div class="parent">
+    @*<section class="left-nav">
+
+    </section>*@
 
     <section class="right-nav">
         <form id="account" method="post" class="form_2" style="display: none;">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-group">
-                <input asp-for="Input.Email" type="email" placeholder="e-mail" aria-required="true" autocomplete="username" class="form-control" />
+                <input asp-for="Input.Email" type="email" placeholder="e-mail" aria-required="true" autocomplete="username" class="form-control" id="userid" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-group form-group-margin">
-                <input asp-for="Input.Password" type="password" placeholder="password" aria-required="true" autocomplete="current-password" class="form-control" />
+                <input asp-for="Input.Password" type="password" placeholder="password" aria-required="true" autocomplete="current-password" class="form-control" id="passid" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             @*<div class="form-group">
@@ -39,8 +56,9 @@
                 </label>
             </div>*@
             <div class="form-group form-group-margin">
-                <button id="login-submit" type="button" class="btn-custom" onclick="logIn()">Log in</button>
-                <button id="logInClick" type="submit"></button>
+                <button id="login-submit" type="submit" class="btn-custom" onclick="logIn()">Log in</button> <!--logInUs(); -->
+                @*<button id="logInClick" type="submit"></button>*@
+                @*<a href="@Url.Action("", "", new { id = @userID })" hidden></a>*@
             </div>
             <div class="form-group form-group2">
                 <a class="btn-custom_" id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
@@ -131,6 +149,161 @@
 }
 
 <script type="text/javascript">
-    document.getElementById('info').style.right = '15px !important';
-    document.getElementById('info').style.bottom = '15px !important';
+    //document.getElementById('info').style.right = '15px !important';
+    //document.getElementById('info').style.bottom = '15px !important';
+
+    //let d = document.querySelector('.right-nav');
+    //d.style.borderTopLeftRadius = '10px'
+    //d.style.borderBottomLeftRadius = '10px'
+
+
+
+
+
+
+
+    $('form').submit(function (e) {
+        
+        //var token = $('input[name="__RequestVerificationToken"]').val();
+        //    $.ajax({
+        //        type: "POST",
+        //    url: '/Account/Login/',
+        //        dataType: "json",
+        //        async: "false",
+        //        data: {
+        //            username: $('#userid').val(),
+        //            password: $('#passid').val()
+        //        },
+        //        success: function(data){
+        //            alert(data);
+        //        },
+        //        error: function(data) {
+        //            alert('asd');
+        //        }
+        //    });
+
+
+        //var data = {
+        //    model: {
+        //        UserName: $('#userid').val(),
+        //        Password: $('#passid').val(),
+        //        RememberMe: true
+        //    }
+        //};
+
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/Account/Login/",
+        //    data: JSON.stringify(data),
+        //    contentType: "application/json; charset=utf-8",
+        //    dataType: "json",
+        //    success: function (data)
+        //    {
+        //        // Do something interesting here.
+        //        alert(data);
+        //    },
+        //    error: function () {
+        //        alert('blad');
+        //    }
+        //});
+        
+
+
+        //var data = {};
+        //       data.UserName = $("#userid").val();
+        //       data.Password = $("#passid").val();
+        //       var token = $('input[name="__RequestVerificationToken"]').val();
+        //       //var url = $('.btnUrl').data('url');
+        //       $.ajax({
+        //    url: "/Account/Login/?ReturnUrl=%2F",
+        //           method: "POST",
+        //           data: {
+        //               model: data,
+        //               __RequestVerificationToken: token,
+        //               returnUrl: "Home/Index"   // you can modify the returnUrl value here
+        //           },
+        //           success: function (data) {
+        //               if (data.Success) {
+
+        //                   window.location.href = "@Url.Action("Index" ,"Home")";
+        //               }
+        //               else {
+
+        //                   window.location.href = "@Url.Action("Login" ,"Account")";
+        //               }
+        //           }
+        //           });
+
+
+        //var token = $('input[name="__RequestVerificationToken"]').val();
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/Account/Login",
+        //    data: {
+        //        __RequestVerificationToken: token
+        //        , username: $("#userid").val(),
+        //        password: $("#passid").val()
+        //    },
+        //    success: function (response)
+        //    {
+        //        alert("Hello: " + response.Name + ".\nCurrent Date and Time: " + response.DateTime);
+        //    },
+        //    failure: function (response)
+        //    {
+        //        alert(response.responseText);
+        //    },
+        //    error: function (response)
+        //    {
+        //        alert(response.responseText);
+        //    }
+        //});
+
+
+        //console.log($('input[name="__RequestVerificationToken"]').val());
+        let token = $('input[name="__RequestVerificationToken"]').val();
+        let pass = $('#passid').val();
+        //console.log(MD5(token + MD5(pass)));
+
+        e.preventDefault();
+    });
+
+
+    //function logInUs()
+    //{
+    //    //$('#logInClick').trigger('click');
+
+
+        
+    //    var usr = '@HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)';
+    //    //alert(usr);
+
+    //    //var rightNav = document.querySelector('.right-nav');
+    //    //let a = document.createElement('a');
+    //    //a.id = 'click';
+    //    ////a.style.display = 'none';
+    //    //a.setAttribute('href', '@@Url.Action("Login", "Account", new { id = ' + usr + ' })')
+    //    //rightNav.appendChild(a);
+
+        
+    //    $.ajax({
+    //        type: "POST",
+    //        url: '@Url.Action("Login", "Account", new {  })',
+    //        dataType: "json",
+    //        async: "false",
+    //        data: {
+    //            username: $('#userid').val(),
+    //            password: $('#passid').val()
+    //        },
+    //        success: function(data){
+    //            alert(data);
+    //        },
+    //        error: function(data) {
+    //            //alert('asd');
+    //            console.log(data.username);
+    //        }
+    //    });
+
+
+    //};
+
 </script>

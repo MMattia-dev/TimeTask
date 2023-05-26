@@ -4,4 +4,4 @@ zrobione 1) Section o klasie "left-nav" musi dzia³aæ jak navbar, tak aby by³ na 
 
 zrobione 3) Nowa tabela Workers gdzie jest kolumna Surname (priorytet!)
 4) w³¹cz timer w dzial -> edytuj -> usun tylko je¿eli dzia³ nie jest pusty
-5) Nowa tabela Workers gdzie jest kolumna email (priorytet!)
+5) Nowa tabela Workers gdzie jest kolumna email, (do przypisania konta) (priorytet!)
