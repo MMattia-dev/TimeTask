@@ -185,7 +185,7 @@
 
         //var data = {
         //    model: {
-        //        UserName: $('#userid').val(),
+        //        Email: $('#userid').val(),
         //        Password: $('#passid').val(),
         //        RememberMe: true
         //    }
@@ -241,69 +241,104 @@
         //    url: "/Account/Login",
         //    data: {
         //        __RequestVerificationToken: token
-        //        , username: $("#userid").val(),
-        //        password: $("#passid").val()
+        //        , Email: $("#userid").val(),
+        //        Password: $("#passid").val()
         //    },
         //    success: function (response)
         //    {
-        //        alert("Hello: " + response.Name + ".\nCurrent Date and Time: " + response.DateTime);
+        //        alert(data);
         //    },
         //    failure: function (response)
         //    {
-        //        alert(response.responseText);
+        //        alert(data);
         //    },
         //    error: function (response)
         //    {
-        //        alert(response.responseText);
+        //        alert(data);
         //    }
         //});
 
 
         //console.log($('input[name="__RequestVerificationToken"]').val());
-        let token = $('input[name="__RequestVerificationToken"]').val();
-        let pass = $('#passid').val();
-        //console.log(MD5(token + MD5(pass)));
+        //$.ajax({
+        //    type: 'POST',
+        //    url: '/Account/Login',
+        //    data: {
+        //        Email: $("#userid").val(),
+        //        Password: $("#passid").val()
+        //    },
+        //    success: function (data)
+        //    {
+        //        console.log('tak');
+        //    },
+        //    error: function ()
+        //    {
+        //        console.log('nie');
+        //    }
+        //});
+
+        //var token = $('input[name="__RequestVerificationToken"]').val();
+        //var form = document.getElementById('account');
+        //$.ajax({
+        //    type: form.getAttribute('method'),
+        //    url: form.getAttribute('action'),
+        //    data: {
+        //        __RequestVerificationToken: token,
+        //        Email: $("#userid").val(),
+        //        Password: $("#passid").val()
+        //    },
+        //    success: function (data)
+        //    {
+        //        //console.log(data);
+        //        //console.log(url);
+        //        console.log('tak');
+        //    },
+        //    error: function(){
+        //        console.log('nie');
+        //    }
+        //});
 
         e.preventDefault();
     });
 
 
-    //function logInUs()
-    //{
-    //    //$('#logInClick').trigger('click');
+    function logInUs()
+    {
+        //$('#logInClick').trigger('click');
+
+
+        //var usr = '@HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)';
+
+
+        //var token = $('input[name="__RequestVerificationToken"]').val();
+        ////var form = $("#account");
+        //var form = document.getElementById('account');
+        //$.ajax({
+        //    type: form.getAttribute('method'),
+        //    url: form.getAttribute('action'),
+        //    data: {
+        //        __RequestVerificationToken: token,
+        //        username: $("#userid").val(),
+        //        password: $("#passid").val()
+        //    },
+        //    success: function (data)
+        //    {
+        //        //console.log(data);
+        //        //console.log(url);
+        //        console.log(form.getAttribute('action'));
+        //    },
+        //    error: function(){
+        //        console.log('nie');
+        //    }
+        //});
 
 
         
-    //    var usr = '@HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)';
-    //    //alert(usr);
-
-    //    //var rightNav = document.querySelector('.right-nav');
-    //    //let a = document.createElement('a');
-    //    //a.id = 'click';
-    //    ////a.style.display = 'none';
-    //    //a.setAttribute('href', '@@Url.Action("Login", "Account", new { id = ' + usr + ' })')
-    //    //rightNav.appendChild(a);
-
-        
-    //    $.ajax({
-    //        type: "POST",
-    //        url: '@Url.Action("Login", "Account", new {  })',
-    //        dataType: "json",
-    //        async: "false",
-    //        data: {
-    //            username: $('#userid').val(),
-    //            password: $('#passid').val()
-    //        },
-    //        success: function(data){
-    //            alert(data);
-    //        },
-    //        error: function(data) {
-    //            //alert('asd');
-    //            console.log(data.username);
-    //        }
-    //    });
 
 
-    //};
+
+
+
+    };
 
 </script>
