@@ -204,7 +204,8 @@ button {
     user-select: none;
     gap: 15px;
     text-align: center;
-    position: fixed;
+    /*position: fixed;*/
+    height: 100%;
 }
 
     #info svg {
@@ -223,7 +224,8 @@ button {
     align-items: center;
     justify-content: center;
     user-select: none;
-    position: fixed;
+    /*position: fixed;*/
+    height: 100%;
 }
 
     #logoid svg {

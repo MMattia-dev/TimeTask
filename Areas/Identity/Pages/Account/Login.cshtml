@@ -56,9 +56,8 @@
                 </label>
             </div>*@
             <div class="form-group form-group-margin">
-                <button id="login-submit" type="submit" class="btn-custom" onclick="logIn()">Log in</button> <!--logInUs(); -->
-                @*<button id="logInClick" type="submit"></button>*@
-                @*<a href="@Url.Action("", "", new { id = @userID })" hidden></a>*@
+                <button id="login-submit" type="button" class="btn-custom" onclick="logIn()">Log in</button> <!--logInUs(); -->
+                <button id="logInClick" type="submit"></button>
             </div>
             <div class="form-group form-group2">
                 <a class="btn-custom_" id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
@@ -291,14 +290,17 @@
         //    {
         //        //console.log(data);
         //        //console.log(url);
-        //        console.log('tak');
+        //        //console.log(form.getAttribute('method'));
+                
         //    },
         //    error: function(){
         //        console.log('nie');
         //    }
         //});
 
-        e.preventDefault();
+
+
+        //e.preventDefault();
     });
 
 
