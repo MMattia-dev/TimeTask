@@ -175,7 +175,7 @@ button {
     overflow-y: auto;
     /*height: 86.4vh;*/
     height: calc(100% - 80px);
-    padding: 25px 25px 0 25px;
+    padding: 25px 15px 0 25px;
     --mask: linear-gradient(to bottom, rgba(0,0,0, 1) 0, rgba(0,0,0, 1) 50%, rgba(0,0,0, 1) 70%, rgba(0,0,0, 1) 95%, rgba(0,0,0, 0) 100%, rgba(0,0,0, 0) 0 ) 100% 50% / 100% 100% repeat-x;
     -webkit-mask: var(--mask);
     mask: var(--mask);
@@ -317,7 +317,7 @@ button {
     align-items: center;
     height: 32px;
     /*margin-bottom: 35px;*/
-    margin-bottom: 25px;
+    margin-bottom: 35px;
 }
 
     .left-nav .home:hover {
@@ -334,30 +334,34 @@ button {
         font-weight: bold;
     }
 
-.left-nav button {
+.left-nav button, .left-nav a {
     display: flex;
     gap: 8px;
     align-items: center;
-    color: rgba(255, 255, 255, 0.7);
+    /*color: rgba(255, 255, 255, 0.7);*/
     transition: color 0.2s;
     transform: translateX(-5px);
+    cursor: pointer;
 }
 
-    .left-nav button span {
+    .left-nav button span, .left-nav a span {
         font-size: 14px;
+        color: rgba(255, 255, 255, 0.7);
+        transition: color 0.2s;
+        
     }
 
-    .left-nav button:hover {
+    .left-nav button:hover span, .left-nav a:hover span {
         color: rgba(255, 255, 255, 0.9);
         transition: color 0.2s;
     }
 
-        .left-nav button:hover svg {
+        .left-nav button:hover svg, .left-nav a:hover svg {
             fill: rgba(255, 255, 255, 0.9);
             transition: fill 0.2s;
         }
 
-    .left-nav button svg {
+    .left-nav button svg, .left-nav a svg {
         fill: rgba(255, 255, 255, 0.7);
         transition: fill 0.2s;
     }
@@ -367,7 +371,21 @@ button {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 35px;
+    /*transform: translateX(3px);*/
 }
+
+    .search a {
+        transform: translateX(-1px);
+    }
+
+        .search a svg {
+            fill: rgba(255, 255, 255, 0.7);
+        }
+
+        .search a span {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
 
     .search button span {
         font-size: 14px;
@@ -393,6 +411,10 @@ button {
     .departmentTasks button:disabled {
         opacity: 0.6;
         pointer-events: none;
+    }
+
+    .departmentTasks button svg {
+        transform: translateY(1px);
     }
 
 .vacation {
@@ -423,6 +445,7 @@ button {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    display: none;
 }
 
     .departments a {
@@ -532,38 +555,50 @@ button {
         transition: none !important;
     }
 
+.settings_a:first-child {
+    margin-bottom: 15px;
 
-@media (max-width:768px){
-    /*.IdRKPExyAQSewBL span {
-        display: none;
+}
+
+.settings_a {
+    display: flex;
+    align-items: center;
+    /*justify-content: center;*/
+    justify-content: flex-start;
+    /*margin-left: 5px;*/
+    /*border-top: 1px solid rgba(255, 255, 255, 0.1);*/
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 8px;
+    padding-bottom: 7px;
+    transition: background-color 0.2s !important;
+    margin-bottom: 10px;
+}
+
+    .settings_a:hover {
+        background-color: rgba(255, 255, 255, 0.075);
+        transition: background-color 0.2s !important;
     }
 
-    .left-nav {
-        width: 100px !important;
-        min-width: auto !important;
-        max-width: auto !important;
+    .settings_a svg {
+        transform: translateX(10px);
+
     }
 
-        .left-nav button {
-            transform: translateX(0px);
-        }
-
-    .IdRKPExyAQSewBL {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .settings_a span {
+        margin-right: 8px !important;
+        font-size: 14px !important;
+        transform: translateX(12px);
     }
 
-    .departments_ a {
-        transform: translateX(2px);
-        margin: 0;
-        padding: 0;
-    }*/
+.settings_span {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.7);
+    /*margin-left: 10px;*/
+    
+}
 
-    /*.left-nav a {
-        transform: translateX(0px);
-    }*/
 
+@media (max-width:768px) {
     .left-nav {
         display: none;
     }

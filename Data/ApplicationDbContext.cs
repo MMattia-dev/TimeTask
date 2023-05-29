@@ -14,5 +14,7 @@ namespace TimeTask.Data
         public DbSet<TimeTask.Models.Department> Department { get; set; } = default!;
         public DbSet<TimeTask.Models.Workers> Workers { get; set; } = default!;
         public DbSet<TimeTask.Models.Workers2> Workers2 { get; set; } = default!;
+        public DbSet<TimeTask.Models.Time> Time { get; set; } = default!;
+        public DbSet<TimeTask.Models.Leave> Leave { get; set; } = default!;
     }
 }

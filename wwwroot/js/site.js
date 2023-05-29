@@ -95,13 +95,14 @@ function logOut() {
 
 function logIn() {
     localStorage.setItem('logged', 'true');
-    //$(loader).fadeIn();
+    $(loader).fadeIn();
     $('#logInClick').trigger('click');
 };
 
+
 $(document).ready(function ()
 {
-    $(loader).fadeOut();
+    //$(loader).fadeOut();
 
     //$('#account').fadeIn(300);
     let form = document.getElementsByTagName('form');
