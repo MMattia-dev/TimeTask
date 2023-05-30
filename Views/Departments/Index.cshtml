@@ -44,22 +44,30 @@
         <div class="right-nav-parent">
             @foreach (var item in Model.OrderBy(x => x.Id))
             {
-                <div>
-                    <span>@item.Name</span>
-
-                    @{
-                        int i = 0;
-                    }
-
-                    @foreach (var item2 in ((IEnumerable<Workers2>)ViewBag.Workers))
-                    {
-                        if (item.Id == item2.DepartmentID)
-                        {
-                            i++;
+                <div class="right-nav-parent-div" onclick="rightNavParentDivClick(this)">
+                    <div>
+                        <span class="right-nav-parent-div-span1">Otwórz</span>
+                        @*<a href="@Url.Action("Index", "Workers2")" title="Pracownicy"><svg viewBox="0 0 32 32" width="30" height="30"><path d="M4 28q0 0.832 0.576 1.44t1.44 0.576h20q0.8 0 1.408-0.576t0.576-1.44q0-1.44-0.672-2.912t-1.76-2.624-2.496-2.144-2.88-1.504q1.76-1.088 2.784-2.912t1.024-3.904v-1.984q0-3.328-2.336-5.664t-5.664-2.336-5.664 2.336-2.336 5.664v1.984q0 2.112 1.024 3.904t2.784 2.912q-1.504 0.544-2.88 1.504t-2.496 2.144-1.76 2.624-0.672 2.912z"></path></svg></a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" title="Edytuj"><svg viewBox="0 0 1920 1920" height="30" width="30"><path d="M1703.534 960c0-41.788-3.84-84.48-11.633-127.172l210.184-182.174-199.454-340.856-265.186 88.433c-66.974-55.567-143.323-99.389-223.85-128.415L1158.932 0h-397.78L706.49 269.704c-81.43 29.138-156.423 72.282-223.962 128.414l-265.073-88.32L18 650.654l210.184 182.174C220.39 875.52 216.55 918.212 216.55 960s3.84 84.48 11.633 127.172L18 1269.346l199.454 340.856 265.186-88.433c66.974 55.567 143.322 99.389 223.85 128.415L761.152 1920h397.779l54.663-269.704c81.318-29.138 156.424-72.282 223.963-128.414l265.073 88.433 199.454-340.856-210.184-182.174c7.793-42.805 11.633-85.497 11.633-127.285m-743.492 395.294c-217.976 0-395.294-177.318-395.294-395.294 0-217.976 177.318-395.294 395.294-395.294 217.977 0 395.294 177.318 395.294 395.294 0 217.976-177.317 395.294-395.294 395.294"></path></svg></a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" title="Usuń"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M5.755,20.283,4,8H20L18.245,20.283A2,2,0,0,1,16.265,22H7.735A2,2,0,0,1,5.755,20.283ZM21,4H16V3a1,1,0,0,0-1-1H9A1,1,0,0,0,8,3V4H3A1,1,0,0,0,3,6H21a1,1,0,0,0,0-2Z"></path></svg></a>
+                        *@
+                    </div>
+                    <div>
+                        @{
+                            int i = 0;
                         }
-                    }
 
-                    <span>@i.ToString()</span>
+                        @foreach (var item2 in ((IEnumerable<Workers2>)ViewBag.Workers))
+                        {
+                            if (item.Id == item2.DepartmentID)
+                            {
+                                i++;
+                            }
+                        }
+                        <span id="osoby">@i.ToString()</span>
+
+                        <span>@item.Name</span>
+                    </div>
                 </div>
             }
         </div>
@@ -70,4 +78,56 @@
 <script type="text/javascript">
     let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[1];
     selected.classList.add('settings_a_selected');
+
+
+    let osoby = document.querySelectorAll('#osoby');
+    for(let i = 0; i < osoby.length; i++){
+        let str = osoby[i].innerHTML;
+        let nbr = parseInt(str);
+        if (nbr == 1)
+            osoby[i].innerHTML += ' pracownik';
+        else
+            osoby[i].innerHTML += ' pracowników';
+    }
+
+
+    function rightNavParentDivClick(t) {
+        let span = t.querySelector('.right-nav-parent-div-span1');
+        let div = document.querySelectorAll('.right-nav-parent-div');
+        if (!t.hasAttribute('chosenDep'))
+        {  
+            t.setAttribute('chosenDep', '');
+            //t.style.transition = 'all 0.2s';
+            //t.style.flexGrow = '0';
+            for(let i = 0; i < div.length; i++){
+                if (!div[i].hasAttribute('chosenDep'))
+                {
+                    //div[i].style.visibility = 'hidden';
+                    div[i].style.display = 'none';
+                }
+            }
+            //t.style.width = t.offsetWidth + 'px';
+            //t.style.height = 'calc(100vh - 110px)';
+
+            //t.parentNode.appendChild(t);
+
+
+            span.innerHTML = 'Zamknij';
+        }
+        else {
+            t.removeAttribute('chosenDep');
+            t.removeAttribute('style');
+            //t.style.transition = 'width 0.2s';
+
+
+
+
+
+            span.innerHTML = 'Otwórz';
+        }
+
+        
+    };
+
+
 </script>
