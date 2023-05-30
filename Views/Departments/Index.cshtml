@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+@*<h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -33,3 +33,41 @@
 }
     </tbody>
 </table>
+*@
+
+<div class="parent">
+    <section class="left-nav">
+        @Html.Partial("_Settings");
+    </section>
+    <section class="right-nav">
+
+        <div class="right-nav-parent">
+            @foreach (var item in Model.OrderBy(x => x.Id))
+            {
+                <div>
+                    <span>@item.Name</span>
+
+                    @{
+                        int i = 0;
+                    }
+
+                    @foreach (var item2 in ((IEnumerable<Workers2>)ViewBag.Workers))
+                    {
+                        if (item.Id == item2.DepartmentID)
+                        {
+                            i++;
+                        }
+                    }
+
+                    <span>@i.ToString()</span>
+                </div>
+            }
+        </div>
+
+    </section>
+</div>
+
+<script type="text/javascript">
+    let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[1];
+    selected.classList.add('settings_a_selected');
+</script>

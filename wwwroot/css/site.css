@@ -190,8 +190,14 @@ button {
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     padding: 25px;
-    /*transition: border-top-left-radius 1s, border-bottom-left-radius 1s;*/
-    
+
+    /*display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: row;*/
+    overflow-y: auto;
+    scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
+    scrollbar-width: thin;
 }
 
 #info {
@@ -563,10 +569,7 @@ button {
 .settings_a {
     display: flex;
     align-items: center;
-    /*justify-content: center;*/
     justify-content: flex-start;
-    /*margin-left: 5px;*/
-    /*border-top: 1px solid rgba(255, 255, 255, 0.1);*/
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     padding-top: 8px;
     padding-bottom: 7px;
@@ -577,6 +580,7 @@ button {
     .settings_a:hover {
         background-color: rgba(255, 255, 255, 0.075);
         transition: background-color 0.2s !important;
+        border-radius: 3px;
     }
 
     .settings_a svg {
@@ -596,6 +600,58 @@ button {
     /*margin-left: 10px;*/
     
 }
+
+.settings_a.settings_a_selected {
+    background-color: rgba(0, 0, 0, 0.7);
+    pointer-events: none;
+    border-radius: 3px;
+}
+
+    .settings_a.settings_a_selected svg {
+        fill: white;
+    }
+
+    .settings_a.settings_a_selected span {
+        color: white;
+    }
+
+
+.right-nav-parent {
+    display: flex;
+    /*justify-content: center;*/
+    gap: 5px;
+    flex-flow: row wrap;
+    flex: 10%;
+}
+
+    .right-nav-parent div {
+        height: 150px;
+        width: 250px;
+        min-width: 250px;
+        background-color: rgb(34, 36, 48);
+        /*border-left: 4px solid rgb(195, 107, 108);*/
+        border-left: 4px solid rgb(36, 110, 142);
+        display: flex;
+        /*align-items: end;
+        justify-content: end;*/
+        justify-content: end;
+        padding: 10px;
+        flex-grow: 1;
+        transition: background-color 0.2s;
+    }
+
+        .right-nav-parent div:hover {
+            transition: background-color 0.2s;
+            background-color: rgb(42, 44, 56);
+        }
+
+
+    .right-nav-parent div span {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+        align-self: end;
+        
+    }
 
 
 @media (max-width:768px) {

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TimeTask.Models.Workers2>
+﻿@model IEnumerable<TimeTask.Models.Holiday>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,13 +16,7 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Surname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DepartmentID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Employed)
+                @Html.DisplayNameFor(model => model.Date)
             </th>
             <th></th>
         </tr>
@@ -34,13 +28,7 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Surname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepartmentID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Employed)
+                @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -50,18 +38,18 @@
         </tr>
 }
     </tbody>
-</table>
-*@
+</table>*@
 
 <div class="parent">
     <section class="left-nav">
         @Html.Partial("_Settings");
     </section>
     <section class="right-nav">
+
     </section>
 </div>
 
 <script type="text/javascript">
-    let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[2];
+    let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[6];
     selected.classList.add('settings_a_selected');
 </script>

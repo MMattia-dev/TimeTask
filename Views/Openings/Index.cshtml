@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TimeTask.Models.Workers2>
+﻿@model IEnumerable<TimeTask.Models.Opening>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,16 +13,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.WorkerID)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Surname)
+                @Html.DisplayNameFor(model => model.Year)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DepartmentID)
+                @Html.DisplayNameFor(model => model.DaysVacation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Employed)
+                @Html.DisplayNameFor(model => model.DaysOpening)
             </th>
             <th></th>
         </tr>
@@ -31,16 +31,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.WorkerID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Surname)
+                @Html.DisplayFor(modelItem => item.Year)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DepartmentID)
+                @Html.DisplayFor(modelItem => item.DaysVacation)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Employed)
+                @Html.DisplayFor(modelItem => item.DaysOpening)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -58,10 +58,11 @@
         @Html.Partial("_Settings");
     </section>
     <section class="right-nav">
+
     </section>
 </div>
 
 <script type="text/javascript">
-    let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[2];
+    let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[3];
     selected.classList.add('settings_a_selected');
 </script>

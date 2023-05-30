@@ -130,13 +130,13 @@ $(document).ready(function ()
                 ihJchOaMxWUD.style.width = '300px';
                 ihJchOaMxWUD.style.maxWidth = '300px';
                 ihJchOaMxWUD.style.minWidth = '300px';
-            }, 4800);
+            }, 5000);
             setTimeout(function ()
             {
                 $(ZLD38GJQEtrB).fadeIn();
                 $(ozozaNCrSaQI).fadeIn();
                 localStorage.removeItem('logged');
-            }, 5500);
+            }, 5700);
         }
         
     }

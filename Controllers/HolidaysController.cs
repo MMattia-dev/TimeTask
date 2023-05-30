@@ -10,96 +10,87 @@ using TimeTask.Models;
 
 namespace TimeTask.Controllers
 {
-    public class DepartmentsController : Controller
+    public class HolidaysController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public DepartmentsController(ApplicationDbContext context)
+        public HolidaysController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Departments
+        // GET: Holidays
         public async Task<IActionResult> Index()
         {
-            ViewBag.Workers = _context.Workers2;
-
-            return _context.Department != null ? 
-                          View(await _context.Department.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Department'  is null.");
+              return _context.Holiday != null ? 
+                          View(await _context.Holiday.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Holiday'  is null.");
         }
 
-        // GET: Departments/Details/5
+        // GET: Holidays/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Department == null)
+            if (id == null || _context.Holiday == null)
             {
                 return NotFound();
             }
 
-            var department = await _context.Department
+            var holiday = await _context.Holiday
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (department == null)
+            if (holiday == null)
             {
                 return NotFound();
             }
 
-            return View(department);
+            return View(holiday);
         }
 
-        // GET: Departments/Create
+        // GET: Holidays/Create
         public IActionResult Create()
         {
-            ViewBag.Department = _context.Department;
-            ViewBag.Workers = _context.Workers2;
-
             return View();
         }
 
-        // POST: Departments/Create
+        // POST: Holidays/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Department department)
+        public async Task<IActionResult> Create([Bind("Id,Name,Date")] Holiday holiday)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(department);
+                _context.Add(holiday);
                 await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index));
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(Index));
             }
-            return View(department);
+            return View(holiday);
         }
 
-        // GET: Departments/Edit/5
+        // GET: Holidays/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            ViewBag.Department = _context.Department;
-            ViewBag.Workers = _context.Workers2;
-
-            if (id == null || _context.Department == null)
+            if (id == null || _context.Holiday == null)
             {
                 return NotFound();
             }
 
-            var department = await _context.Department.FindAsync(id);
-            if (department == null)
+            var holiday = await _context.Holiday.FindAsync(id);
+            if (holiday == null)
             {
                 return NotFound();
             }
-            return View(department);
+            return View(holiday);
         }
 
-        // POST: Departments/Edit/5
+        // POST: Holidays/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Department department)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Date")] Holiday holiday)
         {
-            if (id != department.Id)
+            if (id != holiday.Id)
             {
                 return NotFound();
             }
@@ -108,12 +99,12 @@ namespace TimeTask.Controllers
             {
                 try
                 {
-                    _context.Update(department);
+                    _context.Update(holiday);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DepartmentExists(department.Id))
+                    if (!HolidayExists(holiday.Id))
                     {
                         return NotFound();
                     }
@@ -122,53 +113,51 @@ namespace TimeTask.Controllers
                         throw;
                     }
                 }
-                //return RedirectToAction(nameof(Index));
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(Index));
             }
-            return View(department);
+            return View(holiday);
         }
 
-        // GET: Departments/Delete/5
+        // GET: Holidays/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Department == null)
+            if (id == null || _context.Holiday == null)
             {
                 return NotFound();
             }
 
-            var department = await _context.Department
+            var holiday = await _context.Holiday
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (department == null)
+            if (holiday == null)
             {
                 return NotFound();
             }
 
-            return View(department);
+            return View(holiday);
         }
 
-        // POST: Departments/Delete/5
+        // POST: Holidays/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Department == null)
+            if (_context.Holiday == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Department'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Holiday'  is null.");
             }
-            var department = await _context.Department.FindAsync(id);
-            if (department != null)
+            var holiday = await _context.Holiday.FindAsync(id);
+            if (holiday != null)
             {
-                _context.Department.Remove(department);
+                _context.Holiday.Remove(holiday);
             }
             
             await _context.SaveChangesAsync();
-            //return RedirectToAction(nameof(Index));
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(Index));
         }
 
-        private bool DepartmentExists(int id)
+        private bool HolidayExists(int id)
         {
-          return (_context.Department?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Holiday?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
