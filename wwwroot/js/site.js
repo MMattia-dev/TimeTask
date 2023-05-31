@@ -85,7 +85,10 @@ function logOut() {
     let d = document.querySelector('.right-nav');
     d.style.borderTopLeftRadius = '10px'
     d.style.borderBottomLeftRadius = '10px'
-
+    let inside_d = d.querySelectorAll('*');
+    for (let i = 0; i < inside_d.length; i++) {
+        $(inside_d[i]).fadeOut();
+    }
 
     setTimeout(function ()
     {
