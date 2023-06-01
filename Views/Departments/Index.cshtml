@@ -39,19 +39,15 @@
     <section class="left-nav">
         @Html.Partial("_Settings");
     </section>
-    <section class="right-nav">
+    <section class="right-nav right-nav-flex">
 
         <div class="right-nav-parent">
-            @foreach (var item in Model.OrderBy(x => x.Id))
+            @foreach (var item in Model.OrderBy(x => x.Name))
             {
                 
                 <div class="right-nav-parent-div" onclick="rightNavParentDivClick(this)" d1ID="@item.Id">
                     <div>
                         <span class="right-nav-parent-div-span1">Wybierz</span>
-                        @*<a href="@Url.Action("Index", "Workers2")" title="Pracownicy"><svg viewBox="0 0 32 32" width="30" height="30"><path d="M4 28q0 0.832 0.576 1.44t1.44 0.576h20q0.8 0 1.408-0.576t0.576-1.44q0-1.44-0.672-2.912t-1.76-2.624-2.496-2.144-2.88-1.504q1.76-1.088 2.784-2.912t1.024-3.904v-1.984q0-3.328-2.336-5.664t-5.664-2.336-5.664 2.336-2.336 5.664v1.984q0 2.112 1.024 3.904t2.784 2.912q-1.504 0.544-2.88 1.504t-2.496 2.144-1.76 2.624-0.672 2.912z"></path></svg></a>
-                        <a asp-action="Edit" asp-route-id="@item.Id" title="Edytuj"><svg viewBox="0 0 1920 1920" height="30" width="30"><path d="M1703.534 960c0-41.788-3.84-84.48-11.633-127.172l210.184-182.174-199.454-340.856-265.186 88.433c-66.974-55.567-143.323-99.389-223.85-128.415L1158.932 0h-397.78L706.49 269.704c-81.43 29.138-156.423 72.282-223.962 128.414l-265.073-88.32L18 650.654l210.184 182.174C220.39 875.52 216.55 918.212 216.55 960s3.84 84.48 11.633 127.172L18 1269.346l199.454 340.856 265.186-88.433c66.974 55.567 143.322 99.389 223.85 128.415L761.152 1920h397.779l54.663-269.704c81.318-29.138 156.424-72.282 223.963-128.414l265.073 88.433 199.454-340.856-210.184-182.174c7.793-42.805 11.633-85.497 11.633-127.285m-743.492 395.294c-217.976 0-395.294-177.318-395.294-395.294 0-217.976 177.318-395.294 395.294-395.294 217.977 0 395.294 177.318 395.294 395.294 0 217.976-177.317 395.294-395.294 395.294"></path></svg></a>
-                        <a asp-action="Delete" asp-route-id="@item.Id" title="Usuń"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M5.755,20.283,4,8H20L18.245,20.283A2,2,0,0,1,16.265,22H7.735A2,2,0,0,1,5.755,20.283ZM21,4H16V3a1,1,0,0,0-1-1H9A1,1,0,0,0,8,3V4H3A1,1,0,0,0,3,6H21a1,1,0,0,0,0-2Z"></path></svg></a>
-                        *@
                     </div>
                     <div>
                         @{
@@ -67,44 +63,43 @@
                         }
                         <span id="osoby">@i.ToString()</span>
 
-                        <span>@item.Name</span>
+                        <span title="@item.Name">@item.Name</span>
                     </div>
                     <input type="radio" name="radioName" hidden>
                 </div>
             }
         </div>
 
-        <div class="right-nav-parent2" style="">
-            <!--display: none;-->
+        <div class="right-nav-parent2">
             @foreach (var item in Model)
             {
-                @foreach (var item2 in ((IEnumerable<Workers2>)ViewBag.Workers))
+                @foreach (var item2 in ((IEnumerable<Workers2>)ViewBag.Workers).OrderBy(x => x.Surname))
                 {
-                    if (item2.DepartmentID == 24)
+                    if (item2.DepartmentID == item.Id)
                     {
-                        @*<div class="right-nav-parent2-div" d2ID="@item.Id">
-                            <span>@item2.Surname @item2.Name @item.Name</span>
-                        </div>*@
+                        <div class="right-nav-parent2-div" d2ID="@item.Id" style="display: none;">
+                            <div>
+                                <svg viewBox="0 0 20 20" height="26" width="26">
+                                    <path d="M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z" />
+                                    <path d="M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z" />
+                                    <path d="M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z" />
+                                </svg>
+                                <span>@item2.Surname @item2.Name</span>
+                            </div>
 
+                            <div>
+                                @*<span>@item.Name</span>*@
+                                <a href="@Url.Action("Edit", "Workers2", new { id = item2.Id })" title="Edytuj">
+                                    <svg viewBox="0 0 1920 1920" width="28" height="28">
+                                        <path d="M1703.534 960c0-41.788-3.84-84.48-11.633-127.172l210.184-182.174-199.454-340.856-265.186 88.433c-66.974-55.567-143.323-99.389-223.85-128.415L1158.932 0h-397.78L706.49 269.704c-81.43 29.138-156.423 72.282-223.962 128.414l-265.073-88.32L18 650.654l210.184 182.174C220.39 875.52 216.55 918.212 216.55 960s3.84 84.48 11.633 127.172L18 1269.346l199.454 340.856 265.186-88.433c66.974 55.567 143.322 99.389 223.85 128.415L761.152 1920h397.779l54.663-269.704c81.318-29.138 156.424-72.282 223.963-128.414l265.073 88.433 199.454-340.856-210.184-182.174c7.793-42.805 11.633-85.497 11.633-127.285m-743.492 395.294c-217.976 0-395.294-177.318-395.294-395.294 0-217.976 177.318-395.294 395.294-395.294 217.977 0 395.294 177.318 395.294 395.294 0 217.976-177.317 395.294-395.294 395.294"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
                     }
                 }
             }
         </div>
-
-        @*@foreach (var item in Model)
-        {
-            <div class="right-nav-parent2">
-                @foreach (var item2 in ((IEnumerable<Workers2>)ViewBag.Workers))
-                {
-                    if (item.Id == item2.DepartmentID)
-                    {
-                        <span>@item2.Name @item2.Surname @item.Name</span>
-                    }
-                }
-            </div>
-            
-        }*@
-        
 
 
 
@@ -132,25 +127,20 @@
         let rest = document.querySelectorAll('.right-nav-parent-div');
         let div = t.querySelector('.right-nav-parent-div div');
         let divContent = document.querySelector('.right-nav-parent2');
+        let r1 = document.querySelectorAll('.right-nav-parent2-div');
 
 
         let input = t.querySelector('input');
         input.checked = true;
         if(input.checked){
-            div.style.width = '50px';
+            div.style.width = '40px';
             div.style.boxShadow = 'inset -30px 0px 20px -25px rgba(0, 0, 0, 1)';
             t.style.backgroundColor = 'rgb(72, 74, 86)';
             span.style.opacity = '0';
 
 
-
-
-            //alert(t.innerHTML);
             $(divContent).slideDown(200);
             t.scrollIntoView();
-
-
-
 
 
             for(let i = 0; i < rest.length; i++){
@@ -163,6 +153,20 @@
                     div_rest.removeAttribute('style');
                     span_rest.innerHTML = 'Wybierz';
                 }
+            }
+        }
+
+
+        let d1ID = t.getAttribute('d1ID');
+        for (let i = 0; i < r1.length; i++)
+        {
+            let r1ID = r1[i].getAttribute('d2ID');
+            if (r1ID == d1ID)
+            {
+                $(r1[i]).show();
+            }
+            else {
+                $(r1[i]).hide();
             }
         }
     };
