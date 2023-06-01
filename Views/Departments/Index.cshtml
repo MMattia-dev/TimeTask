@@ -45,7 +45,7 @@
             @foreach (var item in Model.OrderBy(x => x.Id))
             {
                 
-                <div class="right-nav-parent-div" onclick="rightNavParentDivClick(this)">
+                <div class="right-nav-parent-div" onclick="rightNavParentDivClick(this)" d1ID="@item.Id">
                     <div>
                         <span class="right-nav-parent-div-span1">Wybierz</span>
                         @*<a href="@Url.Action("Index", "Workers2")" title="Pracownicy"><svg viewBox="0 0 32 32" width="30" height="30"><path d="M4 28q0 0.832 0.576 1.44t1.44 0.576h20q0.8 0 1.408-0.576t0.576-1.44q0-1.44-0.672-2.912t-1.76-2.624-2.496-2.144-2.88-1.504q1.76-1.088 2.784-2.912t1.024-3.904v-1.984q0-3.328-2.336-5.664t-5.664-2.336-5.664 2.336-2.336 5.664v1.984q0 2.112 1.024 3.904t2.784 2.912q-1.504 0.544-2.88 1.504t-2.496 2.144-1.76 2.624-0.672 2.912z"></path></svg></a>
@@ -74,8 +74,21 @@
             }
         </div>
 
-        <div class="right-nav-parent2" style="display: none;">
-            
+        <div class="right-nav-parent2" style="">
+            <!--display: none;-->
+            @foreach (var item in Model)
+            {
+                @foreach (var item2 in ((IEnumerable<Workers2>)ViewBag.Workers))
+                {
+                    if (item2.DepartmentID == 24)
+                    {
+                        @*<div class="right-nav-parent2-div" d2ID="@item.Id">
+                            <span>@item2.Surname @item2.Name @item.Name</span>
+                        </div>*@
+
+                    }
+                }
+            }
         </div>
 
         @*@foreach (var item in Model)
@@ -134,7 +147,7 @@
 
             //alert(t.innerHTML);
             $(divContent).slideDown(200);
-            
+            t.scrollIntoView();
 
 
 
