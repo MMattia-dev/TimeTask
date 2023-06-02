@@ -41,6 +41,8 @@
     </section>
     <section class="right-nav right-nav-flex">
 
+        @*<div style="position: absolute; width: 210px; max-width: 210px; min-height: 210px;" id="replace"></div>*@
+
         <div class="right-nav-parent">
             @foreach (var item in Model.OrderBy(x => x.Name))
             {
@@ -77,9 +79,9 @@
                 {
                     if (item2.DepartmentID == item.Id)
                     {
-                        <div class="right-nav-parent2-div" d2ID="@item.Id" style="display: none;">
+                        <div class="right-nav-parent2-div" d2ID="@item.Id" workerid="@item2.Id" style="display: none;" id="mydiv">
                             <div>
-                                <svg viewBox="0 0 20 20" height="26" width="26">
+                                <svg viewBox="0 0 20 20" height="26" width="26" workerid="@item2.Id" class="svgWorker" id="mydivheader">
                                     <path d="M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z" />
                                     <path d="M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z" />
                                     <path d="M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z" />
@@ -102,9 +104,9 @@
         </div>
 
 
-
     </section>
 </div>
+
 
 <script type="text/javascript">
     let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[1];
@@ -135,6 +137,7 @@
         if(input.checked){
             div.style.width = '40px';
             div.style.boxShadow = 'inset -30px 0px 20px -25px rgba(0, 0, 0, 1)';
+            div.style.backgroundColor = 'rgb(26, 79, 101)';
             t.style.backgroundColor = 'rgb(72, 74, 86)';
             span.style.opacity = '0';
 
@@ -181,6 +184,103 @@
     //});
 
 
+    let svg = document.querySelectorAll('.svgWorker');
+    for (let i = 0; i < svg.length; i++)
+    {
+        let svgID = svg[i].getAttribute('workerid');
+        svg[i].addEventListener('mousedown', function () {
+            let r2 = document.querySelectorAll('.right-nav-parent2-div');
+            for (let j = 0; j < r2.length; j++)
+            {
+                let r2ID = r2[j].getAttribute('workerid');
+                if (svgID == r2ID)
+                {
+                    svg[i].style.cursor = 'grabbing';
+                    r2[j].style.width = r2[j].offsetWidth + 'px';
+                    r2[j].style.backgroundColor = 'rgba(54, 56, 68, 1)';
+                    r2[j].style.transition = 'background-color 0.2s';
+                    //r2[j].style.position = 'absolute';
+                    $(r2[j]).draggable({ cursor: 'grabbing', handle: svg[i], zIndex: 1 });
+                    //r2[j].style.zIndex = '1';
+                    
+                    //let a = document.querySelector('.right-nav-parent');
+                    //a.style.position = 'absolute';
+                    //a.style.zIndex = '-1';
+                    //let b = document.getElementById('replace');
+                    //b.style.removeProperty('position');
+                    //b.style.zIndex = '2';
 
+                }
+                else {
+                    r2[j].style.opacity = '0.5';
+                    r2[j].style.transition = 'opacity 0.2s';
+                }
+            }
+
+            document.addEventListener('mouseup', function () {
+                for (let j = 0; j < r2.length; j++)
+                {
+                    svg[i].style.removeProperty('cursor');
+                    r2[j].style.removeProperty('opacity');
+                    r2[j].style.removeProperty('background-color');
+                    //r2[j].style.removeProperty('position');
+                    r2[j].style.removeProperty('z-index');
+                    r2[j].style.removeProperty('width');
+                    r2[j].style.removeProperty('transition');
+
+                    r2[j].style.removeProperty('top');
+                    r2[j].style.removeProperty('left');
+                }
+            });
+
+        })
+        
+    }
+
+  
+
+
+    //dragElement(document.getElementById("mydiv"));
+
+//function dragElement(elmnt) {
+//  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+//  if (document.getElementById(elmnt.id + "header")) {
+//    /* if present, the header is where you move the DIV from:*/
+//    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+//  } else {
+//    /* otherwise, move the DIV from anywhere inside the DIV:*/
+//    elmnt.onmousedown = dragMouseDown;
+//  }
+
+//  function dragMouseDown(e) {
+//    e = e || window.event;
+//    e.preventDefault();
+//    // get the mouse cursor position at startup:
+//    pos3 = e.clientX;
+//    pos4 = e.clientY;
+//    document.onmouseup = closeDragElement;
+//    // call a function whenever the cursor moves:
+//    document.onmousemove = elementDrag;
+//  }
+
+//  function elementDrag(e) {
+//    e = e || window.event;
+//    e.preventDefault();
+//    // calculate the new cursor position:
+//    pos1 = pos3 - e.clientX;
+//    pos2 = pos4 - e.clientY;
+//    pos3 = e.clientX;
+//    pos4 = e.clientY;
+//    // set the element's new position:
+//    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+//    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+//  }
+
+//  function closeDragElement() {
+//    /* stop moving when mouse button is released:*/
+//    document.onmouseup = null;
+//    document.onmousemove = null;
+//  }
+//}
 
 </script>
