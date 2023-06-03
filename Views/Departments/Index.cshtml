@@ -40,10 +40,10 @@
         @Html.Partial("_Settings");
     </section>
     <section class="right-nav right-nav-flex">
-
+        
         @*<div style="position: absolute; width: 210px; max-width: 210px; min-height: 210px;" id="replace"></div>*@
 
-        <div class="right-nav-parent">
+        @*<div class="right-nav-parent">
             @foreach (var item in Model.OrderBy(x => x.Name))
             {
                 
@@ -70,40 +70,74 @@
                     <input type="radio" name="radioName" hidden>
                 </div>
             }
-        </div>
+        </div>*@
 
         <div class="right-nav-parent2">
-            @foreach (var item in Model)
-            {
-                @foreach (var item2 in ((IEnumerable<Workers2>)ViewBag.Workers).OrderBy(x => x.Surname))
-                {
-                    if (item2.DepartmentID == item.Id)
-                    {
-                        <div class="right-nav-parent2-div" d2ID="@item.Id" workerid="@item2.Id" style="display: none;" id="mydiv">
-                            <div>
-                                <svg viewBox="0 0 20 20" height="26" width="26" workerid="@item2.Id" class="svgWorker" id="mydivheader">
-                                    <path d="M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z" />
-                                    <path d="M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z" />
-                                    <path d="M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z" />
-                                </svg>
-                                <span>@item2.Surname @item2.Name</span>
-                            </div>
 
-                            <div>
-                                @*<span>@item.Name</span>*@
-                                <a href="@Url.Action("Edit", "Workers2", new { id = item2.Id })" title="Edytuj">
-                                    <svg viewBox="0 0 1920 1920" width="28" height="28">
-                                        <path d="M1703.534 960c0-41.788-3.84-84.48-11.633-127.172l210.184-182.174-199.454-340.856-265.186 88.433c-66.974-55.567-143.323-99.389-223.85-128.415L1158.932 0h-397.78L706.49 269.704c-81.43 29.138-156.423 72.282-223.962 128.414l-265.073-88.32L18 650.654l210.184 182.174C220.39 875.52 216.55 918.212 216.55 960s3.84 84.48 11.633 127.172L18 1269.346l199.454 340.856 265.186-88.433c66.974 55.567 143.322 99.389 223.85 128.415L761.152 1920h397.779l54.663-269.704c81.318-29.138 156.424-72.282 223.963-128.414l265.073 88.433 199.454-340.856-210.184-182.174c7.793-42.805 11.633-85.497 11.633-127.285m-743.492 395.294c-217.976 0-395.294-177.318-395.294-395.294 0-217.976 177.318-395.294 395.294-395.294 217.977 0 395.294 177.318 395.294 395.294 0 217.976-177.317 395.294-395.294 395.294"></path>
-                                    </svg>
-                                </a>
-                            </div>
+            <!---->
+            <div class="right-nav-parent">
+                @foreach (var item in Model.OrderBy(x => x.Name))
+                {
+                    <div class="right-nav-parent-div" onclick="rightNavParentDivClick(this)" d1ID="@item.Id">
+                        <div>
+                            <span class="right-nav-parent-div-span1">Wybierz</span>
+                            <svg style="display: none;" id="addToNew" viewBox="0 0 16 16" height="21" width="21"><path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path></svg>
                         </div>
+                        <div>
+                            @{
+                                int i = 0;
+                            }
+
+                            @foreach (var item2 in ((IEnumerable<Workers2>)ViewBag.Workers))
+                            {
+                                if (item.Id == item2.DepartmentID)
+                                {
+                                    i++;
+                                }
+                            }
+                            <span id="osoby">@i.ToString()</span>
+
+                            <span title="@item.Name">@item.Name</span>
+                        </div>
+                        <input type="radio" name="radioName" hidden>
+                    </div>
+                }
+            </div>
+            <!---->
+
+            <div class="right-nav-parent_">
+                @foreach (var item in Model)
+                {
+                    @foreach (var item2 in ((IEnumerable<Workers2>)ViewBag.Workers).OrderBy(x => x.Surname))
+                    {
+                        if (item2.DepartmentID == item.Id)
+                        {
+                            <div class="right-nav-parent2-div" d2ID="@item.Id" workerid="@item2.Id" style="display: none;" id="mydiv">
+                                <div>
+                                    <svg viewBox="0 0 20 20" height="26" width="26" workerid="@item2.Id" class="svgWorker" id="mydivheader">
+                                        <path d="M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z" />
+                                        <path d="M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z" />
+                                        <path d="M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z" />
+                                    </svg>
+                                    <span>@item2.Surname @item2.Name</span>
+                                </div>
+
+                                <div>
+                                    @*<span>@item.Name</span>*@
+                                    <a href="@Url.Action("Edit", "Workers2", new { id = item2.Id })" title="Edytuj">
+                                        <svg viewBox="0 0 1920 1920" width="28" height="28">
+                                            <path d="M1703.534 960c0-41.788-3.84-84.48-11.633-127.172l210.184-182.174-199.454-340.856-265.186 88.433c-66.974-55.567-143.323-99.389-223.85-128.415L1158.932 0h-397.78L706.49 269.704c-81.43 29.138-156.423 72.282-223.962 128.414l-265.073-88.32L18 650.654l210.184 182.174C220.39 875.52 216.55 918.212 216.55 960s3.84 84.48 11.633 127.172L18 1269.346l199.454 340.856 265.186-88.433c66.974 55.567 143.322 99.389 223.85 128.415L761.152 1920h397.779l54.663-269.704c81.318-29.138 156.424-72.282 223.963-128.414l265.073 88.433 199.454-340.856-210.184-182.174c7.793-42.805 11.633-85.497 11.633-127.285m-743.492 395.294c-217.976 0-395.294-177.318-395.294-395.294 0-217.976 177.318-395.294 395.294-395.294 217.977 0 395.294 177.318 395.294 395.294 0 217.976-177.317 395.294-395.294 395.294"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        }
                     }
                 }
-            }
+            </div>
+
+            
         </div>
-
-
     </section>
 </div>
 
@@ -184,32 +218,48 @@
     //});
 
 
+
+
+
     let svg = document.querySelectorAll('.svgWorker');
     for (let i = 0; i < svg.length; i++)
     {
         let svgID = svg[i].getAttribute('workerid');
         svg[i].addEventListener('mousedown', function () {
             let r2 = document.querySelectorAll('.right-nav-parent2-div');
+            let a = document.querySelector('.right-nav-parent_');
+            let b = document.querySelector('.right-nav');
+            let c = document.querySelectorAll('.right-nav-parent-div');
             for (let j = 0; j < r2.length; j++)
             {
-                let r2ID = r2[j].getAttribute('workerid');
+                let r2ID = r2[j].getAttribute('workerid');                
                 if (svgID == r2ID)
                 {
                     svg[i].style.cursor = 'grabbing';
+
                     r2[j].style.width = r2[j].offsetWidth + 'px';
                     r2[j].style.backgroundColor = 'rgba(54, 56, 68, 1)';
                     r2[j].style.transition = 'background-color 0.2s';
-                    //r2[j].style.position = 'absolute';
-                    $(r2[j]).draggable({ cursor: 'grabbing', handle: svg[i], zIndex: 1 });
-                    //r2[j].style.zIndex = '1';
-                    
-                    //let a = document.querySelector('.right-nav-parent');
-                    //a.style.position = 'absolute';
-                    //a.style.zIndex = '-1';
-                    //let b = document.getElementById('replace');
-                    //b.style.removeProperty('position');
-                    //b.style.zIndex = '2';
+                    $(r2[j]).draggable({ cursor: 'grabbing', handle: svg[i], cursorAt: { bottom: 30, left: 30 }, zIndex: 1 });
 
+                    a.style.overflowX = 'unset';
+                    a.style.overflowY = 'unset';
+                    a.style.mask = 'unset';
+
+                    b.style.scrollbarWidth = 'none';
+
+                    for(let k = 0; k < c.length; k++){
+                        let cSpan = c[k].querySelector('span');
+                        let cDiv = c[k].querySelector('div');
+                        let cInput = c[k].querySelector('input');
+                        $(cSpan).hide();
+                        if(!cInput.checked){
+                            cDiv.style.width = '40px';
+                            cDiv.style.boxShadow = 'inset -25px 0px 30px -25px rgba(0, 0, 0, 1)';
+                            let svgAdd = document.querySelectorAll('#addToNew');
+                            $(svgAdd[k]).fadeIn();
+                        }
+                    }
                 }
                 else {
                     r2[j].style.opacity = '0.5';
@@ -217,27 +267,46 @@
                 }
             }
 
-            document.addEventListener('mouseup', function () {
+            document.addEventListener('mouseup', function (e) {
                 for (let j = 0; j < r2.length; j++)
                 {
                     svg[i].style.removeProperty('cursor');
+
                     r2[j].style.removeProperty('opacity');
                     r2[j].style.removeProperty('background-color');
-                    //r2[j].style.removeProperty('position');
                     r2[j].style.removeProperty('z-index');
                     r2[j].style.removeProperty('width');
                     r2[j].style.removeProperty('transition');
-
                     r2[j].style.removeProperty('top');
                     r2[j].style.removeProperty('left');
+
+                    a.removeAttribute('style');
+                    b.removeAttribute('style');
+
+                    for(let k = 0; k < c.length; k++){
+                        let cSpan = c[k].querySelector('span');
+                        let cDiv = c[k].querySelector('div');
+                        let cInput = c[k].querySelector('input');
+                        $(cSpan).show();
+                        if(!cInput.checked){
+                            //cDiv.style.width = '55px';
+                            //cDiv.style.boxShadow = 'inset -20px 0px 30px -25px rgba(0, 0, 0, 1)';
+                            cDiv.removeAttribute('style');
+                            let svgAdd = document.querySelectorAll('#addToNew');
+                            $(svgAdd[k]).fadeOut(100);
+                        }
+                    }
+
+
                 }
             });
-
-        })
+        });
         
     }
 
-  
+    
+
+
 
 
     //dragElement(document.getElementById("mydiv"));
