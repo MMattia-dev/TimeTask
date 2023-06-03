@@ -1,4 +1,6 @@
-﻿namespace TimeTask.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TimeTask.Models
 {
     public class Workers2
     {

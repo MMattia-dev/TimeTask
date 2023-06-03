@@ -667,6 +667,7 @@ button {
     position: absolute;
     left: calc(75px - 68px);
     transition: opacity 0.2s;
+    pointer-events: none;
 }
 
 
@@ -722,6 +723,7 @@ button {
     .right-nav-parent-div div:first-child svg {
         fill: rgba(255, 255, 255, 0.8);
         transform: translateX(10px);
+        pointer-events: none;
     }
 
     .right-nav-parent-div div:nth-child(2) {

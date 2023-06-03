@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using TimeTask.Data;
 using TimeTask.Models;
 
@@ -168,5 +169,34 @@ namespace TimeTask.Controllers
         {
           return (_context.Workers2?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
+
+        public ActionResult GetWorker(int id)
+        {
+            var workers2s = (from c in _context.Workers2
+                             where c.Id == id
+                             select c).FirstOrDefault();
+
+            return Json(workers2s);
+        }
+
+        [HttpPost]
+        public ActionResult GetWorkerDep(int id, int departmentID)
+        {
+            var row = _context.Workers2.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.DepartmentID = departmentID;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+
+
     }
 }
