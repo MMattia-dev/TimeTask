@@ -67,7 +67,7 @@ namespace TimeTask.Controllers
                 _context.Add(workers2);
                 await _context.SaveChangesAsync();
                 //return RedirectToAction(nameof(Index));
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Departments");
             }
             return View(workers2);
         }
@@ -196,7 +196,20 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
+        [HttpPost]
+        public ActionResult DeleteWorker(int id)
+        {
+            var row = _context.Workers2.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.Workers2.Remove(row);
+                _context.SaveChanges();
 
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
 
     }
 }

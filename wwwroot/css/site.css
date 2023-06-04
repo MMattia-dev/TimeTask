@@ -152,6 +152,7 @@ button {
     height: 94vh;
     width: 97vw;
     max-width: 1920px;
+    min-height: 500px;
     display: flex;
     justify-content: left;
     backdrop-filter: blur(3px);
@@ -172,6 +173,7 @@ button {
     border-end-start-radius: 10px;
     /*transition: min-width 0.75s, max-width 0.75s, width 0.75s;*/
 }
+
 
 
 .IdRKPExyAQSewBL {
@@ -626,7 +628,7 @@ button {
     flex-direction: column;
     z-index: 5;
     position: relative;
-    scrollbar-color: rgba(36, 110, 142, 1) rgba(240, 240, 240, 0.7);
+    scrollbar-color: rgba(36, 110, 142, 1) rgba(0, 0, 0, 0.7);
     scrollbar-width: thin;
     overflow-y: auto;
     overflow-x: hidden;
@@ -639,13 +641,13 @@ button {
 .right-nav-parent {
     display: flex;
     gap: 8px;
-    scrollbar-color: rgba(36, 110, 142, 1) rgba(240, 240, 240, 0.7);
+    scrollbar-color: rgba(36, 110, 142, 1) rgba(0, 0, 0, 0.7);
     scrollbar-width: thin;
     scroll-behavior: smooth;
     height: 100%;
-    width: 210px;
-    max-width: 210px;
-    min-height: 210px;
+    width: 215px;
+    max-width: 215px;
+    min-height: 215px;
     flex-direction: column;
 
     overflow-y: auto;
@@ -685,7 +687,6 @@ button {
     transition: background-color 0.2s;
     flex-direction: row;
     position: relative;
-    /*z-index: 10;*/
 }
 
     .right-nav-parent-div:hover {
@@ -722,7 +723,7 @@ button {
 
     .right-nav-parent-div div:first-child svg {
         fill: rgba(255, 255, 255, 0.8);
-        transform: translateX(12px);
+        transform: translateX(7px);
         pointer-events: none;
     }
 
@@ -828,13 +829,24 @@ button {
 
         .right-nav-parent2-div div svg {
             fill: rgba(240, 240, 240, 0.8);
-            cursor: grab;
+            /*cursor: grab;*/
         }
 
         .right-nav-parent2-div div svg:active {
-            cursor: grabbing;
+            /*cursor: grabbing;*/
         }
 
+            .right-nav-parent2-div div svg:hover {
+                /*cursor: grab;*/
+            }
+
+            .right-nav-parent2-div div:first-child svg:first-child {
+                cursor: grab;
+            }
+
+            .right-nav-parent2-div div:first-child a svg {
+                cursor: pointer !important;
+            }
 
 .right-nav-flex {
     display: flex;
@@ -857,7 +869,6 @@ button {
     align-items: center;
     justify-content: center;
     padding: 50px;
-    /*border: 1px solid rgba(255, 255, 255, 0.3);*/
     flex-direction: column;
     gap: 20px;
 }
@@ -868,6 +879,69 @@ button {
         color: rgba(255, 255, 255, 0.9);
         font-family: Arial;
     }
+
+.addNewDepartment {
+    height: 60px;
+    min-height: 60px;
+    max-height: 123px;
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+    border-left: 4px solid rgb(195, 107, 108);
+    /*border-left: 4px solid rgb(36, 110, 142);*/
+    background-color: rgba(34, 36, 48, 0.6);
+    display: flex;
+    flex-grow: 1;
+    transition: background-color 0.2s;
+    /*flex-direction: row;*/
+    /*position: relative;*/
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 10px;
+}
+
+    .addNewDepartment:hover {
+        transition: background-color 0.2s;
+        background-color: rgb(52, 54, 66);
+        cursor: pointer;
+    }
+
+    .addNewDepartment span {
+        font-family: Arial;
+        font-size: 13px;
+    }
+
+.addNewWorker {
+    height: 60px;
+    max-height: 60px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 22px;
+    background-color: rgba(34, 36, 48, 0.6);
+    justify-content: start;
+    transition: background-color 0.2s;
+    gap: 10px;
+    /*border: 1px solid rgba(255, 255, 255, 0.2);*/
+}
+
+    .addNewWorker svg {
+        fill: rgba(255, 255, 255, 0.8);
+    }
+
+    .addNewWorker span {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 15px;
+    }
+
+    .addNewWorker:hover {
+        cursor: pointer;
+        background-color: rgba(44, 46, 58, 0.8);
+        transition: background-color 0.2s;
+    }
+
+
 
 @media (max-width:900px) {
     .left-nav {

@@ -9,7 +9,8 @@
 
 <div class="parent">
     <section class="left-nav">
-        @Html.Partial("_Menu")
+        @*@Html.Partial("_Menu")*@
+        @Html.Partial("_Settings")
     </section>
 
     <section class="right-nav">
@@ -33,7 +34,7 @@
                 <input type="submit" value="Zapisz" class="btn-custom" />
             </div>
             <div class="form-group">
-                <a asp-area="" asp-controller="Home" asp-action="Index"><input value="Wróć" type="button" class="btn-custom_" /></a>
+                <a asp-area="" asp-controller="Departments" asp-action="Index"><input value="Wróć" type="button" class="btn-custom_" /></a>
             </div>
         </form>
     </section>
@@ -45,6 +46,10 @@
 }
 
 <script type="text/javascript">
+    let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[1];
+    selected.classList.add('settings_a_selected');
+
+
     let checkbox = document.querySelector("input[type=checkbox]")
     checkbox.checked = true;
     document.getElementById("depID").value = localStorage.getItem("storage_AddWorker");
@@ -138,5 +143,6 @@
 
     }
 
+    localStorage.removeItem('storage_AddWorker');
 
 </script>

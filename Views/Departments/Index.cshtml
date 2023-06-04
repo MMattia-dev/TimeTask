@@ -37,46 +37,13 @@
 
 <div class="parent">
     <section class="left-nav">
-        @Html.Partial("_Settings");
+        @Html.Partial("_Settings")
         <div id="dragAndDropWorker" style="display: none;">
-            @*<span>Przeciągnij pracownika i upuść do jednego z działów.</span>*@
             <span>W celu zmiany przydziału pracownika, przeciągnij i upuść ich do jednego z działów.</span>
-            <span>W celu usunięcia pracownika, przeciągnij i upuść na pole 'Usuń'.</span>
         </div>
     </section>
     <section class="right-nav right-nav-flex">
-        
-        @*<div style="position: absolute; width: 210px; max-width: 210px; min-height: 210px;" id="replace"></div>*@
-
-        @*<div class="right-nav-parent">
-            @foreach (var item in Model.OrderBy(x => x.Name))
-            {
-                
-                <div class="right-nav-parent-div" onclick="rightNavParentDivClick(this)" d1ID="@item.Id">
-                    <div>
-                        <span class="right-nav-parent-div-span1">Wybierz</span>
-                    </div>
-                    <div>
-                        @{
-                            int i = 0;
-                        }
-
-                        @foreach (var item2 in ((IEnumerable<Workers2>)ViewBag.Workers))
-                        {
-                            if (item.Id == item2.DepartmentID)
-                            {
-                                i++;
-                            }
-                        }
-                        <span id="osoby">@i.ToString()</span>
-
-                        <span title="@item.Name">@item.Name</span>
-                    </div>
-                    <input type="radio" name="radioName" hidden>
-                </div>
-            }
-        </div>*@
-
+       
         <div class="right-nav-parent2">
 
             <!---->
@@ -107,6 +74,9 @@
                         <input type="radio" name="radioName" id="@item.Id" hidden>
                     </div>
                 }
+                <div class="addNewDepartment">
+                    <span>Nowy dział</span>
+                </div>
             </div>
             <!---->
 
@@ -119,27 +89,24 @@
                         {
                             <div class="right-nav-parent2-div" d2ID="@item.Id" workerid="@item2.Id" style="display: none;" >
                                 <div>
-                                    <svg viewBox="0 0 20 20" height="26" width="26" workerid="@item2.Id" class="svgWorker" >
-                                        <path d="M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z" />
-                                        <path d="M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z" />
-                                        <path d="M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z" />
-                                    </svg>
+                                    <svg viewBox="0 0 20 20" height="26" width="26" workerid="@item2.Id" class="svgWorker" ><path d="M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z" /><path d="M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z" /><path d="M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z" /></svg>
                                     <span>@item2.Surname @item2.Name</span>
+                                    <a href="#" title="Zmień imię/nazwisko"><svg viewBox="0 0 512 512" height="16" width="16"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg></a>
                                 </div>
 
                                 <div>
-                                    <a href="@Url.Action("Edit", "Workers2", new { id = item2.Id })">
-                                        <svg viewBox="0 0 512 512" height="16" width="16">
-                                            <path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path>
-                                            <polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon>
-                                        </svg>
-                                        <span>@Resource.Edit</span>
-                                    </a>
+                                    <a onclick="deleteWorker(this)" id="@item2.Id" title="Usuń"><svg viewBox="0 0 469.404 469.404" height="16" width="16"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>
                                 </div>
                             </div>
                         }
                     }
                 }
+                <a href="@Url.Action("Create", "Workers2")" onclick="addWorkerSaveToStorage()" class="addNewWorker" style="display: none;">
+                    <svg viewBox="0 0 16 16" height="20" width="20">
+                        <path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path>
+                    </svg>
+                    <span>Nowy pracownik</span>
+                </a>
             </div>
 
             
@@ -159,8 +126,11 @@
         let nbr = parseInt(str);
         if (nbr == 1)
             osoby[i].innerHTML += ' pracownik';
-        else
+        else if (nbr > 1)
             osoby[i].innerHTML += ' pracowników';
+        else {
+            osoby[i].innerHTML = 'brak pracowników';
+        }
     }
 
 
@@ -171,6 +141,7 @@
         let div = t.querySelector('.right-nav-parent-div div');
         let divContent = document.querySelector('.right-nav-parent2');
         let r1 = document.querySelectorAll('.right-nav-parent2-div');
+        let newWorker = document.querySelector('.addNewWorker');
 
 
         let input = t.querySelector('input');
@@ -184,7 +155,8 @@
 
 
             $(divContent).slideDown(200);
-            t.scrollIntoView();
+            //t.scrollIntoView();
+            $(newWorker).show();
 
 
             for(let i = 0; i < rest.length; i++){
@@ -203,6 +175,7 @@
         }
 
 
+        //let array = [];
         let d1ID = t.getAttribute('d1ID');
         for (let i = 0; i < r1.length; i++)
         {
@@ -214,7 +187,19 @@
             else {
                 $(r1[i]).hide();
             }
+
+
+            //array.push(r1[i].style.display);
         }
+
+
+
+        //if(array.every( (val, i, arr) => val ===  arr[0])){
+        //    $('#dropToDelete').hide();
+        //}
+        //else {
+        //    $('#dropToDelete').show();
+        //}
     };
 
 
@@ -238,6 +223,8 @@
         let departmentID_ = svg[i].getAttribute('d2ID2');
         svg[i].addEventListener('mousedown', function () {
             let r2 = document.querySelectorAll('.right-nav-parent2-div');
+            let newWorker = document.querySelector('.addNewWorker');
+            let newDepartment = document.querySelector('.addNewDepartment');
             let a = document.querySelector('.right-nav-parent_');
             let b = document.querySelector('.right-nav');
             let c = document.querySelectorAll('.right-nav-parent-div');
@@ -265,10 +252,13 @@
                         let cInput = c[k].querySelector('input');
                         $(cSpan).hide();
                         if(!cInput.checked){
-                            cDiv.style.width = '40px';
+                            cDiv.style.width = '29px';
                             cDiv.style.boxShadow = 'inset -25px 0px 30px -25px rgba(0, 0, 0, 1)';
                             let svgAdd = document.querySelectorAll('#addToNew');
                             $(svgAdd[k]).fadeIn();
+                        }
+                        else {
+                            c[k].style.opacity = '0.5';
                         }
                     }
 
@@ -279,6 +269,8 @@
                 else {
                     r2[j].style.opacity = '0.5';
                     r2[j].style.transition = 'opacity 0.2s';
+                    newWorker.style.opacity = '0.5';
+                    newDepartment.style.opacity = '0.5';
                 }
             }
 
@@ -298,6 +290,9 @@
                     a.removeAttribute('style');
                     b.removeAttribute('style');
 
+                    newWorker.style.removeProperty('opacity');
+                    newDepartment.style.removeProperty('opacity');
+
                     for(let k = 0; k < c.length; k++){
                         let cSpan = c[k].querySelector('span');
                         let cDiv = c[k].querySelector('div');
@@ -307,6 +302,9 @@
                             cDiv.removeAttribute('style');
                             let svgAdd = document.querySelectorAll('#addToNew');
                             $(svgAdd[k]).fadeOut(100);
+                        }
+                        else {
+                            c[k].style.removeProperty('opacity');
                         }
                     }
 
@@ -344,7 +342,7 @@
                             id: worker_id,
                             departmentID: newDepartment
                         },
-                        success: function ()
+                        success: function (response)
                         {
                             //Column value updated successfully!
                             location.reload();
@@ -359,5 +357,43 @@
         }
      }); 
 
+    function deleteWorker(t) {
+        let id_ = parseInt(t.id);
+        
+        Swal.fire({
+            title: 'Czy na pewno chcesz usunąć?',
+            icon: 'question',
+            showDenyButton: true,
+            confirmButtonText: 'Tak',
+            denyButtonText: 'Nie',
+        }).then((result) => {
+            if(result.isConfirmed){
+                $.ajax({
+                    type: 'POST',
+                    url: '/Workers2/DeleteWorker',
+                    data: { id: id_ },
+                    success: function (response) {
+                        location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('Error removing row:', error);
+                    }
+                });
+            }
+        });
+
+    };
+
+    function addWorkerSaveToStorage() {
+        let a = document.querySelectorAll('.right-nav-parent-div input');
+        for(let i = 0; i < a.length; i++){
+            if(a[i].checked){
+                let id_ = a[i].id;
+                localStorage.setItem('storage_AddWorker', id_);
+            }
+        }
+
+
+    };
 
 </script>
