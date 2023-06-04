@@ -722,7 +722,7 @@ button {
 
     .right-nav-parent-div div:first-child svg {
         fill: rgba(255, 255, 255, 0.8);
-        transform: translateX(10px);
+        transform: translateX(12px);
         pointer-events: none;
     }
 
@@ -800,7 +800,26 @@ button {
         align-items: center;
     }
 
+    /*.right-nav-parent2-div div:first-child a {
+        align-items: center;
+        display: inherit;
+        gap: 5px;
+    }
 
+        .right-nav-parent2-div div:first-child a span {
+            font-size: 13px;
+        }*/
+
+
+.right-nav-parent2-div div a {
+    display: inherit;
+    align-items: center;
+    gap: 5px;
+}
+
+.right-nav-parent2-div div a span {
+    font-size: 13px;
+}
 
 .right-nav-parent2-div div a svg {
     fill: rgba(255, 255, 255, 0.8);
@@ -823,6 +842,32 @@ button {
     
 }
 
+#dragAndDropWorker {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    top: 0;
+    left: 0;
+    border-start-start-radius: 10px;
+    border-end-start-radius: 10px;
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    /*border: 1px solid rgba(255, 255, 255, 0.3);*/
+    flex-direction: column;
+    gap: 20px;
+}
+
+    #dragAndDropWorker span {
+        font-size: 13px;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.9);
+        font-family: Arial;
+    }
 
 @media (max-width:900px) {
     .left-nav {

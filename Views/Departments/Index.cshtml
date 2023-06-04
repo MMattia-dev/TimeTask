@@ -38,6 +38,11 @@
 <div class="parent">
     <section class="left-nav">
         @Html.Partial("_Settings");
+        <div id="dragAndDropWorker" style="display: none;">
+            @*<span>Przeciągnij pracownika i upuść do jednego z działów.</span>*@
+            <span>W celu zmiany przydziału pracownika, przeciągnij i upuść ich do jednego z działów.</span>
+            <span>W celu usunięcia pracownika, przeciągnij i upuść na pole 'Usuń'.</span>
+        </div>
     </section>
     <section class="right-nav right-nav-flex">
         
@@ -81,7 +86,7 @@
                     <div class="right-nav-parent-div" onclick="rightNavParentDivClick(this)" d1ID="@item.Id">
                         <div xaLDiWnnNy="@item.Id">
                             <span class="right-nav-parent-div-span1">Wybierz</span>
-                            <svg style="display: none;" id="addToNew" viewBox="0 0 16 16" height="21" width="21"><path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path></svg>
+                            <svg style="display: none;" id="addToNew" viewBox="0 0 16 16" height="16" width="16"><path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path></svg>
                         </div>
                         <div xaLDiWnnNy="@item.Id">
                             @{
@@ -123,11 +128,12 @@
                                 </div>
 
                                 <div>
-                                    @*<span>@item.Name</span>*@
-                                    <a href="@Url.Action("Edit", "Workers2", new { id = item2.Id })" title="Edytuj">
-                                        <svg viewBox="0 0 1920 1920" width="28" height="28">
-                                            <path d="M1703.534 960c0-41.788-3.84-84.48-11.633-127.172l210.184-182.174-199.454-340.856-265.186 88.433c-66.974-55.567-143.323-99.389-223.85-128.415L1158.932 0h-397.78L706.49 269.704c-81.43 29.138-156.423 72.282-223.962 128.414l-265.073-88.32L18 650.654l210.184 182.174C220.39 875.52 216.55 918.212 216.55 960s3.84 84.48 11.633 127.172L18 1269.346l199.454 340.856 265.186-88.433c66.974 55.567 143.322 99.389 223.85 128.415L761.152 1920h397.779l54.663-269.704c81.318-29.138 156.424-72.282 223.963-128.414l265.073 88.433 199.454-340.856-210.184-182.174c7.793-42.805 11.633-85.497 11.633-127.285m-743.492 395.294c-217.976 0-395.294-177.318-395.294-395.294 0-217.976 177.318-395.294 395.294-395.294 217.977 0 395.294 177.318 395.294 395.294 0 217.976-177.317 395.294-395.294 395.294"></path>
+                                    <a href="@Url.Action("Edit", "Workers2", new { id = item2.Id })">
+                                        <svg viewBox="0 0 512 512" height="16" width="16">
+                                            <path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path>
+                                            <polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon>
                                         </svg>
+                                        <span>@Resource.Edit</span>
                                     </a>
                                 </div>
                             </div>
@@ -268,6 +274,7 @@
 
                     localStorage.setItem('drag', '');
                     workerID = r2ID;
+                    $('#dragAndDropWorker').fadeIn(200);
                 }
                 else {
                     r2[j].style.opacity = '0.5';
@@ -310,6 +317,8 @@
                 setTimeout(function (){
                     localStorage.removeItem('drag');
                 }, 250)
+
+                $('#dragAndDropWorker').fadeOut(100);
                 
             });
         });
