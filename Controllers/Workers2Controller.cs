@@ -182,7 +182,7 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetWorkerDep(int id, int departmentID)
+        public ActionResult ChangeWorkerDepartment(int id, int departmentID)
         {
             var row = _context.Workers2.FirstOrDefault(e => e.Id == id);
             if (row != null)

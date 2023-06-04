@@ -736,7 +736,7 @@ button {
     }
 
         .right-nav-parent-div div:nth-child(2) span:first-child {
-            font-size: 12px; 
+            font-size: 12px; pointer-events: none;
         }
 
         .right-nav-parent-div div:nth-child(2) span:nth-child(2) {
@@ -744,6 +744,7 @@ button {
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
+            pointer-events: none;
         }
 
 

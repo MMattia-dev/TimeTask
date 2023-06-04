@@ -275,7 +275,7 @@
                 }
             }
 
-            document.addEventListener('mouseup', function (e) {
+            document.addEventListener('mouseup', function () {
                 for (let j = 0; j < r2.length; j++)
                 {
                     svg[i].style.removeProperty('cursor');
@@ -330,7 +330,7 @@
                 if(!isNaN(currentDepartment) && !isNaN(newDepartment) && !isNaN(worker_id)){
                     $.ajax({
                         type: 'POST',
-                        url: '/Workers2/GetWorkerDep',
+                        url: '/Workers2/ChangeWorkerDepartment',
                         data: {
                             id: worker_id,
                             departmentID: newDepartment
