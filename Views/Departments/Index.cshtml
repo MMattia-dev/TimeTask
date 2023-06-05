@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<TimeTask.Models.Department>
+@using Newtonsoft.Json
 
 @{
     ViewData["Title"] = "Index";
@@ -75,13 +76,41 @@
                                 <span>@item.Name</span>
                                 <a onclick="tLdJnSRyYs()" style="display: none;" d1ID="@item.Id" title="Zmień nazwę"><svg viewBox="0 0 512 512" height="12" width="12"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg></a>
                                 <a onclick="YHuhfDRXks()" style="display: none;" d1ID="@item.Id" title="Usuń dział"><svg viewBox="0 0 469.404 469.404" height="12" width="12"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>
-                                <a onclick="YHuhfDRXks()" style="display: none;" d1ID="@item.Id" title="Usuń dział"><svg viewBox="0 0 469.404 469.404" height="12" width="12"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>
                             </section>
 
                         </div>
-                        <input type="radio" name="radioName" id="@item.Id" hidden>
+                        <input type="radio" name="radioName" id="@item.Id" IhMoBWilbDee="@item.Name" hidden>
                     </div>
                 }
+
+
+                @{
+                    int j = 0;
+                }
+                @foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers))
+                {
+                    if(!Model.Select(x => x.Id).Contains(item.DepartmentID)){
+                        j++;
+                    }
+                }
+
+                @if(j > 0)
+                {
+                    <div class="right-nav-parent-div">
+                        <div>
+                            <span class="right-nav-parent-div-span1">Wybierz</span>
+                        </div>
+                        <div>
+                            <span>@j.ToString()</span>
+                            <section>
+                                <span>Nieprzypisani</span>
+                            </section>
+                        </div>
+                    </div>
+                }
+
+                
+
                 <div class="addNewDepartment" onclick="BqujyivUqK()">
                     <span>Nowy dział</span>
                 </div>
@@ -151,11 +180,38 @@
             <input type="button" value="Wróć" class="btn-custom_" onclick="bmIRCNZNky()" />
         </div>
     </form>
-    
 </div>
 
+<div id="uLTJNrstvNEQ" class="pGKcZvErUB" style="display: none;">
+    <form>
+        <div class="form-group form-group-margin">
+            <input class="form-control" autocomplete="off" placeholder="wpisz tutaj nazwę działu..." id="coVYuzZVCFxh" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Zapisz" class="btn-custom" onclick="KOdkyXQcUVJW()" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" onclick="NlckkxcEbWXv()" />
+        </div>
+    </form>
+</div>
+
+<div id="PNujBEeIildr" class="pGKcZvErUB" style="display: none;">
+    <form>
+        <span id="deleteText">@Resource.ClickBelowToDelete @Resource.DepartmentLowecase.</span>
+        <input type="button" value="@Resource.Delete" class="btn-danger-custom" id="deleteID" onclick="IWantToDeleteDepartment(this)" />
+        <div class="btn-danger-div">
+            <input type="button" value="Tak" id="yes" onclick="adqwBJykaCzQ()"/>
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" onclick="UOspQSjpbVdS()" />
+        </div>
+    </form>
+</div>
 
 <script type="text/javascript">
+    var model_w = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Workers));
+
     let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[1];
     selected.classList.add('settings_a_selected');
 
@@ -481,6 +537,18 @@
         }, 200);
     };
 
+    function NlckkxcEbWXv() {
+        $('#uLTJNrstvNEQ').fadeOut(200);
+        setTimeout(function (){
+            document.getElementById('coVYuzZVCFxh').value = '';
+        }, 200);
+    };
+
+    function UOspQSjpbVdS() {
+        //$('#PNujBEeIildr').fadeOut(200);
+        location.reload();
+    };
+
     function TEqGSwRYnu() {
         if(document.getElementById('GVegODKbEh').value != '' && document.getElementById('toPdQnPuvH').value != '') {
             let name_ = document.getElementById('GVegODKbEh').value;
@@ -530,14 +598,122 @@
         }
     };
 
-    //edit name department
-    function tLdJnSRyYs() {
-        
+    function KOdkyXQcUVJW() {
+        if(document.getElementById('coVYuzZVCFxh').value != null){
+            let department_ = document.getElementById('coVYuzZVCFxh').value;
+
+            let RNeDYmxNNzoe = null;
+            let rCEOGdPmClqT = document.querySelectorAll('.right-nav-parent-div input');
+            for(let i = 0; i < rCEOGdPmClqT.length; i++){
+                if(rCEOGdPmClqT[i].checked){
+                    RNeDYmxNNzoe = rCEOGdPmClqT[i].id;
+                }
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/Departments/EditDepartment',
+                data: {
+                    id: RNeDYmxNNzoe,
+                    name: department_
+                },
+                success: function (response) {
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error updating column value:', error);
+                }
+            });
+        }
     };
 
-    //delete department
-    function YHuhfDRXks() {
+    function adqwBJykaCzQ() {
+        let RNeDYmxNNzoe = null;
+            let rCEOGdPmClqT = document.querySelectorAll('.right-nav-parent-div input');
+            for(let i = 0; i < rCEOGdPmClqT.length; i++){
+                if(rCEOGdPmClqT[i].checked){
+                    RNeDYmxNNzoe = rCEOGdPmClqT[i].id;
+                }
+            }
 
+        $.ajax({
+            type: 'POST',
+            url: '/Departments/RemoveDepartment',
+            data: {
+                id: RNeDYmxNNzoe
+            },
+            success: function (response) {
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.log('Error removing row:', error);
+            }
+        });
+    };
+
+    function tLdJnSRyYs() {
+        let uLTJNrstvNEQ = document.getElementById('uLTJNrstvNEQ');
+        $(uLTJNrstvNEQ).fadeIn(200);
+
+
+        let RNeDYmxNNzoe = null;
+        let rCEOGdPmClqT = document.querySelectorAll('.right-nav-parent-div input');
+        for(let i = 0; i < rCEOGdPmClqT.length; i++){
+            if(rCEOGdPmClqT[i].checked){
+                RNeDYmxNNzoe = rCEOGdPmClqT[i].getAttribute('IhMoBWilbDee');
+            }
+        }
+        document.getElementById('coVYuzZVCFxh').value = RNeDYmxNNzoe;
+    };
+
+    function YHuhfDRXks() {
+        let b = document.querySelector(".btn-danger-div");
+        b.style.display = 'none';
+        let PNujBEeIildr = document.getElementById('PNujBEeIildr');
+        $(PNujBEeIildr).fadeIn(200);
+    };
+
+    function IWantToDeleteDepartment(t)
+    {
+        document.getElementById("deleteText").innerHTML = '@Resource.AreYouSureYouWantToDeleteDepartment';
+        let RNeDYmxNNzoe = null;
+            let rCEOGdPmClqT = document.querySelectorAll('.right-nav-parent-div input');
+            for(let i = 0; i < rCEOGdPmClqT.length; i++){
+                if(rCEOGdPmClqT[i].checked){
+                    RNeDYmxNNzoe = rCEOGdPmClqT[i].id;
+                }
+            }
+        for(let i = 0; i < model_w.length; i++){
+            if(model_w[i].DepartmentID == RNeDYmxNNzoe){
+                if(model_w.length != 0){
+                    document.getElementById("deleteText").innerHTML = 'Dział nie jest pusty!' + '<br>' + '@Resource.AreYouSureYouWantToDeleteDepartment';
+                }
+            }
+        }
+
+
+        let a = document.querySelector(".btn-danger-div");
+        a.style.display = '';
+        t.style.display = 'none';
+
+        /*timer*/
+        let count = 9;
+        document.getElementById("yes").value = '@Resource.Yes' + ' ' + '(' + 10 + ')';
+        setInterval(function() {
+            if (count > 0) {
+                document.getElementById("yes").value = '@Resource.Yes' + ' ' + '(' + count + ')';
+                count--;
+            }
+            else {
+                document.getElementById("yes").value = '@Resource.Yes';
+            }
+        }, 1000);
+
+        document.getElementById("yes").setAttribute('disabled', '');
+        setTimeout(function() {
+            document.getElementById("yes").removeAttribute('disabled');
+        }, 10000);
+        /**/
     };
 
 </script>

@@ -184,6 +184,38 @@ namespace TimeTask.Controllers
             return Json(new { success = true });
         }
 
+        [HttpPost]
+        public ActionResult EditDepartment(int id, string name)
+        {
+            var row = _context.Department.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.Name = name;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult RemoveDepartment(int id)
+        {
+            var row = _context.Department.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.Department.Remove(row);
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+
+
 
     }
 }
