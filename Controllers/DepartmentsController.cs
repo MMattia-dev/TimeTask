@@ -170,5 +170,20 @@ namespace TimeTask.Controllers
         {
           return (_context.Department?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        [HttpPost]
+        public ActionResult AddNewDepartment(string name)
+        {
+            var newData = new Department()
+            {
+                Name = name,
+            };
+
+            _context.Department.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
+
+
     }
 }

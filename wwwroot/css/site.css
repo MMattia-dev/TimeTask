@@ -687,6 +687,7 @@ button {
     transition: background-color 0.2s;
     flex-direction: row;
     position: relative;
+    
 }
 
     .right-nav-parent-div:hover {
@@ -719,6 +720,7 @@ button {
         position: absolute;
         left: 0;
         transition: width 0.2s, box-shadow 0.2s;
+
     }
 
     .right-nav-parent-div div:first-child svg {
@@ -749,6 +751,36 @@ button {
         }
 
 
+.uFwRGjPydp {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    text-align: right;
+    gap: 5px;
+    pointer-events: none;
+}
+
+    .uFwRGjPydp span {
+        max-width: 100px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        
+        font-size: 14px !important;
+    }
+
+    .uFwRGjPydp a {
+        pointer-events: auto !important;
+    }
+
+        .uFwRGjPydp a:hover svg {
+            fill: rgba(255, 255, 255, 1);
+        }
+
+        .uFwRGjPydp a svg {
+            fill: rgba(255, 255, 255, 0.8);
+            transform: translateY(-1px);
+        }
 
 .right-nav-parent2 {
     display: flex;
@@ -908,7 +940,7 @@ button {
     }
 
     .addNewDepartment span {
-        font-family: Arial;
+        /*font-family: Arial;*/
         font-size: 13px;
     }
 
@@ -941,7 +973,17 @@ button {
         transition: background-color 0.2s;
     }
 
-
+.pGKcZvErUB {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 @media (max-width:900px) {
     .left-nav {

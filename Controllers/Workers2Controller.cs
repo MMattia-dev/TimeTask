@@ -211,5 +211,20 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
+        [HttpPost]
+        public ActionResult AddNewWorker(string name, string surname, int departmentID, bool employed)
+        {
+            var newData = new Workers2()
+            {
+                Name = name,
+                Surname = surname,
+                DepartmentID = departmentID,
+                Employed = employed
+            };
+
+            _context.Workers2.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
     }
 }
