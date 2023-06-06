@@ -7,37 +7,6 @@
 
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
 
-@*<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-*@
-
 <div class="parent">
     <section class="left-nav">
         @Html.Partial("_Settings")
@@ -96,16 +65,17 @@
 
                 @if(j > 0)
                 {
-                    <div class="right-nav-parent-div">
+                    <div class="right-nav-parent-div" onclick="rightNavParentDivClick(this)" d1ID="undefined">
                         <div>
                             <span class="right-nav-parent-div-span1">Wybierz</span>
                         </div>
                         <div>
-                            <span>@j.ToString()</span>
+                            <span id="osoby">@j.ToString()</span>
                             <section>
-                                <span>Nieprzypisani</span>
+                                <span style="background-color: darkred; padding: 2px 5px;">Nieprzypisani</span>
                             </section>
                         </div>
+                        <input type="radio" name="radioName" id="undefined" hidden>
                     </div>
                 }
 
@@ -118,6 +88,12 @@
             <!---->
 
             <div class="right-nav-parent_">
+
+                <div class="idCoFonIOIZS" style="display: none;">
+                    <input class="cLQpvnbeLrJy" type="text" placeholder="szukaj..." />
+                    <a href="#" title="Szukaj"><svg viewBox="0 0 50 50" height="23" width="23"><path d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z"></path></svg></a>
+                </div>
+
                 @foreach (var item in Model)
                 {
                     @foreach (var item2 in ((IEnumerable<Workers2>)ViewBag.Workers).OrderBy(x => x.Surname))
@@ -128,7 +104,7 @@
                                 <div>
                                     <svg viewBox="0 0 20 20" height="26" width="26" workerid="@item2.Id" class="svgWorker" ><path d="M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z" /><path d="M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z" /><path d="M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z" /></svg>
                                     <span>@item2.Surname @item2.Name</span>
-                                    <a href="#" title="Zmień imię/nazwisko"><svg viewBox="0 0 512 512" height="16" width="16"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg></a>
+                                    <a onclick="IxsCvPIuWwZw(this)" uRiajmNrSFFv="@item2.Id" gvOdItWZFRSg="@item2.Name" UcWvjqdRNTDD="@item2.Surname" title="Zmień imię/nazwisko"><svg viewBox="0 0 512 512" height="16" width="16"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg></a>
                                 </div>
 
                                 <div>
@@ -138,6 +114,24 @@
                         }
                     }
                 }
+
+                @foreach (var item2 in ((IEnumerable<Workers2>)ViewBag.Workers).OrderBy(x => x.Surname))
+                {
+                    if (!Model.Select(x => x.Id).Contains(item2.DepartmentID))
+                    {
+                        <div class="right-nav-parent2-div" id="undefined" d2ID="@item2.DepartmentID" workerid="@item2.Id" style="display: none;">
+                            <div>
+                                <svg viewBox="0 0 20 20" height="26" width="26" workerid="@item2.Id" class="svgWorker" ><path d="M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z" /><path d="M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z" /><path d="M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z" /></svg>
+                                <span>@item2.Surname @item2.Name</span>
+                                <a onclick="IxsCvPIuWwZw(this)" uRiajmNrSFFv="@item2.Id" gvOdItWZFRSg="@item2.Name" UcWvjqdRNTDD="@item2.Surname" title="Zmień imię/nazwisko"><svg viewBox="0 0 512 512" height="16" width="16"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg></a>
+                            </div>
+                            <div>
+                                <a onclick="deleteWorker(this)" id="@item2.Id" title="Usuń"><svg viewBox="0 0 469.404 469.404" height="16" width="16"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>
+                            </div>
+                        </div>
+                    }
+                }
+
                 <a href="#" onclick="YENAVVQWwo()" class="addNewWorker" style="display: none;">
                     <!--Url.Action("Create", "Workers2")-->
                     <svg viewBox="0 0 16 16" height="20" width="20">
@@ -154,10 +148,10 @@
 <div id="QmRrlOQPQW" class="pGKcZvErUB" style="display: none;">
     <form class="form_">
         <div class="form-group">
-            <input class="form-control" autocomplete="off" placeholder="wpisz imię pracownika..." id="GVegODKbEh" />
+            <input class="form-control" autocomplete="off" placeholder="imię pracownika..." id="GVegODKbEh" />
         </div>
         <div class="form-group form-group-margin">
-            <input class="form-control" autocomplete="off" placeholder="wpisz nazwisko pracownika..." id="toPdQnPuvH" />
+            <input class="form-control" autocomplete="off" placeholder="nazwisko pracownika..." id="toPdQnPuvH" />
         </div>
         <div class="form-group">
             <input type="button" value="Zapisz" class="btn-custom" onclick="TEqGSwRYnu()" />
@@ -171,7 +165,7 @@
 <div id="XOrtKNkAwk" class="pGKcZvErUB" style="display: none;">
     <form>
         <div class="form-group form-group-margin">
-            <input class="form-control" autocomplete="off" placeholder="wpisz tutaj nazwę działu..." id="svFbsOqCAR" />
+            <input class="form-control" autocomplete="off" placeholder="nazwa działu..." id="svFbsOqCAR" />
         </div>
         <div class="form-group">
             <input type="button" value="Zapisz" class="btn-custom" onclick="GuDpHEcfHN()" />
@@ -185,7 +179,7 @@
 <div id="uLTJNrstvNEQ" class="pGKcZvErUB" style="display: none;">
     <form>
         <div class="form-group form-group-margin">
-            <input class="form-control" autocomplete="off" placeholder="wpisz tutaj nazwę działu..." id="coVYuzZVCFxh" />
+            <input class="form-control" autocomplete="off" placeholder="nazwa działu..." id="coVYuzZVCFxh" />
         </div>
         <div class="form-group">
             <input type="button" value="Zapisz" class="btn-custom" onclick="KOdkyXQcUVJW()" />
@@ -198,15 +192,45 @@
 
 <div id="PNujBEeIildr" class="pGKcZvErUB" style="display: none;">
     <form>
-        <span id="deleteText">@Resource.ClickBelowToDelete @Resource.DepartmentLowecase.</span>
+        <span id="JsFfTXmLOVbI" class="nknRtrdeAeIX">@Resource.ClickBelowToDelete @Resource.DepartmentLowecase.</span>
         <input type="button" value="@Resource.Delete" class="btn-danger-custom" id="deleteID" onclick="IWantToDeleteDepartment(this)" />
-        <div class="btn-danger-div">
-            <input type="button" value="Tak" id="yes" onclick="adqwBJykaCzQ()"/>
+        <div class="btn-danger-div" id="bAWzKvvkmVmE">
+            <input type="button" value="Tak" id="nditIlzCWflU" onclick="adqwBJykaCzQ()"/>
         </div>
         <div class="form-group">
             <input type="button" value="Wróć" class="btn-custom_" onclick="UOspQSjpbVdS()" />
         </div>
     </form>
+</div>
+
+<div id="jwOsncySQjwD" class="pGKcZvErUB" style="display: none;">
+    <form class="form_">
+        <div class="form-group">
+            <input class="form-control" autocomplete="off" placeholder="imię pracownika..." id="qxZnTneGdrVW" />
+        </div>
+        <div class="form-group form-group-margin">
+            <input class="form-control" autocomplete="off" placeholder="nazwisko pracownika..." id="xEjLBIPqUXLK" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Zapisz" class="btn-custom" onclick="KfdhlqmDXEsR()" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" onclick="vQaAzODstzsu()" />
+        </div>
+    </form>
+</div>
+
+<div id="UwCmLRqIRSZM" class="pGKcZvErUB" style="display: none;">
+    <form class="jbiihcodqinw">
+            <span id="zwQBaubcYWcJ" class="nknRtrdeAeIX">@Resource.ClickBelowToDeleteWorker.</span>
+            <input type="button" value="@Resource.Delete" class="btn-danger-custom" id="deleteID" onclick="fBTJyaaQRpDf(this)" />
+            <div class="btn-danger-div" id="FamcDfiHIvhi">
+                <input type="button" value="Tak" id="XSkMvvmEXCee" onclick="dDlRcSCJZAuO()"/>
+            </div>
+            <div class="form-group">
+                <input type="button" value="Wróć" class="btn-custom_" onclick="UOspQSjpbVdS()" />
+            </div>
+        </form>
 </div>
 
 <script type="text/javascript">
@@ -234,6 +258,7 @@
     function rightNavParentDivClick(t) {
         //console.log(t);
         sessionStorage.setItem('chosenDepartment', t.getAttribute('d1ID'));
+        document.querySelector('.idCoFonIOIZS').style.display = '';
 
         let span = t.querySelector('.right-nav-parent-div-span1');
         let rest = document.querySelectorAll('.right-nav-parent-div');
@@ -271,11 +296,9 @@
                 }
             }
 
-            workerDepartmentID = input.id;
+            //workerDepartmentID = input.id;
         }
 
-
-        //let array = [];
         let d1ID = t.getAttribute('d1ID');
         
         for (let i = 0; i < r1.length; i++)
@@ -284,32 +307,34 @@
             if (r1ID == d1ID)
             {
                 $(r1[i]).show();
+                workerDepartmentID = r1ID;
             }
             else {
                 $(r1[i]).hide();
+
+                //rest of workers without department
+                let QcPKESfuhlCt = r1[i].id;
+                if(d1ID == QcPKESfuhlCt){
+                    $(r1[i]).show();
+                    document.querySelector('.addNewWorker').style.display = 'none';
+                    workerDepartmentID = r1ID;
+                }
+                //
             }
 
+            // edit i delete worker
             for(let j = 0; j < uFwRGjPydp.length; j++){
                 let udFAcsaCvQ = uFwRGjPydp[j].getAttribute('d1ID');
                 if(udFAcsaCvQ == d1ID){
+                    //$(uFwRGjPydp[j]).show('slide', {direction: 'right'}, 1000);
                     $(uFwRGjPydp[j]).show();
                 }
                 else {
                     $(uFwRGjPydp[j]).hide();
                 }
             }
-
-            //array.push(r1[i].style.display);
+            //
         }
-
-
-
-        //if(array.every( (val, i, arr) => val ===  arr[0])){
-        //    $('#dropToDelete').hide();
-        //}
-        //else {
-        //    $('#dropToDelete').show();
-        //}
     };
 
     if(sessionStorage.getItem('chosenDepartment') != null){
@@ -319,6 +344,7 @@
             if(sessionStorage.getItem('chosenDepartment') == aIfhXQgmFz){
                 rightNavParentDivClick(iCCTjwKAhW[i]);
             }
+            
         }
     }
 
@@ -374,7 +400,7 @@
                         let cDiv = c[k].querySelector('div');
                         let cInput = c[k].querySelector('input');
                         $(cSpan).hide();
-                        if(!cInput.checked){
+                        if(!cInput.checked && cInput.id != 'undefined'){
                             cDiv.style.width = '29px';
                             cDiv.style.boxShadow = 'inset -25px 0px 30px -25px rgba(0, 0, 0, 1)';
                             let svgAdd = document.querySelectorAll('#addToNew');
@@ -421,7 +447,7 @@
                         let cDiv = c[k].querySelector('div');
                         let cInput = c[k].querySelector('input');
                         $(cSpan).show();
-                        if(!cInput.checked){
+                        if(!cInput.checked && cInput.id != 'undefined'){
                             cDiv.removeAttribute('style');
                             let svgAdd = document.querySelectorAll('#addToNew');
                             $(svgAdd[k]).fadeOut(100);
@@ -481,30 +507,12 @@
      }); 
 
     function deleteWorker(t) {
-        let id_ = parseInt(t.id);
-        
-        Swal.fire({
-            title: 'Czy na pewno chcesz usunąć?',
-            icon: 'question',
-            showDenyButton: true,
-            confirmButtonText: 'Tak',
-            denyButtonText: 'Nie',
-        }).then((result) => {
-            if(result.isConfirmed){
-                $.ajax({
-                    type: 'POST',
-                    url: '/Workers2/DeleteWorker',
-                    data: { id: id_ },
-                    success: function (response) {
-                        location.reload();
-                    },
-                    error: function (xhr, status, error) {
-                        console.log('Error removing row:', error);
-                    }
-                });
-            }
-        });
+        sessionStorage.setItem('dKorJSPZCYCt', t.id);
 
+        let b = document.getElementById("FamcDfiHIvhi");
+        b.style.display = 'none';
+        let UwCmLRqIRSZM = document.getElementById('UwCmLRqIRSZM');
+        $(UwCmLRqIRSZM).fadeIn(200);
     };
 
     function YENAVVQWwo() {
@@ -591,7 +599,7 @@
                 success: function (response) {
                     location.reload();
                 },
-                Error: function (xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.log('Error adding data:', error);
                 }
             });
@@ -667,7 +675,7 @@
     };
 
     function YHuhfDRXks() {
-        let b = document.querySelector(".btn-danger-div");
+        let b = document.getElementById("bAWzKvvkmVmE");
         b.style.display = 'none';
         let PNujBEeIildr = document.getElementById('PNujBEeIildr');
         $(PNujBEeIildr).fadeIn(200);
@@ -675,7 +683,7 @@
 
     function IWantToDeleteDepartment(t)
     {
-        document.getElementById("deleteText").innerHTML = '@Resource.AreYouSureYouWantToDeleteDepartment';
+        document.getElementById("JsFfTXmLOVbI").innerHTML = '@Resource.AreYouSureYouWantToDeleteDepartment';
         let RNeDYmxNNzoe = null;
             let rCEOGdPmClqT = document.querySelectorAll('.right-nav-parent-div input');
             for(let i = 0; i < rCEOGdPmClqT.length; i++){
@@ -686,34 +694,122 @@
         for(let i = 0; i < model_w.length; i++){
             if(model_w[i].DepartmentID == RNeDYmxNNzoe){
                 if(model_w.length != 0){
-                    document.getElementById("deleteText").innerHTML = 'Dział nie jest pusty!' + '<br>' + '@Resource.AreYouSureYouWantToDeleteDepartment';
+                    document.getElementById("JsFfTXmLOVbI").innerHTML = 'Dział nie jest pusty!' + '<br>' + '@Resource.AreYouSureYouWantToDeleteDepartment';
                 }
             }
         }
 
 
-        let a = document.querySelector(".btn-danger-div");
+        let a = document.getElementById("bAWzKvvkmVmE");
         a.style.display = '';
         t.style.display = 'none';
 
         /*timer*/
-        let count = 9;
-        document.getElementById("yes").value = '@Resource.Yes' + ' ' + '(' + 10 + ')';
+        let count = 4;
+        document.getElementById("nditIlzCWflU").value = '@Resource.Yes' + ' ' + '(' + 5 + ')';
         setInterval(function() {
             if (count > 0) {
-                document.getElementById("yes").value = '@Resource.Yes' + ' ' + '(' + count + ')';
+                document.getElementById("nditIlzCWflU").value = '@Resource.Yes' + ' ' + '(' + count + ')';
                 count--;
             }
             else {
-                document.getElementById("yes").value = '@Resource.Yes';
+                document.getElementById("nditIlzCWflU").value = '@Resource.Yes';
             }
         }, 1000);
 
-        document.getElementById("yes").setAttribute('disabled', '');
+        document.getElementById("nditIlzCWflU").setAttribute('disabled', '');
         setTimeout(function() {
-            document.getElementById("yes").removeAttribute('disabled');
-        }, 10000);
+            document.getElementById("nditIlzCWflU").removeAttribute('disabled');
+        }, 5000);
         /**/
+    };
+
+    function IxsCvPIuWwZw(t) {
+        let jwOsncySQjwD = document.getElementById('jwOsncySQjwD');
+
+        let id_ = t.getAttribute('uRiajmNrSFFv');
+        let name_ = t.getAttribute('gvOdItWZFRSg');
+        let surname_ = t.getAttribute('UcWvjqdRNTDD');
+        sessionStorage.setItem('rGjJZtPGkSIg', id_);
+
+        document.getElementById('qxZnTneGdrVW').value = name_;
+        document.getElementById('xEjLBIPqUXLK').value = surname_;
+
+        $(jwOsncySQjwD).fadeIn(200);
+    };
+
+    function vQaAzODstzsu() {
+        let jwOsncySQjwD = document.getElementById('jwOsncySQjwD');
+        $(jwOsncySQjwD).fadeOut(200);
+    };
+
+    function KfdhlqmDXEsR() {
+        let id_ = parseInt(sessionStorage.getItem('rGjJZtPGkSIg'));
+        let name_ = document.getElementById('qxZnTneGdrVW').value;
+        let surname_ = document.getElementById('xEjLBIPqUXLK').value;
+
+        $.ajax({
+            type: 'POST',
+            url: '/Workers2/EditWorker',
+            data: {
+                id: id_,
+                name: name_,
+                surname: surname_
+            },
+            success: function(response) {
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.log('Error adding data:', error);
+            }
+        });
+
+    };
+
+    function fBTJyaaQRpDf(t) {
+        document.getElementById("zwQBaubcYWcJ").innerHTML = '@Resource.AreYouSureYouWantToDeleteWorker';
+
+        let a = document.getElementById("FamcDfiHIvhi");
+        a.style.display = '';
+        t.style.display = 'none';
+
+        /*timer*/
+        let count = 4;
+        document.getElementById("XSkMvvmEXCee").value = '@Resource.Yes' + ' ' + '(' + 5 + ')';
+        setInterval(function() {
+            if (count > 0) {
+                document.getElementById("XSkMvvmEXCee").value = '@Resource.Yes' + ' ' + '(' + count + ')';
+                count--;
+            }
+            else {
+                document.getElementById("XSkMvvmEXCee").value = '@Resource.Yes';
+            }
+        }, 1000);
+
+        document.getElementById("XSkMvvmEXCee").setAttribute('disabled', '');
+        setTimeout(function() {
+            document.getElementById("XSkMvvmEXCee").removeAttribute('disabled');
+        }, 5000);
+        /**/
+    };
+
+    function dDlRcSCJZAuO() {
+        let id_ = parseInt(sessionStorage.getItem('dKorJSPZCYCt')) ;
+
+        $.ajax({
+            type: 'POST',
+            url: '/Workers2/DeleteWorker',
+            data: {
+                id: id_
+            },
+            success: function(response) {
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.log('Error removing row:', error);
+            }
+        });
+
     };
 
 </script>

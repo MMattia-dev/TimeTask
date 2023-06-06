@@ -226,5 +226,25 @@ namespace TimeTask.Controllers
             _context.SaveChanges();
             return Json(new { success = true });
         }
+
+        [HttpPost]
+        public ActionResult EditWorker(int id, string name, string surname)
+        {
+            var row = _context.Workers2.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.Name = name;
+                row.Surname = surname;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+
+
+
     }
 }
