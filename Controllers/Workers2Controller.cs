@@ -172,6 +172,9 @@ namespace TimeTask.Controllers
 
 
 
+
+
+
         public ActionResult GetWorker(int id)
         {
             var workers2s = (from c in _context.Workers2
@@ -242,6 +245,10 @@ namespace TimeTask.Controllers
 
             return Json(new { success = false });
         }
+
+
+
+
 
 
 
