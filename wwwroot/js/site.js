@@ -155,3 +155,171 @@ function DKE3PlNoUnmS(t) {
     //console.log(t.scrollTop);
     localStorage.setItem('DKE3PlNoUnmS', t.scrollTop);
 };
+
+function filterWorkersInDepartment(a, b, c)
+{
+    for (let i = 0; i < a.length; i++)
+    {
+        let d2ID = a[i].getAttribute('d2ID');
+        for (let j = 0; j < c.length; j++)
+        {
+            if (c[j].checked)
+            {
+                let id_ = c[j].id;
+                if (d2ID == id_)
+                {
+                    let span = a[i].querySelectorAll('div span');
+
+                    for (let k = 0; k < span.length; k++)
+                    {
+                        let txtValue = span[k].textContent || span[k].innerText;
+                        if (txtValue.toUpperCase().indexOf(b) > -1)
+                        {
+                            a[i].style.display = 'flex';
+                        }
+                        else
+                        {
+                            a[i].style.display = 'none';
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+};
+
+function blKTigJUXVdB(id_) {
+    $.ajax({
+        type: 'POST',
+        url: '/Workers2/DeleteWorker',
+        data: {
+            id: id_
+        },
+        success: function (response)
+        {
+            location.reload();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error removing row:', error);
+        }
+    });
+};
+
+function kMCAxKgSATqh(id_, name_, surname_) {
+    $.ajax({
+        type: 'POST',
+        url: '/Workers2/EditWorker',
+        data: {
+            id: id_,
+            name: name_,
+            surname: surname_
+        },
+        success: function (response)
+        {
+            location.reload();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function ertVmpwgdwWK(id_) {
+    $.ajax({
+        type: 'POST',
+        url: '/Departments/RemoveDepartment',
+        data: {
+            id: id_
+        },
+        success: function (response)
+        {
+            location.reload();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error removing row:', error);
+        }
+    });
+};
+
+function VYhhVLCczCoE(id_, name_) {
+    $.ajax({
+        type: 'POST',
+        url: '/Departments/EditDepartment',
+        data: {
+            id: id_,
+            name: name_
+        },
+        success: function (response)
+        {
+            location.reload();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error updating column value:', error);
+        }
+    });
+};
+
+function opvqVIGDmNiz(name_) {
+    $.ajax({
+        type: 'POST',
+        url: '/Departments/AddNewDepartment',
+        data: {
+            name: name_,
+        },
+        success: function (response)
+        {
+            location.reload();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function KOxtvRcBmzeo(name_, surname_, dep_id_, employed_) {
+    $.ajax({
+        type: 'POST',
+        url: '/Workers2/AddNewWorker',
+        data: {
+            name: name_,
+            surname: surname_,
+            departmentID: dep_id_,
+            employed: employed_
+        },
+        success: function (response)
+        {
+            location.reload();
+        },
+        Error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function CiSEfkVgdGdf(worker_id, newDepartment) {
+    $.ajax({
+        type: 'POST',
+        url: '/Workers2/ChangeWorkerDepartment',
+        data: {
+            id: worker_id,
+            departmentID: newDepartment
+        },
+        success: function (response)
+        {
+            location.reload();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error updating column value:', error);
+        }
+    });
+};
+
+

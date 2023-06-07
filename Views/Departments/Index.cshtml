@@ -90,8 +90,7 @@
             <div class="right-nav-parent_">
 
                 <div class="idCoFonIOIZS" style="display: none;">
-                    <input class="cLQpvnbeLrJy" type="text" placeholder="szukaj..." />
-                    <a href="#" title="Szukaj"><svg viewBox="0 0 50 50" height="23" width="23"><path d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z"></path></svg></a>
+                    <input class="cLQpvnbeLrJy" id="pgYLfzjGlOjB" type="text" placeholder="szukaj..." />
                 </div>
 
                 @foreach (var item in Model)
@@ -103,7 +102,7 @@
                             <div class="right-nav-parent2-div" d2ID="@item.Id" workerid="@item2.Id" style="display: none;" >
                                 <div>
                                     <svg viewBox="0 0 20 20" height="26" width="26" workerid="@item2.Id" class="svgWorker" ><path d="M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z" /><path d="M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z" /><path d="M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z" /></svg>
-                                    <span>@item2.Surname @item2.Name</span>
+                                    <span id="tsTEdblBeOia">@item2.Surname @item2.Name</span>
                                     <a onclick="IxsCvPIuWwZw(this)" uRiajmNrSFFv="@item2.Id" gvOdItWZFRSg="@item2.Name" UcWvjqdRNTDD="@item2.Surname" title="Zmień imię/nazwisko"><svg viewBox="0 0 512 512" height="16" width="16"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg></a>
                                 </div>
 
@@ -122,7 +121,7 @@
                         <div class="right-nav-parent2-div" id="undefined" d2ID="@item2.DepartmentID" workerid="@item2.Id" style="display: none;">
                             <div>
                                 <svg viewBox="0 0 20 20" height="26" width="26" workerid="@item2.Id" class="svgWorker" ><path d="M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z" /><path d="M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z" /><path d="M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z" /></svg>
-                                <span>@item2.Surname @item2.Name</span>
+                                <span id="tsTEdblBeOia">@item2.Surname @item2.Name</span>
                                 <a onclick="IxsCvPIuWwZw(this)" uRiajmNrSFFv="@item2.Id" gvOdItWZFRSg="@item2.Name" UcWvjqdRNTDD="@item2.Surname" title="Zmień imię/nazwisko"><svg viewBox="0 0 512 512" height="16" width="16"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg></a>
                             </div>
                             <div>
@@ -484,23 +483,8 @@
 
             if(currentDepartment != newDepartment && currentDepartment != null && newDepartment != null && worker_id != null){
                 if(!isNaN(currentDepartment) && !isNaN(newDepartment) && !isNaN(worker_id)){
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Workers2/ChangeWorkerDepartment',
-                        data: {
-                            id: worker_id,
-                            departmentID: newDepartment
-                        },
-                        success: function (response)
-                        {
-                            //Column value updated successfully!
-                            location.reload();
-                        },
-                        error: function (xhr, status, error)
-                        {
-                            console.log('Error updating column value:', error);
-                        }
-                    });
+
+                    CiSEfkVgdGdf(worker_id, newDepartment);
                 }
             }
         }
@@ -564,22 +548,7 @@
             let dep_id_ = parseInt(sessionStorage.getItem('storage_AddWorker'));
             let employed_ = true;
 
-            $.ajax({
-                type: 'POST',
-                url: '/Workers2/AddNewWorker',
-                data: {
-                    name: name_,
-                    surname: surname_,
-                    departmentID: dep_id_,
-                    employed: employed_
-                },
-                success: function (response) {
-                    location.reload();
-                },
-                Error: function (xhr, status, error) {
-                    console.log('Error adding data:', error);
-                }
-            });
+            KOxtvRcBmzeo(name_, surname_, dep_id_, employed_);
         }
         else {
             console.log('empty');
@@ -588,27 +557,15 @@
 
     function GuDpHEcfHN() {
         if(document.getElementById('svFbsOqCAR').value != ''){
-            let department_ = document.getElementById('svFbsOqCAR').value;
+            let DeViohCQjIFT = document.getElementById('svFbsOqCAR').value;
 
-            $.ajax({
-                type: 'POST',
-                url: '/Departments/AddNewDepartment',
-                data: {
-                    name: department_,
-                },
-                success: function (response) {
-                    location.reload();
-                },
-                error: function (xhr, status, error) {
-                    console.log('Error adding data:', error);
-                }
-            });
+            opvqVIGDmNiz(DeViohCQjIFT);
         }
     };
 
     function KOdkyXQcUVJW() {
         if(document.getElementById('coVYuzZVCFxh').value != null){
-            let department_ = document.getElementById('coVYuzZVCFxh').value;
+            let XozBLvRgROAw = document.getElementById('coVYuzZVCFxh').value;
 
             let RNeDYmxNNzoe = null;
             let rCEOGdPmClqT = document.querySelectorAll('.right-nav-parent-div input');
@@ -618,20 +575,7 @@
                 }
             }
 
-            $.ajax({
-                type: 'POST',
-                url: '/Departments/EditDepartment',
-                data: {
-                    id: RNeDYmxNNzoe,
-                    name: department_
-                },
-                success: function (response) {
-                    location.reload();
-                },
-                error: function (xhr, status, error) {
-                    console.log('Error updating column value:', error);
-                }
-            });
+            VYhhVLCczCoE(RNeDYmxNNzoe, XozBLvRgROAw);
         }
     };
 
@@ -644,19 +588,7 @@
                 }
             }
 
-        $.ajax({
-            type: 'POST',
-            url: '/Departments/RemoveDepartment',
-            data: {
-                id: RNeDYmxNNzoe
-            },
-            success: function (response) {
-                location.reload();
-            },
-            error: function (xhr, status, error) {
-                console.log('Error removing row:', error);
-            }
-        });
+        ertVmpwgdwWK(RNeDYmxNNzoe);
     };
 
     function tLdJnSRyYs() {
@@ -748,22 +680,7 @@
         let name_ = document.getElementById('qxZnTneGdrVW').value;
         let surname_ = document.getElementById('xEjLBIPqUXLK').value;
 
-        $.ajax({
-            type: 'POST',
-            url: '/Workers2/EditWorker',
-            data: {
-                id: id_,
-                name: name_,
-                surname: surname_
-            },
-            success: function(response) {
-                location.reload();
-            },
-            error: function (xhr, status, error) {
-                console.log('Error adding data:', error);
-            }
-        });
-
+        kMCAxKgSATqh(id_, name_, surname_)
     };
 
     function fBTJyaaQRpDf(t) {
@@ -795,21 +712,18 @@
 
     function dDlRcSCJZAuO() {
         let id_ = parseInt(sessionStorage.getItem('dKorJSPZCYCt')) ;
-
-        $.ajax({
-            type: 'POST',
-            url: '/Workers2/DeleteWorker',
-            data: {
-                id: id_
-            },
-            success: function(response) {
-                location.reload();
-            },
-            error: function(xhr, status, error) {
-                console.log('Error removing row:', error);
-            }
-        });
-
+        blKTigJUXVdB(id_);
     };
+
+    $('#pgYLfzjGlOjB').keyup(function () {
+        let a = document.querySelectorAll('.right-nav-parent2-div');
+        let b = document.getElementById('pgYLfzjGlOjB').value.toUpperCase();
+        let c = document.querySelectorAll('.right-nav-parent-div input');
+
+        filterWorkersInDepartment(a, b, c);
+    });
+
+    
+
 
 </script>
