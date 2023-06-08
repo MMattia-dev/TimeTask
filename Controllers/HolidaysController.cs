@@ -22,6 +22,8 @@ namespace TimeTask.Controllers
         // GET: Holidays
         public async Task<IActionResult> Index()
         {
+            ViewBag.Holidays = _context.Holiday;
+
               return _context.Holiday != null ? 
                           View(await _context.Holiday.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Holiday'  is null.");
@@ -159,5 +161,40 @@ namespace TimeTask.Controllers
         {
           return (_context.Holiday?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
+        [HttpPost]
+        public ActionResult AddHoliday(string name, DateTime date)
+        {
+            var newData = new Holiday()
+            {
+                Name = name,
+                Date = date,
+            };
+
+            _context.Holiday.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public ActionResult EditHoliday(int id, string name, DateTime date)
+        {
+            var row = _context.Holiday.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.Name = name;
+                row.Date = date;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+
+
+
     }
 }

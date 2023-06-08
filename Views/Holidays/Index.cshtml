@@ -1,55 +1,208 @@
 ﻿@model IEnumerable<TimeTask.Models.Holiday>
+@using Newtonsoft.Json
 
 @{
     ViewData["Title"] = "Index";
 }
 
-@*<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>*@
+<link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
 
 <div class="parent">
     <section class="left-nav">
-        @Html.Partial("_Settings");
+        @Html.Partial("_Settings")
     </section>
-    <section class="right-nav">
+    <section class="right-nav ">
+        <div class="kxOMhDZFzkDb">
+
+            <div class="ECTosDyufuTqvBV">
+                @if(Model != null){
+                    var r = Model.GroupBy(x => x.Date.Year).Select(x => x.First());
+                    foreach (var item in r)
+                    {
+                        <input class="kzQkCNWOiUhJxRl" value="@item.Date.Year" type="radio" name="year" id="@item.Id" onclick="bxDzoLwDZzickPI(this)" hidden />
+                        <label class="oZBtnmiLrunDFMC" for="@item.Id">@item.Date.Year</label>
+                    }
+                }
+            </div>
+
+            <div class="IVnxgCORpPYL" onclick="fwsxYepQKkCq()">
+                <span>Nowe święto</span>
+            </div>
+        </div>
+
+        <div class="YUPrikbkYzkc">
+            @foreach (var item in Model.OrderBy(x => x.Date))
+            {
+                <div class="right-nav-parent2-div fQOipKjlgeboVkZ" style="display: none;" id="@item.Date.Year">
+                    <div>
+                        <span class="ZsrrdwFZwFrHgLz" id="@item.Date.Year">@item.Date.ToShortDateString()</span>
+                        <span class="wKEbxxtCIJSAepL">@item.Name</span>
+                    </div>
+                    <div>
+                        <a onclick="EYwnRBQDFEHjzsN(this)" id="@item.Id" name="@item.Name" date="@item.Date" title="Edytuj"><svg viewBox="0 0 512 512" height="16" width="16"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg></a>
+                        <a onclick="hFUdwiFlMmxASVH(this)" id="@item.Id" title="Usuń"><svg viewBox="0 0 469.404 469.404" height="16" width="16"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>
+                    </div>
+                </div>
+            }
+        </div>
 
     </section>
 </div>
+<div id="GpoavnFwAOos" class="pGKcZvErUB" style="display: none;">
+    <form class="form_">
+        <div class="form-group">
+            <input class="form-control" autocomplete="off" placeholder="nazwa święta..." id="oVxJeHhcExMV" />
+        </div>
+        <div class="form-group form-group-margin">
+            <input class="form-control" type="date" id="IyWRFThVHhEX" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Zapisz" class="btn-custom" onclick="BmJPiKFdcncS()" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" onclick="EjaqSVIBTCAu()" />
+        </div>
+    </form>
+</div>
+<div id="HnwuRhmRcJCZacg" class="pGKcZvErUB" style="display: none;">
+    <form class="form_">
+        <div class="form-group">
+            <input class="form-control" autocomplete="off" placeholder="nazwa święta..." id="WjuzdnDpZbVVtTO" />
+        </div>
+        <div class="form-group form-group-margin">
+            <input class="form-control" type="date" id="osABhxQjWaMpiQP" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Zapisz" class="btn-custom" onclick="lwuUErBiOwfxbau()" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" onclick="suSTEPirxzisDIq()" />
+        </div>
+    </form>
+</div>
+
 
 <script type="text/javascript">
+    //var model_w = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Workers));
+
     let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[5];
     selected.classList.add('settings_a_selected');
+
+
+    //
+    let nQlwxouxuRYzbeT = document.querySelectorAll('.ECTosDyufuTqvBV input');
+    let dcxYcMhfumNSWHt = new Date().getFullYear();
+    for (let i = 0; i < nQlwxouxuRYzbeT.length; i++)
+    {
+        if (nQlwxouxuRYzbeT[i].value == dcxYcMhfumNSWHt)
+        {
+            nQlwxouxuRYzbeT[i].checked = true;
+        }
+    }
+
+    let fQOipKjlgeboVkZ = document.querySelectorAll('.fQOipKjlgeboVkZ');
+    for (let i = 0; i < fQOipKjlgeboVkZ.length; i++)
+    {
+        if (fQOipKjlgeboVkZ[i].id == dcxYcMhfumNSWHt)
+        {
+            $(fQOipKjlgeboVkZ[i]).show();
+        }
+    }
+    //
+
+    function bxDzoLwDZzickPI(t) {
+        t.checked = true;
+
+        let fQOipKjlgeboVkZ = document.querySelectorAll('.fQOipKjlgeboVkZ');
+        for (let i = 0; i < fQOipKjlgeboVkZ.length; i++)
+        {
+            if (fQOipKjlgeboVkZ[i].id == t.value)
+            {
+                $(fQOipKjlgeboVkZ[i]).show();
+            }
+            else {
+                $(fQOipKjlgeboVkZ[i]).hide();
+            }
+        }
+    };
+
+
+    function EjaqSVIBTCAu() {
+        let a = document.getElementById('GpoavnFwAOos');
+        $(a).fadeOut(200);
+    };
+
+    function fwsxYepQKkCq() {
+        let a = document.getElementById('GpoavnFwAOos');
+        $(a).fadeIn(200);
+    };
+
+    function BmJPiKFdcncS() {
+        let a = document.getElementById('oVxJeHhcExMV').value;
+        let b = document.getElementById('IyWRFThVHhEX').value;
+
+        $.ajax({
+            type: 'POST',
+            url: '/Holidays/AddHoliday',
+            data: {
+                name: a,
+                date: b
+            },
+            success: function (response) {
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.log('Error adding data:', error);
+            }
+        });
+    };
+
+    function EYwnRBQDFEHjzsN(t) {
+        sessionStorage.setItem('gFiXwoYVuxBrQrm', t.id);
+        let name_ = t.getAttribute('name');
+        let date_ = t.getAttribute('date');
+        document.getElementById('WjuzdnDpZbVVtTO').value = name_;
+
+        $('#HnwuRhmRcJCZacg').fadeIn(200);
+    };
+
+    function suSTEPirxzisDIq() {
+        $('#HnwuRhmRcJCZacg').fadeOut(200);
+    };
+
+    function lwuUErBiOwfxbau() {
+        let id_ = sessionStorage.getItem('gFiXwoYVuxBrQrm');
+        let a = document.getElementById('oVxJeHhcExMV').value;
+        let b = document.getElementById('IyWRFThVHhEX').value;
+        //let b_ = ;
+
+        //$.ajax({
+        //    type: 'POST',
+        //    url: '/Holidays/EditHoliday',
+        //    data: {
+        //        id: id_,
+        //        name: a,
+        //        date: b
+        //    },
+        //    success: function (response)
+        //    {
+        //        location.reload();
+        //    },
+        //    error: function (xhr, status, error)
+        //    {
+        //        console.log('Error updating data:', error);
+        //    }
+        //});
+
+        let date = new Date(b);
+
+        console.log(moment(date));
+    };
+
+    function hFUdwiFlMmxASVH() {
+
+    };
+
+
+
 </script>
