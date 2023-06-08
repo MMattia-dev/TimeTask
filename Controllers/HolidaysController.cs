@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TimeTask.Data;
 using TimeTask.Models;
+using Nager.Date.PublicHolidays;
 
 namespace TimeTask.Controllers
 {
@@ -21,12 +22,24 @@ namespace TimeTask.Controllers
 
         // GET: Holidays
         public async Task<IActionResult> Index()
-        {
-            ViewBag.Holidays = _context.Holiday;
+        {          
+            //IList<DateTime> result = new PolandPublicHoliday().PublicHolidays(DateTime.Now.Year);
+            //ViewBag.Public_Holidays = result;
 
-              return _context.Holiday != null ? 
+
+            return _context.Holiday != null ? 
                           View(await _context.Holiday.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Holiday'  is null.");
+        }
+
+        public ActionResult GetHolidays(int year)
+        {
+            //IList<DateTime> result = new PolandPublicHoliday().PublicHolidays(year);
+            //IDictionary<DateTime, string> result2 = new PolandPublicHoliday().PublicHolidayNames(year);
+            //IList<PublicHoliday.Holiday> result3 = new PolandPublicHoliday().PublicHolidaysInformation(year);
+
+
+            return Json(publicHolidays);
         }
 
         // GET: Holidays/Details/5
@@ -58,7 +71,7 @@ namespace TimeTask.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Date")] Holiday holiday)
+        public async Task<IActionResult> Create([Bind("Id,Name,Date")] Models.Holiday holiday)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +103,7 @@ namespace TimeTask.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Date")] Holiday holiday)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Date")] Models.Holiday holiday)
         {
             if (id != holiday.Id)
             {
@@ -166,7 +179,7 @@ namespace TimeTask.Controllers
         [HttpPost]
         public ActionResult AddHoliday(string name, DateTime date)
         {
-            var newData = new Holiday()
+            var newData = new Models.Holiday()
             {
                 Name = name,
                 Date = date,
