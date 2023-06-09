@@ -226,7 +226,20 @@
     function dDlRcSCJZAuO() {
         let id_ = sessionStorage.getItem('VBDsuugVdfnalOZ');
         
-
+        $.ajax({
+            type: 'POST',
+            url: '/Holidays/RemoveHoliday',
+            data: {
+                id: id_
+            },
+            success: function(response) {
+                location.reload();
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error deleting data:', error);
+            }
+        });
     };
 
 

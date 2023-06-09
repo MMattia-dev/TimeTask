@@ -19,5 +19,8 @@ namespace TimeTask.Data
         public DbSet<TimeTask.Models.Opening> Opening { get; set; } = default!;
         public DbSet<TimeTask.Models.Period> Period { get; set; } = default!;
         public DbSet<TimeTask.Models.Holiday> Holiday { get; set; } = default!;
+        public DbSet<TimeTask.Models.TaskName> TaskName { get; set; } = default!;
+        public DbSet<TimeTask.Models.TaskName2> TaskName2 { get; set; } = default!;
+        public DbSet<TimeTask.Models.Task> Task { get; set; } = default!;
     }
 }

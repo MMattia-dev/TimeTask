@@ -25,13 +25,21 @@ if (performance.navigation.type == performance.navigation.TYPE_RELOAD)
     }
 }
 
-if (localStorage.getItem('DKE3PlNoUnmS') != null)
+if (sessionStorage.getItem('DKE3PlNoUnmS') != null)
 {
     let scoll = document.querySelector('.IdRKPExyAQSewBL');
     if (scoll != null) {
-        scoll.scrollTop = localStorage.getItem('DKE3PlNoUnmS');
+        scoll.scrollTop = sessionStorage.getItem('DKE3PlNoUnmS');
     }
 }
+
+if (sessionStorage.getItem('HzvDBbvTRQnGBub') != null) {
+    let scoll = document.querySelector('.koblSjvDsfoQbAD');
+    if (scoll != null) {
+        scoll.scrollTop = sessionStorage.getItem('HzvDBbvTRQnGBub');
+    }
+}
+
 
 
 
@@ -152,8 +160,11 @@ $(document).ready(function ()
 });
 
 function DKE3PlNoUnmS(t) {
-    //console.log(t.scrollTop);
-    localStorage.setItem('DKE3PlNoUnmS', t.scrollTop);
+    sessionStorage.setItem('DKE3PlNoUnmS', t.scrollTop);
+};
+
+function HzvDBbvTRQnGBub(t) {
+    sessionStorage.setItem('HzvDBbvTRQnGBub', t.scrollTop);
 };
 
 function filterWorkersInDepartment(a, b, c)

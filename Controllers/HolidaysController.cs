@@ -195,6 +195,23 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
+        [HttpPost]
+        public ActionResult RemoveHoliday(int id)
+        {
+            var row = _context.Holiday.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.Holiday.Remove(row);
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+
+
 
 
 

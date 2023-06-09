@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeTask.Data;
 
@@ -11,9 +12,11 @@ using TimeTask.Data;
 namespace TimeTask.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230609104058_GtKAWusjDawUJMk")]
+    partial class GtKAWusjDawUJMk
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -345,34 +348,6 @@ namespace TimeTask.Data.Migrations
                     b.ToTable("TImeTask");
                 });
 
-            modelBuilder.Entity("TimeTask.Models.Task", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("JobEnd")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("JobStart")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("TaskNameID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkerID")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Task");
-                });
-
             modelBuilder.Entity("TimeTask.Models.TaskName", b =>
                 {
                     b.Property<int>("Id")
@@ -391,26 +366,6 @@ namespace TimeTask.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TaskName");
-                });
-
-            modelBuilder.Entity("TimeTask.Models.TaskName2", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("DepartmentID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TaskName2");
                 });
 
             modelBuilder.Entity("TimeTask.Models.Time", b =>
