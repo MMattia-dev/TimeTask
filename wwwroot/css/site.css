@@ -1064,9 +1064,9 @@ button {
     height: 50px;
     min-height: 50px;
     max-height: 50px;
-    width: 200px;
-    min-width: 200px;
-    max-width: 200px;
+    width: 233px;
+    min-width: 233px;
+    max-width: 233px;
     background-color: rgba(34, 36, 48, 0.6);
     border-left: 4px solid rgb(195, 107, 108);
     transition: background-color 0.2s;
@@ -1085,8 +1085,8 @@ button {
 
     .IVnxgCORpPYL span {
         color: rgba(255, 255, 255, 0.8);
-        font-size: 15px;
-        font-family: Arial;
+        font-size: 16px;
+        /*font-family: Arial;*/
     }
 
 .YUPrikbkYzkc {

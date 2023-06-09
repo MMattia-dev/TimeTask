@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TimeTask.Data;
 using TimeTask.Models;
-using Nager.Date.PublicHolidays;
 
 namespace TimeTask.Controllers
 {
@@ -30,16 +29,6 @@ namespace TimeTask.Controllers
             return _context.Holiday != null ? 
                           View(await _context.Holiday.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Holiday'  is null.");
-        }
-
-        public ActionResult GetHolidays(int year)
-        {
-            //IList<DateTime> result = new PolandPublicHoliday().PublicHolidays(year);
-            //IDictionary<DateTime, string> result2 = new PolandPublicHoliday().PublicHolidayNames(year);
-            //IList<PublicHoliday.Holiday> result3 = new PolandPublicHoliday().PublicHolidaysInformation(year);
-
-
-            return Json(publicHolidays);
         }
 
         // GET: Holidays/Details/5
