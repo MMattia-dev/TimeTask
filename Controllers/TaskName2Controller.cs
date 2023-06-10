@@ -160,6 +160,7 @@ namespace TimeTask.Controllers
           return (_context.TaskName2?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
+        [HttpPost]
         public ActionResult AddTask(string name, int departmentID)
         {
             var newData = new TaskName2()
@@ -173,8 +174,34 @@ namespace TimeTask.Controllers
             return Json(new { success = true });
         }
 
+        [HttpPost]
+        public ActionResult EditTask(int id, string name, int departmentID)
+        {
+            var row = _context.TaskName2.FirstOrDefault(x => x.Id == id);
+            if (row != null)
+            {
+                row.Name = name;
+                row.DepartmentID = departmentID;
+                _context.SaveChanges();
+                return Json(new { success = true });
+            }
 
+            return Json(new { success = false });
+        }
 
+        [HttpPost]
+        public ActionResult RemoveTask(int id)
+        {
+            var row = _context.TaskName2.FirstOrDefault(x => x.Id == id);
+            if (row != null)
+            {
+                _context.TaskName2.Remove(row);
+                _context.SaveChanges();
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
 
 
 

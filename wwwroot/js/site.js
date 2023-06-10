@@ -333,4 +333,3 @@ function CiSEfkVgdGdf(worker_id, newDepartment) {
     });
 };
 
-

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -24,8 +25,10 @@ namespace TimeTask.Controllers
         {
             ViewBag.Departments = _context.Department;
             ViewBag.TaskNames = _context.TaskName2;
+            ViewBag.Workers = _context.Workers2;
+            //ViewBag.WeeksInYear = GetWeeksInYear(DateTime.Now.Year);
 
-              return _context.Task != null ? 
+            return _context.Task != null ? 
                           View(await _context.Task.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Task'  is null.");
         }
@@ -162,5 +165,30 @@ namespace TimeTask.Controllers
         {
           return (_context.Task?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        public int GetWeeksInYear(int year)
+        {
+            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+            DateTime date1 = new DateTime(year, 12, 31);
+            Calendar cal = dfi.Calendar;
+            return cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+        }
+
+        public int GetCurrentWeek(int year, int month, int day)
+        {
+            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+            DateTime date1 = new DateTime(year, month, day);
+            Calendar cal = dfi.Calendar;
+            return cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+        }
+
+        public ActionResult WeeksInYear(int year, int month, int day)
+        {
+            var result = new { weeks = GetWeeksInYear(year), currentWeek = GetCurrentWeek(year, month, day) };
+            return Json(result);
+        }
+
+
+
     }
 }
