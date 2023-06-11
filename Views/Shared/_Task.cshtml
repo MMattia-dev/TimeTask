@@ -31,7 +31,7 @@
     <span class="settings_span">Grafik dla działu:</span>
     <div style="height: 5px;"></div>
     <select class="HQTuaisxjrtQHPq" id="kRyEzzxRxADfSZj" onchange="arKOctcZVJhWuhL()">
-        @foreach (var item in ((IEnumerable<Department>)ViewBag.Departments))
+        @foreach (var item in ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name))
         {
             <option value="@item.Id">@item.Name</option>
         }
@@ -86,3 +86,344 @@
     </form>
 </div>
 
+<script type="text/javascript">
+    if (sessionStorage.getItem('qweznPAaXCMlTFi') != null)
+    {
+        let qweznPAaXCMlTFi = sessionStorage.getItem('qweznPAaXCMlTFi');
+
+        let e = document.getElementById('kRyEzzxRxADfSZj');
+        e.value = qweznPAaXCMlTFi;
+    }
+
+    {
+        let date = new Date();
+
+        //let weeks = getWeekNumber(date);
+        //let weeks_year = weeksInYear(date.getFullYear());
+
+        let uKdvKAhOhYwppOO = document.getElementById('uKdvKAhOhYwppOO');// rok
+
+        let JFUPeUjXoygHiiK = document.getElementById('JFUPeUjXoygHiiK');// tydzien
+        let year_ = date.getFullYear();
+        let month_ = date.getMonth() + 1;
+        let day_ = date.getDate();
+
+        $.ajax({
+            type: 'GET',
+            url: '/Tasks/WeeksInYear',
+            data: {
+                year: year_,
+                month: month_,
+                day: day_
+            },
+            success: function (response)
+            {
+                for (const [key, value] of Object.entries(response))
+                {
+                    if (key == 'weeks')
+                    {
+                        for (let i = 1; i <= value; i++)
+                        {
+                            JFUPeUjXoygHiiK.innerHTML += `<option value="` + i + `">` + i + ` tydzień</option>`;
+                        }
+                    }
+                    if (key == 'currentWeek')
+                    {
+                        let newValue = value + 1;
+                        JFUPeUjXoygHiiK.value = newValue; //nastepny tydzien
+
+                        $.ajax({
+                            type: 'GET',
+                            url: '/Tasks/FirstDayOfWeek',
+                            data: {
+                                y: year_,
+                                weekofyear: newValue
+                            },
+                            success: function (response2) {
+                                console.log(response2);
+                            },
+                            error: function (xhr2, status2, error2) {
+                                console.log('Error getting data:', error2);
+                            }
+                        });
+
+
+                    }
+                }
+
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error getting data:', error);
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+    function kJYIwPwacgrxdrX()
+    {
+        let e = document.getElementById('kRyEzzxRxADfSZj');
+        let e2 = e.options[e.selectedIndex].value;
+        let f = document.getElementById('hdfoDuUOBPpvhSl');
+        f.value = e2;
+
+
+        let a = document.getElementById('hJQarhdVtvVBOnk');
+        $(a).fadeIn(200);
+    };
+
+    function ydcXSyYYSvQPggQ(t)
+    {
+        let gwyIDEzPzXYjfLE = sessionStorage.setItem('gwyIDEzPzXYjfLE', t.getAttribute('gwyIDEzPzXYjfLE'));
+        document.getElementById('gPLPpoufGitmRJK').value = t.getAttribute('kCKFvozEWxUVxxp');
+
+        let iuCJIrClUqpPWfy = t.getAttribute('iuCJIrClUqpPWfy');
+        let rFaJKmZDlbnwiBP = document.getElementById('rFaJKmZDlbnwiBP');
+
+        if (iuCJIrClUqpPWfy == 0)
+        {
+            rFaJKmZDlbnwiBP.value = 'Wszyscy';
+        }
+        else
+        {
+            rFaJKmZDlbnwiBP.value = iuCJIrClUqpPWfy;
+        }
+
+
+        let a = document.getElementById('HrjQZZqwQjnGRuC');
+        $(a).fadeIn(200);
+    };
+
+    function arKOctcZVJhWuhL()
+    {
+        let e = document.getElementById('kRyEzzxRxADfSZj');
+        let e2 = e.options[e.selectedIndex].value;
+        sessionStorage.setItem('qweznPAaXCMlTFi', e2);
+
+        let array = document.querySelectorAll('.YgYDRNgkzyxgztO');
+        for (let i = 0; i < array.length; i++)
+        {
+            if (array[i].id == e2 || array[i].id == 0)
+            {
+                $(array[i]).show();
+            }
+            else
+            {
+                $(array[i]).hide();
+            }
+        }
+
+        let wcHMgjWjXaRMPKy = document.querySelectorAll('.wcHMgjWjXaRMPKy');
+        for (let i = 0; i < wcHMgjWjXaRMPKy.length; i++)
+        {
+            if (wcHMgjWjXaRMPKy[i].id == e2)
+            {
+                $(wcHMgjWjXaRMPKy[i]).show();
+            }
+            else
+            {
+                $(wcHMgjWjXaRMPKy[i]).hide();
+            }
+        }
+    };
+    //arKOctcZVJhWuhL();
+    //-script is running in site.js
+
+
+
+
+
+
+    let EpPTURkmdIzOSnq = document.querySelectorAll('.EpPTURkmdIzOSnq');
+    for (let i = 0; i < EpPTURkmdIzOSnq.length; i++)
+    {
+        let id_ = EpPTURkmdIzOSnq[i].getAttribute('id2');
+        EpPTURkmdIzOSnq[i].addEventListener('mousedown', function ()
+        {
+
+            let user = document.querySelector('.user');
+            let YgYDRNgkzyxgztO = document.querySelectorAll('.YgYDRNgkzyxgztO');
+
+            for (let j = 0; j < YgYDRNgkzyxgztO.length; j++)
+            {
+                let id__ = YgYDRNgkzyxgztO[j].getAttribute('id2');
+                if (id_ == id__)
+                {
+                    EpPTURkmdIzOSnq[i].style.cursor = 'grabbing';
+
+                    $(YgYDRNgkzyxgztO[j]).draggable({
+                        handle: EpPTURkmdIzOSnq[i],
+                        snap: '.test',
+                        snapMode: 'inner',
+                        appendTo: 'body',
+                        scroll: false,
+                        helper: 'clone',
+                        start: function (event, ui)
+                        {
+                            $(ui.helper).css('width', `${$(event.target).width()}px`);
+                            @*$(ui.helper).css('width', `${$(event.target).width()}` - 24);*@
+                            $($(ui.helper).children('div').find('a')[0]).css('display', 'none');
+                            $($(ui.helper).children('div').find('a')[1]).css('display', 'none');
+                        }
+                    });
+
+                    $('.test').droppable({
+                        accept: YgYDRNgkzyxgztO[j],
+                        drop: function (event, ui)
+                        {
+                            //$(this).append($(ui.helper).clone());
+                            var item = ui.draggable;
+                            var newItem = item.clone();
+                            newItem.appendTo($(this))
+                                .draggable({
+                                    handle: $(this).not(".ui-resizable-handle"),
+                                    containment: $(".droppable")
+                                });
+                            newItem.resizable({
+                                ghost: false
+                            });
+                                
+                            $($(newItem).children('div').find('a')).remove();
+                            for(let x = 0; x < 3; x++){
+                                $($(newItem).children('div')[1]).remove();
+                            }
+                            
+                            $(newItem).children('svg').css('cursor', 'grab');
+                        },
+                        drag: function ()
+                        {
+                            var offset = $(this).offset();
+                            var xPos = offset.left;
+                            var yPos = offset.top;
+                        }
+                    });
+                }
+
+                    
+            }
+
+            document.addEventListener('mouseup', function ()
+            {
+                for (let j = 0; j < YgYDRNgkzyxgztO.length; j++)
+                {
+                    EpPTURkmdIzOSnq[i].style.removeProperty('cursor');
+
+                }
+            });
+        });
+    }
+
+
+
+
+
+
+
+    function rURQfWmsrmzXwCV()
+    {
+        let e = document.getElementById('hJQarhdVtvVBOnk');
+        $(e).fadeOut(200);
+    };
+
+    function wNvCTiOzGLwtsaX()
+    {
+        let e = document.getElementById('HrjQZZqwQjnGRuC');
+        $(e).fadeOut(200);
+    };
+
+    function zGWGBXreWGtGNcS()
+    {
+        let name_ = document.getElementById('IluduaIgOUVOGRf').value;
+        let e = document.getElementById('hdfoDuUOBPpvhSl');
+        let id_ = e.options[e.selectedIndex].value;
+
+        $.ajax({
+            type: 'POST',
+            url: '/TaskName2/AddTask',
+            data: {
+                name: name_,
+                departmentID: id_
+            },
+            success: function (response)
+            {
+                location.reload();
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error adding data:', error);
+            }
+        });
+    };
+
+    function CaomIrxdWJchcOk()
+    {
+        let id_ = sessionStorage.getItem('gwyIDEzPzXYjfLE');
+        let name_ = document.getElementById('gPLPpoufGitmRJK').value;
+        let department_ = document.getElementById('rFaJKmZDlbnwiBP');
+        let department__ = department_.options[department_.selectedIndex].value;
+
+        $.ajax({
+            type: 'POST',
+            url: '/TaskName2/EditTask',
+            data: {
+                id: id_,
+                name: name_,
+                departmentID: department__
+            },
+            success: function (response)
+            {
+                location.reload();
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error updating data:', error);
+            }
+        });
+    };
+
+    function pXwvhczxXMKKzWB(t)
+    {
+        let id_ = t.getAttribute('WYxbaolkBNcDokP');
+
+        $.ajax({
+            type: 'POST',
+            url: '/TaskName2/RemoveTask',
+            data: {
+                id: id_,
+            },
+            success: function (response)
+            {
+                location.reload();
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error removing data:', error);
+            }
+        });
+    };
+
+
+
+        //function getWeekNumber(d)
+        //{
+        //    d = new Date(+d);
+        //    d.setHours(0, 0, 0, 0);
+        //    d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+        //    var yearStart = new Date(d.getFullYear(), 0, 1);
+        //    var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+        //    return [d.getFullYear(), weekNo];
+        //}
+
+        //function weeksInYear(year)
+        //{
+        //    var d = new Date(year, 11, 31);
+        //    var week = getWeekNumber(d)[1];
+        //    return week == 1 ? 52 : week;
+        //}
+</script>

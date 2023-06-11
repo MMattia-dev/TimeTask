@@ -333,3 +333,6 @@ function CiSEfkVgdGdf(worker_id, newDepartment) {
     });
 };
 
+if (typeof arKOctcZVJhWuhL === 'function') {
+    arKOctcZVJhWuhL();
+}
