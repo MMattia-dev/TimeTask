@@ -191,6 +191,14 @@
                 //        $(ele).remove();
                 //    }
                 //}
+                //if (document.querySelectorAll('.SBVWNWOJZnTplXL') != null)
+                //{
+                //    let ele = document.querySelectorAll('.SBVWNWOJZnTplXL');
+                //    for (let k = 0; k < ele.length; k++)
+                //    {
+                //        $(ele).remove();
+                //    }
+                //}
 
                 fSJtEaXwJSHzoxW.innerHTML = '<div class="GJakzZdfXNDmfZz"></div>';
 
@@ -204,6 +212,11 @@
                     //{
                     //    let workerID = wcHMgjWjXaRMPKy[j].getAttribute('worker');
                     //    wcHMgjWjXaRMPKy[j].innerHTML += `<div class="txiqlohrZzPoTzQ" date="` + date__ + `" worker="` + workerID + `"></div>`;
+                    //}
+                    //for (let j = 0; j < wcHMgjWjXaRMPKy.length; j++)
+                    //{
+                    //    let workerID = wcHMgjWjXaRMPKy[j].getAttribute('worker');
+                    //    wcHMgjWjXaRMPKy[j].innerHTML += `<div class="SBVWNWOJZnTplXL"><div class="LwxRoYhfmyzTlGm"><input type="time" /><span>-</span><input type="time" /></div><div class="AQzCKqmlrQJmxzn" date="` + date__ + `" worker="` + workerID + `"></div></div>`;
                     //}
                 }
             },
@@ -317,10 +330,10 @@
 
                     $(YgYDRNgkzyxgztO[j]).draggable({
                         handle: EpPTURkmdIzOSnq[i],
-                        snap: '.test',
+                        snap: '.AQzCKqmlrQJmxzn',
                         snapMode: 'inner',
                         appendTo: 'body',
-                        scroll: false,
+                        //scroll: false,
                         helper: 'clone',
                         start: function (event, ui)
                         {
@@ -332,7 +345,7 @@
                         }
                     });
 
-                    $('.test').droppable({
+                    $('.AQzCKqmlrQJmxzn').droppable({
                         accept: YgYDRNgkzyxgztO[j],
                         drop: function (event, ui)
                         {
@@ -353,7 +366,11 @@
                                 $($(newItem).children('div')[1]).remove();
                             }
                             
-                            $(newItem).children('svg').css('cursor', 'grab');
+                            //$(newItem).children('svg').css('cursor', 'grab');
+                            $(newItem).children('svg').remove();
+                            //$(newItem).css('z-index', `0`);
+                            $(newItem).css({ 'z-index': '0', 'border-right': 'none', 'border-top': 'none', 'border-bottom': 'none', 'margin-bottom': '5px' });
+
                         },
                         drag: function ()
                         {
