@@ -16,17 +16,11 @@
             
             <div class="GlpaymKnQLOGAOs">
 
-                <div class="fSJtEaXwJSHzoxW">
-                    <div class="GJakzZdfXNDmfZz">Data</div>
-                    @*@for (int i = 1; i <= 7; i++) 
-                    {
-                        <div class="XJsRKtmIfTCptru"></div>
-                    }*@
-                </div>
+                <div class="fSJtEaXwJSHzoxW"></div>
 
                 @foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).OrderBy(x => x.DepartmentID))
                 {
-                    <div class="wcHMgjWjXaRMPKy" id="@item.DepartmentID" style="display: none;">
+                    <div class="wcHMgjWjXaRMPKy" worker="@item.Id" id="@item.DepartmentID" style="display: none;">
                         <div class="oKvcDSylPNSLgqr">
                             <!--imie nazwisko pracownika-->
                             <span>@item.Surname @item.Name</span>
@@ -38,21 +32,20 @@
                             </span>
                         </div>
 
-                        @*<div class="txiqlohrZzPoTzQ">
-                            <div class="test"></div>
-
-                        </div>*@
-                        @for(int i = 1; i <= 7; i++)
-                        {
-                            <div class="txiqlohrZzPoTzQ"></div>
+                        @*<div class="txiqlohrZzPoTzQ"></div>*@
+                        @for(int i = 1; i <= 7; i++){
+                            <div class="SBVWNWOJZnTplXL">
+                                <div class="LwxRoYhfmyzTlGm">
+                                    <input type="time" />
+                                    <span>-</span>
+                                    <input type="time" />
+                                </div>
+                                <div class="AQzCKqmlrQJmxzn"></div>
+                            </div>
                         }
-
-
                     </div>                   
                 }
             </div>
-            
-
         </div>
     </section>
 </div>

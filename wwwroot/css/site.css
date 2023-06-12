@@ -1257,6 +1257,8 @@ button {
     .YgYDRNgkzyxgztO svg {
         fill: rgba(255, 255, 255, 0.8);
         cursor: grab;
+        /*min-height: 20px;
+        min-width: 20px;*/
     }
 
 
@@ -1292,21 +1294,27 @@ button {
     height: 100%;
     width: 100%;
     display: flex;
-    flex-direction: column;
-    /*overflow-y: hidden;*/
+    /*flex-direction: column;*/
+    
+    /*overflow-y: auto;*/
     overflow-x: auto;
     scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
-    /*scrollbar-width: thin;*/
+    scrollbar-width: thin;
     /*--mask: linear-gradient(to right, rgba(0,0,0, 1) 0, rgba(0,0,0, 1) 50%, rgba(0,0,0, 1) 70%, rgba(0,0,0, 1) 95%, rgba(0,0,0, 0) 100%, rgba(0,0,0, 0) 0 ) 100% 50% / 100% 100% repeat-x;
     -webkit-mask: var(--mask);
     mask: var(--mask);*/
+    
 }
 
 .GlpaymKnQLOGAOs {
     display: inherit;
     flex-direction: row;
-    gap: 8px;
+    gap: 4px;
     /*height: calc(100% - 10px);*/
+    /*padding-bottom: 200px;*/
+    /*min-width: 100vw;*/
+    /*width: 100%;*/
+    
 }
 
 .wcHMgjWjXaRMPKy {
@@ -1314,19 +1322,25 @@ button {
     flex-direction: column;
     width: 270px;
     min-width: 270px;
-    gap: 8px;
-    height: 100vh;
+    gap: 4px;
+    /*height: 100vh;*/
+    /*max-height: 10px !important;*/
 }
 
 .oKvcDSylPNSLgqr {
-    background-color: rgba(34, 36, 48, 0.6);
+    /*background-color: rgba(34, 36, 48, 0.6);*/
+    background-color: rgba(34, 36, 48, 1);
     height: 100px;
     min-height: 100px;
     display: inherit;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 8px;
+    gap: 5px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    
 }
 
     .oKvcDSylPNSLgqr span {
@@ -1346,7 +1360,6 @@ button {
 .txiqlohrZzPoTzQ {
     height: 200px;
     min-height: 200px;    
-    /*height: 100%;*/
     width: 100%;
     background-color: rgba(34, 36, 48, 0.6);
     display: inherit;
@@ -1364,44 +1377,100 @@ button {
 }*/
 
 .fSJtEaXwJSHzoxW {
-    /*background-color: rgba(34, 36, 48, 0.6);*/
-    /*height: 100px;
-    min-height: 100px;*/
     height: 100%;
-    width: 150px;
-    min-width: 150px;
+    width: 140px;
+    min-width: 140px;
     display: inherit;
-    /*justify-content: center;
-    align-items: center;*/
     flex-direction: column;
-    gap: 8px;
+    gap: 4px;
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    
 }
 
 .GJakzZdfXNDmfZz {
-    background-color: rgba(34, 36, 48, 0.6);
+    /*background-color: rgba(34, 36, 48, 0.6);*/
+    /*background-color: rgba(34, 36, 48, 1);*/
+    background-color: transparent;
     height: 100px;
     min-height: 100px;
     display: inherit;
     justify-content: center;
     align-items: center;
-    user-select: none;
+    /*user-select: none;
     color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;*/
 }
 
 .XJsRKtmIfTCptru {
     height: 200px;
     min-height: 200px;
-    /*height: 100%;*/
-    /*width: 150px;
-    min-width: 150px;*/
+    /*background-color: rgba(34, 36, 48, 0.6);*/
+    background-color: rgba(34, 36, 48, 1);
+    display: inherit;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    gap: 5px;
+    /*position: -webkit-sticky;
+    position: sticky;
+    left: 0;*/
+
+}
+
+    .XJsRKtmIfTCptru span {
+        color: rgba(255, 255, 255, 0.8);
+        user-select: none;
+        font-size: 13px;
+    }
+
+.SBVWNWOJZnTplXL {
+    height: 200px;
+    min-height: 200px;
+    width: 100%;
     background-color: rgba(34, 36, 48, 0.6);
     display: inherit;
     flex-direction: column;
-    padding: 15px 0 0 0;
-    align-items: center;
-    overflow-y: auto;
-    overflow-x: hidden;
+    /*padding: 15px 0 0 0;*/
+    /*align-items: center;*/
+    /*overflow-y: auto;
+    overflow-x: hidden;*/
 }
+
+.LwxRoYhfmyzTlGm {
+    /*background-color: rgba(255, 255, 255, 0.1);*/
+    height: 40px;
+    border-bottom: 4px solid rgba(0, 0, 0, 0.5);
+    display: inherit;
+    /*flex-direction: column;*/
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+    .LwxRoYhfmyzTlGm span {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 12px;
+        font-family: Arial;
+    }
+
+    .LwxRoYhfmyzTlGm input {
+        background-color: transparent;
+        color: rgba(255, 255, 255, 0.8);
+        border: none;
+        outline: none;
+        font-size: 13px;
+        font-family: Arial;
+    }
+
+.AQzCKqmlrQJmxzn {
+    height: 160px;
+}
+
+
 /*.oKvcDSylPNSLgqr {
     display: inherit;*/
 /*flex-direction: column;*/

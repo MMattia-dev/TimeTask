@@ -130,39 +130,130 @@
                     if (key == 'currentWeek')
                     {
                         let newValue = value + 1;
-                        JFUPeUjXoygHiiK.value = newValue; //nastepny tydzien
+                        JFUPeUjXoygHiiK.value = newValue;
 
-                        $.ajax({
-                            type: 'GET',
-                            url: '/Tasks/FirstDayOfWeek',
-                            data: {
-                                y: year_,
-                                weekofyear: newValue
-                            },
-                            success: function (response2) {
-                                console.log(response2);
-                            },
-                            error: function (xhr2, status2, error2) {
-                                console.log('Error getting data:', error2);
-                            }
-                        });
-
-
+                        //$.ajax({
+                        //    type: 'GET',
+                        //    url: '/Tasks/DatesInChosenWeek',
+                        //    data: {
+                        //        year: year_,
+                        //        weekOfYear: newValue
+                        //    },
+                        //    success: function (response2){
+                        //        let fSJtEaXwJSHzoxW = document.querySelector('.fSJtEaXwJSHzoxW');
+                        //        for(let i = 0; i < response2.length; i++){
+                        //            let date__ = response2[i].split('T')[0];
+                        //            let dayName = getDayName(date__, 'pl-PL');
+                        //            fSJtEaXwJSHzoxW.innerHTML += `<div class="XJsRKtmIfTCptru"><span>` + date__ + `</span><span>` + dayName + `</span></div>`;
+                        //        }
+                        //    },
+                        //    error: function (xhr2, status2, error2){
+                        //        console.log('Error getting data:', error2);
+                        //    }
+                        //});
                     }
                 }
-
             },
             error: function (xhr, status, error)
             {
                 console.log('Error getting data:', error);
             }
+        }).then(function () {
+            drmZhscxvPoxiya();
         });
     }
 
+    function drmZhscxvPoxiya()
+    {
+        let uKdvKAhOhYwppOO = document.getElementById('uKdvKAhOhYwppOO');
+        let year_ = uKdvKAhOhYwppOO.options[uKdvKAhOhYwppOO.selectedIndex].value;
+
+        let e = document.getElementById('JFUPeUjXoygHiiK');
+        let week_ = e.options[e.selectedIndex].value;
+
+        $.ajax({
+            type: 'GET',
+            url: '/Tasks/DatesInChosenWeek',
+            data: {
+                year: year_,
+                weekOfYear: week_
+            },
+            success: function (response2)
+            {
+                let fSJtEaXwJSHzoxW = document.querySelector('.fSJtEaXwJSHzoxW');
+                let wcHMgjWjXaRMPKy = document.querySelectorAll('.wcHMgjWjXaRMPKy');
+                
+                //if (document.querySelectorAll('.txiqlohrZzPoTzQ') != null)
+                //{
+                //    let ele = document.querySelectorAll('.txiqlohrZzPoTzQ');
+                //    for (let k = 0; k < ele.length; k++)
+                //    {
+                //        $(ele).remove();
+                //    }
+                //}
+
+                fSJtEaXwJSHzoxW.innerHTML = '<div class="GJakzZdfXNDmfZz"></div>';
+
+                for (let i = 0; i < response2.length; i++)
+                {
+                    let date__ = response2[i].split('T')[0];
+                    let dayName = getDayName(date__, 'pl-PL');
+                    fSJtEaXwJSHzoxW.innerHTML += `<div class="XJsRKtmIfTCptru"><span>` + date__ + `</span><span>` + dayName + `</span></div>`; 
+                
+                    //for (let j = 0; j < wcHMgjWjXaRMPKy.length; j++)
+                    //{
+                    //    let workerID = wcHMgjWjXaRMPKy[j].getAttribute('worker');
+                    //    wcHMgjWjXaRMPKy[j].innerHTML += `<div class="txiqlohrZzPoTzQ" date="` + date__ + `" worker="` + workerID + `"></div>`;
+                    //}
+                }
+            },
+            error: function (xhr2, status2, error2)
+            {
+                console.log('Error getting data:', error2);
+            }
+        });
+    };
 
 
 
 
+    function arKOctcZVJhWuhL()
+    {
+        let e = document.getElementById('kRyEzzxRxADfSZj');
+        let e2 = e.options[e.selectedIndex].value;
+        sessionStorage.setItem('qweznPAaXCMlTFi', e2);
+
+        let array = document.querySelectorAll('.YgYDRNgkzyxgztO');
+        for (let i = 0; i < array.length; i++)
+        {
+            if (array[i].id == e2 || array[i].id == 0)
+            {
+                $(array[i]).show();
+            }
+            else
+            {
+                $(array[i]).hide();
+            }
+        }
+
+        let wcHMgjWjXaRMPKy = document.querySelectorAll('.wcHMgjWjXaRMPKy');
+        for (let i = 0; i < wcHMgjWjXaRMPKy.length; i++)
+        {
+            if (wcHMgjWjXaRMPKy[i].id == e2)
+            {
+                $(wcHMgjWjXaRMPKy[i]).show();
+            }
+            else
+            {
+                $(wcHMgjWjXaRMPKy[i]).hide();
+            }
+        }
+
+    };
+    //arKOctcZVJhWuhL();
+    //-script is running in site.js
+
+    
 
 
 
@@ -200,40 +291,7 @@
         $(a).fadeIn(200);
     };
 
-    function arKOctcZVJhWuhL()
-    {
-        let e = document.getElementById('kRyEzzxRxADfSZj');
-        let e2 = e.options[e.selectedIndex].value;
-        sessionStorage.setItem('qweznPAaXCMlTFi', e2);
-
-        let array = document.querySelectorAll('.YgYDRNgkzyxgztO');
-        for (let i = 0; i < array.length; i++)
-        {
-            if (array[i].id == e2 || array[i].id == 0)
-            {
-                $(array[i]).show();
-            }
-            else
-            {
-                $(array[i]).hide();
-            }
-        }
-
-        let wcHMgjWjXaRMPKy = document.querySelectorAll('.wcHMgjWjXaRMPKy');
-        for (let i = 0; i < wcHMgjWjXaRMPKy.length; i++)
-        {
-            if (wcHMgjWjXaRMPKy[i].id == e2)
-            {
-                $(wcHMgjWjXaRMPKy[i]).show();
-            }
-            else
-            {
-                $(wcHMgjWjXaRMPKy[i]).hide();
-            }
-        }
-    };
-    //arKOctcZVJhWuhL();
-    //-script is running in site.js
+    
 
 
 
@@ -267,7 +325,8 @@
                         start: function (event, ui)
                         {
                             $(ui.helper).css('width', `${$(event.target).width()}px`);
-                            @*$(ui.helper).css('width', `${$(event.target).width()}` - 24);*@
+                            //$(ui.helper).css('width', `${$(event.target).width()}` - 90);
+                            //$(ui.helper).css('width', `auto`);
                             $($(ui.helper).children('div').find('a')[0]).css('display', 'none');
                             $($(ui.helper).children('div').find('a')[1]).css('display', 'none');
                         }

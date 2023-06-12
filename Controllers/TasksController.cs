@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -168,7 +169,7 @@ namespace TimeTask.Controllers
 
         public int GetWeeksInYear(int year)
         {
-            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+            DateTimeFormatInfo dfi = DateTimeFormatInfo.InvariantInfo;
             DateTime date1 = new DateTime(year, 12, 31);
             Calendar cal = dfi.Calendar;
             return cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
@@ -176,7 +177,7 @@ namespace TimeTask.Controllers
 
         public int GetCurrentWeek(int year, int month, int day)
         {
-            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+            DateTimeFormatInfo dfi = DateTimeFormatInfo.InvariantInfo;
             DateTime date1 = new DateTime(year, month, day);
             Calendar cal = dfi.Calendar;
             return cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
@@ -188,12 +189,9 @@ namespace TimeTask.Controllers
             return Json(result);
         }
 
-        //public List<DateTime> DaysBasedOnWeek(int week)
-        //{
-        //    var result = new List<DateTime>();
 
-        //}
-        public static DateTime FirstDateOfWeekISO8601(int year, int weekOfYear)
+
+        public DateTime FirstDateOfWeekISO8601(int year, int weekOfYear)
         {
             DateTime jan1 = new DateTime(year, 1, 1);
             int daysOffset = DayOfWeek.Thursday - jan1.DayOfWeek;
@@ -207,14 +205,47 @@ namespace TimeTask.Controllers
             }
             var result = firstThursday.AddDays(weekNum * 7);
 
-            //return result.AddDays(-3);
-            return result.AddDays(-10);
+            return result.AddDays(-3);
+            //return result.AddDays(-10);
+
+            //DateTime dec31 = new DateTime(year, 12, 31);
+
+            //if (result < dec31)
+            //{
+            //    return result.AddDays(-10);
+            //}
+
+            //return null;
         }
 
-        public ActionResult FirstDayOfWeek(int y, int weekOfYear)
+        public DateTime LastDateOfWeekISO8601(int year, int weekOfYear)
         {
-            return Json(FirstDateOfWeekISO8601(y, weekOfYear));
+            DateTime jan1 = new DateTime(year, 1, 1);
+            int daysOffset = DayOfWeek.Thursday - jan1.DayOfWeek;
+            DateTime firstThursday = jan1.AddDays(daysOffset);
+            var cal = CultureInfo.CurrentCulture.Calendar;
+            int firstWeek = cal.GetWeekOfYear(firstThursday, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+            var weekNum = weekOfYear;
+            if (firstWeek == 1)
+            {
+                weekNum -= 1;
+            }
+            var result = firstThursday.AddDays(weekNum * 7);
+
+            return result.AddDays(3);
         }
+
+        //public ActionResult FirstDayOfWeek(int y, int weekOfYear)
+        //{
+        //    return Json(FirstDateOfWeekISO8601(y, weekOfYear));
+        //}
+
+        public ActionResult DatesInChosenWeek(int year, int weekOfYear)
+        {
+            var result = Enumerable.Range(0, 1 + LastDateOfWeekISO8601(year, weekOfYear).Subtract(FirstDateOfWeekISO8601(year, weekOfYear)).Days).Select(x => FirstDateOfWeekISO8601(year, weekOfYear).AddDays(x)).ToArray();
+            return Json(result);
+        }
+
 
     }
 }

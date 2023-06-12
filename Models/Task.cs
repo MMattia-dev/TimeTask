@@ -18,7 +18,7 @@ namespace TimeTask.Models
         [DataType(DataType.DateTime)]
         public DateTime JobEnd { get; set; } //godzina zakonczenia pracy
 
-        //dodaj nieobecnosc do komorki jezeli jest w tabeli Time?
+        //dodaj nieobecnosc do komorki jezeli jest w tabeli Time(urlop)?
 
     }
 }

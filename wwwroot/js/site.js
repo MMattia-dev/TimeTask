@@ -336,3 +336,19 @@ function CiSEfkVgdGdf(worker_id, newDepartment) {
 if (typeof arKOctcZVJhWuhL === 'function') {
     arKOctcZVJhWuhL();
 }
+
+//if (typeof drmZhscxvPoxiya === 'function')
+//{
+//    setTimeout(function ()
+//    {
+//        drmZhscxvPoxiya();
+//    }, 1000);
+    
+//}
+
+function getDayName(dateStr, locale)
+{
+    var date = new Date(dateStr);
+    return date.toLocaleDateString(locale, { weekday: 'long' });
+};
+
