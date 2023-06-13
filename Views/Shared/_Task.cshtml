@@ -171,6 +171,7 @@
         let e = document.getElementById('JFUPeUjXoygHiiK');
         let week_ = e.options[e.selectedIndex].value;
 
+        let array = [];
         $.ajax({
             type: 'GET',
             url: '/Tasks/DatesInChosenWeek',
@@ -181,25 +182,6 @@
             success: function (response2)
             {
                 let fSJtEaXwJSHzoxW = document.querySelector('.fSJtEaXwJSHzoxW');
-                let wcHMgjWjXaRMPKy = document.querySelectorAll('.wcHMgjWjXaRMPKy');
-                
-                //if (document.querySelectorAll('.txiqlohrZzPoTzQ') != null)
-                //{
-                //    let ele = document.querySelectorAll('.txiqlohrZzPoTzQ');
-                //    for (let k = 0; k < ele.length; k++)
-                //    {
-                //        $(ele).remove();
-                //    }
-                //}
-                //if (document.querySelectorAll('.SBVWNWOJZnTplXL') != null)
-                //{
-                //    let ele = document.querySelectorAll('.SBVWNWOJZnTplXL');
-                //    for (let k = 0; k < ele.length; k++)
-                //    {
-                //        $(ele).remove();
-                //    }
-                //}
-
                 fSJtEaXwJSHzoxW.innerHTML = '<div class="GJakzZdfXNDmfZz"></div>';
 
                 for (let i = 0; i < response2.length; i++)
@@ -208,22 +190,24 @@
                     let dayName = getDayName(date__, 'pl-PL');
                     fSJtEaXwJSHzoxW.innerHTML += `<div class="XJsRKtmIfTCptru"><span>` + date__ + `</span><span>` + dayName + `</span></div>`; 
                 
-                    //for (let j = 0; j < wcHMgjWjXaRMPKy.length; j++)
-                    //{
-                    //    let workerID = wcHMgjWjXaRMPKy[j].getAttribute('worker');
-                    //    wcHMgjWjXaRMPKy[j].innerHTML += `<div class="txiqlohrZzPoTzQ" date="` + date__ + `" worker="` + workerID + `"></div>`;
-                    //}
-                    //for (let j = 0; j < wcHMgjWjXaRMPKy.length; j++)
-                    //{
-                    //    let workerID = wcHMgjWjXaRMPKy[j].getAttribute('worker');
-                    //    wcHMgjWjXaRMPKy[j].innerHTML += `<div class="SBVWNWOJZnTplXL"><div class="LwxRoYhfmyzTlGm"><input type="time" /><span>-</span><input type="time" /></div><div class="AQzCKqmlrQJmxzn" date="` + date__ + `" worker="` + workerID + `"></div></div>`;
-                    //}
+                    array.push(date__);
                 }
             },
             error: function (xhr2, status2, error2)
             {
                 console.log('Error getting data:', error2);
             }
+        }).then(function() {
+
+            let wcHMgjWjXaRMPKy = document.querySelectorAll('.wcHMgjWjXaRMPKy ');
+            for (let i = 0; i < wcHMgjWjXaRMPKy.length; i++)
+            {
+                let SBVWNWOJZnTplXL = wcHMgjWjXaRMPKy[i].querySelectorAll('.SBVWNWOJZnTplXL');
+                for(let j = 0; j < SBVWNWOJZnTplXL.length; j++){
+                    SBVWNWOJZnTplXL[j].setAttribute('date', array[j]);
+                }
+            }
+
         });
     };
 
@@ -338,15 +322,14 @@
                         start: function (event, ui)
                         {
                             $(ui.helper).css('width', `${$(event.target).width()}px`);
-                            //$(ui.helper).css('width', `${$(event.target).width()}` - 90);
-                            //$(ui.helper).css('width', `auto`);
+                            //$(ui.helper).css('width', `${$(event.target).width()}`);
                             $($(ui.helper).children('div').find('a')[0]).css('display', 'none');
                             $($(ui.helper).children('div').find('a')[1]).css('display', 'none');
+                            $('.AQzCKqmlrQJmxzn').css({ 'background-color': 'rgba(255, 255, 255, 0.1)' });
                         }
                     });
 
                     $('.AQzCKqmlrQJmxzn').droppable({
-                        accept: YgYDRNgkzyxgztO[j],
                         drop: function (event, ui)
                         {
                             //$(this).append($(ui.helper).clone());
@@ -366,18 +349,17 @@
                                 $($(newItem).children('div')[1]).remove();
                             }
                             
-                            //$(newItem).children('svg').css('cursor', 'grab');
                             $(newItem).children('svg').remove();
-                            //$(newItem).css('z-index', `0`);
-                            $(newItem).css({ 'z-index': '0', 'border-right': 'none', 'border-top': 'none', 'border-bottom': 'none', 'margin-bottom': '5px' });
-
+                            $(newItem).addClass('pTBYGYxynGajyIy');
+                            $(newItem).append(`<a onclick="fuhYEhklpyusggn(this)" title="Usuń zadanie"><svg viewBox="0 0 469.404 469.404" height="12" width="12"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>`);
                         },
                         drag: function ()
                         {
                             var offset = $(this).offset();
                             var xPos = offset.left;
                             var yPos = offset.top;
-                        }
+                        },
+                        
                     });
                 }
 
@@ -389,8 +371,8 @@
                 for (let j = 0; j < YgYDRNgkzyxgztO.length; j++)
                 {
                     EpPTURkmdIzOSnq[i].style.removeProperty('cursor');
-
                 }
+                $('.AQzCKqmlrQJmxzn').css('background-color', '');
             });
         });
     }
@@ -400,6 +382,11 @@
 
 
 
+
+    function fuhYEhklpyusggn(t)
+    {
+        $(t).parent().remove();
+    };
 
     function rURQfWmsrmzXwCV()
     {
