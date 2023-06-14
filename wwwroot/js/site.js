@@ -334,8 +334,12 @@ function CiSEfkVgdGdf(worker_id, newDepartment) {
     });
 };
 
-if (typeof arKOctcZVJhWuhL === 'function') {
+if (typeof arKOctcZVJhWuhL === 'function')
+{
     arKOctcZVJhWuhL();
+    //setTimeout(function () { 
+    //    arKOctcZVJhWuhL();
+    //}, 1000)
 }
 
 //if (typeof drmZhscxvPoxiya === 'function')

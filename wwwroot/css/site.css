@@ -1227,10 +1227,14 @@ button {
         font-family: Arial;
     }
 
+    .pyyxmssXgPCWuUc.XGhZTcUEoJhWtNr {
+        border-left: 4px solid rgb(107, 197, 108);
+    }
+
 .YgYDRNgkzyxgztO {
     height: 35px;
     width: 100%;
-    min-width: 260px;
+    /*min-width: 260px;*/
     background-color: rgba(34, 36, 48, 1);
     border-left: 4px solid rgb(36, 110, 142);
     display: flex;
@@ -1261,6 +1265,42 @@ button {
         justify-content: space-between;
         padding-right: 20px;
     }
+
+.ZslufbFdcfCIeaW {
+    height: 35px;
+    width: 100%;
+    /*min-width: 260px;*/
+    background-color: rgba(34, 36, 48, 1);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 8px 20px 8px 8px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 0;
+    margin-bottom: 5px;
+}
+
+    .ZslufbFdcfCIeaW span {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 13px;
+        font-family: Arial;
+    }
+
+    .ZslufbFdcfCIeaW a svg {
+        fill: rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+        transition: fill 0.2s;
+    }
+
+        .ZslufbFdcfCIeaW a svg:hover {
+            cursor: pointer;
+            transition: fill 0.2s;
+            fill: rgba(255, 255, 255, 1);
+        }
 
 .pTBYGYxynGajyIy a svg {
     cursor: pointer;

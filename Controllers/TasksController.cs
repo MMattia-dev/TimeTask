@@ -206,16 +206,6 @@ namespace TimeTask.Controllers
             var result = firstThursday.AddDays(weekNum * 7);
 
             return result.AddDays(-3);
-            //return result.AddDays(-10);
-
-            //DateTime dec31 = new DateTime(year, 12, 31);
-
-            //if (result < dec31)
-            //{
-            //    return result.AddDays(-10);
-            //}
-
-            //return null;
         }
 
         public DateTime LastDateOfWeekISO8601(int year, int weekOfYear)
@@ -235,16 +225,29 @@ namespace TimeTask.Controllers
             return result.AddDays(3);
         }
 
-        //public ActionResult FirstDayOfWeek(int y, int weekOfYear)
-        //{
-        //    return Json(FirstDateOfWeekISO8601(y, weekOfYear));
-        //}
-
         public ActionResult DatesInChosenWeek(int year, int weekOfYear)
         {
             var result = Enumerable.Range(0, 1 + LastDateOfWeekISO8601(year, weekOfYear).Subtract(FirstDateOfWeekISO8601(year, weekOfYear)).Days).Select(x => FirstDateOfWeekISO8601(year, weekOfYear).AddDays(x)).ToArray();
             return Json(result);
         }
+
+        [HttpPost]
+        public ActionResult AddTasks(int workerID, int taskNameID, DateTime date, DateTime jobStart, DateTime jobEnd)
+        {
+            var newData = new Models.Task()
+            {
+                WorkerID = workerID,
+                TaskNameID = taskNameID,
+                Date = date,
+                JobStart = jobStart,
+                JobEnd = jobEnd
+            };
+
+            _context.Task.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
+
 
 
     }
