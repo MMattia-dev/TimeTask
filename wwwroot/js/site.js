@@ -357,3 +357,7 @@ function getDayName(dateStr, locale)
     return date.toLocaleDateString(locale, { weekday: 'long' });
 };
 
+function padTo2Digits(num)
+{
+    return String(num).padStart(2, '0');
+}

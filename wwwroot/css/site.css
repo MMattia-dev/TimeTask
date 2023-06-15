@@ -1285,12 +1285,17 @@ button {
     justify-content: space-between;
     z-index: 0;
     margin-bottom: 5px;
+    
 }
 
     .ZslufbFdcfCIeaW span {
         color: rgba(255, 255, 255, 0.8);
         font-size: 13px;
         font-family: Arial;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: 190px;
     }
 
     .ZslufbFdcfCIeaW a svg {
@@ -1398,8 +1403,8 @@ button {
 
 .fSJtEaXwJSHzoxW {
     height: 100%;
-    width: 140px;
-    min-width: 140px;
+    width: 120px;
+    min-width: 120px;
     display: inherit;
     flex-direction: column;
     position: -webkit-sticky;

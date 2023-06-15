@@ -92,7 +92,7 @@
 
 <script type="text/javascript">
     var model_t = @Html.Raw(JsonConvert.SerializeObject(Model));
-    console.log(model_t);
+    //console.log(model_t);
 
     if (sessionStorage.getItem('qweznPAaXCMlTFi') != null)
     {
@@ -222,19 +222,24 @@
                 }
             }
         }).then(function() {
+            let LwxRoYhfmyzTlGm = document.querySelectorAll('.LwxRoYhfmyzTlGm');
             for(let i = 0; i < model_t.length; i++){
-                let LwxRoYhfmyzTlGm = document.querySelectorAll('.LwxRoYhfmyzTlGm');
                 for(let j = 0; j < LwxRoYhfmyzTlGm.length; j++){
-                    if (LwxRoYhfmyzTlGm[j].getAttribute('worker') == model_t[i].WorkerID)
+
+                    let jobStart = LwxRoYhfmyzTlGm[j].getElementsByTagName('input')[0];
+                    let jobEnd = LwxRoYhfmyzTlGm[j].getElementsByTagName('input')[1];
+
+                    if (LwxRoYhfmyzTlGm[j].getAttribute('worker') == model_t[i].WorkerID && LwxRoYhfmyzTlGm[j].getAttribute('date') == model_t[i].Date.split('T')[0])
                     {
-                        //console.log(model_t[i].JobStart);
-                        let jobStart = LwxRoYhfmyzTlGm[j].getElementsByTagName('input')[0].value;
-                        let jobEnd = LwxRoYhfmyzTlGm[j].getElementsByTagName('input')[1].value;
-                        //jobStart = ;
                         let model_start = new Date(model_t[i].JobStart);
                         let model_end = new Date(model_t[i].JobEnd);
-                        console.log();
 
+                        jobStart.value = padTo2Digits(model_start.getHours()) + ':' + padTo2Digits(model_start.getMinutes());
+                        jobEnd.value = padTo2Digits(model_end.getHours()) + ':' + padTo2Digits(model_end.getMinutes());
+                    }
+                    else {
+                        jobStart.value = '';
+                        jobEnd.value = '';
                     }
                 }
             }
