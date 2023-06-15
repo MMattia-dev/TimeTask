@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<TimeTask.Models.Task>
+@using Newtonsoft.Json
 
 <div class="koblSjvDsfoQbAD" onscroll="HzvDBbvTRQnGBub(this)">
     <a class="settings_a" href="@Url.Action("Index", "Home")">
@@ -90,6 +91,9 @@
 </div>
 
 <script type="text/javascript">
+    var model_t = @Html.Raw(JsonConvert.SerializeObject(Model));
+    console.log(model_t);
+
     if (sessionStorage.getItem('qweznPAaXCMlTFi') != null)
     {
         let qweznPAaXCMlTFi = sessionStorage.getItem('qweznPAaXCMlTFi');
@@ -100,9 +104,6 @@
 
     {
         let date = new Date();
-
-        //let weeks = getWeekNumber(date);
-        //let weeks_year = weeksInYear(date.getFullYear());
 
         let uKdvKAhOhYwppOO = document.getElementById('uKdvKAhOhYwppOO');// rok
 
@@ -134,26 +135,6 @@
                     {
                         let newValue = value + 1;
                         JFUPeUjXoygHiiK.value = newValue;
-
-                        //$.ajax({
-                        //    type: 'GET',
-                        //    url: '/Tasks/DatesInChosenWeek',
-                        //    data: {
-                        //        year: year_,
-                        //        weekOfYear: newValue
-                        //    },
-                        //    success: function (response2){
-                        //        let fSJtEaXwJSHzoxW = document.querySelector('.fSJtEaXwJSHzoxW');
-                        //        for(let i = 0; i < response2.length; i++){
-                        //            let date__ = response2[i].split('T')[0];
-                        //            let dayName = getDayName(date__, 'pl-PL');
-                        //            fSJtEaXwJSHzoxW.innerHTML += `<div class="XJsRKtmIfTCptru"><span>` + date__ + `</span><span>` + dayName + `</span></div>`;
-                        //        }
-                        //    },
-                        //    error: function (xhr2, status2, error2){
-                        //        console.log('Error getting data:', error2);
-                        //    }
-                        //});
                     }
                 }
             },
@@ -211,19 +192,52 @@
                     SBVWNWOJZnTplXL[j].setAttribute('date', array[j]);
                 }
 
-                //let AQzCKqmlrQJmxzn = wcHMgjWjXaRMPKy[i].querySelectorAll('.AQzCKqmlrQJmxzn');
-                //for(let j = 0; j < AQzCKqmlrQJmxzn.length; j++){
-                //    AQzCKqmlrQJmxzn[j].setAttribute('date', array[j]);
-                //}
+                let AQzCKqmlrQJmxzn = wcHMgjWjXaRMPKy[i].querySelectorAll('.AQzCKqmlrQJmxzn');
+                for (let j = 0; j < AQzCKqmlrQJmxzn.length; j++)
+                {
+                    AQzCKqmlrQJmxzn[j].setAttribute('date', array[j]);
+                }
 
-                //let ZslufbFdcfCIeaW = wcHMgjWjXaRMPKy[i].querySelectorAll('.ZslufbFdcfCIeaW');
-                //for (let j = 0; j < ZslufbFdcfCIeaW.length; j++)
-                //{
-                //    console.log(ZslufbFdcfCIeaW[j].getAttribute('date'));
-
-                //}
+                let LwxRoYhfmyzTlGm = wcHMgjWjXaRMPKy[i].querySelectorAll('.LwxRoYhfmyzTlGm');
+                for (let j = 0; j < LwxRoYhfmyzTlGm.length; j++)
+                {
+                    LwxRoYhfmyzTlGm[j].setAttribute('date', array[j]);
+                }
             }
 
+        }).then(function() {
+            let AQzCKqmlrQJmxzn = document.querySelectorAll('.AQzCKqmlrQJmxzn');
+            for (let i = 0; i < AQzCKqmlrQJmxzn.length; i++)
+            {
+                let ZslufbFdcfCIeaW = AQzCKqmlrQJmxzn[i].querySelectorAll('.ZslufbFdcfCIeaW');
+                for (let j = 0; j < ZslufbFdcfCIeaW.length; j++)
+                {
+                    if (AQzCKqmlrQJmxzn[i].getAttribute('date') == ZslufbFdcfCIeaW[j].id)
+                    {
+                        $(ZslufbFdcfCIeaW[j]).show();
+                    }
+                    else {
+                        $(ZslufbFdcfCIeaW[j]).hide();
+                    }
+                }
+            }
+        }).then(function() {
+            for(let i = 0; i < model_t.length; i++){
+                let LwxRoYhfmyzTlGm = document.querySelectorAll('.LwxRoYhfmyzTlGm');
+                for(let j = 0; j < LwxRoYhfmyzTlGm.length; j++){
+                    if (LwxRoYhfmyzTlGm[j].getAttribute('worker') == model_t[i].WorkerID)
+                    {
+                        //console.log(model_t[i].JobStart);
+                        let jobStart = LwxRoYhfmyzTlGm[j].getElementsByTagName('input')[0].value;
+                        let jobEnd = LwxRoYhfmyzTlGm[j].getElementsByTagName('input')[1].value;
+                        //jobStart = ;
+                        let model_start = new Date(model_t[i].JobStart);
+                        let model_end = new Date(model_t[i].JobEnd);
+                        console.log();
+
+                    }
+                }
+            }
         });
     };
 
@@ -247,61 +261,8 @@
             {
                 $(array[i]).hide();
             }
-
-            //if(array[i].hasAttribute('date')){
-
-            //    //let parentDate = $(array[i]).parents()[1];
-            //    //console.log(parentDate);
-
-            //    //let parent = $(array[i]).parent();
-            //    //let parentParent = $(parent).parent();
-            //    //console.log(parentParent[0]);
-
-            //    //for (const [key, value] of Object.entries(parentParent[0]))
-            //    //{
-            //    //    if(key == 'attributes'){
-            //    //        console.log(value[0]);
-            //    //    }
-            //    //}
-
-            //    //console.log(array[i].parentElement.attributes[0].ownerDocument);
-            //    //console.log(array[i].parentElement.getAttribute('date'));
-            //    //let AQzCKqmlrQJmxzn = document.querySelectorAll('.AQzCKqmlrQJmxzn');
-            //    //for(let j = 0; j < AQzCKqmlrQJmxzn.length; j++){
-            //    //    //if(AQzCKqmlrQJmxzn[j].getAttribute('date') == array[i].getAttribute('date')){
-            //    //    //    $(array[i]).show();
-            //    //    //}
-            //    //    //else {
-            //    //    //    //$(array[i]).hide();
-            //    //    //}
-
-            //    //    //console.log(AQzCKqmlrQJmxzn[j].getAttribute('date'));
-                    
-            //    //}
-
-            //    let ZslufbFdcfCIeaW = document.querySelectorAll('.ZslufbFdcfCIeaW');
-            //    for (let j = 0; j < ZslufbFdcfCIeaW.length; j++)
-            //    {
-            //        console.log(ZslufbFdcfCIeaW[j].id);
-            //    }
-
-            //}
         }
         
-        //let array_ = document.querySelectorAll('.ZslufbFdcfCIeaW');
-        //for (let i = 0; i < array_.length; i++)
-        //{
-        //    //if (array_[i].hasAttribute('date'))
-        //    //{
-        //    //    let parentDate = $(array_[i]).parents()[1];
-        //    //    console.log(parentDate);
-        //    //}
-        //    console.log(array_[i].id);
-        //}
-
-
-
-
         let wcHMgjWjXaRMPKy = document.querySelectorAll('.wcHMgjWjXaRMPKy');
         for (let i = 0; i < wcHMgjWjXaRMPKy.length; i++)
         {
@@ -599,22 +560,4 @@
         });
     };
 
-
-
-        //function getWeekNumber(d)
-        //{
-        //    d = new Date(+d);
-        //    d.setHours(0, 0, 0, 0);
-        //    d.setDate(d.getDate() + 4 - (d.getDay() || 7));
-        //    var yearStart = new Date(d.getFullYear(), 0, 1);
-        //    var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
-        //    return [d.getFullYear(), weekNo];
-        //}
-
-        //function weeksInYear(year)
-        //{
-        //    var d = new Date(year, 11, 31);
-        //    var week = getWeekNumber(d)[1];
-        //    return week == 1 ? 52 : week;
-        //}
 </script>

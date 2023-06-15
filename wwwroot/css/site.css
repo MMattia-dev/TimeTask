@@ -1186,6 +1186,7 @@ button {
 .HQTuaisxjrtQHPq {
     border: none;
     outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     background-color: rgba(34, 36, 48, 1);
     color: rgba(255, 255, 255, 0.8);
     width: 100%;
@@ -1206,6 +1207,7 @@ button {
     height: 35px;
     width: 100%;
     background-color: rgba(34, 36, 48, 1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-left: 4px solid rgb(195, 107, 108);
     transition: background-color 0.2s;
     display: flex;
@@ -1236,6 +1238,7 @@ button {
     width: 100%;
     /*min-width: 260px;*/
     background-color: rgba(34, 36, 48, 1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-left: 4px solid rgb(36, 110, 142);
     display: flex;
     align-items: center;
@@ -1259,7 +1262,7 @@ button {
     }
 
     .YgYDRNgkzyxgztO.pTBYGYxynGajyIy {
-        border: none;
+        border: 1px solid rgba(255, 255, 255, 0.2);
         margin-bottom: 5px;
         z-index: 0;
         justify-content: space-between;
@@ -1271,7 +1274,7 @@ button {
     width: 100%;
     /*min-width: 260px;*/
     background-color: rgba(34, 36, 48, 1);
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     display: flex;
     align-items: center;
     justify-content: start;
@@ -1476,7 +1479,8 @@ button {
 .AQzCKqmlrQJmxzn {
     height: 160px;
     border-right: 4px solid rgba(0, 0, 0, 0.5);
-    padding-bottom: 45px;
+    /*padding-bottom: 45px;*/
+    padding: 5px 5px 45px 5px;
     overflow-x: hidden;
     overflow-y: auto;
     scrollbar-color: rgba(36, 110, 142, 0.7) transparent;

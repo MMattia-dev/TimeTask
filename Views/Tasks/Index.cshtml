@@ -35,7 +35,7 @@
                         @*<div class="txiqlohrZzPoTzQ"></div>*@
                         @for(int i = 1; i <= 7; i++){
                             <div class="SBVWNWOJZnTplXL">
-                                <div class="LwxRoYhfmyzTlGm">
+                                <div class="LwxRoYhfmyzTlGm" worker="@item.Id">
                                     <input type="time" id="vnuzfjzFlwNnnIi" />
                                     <span>-</span>
                                     <input type="time" id="KBGvvFHeLdDvzlR" />
@@ -47,9 +47,9 @@
                                         foreach (var item2 in Model)
                                         {
                                             @*<div class="pTBYGYxynGajyIy">@item.</div>*@
-                                            if (item2.WorkerID == item.Id)
+                                            if (item.Id == item2.WorkerID)
                                             {
-                                                <div class="ZslufbFdcfCIeaW" id="@item2.Date.ToString("yyyy-MM-dd")">
+                                                <div class="ZslufbFdcfCIeaW" id="@item2.Date.ToString("yyyy-MM-dd")" style="display: none;">
                                                     @{
                                                         var taskName = ((IEnumerable<TaskName2>)ViewBag.TaskNames).FirstOrDefault(x => x.Id == item2.TaskNameID);
                                                     }
@@ -59,7 +59,6 @@
                                             }
                                         }
                                     }
-
                                 </div>
                             </div>
                         }
