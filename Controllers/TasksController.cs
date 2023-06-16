@@ -248,6 +248,36 @@ namespace TimeTask.Controllers
             return Json(new { success = true });
         }
 
+        [HttpPost]
+        public ActionResult RemoveTask(int id)
+        {
+            var row = _context.Task.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.Task.Remove(row);
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult EditTask(int id, DateTime jobStart, DateTime jobEnd)
+        {
+            var row = _context.Task.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.JobStart = jobStart;
+                row.JobEnd = jobEnd;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
 
 
     }

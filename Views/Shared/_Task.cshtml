@@ -63,7 +63,7 @@
             <div class="pyyxmssXgPCWuUc" onclick="kJYIwPwacgrxdrX()">
                 <span>Dodaj nowe zadanie</span>
             </div>
-            <div class="pyyxmssXgPCWuUc XGhZTcUEoJhWtNr" onclick="MAQLaRkPpbPPjIH()">
+            <div class="pyyxmssXgPCWuUc XGhZTcUEoJhWtNr" onclick="kLqdFLvjJrKETlK()">
                 <span>Zapisz zmiany</span>
             </div>
         </div>
@@ -102,6 +102,7 @@
         e.value = qweznPAaXCMlTFi;
     }
 
+
     {
         let date = new Date();
 
@@ -133,8 +134,17 @@
                     }
                     if (key == 'currentWeek')
                     {
-                        let newValue = value + 1;
-                        JFUPeUjXoygHiiK.value = newValue;
+                        if (sessionStorage.getItem('hQxHXfkxHkfALTJ') != null)
+                        {
+                            let hQxHXfkxHkfALTJ = sessionStorage.getItem('hQxHXfkxHkfALTJ');
+
+                            let e = document.getElementById('JFUPeUjXoygHiiK');
+                            e.value = hQxHXfkxHkfALTJ;
+                        }
+                        else {
+                            let newValue = value + 1;
+                            JFUPeUjXoygHiiK.value = newValue;
+                        }
                     }
                 }
             },
@@ -156,8 +166,6 @@
             LwxRoYhfmyzTlGm[j].getElementsByTagName('input')[1].value = '';
         }
 
-
-
         let uKdvKAhOhYwppOO = document.getElementById('uKdvKAhOhYwppOO');
         let year_ = uKdvKAhOhYwppOO.options[uKdvKAhOhYwppOO.selectedIndex].value;
 
@@ -175,7 +183,7 @@
             success: function (response2)
             {
                 let fSJtEaXwJSHzoxW = document.querySelector('.fSJtEaXwJSHzoxW');
-                fSJtEaXwJSHzoxW.innerHTML = '<div class="GJakzZdfXNDmfZz"></div>';
+                fSJtEaXwJSHzoxW.innerHTML = '<div class="GJakzZdfXNDmfZz"><span>Data</span></div>';
 
                 for (let i = 0; i < response2.length; i++)
                 {
@@ -248,6 +256,8 @@
                     }
                 }
             }
+        }).then(function () {
+            sessionStorage.setItem('hQxHXfkxHkfALTJ', week_);
         });
     };
 
@@ -421,7 +431,81 @@
 
 
 
+    function dpxpJkwLFcKTpet() {
+        let LwxRoYhfmyzTlGm = document.querySelectorAll('.LwxRoYhfmyzTlGm');
+        let changesArray = [];
+        for (let z = 0; z < LwxRoYhfmyzTlGm.length; z++)
+        {
+            let d_ = LwxRoYhfmyzTlGm[z].getAttribute('date');
+            let w_ = LwxRoYhfmyzTlGm[z].getAttribute('worker');
+            let jStart_ = LwxRoYhfmyzTlGm[z].querySelectorAll('input')[0].value;
+            let jEnd_ = LwxRoYhfmyzTlGm[z].querySelectorAll('input')[1].value;
 
+            if (jStart_ != '' && jEnd_ != '')
+            {
+                for (let y = 0; y < model_t.length; y++)
+                {
+                    let id_Model = model_t[y].Id;
+                    let workerID_Model = model_t[y].WorkerID;
+                    let date_Model = model_t[y].Date.split('T')[0];
+                    let jobStart_Model = new Date(model_t[y].JobStart);
+                    let jobEnd_Model = new Date(model_t[y].JobEnd);
+
+                    let jobStart_Modelnew = padTo2Digits(jobStart_Model.getHours()) + ':' + padTo2Digits(jobStart_Model.getMinutes());
+                    let jobEnd_Modelnew = padTo2Digits(jobEnd_Model.getHours()) + ':' + padTo2Digits(jobEnd_Model.getMinutes());
+
+
+                    if (w_ == workerID_Model && d_ == date_Model && jStart_ != jobStart_Modelnew && jEnd_ != jobEnd_Modelnew)
+                    {
+                        changesArray.push({ id: id_Model, jobStart: date_Model + ' ' + jStart_, jobEnd: date_Model + ' ' + jEnd_ });
+                    }
+                    else if (w_ == workerID_Model && d_ == date_Model && jStart_ == jobStart_Modelnew && jEnd_ != jobEnd_Modelnew)
+                    {
+                        changesArray.push({ id: id_Model, jobStart: date_Model + ' ' + jStart_, jobEnd: date_Model + ' ' + jEnd_ });
+                    }
+                    else if (w_ == workerID_Model && d_ == date_Model && jStart_ != jobStart_Modelnew && jEnd_ == jobEnd_Modelnew)
+                    {
+                        changesArray.push({ id: id_Model, jobStart: date_Model + ' ' + jStart_, jobEnd: date_Model + ' ' + jEnd_ });
+                    }
+                }
+            }
+        }
+
+        if (changesArray.length > 0)
+        {
+            for (let z = 0; z < changesArray.length; z++)
+            {
+                let id_ = changesArray[z].id;
+                let jobStart_ = changesArray[z].jobStart;
+                let jobEnd_ = changesArray[z].jobEnd;
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Tasks/EditTask',
+                    data: {
+                        id: id_,
+                        jobStart: jobStart_,
+                        jobEnd: jobEnd_
+                    },
+                    success: function (response)
+                    {
+                        //location.reload();
+                        //console.log(z);
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error updating data:', error);
+                    }
+                });
+            }
+        }
+        else
+        {
+            //location.reload();
+        }
+
+        //return true;
+    };
 
     function MAQLaRkPpbPPjIH() 
     {
@@ -429,7 +513,6 @@
         for (let i = 0; i < wcHMgjWjXaRMPKy.length; i++)
         {
             let workerID_ = wcHMgjWjXaRMPKy[i].getAttribute('worker');//
-            //let departmentID = wcHMgjWjXaRMPKy[i].id;
 
             let SBVWNWOJZnTplXL = wcHMgjWjXaRMPKy[i].querySelectorAll('.SBVWNWOJZnTplXL');
             for (let j = 0; j < SBVWNWOJZnTplXL.length; j++)
@@ -448,8 +531,6 @@
                             let taskNameID_ = AQzCKqmlrQJmxzn[k].getAttribute('id2');
                             if (taskNameID_ != null)
                             {
-                                //console.log(workerID_); console.log(date_); console.log(jobStart_); console.log(jobEnd_); console.log(taskNameID);
-
                                 let dateJobStart = date_ + ' ' + jobStart_;
                                 let dateJobEnd = date_ + ' ' + jobEnd_;
 
@@ -466,7 +547,6 @@
                                     success: function (response)
                                     {
                                         //location.reload();
-                                        console.log(response);
                                     },
                                     error: function (xhr, status, error)
                                     {
@@ -480,6 +560,15 @@
                 }
             }
         }
+    };
+
+    function kLqdFLvjJrKETlK() {
+        dpxpJkwLFcKTpet();
+        MAQLaRkPpbPPjIH();
+
+        setTimeout(function () {
+            location.reload();
+        }, 250);
     };
 
     function fuhYEhklpyusggn(t)
@@ -556,6 +645,26 @@
         $.ajax({
             type: 'POST',
             url: '/TaskName2/RemoveTask',
+            data: {
+                id: id_,
+            },
+            success: function (response)
+            {
+                location.reload();
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error removing data:', error);
+            }
+        });
+    };
+
+    function mhzWFFdkOFYMLsP(t) {
+        let id_ = t.getAttribute('WghrTajUyfTSWFc');
+
+        $.ajax({
+            type: 'POST',
+            url: '/Tasks/RemoveTask',
             data: {
                 id: id_,
             },
