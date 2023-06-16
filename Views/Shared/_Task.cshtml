@@ -237,9 +237,17 @@
                         jobStart.value = padTo2Digits(model_start.getHours()) + ':' + padTo2Digits(model_start.getMinutes());
                         jobEnd.value = padTo2Digits(model_end.getHours()) + ':' + padTo2Digits(model_end.getMinutes());
                     }
-                    else {
+                    else if (LwxRoYhfmyzTlGm[j].getAttribute('worker') != model_t[i].WorkerID && LwxRoYhfmyzTlGm[j].getAttribute('date') != model_t[i].Date.split('T')[0]) {
                         jobStart.value = '';
                         jobEnd.value = '';
+                    }
+                    else {
+                        //let model_start = new Date(model_t[i].JobStart);
+                        //let model_end = new Date(model_t[i].JobEnd);
+
+                        //jobStart.value = padTo2Digits(model_start.getHours()) + ':' + padTo2Digits(model_start.getMinutes());
+                        //jobEnd.value = padTo2Digits(model_end.getHours()) + ':' + padTo2Digits(model_end.getMinutes());
+
                     }
                 }
             }
