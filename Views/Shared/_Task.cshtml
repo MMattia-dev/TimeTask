@@ -66,6 +66,9 @@
             <div class="pyyxmssXgPCWuUc XGhZTcUEoJhWtNr" onclick="kLqdFLvjJrKETlK()">
                 <span>Zapisz zmiany</span>
             </div>
+            @*<div class="pyyxmssXgPCWuUc XGhZTcUEoJhWtNr" onclick="hJiLOUCxYLOJIxo()">
+                <span>Zapisz zmiany</span>
+            </div>*@
         </div>
     }
 </div>
@@ -266,6 +269,8 @@
 
     function arKOctcZVJhWuhL()
     {
+        let workerID_array = [];
+
         let e = document.getElementById('kRyEzzxRxADfSZj');
         let e2 = e.options[e.selectedIndex].value;
         sessionStorage.setItem('qweznPAaXCMlTFi', e2);
@@ -289,6 +294,7 @@
             if (wcHMgjWjXaRMPKy[i].id == e2)
             {
                 $(wcHMgjWjXaRMPKy[i]).show();
+                workerID_array.push(wcHMgjWjXaRMPKy[i].getAttribute('worker'));
             }
             else
             {
@@ -296,6 +302,32 @@
             }
         }
 
+        // get workers hours
+        let workerModelArray = [];
+        let chosenYearInput = document.getElementById('uKdvKAhOhYwppOO');
+        let chosenYear = chosenYearInput.options[chosenYearInput.selectedIndex].value;
+        for (let i = 0; i < workerID_array.length; i++)
+        {
+            let workerID = workerID_array[i];
+            for (let j = 0; j < model_t.length; j++)
+            {
+                let dateModel = new Date(model_t[j].Date);
+
+                if (model_t[j].WorkerID == workerID && chosenYear == dateModel.getFullYear())
+                {
+                    let date1 = new Date(model_t[j].JobStart);
+                    let date2 = new Date(model_t[j].JobEnd);
+                    let hours1 = padTo2Digits(date1.getHours()) + ':' + padTo2Digits(date1.getMinutes()); 
+                    let hours2 = padTo2Digits(date2.getHours()) + ':' + padTo2Digits(date2.getMinutes()); 
+                    
+                    workerModelArray.push(hours1 + '-' + hours2);
+                }
+            }
+        }
+        let workerModelArrayNew = [...new Set(workerModelArray)];
+        //console.log(workerModelArrayNew);
+
+        //
     };
     //arKOctcZVJhWuhL();
     //-script is running in site.js
@@ -489,8 +521,7 @@
                     },
                     success: function (response)
                     {
-                        //location.reload();
-                        //console.log(z);
+
                     },
                     error: function (xhr, status, error)
                     {
@@ -499,12 +530,6 @@
                 });
             }
         }
-        else
-        {
-            //location.reload();
-        }
-
-        //return true;
     };
 
     function MAQLaRkPpbPPjIH() 
@@ -546,7 +571,7 @@
                                     },
                                     success: function (response)
                                     {
-                                        //location.reload();
+                                        
                                     },
                                     error: function (xhr, status, error)
                                     {
@@ -563,13 +588,17 @@
     };
 
     function kLqdFLvjJrKETlK() {
-        dpxpJkwLFcKTpet();
         MAQLaRkPpbPPjIH();
+        dpxpJkwLFcKTpet();
 
         setTimeout(function () {
             location.reload();
         }, 250);
     };
+
+
+
+
 
     function fuhYEhklpyusggn(t)
     {

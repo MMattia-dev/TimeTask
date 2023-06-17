@@ -1375,12 +1375,21 @@ button {
     flex-direction: column;
     width: 260px;
     min-width: 260px;
+    transition: filter 0.2s;
 }
+
+    .wcHMgjWjXaRMPKy:hover {
+        /*background-color: rgba(34, 36, 48, 0.2);*/
+        /*opacity: 0.9;*/
+        filter: brightness(120%);
+        transition: filter 0.2s;
+    }
 
 .oKvcDSylPNSLgqr {
     background-color: rgba(34, 36, 48, 1);
-    height: 100px;
-    min-height: 100px;
+    height: 104px;
+    min-height: 104px;
+    max-height: 104px;
     display: inherit;
     justify-content: center;
     align-items: center;
@@ -1389,9 +1398,10 @@ button {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    /*border-bottom: 4px solid rgba(0, 0, 0, 0.5);*/
+    border-bottom: 4px solid rgba(0, 0, 0, 0.5);
     border-right: 4px solid rgba(0, 0, 0, 0.5);
     z-index: 1;
+    
 }
     .oKvcDSylPNSLgqr span {
         font-family: Arial;
@@ -1478,7 +1488,7 @@ button {
     align-items: center;
     gap: 4px;
     border-right: 4px solid rgba(0, 0, 0, 0.5);
-    border-top: 4px solid rgba(0, 0, 0, 0.5);
+    /*border-top: 4px solid rgba(0, 0, 0, 0.5);*/
 }
 
     .LwxRoYhfmyzTlGm span {
@@ -1499,6 +1509,8 @@ button {
 .AQzCKqmlrQJmxzn {
     height: 160px;
     border-right: 4px solid rgba(0, 0, 0, 0.5);
+    border-bottom: 4px solid rgba(0, 0, 0, 0.5);
+
     /*padding-bottom: 45px;*/
     padding: 5px 5px 45px 5px;
     overflow-x: hidden;
@@ -1508,8 +1520,16 @@ button {
     transition: background-color 0.2s;
 }
 
+.kqOeanWDDXEYTBz{
+    /*position: absolute;*/
+    /*right: 5px;*/
+    cursor: pointer;
+    z-index: 10;
 
-
+}
+    .kqOeanWDDXEYTBz svg {
+        fill: rgba(255, 255, 255, 0.8);
+    }
 
 /*.oKvcDSylPNSLgqr {
     display: inherit;*/
