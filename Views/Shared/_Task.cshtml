@@ -66,9 +66,6 @@
             <div class="pyyxmssXgPCWuUc XGhZTcUEoJhWtNr" onclick="kLqdFLvjJrKETlK()">
                 <span>Zapisz zmiany</span>
             </div>
-            @*<div class="pyyxmssXgPCWuUc XGhZTcUEoJhWtNr" onclick="hJiLOUCxYLOJIxo()">
-                <span>Zapisz zmiany</span>
-            </div>*@
         </div>
     }
 </div>
@@ -222,6 +219,18 @@
                 for (let j = 0; j < LwxRoYhfmyzTlGm.length; j++)
                 {
                     LwxRoYhfmyzTlGm[j].setAttribute('date', array[j]);
+                }
+
+                let kqOeanWDDXEYTBz = wcHMgjWjXaRMPKy[i].querySelectorAll('.kqOeanWDDXEYTBz');
+                for (let j = 0; j < kqOeanWDDXEYTBz.length; j++)
+                {
+                    kqOeanWDDXEYTBz[j].setAttribute('date', array[j]);
+                }
+
+                let avnythFRVEkXnim = wcHMgjWjXaRMPKy[i].querySelectorAll('.avnythFRVEkXnim');
+                for (let j = 0; j < avnythFRVEkXnim.length; j++)
+                {
+                    avnythFRVEkXnim[j].setAttribute('date', array[j]);
                 }
             }
 
@@ -706,6 +715,36 @@
                 console.log('Error removing data:', error);
             }
         });
+    };
+
+    function SnVgWOTEsLEUbKu(t){
+        let w = t.getAttribute('worker');
+        let d = t.getAttribute('date');
+        let avnythFRVEkXnim = document.querySelectorAll('.avnythFRVEkXnim');
+
+
+        let kqOeanWDDXEYTBz = document.querySelectorAll('.kqOeanWDDXEYTBz');
+        for (let j = 0; j < kqOeanWDDXEYTBz.length; j++)
+        {
+            kqOeanWDDXEYTBz[j].innerHTML = '<svg viewBox="0 0 10 6" width="10" height="6"><path d="M0 0h10L5 6z"></path></svg>';
+        }
+
+
+        for(let i = 0; i < avnythFRVEkXnim.length; i++){
+            let w2 = avnythFRVEkXnim[i].getAttribute('worker');
+            let d2 = avnythFRVEkXnim[i].getAttribute('date');
+
+            $(avnythFRVEkXnim[i]).hide();
+
+            if(w == w2 && d == d2){
+                $(avnythFRVEkXnim[i]).show();
+                t.innerHTML = '<svg viewBox="0 0 10 6" width="10" height="6"><path d="M0 6h10L5 0z"></path></svg>';
+                
+            }
+            else {
+                $(avnythFRVEkXnim[i]).hide();
+            }
+        }
     };
 
 </script>
