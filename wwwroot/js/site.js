@@ -84,6 +84,11 @@ function logOut() {
 
 
     let c = document.querySelector('.left-nav');
+    let inside_c = c.querySelectorAll('*');
+    for (let i = 0; i < inside_c.length; i++)
+    {
+        $(inside_c[i]).fadeOut();
+    }
     setTimeout(function ()
     {
         c.style.width = '0px';
@@ -95,7 +100,8 @@ function logOut() {
     d.style.borderTopLeftRadius = '10px'
     d.style.borderBottomLeftRadius = '10px'
     let inside_d = d.querySelectorAll('*');
-    for (let i = 0; i < inside_d.length; i++) {
+    for (let i = 0; i < inside_d.length; i++) 
+    {
         $(inside_d[i]).fadeOut();
     }
 

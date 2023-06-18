@@ -1,6 +1,10 @@
 ﻿@model IEnumerable<TimeTask.Models.Task>
 @using Newtonsoft.Json
 
+<div class="loader_div" style="display: none;">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>
+
 <div class="koblSjvDsfoQbAD" onscroll="HzvDBbvTRQnGBub(this)">
     <a class="settings_a" href="@Url.Action("Index", "Home")">
         <svg viewBox="-8.5 0 32 32" width="32" height="32"><path d="M15.281 7.188v17.594l-15.281-8.781z"></path></svg>
@@ -63,8 +67,9 @@
             <div class="pyyxmssXgPCWuUc" onclick="kJYIwPwacgrxdrX()">
                 <span>Dodaj nowe zadanie</span>
             </div>
-            <div class="pyyxmssXgPCWuUc XGhZTcUEoJhWtNr" onclick="kLqdFLvjJrKETlK()">
+            <div class="pyyxmssXgPCWuUc XGhZTcUEoJhWtNr" onclick="kLqdFLvjJrKETlK(this)">
                 <span>Zapisz zmiany</span>
+                <span id="jSxkTLkOwolIQOG"></span>
             </div>
         </div>
     }
@@ -329,13 +334,38 @@
                     let hours1 = padTo2Digits(date1.getHours()) + ':' + padTo2Digits(date1.getMinutes()); 
                     let hours2 = padTo2Digits(date2.getHours()) + ':' + padTo2Digits(date2.getMinutes()); 
                     
-                    workerModelArray.push(hours1 + '-' + hours2);
+                    workerModelArray.push(hours1 + ' - ' + hours2);
                 }
             }
         }
         let workerModelArrayNew = [...new Set(workerModelArray)];
-        //console.log(workerModelArrayNew);
+        workerModelArrayNew.sort();
+        let avnythFRVEkXnim = document.querySelectorAll('.avnythFRVEkXnim');
+        if(workerModelArrayNew.length > 0){
+            for(let i = 0; i < avnythFRVEkXnim.length; i++){
+                avnythFRVEkXnim[i].innerHTML = '';
+                
+                for (let j = 0; j < workerModelArrayNew.length; j++)
+                {
+                    avnythFRVEkXnim[i].innerHTML += `<div onclick="MnoxFPIpMwcHhAv(this)" class="fuSYzGrTpqVVQXz">` + workerModelArrayNew[j] + `</div>`;
+                }
+            }
 
+            let LwxRoYhfmyzTlGm = document.querySelectorAll('.LwxRoYhfmyzTlGm');
+            for (let i = 0; i < LwxRoYhfmyzTlGm.length; i++)
+            {
+                let kqOeanWDDXEYTBz = LwxRoYhfmyzTlGm[i].querySelector('.kqOeanWDDXEYTBz');
+                $(kqOeanWDDXEYTBz).show();
+            }
+        }
+        else {
+            let LwxRoYhfmyzTlGm = document.querySelectorAll('.LwxRoYhfmyzTlGm');
+            for (let i = 0; i < LwxRoYhfmyzTlGm.length; i++)
+            {
+                let kqOeanWDDXEYTBz = LwxRoYhfmyzTlGm[i].querySelector('.kqOeanWDDXEYTBz');
+                $(kqOeanWDDXEYTBz).hide();
+            }
+        }        
         //
     };
     //arKOctcZVJhWuhL();
@@ -413,7 +443,7 @@
                         start: function (event, ui)
                         {
                             //$(ui.helper).css('width', `${$(event.target).width()}px`);
-                            $(ui.helper).css('width', `260px`);
+                            $(ui.helper).css({ 'width': '260px', 'transform': 'translateX(0px)'});
                             $($(ui.helper).children('div').find('a')[0]).css('display', 'none');
                             $($(ui.helper).children('div').find('a')[1]).css('display', 'none');
                             $('.AQzCKqmlrQJmxzn').css({ 'background-color': 'rgba(255, 255, 255, 0.1)' });
@@ -596,9 +626,24 @@
         }
     };
 
-    function kLqdFLvjJrKETlK() {
+    function kLqdFLvjJrKETlK(t) {
+        $(t).children(':first').html('Zapisywanie');
+        var dots = window.setInterval(function ()
+        {
+            var wait = document.getElementById("jSxkTLkOwolIQOG");
+            if (wait.innerHTML.length > 4)
+                wait.innerHTML = "";
+            else
+                wait.innerHTML += ".";
+        }, 200);
+
+
+        $('.loader_div').fadeIn(200);
+
+
         MAQLaRkPpbPPjIH();
         dpxpJkwLFcKTpet();
+
 
         setTimeout(function () {
             location.reload();
@@ -717,17 +762,22 @@
         });
     };
 
+
+
     function SnVgWOTEsLEUbKu(t){
         let w = t.getAttribute('worker');
         let d = t.getAttribute('date');
         let avnythFRVEkXnim = document.querySelectorAll('.avnythFRVEkXnim');
-
-
         let kqOeanWDDXEYTBz = document.querySelectorAll('.kqOeanWDDXEYTBz');
+
+
+
         for (let j = 0; j < kqOeanWDDXEYTBz.length; j++)
         {
             kqOeanWDDXEYTBz[j].innerHTML = '<svg viewBox="0 0 10 6" width="10" height="6"><path d="M0 0h10L5 6z"></path></svg>';
+            kqOeanWDDXEYTBz[j].setAttribute('onclick', 'SnVgWOTEsLEUbKu(this)');
         }
+
 
 
         for(let i = 0; i < avnythFRVEkXnim.length; i++){
@@ -739,12 +789,60 @@
             if(w == w2 && d == d2){
                 $(avnythFRVEkXnim[i]).show();
                 t.innerHTML = '<svg viewBox="0 0 10 6" width="10" height="6"><path d="M0 6h10L5 0z"></path></svg>';
-                
+                t.setAttribute('onclick', 'VSalvFSAeCOdsNG(this)');
             }
             else {
                 $(avnythFRVEkXnim[i]).hide();
             }
         }
     };
+
+    function VSalvFSAeCOdsNG(t) {
+        let w = t.getAttribute('worker');
+        let d = t.getAttribute('date');
+        t.innerHTML = '<svg viewBox="0 0 10 6" width="10" height="6"><path d="M0 0h10L5 6z"></path></svg>';
+
+        let avnythFRVEkXnim = document.querySelectorAll('.avnythFRVEkXnim');
+        for(let i = 0; i < avnythFRVEkXnim.length; i++){
+            let w2 = avnythFRVEkXnim[i].getAttribute('worker');
+            let d2 = avnythFRVEkXnim[i].getAttribute('date');
+
+            if (w == w2 && d == d2)
+            {
+                $(avnythFRVEkXnim[i]).hide();
+                t.setAttribute('onclick', 'SnVgWOTEsLEUbKu(this)');
+            }
+        }
+    };
+
+    function MnoxFPIpMwcHhAv(t){
+        let input1_ = t.innerHTML.split(' - ')[0];
+        let input2_ = t.innerHTML.split(' - ')[1];
+
+        let parentWorker = $(t).parent().attr("worker");
+        let parentDate = $(t).parent().attr("date");
+        
+        let LwxRoYhfmyzTlGm = document.querySelectorAll('.LwxRoYhfmyzTlGm');
+        for(let i = 0; i < LwxRoYhfmyzTlGm.length; i++){
+            if (LwxRoYhfmyzTlGm[i].getAttribute('worker') == parentWorker && LwxRoYhfmyzTlGm[i].getAttribute('date') == parentDate)
+            {
+                let input1 = LwxRoYhfmyzTlGm[i].querySelectorAll('input')[0];
+                let input2 = LwxRoYhfmyzTlGm[i].querySelectorAll('input')[1];
+
+                input1.value = input1_;
+                input2.value = input2_;
+            }
+        }
+
+        $(t).parent().hide();
+        let kqOeanWDDXEYTBz = document.querySelectorAll('.kqOeanWDDXEYTBz');
+        for (let j = 0; j < kqOeanWDDXEYTBz.length; j++)
+        {
+            kqOeanWDDXEYTBz[j].innerHTML = '<svg viewBox="0 0 10 6" width="10" height="6"><path d="M0 0h10L5 6z"></path></svg>';
+            kqOeanWDDXEYTBz[j].setAttribute('onclick', 'SnVgWOTEsLEUbKu(this)');
+        }
+    };
+
+
 
 </script>
