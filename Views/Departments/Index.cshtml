@@ -388,7 +388,7 @@
                     r2[j].style.width = r2[j].offsetWidth + 'px';
                     r2[j].style.backgroundColor = 'rgba(54, 56, 68, 1)';
                     r2[j].style.transition = 'background-color 0.2s';
-                    $(r2[j]).draggable({ cursor: 'grabbing', handle: svg[i], cursorAt: { bottom: 30, left: 30 }, zIndex: 1 });
+                    $(r2[j]).draggable({ cursor: 'grabbing', handle: svg[i], cursorAt: { bottom: 30, left: 30 }, zIndex: 1, scroll: false });
 
                     a.style.overflowX = 'unset';
                     a.style.overflowY = 'unset';
