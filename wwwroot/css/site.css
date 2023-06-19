@@ -1,3 +1,5 @@
+
+
 html {
   font-size: 14px;
 }
@@ -1238,7 +1240,12 @@ button {
 
     .pyyxmssXgPCWuUc.fNPXdDDFqqbVOkt {
         pointer-events: none;
+        opacity: 0.7;
     }
+
+        .pyyxmssXgPCWuUc.fNPXdDDFqqbVOkt span {
+            /*color: rgba(255, 255, 255, 0.5);*/
+        }
 
 .YgYDRNgkzyxgztO {
     height: 35px;
@@ -1396,9 +1403,9 @@ button {
 
 .oKvcDSylPNSLgqr {
     background-color: rgba(34, 36, 48, 1);
-    height: 103px;
-    min-height: 103px;
-    max-height: 103px;
+    height: 83px;
+    min-height: 83px;
+    max-height: 83px;
     display: inherit;
     justify-content: center;
     align-items: center;
@@ -1416,10 +1423,10 @@ button {
         font-family: Arial;
         color: rgba(255, 255, 255, 0.8);
         user-select: auto;
-        /*text-overflow: ellipsis;
+        text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        max-width: 240px;*/
+        max-width: 240px;
     }
 
     .oKvcDSylPNSLgqr span:first-child {
@@ -1444,9 +1451,9 @@ button {
 
 .GJakzZdfXNDmfZz {
     background-color: transparent;
-    height: 100px;
-    min-height: 100px;
-    max-height: 100px;
+    height: 80px;
+    min-height: 80px;
+    max-height: 80px;
     display: inherit;
     justify-content: center;
     align-items: center;
