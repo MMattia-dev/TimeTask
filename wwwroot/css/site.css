@@ -1396,9 +1396,9 @@ button {
 
 .oKvcDSylPNSLgqr {
     background-color: rgba(34, 36, 48, 1);
-    height: 104px;
-    min-height: 104px;
-    max-height: 104px;
+    height: 103px;
+    min-height: 103px;
+    max-height: 103px;
     display: inherit;
     justify-content: center;
     align-items: center;
@@ -1407,15 +1407,19 @@ button {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    border-bottom: 4px solid rgba(0, 0, 0, 0.5);
-    border-right: 4px solid rgba(0, 0, 0, 0.5);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.5);
+    border-right: 3px solid rgba(0, 0, 0, 0.5);
     z-index: 2;
-    
+    text-align: center;
 }
     .oKvcDSylPNSLgqr span {
         font-family: Arial;
         color: rgba(255, 255, 255, 0.8);
         user-select: auto;
+        /*text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: 240px;*/
     }
 
     .oKvcDSylPNSLgqr span:first-child {
@@ -1442,11 +1446,12 @@ button {
     background-color: transparent;
     height: 100px;
     min-height: 100px;
+    max-height: 100px;
     display: inherit;
     justify-content: center;
     align-items: center;
     background-color: rgba(34, 36, 48, 1);
-    border-right: 4px solid rgba(0, 0, 0, 0.5);
+    border-right: 3px solid rgba(0, 0, 0, 0.5);
 }
 
     .GJakzZdfXNDmfZz span {
@@ -1466,10 +1471,10 @@ button {
     overflow-y: auto;
     overflow-x: hidden;
     gap: 5px;
-    border-right: 4px solid rgba(0, 0, 0, 0.5);
-    border-right: 4px solid rgba(0, 0, 0, 0.5);
+    border-right: 3px solid rgba(0, 0, 0, 0.5);
+    border-right: 3px solid rgba(0, 0, 0, 0.5);
     /*border-bottom: 4px solid rgba(0, 0, 0, 0.5);*/
-    border-top: 4px solid rgba(0, 0, 0, 0.5);
+    border-top: 3px solid rgba(0, 0, 0, 0.5);
     /*transform: translateY(4px);*/
     
 }
@@ -1491,12 +1496,12 @@ button {
 
 .LwxRoYhfmyzTlGm {
     height: 40px;
-    border-bottom: 4px solid rgba(0, 0, 0, 0.5);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.5);
     display: inherit;
     justify-content: center;
     align-items: center;
     gap: 4px;
-    border-right: 4px solid rgba(0, 0, 0, 0.5);
+    border-right: 3px solid rgba(0, 0, 0, 0.5);
     /*border-top: 4px solid rgba(0, 0, 0, 0.5);*/
     position: relative;
 }
@@ -1518,8 +1523,8 @@ button {
 
 .AQzCKqmlrQJmxzn {
     height: 160px;
-    border-right: 4px solid rgba(0, 0, 0, 0.5);
-    border-bottom: 4px solid rgba(0, 0, 0, 0.5);
+    border-right: 3px solid rgba(0, 0, 0, 0.5);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.5);
 
     /*padding-bottom: 45px;*/
     padding: 5px 5px 45px 5px;
@@ -1543,7 +1548,7 @@ button {
     transition: background-color 0.2s;
 }
 
-    .kqOeanWDDXEYTBz:first-child:hover {
+    .kqOeanWDDXEYTBz:hover {
         background-color: rgba(255, 255, 255, 0.1);
         transition: background-color 0.2s;
     }
