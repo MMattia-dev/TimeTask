@@ -53,7 +53,7 @@
                                             @*<div class="pTBYGYxynGajyIy">@item.</div>*@
                                             if (item.Id == item2.WorkerID)
                                             {
-                                                <div class="ZslufbFdcfCIeaW" id="@item2.Date.ToString("yyyy-MM-dd")" style="display: none;">
+                                                <div class="ZslufbFdcfCIeaW" id2="@item2.TaskNameID" id="@item2.Date.ToString("yyyy-MM-dd")" style="display: none;">
                                                     @{
                                                         var taskName = ((IEnumerable<TaskName2>)ViewBag.TaskNames).FirstOrDefault(x => x.Id == item2.TaskNameID);
                                                     }

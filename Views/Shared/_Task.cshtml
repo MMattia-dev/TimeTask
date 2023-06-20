@@ -53,17 +53,19 @@
     else
     {
         <div class="CMwsOZudhBlDtQi">
-            @foreach (var item in ((IEnumerable<TaskName2>)ViewBag.TaskNames).OrderBy(x => x.DepartmentID))
-            {
-                <div class="YgYDRNgkzyxgztO" id2="@item.Id" id="@item.DepartmentID" style="display: none;">
-                    <svg class="EpPTURkmdIzOSnq" id2="@item.Id" viewBox="0 0 20 20" height="20" width="20"><path d="M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z" /><path d="M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z" /><path d="M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z" /></svg>
-                    <div class="uESYaZNLlshNOzd">
-                        <span>@item.Name</span>
-                        <a onclick="ydcXSyYYSvQPggQ(this)" gwyIDEzPzXYjfLE="@item.Id" kCKFvozEWxUVxxp="@item.Name" iuCJIrClUqpPWfy="@item.DepartmentID" title="Edytuj"><svg viewBox="0 0 512 512" height="12" width="12"><path class="st0" d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z" /><polygon class="st0" points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	" /></svg></a>
-                        <a onclick="pXwvhczxXMKKzWB(this)" WYxbaolkBNcDokP="@item.Id" title="Usuń"><svg viewBox="0 0 469.404 469.404" height="12" width="12"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>
+            <div class="nfLIRJNjWZmLKJe">
+                @foreach (var item in ((IEnumerable<TaskName2>)ViewBag.TaskNames).OrderBy(x => x.DepartmentID))
+                {
+                    <div class="YgYDRNgkzyxgztO" id2="@item.Id" id="@item.DepartmentID" style="display: none;">
+                        <svg class="EpPTURkmdIzOSnq" id2="@item.Id" viewBox="0 0 20 20" height="20" width="20"><path d="M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z" /><path d="M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z" /><path d="M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z" /></svg>
+                        <div class="uESYaZNLlshNOzd">
+                            <span>@item.Name</span>
+                            <a onclick="ydcXSyYYSvQPggQ(this)" gwyIDEzPzXYjfLE="@item.Id" kCKFvozEWxUVxxp="@item.Name" iuCJIrClUqpPWfy="@item.DepartmentID" title="Edytuj"><svg viewBox="0 0 512 512" height="12" width="12"><path class="st0" d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z" /><polygon class="st0" points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	" /></svg></a>
+                            <a onclick="pXwvhczxXMKKzWB(this)" WYxbaolkBNcDokP="@item.Id" title="Usuń"><svg viewBox="0 0 469.404 469.404" height="12" width="12"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>
+                        </div>
                     </div>
-                </div>
-            }
+                }
+            </div>    
             <div class="pyyxmssXgPCWuUc" onclick="kJYIwPwacgrxdrX()">
                 <span>Dodaj nowe zadanie</span>
             </div>
@@ -383,6 +385,8 @@
 
     function kJYIwPwacgrxdrX()
     {
+        document.getElementById('IluduaIgOUVOGRf').value = '';
+
         let e = document.getElementById('kRyEzzxRxADfSZj');
         let e2 = e.options[e.selectedIndex].value;
         let f = document.getElementById('hdfoDuUOBPpvhSl');
@@ -396,8 +400,11 @@
     function ydcXSyYYSvQPggQ(t)
     {
         let gwyIDEzPzXYjfLE = sessionStorage.setItem('gwyIDEzPzXYjfLE', t.getAttribute('gwyIDEzPzXYjfLE'));
-        document.getElementById('gPLPpoufGitmRJK').value = t.getAttribute('kCKFvozEWxUVxxp');
+        let ttt = $(t).parent().children(':first').html();
+        //document.getElementById('gPLPpoufGitmRJK').value = t.getAttribute('kCKFvozEWxUVxxp');
+        document.getElementById('gPLPpoufGitmRJK').value = ttt;
 
+        
         let iuCJIrClUqpPWfy = t.getAttribute('iuCJIrClUqpPWfy');
         let rFaJKmZDlbnwiBP = document.getElementById('rFaJKmZDlbnwiBP');
 
@@ -420,89 +427,96 @@
 
 
 
+    //$('.EpPTURkmdIzOSnq').mousedown(function (e) {
+    //    console.log(e);
+    //});
 
-
-    let EpPTURkmdIzOSnq = document.querySelectorAll('.EpPTURkmdIzOSnq');
-    for (let i = 0; i < EpPTURkmdIzOSnq.length; i++)
-    {
-        let id_ = EpPTURkmdIzOSnq[i].getAttribute('id2');
-        EpPTURkmdIzOSnq[i].addEventListener('mousedown', function ()
+    function testtt() {
+        let EpPTURkmdIzOSnq = document.querySelectorAll('.EpPTURkmdIzOSnq');
+        for (let i = 0; i < EpPTURkmdIzOSnq.length; i++)
         {
-
-            let user = document.querySelector('.user');
-            let YgYDRNgkzyxgztO = document.querySelectorAll('.YgYDRNgkzyxgztO');
-
-            for (let j = 0; j < YgYDRNgkzyxgztO.length; j++)
+            let id_ = EpPTURkmdIzOSnq[i].getAttribute('id2');
+            EpPTURkmdIzOSnq[i].addEventListener('mousedown', function ()
             {
-                let id__ = YgYDRNgkzyxgztO[j].getAttribute('id2');
-                if (id_ == id__)
-                {
-                    EpPTURkmdIzOSnq[i].style.cursor = 'grabbing';
 
-                    $(YgYDRNgkzyxgztO[j]).draggable({
-                        handle: EpPTURkmdIzOSnq[i],
-                        snap: '.AQzCKqmlrQJmxzn',
-                        snapMode: 'inner',
-                        appendTo: 'body',
-                        //scroll: false,
-                        helper: 'clone',
-                        start: function (event, ui)
-                        {
-                            //$(ui.helper).css('width', `${$(event.target).width()}px`);
-                            $(ui.helper).css({ 'width': '260px', 'transform': 'translateX(0px)'});
-                            $($(ui.helper).children('div').find('a')[0]).css('display', 'none');
-                            $($(ui.helper).children('div').find('a')[1]).css('display', 'none');
-                            $('.AQzCKqmlrQJmxzn').css({ 'background-color': 'rgba(255, 255, 255, 0.1)' });
-                        }
-                    });
+                let user = document.querySelector('.user');
+                let YgYDRNgkzyxgztO = document.querySelectorAll('.YgYDRNgkzyxgztO');
 
-                    $('.AQzCKqmlrQJmxzn').droppable({
-                        drop: function (event, ui)
-                        {
-                            //$(this).append($(ui.helper).clone());
-                            var item = ui.draggable;
-                            var newItem = item.clone();
-                            newItem.appendTo($(this))
-                                .draggable({
-                                    handle: $(this).not(".ui-resizable-handle"),
-                                    containment: $(".droppable")
-                                });
-                            newItem.resizable({
-                                ghost: false
-                            });
-                                
-                            $($(newItem).children('div').find('a')).remove();
-                            for(let x = 0; x < 3; x++){
-                                $($(newItem).children('div')[1]).remove();
-                            }
-                            
-                            $(newItem).children('svg').remove();
-                            $(newItem).addClass('pTBYGYxynGajyIy');
-                            $(newItem).css('border-left', '4px solid rgb(36, 110, 142)');
-                            $(newItem).append(`<a onclick="fuhYEhklpyusggn(this)" title="Usuń zadanie"><svg viewBox="0 0 469.404 469.404" height="12" width="12"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>`);
-                        },
-                        drag: function ()
-                        {
-                            var offset = $(this).offset();
-                            var xPos = offset.left;
-                            var yPos = offset.top;
-                        },
-                    });
-                }
-
-                    
-            }
-
-            document.addEventListener('mouseup', function ()
-            {
                 for (let j = 0; j < YgYDRNgkzyxgztO.length; j++)
                 {
-                    EpPTURkmdIzOSnq[i].style.removeProperty('cursor');
+                    let id__ = YgYDRNgkzyxgztO[j].getAttribute('id2');
+                    if (id_ == id__)
+                    {
+                        EpPTURkmdIzOSnq[i].style.cursor = 'grabbing';
+
+                        $(YgYDRNgkzyxgztO[j]).draggable({
+                            handle: EpPTURkmdIzOSnq[i],
+                            snap: '.AQzCKqmlrQJmxzn',
+                            snapMode: 'inner',
+                            appendTo: 'body',
+                            //scroll: false,
+                            helper: 'clone',
+                            start: function (event, ui)
+                            {
+                                //$(ui.helper).css('width', `${$(event.target).width()}px`);
+                                $(ui.helper).css({ 'width': '260px', 'transform': 'translateX(0px)' });
+                                $($(ui.helper).children('div').find('a')[0]).css('display', 'none');
+                                $($(ui.helper).children('div').find('a')[1]).css('display', 'none');
+                                $('.AQzCKqmlrQJmxzn').css({ 'background-color': 'rgba(255, 255, 255, 0.1)' });
+                            }
+                        });
+
+                        $('.AQzCKqmlrQJmxzn').droppable({
+                            drop: function (event, ui)
+                            {
+                                //$(this).append($(ui.helper).clone());
+                                var item = ui.draggable;
+                                var newItem = item.clone();
+                                newItem.appendTo($(this))
+                                    .draggable({
+                                        handle: $(this).not(".ui-resizable-handle"),
+                                        containment: $(".droppable")
+                                    });
+                                newItem.resizable({
+                                    ghost: false
+                                });
+
+                                $($(newItem).children('div').find('a')).remove();
+                                for (let x = 0; x < 3; x++)
+                                {
+                                    $($(newItem).children('div')[1]).remove();
+                                }
+
+                                $(newItem).children('svg').remove();
+                                $(newItem).addClass('pTBYGYxynGajyIy');
+                                $(newItem).css('border-left', '4px solid rgb(36, 110, 142)');
+                                $(newItem).append(`<a onclick="fuhYEhklpyusggn(this)" title="Usuń zadanie"><svg viewBox="0 0 469.404 469.404" height="12" width="12"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>`);
+                            },
+                            drag: function ()
+                            {
+                                var offset = $(this).offset();
+                                var xPos = offset.left;
+                                var yPos = offset.top;
+                            },
+                        });
+                    }
+
+
                 }
-                $('.AQzCKqmlrQJmxzn').css('background-color', '');
+
+                document.addEventListener('mouseup', function ()
+                {
+                    for (let j = 0; j < YgYDRNgkzyxgztO.length; j++)
+                    {
+                        EpPTURkmdIzOSnq[i].style.removeProperty('cursor');
+                    }
+                    $('.AQzCKqmlrQJmxzn').css('background-color', '');
+                });
             });
-        });
-    }
+        }
+    };
+    testtt();
+    
 
 
 
@@ -692,7 +706,22 @@
             },
             success: function (response)
             {
-                location.reload();
+                //location.reload();
+                //nfLIRJNjWZmLKJe
+                //YgYDRNgkzyxgztO
+
+                document.querySelector('.nfLIRJNjWZmLKJe').innerHTML += `<div class="YgYDRNgkzyxgztO" id2="` + response.id + `" id="` + response.departmentID + `" >`
+                    + `<svg class="EpPTURkmdIzOSnq" id2="` + response.id + `" viewBox="0 0 20 20" height="20" width="20"><path d="M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z" /><path d="M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z" /><path d="M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z" /></svg>`
+                    + `<div class="uESYaZNLlshNOzd">`
+                    + `<span>` + response.name + `</span>`
+                    + `<a onclick="ydcXSyYYSvQPggQ(this)" gwyIDEzPzXYjfLE="` + response.id + `" kCKFvozEWxUVxxp="` + response.name + `" iuCJIrClUqpPWfy="` + response.departmentID + `" title="Edytuj"><svg viewBox="0 0 512 512" height="12" width="12"><path class="st0" d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z" /><polygon class="st0" points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	" /></svg></a>`
+                    + `<a onclick="pXwvhczxXMKKzWB(this)" WYxbaolkBNcDokP="` + response.id + `" title="Usuń"><svg viewBox="0 0 469.404 469.404" height="12" width="12"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>`
+                    + `</div>`
+                    + `</div>`;
+
+                let a = document.getElementById('hJQarhdVtvVBOnk');
+                $(a).fadeOut(200);
+                testtt();
             },
             error: function (xhr, status, error)
             {
@@ -718,7 +747,35 @@
             },
             success: function (response)
             {
-                location.reload();
+                //location.reload();
+                //YgYDRNgkzyxgztO
+                let YgYDRNgkzyxgztO = document.querySelectorAll('.YgYDRNgkzyxgztO');
+                for (let i = 0; i < YgYDRNgkzyxgztO.length; i++)
+                {
+                    if (YgYDRNgkzyxgztO[i].getAttribute('id2') == id_)
+                    {
+                        let uESYaZNLlshNOzd = YgYDRNgkzyxgztO[i].querySelector('.uESYaZNLlshNOzd span');
+                        uESYaZNLlshNOzd.innerHTML = response.name;
+                    }
+                }
+
+                //let AQzCKqmlrQJmxzn = document.querySelectorAll('.AQzCKqmlrQJmxzn');
+                //for (let i = 0; i < AQzCKqmlrQJmxzn.length; i++)
+                //{
+                    //ZslufbFdcfCIeaW
+                //let ZslufbFdcfCIeaW = document.querySelectorAll('.ZslufbFdcfCIeaW');
+                //    for (let j = 0; j < ZslufbFdcfCIeaW.length; j++)
+                //    {
+                //        if (ZslufbFdcfCIeaW[j].getAttribute('id2') == id_)
+                //        {
+                //            let span = ZslufbFdcfCIeaW[j].querySelector('span');
+                //        span.innerHTML = response.name;
+                //        }
+                //    }
+                //}
+
+                let e = document.getElementById('HrjQZZqwQjnGRuC');
+                $(e).fadeOut(200);
             },
             error: function (xhr, status, error)
             {
@@ -739,7 +796,15 @@
             },
             success: function (response)
             {
-                location.reload();
+                //location.reload();
+                let YgYDRNgkzyxgztO = document.querySelectorAll('.YgYDRNgkzyxgztO');
+                for (let i = 0; i < YgYDRNgkzyxgztO.length; i++) 
+                {
+                    if (YgYDRNgkzyxgztO[i].getAttribute('id2') == id_)
+                    {
+                        $(YgYDRNgkzyxgztO[i]).remove();
+                    }
+                }
             },
             error: function (xhr, status, error)
             {

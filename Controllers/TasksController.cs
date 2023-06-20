@@ -246,6 +246,7 @@ namespace TimeTask.Controllers
             _context.Task.Add(newData);
             _context.SaveChanges();
             return Json(new { success = true });
+            //return Json(newData.Id);
         }
 
         [HttpPost]
@@ -278,6 +279,17 @@ namespace TimeTask.Controllers
 
             return Json(new { success = false });
         }
+
+
+
+
+
+        //[HttpPost]
+        //public ActionResult GetNewTaskID()
+        //{
+
+        //}
+
 
 
     }

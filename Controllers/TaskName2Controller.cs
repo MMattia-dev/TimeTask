@@ -171,7 +171,8 @@ namespace TimeTask.Controllers
 
             _context.TaskName2.Add(newData);
             _context.SaveChanges();
-            return Json(new { success = true });
+            //return Json(new { success = true });
+            return Json(new { newData.Id, newData.Name, newData.DepartmentID });
         }
 
         [HttpPost]
@@ -183,7 +184,8 @@ namespace TimeTask.Controllers
                 row.Name = name;
                 row.DepartmentID = departmentID;
                 _context.SaveChanges();
-                return Json(new { success = true });
+                //return Json(new { success = true });
+                return Json(new { row.Name });
             }
 
             return Json(new { success = false });
