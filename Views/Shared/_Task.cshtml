@@ -587,6 +587,7 @@
                         console.log('Error updating data:', error);
                     }
                 });
+
             }
         }
     };
@@ -604,15 +605,15 @@
                 let date_ = SBVWNWOJZnTplXL[j].getAttribute('date');//
                 let jobStart_ = SBVWNWOJZnTplXL[j].querySelectorAll('.LwxRoYhfmyzTlGm input')[0].value;//
                 let jobEnd_ = SBVWNWOJZnTplXL[j].querySelectorAll('.LwxRoYhfmyzTlGm input')[1].value;//
-                let AQzCKqmlrQJmxzn = SBVWNWOJZnTplXL[j].querySelectorAll('.AQzCKqmlrQJmxzn div');
+                let YgYDRNgkzyxgztO = SBVWNWOJZnTplXL[j].querySelectorAll('.AQzCKqmlrQJmxzn .YgYDRNgkzyxgztO');
 
                 if (jobStart_ != '' && jobEnd_ != '')
                 {
-                    for (let k = 0; k < AQzCKqmlrQJmxzn.length; k++)
+                    for (let k = 0; k < YgYDRNgkzyxgztO.length; k++)
                     {
-                        if (AQzCKqmlrQJmxzn[k].hasAttribute('id2'))
+                        if (YgYDRNgkzyxgztO[k].hasAttribute('id2'))
                         {
-                            let taskNameID_ = AQzCKqmlrQJmxzn[k].getAttribute('id2');
+                            let taskNameID_ = YgYDRNgkzyxgztO[k].getAttribute('id2');
                             if (taskNameID_ != null)
                             {
                                 let dateJobStart = date_ + ' ' + jobStart_;
@@ -638,6 +639,7 @@
                                     }
                                 });
 
+                                //console.log(workerID_, taskNameID_, date_, dateJobStart, dateJobEnd);
                             }
                         }
                     }
@@ -748,7 +750,6 @@
             success: function (response)
             {
                 //location.reload();
-                //YgYDRNgkzyxgztO
                 let YgYDRNgkzyxgztO = document.querySelectorAll('.YgYDRNgkzyxgztO');
                 for (let i = 0; i < YgYDRNgkzyxgztO.length; i++)
                 {
@@ -759,20 +760,17 @@
                     }
                 }
 
-                //let AQzCKqmlrQJmxzn = document.querySelectorAll('.AQzCKqmlrQJmxzn');
-                //for (let i = 0; i < AQzCKqmlrQJmxzn.length; i++)
-                //{
-                    //ZslufbFdcfCIeaW
-                //let ZslufbFdcfCIeaW = document.querySelectorAll('.ZslufbFdcfCIeaW');
-                //    for (let j = 0; j < ZslufbFdcfCIeaW.length; j++)
-                //    {
-                //        if (ZslufbFdcfCIeaW[j].getAttribute('id2') == id_)
-                //        {
-                //            let span = ZslufbFdcfCIeaW[j].querySelector('span');
-                //        span.innerHTML = response.name;
-                //        }
-                //    }
-                //}
+
+                let ZslufbFdcfCIeaW = document.querySelectorAll('.ZslufbFdcfCIeaW');
+                for (let j = 0; j < ZslufbFdcfCIeaW.length; j++)
+                {
+                    if (ZslufbFdcfCIeaW[j].getAttribute('id2') == id_)
+                    {
+                        let span = ZslufbFdcfCIeaW[j].querySelector('span');
+                        span.innerHTML = response.name;
+                    }
+                }
+                
 
                 let e = document.getElementById('HrjQZZqwQjnGRuC');
                 $(e).fadeOut(200);
