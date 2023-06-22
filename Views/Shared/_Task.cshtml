@@ -784,7 +784,21 @@
 
     function pXwvhczxXMKKzWB(t)
     {
-        let id_ = t.getAttribute('WYxbaolkBNcDokP');
+        sessionStorage.setItem('RvZcwuWaUQIUZUS', t.getAttribute('WYxbaolkBNcDokP'));
+
+        document.getElementById('cKSpcSCmKURLYSF').innerHTML = 'Czy na pewno chcesz usunąć ' + $(t).parent().children().eq(0).html() + '?';
+
+        let YUkuEpVsBmYTtjN = document.getElementById('YUkuEpVsBmYTtjN');
+        $(YUkuEpVsBmYTtjN).fadeIn(200);
+    };
+
+    function spDekwIzyQklvGF() {
+        let YUkuEpVsBmYTtjN = document.getElementById('YUkuEpVsBmYTtjN');
+        $(YUkuEpVsBmYTtjN).fadeOut(200);
+    };
+
+    function aDkOgungYCvMbHN() {
+        let id_ = sessionStorage.getItem('RvZcwuWaUQIUZUS');
 
         $.ajax({
             type: 'POST',
@@ -794,21 +808,68 @@
             },
             success: function (response)
             {
-                //location.reload();
                 let YgYDRNgkzyxgztO = document.querySelectorAll('.YgYDRNgkzyxgztO');
-                for (let i = 0; i < YgYDRNgkzyxgztO.length; i++) 
+                for (let i = 0; i < YgYDRNgkzyxgztO.length; i++)
                 {
                     if (YgYDRNgkzyxgztO[i].getAttribute('id2') == id_)
                     {
                         $(YgYDRNgkzyxgztO[i]).remove();
                     }
                 }
+
+
+                let ZslufbFdcfCIeaW = document.querySelectorAll('.ZslufbFdcfCIeaW');
+                for (let i = 0; i < ZslufbFdcfCIeaW.length; i++)
+                {
+                    if (ZslufbFdcfCIeaW[i].getAttribute('id2') == id_)
+                    {
+                        if (ZslufbFdcfCIeaW[i].style.display != 'none')
+                        {
+                            let wghrtajuyftswfc = $(ZslufbFdcfCIeaW[i]).children().eq(1).attr('wghrtajuyftswfc');
+
+                            let LwxRoYhfmyzTlGm = $($(ZslufbFdcfCIeaW[i]).parent()).parent().children().eq(0);
+                            let input1 = $(LwxRoYhfmyzTlGm).children().eq(0);
+                            let input2 = $(LwxRoYhfmyzTlGm).children().eq(2);
+
+                            $.ajax({
+                                type: 'POST',
+                                url: '/Tasks/RemoveTask',
+                                async: true,
+                                data: {
+                                    id: wghrtajuyftswfc,
+                                },
+                                success: function (response)
+                                {
+                                    $(ZslufbFdcfCIeaW[i]).remove();
+                                    //$(input1).val('');
+                                    //$(input2).val('');
+
+
+
+                                },
+                                error: function (xhr, status, error)
+                                {
+                                    console.log('Error removing data:', error);
+                                }
+                            });
+                        }
+
+                    }
+                }
+
+                let YUkuEpVsBmYTtjN = document.getElementById('YUkuEpVsBmYTtjN');
+                $(YUkuEpVsBmYTtjN).fadeOut(200);
             },
             error: function (xhr, status, error)
             {
-                console.log('Error removing data:', error);
+                //console.log('Error removing data:', error);
+                alert('Error removing data:', error);
             }
         });
+
+
+        
+        
     };
 
     function mhzWFFdkOFYMLsP(t) {

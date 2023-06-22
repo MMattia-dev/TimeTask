@@ -1622,15 +1622,31 @@ button {
     padding: 15px;
 }
 
+.IvBtEDulLESDYxK {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    height: auto;
+    width: 250px;
+    padding: 10px;
+    display: flex;
+    /*justify-content: center;
+    align-items: center;*/
+    flex-direction: column;
+    margin-bottom: 10px;
+    gap: 8px;
+}
 
-
+    .IvBtEDulLESDYxK span {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+        text-align: center;
+    }
 /*.VSXIkuJMIBqaSVq {
     transform: translateX(-100%);
     transition: 0.6s;
     opacity: 0;
 }
 */
-
 /*.oKvcDSylPNSLgqr {
     display: inherit;*/
 /*flex-direction: column;*/
