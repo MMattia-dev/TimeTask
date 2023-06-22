@@ -110,7 +110,7 @@
     }
 
 
-    {
+    function loadOnLoad(){
         let date = new Date();
 
         let uKdvKAhOhYwppOO = document.getElementById('uKdvKAhOhYwppOO');// rok
@@ -162,7 +162,8 @@
         }).then(function () {
             drmZhscxvPoxiya();
         });
-    }
+    };
+    loadOnLoad();
 
     function getDayName(dateStr, locale)
     {
@@ -259,7 +260,7 @@
                         $(ZslufbFdcfCIeaW[j]).show();
                     }
                     else {
-                        $(ZslufbFdcfCIeaW[j]).hide();
+                        $(ZslufbFdcfCIeaW[j]).remove();
                     }
                 }
             }
@@ -827,10 +828,6 @@
                         {
                             let wghrtajuyftswfc = $(ZslufbFdcfCIeaW[i]).children().eq(1).attr('wghrtajuyftswfc');
 
-                            let LwxRoYhfmyzTlGm = $($(ZslufbFdcfCIeaW[i]).parent()).parent().children().eq(0);
-                            let input1 = $(LwxRoYhfmyzTlGm).children().eq(0);
-                            let input2 = $(LwxRoYhfmyzTlGm).children().eq(2);
-
                             $.ajax({
                                 type: 'POST',
                                 url: '/Tasks/RemoveTask',
@@ -841,11 +838,9 @@
                                 success: function (response)
                                 {
                                     $(ZslufbFdcfCIeaW[i]).remove();
-                                    //$(input1).val('');
-                                    //$(input2).val('');
-
-
-
+                                    
+                                    let YUkuEpVsBmYTtjN = document.getElementById('YUkuEpVsBmYTtjN');
+                                    $(YUkuEpVsBmYTtjN).fadeOut(200);
                                 },
                                 error: function (xhr, status, error)
                                 {
@@ -853,23 +848,14 @@
                                 }
                             });
                         }
-
                     }
                 }
-
-                let YUkuEpVsBmYTtjN = document.getElementById('YUkuEpVsBmYTtjN');
-                $(YUkuEpVsBmYTtjN).fadeOut(200);
             },
             error: function (xhr, status, error)
             {
-                //console.log('Error removing data:', error);
                 alert('Error removing data:', error);
             }
         });
-
-
-        
-        
     };
 
     function mhzWFFdkOFYMLsP(t) {
