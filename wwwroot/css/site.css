@@ -1235,7 +1235,7 @@ button {
 
     .pyyxmssXgPCWuUc.XGhZTcUEoJhWtNr {
         border-left: 4px solid rgb(107, 197, 108);
-        overflow: auto;
+        /*overflow: auto;*/
     }
 
     /*.pyyxmssXgPCWuUc.fNPXdDDFqqbVOkt {
@@ -1260,6 +1260,7 @@ button {
     align-items: center;
     justify-content: space-between;
     transform: translateX(-5px);
+    /*pointer-events: none;*/
 }
 
     .YgYDRNgkzyxgztO span {
@@ -1281,6 +1282,7 @@ button {
         /*padding-right: 20px;*/
         padding: 8px;
         transform: translateX(0px);
+        /*pointer-events: none;*/
     }
 
     .YgYDRNgkzyxgztO.pTBYGYxynGajyIy svg {
@@ -1317,7 +1319,7 @@ button {
     }
 
     .ZslufbFdcfCIeaW a svg {
-        fill: rgba(255, 255, 255, 0.8);
+        fill: rgba(255, 255, 255, 0.6);
         cursor: pointer;
         transition: fill 0.2s;
         transform: translateY(-1px);
@@ -1398,8 +1400,6 @@ button {
 }
 
     .wcHMgjWjXaRMPKy:hover {
-        /*background-color: rgba(34, 36, 48, 0.2);*/
-        /*opacity: 0.9;*/
         filter: brightness(120%);
         transition: filter 0.2s;
     }
@@ -1502,6 +1502,9 @@ button {
     background-color: rgba(34, 36, 48, 0.6);
     display: inherit;
     flex-direction: column;
+    filter: brightness(100%);
+    /*transition: filter 0.2s;*/
+    /*z-index: 0;*/
 }
 
 .LwxRoYhfmyzTlGm {
@@ -1535,7 +1538,6 @@ button {
     height: 160px;
     border-right: 3px solid rgba(0, 0, 0, 0.5);
     border-bottom: 3px solid rgba(0, 0, 0, 0.5);
-
     /*padding-bottom: 45px;*/
     padding: 5px 5px 45px 5px;
     overflow-x: hidden;
@@ -1641,6 +1643,47 @@ button {
         font-size: 14px;
         text-align: center;
     }
+
+/*.SWAGjrIjXHjtobQ {
+    width: 260px;
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0.25);
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;*/
+    /*top: 0;
+    left: 0;*/
+/*}*/
+
+.lzfFwBKdGEtuYUv {
+    height: 200px;
+    border-right: 3px solid rgba(0, 0, 0, 0.5);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.5);
+    /*padding-bottom: 45px;*/
+    /*padding: 5px 5px 45px 5px;*/
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
+    scrollbar-width: thin;
+    transition: background-color 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*background-color: rgba(0, 0, 0, 0.3);*/
+    /*z-index: 100;*/
+    /*pointer-events: none !important;*/
+    background-color: rgba(24, 26, 38, 0.6);
+}
+
+
+
+
+
+
 /*.VSXIkuJMIBqaSVq {
     transform: translateX(-100%);
     transition: 0.6s;

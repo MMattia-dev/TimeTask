@@ -246,6 +246,12 @@
                 {
                     avnythFRVEkXnim[j].setAttribute('date', array[j]);
                 }
+
+                let lzfFwBKdGEtuYUv = wcHMgjWjXaRMPKy[i].querySelectorAll('.lzfFwBKdGEtuYUv');
+                for (let j = 0; j < lzfFwBKdGEtuYUv.length; j++)
+                {
+                    lzfFwBKdGEtuYUv[j].setAttribute('date', array[j]);
+                }
             }
 
         }).then(function() {
@@ -869,11 +875,12 @@
             },
             success: function (response)
             {
-                location.reload();
+                $(t).parent().remove();
             },
             error: function (xhr, status, error)
             {
-                console.log('Error removing data:', error);
+                //console.log('Error removing data:', error);
+                alert('Error removing data:', error);
             }
         });
     };
@@ -963,6 +970,71 @@
             kqOeanWDDXEYTBz[j].style.removeProperty('background-color');
         }
     };
+
+
+
+    function szWBomtrGKAViBb(t, e) {
+
+        let LwxRoYhfmyzTlGm = $(t).children().eq(0);
+        let AQzCKqmlrQJmxzn = $(t).children().eq(1);
+
+        let input1 = $(LwxRoYhfmyzTlGm).children().eq(0).val(); //godzina od
+        let input2 = $(LwxRoYhfmyzTlGm).children().eq(2).val(); //godzina do
+        let date_ = t.getAttribute('date'); //data
+        let workerID = $(t).parent().attr('worker');
+        
+
+        if(input1 != '' && input2 != ''){
+            let AQzCKqmlrQJmxzn_children = $(AQzCKqmlrQJmxzn).children();
+            for (let i = 0; i < AQzCKqmlrQJmxzn_children.length; i++)
+            {
+                if ($(AQzCKqmlrQJmxzn_children[i]).hasClass('YgYDRNgkzyxgztO'))
+                {
+                    
+                    //MAQLaRkPpbPPjIH();
+                    //dpxpJkwLFcKTpet();
+
+                    //$(t).children().eq(2).show();
+                    //setTimeout(function(){
+                    //    $(t).children().eq(2).hide();
+                    //},3000)
+
+
+
+
+                    //let first = $(t).children().eq(0);
+                    //let second = $(t).children().eq(1);
+                    //let third = $(t).children().eq(2);
+
+                    //$(t).children().eq(0).hide();
+                    //$(t).children().eq(1).hide();
+                    //$(t).children().eq(2).show();
+
+                    $(t).hide();
+
+                    let asd = $(t).parent().children(':even').not(':first');
+
+                    for (let j = 0; j < asd.length; j++)
+                    {
+                        if(asd[j].getAttribute('date') == t.getAttribute('date'))
+                        {
+                            $(asd[j]).show();
+                            console.log(workerID);
+                        }
+                    }
+
+
+
+                }
+            }
+        }
+    };
+
+    //function hxtvgagnwbBPcal(t, e) {
+    //    e.preventDefault();
+    //                e.stopPropagation();
+    //};
+
 
 
 
