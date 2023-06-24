@@ -1282,7 +1282,7 @@ button {
         /*padding-right: 20px;*/
         padding: 8px;
         transform: translateX(0px);
-        /*pointer-events: none;*/
+        pointer-events: none;
     }
 
     .YgYDRNgkzyxgztO.pTBYGYxynGajyIy svg {
@@ -1676,7 +1676,7 @@ button {
     /*background-color: rgba(0, 0, 0, 0.3);*/
     /*z-index: 100;*/
     /*pointer-events: none !important;*/
-    background-color: rgba(24, 26, 38, 0.6);
+    background-color: rgba(34, 36, 48, 0.6);
 }
 
 
