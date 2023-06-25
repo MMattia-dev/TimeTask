@@ -985,7 +985,8 @@
         let workerID = $(t).parent().attr('worker');
         
 
-        if(input1 != '' && input2 != ''){
+        if (input1 != '' && input2 != '') //dla tych co juz istnieją w bazie i potrzebna jest aktualizacja
+        { 
             let AQzCKqmlrQJmxzn_children = $(AQzCKqmlrQJmxzn).children();
             for (let i = 0; i < AQzCKqmlrQJmxzn_children.length; i++)
             {
@@ -1015,17 +1016,18 @@
                     {
                         if(asd[j].getAttribute('date') == t.getAttribute('date'))
                         {
-                            $(t).hide();
-                            $(asd[j]).show();
-                            console.log($(AQzCKqmlrQJmxzn_children[i]));
+                            //$(t).hide();
+                            //$(asd[j]).show();
 
-                            //setTimeout(function(){
-                            //    $(t).hide();
-                            //    $(asd[j]).show();
-                            //    console.log($(AQzCKqmlrQJmxzn_children[i]));
-                            //}, 1500)
-                            //MAQLaRkPpbPPjIH();
-                            //dpxpJkwLFcKTpet();
+                            ////console.log($(AQzCKqmlrQJmxzn_children[i]));
+
+                            ////setTimeout(function(){
+                            ////    $(t).hide();
+                            ////    $(asd[j]).show();
+                            ////    console.log($(AQzCKqmlrQJmxzn_children[i]));
+                            ////}, 1500)
+                            ////MAQLaRkPpbPPjIH();
+                            ////dpxpJkwLFcKTpet();
 
 
 
@@ -1042,38 +1044,129 @@
     };
 
     function UrLQumgARjxLfGF(t) {
+        let arrayEdit = [];
+        let div = null;
+        let loader = null;
+
         let value2 = t.value; //input2
-        if(value2 != ''){
+        if (value2 != '') 
+        { 
             let value1 = $(t).parent().children().eq(0).val(); //input1
             if(value1){
                 //console.log('OK');
-                if($(t).parent().parent().children().eq(1).children().length > 0){
-                    let lzfFwBKdGEtuYUv = $(t).parent().parent().parent().children(':even').not(':first'); //lzfFwBKdGEtuYUv
+                if($(t).parent().parent().children().eq(1).children().length > 0){ 
+
+                    let lzfFwBKdGEtuYUv = $(t).parent().parent().parent().children(':even').not(':first'); //lzfFwBKdGEtuYUv - loading div
                     let date_ = $(t).parent().attr('date'); //LwxRoYhfmyzTlGm - date
-                    
-                    for (let i = 0; i < lzfFwBKdGEtuYUv.length; i++)
+
+
+                    let abc = $(t).parent().parent().children().eq(1).children();
+                    for (let c = 0; c < abc.length; c++)
                     {
-                        if (date_ == $(lzfFwBKdGEtuYUv[i]).attr('date'))
+                        if ($(abc[c]).hasClass('ZslufbFdcfCIeaW'))//dla tych co juz istnieją w bazie i potrzebna jest aktualizacja
                         {
+                            for (let i = 0; i < lzfFwBKdGEtuYUv.length; i++)
+                            {
+                                if (date_ == $(lzfFwBKdGEtuYUv[i]).attr('date'))
+                                {
+                                    div = $(t).parent().parent();
+                                    loader = $(lzfFwBKdGEtuYUv[i]);
 
-                            $(t).parent().parent().hide();
-                            $(lzfFwBKdGEtuYUv[i]).show();
-                            console.log($(t).parent().parent().children().eq(1).children());
+                                    //MAQLaRkPpbPPjIH();
+                                    //dpxpJkwLFcKTpet();
 
-                            //setTimeout(function(){
-                            //    $(t).parent().parent().hide();
-                            //    $(lzfFwBKdGEtuYUv[i]).show();
-                            //}, 1500)
+                                    setTimeout(function () {
+                                        let wghrtajuyftswfc = $(abc[c]).children().eq(1).attr('wghrtajuyftswfc'); //id
+                                        let jS = date_ + ' ' + value1; //jobStart
+                                        let jE = date_ + ' ' + value2; //jobEnd
+
+                                        arrayEdit.push({ id_: wghrtajuyftswfc, jobStart_: jS, jobEnd: jE });
+                                    }, 1500);
+
+                                    
+                                }
+                            }
+                        }
+                        else //nowe wpisy
+                        {
+                            for (let i = 0; i < lzfFwBKdGEtuYUv.length; i++)
+                            {
+                                if (date_ == $(lzfFwBKdGEtuYUv[i]).attr('date'))
+                                {
+                                    //$.ajax({
+                                    //    type: 'POST',
+                                    //    url: '/Tasks/AddTasks',
+                                    //    data: {
+                                    //        workerID: workerID_,
+                                    //        taskNameID: taskNameID_,
+                                    //        date: date_,
+                                    //        jobStart: dateJobStart,
+                                    //        jobEnd: dateJobEnd
+                                    //    },
+                                    //    success: function (response)
+                                    //    {
+
+                                    //    },
+                                    //    error: function (xhr, status, error)
+                                    //    {
+                                    //        console.log('Error adding data:', error);
+                                    //    }
+                                    //});
 
 
 
 
+
+
+
+                                }
+                            }
                         }
                     }
-
+                    
+                    
+                    
                 }
             }
         }
+
+
+        if (arrayEdit != null)
+        {
+            setTimeout(function ()
+            {
+                //$(div).hide();
+                //$(loader).show();
+
+                //console.log(arrayEdit);
+
+                for (let i = 0; i < arrayEdit.length; i++)
+                {
+                    
+
+                    //$.ajax({
+                    //    type: 'POST',
+                    //    url: '/Tasks/EditTask',
+                    //    data: {
+                    //        id: arrayEdit[i].id_,
+                    //        jobStart: arrayEdit[i].jobStart_,
+                    //        jobEnd: arrayEdit[i].jobEnd_
+                    //    },
+                    //    success: function (response)
+                    //    {
+                    //        $(div).show();
+                    //        $(loader).hide();
+                    //    },
+                    //    error: function (xhr, status, error)
+                    //    {
+                    //        //console.log('Error updating data:', error);
+                    //        alert('Error updating data:', error);
+                    //    }
+                    //});
+                }
+            }, 2000);
+        }
+
     };
 
 
