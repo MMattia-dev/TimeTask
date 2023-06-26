@@ -1206,6 +1206,11 @@ button {
         cursor: pointer;
     }
 
+    .HQTuaisxjrtQHPq.hkyYYlXJPLaqBDt {
+        pointer-events: none;
+        opacity: 0.7;
+    }
+
 .pyyxmssXgPCWuUc {
     height: 35px;
     width: 100%;
@@ -1236,12 +1241,17 @@ button {
     .pyyxmssXgPCWuUc.XGhZTcUEoJhWtNr {
         border-left: 4px solid rgb(107, 197, 108);
         /*overflow: auto;*/
+        /*margin-bottom: 10px;*/
     }
 
-    /*.pyyxmssXgPCWuUc.fNPXdDDFqqbVOkt {
+    .pyyxmssXgPCWuUc.fNPXdDDFqqbVOkt {
         pointer-events: none;
         opacity: 0.7;
-    }*/
+    }
+
+    .pyyxmssXgPCWuUc.xVZlAxNFqwZlPbw {
+        border-left: 4px solid rgb(36, 110, 142);
+    }
 
 
 .YgYDRNgkzyxgztO {
@@ -1282,7 +1292,7 @@ button {
         /*padding-right: 20px;*/
         padding: 8px;
         transform: translateX(0px);
-        pointer-events: none;
+        /*pointer-events: none;*/
     }
 
     .YgYDRNgkzyxgztO.pTBYGYxynGajyIy svg {
