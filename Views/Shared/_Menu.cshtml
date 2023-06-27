@@ -16,6 +16,10 @@
     }
 }
 
+<div class="loader_div iXYXpnpgGMALUNG" style="display: none;">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>
+
 <div class="IdRKPExyAQSewBL" onscroll="DKE3PlNoUnmS(this)">
     @*<a asp-area="" asp-controller="Home" asp-action="Index" class="home">
         <svg viewBox="0 0 50 50" width="22" height="22"><path d="M 25 1.0507812 C 24.7825 1.0507812 24.565859 1.1197656 24.380859 1.2597656 L 1.3808594 19.210938 C 0.95085938 19.550938 0.8709375 20.179141 1.2109375 20.619141 C 1.5509375 21.049141 2.1791406 21.129062 2.6191406 20.789062 L 4 19.710938 L 4 46 C 4 46.55 4.45 47 5 47 L 19 47 L 19 29 L 31 29 L 31 47 L 45 47 C 45.55 47 46 46.55 46 46 L 46 19.710938 L 47.380859 20.789062 C 47.570859 20.929063 47.78 21 48 21 C 48.3 21 48.589063 20.869141 48.789062 20.619141 C 49.129063 20.179141 49.049141 19.550938 48.619141 19.210938 L 25.619141 1.2597656 C 25.434141 1.1197656 25.2175 1.0507812 25 1.0507812 z M 35 5 L 35 6.0507812 L 41 10.730469 L 41 5 L 35 5 z"></path></svg>
@@ -29,7 +33,7 @@
         @*<span class="searchSpan">Ctrl + J</span>*@
     </div>
     <div class="departmentTasks">
-        <a href="@Url.Action("Index", "Tasks")">
+        <a href="@Url.Action("Index", "Tasks")" onclick="gboJArEdzlzejok()">
             <svg viewBox="0 0 512 512" width="17" height="17"><path d="M1.20792265e-13,197.76 C54.5835501,218.995667 112.186031,231.452204 170.666667,234.666667 L170.666667,277.333333 L256,277.333333 L256,234.666667 C314.339546,231.013 371.833936,218.86731 426.666667,198.613333 L426.666667,362.666667 L1.20792265e-13,362.666667 L1.20792265e-13,197.76 Z M277.333333,-1.42108547e-14 L298.666667,21.3333333 L298.666667,64 L426.666667,64 L426.666667,175.146667 C361.254942,199.569074 292.110481,212.488551 222.293333,213.333333 L222.293333,213.333333 L206.933333,213.333333 C136.179047,212.568604 66.119345,199.278929 7.10542736e-15,174.08 L7.10542736e-15,174.08 L7.10542736e-15,64 L128,64 L128,21.3333333 L149.333333,-1.42108547e-14 L277.333333,-1.42108547e-14 Z M256,42.6666667 L170.666667,42.6666667 L170.666667,64 L256,64 L256,42.6666667 Z"></path></svg>
             <span>@Resource.WorkSchedule</span>
         </a>
@@ -161,5 +165,13 @@
         a.style.display = '';
         b.style.display = '';
     }
+
+    function gboJArEdzlzejok() {
+        let IdRKPExyAQSewBL = document.querySelector('.IdRKPExyAQSewBL').getElementsByTagName('div');
+        $(IdRKPExyAQSewBL).fadeOut(200);
+
+        let loader_div = document.querySelector('.loader_div');
+        $(loader_div).fadeIn();
+    };
 
 </script>
