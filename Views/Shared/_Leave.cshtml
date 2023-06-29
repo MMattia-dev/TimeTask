@@ -2,47 +2,65 @@
 @using Newtonsoft.Json
 
 
+
+
+
 <div class="koblSjvDsfoQbAD">
     <a class="settings_a" href="@Url.Action("Index", "Home")">
         <svg viewBox="-8.5 0 32 32" width="32" height="32"><path d="M15.281 7.188v17.594l-15.281-8.781z"></path></svg>
         <span>Strona główna</span>
     </a>
 
-    <select class="HQTuaisxjrtQHPq" id="uKdvKAhOhYwppOO" onchange="FvEKesXHjbxXQEL()">
+    <select class="HQTuaisxjrtQHPq" id="iHCBwRzOLpgGYQG" onchange="pQqFdPzmjdqDlXo()">
         <!--Rok-->
-        @if (Model != null)
-        {
-            var r = Model.GroupBy(x => x.Enter.Value.Year).Select(x => x.First());
+        @{
+            var r = Model.GroupBy(x => x.Enter?.Year).Select(x => x.First());
+        }
         
-            @if (r == null || r.Count() == 0)
+        @if (r == null || r.Count() == 0)
+        {
+            <option value="@DateTime.Now.Year">@DateTime.Now.Year</option>
+        }
+        else
+        {
+            foreach (var item in r)
             {
-                <option value="@DateTime.Now.Year">@DateTime.Now.Year</option>
-            }
-            else
-            {
-                foreach (var item in r)
-                {
-                    <option value="@item.Enter.Value.Year">@item.Enter.Value.Year</option>
-                }
+                <option value="@item.Enter?.Year">@item.Enter?.Year</option>
             }
         }
     </select>
 
-    <select class="HQTuaisxjrtQHPq" id="JFUPeUjXoygHiiK" onchange="drmZhscxvPoxiya()">
+    <select class="HQTuaisxjrtQHPq" id="IZdWjCoFNPZaIaP" onchange="YDTyNWHkvmuAiCQ()">
         <!--Miesiąc-->
-
+        @*@foreach (var item in System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames)
+        {
+            <option value="@item">@item.ToString().ToUpper(item[0])</option>
+        }*@
+        @for (int i = 0; i < 12; i++)
+        {
+            string s = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[i];
+            string c = char.ToUpper(s[0]) + s.Substring(1);
+            <option value="@i.ToString()">@c</option>
+        }
     </select>
 
     <span class="settings_span">Urlopy dla działu:</span>
     <div style="height: 5px;"></div>
-    <select class="HQTuaisxjrtQHPq" id="kRyEzzxRxADfSZj" onchange="arKOctcZVJhWuhL()">
+    <select class="HQTuaisxjrtQHPq" id="aFoQOFiXPQobjPX" onchange="FFkdMqNnTDbWkXb()">
         @foreach (var item in ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name))
         {
             <option value="@item.Id">@item.Name</option>
         }
     </select>
 
-
+    <span class="settings_span">Pracownik:</span>
+    <div style="height: 5px;"></div>
+    <select class="HQTuaisxjrtQHPq" id="oUfnFiNPmXnNjzu" onchange="dWVTVhqEBjJCURf()">
+        @foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).OrderBy(x => x.Surname))
+        {
+            <option value="@item.Id" id="@item.DepartmentID">@item.Surname @item.Name</option>
+        }
+    </select>
 
 </div>
 
@@ -65,3 +83,31 @@
         </button>
     </form>
 </div>
+
+<script type="text/javascript">
+
+    function FFkdMqNnTDbWkXb() {
+        let e = document.getElementById('aFoQOFiXPQobjPX');
+        let e2 = e.options[e.selectedIndex].value;
+
+        let select2 = $('#oUfnFiNPmXnNjzu').children();
+        for (let i = 0; i < select2.length; i++)
+        {
+            document.getElementById('oUfnFiNPmXnNjzu').selectedIndex = -1;
+            if (e2 == select2[i].id)
+            {
+                $(select2[i]).show();
+            }
+            else 
+            {
+                $(select2[i]).hide();
+            }
+        }
+    };
+    FFkdMqNnTDbWkXb();
+
+    //const generateCalendar = () = {
+
+    //}
+
+</script>

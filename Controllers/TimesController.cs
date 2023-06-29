@@ -163,12 +163,14 @@ namespace TimeTask.Controllers
           return (_context.Time?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        public IActionResult Leave()
+        public async Task<IActionResult> Leave()
         {
             ViewBag.Departments = _context.Department;
             ViewBag.Workers = _context.Workers2;
 
-            return View();
+            return _context.Time != null ?
+                          View(await _context.Time.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Time'  is null.");
         }
 
 

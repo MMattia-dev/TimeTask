@@ -3,7 +3,7 @@
 *@
 @{
 }
-@model IEnumerable<TimeTask.Models.Task>
+@model IEnumerable<TimeTask.Models.Time>
 
 
 <div class="parent">
@@ -11,6 +11,24 @@
         @Html.Partial("_Leave")
     </section>
     <section class="right-nav">
+
+
+
+        <div class="calendar_" id="calendar_id">
+            <div class="month_">
+                <div class="weekdays_">
+                    <div>Pon</div>
+                    <div>Wto</div>
+                    <div>Śro</div>
+                    <div>Czw</div>
+                    <div>Pią</div>
+                    <div>Sob</div>
+                    <div>Nie</div>
+                </div>
+            </div>
+        </div>
+
+
 
     </section>
 </div>
