@@ -11,10 +11,6 @@
         <span>Strona główna</span>
     </a>
 
-    <div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw" onclick="BgMujOvGVhgxcrK()">
-        <span>Pobierz grafik</span>
-    </div>
-
     <select class="HQTuaisxjrtQHPq" id="uKdvKAhOhYwppOO" onchange="FvEKesXHjbxXQEL()"> <!--Rok-->
         @{
             var r = Model.GroupBy(x => x.Date.Year).Select(x => x.First());
@@ -76,6 +72,10 @@
             <div class="pyyxmssXgPCWuUc XGhZTcUEoJhWtNr fNPXdDDFqqbVOkt" id="PeAfgVTiQsbFhjt" onclick="kLqdFLvjJrKETlK(this)">
                 <span>Zapisz zmiany</span>
                 <span id="jSxkTLkOwolIQOG"></span>
+            </div>
+
+            <div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw" onclick="BgMujOvGVhgxcrK()">
+                <span>Pobierz grafik</span>
             </div>
         </div>
     }
@@ -517,7 +517,7 @@
                                     //włącz 'Zapisz zmiany' button
                                     document.getElementById('PeAfgVTiQsbFhjt').classList.remove('fNPXdDDFqqbVOkt');
                                     //
-                                    window.location.hash = '?';
+                                    //window.location.hash = '?';
                                 }
                             },
                             drag: function ()
@@ -976,7 +976,7 @@
             //włącz 'Zapisz zmiany' button
             document.getElementById('PeAfgVTiQsbFhjt').classList.remove('fNPXdDDFqqbVOkt');
             //
-            window.location.hash = '?';
+            //window.location.hash = '?';
         }
 
 
@@ -1092,7 +1092,7 @@
                 //włącz 'Zapisz zmiany' button
                 document.getElementById('PeAfgVTiQsbFhjt').classList.remove('fNPXdDDFqqbVOkt');
                 //
-                window.location.hash = '?';
+                //window.location.hash = '?';
             }
         }
 
@@ -1116,7 +1116,7 @@
                 //włącz 'Zapisz zmiany' button
                 document.getElementById('PeAfgVTiQsbFhjt').classList.remove('fNPXdDDFqqbVOkt');
                 //
-                window.location.hash = '?';
+                //window.location.hash = '?';
             }
         }
 
@@ -1248,20 +1248,20 @@
 
 
     $(document).ready(function () {
-        var uri = window.location.toString();
-        if (uri.indexOf("#") > 0)
-        {
-            var clean_uri = uri.substring(0,
-                uri.indexOf("#"));
+        //var uri = window.location.toString();
+        //if (uri.indexOf("#") > 0)
+        //{
+        //    var clean_uri = uri.substring(0,
+        //        uri.indexOf("#"));
 
-            window.history.replaceState({},
-                document.title, clean_uri);
+        //    window.history.replaceState({},
+        //        document.title, clean_uri);
 
-            sessionStorage.removeItem('url');
-        }
-        else{
-            sessionStorage.setItem('url' , uri);
-        }
+        //    sessionStorage.removeItem('url');
+        //}
+        //else{
+        //    sessionStorage.setItem('url' , uri);
+        //}
 
 
         setTimeout(function () {
@@ -1276,33 +1276,35 @@
         
     });
 
-    window.addEventListener('popstate', funkcja);
+    //window.addEventListener('popstate', funkcja);
 
-    function funkcja () {
-        if (sessionStorage.getItem('url') == window.location.toString())
-        {
-            //alert();
-            $('#LwwlygAZbajHYIb').show();
-        }
-    };
+    //function funkcja () {
+    //    if (sessionStorage.getItem('url') == window.location.toString())
+    //    {
+    //        //alert();
+    //        $('#LwwlygAZbajHYIb').show();
+    //    }
+    //};
 
-    function iLamqpKjJfYwsCa() {
-        sessionStorage.removeItem('url');
-        $('#PeAfgVTiQsbFhjt').trigger('click');
-        $('#LwwlygAZbajHYIb').fadeOut(200);
-    };
+    //function iLamqpKjJfYwsCa() {
+    //    sessionStorage.removeItem('url');
+    //    $('#PeAfgVTiQsbFhjt').trigger('click');
+    //    $('#LwwlygAZbajHYIb').fadeOut(200);
+    //};
 
-    function qaVyBCsukshoMvN() {
-        sessionStorage.removeItem('url');
-    };
+    //function qaVyBCsukshoMvN() {
+    //    sessionStorage.removeItem('url');
+    //};
 
     function BgMujOvGVhgxcrK() {
         //document.body.innerHTML += '<a id="dlink" style="display:none;"></a>';
         //tableToExcel('table', 'Arkusz1', 'text.xls');
-        
+        alert('nie działa');
     };
 
-    
+    function FvEKesXHjbxXQEL() {
+        alert('nie działa');
+    };
     
     
 

@@ -1477,6 +1477,7 @@ button {
     align-items: center;
     background-color: rgba(34, 36, 48, 1);
     border-right: 3px solid rgba(0, 0, 0, 0.5);
+    
 }
 
     .GJakzZdfXNDmfZz span {
@@ -1640,7 +1641,7 @@ button {
 }
 
     .loader_div.iXYXpnpgGMALUNG {
-        background-color: transparent;
+        /*background-color: transparent;*/
     }
 
 .IvBtEDulLESDYxK {
@@ -1716,9 +1717,9 @@ button {
     box-shadow: 0px 0px 25px 5px rgba(0, 0, 0, 1);*/
 }
 
-
-
-
+.DnnTeTYpszZXNnO {
+    transform: translateX(12px) !important;
+}
 /*.VSXIkuJMIBqaSVq {
     transform: translateX(-100%);
     transition: 0.6s;

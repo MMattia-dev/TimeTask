@@ -22,7 +22,10 @@ namespace TimeTask.Controllers
         // GET: Times
         public async Task<IActionResult> Index()
         {
-              return _context.Time != null ? 
+            ViewBag.Departments = _context.Department;
+            ViewBag.Workers = _context.Workers2;
+
+            return _context.Time != null ? 
                           View(await _context.Time.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Time'  is null.");
         }
@@ -159,5 +162,15 @@ namespace TimeTask.Controllers
         {
           return (_context.Time?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        public IActionResult Leave()
+        {
+            ViewBag.Departments = _context.Department;
+            ViewBag.Workers = _context.Workers2;
+
+            return View();
+        }
+
+
     }
 }
