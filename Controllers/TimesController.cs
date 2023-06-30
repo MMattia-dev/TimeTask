@@ -167,11 +167,14 @@ namespace TimeTask.Controllers
         {
             ViewBag.Departments = _context.Department;
             ViewBag.Workers = _context.Workers2;
+            ViewBag.Holiday = _context.Holiday;
 
             return _context.Time != null ?
                           View(await _context.Time.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Time'  is null.");
         }
+
+
 
 
     }

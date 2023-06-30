@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<TimeTask.Models.Time>
-@using Newtonsoft.Json
+
 
 
 
@@ -32,15 +32,20 @@
 
     <select class="HQTuaisxjrtQHPq" id="IZdWjCoFNPZaIaP" onchange="YDTyNWHkvmuAiCQ()">
         <!--Miesiąc-->
-        @*@foreach (var item in System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames)
-        {
-            <option value="@item">@item.ToString().ToUpper(item[0])</option>
-        }*@
         @for (int i = 0; i < 12; i++)
         {
             string s = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[i];
             string c = char.ToUpper(s[0]) + s.Substring(1);
-            <option value="@i.ToString()">@c</option>
+
+            int month = DateTime.Now.Month - 1;
+            if (i == month)
+            {
+                <option selected value="@i.ToString()">@c</option>
+            }
+            else
+            {
+                <option value="@i.ToString()">@c</option>
+            }
         }
     </select>
 
@@ -86,6 +91,13 @@
 
 <script type="text/javascript">
 
+    //function currentMonth() {
+    //    let monthSelect = document.getElementById('IZdWjCoFNPZaIaP');
+    //    let date = new Date();
+    //    monthSelect.value = date.getMonth();
+    //};
+    //currentMonth();
+
     function FFkdMqNnTDbWkXb() {
         let e = document.getElementById('aFoQOFiXPQobjPX');
         let e2 = e.options[e.selectedIndex].value;
@@ -106,8 +118,10 @@
     };
     FFkdMqNnTDbWkXb();
 
-    //const generateCalendar = () = {
+    
 
-    //}
-
+    function YDTyNWHkvmuAiCQ(){
+        generateCalendar();
+    };
+    
 </script>
