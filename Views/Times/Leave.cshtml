@@ -27,7 +27,7 @@
             </div>
         </div>*@
 
-        <div class="SxyrJvNcldodWTh">
+        <div class="SxyrJvNcldodWTh" id="xBuYErAxrbdvwoP">
             @*@{
                 //string s = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[i];
                 int days
@@ -58,13 +58,14 @@
         return date.toLocaleDateString(locale, { weekday: 'long' });
     };
 
+    //
     function getLang()
     {
         if (navigator.languages != undefined)
             return navigator.languages[0];
         return navigator.language;
     }
-    getLang();
+    //
 
     function generateCalendar()
     {
@@ -107,7 +108,7 @@
                     //let dayName = getDayName(date__, 'pl-PL');
                     
                 }
-                let dayName = getDayName(SxyrJvNcldodWTh_children[j].id, 'pl-PL');
+                let dayName = getDayName(SxyrJvNcldodWTh_children[j].id, getLang() + '-' + getLang().toUpperCase());
                 $(SxyrJvNcldodWTh_children[j]).children().eq(2).html(dayName);
             }
         }
@@ -184,4 +185,38 @@
 
     };
     generateCalendar();
+
+
+    function FFkdMqNnTDbWkXb()
+    {
+        let e = document.getElementById('aFoQOFiXPQobjPX');
+        let e2 = e.options[e.selectedIndex].value;
+
+        let select2 = $('#oUfnFiNPmXnNjzu').children();
+        for (let i = 0; i < select2.length; i++)
+        {
+            document.getElementById('oUfnFiNPmXnNjzu').selectedIndex = -1;
+            if (e2 == select2[i].id)
+            {
+                $(select2[i]).show();
+            }
+            else
+            {
+                $(select2[i]).hide();
+            }
+        }
+
+        $('#xBuYErAxrbdvwoP').children().hide();
+    };
+    FFkdMqNnTDbWkXb();
+
+    function YDTyNWHkvmuAiCQ()
+    {
+        generateCalendar();
+    };
+
+    function dWVTVhqEBjJCURf(){
+        $('#xBuYErAxrbdvwoP').children().show();
+    }
+
 </script>
