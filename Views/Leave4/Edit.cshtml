@@ -1,0 +1,74 @@
+﻿@model TimeTask.Models.Leave4
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Leave4</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Max" class="control-label"></label>
+                <input asp-for="Max" class="form-control" />
+                <span asp-validation-for="Max" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IfDays" class="control-label"></label>
+                <input asp-for="IfDays" class="form-control" />
+                <span asp-validation-for="IfDays" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IfWeeks" class="control-label"></label>
+                <input asp-for="IfWeeks" class="form-control" />
+                <span asp-validation-for="IfWeeks" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IfMonths" class="control-label"></label>
+                <input asp-for="IfMonths" class="form-control" />
+                <span asp-validation-for="IfMonths" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IfYears" class="control-label"></label>
+                <input asp-for="IfYears" class="form-control" />
+                <span asp-validation-for="IfYears" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IfWeekends" class="control-label"></label>
+                <input asp-for="IfWeekends" class="form-control" />
+                <span asp-validation-for="IfWeekends" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IfHolidays" class="control-label"></label>
+                <input asp-for="IfHolidays" class="form-control" />
+                <span asp-validation-for="IfHolidays" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

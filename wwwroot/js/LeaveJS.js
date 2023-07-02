@@ -1,4 +1,5 @@
-﻿function daysInMonth(month, year)
+﻿
+function daysInMonth(month, year)
 {
     return new Date(year, month, 0).getDate();
 };
@@ -57,16 +58,10 @@ function generateCalendar()
             {
                 $(SxyrJvNcldodWTh_children[j]).children().eq(0).addClass('pDBzSpSjrpyyUHr');
                 $(SxyrJvNcldodWTh_children[j]).children().eq(1).html(model_h[i].Name);
-
-                //
-
-                //let date__ = response2[i].split('T')[0];
-                //let dayName = getDayName(date__, 'pl-PL');
-
             }
+
             let dayName = getDayName(SxyrJvNcldodWTh_children[j].id, getLang() + '-' + getLang().toUpperCase());
             $(SxyrJvNcldodWTh_children[j]).children().eq(2).html(dayName);
-
         }
     }
 
@@ -149,10 +144,13 @@ function FFkdMqNnTDbWkXb()
     let e = document.getElementById('aFoQOFiXPQobjPX');
     let e2 = e.options[e.selectedIndex].value;
 
+    ////sessionStorage.setItem('iJZfSckTVemIXEE', e.selectedIndex);
+    //sessionStorage.setItem('iJZfSckTVemIXEE', e2);
+
     let select2 = $('#oUfnFiNPmXnNjzu').children();
     for (let i = 0; i < select2.length; i++)
     {
-        document.getElementById('oUfnFiNPmXnNjzu').selectedIndex = -1;
+        //document.getElementById('oUfnFiNPmXnNjzu').selectedIndex = -1;
         if (e2 == select2[i].id)
         {
             $(select2[i]).show();
@@ -163,7 +161,16 @@ function FFkdMqNnTDbWkXb()
         }
     }
 
-    $('#xBuYErAxrbdvwoP').children().hide();
+    $('#oUfnFiNPmXnNjzu option').each(function ()
+    {
+        if ($(this).css('display') != 'none')
+        {
+            $(this).prop("selected", true);
+            return false;
+        }
+    })
+
+    //$('#xBuYErAxrbdvwoP').children().hide();
 };
 FFkdMqNnTDbWkXb();
 
@@ -177,3 +184,24 @@ function dWVTVhqEBjJCURf()
     $('#xBuYErAxrbdvwoP').children().show();
 };
 
+//$(document).ready(function ()
+//{
+//    if (sessionStorage.getItem('iJZfSckTVemIXEE') != null)
+//    {
+//        //let e = document.getElementById('aFoQOFiXPQobjPX');
+//        //let e2 = e.options[e.selectedIndex].value;
+//        //document.getElementById('aFoQOFiXPQobjPX').selectedIndex = parseInt(sessionStorage.getItem('iJZfSckTVemIXEE'));
+//        $('#aFoQOFiXPQobjPX option').each(function ()
+//        {
+//            //if ($(this).css('display') != 'none')
+//            //{
+//            //    $(this).prop("selected", true);
+//            //    return false;
+//            //}
+//            if ($(this).val() == sessionStorage.getItem('iJZfSckTVemIXEE')) {
+//                $(this).prop("selected", true);
+//                return false;
+//            }
+//        })
+//    }
+//});

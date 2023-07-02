@@ -10,87 +10,87 @@ using TimeTask.Models;
 
 namespace TimeTask.Controllers
 {
-    public class LeavesController : Controller
+    public class Leave3Controller : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public LeavesController(ApplicationDbContext context)
+        public Leave3Controller(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Leaves
+        // GET: Leave3
         public async Task<IActionResult> Index()
         {
-              return _context.Leave != null ? 
-                          View(await _context.Leave.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Leave'  is null.");
+              return _context.Leave3 != null ? 
+                          View(await _context.Leave3.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Leave3'  is null.");
         }
 
-        // GET: Leaves/Details/5
+        // GET: Leave3/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Leave == null)
+            if (id == null || _context.Leave3 == null)
             {
                 return NotFound();
             }
 
-            var leave = await _context.Leave
+            var leave3 = await _context.Leave3
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (leave == null)
+            if (leave3 == null)
             {
                 return NotFound();
             }
 
-            return View(leave);
+            return View(leave3);
         }
 
-        // GET: Leaves/Create
+        // GET: Leave3/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Leaves/Create
+        // POST: Leave3/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,MaxDays")] Leave leave)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,MaxDays")] Leave3 leave3)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(leave);
+                _context.Add(leave3);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(leave);
+            return View(leave3);
         }
 
-        // GET: Leaves/Edit/5
+        // GET: Leave3/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Leave == null)
+            if (id == null || _context.Leave3 == null)
             {
                 return NotFound();
             }
 
-            var leave = await _context.Leave.FindAsync(id);
-            if (leave == null)
+            var leave3 = await _context.Leave3.FindAsync(id);
+            if (leave3 == null)
             {
                 return NotFound();
             }
-            return View(leave);
+            return View(leave3);
         }
 
-        // POST: Leaves/Edit/5
+        // POST: Leave3/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,MaxDays")] Leave leave)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,MaxDays")] Leave3 leave3)
         {
-            if (id != leave.Id)
+            if (id != leave3.Id)
             {
                 return NotFound();
             }
@@ -99,12 +99,12 @@ namespace TimeTask.Controllers
             {
                 try
                 {
-                    _context.Update(leave);
+                    _context.Update(leave3);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LeaveExists(leave.Id))
+                    if (!Leave3Exists(leave3.Id))
                     {
                         return NotFound();
                     }
@@ -115,66 +115,66 @@ namespace TimeTask.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(leave);
+            return View(leave3);
         }
 
-        // GET: Leaves/Delete/5
+        // GET: Leave3/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Leave == null)
+            if (id == null || _context.Leave3 == null)
             {
                 return NotFound();
             }
 
-            var leave = await _context.Leave
+            var leave3 = await _context.Leave3
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (leave == null)
+            if (leave3 == null)
             {
                 return NotFound();
             }
 
-            return View(leave);
+            return View(leave3);
         }
 
-        // POST: Leaves/Delete/5
+        // POST: Leave3/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Leave == null)
+            if (_context.Leave3 == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Leave'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Leave3'  is null.");
             }
-            var leave = await _context.Leave.FindAsync(id);
-            if (leave != null)
+            var leave3 = await _context.Leave3.FindAsync(id);
+            if (leave3 != null)
             {
-                _context.Leave.Remove(leave);
+                _context.Leave3.Remove(leave3);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool LeaveExists(int id)
+        private bool Leave3Exists(int id)
         {
-          return (_context.Leave?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Leave3?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
         [HttpPost]
-        public ActionResult AddLeave(string name, int maxdays)
+        public ActionResult AddLeave(string name, string description, string maxdays)
         {
-            var newData = new Leave()
+            var newData = new Leave3()
             {
                 Name = name,
+                Description = description,
                 MaxDays = maxdays
             };
 
-            _context.Leave.Add(newData);
+            _context.Leave3.Add(newData);
             _context.SaveChanges();
             return Json(new { success = true });
             //return Json(newData.Id);
         }
-
 
 
 

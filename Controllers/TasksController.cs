@@ -27,6 +27,7 @@ namespace TimeTask.Controllers
             ViewBag.Departments = _context.Department;
             ViewBag.TaskNames = _context.TaskName2;
             ViewBag.Workers = _context.Workers2;
+            
             //ViewBag.WeeksInYear = GetWeeksInYear(DateTime.Now.Year);
 
             return _context.Task != null ? 
