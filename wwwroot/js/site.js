@@ -22,7 +22,7 @@ if (performance.navigation.type == performance.navigation.TYPE_RELOAD)
         }
         $(ZLD38GJQEtrB).hide();
         $(ozozaNCrSaQI).hide();
-
+        
     }
 }
 
