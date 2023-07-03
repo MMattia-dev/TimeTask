@@ -256,12 +256,20 @@ label {
     border-start-start-radius: 0px;
 }
 
-    .eshTOvdrdlbtIkg label.flYuCaWkWLvKDYr {
-        opacity: 0.5;
+    .eshTOvdrdlbtIkg label {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 13px;
+        transform: translateY(2px);
+        display: inherit;
+        align-items: center;
     }
 
+    /*.eshTOvdrdlbtIkg label.flYuCaWkWLvKDYr {
+        opacity: 0.5;
+    }*/
+
     .eshTOvdrdlbtIkg label input[type=checkbox] {
-        transform: translateY(2px);
+        /*transform: translateY(3px);*/
     }
 
 /*.slqxLxrESFgpZjA {
@@ -307,6 +315,6 @@ label {
         /*font-family: Arial, Helvetica, sans-serif;*/
     }
 
-        .jwvLslukUqESfdP span.flYuCaWkWLvKDYr {
+        /*.jwvLslukUqESfdP span.flYuCaWkWLvKDYr {
             opacity: 0.5;
-        }
+        }*/

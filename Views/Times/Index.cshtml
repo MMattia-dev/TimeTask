@@ -91,6 +91,27 @@
                 </div>
             }*@
 
+            <table class="VUXahzbNUTWtiZa">
+                <thead>
+                    <tr>
+                        <th title="Nazwa">Nazwa</th>
+                        <th title="Komentarz">Komentarz</th>
+                        <th title="Maksymalna długość urlopu">Maks. długość urlopu</th>
+                        <th title="Czy do urlopu wliczają się soboty i niedziele?">Weekendy?</th>
+                        <th title="Czy do urlopu wliczają się święta?">Święta?</th>
+                    </tr>
+                </thead>
+                @foreach (var item in ((IEnumerable<Leave4>)ViewBag.Leave))
+                {
+                    <tr class="EmRSNqsShbDnTsE">
+                        <td title="@item.Name">@item.Name</td>
+                        <td title="@item.Description">@item.Description</td>
+                        <td>@item.Max</td>
+                        <td><input type="checkbox" checked="@item.IfWeekends" disabled /></td>
+                        <td><input type="checkbox" checked="@item.IfHolidays" disabled /></td>
+                    </tr>
+                }
+            </table>
 
         </div>
 
@@ -107,28 +128,22 @@
         </div>
         <div class="form-group">
             <input class="form-control dGNCykvGtQxbazH" type="number" onkeydown="UXOaovmCsnlURsn(this, event)" onkeypress="validate(this, event)" placeholder="maks. długość urlopu (opcjonalnie)..." id="IyWRFThVHhEX" />
-            <div class="eshTOvdrdlbtIkg">
-                <label class="flYuCaWkWLvKDYr"><input disabled name="radio" type="radio" />Dni</label>
-                <label class="flYuCaWkWLvKDYr"><input disabled name="radio" type="radio" />Tygodnie</label>
-                <label class="flYuCaWkWLvKDYr"><input disabled name="radio" type="radio" />Miesiące</label>
-                <label class="flYuCaWkWLvKDYr"><input disabled name="radio" type="radio" />Lata</label>
+            <div class="eshTOvdrdlbtIkg" id="radiocb" onclick="cbclick(event)">
+                <label><input id="cb1" type="checkbox" />Dni</label>
+                <label><input id="cb2" type="checkbox" />Tygodnie</label>
+                <label><input id="cb3" type="checkbox" />Miesiące</label>
+                <label><input id="cb4" type="checkbox" />Lata</label>
             </div>
         </div>
         <div class="form-group form-group-margin">
             <div class="jwvLslukUqESfdP">
-                <span class="flYuCaWkWLvKDYr">Uwzględnij:</span>
+                <span>Uwzględnij:</span>
             </div>
             <div class="eshTOvdrdlbtIkg">
-                <label class="flYuCaWkWLvKDYr"><input disabled type="checkbox" />Soboty i Niedzielę</label>
-                <label class="flYuCaWkWLvKDYr"><input disabled type="checkbox" />Święta</label>
+                <label><input id="cb5" type="checkbox" />Soboty i Niedzielę</label>
+                <label><input id="cb6" type="checkbox" />Święta</label>
             </div>
         </div>
-        @*<div class="form-group form-group-margin">
-            <div class="slqxLxrESFgpZjA">
-                <label class="flYuCaWkWLvKDYr"><input disabled type="checkbox" />Soboty i Niedzielę</label>
-                <label class="flYuCaWkWLvKDYr"><input disabled type="checkbox" />Święta</label>
-            </div>
-        </div>*@
         <div class="form-group">
             <input type="button" value="Zapisz" class="btn-custom" onclick="BmJPiKFdcncS()" />
         </div>
@@ -228,30 +243,127 @@
     function BmJPiKFdcncS(){
         let name_ = document.getElementById('oVxJeHhcExMV').value;
         let description_ = document.getElementById('kwYypucEEAnX').value;
-        let maxdays_ = document.getElementById('IyWRFThVHhEX').value;
+        let max_ = document.getElementById('IyWRFThVHhEX').value;
+        let ifDays_ = document.getElementById('cb1').checked;
+        let ifWeeks_ = document.getElementById('cb2').checked;
+        let ifMonths_ = document.getElementById('cb3').checked;
+        let ifYears_ = document.getElementById('cb4').checked;
+        let ifWeekends_ = document.getElementById('cb5').checked;
+        let ifHolidays_ = document.getElementById('cb6').checked;
 
-        //$.ajax({
-        //    type: 'POST',
-        //    url: '/Leave4/AddLeave',
-        //    data: {
-        //        name: name_,
-        //        description: description_,
-        //        maxdays: maxdays_
-        //    },
-        //    success: function (response)
-        //    {
-        //        //let a = document.getElementById('GpoavnFwAOos');
-        //        //$(a).fadeOut(200);
-        //        location.reload();
-        //    },
-        //    error: function (xhr, status, error)
-        //    {
-        //        console.log('Error updating data:', error);
-        //    }
-        //});
-
-
+        if (name_)
+        {
+            if (max_)
+            {
+                if (ifDays_ || ifWeeks_ || ifMonths_ || ifYears_)
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Leave4/AddLeave',
+                        data: {
+                            name: name_,
+                            description: description_,
+                            max: max_,
+                            ifDays: ifDays_,
+                            ifWeeks: ifWeeks_,
+                            ifMonths: ifMonths_,
+                            ifYears: ifYears_,
+                            ifWeekends: ifWeekends_,
+                            ifHolidays: ifHolidays_
+                        },
+                        success: function (response)
+                        {
+                            //let a = document.getElementById('GpoavnFwAOos');
+                            //$(a).fadeOut(200);
+                            location.reload();
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error updating data:', error);
+                        }
+                    });
+                }
+            }
+            else if (ifDays_ || ifWeeks_ || ifMonths_ || ifYears_)
+            {
+                if (max_)
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Leave4/AddLeave',
+                        data: {
+                            name: name_,
+                            description: description_,
+                            max: max_,
+                            ifDays: ifDays_,
+                            ifWeeks: ifWeeks_,
+                            ifMonths: ifMonths_,
+                            ifYears: ifYears_,
+                            ifWeekends: ifWeekends_,
+                            ifHolidays: ifHolidays_
+                        },
+                        success: function (response)
+                        {
+                            //let a = document.getElementById('GpoavnFwAOos');
+                            //$(a).fadeOut(200);
+                            location.reload();
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error updating data:', error);
+                        }
+                    });
+                }
+            }
+            else 
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Leave4/AddLeave',
+                    data: {
+                        name: name_,
+                        description: description_,
+                        max: max_,
+                        ifDays: ifDays_,
+                        ifWeeks: ifWeeks_,
+                        ifMonths: ifMonths_,
+                        ifYears: ifYears_,
+                        ifWeekends: ifWeekends_,
+                        ifHolidays: ifHolidays_
+                    },
+                    success: function (response)
+                    {
+                        //let a = document.getElementById('GpoavnFwAOos');
+                        //$(a).fadeOut(200);
+                        location.reload();
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error updating data:', error);
+                    }
+                });
+            }
+        }
     };
+
+
+    function cbclick(e)
+    {
+        e = e || event;
+        var cb = e.srcElement || e.target;
+        if (cb.type !== 'checkbox') { return true; }
+        var cbxs = document.getElementById('radiocb').getElementsByTagName('input'), i = cbxs.length;
+        while (i--)
+        {
+            if (cbxs[i].type && cbxs[i].type == 'checkbox' && cbxs[i].id !== cb.id)
+            {
+                cbxs[i].checked = false;
+            }
+        }
+        // if the click should always result in a checked checkbox
+        // unconmment this:
+        // cb.checked = true;
+    }
 
 
 
