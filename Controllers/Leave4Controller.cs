@@ -182,10 +182,43 @@ namespace TimeTask.Controllers
             //return Json(newData.Id);
         }
 
+        [HttpPost]
+        public ActionResult RemoveLeave(int id)
+        {
+            var row = _context.Leave4.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.Leave4.Remove(row);
+                _context.SaveChanges();
 
+                return Json(new { success = true });
+            }
 
+            return Json(new { success = false });
+        }
 
+        [HttpPost]
+        public ActionResult EditLeave(int id, string name, string description, string max, bool ifDays, bool ifWeeks, bool ifMonths, bool ifYears, bool ifWeekends, bool ifHolidays)
+        {
+            var row = _context.Leave4.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.Name = name;
+                row.Description = description;
+                row.Max = max;
+                row.IfDays = ifDays;
+                row.IfWeeks = ifWeeks;
+                row.IfMonths = ifMonths;
+                row.IfYears = ifYears;
+                row.IfWeekends = ifWeekends;
+                row.IfHolidays = ifHolidays;
+                _context.SaveChanges();
 
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
 
 
 

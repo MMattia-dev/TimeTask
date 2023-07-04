@@ -62,34 +62,25 @@
 
 <div class="parent">
     <section class="left-nav">
-        @Html.Partial("_Settings");
+        @Html.Partial("_Settings")
     </section>
     <section class="right-nav">
 
-        <div class="kxOMhDZFzkDb DZFzkDb">
+        <div class="kxOMhDZFzkDb">
+
+            <div class="ECTosDyufuTqvBV">
+                <input class="kzQkCNWOiUhJxRl" type="radio" id="czas" name="radio" onclick="OnvqHvCoOiDaFEV(this)" hidden />
+                <label class="oZBtnmiLrunDFMC" for="czas">Czas pracy</label>
+                <input class="kzQkCNWOiUhJxRl" type="radio" id="urlop" name="radio" onclick="ZucUMOWKGdlqgYv(this)" hidden checked />
+                <label class="oZBtnmiLrunDFMC" for="urlop">Urlopy</label>
+            </div>
+
             <div class="IVnxgCORpPYL" onclick="fwsxYepQKkCq()">
                 <span>Dodaj nowy urlop</span>
             </div>
         </div>
 
         <div class="YUPrikbkYzkc">
-            @*@foreach (var item in ((IEnumerable<Leave4>)ViewBag.Leave))
-            {
-                <div class="right-nav-parent2-div fQOipKjlgeboVkZ">
-                    <div>
-                        <span class="ZsrrdwFZwFrHgLz">@item.Name</span>
-                        <span class="ZsrrdwFZwFrHgLz">@item.Description</span>
-                        @if (item.Max != null)
-                        {
-                            <span class="wKEbxxtCIJSAepL">@item.Max</span>
-                        }
-                    </div>
-                    <div>
-                        <a onclick="EYwnRBQDFEHjzsN(this)" id="@item.Id" title="Edytuj"><svg viewBox="0 0 512 512" height="16" width="16"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg></a>
-                        <a onclick="hFUdwiFlMmxASVH(this)" id="@item.Id" title="Usuń"><svg viewBox="0 0 469.404 469.404" height="16" width="16"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>
-                    </div>
-                </div>
-            }*@
 
             <table class="VUXahzbNUTWtiZa">
                 <thead>
@@ -99,16 +90,40 @@
                         <th title="Maksymalna długość urlopu">Maks. długość urlopu</th>
                         <th title="Czy do urlopu wliczają się soboty i niedziele?">Weekendy?</th>
                         <th title="Czy do urlopu wliczają się święta?">Święta?</th>
+                        <th style="text-align: right; padding-right: 20px; width: 100px;"></th>
                     </tr>
                 </thead>
-                @foreach (var item in ((IEnumerable<Leave4>)ViewBag.Leave))
+                @foreach (var item in ((IEnumerable<Leave4>)ViewBag.Leave).OrderBy(x => x.Name))
                 {
                     <tr class="EmRSNqsShbDnTsE">
                         <td title="@item.Name">@item.Name</td>
                         <td title="@item.Description">@item.Description</td>
-                        <td>@item.Max</td>
+                        @if (item.IfDays == true)
+                        {
+                            <td checked1="true">@item.Max (dni)</td>
+                        }
+                        else if (item.IfWeeks == true)
+                        {
+                            <td checked2="true">@item.Max (tygodnie)</td>
+                        }
+                        else if (item.IfMonths == true)
+                        {
+                            <td checked3="true">@item.Max (miesiące)</td>
+                        }
+                        else if (item.IfYears == true)
+                        {
+                            <td checked4="true">@item.Max (lata)</td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
                         <td><input type="checkbox" checked="@item.IfWeekends" disabled /></td>
                         <td><input type="checkbox" checked="@item.IfHolidays" disabled /></td>
+                        <td style="text-align: right; padding-right: 20px; width: 100px;">
+                            <a onclick="klhLiQVRwGfWrSp(this)" id="@item.Id" title="Edytuj"><svg viewBox="0 0 512 512" height="16" width="16"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg></a>
+                            <a onclick="GTUwirLRmPXoIuh(this)" id="@item.Id" title="Usuń"><svg viewBox="0 0 469.404 469.404" height="16" width="16"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>
+                        </td>
                     </tr>
                 }
             </table>
@@ -121,7 +136,7 @@
 <div id="GpoavnFwAOos" class="pGKcZvErUB" style="display: none;">
     <form class="form_">
         <div class="form-group">
-            <input class="form-control" autocomplete="on" placeholder="nazwa urlopu..." id="oVxJeHhcExMV" />
+            <input class="form-control" autocomplete="off" placeholder="nazwa urlopu..." id="oVxJeHhcExMV" />
         </div>
         <div class="form-group">
             <input class="form-control" autocomplete="off" placeholder="komentarz (opcjonalnie)..." id="kwYypucEEAnX" />
@@ -153,6 +168,56 @@
     </form>
 </div>
 
+<div id="YiAVCpnVzhDnOsL" class="pGKcZvErUB" style="display: none;">
+    <form class="jbiihcodqinw">
+        <div class="IvBtEDulLESDYxK">
+            <span id="ewZOdyapfFtPtMi"></span>
+            <span id="nZDLxLTZwFzAFCY"></span>
+        </div>
+        <div class="btn-danger-div" id="FamcDfiHIvhi">
+            <input type="button" value="Usuń" id="XSkMvvmEXCee" onclick="dDlRcSCJZAuO()" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" onclick="UOspQSjpbVdS()" />
+        </div>
+    </form>
+</div>
+
+<div id="nGWLQDZPlPSDQaC" class="pGKcZvErUB" style="display: none;">
+    <form class="form_">
+        <div class="form-group">
+            <input class="form-control" autocomplete="off" placeholder="nazwa urlopu..." id="AazUHXhkXIbdKWH" />
+        </div>
+        <div class="form-group">
+            <input class="form-control" autocomplete="off" placeholder="komentarz (opcjonalnie)..." id="TDGIADzVjJqefsV" />
+        </div>
+        <div class="form-group">
+            <input class="form-control dGNCykvGtQxbazH" type="number" onkeydown="UXOaovmCsnlURsn(this, event)" onkeypress="validate(this, event)" placeholder="maks. długość urlopu (opcjonalnie)..." id="VumSHUqECwbXZcK" />
+            <div class="eshTOvdrdlbtIkg" id="radiocb" onclick="cbclick(event)">
+                <label><input id="cb1_" type="checkbox" />Dni</label>
+                <label><input id="cb2_" type="checkbox" />Tygodnie</label>
+                <label><input id="cb3_" type="checkbox" />Miesiące</label>
+                <label><input id="cb4_" type="checkbox" />Lata</label>
+            </div>
+        </div>
+        <div class="form-group form-group-margin">
+            <div class="jwvLslukUqESfdP">
+                <span>Uwzględnij:</span>
+            </div>
+            <div class="eshTOvdrdlbtIkg">
+                <label><input id="cb5_" type="checkbox" />Soboty i Niedzielę</label>
+                <label><input id="cb6_" type="checkbox" />Święta</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="button" value="Zapisz" class="btn-custom" onclick="LkHTSbDyYLLvJeC()" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" onclick="vscNmCABakSwTKc()" />
+        </div>
+    </form>
+</div>
+
 <script type="text/javascript">
     let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[3];
     selected.classList.add('settings_a_selected');
@@ -160,6 +225,17 @@
 
     function fwsxYepQKkCq()
     {
+        //document.getElementById('oVxJeHhcExMV').value = '';
+        //document.getElementById('kwYypucEEAnX').value = '';
+        //document.getElementById('IyWRFThVHhEX').value = '';
+        //document.getElementById('cb1').checked = false;
+        //document.getElementById('cb2').checked = false;
+        //document.getElementById('cb3').checked = false;
+        //document.getElementById('cb4').checked = false;
+        //document.getElementById('cb5').checked = false;
+        //document.getElementById('cb6').checked = false;
+        
+
         let a = document.getElementById('GpoavnFwAOos');
         $(a).fadeIn(200);
     };
@@ -167,6 +243,11 @@
     function EjaqSVIBTCAu()
     {
         let a = document.getElementById('GpoavnFwAOos');
+        $(a).fadeOut(200);
+    };
+
+    function vscNmCABakSwTKc(){
+        let a = document.getElementById('nGWLQDZPlPSDQaC');
         $(a).fadeOut(200);
     };
 
@@ -365,6 +446,178 @@
         // cb.checked = true;
     }
 
+    function OnvqHvCoOiDaFEV(t) {
+        $('.VUXahzbNUTWtiZa').hide();
+        $('.IVnxgCORpPYL').hide();
+    };
 
+    function ZucUMOWKGdlqgYv(t) {
+        $('.VUXahzbNUTWtiZa').show();
+        $('.IVnxgCORpPYL').show();
+    };
+
+    function GTUwirLRmPXoIuh(t){
+        sessionStorage.setItem('hCiEUYaJyBZCWTU', t.id);
+        //document.getElementById('ewZOdyapfFtPtMi').innerHTML = t.getAttribute('name');
+        document.getElementById('ewZOdyapfFtPtMi').innerHTML = $(t).parent().parent().children().eq(0).html();
+        document.getElementById('nZDLxLTZwFzAFCY').innerHTML = $(t).parent().parent().children().eq(1).html();
+
+        let a = document.getElementById('YiAVCpnVzhDnOsL');
+        $(a).fadeIn(200);
+    };
+
+    function UOspQSjpbVdS()
+    {
+        let a = document.getElementById('YiAVCpnVzhDnOsL');
+        $(a).fadeOut(200);
+    };
+
+    function dDlRcSCJZAuO(){
+        let id_ = sessionStorage.getItem('hCiEUYaJyBZCWTU');
+
+        $.ajax({
+            type: 'POST',
+            url: '/Leave4/RemoveLeave',
+            data: {
+                id: id_
+            },
+            success: function (response)
+            {
+                location.reload();
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error deleting data:', error);
+            }
+        });
+    };
+
+    function klhLiQVRwGfWrSp(t){
+        sessionStorage.setItem('MRZrhugkTpKvhtm', t.id);
+        document.getElementById('AazUHXhkXIbdKWH').value = $(t).parent().parent().children().eq(0).html();
+        document.getElementById('TDGIADzVjJqefsV').value = $(t).parent().parent().children().eq(1).html();
+        document.getElementById('VumSHUqECwbXZcK').value = $(t).parent().parent().children().eq(2).html().split(' ')[0];
+        document.getElementById('cb1_').checked = $(t).parent().parent().children().eq(2).attr('checked1');
+        document.getElementById('cb2_').checked = $(t).parent().parent().children().eq(2).attr('checked2');
+        document.getElementById('cb3_').checked = $(t).parent().parent().children().eq(2).attr('checked3');
+        document.getElementById('cb4_').checked = $(t).parent().parent().children().eq(2).attr('checked4');
+        document.getElementById('cb5_').checked = $(t).parent().parent().children().eq(3).children().eq(0).attr('checked');
+        document.getElementById('cb6_').checked = $(t).parent().parent().children().eq(4).children().eq(0).attr('checked');
+
+
+        let nGWLQDZPlPSDQaC = document.getElementById('nGWLQDZPlPSDQaC');
+        $(nGWLQDZPlPSDQaC).fadeIn(200);
+    };
+
+    function LkHTSbDyYLLvJeC(){
+        let id_ = sessionStorage.getItem('MRZrhugkTpKvhtm');
+
+        let name_ = document.getElementById('AazUHXhkXIbdKWH').value;
+        let description_ = document.getElementById('TDGIADzVjJqefsV').value;
+        let max_ = document.getElementById('VumSHUqECwbXZcK').value;
+        let ifDays_ = document.getElementById('cb1_').checked;
+        let ifWeeks_ = document.getElementById('cb2_').checked;
+        let ifMonths_ = document.getElementById('cb3_').checked;
+        let ifYears_ = document.getElementById('cb4_').checked;
+        let ifWeekends_ = document.getElementById('cb5_').checked;
+        let ifHolidays_ = document.getElementById('cb6_').checked;
+
+        if (name_)
+        {
+            if (max_)
+            {
+                if (ifDays_ || ifWeeks_ || ifMonths_ || ifYears_)
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Leave4/EditLeave',
+                        data: {
+                            id: id_,
+                            name: name_,
+                            description: description_,
+                            max: max_,
+                            ifDays: ifDays_,
+                            ifWeeks: ifWeeks_,
+                            ifMonths: ifMonths_,
+                            ifYears: ifYears_,
+                            ifWeekends: ifWeekends_,
+                            ifHolidays: ifHolidays_
+                        },
+                        success: function (response)
+                        {
+                            //let a = document.getElementById('GpoavnFwAOos');
+                            //$(a).fadeOut(200);
+                            location.reload();
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error updating data:', error);
+                        }
+                    });
+                }
+            }
+            else if (ifDays_ || ifWeeks_ || ifMonths_ || ifYears_)
+            {
+                if (max_)
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Leave4/EditLeave',
+                        data: {
+                            id: id_,
+                            name: name_,
+                            description: description_,
+                            max: max_,
+                            ifDays: ifDays_,
+                            ifWeeks: ifWeeks_,
+                            ifMonths: ifMonths_,
+                            ifYears: ifYears_,
+                            ifWeekends: ifWeekends_,
+                            ifHolidays: ifHolidays_
+                        },
+                        success: function (response)
+                        {
+                            //let a = document.getElementById('GpoavnFwAOos');
+                            //$(a).fadeOut(200);
+                            location.reload();
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error updating data:', error);
+                        }
+                    });
+                }
+            }
+            else
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Leave4/EditLeave',
+                    data: {
+                        id: id_,
+                        name: name_,
+                        description: description_,
+                        max: max_,
+                        ifDays: ifDays_,
+                        ifWeeks: ifWeeks_,
+                        ifMonths: ifMonths_,
+                        ifYears: ifYears_,
+                        ifWeekends: ifWeekends_,
+                        ifHolidays: ifHolidays_
+                    },
+                    success: function (response)
+                    {
+                        //let a = document.getElementById('GpoavnFwAOos');
+                        //$(a).fadeOut(200);
+                        location.reload();
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error updating data:', error);
+                    }
+                });
+            }
+        }
+    };
 
 </script>
