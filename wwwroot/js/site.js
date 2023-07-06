@@ -380,7 +380,7 @@ $('.pyyxmssXgPCWuUc').on('click', function ()
 
 $('#HvZxXypLRxeRXCo').on('change', function ()
 {
-    document.getElementById('dFiioMzmTCjjcWp').innerHTML = ``;
+    document.getElementById('dFiioMzmTCjjcWp').innerHTML = `<option></option>`;
     for (let i = 0; i < model_l.length; i++) {
         if (model_l[i].Name == this.options[this.selectedIndex].text) {
             if (model_l[i].Description != null)
@@ -390,7 +390,8 @@ $('#HvZxXypLRxeRXCo').on('change', function ()
             }
             else {
                 $('#dFiioMzmTCjjcWp').addClass('fdjtgOVkxlRqfDM');
-            } 
+            }
+            
         }
     }
 });

@@ -41,24 +41,24 @@
 <div id="KYZGriDIsqNJRxr" class="pGKcZvErUB" style="">
     <form class="form_">
         <div class="form-group">
+            <label>Wybierz urlop:</label>
             <select class="form-control bYwPpsleuVCBkPv" id="HvZxXypLRxeRXCo">
                 @foreach (var item in ((IEnumerable<Leave4>)ViewBag.Leave).OrderBy(x => x.Name).Select(x => x.Name).Distinct())
                 {
-                    @*<option value="@item.Id">@item.Name</option>*@
                     <option>@item</option>
                 }
             </select>
         </div>
         <div class="form-group">
-            <select class="form-control bYwPpsleuVCBkPv fdjtgOVkxlRqfDM" id="dFiioMzmTCjjcWp">
-                @*@foreach (var item in ((IEnumerable<Leave4>)ViewBag.Leave).OrderBy(x => x.Description))
-                {
-                    if (item.Description != null)
-                    {
-                        <option value="@item.Id" name="@item.Name">@item.Description</option>
-                    }
-                }*@
-            </select>
+            <select class="form-control bYwPpsleuVCBkPv fdjtgOVkxlRqfDM" id="dFiioMzmTCjjcWp"></select>
+        </div>
+        <div class="form-group">
+            <label>Urlop od dnia:</label>
+            <input class="form-control" type="date" />
+        </div>
+        <div class="form-group">
+            <label>Urlop do dnia:</label>
+            <input class="form-control" type="date" />
         </div>
         <div class="form-group">
             <input type="button" value="Zapisz" class="btn-custom" onclick="JTgCvImoJEyzGux()" />
