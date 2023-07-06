@@ -42,14 +42,23 @@
     <form class="form_">
         <div class="form-group">
             <select class="form-control bYwPpsleuVCBkPv" id="HvZxXypLRxeRXCo">
-                @foreach (var item in ((IEnumerable<Leave4>)ViewBag.Leave).OrderBy(x => x.Name))
+                @foreach (var item in ((IEnumerable<Leave4>)ViewBag.Leave).OrderBy(x => x.Name).Select(x => x.Name).Distinct())
                 {
-                    <option value="@item.Id">@item.Name</option>
+                    @*<option value="@item.Id">@item.Name</option>*@
+                    <option>@item</option>
                 }
             </select>
         </div>
         <div class="form-group">
-
+            <select class="form-control bYwPpsleuVCBkPv fdjtgOVkxlRqfDM" id="dFiioMzmTCjjcWp">
+                @*@foreach (var item in ((IEnumerable<Leave4>)ViewBag.Leave).OrderBy(x => x.Description))
+                {
+                    if (item.Description != null)
+                    {
+                        <option value="@item.Id" name="@item.Name">@item.Description</option>
+                    }
+                }*@
+            </select>
         </div>
         <div class="form-group">
             <input type="button" value="Zapisz" class="btn-custom" onclick="JTgCvImoJEyzGux()" />
@@ -62,21 +71,7 @@
 
 <script type="text/javascript">
     var model_h = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Holiday));
-
-    //function WnpHLzzcRoJzuVS()
-    //{
-    //    $('#KYZGriDIsqNJRxr').fadeOut(200);
-    //};
-
-    //$('#ttGSoqUHUjOErnf').on('click', function() {
-    //    $('#KYZGriDIsqNJRxr').fadeOut(200);
-    //});
-
-    document.getElementById('ttGSoqUHUjOErnf').addEventListener('click', function ()
-    {
-        $('#KYZGriDIsqNJRxr').fadeOut(200);
-    });
-
+    var model_l = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Leave));
 </script>
 
 <script src="~/js/LeaveJS.js"></script>

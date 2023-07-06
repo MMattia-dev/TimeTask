@@ -367,3 +367,32 @@ function padTo2Digits(num)
 {
     return String(num).padStart(2, '0');
 }
+
+$('#ttGSoqUHUjOErnf').on('click', function ()
+{
+    $('#KYZGriDIsqNJRxr').fadeOut(200);
+});
+
+$('.pyyxmssXgPCWuUc').on('click', function ()
+{
+    $('#KYZGriDIsqNJRxr').fadeIn(200);
+});
+
+$('#HvZxXypLRxeRXCo').on('change', function ()
+{
+    document.getElementById('dFiioMzmTCjjcWp').innerHTML = ``;
+    for (let i = 0; i < model_l.length; i++) {
+        if (model_l[i].Name == this.options[this.selectedIndex].text) {
+            if (model_l[i].Description != null)
+            {
+                $('#dFiioMzmTCjjcWp').removeClass('fdjtgOVkxlRqfDM');
+                document.getElementById('dFiioMzmTCjjcWp').innerHTML += `<option>` + model_l[i].Description + `</option>`;
+            }
+            else {
+                $('#dFiioMzmTCjjcWp').addClass('fdjtgOVkxlRqfDM');
+            } 
+        }
+    }
+});
+
+$('#HvZxXypLRxeRXCo').trigger('change');

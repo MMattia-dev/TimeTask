@@ -184,9 +184,6 @@ function dWVTVhqEBjJCURf()
     $('#xBuYErAxrbdvwoP').children().show();
 };
 
-
-
-
 function JTgCvImoJEyzGux() 
 {
 
