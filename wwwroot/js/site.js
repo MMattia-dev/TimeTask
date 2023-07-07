@@ -368,6 +368,64 @@ function padTo2Digits(num)
     return String(num).padStart(2, '0');
 }
 
+function sortSelect(selElem)
+{
+    var tmpAry = new Array();
+    for (var i = 0; i < selElem.options.length; i++)
+    {
+        tmpAry[i] = new Array();
+        tmpAry[i][0] = selElem.options[i].text;
+        tmpAry[i][1] = selElem.options[i].value;
+    }
+    tmpAry.sort();
+    while (selElem.options.length > 0)
+    {
+        selElem.options[0] = null;
+    }
+    for (var i = 0; i < tmpAry.length; i++)
+    {
+        var op = new Option(tmpAry[i][0], tmpAry[i][1]);
+        selElem.options[i] = op;
+    }
+    return;
+}
+
+function getDatesInRange(startDate, endDate)
+{
+    const date = new Date(startDate.getTime());
+
+    const dates = [];
+
+    while (date <= endDate)
+    {
+        dates.push(new Date(date));
+        date.setDate(date.getDate() + 1);
+    }
+
+    return dates;
+}
+
+function isWeekend(date = new Date())
+{
+    return date.getDay() === 6 || date.getDay() === 0;
+}
+
+function removeA(arr)
+{
+    var what, a = arguments, L = a.length, ax;
+    while (L > 1 && arr.length)
+    {
+        what = a[--L];
+        while ((ax = arr.indexOf(what)) !== -1)
+        {
+            arr.splice(ax, 1);
+        }
+    }
+    return arr;
+}
+
+
+
 $('#ttGSoqUHUjOErnf').on('click', function ()
 {
     $('#KYZGriDIsqNJRxr').fadeOut(200);
@@ -382,18 +440,20 @@ $('#HvZxXypLRxeRXCo').on('change', function ()
 {
     document.getElementById('dFiioMzmTCjjcWp').innerHTML = ``;
 
-    //for (let i = 0; i < model_l.length; i++) {
-    //    if (model_l[i].Description != null)
-    //    {
-    //        document.getElementById('dFiioMzmTCjjcWp').innerHTML += `<option></option>`;
-    //    }
-    //    else {
-    //        document.getElementById('dFiioMzmTCjjcWp').innerHTML += `<option value="` + model_l[i].Id + `"></option>`;
-    //    }
-    //}
-
     for (let i = 0; i < model_l.length; i++) {
         if (model_l[i].Name == this.options[this.selectedIndex].text) {
+            //if (model_l[i].Description != null)
+            //{
+            //    $('#dFiioMzmTCjjcWp').removeClass('fdjtgOVkxlRqfDM');
+            //    document.getElementById('dFiioMzmTCjjcWp').innerHTML += `<option value="` + model_l[i].Id + `">` + model_l[i].Description + `</option>`;
+            //}
+            //else {
+            //    $('#dFiioMzmTCjjcWp').addClass('fdjtgOVkxlRqfDM');
+            //    //document.getElementById('dFiioMzmTCjjcWp').innerHTML = `<option></option>`;
+            //}
+
+
+            //document.getElementById('dFiioMzmTCjjcWp').innerHTML += `<option value="` + model_l[i].Id + `">` + model_l[i].Description + `</option>`;
             if (model_l[i].Description != null)
             {
                 $('#dFiioMzmTCjjcWp').removeClass('fdjtgOVkxlRqfDM');
@@ -401,41 +461,113 @@ $('#HvZxXypLRxeRXCo').on('change', function ()
             }
             else {
                 $('#dFiioMzmTCjjcWp').addClass('fdjtgOVkxlRqfDM');
-                //document.getElementById('dFiioMzmTCjjcWp').innerHTML = `<option></option>`;
+                document.getElementById('dFiioMzmTCjjcWp').innerHTML += `<option value="` + model_l[i].Id + `">-</option>`;
             }
+
+
             
         }
     }
+
+    sortSelect(document.getElementById('dFiioMzmTCjjcWp'));
+
 });
 
 $('#HvZxXypLRxeRXCo').trigger('change');
 
 $('#JTgCvImoJEyzGux').on('click', function ()
 {
+    var days = [];
+    var toRemove = [];
+
     let oUfnFiNPmXnNjzu = document.getElementById('oUfnFiNPmXnNjzu');
     let workerID_ = oUfnFiNPmXnNjzu.options[oUfnFiNPmXnNjzu.selectedIndex].value;
     let enter_ = null;
     let exit_ = null;
-    //leaveID_ = ;
-    //let leaveDate_ = ;
+    let dFiioMzmTCjjcWp = document.getElementById('dFiioMzmTCjjcWp');
+    let leaveID_ = dFiioMzmTCjjcWp.options[dFiioMzmTCjjcWp.selectedIndex].value;
+
     let od_ = document.getElementById('OYRMUMzpHRsooyI').value;
     let do_ = document.getElementById('tyONXYuOELdPoLh').value;
 
-    $.ajax({
-        //type: 'POST',
-        //url: '/Workers2/ChangeWorkerDepartment',
-        //data: {
-        //    id: worker_id,
-        //    departmentID: newDepartment
-        //},
-        //success: function (response)
-        //{
-        //    location.reload();
-        //},
-        //error: function (xhr, status, error)
-        //{
-        //    console.log('Error updating column value:', error);
-        //}
+    if (od_ != '' && do_ != '') 
+    {
+        days = getDatesInRange(new Date(od_), new Date(do_));
+        for (let i = 0; i < days.length; i++) 
+        {
+            let day = new Date(days[i]);
 
+            for (let j = 0; j < model_l.length; j++) 
+            {
+                if (model_l[j].Id == leaveID_) {
+
+                    if (!model_l[j].IfWeekends)
+                    {
+                        //console.log('bez weekendu');
+                        if (isWeekend(day)) 
+                        {
+                            toRemove.push(day);
+                        }
+                    }
+
+                    if (!model_l[j].IfHolidays)
+                    {
+                        //console.log('bez świąt');
+                        for (let k = 0; k < model_h.length; k++) 
+                        {                        
+                            if (new Date(days[i]).toISOString().split('T')[0] == model_h[k].Date.split('T')[0]) 
+                            {
+                                toRemove.push(day);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //console.log(days);
+    //console.log(toRemove);
+
+    var leaveDays = days.filter(function (e, index)
+    {
+        return (!toRemove.some(d => +d === +e));
     });
+
+    //console.log(leaveDays);
+
+    for (let i = 0; i < leaveDays.length; i++)
+    {
+        //let date = new Date(leaveDays[i]);
+        //console.log(date);
+        let date = leaveDays[i].toISOString().split('T')[0];
+
+        $.ajax({
+            type: 'POST',
+            url: '/Times/AddLeave',
+            async: false,
+            data: {
+                workerID: workerID_,
+                enter: null,
+                exit: null,
+                leaveID: leaveID_,
+                leaveDate: date
+            },
+            success: function (response)
+            {
+                location.reload();
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error adding column value:', error);
+            }
+        });        
+    }
+
+
+});
+
+$('#iHCBwRzOLpgGYQG').on('change', function ()
+{
+    generateCalendar();
 });

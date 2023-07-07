@@ -6,23 +6,49 @@
         <span>Strona główna</span>
     </a>
 
-    <select class="HQTuaisxjrtQHPq" id="iHCBwRzOLpgGYQG" onchange="pQqFdPzmjdqDlXo()">
+    <select class="HQTuaisxjrtQHPq" id="iHCBwRzOLpgGYQG">
         <!--Rok-->
         @{
-            var r = Model.GroupBy(x => x.Enter?.Year).Select(x => x.First());
+            var r = Model.GroupBy(x => x.Enter?.Year).Select(x => x.FirstOrDefault());
+            var l = Model.GroupBy(x => x.LeaveDate?.Year).Select(x => x.FirstOrDefault());
+
+            int year = DateTime.Now.Year;
+            int prevYear = year - 3;
+            int nextYear = year + 3;
+            int pn = nextYear - prevYear;
         }
-        
-        @if (r == null || r.Count() == 0)
+
+        @*@if (r == null || r.Count() == 0)
         {
             <option value="@DateTime.Now.Year">@DateTime.Now.Year</option>
         }
         else
         {
+
             foreach (var item in r)
             {
                 <option value="@item.Enter?.Year">@item.Enter?.Year</option>
             }
+            foreach (var item in l)
+            {
+                <option value="@item.LeaveDate?.Year">@item.LeaveDate?.Year</option>
+            }
+        }*@
+
+        @for (int i = 1; i < pn; i++)
+        {
+            prevYear++;
+            if (prevYear == year)
+            {
+                <option selected value="@prevYear">@prevYear</option>
+            }
+            else
+            {
+                <option value="@prevYear">@prevYear</option>
+            }
+
         }
+
     </select>
 
     <select class="HQTuaisxjrtQHPq" id="IZdWjCoFNPZaIaP" onchange="YDTyNWHkvmuAiCQ()">
@@ -88,3 +114,4 @@
     </form>
 </div>
 
+@*<input hidden  id="kwYypucEEAnXad" />*@

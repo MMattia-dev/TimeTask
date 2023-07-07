@@ -177,7 +177,7 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddLeave(int workerID, DateTime enter, DateTime exit, int leaveID, DateTime leaveDate)
+        public ActionResult AddLeave(int workerID, DateTime? enter, DateTime? exit, int leaveID, DateTime leaveDate)
         {
             var newData = new Time()
             {
