@@ -184,10 +184,7 @@ function dWVTVhqEBjJCURf()
     $('#xBuYErAxrbdvwoP').children().show();
 };
 
-function JTgCvImoJEyzGux() 
-{
 
-};
 
 
 //$(document).ready(function ()

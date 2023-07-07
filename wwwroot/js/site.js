@@ -380,16 +380,28 @@ $('.pyyxmssXgPCWuUc').on('click', function ()
 
 $('#HvZxXypLRxeRXCo').on('change', function ()
 {
-    document.getElementById('dFiioMzmTCjjcWp').innerHTML = `<option></option>`;
+    document.getElementById('dFiioMzmTCjjcWp').innerHTML = ``;
+
+    //for (let i = 0; i < model_l.length; i++) {
+    //    if (model_l[i].Description != null)
+    //    {
+    //        document.getElementById('dFiioMzmTCjjcWp').innerHTML += `<option></option>`;
+    //    }
+    //    else {
+    //        document.getElementById('dFiioMzmTCjjcWp').innerHTML += `<option value="` + model_l[i].Id + `"></option>`;
+    //    }
+    //}
+
     for (let i = 0; i < model_l.length; i++) {
         if (model_l[i].Name == this.options[this.selectedIndex].text) {
             if (model_l[i].Description != null)
             {
                 $('#dFiioMzmTCjjcWp').removeClass('fdjtgOVkxlRqfDM');
-                document.getElementById('dFiioMzmTCjjcWp').innerHTML += `<option>` + model_l[i].Description + `</option>`;
+                document.getElementById('dFiioMzmTCjjcWp').innerHTML += `<option value="` + model_l[i].Id + `">` + model_l[i].Description + `</option>`;
             }
             else {
                 $('#dFiioMzmTCjjcWp').addClass('fdjtgOVkxlRqfDM');
+                //document.getElementById('dFiioMzmTCjjcWp').innerHTML = `<option></option>`;
             }
             
         }
@@ -397,3 +409,33 @@ $('#HvZxXypLRxeRXCo').on('change', function ()
 });
 
 $('#HvZxXypLRxeRXCo').trigger('change');
+
+$('#JTgCvImoJEyzGux').on('click', function ()
+{
+    let oUfnFiNPmXnNjzu = document.getElementById('oUfnFiNPmXnNjzu');
+    let workerID_ = oUfnFiNPmXnNjzu.options[oUfnFiNPmXnNjzu.selectedIndex].value;
+    let enter_ = null;
+    let exit_ = null;
+    //leaveID_ = ;
+    //let leaveDate_ = ;
+    let od_ = document.getElementById('OYRMUMzpHRsooyI').value;
+    let do_ = document.getElementById('tyONXYuOELdPoLh').value;
+
+    $.ajax({
+        //type: 'POST',
+        //url: '/Workers2/ChangeWorkerDepartment',
+        //data: {
+        //    id: worker_id,
+        //    departmentID: newDepartment
+        //},
+        //success: function (response)
+        //{
+        //    location.reload();
+        //},
+        //error: function (xhr, status, error)
+        //{
+        //    console.log('Error updating column value:', error);
+        //}
+
+    });
+});

@@ -91,6 +91,7 @@ html {
 html {
     position: relative;
     min-height: 100%;
+    /*background: url(img/night-island-scenery-macos-wallpaper-1920x1200_6.jpg) no-repeat fixed center;*/
     background: url(img/night-island-scenery-macos-wallpaper-1920x1200_6.jpg) no-repeat fixed center;
     background-size: cover;
     background-color: black;
@@ -1159,8 +1160,8 @@ button {
 
 .oZBtnmiLrunDFMC {
     cursor: pointer;
-    font-size: 17px;
-    padding: 2px 10px 1px 10px;
+    font-size: 16px;
+    padding: 1px 10px 2px 10px;
     border-radius: 50px;
     margin-left: 3px;
     border: 2px solid white;

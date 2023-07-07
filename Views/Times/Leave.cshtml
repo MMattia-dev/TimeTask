@@ -38,7 +38,7 @@
     </section>
 </div>
 
-<div id="KYZGriDIsqNJRxr" class="pGKcZvErUB" style="">
+<div id="KYZGriDIsqNJRxr" class="pGKcZvErUB" style="display: none;">
     <form class="form_">
         <div class="form-group">
             <label>Wybierz urlop:</label>
@@ -46,7 +46,7 @@
                 @foreach (var item in ((IEnumerable<Leave4>)ViewBag.Leave).OrderBy(x => x.Name).Select(x => x.Name).Distinct())
                 {
                     <option>@item</option>
-                }
+                } 
             </select>
         </div>
         <div class="form-group">
@@ -54,14 +54,14 @@
         </div>
         <div class="form-group">
             <label>Urlop od dnia:</label>
-            <input class="form-control" type="date" />
+            <input class="form-control" type="date" id="OYRMUMzpHRsooyI" />
         </div>
-        <div class="form-group">
+        <div class="form-group form-group-margin">
             <label>Urlop do dnia:</label>
-            <input class="form-control" type="date" />
+            <input class="form-control" type="date" id="tyONXYuOELdPoLh" />
         </div>
         <div class="form-group">
-            <input type="button" value="Zapisz" class="btn-custom" onclick="JTgCvImoJEyzGux()" />
+            <input type="button" value="Zapisz" class="btn-custom" id="JTgCvImoJEyzGux" />
         </div>
         <div class="form-group">
             <input type="button" value="Wróć" class="btn-custom_" id="ttGSoqUHUjOErnf" />

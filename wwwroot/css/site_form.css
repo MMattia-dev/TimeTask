@@ -228,11 +228,11 @@ input[type=checkbox] {
 label {
     color: rgba(255, 255, 255, 0.8);
     /*font-family: Arial;*/
-    font-size: 13px;
+    font-size: 12px;
     user-select: none;
     display: flex;
     gap: 4px;
-    margin-bottom: 1px;
+    margin-bottom: 2px;
     margin-left: 1px;
 }
 

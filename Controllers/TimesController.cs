@@ -176,7 +176,23 @@ namespace TimeTask.Controllers
                           Problem("Entity set 'ApplicationDbContext.Time'  is null.");
         }
 
-        
+        [HttpPost]
+        public ActionResult AddLeave(int workerID, DateTime enter, DateTime exit, int leaveID, DateTime leaveDate)
+        {
+            var newData = new Time()
+            {
+                WorkerID = workerID,
+                Enter = enter,
+                Exit = exit,
+                LeaveID = leaveID,
+                LeaveDate = leaveDate
+            };
+
+            _context.Time.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+            //return Json(newData.Id);
+        }
 
 
 
