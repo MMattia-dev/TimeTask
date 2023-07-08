@@ -39,7 +39,7 @@
 </div>
 
 <div id="KYZGriDIsqNJRxr" class="pGKcZvErUB" style="display: none;">
-    <form class="form_">
+    <form class="form_3">
         <div class="form-group">
             <label>Wybierz urlop:</label>
             <select class="form-control bYwPpsleuVCBkPv" id="HvZxXypLRxeRXCo">
@@ -72,6 +72,8 @@
 <script type="text/javascript">
     var model_h = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Holiday));
     var model_l = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Leave));
+    var model_t = @Html.Raw(JsonConvert.SerializeObject(Model));
 </script>
 
+<script src="~/js/site.js"></script>
 <script src="~/js/LeaveJS.js"></script>
