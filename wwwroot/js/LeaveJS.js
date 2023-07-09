@@ -103,13 +103,14 @@ function generateCalendar()
         for (let j = 0; j < model_t.length; j++) {
             if (model_t[j].WorkerID == workerID_ && model_t[j].Enter == null && model_t[j].Exit == null) {
                 if (model_t[j].LeaveDate.split('T')[0] == date) {
-                    //console.log(date);
+                    console.log(date);
+
                 }
             }
         }
     }
-    //console.log(workerID_);
-
+    console.log(workerID_);
+    alert();
 
 
 
@@ -382,4 +383,9 @@ $('#iHCBwRzOLpgGYQG').on('change', function ()
     generateCalendar();
 });
 
-generateCalendar();
+//generateCalendar();
+
+$(document).ready(function ()
+{
+    generateCalendar();
+});
