@@ -91,8 +91,8 @@ html {
 html {
     position: relative;
     min-height: 100%;
-    /*background: url(img/night-island-scenery-macos-wallpaper-1920x1200_6.jpg) no-repeat fixed center;*/
-    background: url(img/backgrounds/the-illustration-graphic-consists-of-abstract-background-with-a-blue-gradient-dynamic-shapes-composition-eps10-perfect-for-presentation-background-website-landing-page-wallpaper-vector.jpg) no-repeat fixed center;
+    background: url(img/night-island-scenery-macos-wallpaper-1920x1200_6.jpg) no-repeat fixed center;
+    /*background: url(img/backgrounds/the-illustration-graphic-consists-of-abstract-background-with-a-blue-gradient-dynamic-shapes-composition-eps10-perfect-for-presentation-background-website-landing-page-wallpaper-vector.jpg) no-repeat fixed center;*/
     background-size: cover;
     background-color: black;
     overflow-x: hidden;
