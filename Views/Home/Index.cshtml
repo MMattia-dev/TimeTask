@@ -17,7 +17,6 @@
 @*<a target="_blank" href="https://icons8.com/icon/2797/home">Home</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>*@
 
 <script type="text/javascript">
-
 	var rightNav = document.querySelector('.right-nav');
 	var spanInfo = document.createElement('div');
 	spanInfo.id = 'info';
@@ -60,14 +59,16 @@
 				$(spanInfo).fadeOut();
 				$(loader).fadeOut();
 			}, 4600);
+
+			//setTimeout(function (){
+			//	rightNav.removeAttribute('style');
+			//}, 5100);
 		}
-
-
 	});
 
-
-
-
+	//window.onload = function() {
+	//	rightNav.removeAttribute('style');
+	//};
 
 
 

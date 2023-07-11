@@ -43,7 +43,6 @@ if (sessionStorage.getItem('HzvDBbvTRQnGBub') != null) {
 
 
 
-
 /**/
 var main = document.querySelector('.parent');
 var loader = document.createElement('div');
@@ -56,6 +55,7 @@ loader.style.display = 'none';
 loader.appendChild(lds);
 main.appendChild(loader);
 /**/
+
 
 
 function sortArray(array) {
@@ -74,6 +74,7 @@ function sortArray(array) {
 };
 
 function logOut() {
+    //$('.right-nav').addClass('DCzdjhpRPQzOGHd');
     ihJchOaMxWUD.style.transition = 'min-width 0.75s, max-width 0.75s, width 0.75s';
     //$(loader).fadeIn();
 
@@ -97,8 +98,8 @@ function logOut() {
     }, 300);
 
     let d = document.querySelector('.right-nav');
-    d.style.borderTopLeftRadius = '10px'
-    d.style.borderBottomLeftRadius = '10px'
+    //d.style.borderTopLeftRadius = '10px'
+    //d.style.borderBottomLeftRadius = '10px'
     let inside_d = d.querySelectorAll('*');
     for (let i = 0; i < inside_d.length; i++) 
     {
@@ -120,6 +121,7 @@ function logIn() {
 
 $(document).ready(function ()
 {
+    
     //$(loader).fadeOut();
 
     //$('#account').fadeIn(300);
@@ -132,7 +134,7 @@ $(document).ready(function ()
     //}
     //https://stackoverflow.com/questions/5004978/check-if-page-gets-reloaded-or-refreshed-in-javascript
 
-    
+    var rightNav = document.querySelector('.right-nav');
 
     if (performance.navigation.type == performance.navigation.TYPE_RELOAD)
     {
@@ -154,6 +156,7 @@ $(document).ready(function ()
                 $(ZLD38GJQEtrB).fadeIn();
                 $(ozozaNCrSaQI).fadeIn();
                 localStorage.removeItem('logged');
+                
             }, 5700);
         }
         

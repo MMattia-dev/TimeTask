@@ -73,7 +73,19 @@
     var model_h = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Holiday));
     var model_l = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Leave));
     var model_t = @Html.Raw(JsonConvert.SerializeObject(Model));
+
+    //window.onload = function ()
+    //{
+    //    $('.loader_div').fadeOut(200);
+    //};
+
+    $(document).ready(function(){
+        $('.loader_div').fadeOut(200);
+    });
+
 </script>
 
-@*<script src="~/js/site.js"></script>*@
+
+<script src="~/js/site.js"></script>
 <script src="~/js/LeaveJS.js"></script>
+

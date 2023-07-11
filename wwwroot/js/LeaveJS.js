@@ -28,6 +28,8 @@ function generateCalendar()
 {
     //const date = new Date();
     //date.setDate(1); //ustaw pierwszy dzień miesiąca
+    //$('.loader_div').fadeOut(200);
+
 
     let oUfnFiNPmXnNjzu = document.getElementById('oUfnFiNPmXnNjzu');
     let workerID_ = oUfnFiNPmXnNjzu.options[oUfnFiNPmXnNjzu.selectedIndex].value;
@@ -71,46 +73,28 @@ function generateCalendar()
 
     
     let dykKoaHBFtTPjlK = document.querySelectorAll('.dykKoaHBFtTPjlK');
-    //for (let i = 0; i < dykKoaHBFtTPjlK.length; i++) 
-    //{
-    //    let date = dykKoaHBFtTPjlK[i].id;
-    //    for (let j = 0; j < model_t.length; j++) 
-    //    {
-    //        //urlopy
-    //        if (model_t[j].Enter == null && model_t[j].Exit == null && workerID_ == model_t[j].WorkerID) {
-    //            if (model_t[j].LeaveDate.split('T')[0] == date) {
-    //                //console.log(model_t[j].LeaveID);
-    //                for (let k = 0; k < model_l.length; k++) {
-    //                    if (model_l[k].Id == model_t[j].LeaveID) {
-    //                        let name = model_l[k].Name;
-    //                        let description = model_l[k].Description;
-    //                        dykKoaHBFtTPjlK.innerHTML += `<div class="PXHhlPBPzXQFpVg">`
-    //                            + ``
-    //                        + `</div>`;
-                            
-    //                        console.log(model_l[k].Id);
-
-    //                    }
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
-
     for (let i = 0; i < dykKoaHBFtTPjlK.length; i++) {
-        //workerID_
         let date = dykKoaHBFtTPjlK[i].id;
         for (let j = 0; j < model_t.length; j++) {
             if (model_t[j].WorkerID == workerID_ && model_t[j].Enter == null && model_t[j].Exit == null) {
                 if (model_t[j].LeaveDate.split('T')[0] == date) {
-                    console.log(date);
-
+                    //console.log(date);
+                    for (let k = 0; k < model_l.length; k++) {
+                        if (model_l[k].Id == model_t[j].LeaveID) {
+                            let name = model_l[k].Name;
+                            let description = model_l[k].Description;
+                            dykKoaHBFtTPjlK[i].innerHTML += `<div class="PXHhlPBPzXQFpVg">`
+                                + `<span>` + name + `</span>`
+                                + `<span>(` + description + `)</span>`
+                                + `</div>`;
+                        }
+                    }
                 }
             }
         }
     }
-    console.log(workerID_);
-    alert();
+
+
 
 
 
@@ -238,9 +222,14 @@ $('#ttGSoqUHUjOErnf').on('click', function ()
     $('#KYZGriDIsqNJRxr').fadeOut(200);
 });
 
-$('.pyyxmssXgPCWuUc').on('click', function ()
+$('#KhUYdWBbOzZAJwi').on('click', function ()
 {
     $('#KYZGriDIsqNJRxr').fadeIn(200);
+});
+
+$('#UxjkajUgJngZOkw').on('click', function ()
+{
+
 });
 
 $('#HvZxXypLRxeRXCo').on('change', function ()
@@ -353,10 +342,12 @@ $('#JTgCvImoJEyzGux').on('click', function ()
         //console.log(date);
         let date = leaveDays[i].toISOString().split('T')[0];
 
+        //console.log(date);
+
         $.ajax({
             type: 'POST',
             url: '/Times/AddLeave',
-            async: false,
+            //async: false,
             data: {
                 workerID: workerID_,
                 enter: null,
@@ -383,9 +374,14 @@ $('#iHCBwRzOLpgGYQG').on('change', function ()
     generateCalendar();
 });
 
-//generateCalendar();
 
 $(document).ready(function ()
 {
     generateCalendar();
+    
 });
+
+//window.onload = function () { 
+//    generateCalendar();
+//    //$('.loader_div').fadeOut(200);
+//};

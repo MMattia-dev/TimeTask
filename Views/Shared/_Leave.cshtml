@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<TimeTask.Models.Time>
 
+<div class="loader_div iXYXpnpgGMALUNG">
+    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+</div>
+
 <div class="koblSjvDsfoQbAD">
     <a class="settings_a" href="@Url.Action("Index", "Home")">
         <svg viewBox="-8.5 0 32 32" width="32" height="32"><path d="M15.281 7.188v17.594l-15.281-8.781z"></path></svg>
@@ -9,8 +13,8 @@
     <select class="HQTuaisxjrtQHPq" id="iHCBwRzOLpgGYQG">
         <!--Rok-->
         @{
-            var r = Model.GroupBy(x => x.Enter?.Year).Select(x => x.FirstOrDefault());
-            var l = Model.GroupBy(x => x.LeaveDate?.Year).Select(x => x.FirstOrDefault());
+            //var r = Model.GroupBy(x => x.Enter?.Year).Select(x => x.FirstOrDefault());
+            //var l = Model.GroupBy(x => x.LeaveDate?.Year).Select(x => x.FirstOrDefault());
 
             int year = DateTime.Now.Year;
             int prevYear = year - 3;
@@ -87,8 +91,12 @@
         }
     </select>
 
-    <div class="pyyxmssXgPCWuUc" onclick="">
+    <div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw" id="KhUYdWBbOzZAJwi">
         <span>Dodaj urlop</span>
+    </div>
+
+    <div class="pyyxmssXgPCWuUc" id="UxjkajUgJngZOkw">
+        <span>Usuń urlop</span>
     </div>
 
 </div>
@@ -114,3 +122,4 @@
 </div>
 
 @*<input hidden  id="kwYypucEEAnXad" />*@
+
