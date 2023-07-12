@@ -1106,13 +1106,14 @@ button {
     min-width: 233px;
     max-width: 233px;
     background-color: rgba(34, 36, 48, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-left: 4px solid rgb(195, 107, 108);
     transition: background-color 0.2s;
     display: flex;
     align-items: center;
     justify-content: start;
     padding: 12px;
-    
+    border-radius: 5px;
 }
 
     .IVnxgCORpPYL:hover {
@@ -1833,8 +1834,9 @@ button {
     flex-direction: column;
     width: 100%;
     height: auto;
-    padding-left: 15px;
-    padding-right: 15px;
+    /*padding-left: 15px;*/
+    /*padding-right: 15px;*/
+    padding: 15px;
     /*border-top-right-radius: 10px !important;
     border-bottom-right-radius: 10px !important;*/
 
@@ -1884,7 +1886,7 @@ button {
 .hvxzYIeIBOTysxy {
     position: absolute;
     top: 16px;
-    left: 8px;
+    left: 16px;
     width: auto;
     color: rgba(255, 255, 255, 0.5);
     font-size: 13px;
@@ -1987,8 +1989,14 @@ button {
     flex-direction: column;
     gap: 4px;
     height: 100%;
-    
+    transition: backdrop-filter 0.2s;
 }
+
+    .PXHhlPBPzXQFpVg:hover {
+        cursor: pointer;
+        backdrop-filter: contrast(90%);
+        transition: backdrop-filter 0.2s;
+    }
 
     .PXHhlPBPzXQFpVg span:first-child {
         font-size: 15px;
@@ -1998,12 +2006,52 @@ button {
         font-size: 13px;
     }
 
+    .PXHhlPBPzXQFpVg span:nth-child(3) {
+        font-size: 13px;
+    }
+
     .PXHhlPBPzXQFpVg span {
         color: rgba(255, 255, 255, 0.8);
         font-family: Arial;
         user-select: auto;
     }
 
+.TYIUWPkeSfoEFoi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4px;
+    height: 100%;
+    transition: backdrop-filter 0.2s;
+}
+
+    .TYIUWPkeSfoEFoi:hover {
+        cursor: pointer;
+        backdrop-filter: contrast(90%);
+        transition: backdrop-filter 0.2s;
+    }
+
+    .TYIUWPkeSfoEFoi span:first-child {
+        font-size: 28px;
+        font-weight: bold;
+        color: orange;
+    }
+
+    .TYIUWPkeSfoEFoi span:nth-child(2) {
+        font-size: 14px;
+    }
+
+    .TYIUWPkeSfoEFoi span {
+        color: rgba(255, 255, 255, 0.8);
+        font-family: Arial;
+        user-select: auto;
+        font-size: 13px;
+    }
+
+/*.PXHhlPBPzXQFpVg a svg {
+        fill: rgba(255, 255, 255, 0.8);
+    }*/
 /*.VSXIkuJMIBqaSVq {
     transform: translateX(-100%);
     transition: 0.6s;

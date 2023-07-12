@@ -30,10 +30,15 @@ function generateCalendar()
     //date.setDate(1); //ustaw pierwszy dzień miesiąca
     //$('.loader_div').fadeOut(200);
 
+    //department
+    let aFoQOFiXPQobjPX = document.getElementById('aFoQOFiXPQobjPX');
+    let departmentID_ = aFoQOFiXPQobjPX.options[aFoQOFiXPQobjPX.selectedIndex].value;
+    //
 
+    //worker
     let oUfnFiNPmXnNjzu = document.getElementById('oUfnFiNPmXnNjzu');
     let workerID_ = oUfnFiNPmXnNjzu.options[oUfnFiNPmXnNjzu.selectedIndex].value;
-
+    //
 
     let yearSelect = document.getElementById('iHCBwRzOLpgGYQG');
     let year = yearSelect.options[yearSelect.selectedIndex].value;
@@ -73,20 +78,58 @@ function generateCalendar()
 
     
     let dykKoaHBFtTPjlK = document.querySelectorAll('.dykKoaHBFtTPjlK');
-    for (let i = 0; i < dykKoaHBFtTPjlK.length; i++) {
+    for (let i = 0; i < dykKoaHBFtTPjlK.length; i++) 
+    {
         let date = dykKoaHBFtTPjlK[i].id;
-        for (let j = 0; j < model_t.length; j++) {
-            if (model_t[j].WorkerID == workerID_ && model_t[j].Enter == null && model_t[j].Exit == null) {
-                if (model_t[j].LeaveDate.split('T')[0] == date) {
-                    //console.log(date);
-                    for (let k = 0; k < model_l.length; k++) {
-                        if (model_l[k].Id == model_t[j].LeaveID) {
+        for (let j = 0; j < model_t.length; j++) 
+        {
+            if (model_t[j].WorkerID == workerID_ && model_t[j].Enter == null && model_t[j].Exit == null)
+            {
+                $('.pyyxmssXgPCWuUc').removeClass('fNPXdDDFqqbVOkt');
+
+                if (model_t[j].LeaveDate.split('T')[0] == date)
+                {
+                    for (let k = 0; k < model_l.length; k++)
+                    {
+                        if (model_l[k].Id == model_t[j].LeaveID)
+                        {
                             let name = model_l[k].Name;
                             let description = model_l[k].Description;
                             dykKoaHBFtTPjlK[i].innerHTML += `<div class="PXHhlPBPzXQFpVg">`
                                 + `<span>` + name + `</span>`
                                 + `<span>(` + description + `)</span>`
                                 + `</div>`;
+                            //+ `<a><svg viewBox="0 0 512 512" height="30" width="30"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z" /><polygon class="st0" points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></path></svg></a>`;
+                        }
+                    }
+                }
+            }
+            else if (workerID_ == 'everyone' && model_t[j].Enter == null && model_t[j].Exit == null) 
+            {
+                $('.pyyxmssXgPCWuUc').addClass('fNPXdDDFqqbVOkt');
+
+                if (model_t[j].LeaveDate.split('T')[0] == date) 
+                {
+                    for (let k = 0; k < model_l.length; k++)
+                    {
+                        if (model_l[k].Id == model_t[j].LeaveID)
+                        {
+                            let abc = $(oUfnFiNPmXnNjzu).children();
+                            for (let m = 0; m < abc.length; m++)
+                            {
+                                if (abc[m].style.display != 'none')
+                                {
+                                    if (model_t[j].WorkerID == abc[m].getAttribute('value')) {
+                                        let name = model_l[k].Name;
+                                        let description = model_l[k].Description;
+                                        dykKoaHBFtTPjlK[i].innerHTML += `<div class="PXHhlPBPzXQFpVg">`
+                                            + `<span>` + abc[m].innerHTML + `</span>`
+                                            + `<span>` + name + `</span>`
+                                            + `<span>(` + description + `)</span>`
+                                            + `</div>`;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -94,6 +137,35 @@ function generateCalendar()
         }
     }
 
+
+    //let children = $('#dykKoaHBFtTPjlK').children().hasClass('PXHhlPBPzXQFpVg');
+    //for (let i = 0; i < children.length; i++) {
+    //    console.log(children[i]);
+    //    console.log(i);
+    //}
+
+    //let array = [];
+    for (let i = 0; i < dykKoaHBFtTPjlK.length; i++) {
+        //let children = $(dykKoaHBFtTPjlK[i]).children().hasClass('PXHhlPBPzXQFpVg');
+        let children = $(dykKoaHBFtTPjlK[i]).children();
+        if (children.hasClass('PXHhlPBPzXQFpVg') && children.length > 4) {
+            //$(children).removeClass('PXHhlPBPzXQFpVg');
+            
+            let PXHhlPBPzXQFpVg = dykKoaHBFtTPjlK[i].querySelectorAll('.PXHhlPBPzXQFpVg');
+            //console.log(PXHhlPBPzXQFpVg);
+            for (let j = 0; j < PXHhlPBPzXQFpVg.length; j++) {
+                //console.log(PXHhlPBPzXQFpVg[j].innerHTML);
+                $(PXHhlPBPzXQFpVg[j]).hide();
+            }
+
+            dykKoaHBFtTPjlK[i].innerHTML += `<div class="TYIUWPkeSfoEFoi">`
+                + `<span>` + PXHhlPBPzXQFpVg.length + `</span>`
+                + `<span>pracowników ma zapisany urlop w tym dniu.</span>`
+                + `<span>(kliknij, aby zobaczyć)</span>`
+            + `</div>`;
+        }
+    }
+    
 
 
 
@@ -182,7 +254,7 @@ function FFkdMqNnTDbWkXb()
     for (let i = 0; i < select2.length; i++)
     {
         //document.getElementById('oUfnFiNPmXnNjzu').selectedIndex = -1;
-        if (e2 == select2[i].id)
+        if (e2 == select2[i].id || select2[i].value == 'everyone')
         {
             $(select2[i]).show();
         }
@@ -202,6 +274,8 @@ function FFkdMqNnTDbWkXb()
     })
 
     //$('#xBuYErAxrbdvwoP').children().hide();
+
+    generateCalendar();
 };
 FFkdMqNnTDbWkXb();
 
