@@ -615,6 +615,7 @@ button {
     padding-bottom: 7px;
     transition: background-color 0.2s !important;
     margin-bottom: 10px;
+    height: 46px;
 }
 
     .settings_a:hover {

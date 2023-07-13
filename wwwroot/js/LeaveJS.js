@@ -377,7 +377,6 @@ $('#JTgCvImoJEyzGux').on('click', function ()
 
                     if (!model_l[j].IfWeekends)
                     {
-                        //console.log('bez weekendu');
                         if (isWeekend(day)) 
                         {
                             toRemove.push(day);
@@ -386,7 +385,6 @@ $('#JTgCvImoJEyzGux').on('click', function ()
 
                     if (!model_l[j].IfHolidays)
                     {
-                        //console.log('bez świąt');
                         for (let k = 0; k < model_h.length; k++) 
                         {
                             if (new Date(days[i]).toISOString().split('T')[0] == model_h[k].Date.split('T')[0]) 
@@ -400,44 +398,53 @@ $('#JTgCvImoJEyzGux').on('click', function ()
         }
     }
 
-    //console.log(days);
-    //console.log(toRemove);
 
     var leaveDays = days.filter(function (e, index)
     {
         return (!toRemove.some(d => +d === +e));
     });
 
-    //console.log(leaveDays);
 
     for (let i = 0; i < leaveDays.length; i++)
     {
-        //let date = new Date(leaveDays[i]);
-        //console.log(date);
         let date = leaveDays[i].toISOString().split('T')[0];
+        
 
-        //console.log(date);
+        //$.ajax({
+        //    type: 'POST',
+        //    url: '/Times/AddLeave',
+        //    data: {
+        //        workerID: workerID_,
+        //        enter: null,
+        //        exit: null,
+        //        leaveID: leaveID_,
+        //        leaveDate: date
+        //    },
+        //    success: function (response)
+        //    {
+        //        location.reload();
+        //    },
+        //    error: function (xhr, status, error)
+        //    {
+        //        console.log('Error adding column value:', error);
+        //    }
+        //});
 
-        $.ajax({
-            type: 'POST',
-            url: '/Times/AddLeave',
-            //async: false,
-            data: {
-                workerID: workerID_,
-                enter: null,
-                exit: null,
-                leaveID: leaveID_,
-                leaveDate: date
-            },
-            success: function (response)
-            {
-                location.reload();
-            },
-            error: function (xhr, status, error)
-            {
-                console.log('Error adding column value:', error);
+
+        for (let j = 0; j < model_t.length; j++) 
+        {
+            //if (model_t[j].LeaveDate.split('T')[0] != date && model_t[j].LeaveDate != null && model_t[j].Enter == null && model_t[j].Exit == null && workerID_ == model_t[j].WorkerID) 
+            //{
+            //    console.log(date);
+            //    break;
+            //}
+            if (model_t[j].LeaveDate.split('T')[0] !== date) {
+                console.log(model_t[j].LeaveDate.split('T')[0]);
+                console.log(date);
+                break;
             }
-        });
+        }
+
     }
 
 
