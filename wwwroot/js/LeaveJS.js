@@ -405,10 +405,13 @@ $('#JTgCvImoJEyzGux').on('click', function ()
     });
 
 
+
+    var arrayOfDays = [];
+    var toRemove2 = [];
     for (let i = 0; i < leaveDays.length; i++)
     {
         let date = leaveDays[i].toISOString().split('T')[0];
-        
+        arrayOfDays.push(date);
 
         //$.ajax({
         //    type: 'POST',
@@ -438,16 +441,26 @@ $('#JTgCvImoJEyzGux').on('click', function ()
             //    console.log(date);
             //    break;
             //}
-            if (model_t[j].LeaveDate.split('T')[0] !== date) {
-                console.log(model_t[j].LeaveDate.split('T')[0]);
-                console.log(date);
-                break;
+            if (workerID_ == model_t[j].WorkerID && model_t[j].LeaveDate.split('T')[0] != date && model_t[j].LeaveDate != null && model_t[j].Enter == null && model_t[j].Exit == null) 
+            {
+                toRemove2.push(model_t[j].LeaveDate.split('T')[0]);
             }
         }
-
     }
 
+    var toRemove2_new = [...new Set(toRemove2)];
+    toRemove2_new.sort();
+    
+    var leaveDays2 = arrayOfDays.filter(function (e, index)
+    {
+        return (!toRemove2_new.some(d => +d === +e));
+    });
 
+
+
+    //console.log(toRemove2_new);
+    //console.log(arrayOfDays);
+    console.log(leaveDays2);
 });
 
 $('#iHCBwRzOLpgGYQG').on('change', function ()
