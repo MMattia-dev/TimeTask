@@ -95,7 +95,7 @@ function generateCalendar()
                         {
                             let name = model_l[k].Name;
                             let description = model_l[k].Description;
-                            dykKoaHBFtTPjlK[i].innerHTML += `<div class="PXHhlPBPzXQFpVg">`
+                            dykKoaHBFtTPjlK[i].innerHTML += `<div class="PXHhlPBPzXQFpVg" id="` + model_t[j].Id + `">`
                                 + `<span>` + name + `</span>`
                                 + `<span>(` + description + `)</span>`
                                 + `</div>`;
@@ -138,23 +138,12 @@ function generateCalendar()
     }
 
 
-    //let children = $('#dykKoaHBFtTPjlK').children().hasClass('PXHhlPBPzXQFpVg');
-    //for (let i = 0; i < children.length; i++) {
-    //    console.log(children[i]);
-    //    console.log(i);
-    //}
-
-    //let array = [];
     for (let i = 0; i < dykKoaHBFtTPjlK.length; i++) {
-        //let children = $(dykKoaHBFtTPjlK[i]).children().hasClass('PXHhlPBPzXQFpVg');
         let children = $(dykKoaHBFtTPjlK[i]).children();
         if (children.hasClass('PXHhlPBPzXQFpVg') && children.length > 4) {
-            //$(children).removeClass('PXHhlPBPzXQFpVg');
             
             let PXHhlPBPzXQFpVg = dykKoaHBFtTPjlK[i].querySelectorAll('.PXHhlPBPzXQFpVg');
-            //console.log(PXHhlPBPzXQFpVg);
             for (let j = 0; j < PXHhlPBPzXQFpVg.length; j++) {
-                //console.log(PXHhlPBPzXQFpVg[j].innerHTML);
                 $(PXHhlPBPzXQFpVg[j]).hide();
             }
 
@@ -413,34 +402,8 @@ $('#JTgCvImoJEyzGux').on('click', function ()
         let date = leaveDays[i].toISOString().split('T')[0];
         arrayOfDays.push(date);
 
-        //$.ajax({
-        //    type: 'POST',
-        //    url: '/Times/AddLeave',
-        //    data: {
-        //        workerID: workerID_,
-        //        enter: null,
-        //        exit: null,
-        //        leaveID: leaveID_,
-        //        leaveDate: date
-        //    },
-        //    success: function (response)
-        //    {
-        //        location.reload();
-        //    },
-        //    error: function (xhr, status, error)
-        //    {
-        //        console.log('Error adding column value:', error);
-        //    }
-        //});
-
-
         for (let j = 0; j < model_t.length; j++) 
         {
-            //if (model_t[j].LeaveDate.split('T')[0] != date && model_t[j].LeaveDate != null && model_t[j].Enter == null && model_t[j].Exit == null && workerID_ == model_t[j].WorkerID) 
-            //{
-            //    console.log(date);
-            //    break;
-            //}
             if (workerID_ == model_t[j].WorkerID && model_t[j].LeaveDate.split('T')[0] != date && model_t[j].LeaveDate != null && model_t[j].Enter == null && model_t[j].Exit == null) 
             {
                 toRemove2.push(model_t[j].LeaveDate.split('T')[0]);
@@ -451,16 +414,33 @@ $('#JTgCvImoJEyzGux').on('click', function ()
     var toRemove2_new = [...new Set(toRemove2)];
     toRemove2_new.sort();
     
-    var leaveDays2 = arrayOfDays.filter(function (e, index)
+    arrayOfDays = arrayOfDays.filter((el) => !toRemove2_new.includes(el)); //usun wszystkie powtarzajace sie daty
+
+    if (arrayOfDays != null) 
     {
-        return (!toRemove2_new.some(d => +d === +e));
-    });
-
-
-
-    //console.log(toRemove2_new);
-    //console.log(arrayOfDays);
-    console.log(leaveDays2);
+        for (let i = 0; i < arrayOfDays.length; i++) 
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Times/AddLeave',
+                data: {
+                    workerID: workerID_,
+                    enter: null,
+                    exit: null,
+                    leaveID: leaveID_,
+                    leaveDate: arrayOfDays[i]
+                },
+                success: function (response)
+                {
+                    location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding column value:', error);
+                }
+            });
+        }
+    }
 });
 
 $('#iHCBwRzOLpgGYQG').on('change', function ()
