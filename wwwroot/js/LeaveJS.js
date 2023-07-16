@@ -273,10 +273,16 @@ function YDTyNWHkvmuAiCQ()
     generateCalendar();
 };
 
-function dWVTVhqEBjJCURf()
+function dWVTVhqEBjJCURf(t)
 {
-
-
+    if (t.value == 'everyone')
+    {
+        $('.pyyxmssXgPCWuUc').addClass('fNPXdDDFqqbVOkt'); //disable
+    }
+    else 
+    {
+        $('.pyyxmssXgPCWuUc').removeClass('fNPXdDDFqqbVOkt'); //enable
+    }
 
     $('#xBuYErAxrbdvwoP').children().show();
     generateCalendar();
