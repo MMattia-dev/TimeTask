@@ -106,7 +106,7 @@ function generateCalendar()
             }
             else if (workerID_ == 'everyone' && model_t[j].Enter == null && model_t[j].Exit == null) 
             {
-                $('.pyyxmssXgPCWuUc').addClass('fNPXdDDFqqbVOkt');
+                //$('.pyyxmssXgPCWuUc').addClass('fNPXdDDFqqbVOkt'); //enable
 
                 if (model_t[j].LeaveDate.split('T')[0] == date) 
                 {
@@ -150,7 +150,7 @@ function generateCalendar()
             dykKoaHBFtTPjlK[i].innerHTML += `<div class="TYIUWPkeSfoEFoi">`
                 + `<span>` + PXHhlPBPzXQFpVg.length + `</span>`
                 + `<span>pracowników ma zapisany urlop w tym dniu.</span>`
-                + `<span>(kliknij, aby zobaczyć)</span>`
+                //+ `<span>(kliknij, aby zobaczyć szczegóły)</span>`
             + `</div>`;
         }
     }
