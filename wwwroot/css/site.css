@@ -1014,7 +1014,7 @@ button {
 
 .pGKcZvErUB {
     position: fixed;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.6);
     height: 100%;
     width: 100%;
     top: 0;
@@ -2049,6 +2049,73 @@ button {
         user-select: auto;
         font-size: 13px;
     }
+
+.svTlrqbGxnTrkkq {
+    display: flex;
+    /*gap: 8px;*/
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(34, 36, 48, 1);
+    /*width: 370px;
+    min-height: 278px;*/
+    border-radius: 8px;
+    /*padding-top: 40px;
+    padding-bottom: 40px;*/
+    position: relative;
+
+}
+
+.iEazXcrnGzwjSNB {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+    .iEazXcrnGzwjSNB svg {
+        fill: rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+    }
+
+.efUljXvyQujgoTu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /*background-color: rgba(44, 46, 58, 1);*/
+    gap: 8px;
+    width: 100%;
+    padding: 30px;
+}
+
+    .efUljXvyQujgoTu div {
+        background-color: rgba(54, 56, 68, 1);
+        width: 400px;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+    }
+
+    .efUljXvyQujgoTu div span {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 13px;
+        font-family: Arial;
+    }
+
+    .efUljXvyQujgoTu div span:first-child {
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+        .efUljXvyQujgoTu div:hover {
+            background-color: rgba(64, 66, 78, 1);
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
 
 /*.PXHhlPBPzXQFpVg a svg {
         fill: rgba(255, 255, 255, 0.8);
