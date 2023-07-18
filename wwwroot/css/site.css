@@ -2072,7 +2072,7 @@ button {
     right: 10px;
 }
 
-    .iEazXcrnGzwjSNB svg {
+    .iEazXcrnGzwjSNB a svg {
         fill: rgba(255, 255, 255, 0.8);
         cursor: pointer;
     }
@@ -2088,60 +2088,113 @@ button {
     padding: 30px;
 }
 
-    .efUljXvyQujgoTu div {
-        background-color: rgba(54, 56, 68, 1);
-        width: 400px;
-        height: 100px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transition: background-color 0.2s;
-    }
+.iLPhCPQLeZriLNQ {
+    background-color: rgba(54, 56, 68, 1);
+    width: 400px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
 
-    .efUljXvyQujgoTu div span {
+
+.ctIBgsayAyonpQK {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+    .ctIBgsayAyonpQK span {
         color: rgba(255, 255, 255, 0.8);
         font-size: 13px;
         font-family: Arial;
+        user-select: auto;
     }
 
-    .efUljXvyQujgoTu div span:first-child {
-        font-weight: bold;
-        font-size: 14px;
-        margin-bottom: 5px;
-    }
-
-        .efUljXvyQujgoTu div:hover {
-            background-color: rgba(64, 66, 78, 1);
-            cursor: pointer;
-            transition: background-color 0.2s;
+        .ctIBgsayAyonpQK span:first-child {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 4px;
         }
 
-/*.PXHhlPBPzXQFpVg a svg {
-        fill: rgba(255, 255, 255, 0.8);
-    }*/
-/*.VSXIkuJMIBqaSVq {
-    transform: translateX(-100%);
-    transition: 0.6s;
-    opacity: 0;
-}
-*/
-/*.oKvcDSylPNSLgqr {
-    display: inherit;*/
-/*flex-direction: column;*/
-/*background-color: rgba(34, 36, 48, 1);
-    gap: 8px;
-    height: 100px;
-    min-width: 100px;
+.jLWszVjseUnWpuM {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding-right: 3px;
 }
 
-    .oKvcDSylPNSLgqr span {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 14px;
-        font-family: Arial;
-    }*/
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
+    .jLWszVjseUnWpuM div {
+        /*height: 44px;*/
+        height: 35px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+    }
+
+        .jLWszVjseUnWpuM div:first-child {
+            transition: backdrop-filter 0.2s;
+            /*background-color: rgba(38, 115, 38, 0.8);*/
+        }
+
+            .jLWszVjseUnWpuM div:first-child:hover {
+                transition: backdrop-filter 0.2s;
+                /*background-color: rgba(38, 115, 38, 0.8);*/
+                backdrop-filter: brightness(120%);
+            }
+
+        .jLWszVjseUnWpuM div:nth-child(2) {
+            transition: background-color 0.2s;
+            background-color: rgba(38, 115, 38, 0.8);
+        }
+
+            .jLWszVjseUnWpuM div:nth-child(2):hover {
+                transition: background-color 0.2s;
+                background-color: rgba(38, 115, 38, 1);
+            }
+
+        .jLWszVjseUnWpuM div:nth-child(3) {
+            transition: background-color 0.2s;
+            background-color: rgba(170, 0, 0, 0.8);
+        }
+
+            .jLWszVjseUnWpuM div:nth-child(3):hover {
+                transition: background-color 0.2s;
+                background-color: rgba(170, 0, 0, 1);
+            }
+
+        .jLWszVjseUnWpuM div a {
+            /*width: 44px;*/
+            width: 35px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .jLWszVjseUnWpuM div a svg {
+            transition: fill 0.2s;
+            fill: rgba(255, 255, 255, 0.8);
+        }
+
+            .jLWszVjseUnWpuM div a:hover {
+                cursor: pointer;
+            }
+
+            .jLWszVjseUnWpuM div a:hover svg {
+                transition: fill 0.2s;
+                fill: rgba(255, 255, 255, 1); 
+            }
+
+
+
+
+
+input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
