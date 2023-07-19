@@ -41,25 +41,30 @@ function generateCalendar()
     let workerID_ = oUfnFiNPmXnNjzu.options[oUfnFiNPmXnNjzu.selectedIndex].value;
     //
 
-    let PgLKgYMAvonpLlF = sessionStorage.getItem('PgLKgYMAvonpLlF');
-    if (PgLKgYMAvonpLlF != null)
-    {
-        oUfnFiNPmXnNjzu.value = PgLKgYMAvonpLlF;
-    }
-    else {
-        oUfnFiNPmXnNjzu.value = -1;
-    }
+    //let PgLKgYMAvonpLlF = sessionStorage.getItem('PgLKgYMAvonpLlF');
+    //if (PgLKgYMAvonpLlF != null)
+    //{
+    //    oUfnFiNPmXnNjzu.value = PgLKgYMAvonpLlF;
+    //}
+    //else {
+    //    oUfnFiNPmXnNjzu.value = -1;
+    //}
     
-    let GSYLLXKlArEDwFF = sessionStorage.getItem('GSYLLXKlArEDwFF');
-    if (GSYLLXKlArEDwFF == null)
-    {
-        sessionStorage.setItem('GSYLLXKlArEDwFF', aFoQOFiXPQobjPX.options[aFoQOFiXPQobjPX.selectedIndex].value);
-    }
-    else {
-        console.log(sessionStorage.getItem('GSYLLXKlArEDwFF'));
-    }
+    //let GSYLLXKlArEDwFF = sessionStorage.getItem('GSYLLXKlArEDwFF');
+    //if (GSYLLXKlArEDwFF == null)
+    //{
+    //    sessionStorage.setItem('GSYLLXKlArEDwFF', aFoQOFiXPQobjPX.options[aFoQOFiXPQobjPX.selectedIndex].value);
+    //}
+    //else {
+    //    console.log(sessionStorage.getItem('GSYLLXKlArEDwFF'));
+    //}
 
-
+    //let GSYLLXKlArEDwFF = sessionStorage.getItem('GSYLLXKlArEDwFF');
+    //if (GSYLLXKlArEDwFF != null)
+    //{
+    //    aFoQOFiXPQobjPX.value = GSYLLXKlArEDwFF;
+    //    //console.log(GSYLLXKlArEDwFF);
+    //}
 
 
     if (oUfnFiNPmXnNjzu.value == 'everyone')
@@ -307,15 +312,31 @@ function FFkdMqNnTDbWkXb()
         }
     }
 
-    //$('#oUfnFiNPmXnNjzu option').each(function ()
-    //{
-    //    if ($(this).css('display') != 'none')
-    //    {
-    //        $(this).prop("selected", true);
-    //        return false;
-    //    }
-    //})
+    $('#oUfnFiNPmXnNjzu option').each(function ()
+    {
+        if ($(this).css('display') != 'none')
+        {
+            $(this).prop("selected", true);
+            return false;
+        }
+    })
 
+    //let GSYLLXKlArEDwFF = sessionStorage.getItem('GSYLLXKlArEDwFF');
+    //if (GSYLLXKlArEDwFF == null)
+    //{
+    //    sessionStorage.setItem('GSYLLXKlArEDwFF', aFoQOFiXPQobjPX.options[aFoQOFiXPQobjPX.selectedIndex].value);
+    //}
+    //else
+    //{
+    //    console.log(sessionStorage.getItem('GSYLLXKlArEDwFF'));
+    //}
+
+    sessionStorage.setItem('GSYLLXKlArEDwFF', e2);
+    //let GSYLLXKlArEDwFF = sessionStorage.getItem('GSYLLXKlArEDwFF');
+    //if (GSYLLXKlArEDwFF != null) {
+    //    e.value = GSYLLXKlArEDwFF;
+    //    console.log(GSYLLXKlArEDwFF);
+    //}
 
     generateCalendar();
 };
