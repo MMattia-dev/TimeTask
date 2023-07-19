@@ -331,7 +331,7 @@ function FFkdMqNnTDbWkXb()
     //    console.log(sessionStorage.getItem('GSYLLXKlArEDwFF'));
     //}
 
-    sessionStorage.setItem('GSYLLXKlArEDwFF', e2);
+    //sessionStorage.setItem('GSYLLXKlArEDwFF', e2);
     //let GSYLLXKlArEDwFF = sessionStorage.getItem('GSYLLXKlArEDwFF');
     //if (GSYLLXKlArEDwFF != null) {
     //    e.value = GSYLLXKlArEDwFF;
@@ -527,7 +527,19 @@ $('#iHCBwRzOLpgGYQG').on('change', function ()
 
 $(document).ready(function ()
 {
+    let PgLKgYMAvonpLlF = sessionStorage.getItem('PgLKgYMAvonpLlF');
+    if (PgLKgYMAvonpLlF != null)
+    {
+        oUfnFiNPmXnNjzu.value = PgLKgYMAvonpLlF;
+    }
+    else
+    {
+        oUfnFiNPmXnNjzu.value = -1;
+    }
+
     generateCalendar();
+
+    
 });
 
 //window.onload = function () { 
