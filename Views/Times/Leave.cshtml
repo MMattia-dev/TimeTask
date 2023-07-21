@@ -79,6 +79,7 @@
 </div>
 
 <script type="text/javascript">
+    var model_w = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Workers));
     var model_h = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Holiday));
     var model_l = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Leave));
     var model_t = @Html.Raw(JsonConvert.SerializeObject(Model));

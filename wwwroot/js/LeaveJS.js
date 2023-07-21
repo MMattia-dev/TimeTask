@@ -41,15 +41,27 @@ function generateCalendar()
     let workerID_ = oUfnFiNPmXnNjzu.options[oUfnFiNPmXnNjzu.selectedIndex].value;
     //
 
-    //let PgLKgYMAvonpLlF = sessionStorage.getItem('PgLKgYMAvonpLlF');
-    //if (PgLKgYMAvonpLlF != null)
-    //{
-    //    oUfnFiNPmXnNjzu.value = PgLKgYMAvonpLlF;
-    //}
-    //else {
-    //    oUfnFiNPmXnNjzu.value = -1;
-    //}
+
+
+    let PgLKgYMAvonpLlF = sessionStorage.getItem('PgLKgYMAvonpLlF');
+    let PgLKgYMAvonpLlF_ = sessionStorage.getItem('PgLKgYMAvonpLlF_');
+    if (PgLKgYMAvonpLlF != '' && PgLKgYMAvonpLlF_ != '')
+    {
+        //oUfnFiNPmXnNjzu.value = PgLKgYMAvonpLlF;
+        
+        //console.log(PgLKgYMAvonpLlF_ + ' department');
+        //console.log(PgLKgYMAvonpLlF + ' workerID');
+
+        aFoQOFiXPQobjPX.value = PgLKgYMAvonpLlF_;
+        oUfnFiNPmXnNjzu.value = PgLKgYMAvonpLlF;
+    }
+    else {
+        //oUfnFiNPmXnNjzu.value = -1;
+
+    }
     
+
+
     //let GSYLLXKlArEDwFF = sessionStorage.getItem('GSYLLXKlArEDwFF');
     //if (GSYLLXKlArEDwFF == null)
     //{
@@ -296,47 +308,50 @@ function NWEuFXskeXpBGBa() {
 
 function FFkdMqNnTDbWkXb()
 {
-    let e = document.getElementById('aFoQOFiXPQobjPX');
-    let e2 = e.options[e.selectedIndex].value;
+    //let e = document.getElementById('aFoQOFiXPQobjPX');
+    //let e2 = e.options[e.selectedIndex].value;
 
-    let select2 = $('#oUfnFiNPmXnNjzu').children();
-    for (let i = 0; i < select2.length; i++)
-    {
-        if (e2 == select2[i].id || select2[i].value == 'everyone')
-        {
-            $(select2[i]).show();
-        }
-        else
-        {
-            $(select2[i]).hide();
+    //let select2 = $('#oUfnFiNPmXnNjzu').children();
+    //for (let i = 0; i < select2.length; i++)
+    //{
+    //    if (e2 == select2[i].id || select2[i].value == 'everyone')
+    //    {
+    //        $(select2[i]).show();
+    //    }
+    //    else
+    //    {
+    //        $(select2[i]).hide();
+    //    }
+    //}
+
+    //$('#oUfnFiNPmXnNjzu option').each(function ()
+    //{
+    //    if ($(this).css('display') != 'none')
+    //    {
+    //        $(this).prop("selected", true);
+    //        return false;
+    //    }
+    //})
+
+
+
+
+    //oUfnFiNPmXnNjzu
+    //sessionStorage.setItem('PgLKgYMAvonpLlF', document.getElementById('oUfnFiNPmXnNjzu').value); //workerID
+    //sessionStorage.setItem('PgLKgYMAvonpLlF_', document.getElementById('aFoQOFiXPQobjPX').value); //departmentID
+
+
+    document.getElementById('oUfnFiNPmXnNjzu').innerHTML = '';
+
+    let aFoQOFiXPQobjPX = document.getElementById('aFoQOFiXPQobjPX');
+    let departmentID_ = aFoQOFiXPQobjPX.options[aFoQOFiXPQobjPX.selectedIndex].value;
+
+    for (let i = 0; i < model_w.length; i++) {
+        if (model_w[i].DepartmentID == departmentID_) {
+            document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="` + model_w[i].Id + `" id="` + model_w[i].DepartmentID + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
         }
     }
-
-    $('#oUfnFiNPmXnNjzu option').each(function ()
-    {
-        if ($(this).css('display') != 'none')
-        {
-            $(this).prop("selected", true);
-            return false;
-        }
-    })
-
-    //let GSYLLXKlArEDwFF = sessionStorage.getItem('GSYLLXKlArEDwFF');
-    //if (GSYLLXKlArEDwFF == null)
-    //{
-    //    sessionStorage.setItem('GSYLLXKlArEDwFF', aFoQOFiXPQobjPX.options[aFoQOFiXPQobjPX.selectedIndex].value);
-    //}
-    //else
-    //{
-    //    console.log(sessionStorage.getItem('GSYLLXKlArEDwFF'));
-    //}
-
-    //sessionStorage.setItem('GSYLLXKlArEDwFF', e2);
-    //let GSYLLXKlArEDwFF = sessionStorage.getItem('GSYLLXKlArEDwFF');
-    //if (GSYLLXKlArEDwFF != null) {
-    //    e.value = GSYLLXKlArEDwFF;
-    //    console.log(GSYLLXKlArEDwFF);
-    //}
+    document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="everyone">Wszyscy w wybranym dziale</option>`;
 
     generateCalendar();
 };
@@ -349,7 +364,8 @@ function YDTyNWHkvmuAiCQ()
 
 function dWVTVhqEBjJCURf(t)
 {
-    sessionStorage.setItem('PgLKgYMAvonpLlF', t.value);
+    sessionStorage.setItem('PgLKgYMAvonpLlF', document.getElementById('oUfnFiNPmXnNjzu').value); //workerID
+    sessionStorage.setItem('PgLKgYMAvonpLlF_', document.getElementById('aFoQOFiXPQobjPX').value); //departmentID
     
     $('#xBuYErAxrbdvwoP').children().show();
     generateCalendar();
@@ -527,16 +543,7 @@ $('#iHCBwRzOLpgGYQG').on('change', function ()
 
 $(document).ready(function ()
 {
-    let PgLKgYMAvonpLlF = sessionStorage.getItem('PgLKgYMAvonpLlF');
-    if (PgLKgYMAvonpLlF != null)
-    {
-        oUfnFiNPmXnNjzu.value = PgLKgYMAvonpLlF;
-    }
-    else
-    {
-        oUfnFiNPmXnNjzu.value = -1;
-    }
-
+    
     generateCalendar();
 
     
