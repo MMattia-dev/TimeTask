@@ -382,8 +382,15 @@ $('#ttGSoqUHUjOErnf').on('click', function ()
 
 $('#KhUYdWBbOzZAJwi').on('click', function ()
 {
-    //let e = document.getElementById('aFoQOFiXPQobjPX');
     let e = document.getElementById('TrbvupCIcixxNsx');
+
+    let e_ = document.getElementById('aFoQOFiXPQobjPX');
+    let e2 = e_.options[e_.selectedIndex].value;
+    e.value = e2;
+
+
+
+    
     let id = e.options[e.selectedIndex].value;
     document.getElementById('CvFHVhLHjFBzNAz').innerHTML = '';
 
@@ -394,6 +401,7 @@ $('#KhUYdWBbOzZAJwi').on('click', function ()
             document.getElementById('CvFHVhLHjFBzNAz').innerHTML += `<option value="` + model_w[i].Id + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
         }
     }
+
 
 
     $('#KYZGriDIsqNJRxr').fadeIn(200);
