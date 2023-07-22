@@ -382,7 +382,36 @@ $('#ttGSoqUHUjOErnf').on('click', function ()
 
 $('#KhUYdWBbOzZAJwi').on('click', function ()
 {
+    //let e = document.getElementById('aFoQOFiXPQobjPX');
+    let e = document.getElementById('TrbvupCIcixxNsx');
+    let id = e.options[e.selectedIndex].value;
+    document.getElementById('CvFHVhLHjFBzNAz').innerHTML = '';
+
+    for (let i = 0; i < model_w.length; i++) 
+    {
+        if (model_w[i].DepartmentID == id) 
+        {
+            document.getElementById('CvFHVhLHjFBzNAz').innerHTML += `<option value="` + model_w[i].Id + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
+        }
+    }
+
+
     $('#KYZGriDIsqNJRxr').fadeIn(200);
+});
+
+$('#TrbvupCIcixxNsx').on('change', function ()
+{
+    let e = document.getElementById('TrbvupCIcixxNsx');
+    let id = e.options[e.selectedIndex].value;
+    document.getElementById('CvFHVhLHjFBzNAz').innerHTML = '';
+
+    for (let i = 0; i < model_w.length; i++) 
+    {
+        if (model_w[i].DepartmentID == id) 
+        {
+            document.getElementById('CvFHVhLHjFBzNAz').innerHTML += `<option value="` + model_w[i].Id + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
+        }
+    }
 });
 
 $('#UxjkajUgJngZOkw').on('click', function ()
