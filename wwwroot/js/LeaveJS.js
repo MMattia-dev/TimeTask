@@ -153,11 +153,21 @@ function generateCalendar()
                         {
                             let name = model_l[k].Name;
                             let description = model_l[k].Description;
-                            dykKoaHBFtTPjlK[i].innerHTML += `<div class="PXHhlPBPzXQFpVg" id="` + model_t[j].Id + `">`
-                                + `<span>` + name + `</span>`
-                                + `<span>(` + description + `)</span>`
-                                + `</div>`;
-                            //+ `<a><svg viewBox="0 0 512 512" height="30" width="30"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z" /><polygon class="st0" points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></path></svg></a>`;
+                            
+                            if (description != null) 
+                            {
+                                dykKoaHBFtTPjlK[i].innerHTML += `<div class="PXHhlPBPzXQFpVg" id="` + model_t[j].Id + `">`
+                                    + `<span>` + name + `</span>`
+                                    + `<span>(` + description + `)</span>`
+                                    + `</div>`;
+                            }
+                            else 
+                            {
+                                dykKoaHBFtTPjlK[i].innerHTML += `<div class="PXHhlPBPzXQFpVg" id="` + model_t[j].Id + `">`
+                                    + `<span>` + name + `</span>`
+                                    + `</div>`;
+                            }
+
                         }
                     }
                 }
@@ -180,11 +190,23 @@ function generateCalendar()
                                     if (model_t[j].WorkerID == abc[m].getAttribute('value')) {
                                         let name = model_l[k].Name;
                                         let description = model_l[k].Description;
-                                        dykKoaHBFtTPjlK[i].innerHTML += `<div class="PXHhlPBPzXQFpVg" id="` + model_t[j].Id + `">`
-                                            + `<span>` + abc[m].innerHTML + `</span>`
-                                            + `<span>` + name + `</span>`
-                                            + `<span>(` + description + `)</span>`
-                                            + `</div>`;
+                                        
+                                        if (description != null) 
+                                        {
+                                            dykKoaHBFtTPjlK[i].innerHTML += `<div class="PXHhlPBPzXQFpVg" id="` + model_t[j].Id + `">`
+                                                + `<span>` + abc[m].innerHTML + `</span>`
+                                                + `<span>` + name + `</span>`
+                                                + `<span>(` + description + `)</span>`
+                                                + `</div>`;
+                                        }
+                                        else 
+                                        {
+                                            dykKoaHBFtTPjlK[i].innerHTML += `<div class="PXHhlPBPzXQFpVg" id="` + model_t[j].Id + `">`
+                                                + `<span>` + abc[m].innerHTML + `</span>`
+                                                + `<span>` + name + `</span>`
+                                                + `</div>`;
+                                        }
+
                                     }
                                 }
                             }
@@ -372,6 +394,8 @@ function dWVTVhqEBjJCURf(t)
     
     $('#xBuYErAxrbdvwoP').children().show();
     generateCalendar();
+
+    
 };
 
 
@@ -383,13 +407,11 @@ $('#ttGSoqUHUjOErnf').on('click', function ()
 $('#KhUYdWBbOzZAJwi').on('click', function ()
 {
     let e = document.getElementById('TrbvupCIcixxNsx');
-
     let e_ = document.getElementById('aFoQOFiXPQobjPX');
     let e2 = e_.options[e_.selectedIndex].value;
     e.value = e2;
 
-
-
+    
     
     let id = e.options[e.selectedIndex].value;
     document.getElementById('CvFHVhLHjFBzNAz').innerHTML = '';
@@ -402,7 +424,10 @@ $('#KhUYdWBbOzZAJwi').on('click', function ()
         }
     }
 
-
+    let f = document.getElementById('CvFHVhLHjFBzNAz');
+    let f_ = document.getElementById('oUfnFiNPmXnNjzu');
+    let f2 = f_.options[f_.selectedIndex].value;
+    f.value = f2;
 
     $('#KYZGriDIsqNJRxr').fadeIn(200);
 });
@@ -474,7 +499,8 @@ $('#JTgCvImoJEyzGux').on('click', function ()
     var days = [];
     var toRemove = [];
 
-    let oUfnFiNPmXnNjzu = document.getElementById('oUfnFiNPmXnNjzu');
+    //let oUfnFiNPmXnNjzu = document.getElementById('oUfnFiNPmXnNjzu');
+    let oUfnFiNPmXnNjzu = document.getElementById('CvFHVhLHjFBzNAz');
     let workerID_ = oUfnFiNPmXnNjzu.options[oUfnFiNPmXnNjzu.selectedIndex].value;
     let enter_ = null;
     let exit_ = null;
