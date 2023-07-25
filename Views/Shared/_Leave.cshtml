@@ -75,16 +75,16 @@
 
     <span class="settings_span">Urlopy dla działu:</span>
     <div style="height: 5px;"></div>
-    <select class="HQTuaisxjrtQHPq" id="aFoQOFiXPQobjPX" onchange="FFkdMqNnTDbWkXb()">
+    <select class="HQTuaisxjrtQHPq" id="aFoQOFiXPQobjPX" onchange="FFkdMqNnTDbWkXb(this)">
         @foreach (var item in ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name))
         {
             <option value="@item.Id">@item.Name</option>
         }
     </select>
 
-    <span class="settings_span">Pracownik:</span>
-    <div style="height: 5px;"></div>
-    <select class="HQTuaisxjrtQHPq" id="oUfnFiNPmXnNjzu" onchange="dWVTVhqEBjJCURf(this)">
+    <span style="display: none;" class="settings_span">Pracownik:</span>
+    <div style="height: 5px; display: none;"></div>
+    <select style="display: none;" class="HQTuaisxjrtQHPq" id="oUfnFiNPmXnNjzu" onchange="dWVTVhqEBjJCURf(this)">
         @*@foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).OrderBy(x => x.Surname))
         {
             <option value="@item.Id" id="@item.DepartmentID">@item.Surname @item.Name</option>
@@ -96,11 +96,11 @@
         <span>Dodaj urlop</span>
     </div>
 
-    <div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw" id="">
+    <div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw" id="" style="display: none;">
         <span>Edytuj urlop (do zrobienia)</span>
     </div>
 
-    <div class="pyyxmssXgPCWuUc" id="UxjkajUgJngZOkw">
+    <div class="pyyxmssXgPCWuUc" id="UxjkajUgJngZOkw" style="display: none;">
         <span>Usuń urlop (do zrobienia)</span>
     </div>
 

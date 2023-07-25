@@ -1910,7 +1910,7 @@ button {
             color: rgba(255, 255, 255, 0.8);
             font-size: 15px;
             user-select: none;
-            
+            cursor: help;
         }
 
         .VUXahzbNUTWtiZa thead tr th:nth-child(3) {
@@ -2074,17 +2074,18 @@ button {
 .iLPhCPQLeZriLNQ {
     background-color: rgba(54, 56, 68, 1);
     width: 400px;
-    /*height: 120px;*/
+    height: 120px;
     /*height: 140px;*/
     display: flex;
     align-items: center;
     justify-content: center;
     transition: background-color 0.2s;
     /**/
-    flex-direction: column;
-    gap: 16px;
-    padding-top: 10px;
+    /*flex-direction: column;*/
+    /*gap: 16px;*/
+    /*padding-top: 10px;*/
     /*padding-bottom: 8px;*/
+    position: relative;
 }
 
 
@@ -2111,51 +2112,21 @@ button {
 
 .jLWszVjseUnWpuM {
     display: flex;
-    gap: 4px;
+    gap: 5px;
     justify-content: center;
-    align-items: center;
-    /*flex-direction: column;*/
-    padding-right: 3px;
-    transform: translateY(-7px);
+    align-items: start;
+    height: 100%;
+    position: absolute;
+    right: 8px;
+    top: 8px;
 }
 
     .jLWszVjseUnWpuM div {
-        height: 35px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 3px;
+        height: 20px;
+        width: 20px;
     }
 
-        .jLWszVjseUnWpuM div:first-child {
-            transition: backdrop-filter 0.2s;
-        }
-
-            .jLWszVjseUnWpuM div:first-child:hover {
-                transition: backdrop-filter 0.2s;
-                backdrop-filter: brightness(120%);
-            }
-
-        .jLWszVjseUnWpuM div:nth-child(2) {
-            transition: background-color 0.2s;
-            background-color: rgba(38, 115, 38, 0.8);
-        }
-
-            .jLWszVjseUnWpuM div:nth-child(2):hover {
-                transition: background-color 0.2s;
-                background-color: rgba(38, 115, 38, 1);
-            }
-
-        .jLWszVjseUnWpuM div:nth-child(3) {
-            transition: background-color 0.2s;
-            background-color: rgba(170, 0, 0, 0.8);
-        }
-
-            .jLWszVjseUnWpuM div:nth-child(3):hover {
-                transition: background-color 0.2s;
-                background-color: rgba(170, 0, 0, 1);
-            }
-
-        .jLWszVjseUnWpuM div a {
-            width: 35px;
+        .jLWszVjseUnWpuM div a {  
             height: 100%;
             display: flex;
             align-items: center;
