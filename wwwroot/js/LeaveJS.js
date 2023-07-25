@@ -205,18 +205,19 @@ function yKZSDGYyOfLkUoB(t) {
 
 
             //console.log(PXHhlPBPzXQFpVg[i].id);
-            for (let j = 0; j < model_t.length; j++) {
-                if (PXHhlPBPzXQFpVg[i].Id == model_t[j].Id) {
-                    let workerID = model_t[j].WorkerID;
-                    let leaveID = model_t[j].LeaveID;
-                    let leaveDate = model_t[j].LeaveDate;
+            //for (let j = 0; j < model_t.length; j++) {
+            //    //if (PXHhlPBPzXQFpVg[i].Id == model_t[j].Id) {
+            //    //    let workerID = model_t[j].WorkerID;
+            //    //    let leaveID = model_t[j].LeaveID;
+            //    //    let leaveDate = model_t[j].LeaveDate;
 
                     
 
-                }
-                console.log(model_t[j].LeaveDate);
+            //    //}
+            //    let workerID = model_t[j].WorkerID;
+            //    console.log(model_t[j].LeaveDate);
                 
-            }
+            //}
 
         }
     }
@@ -283,10 +284,10 @@ $('#KhUYdWBbOzZAJwi').on('click', function ()
         }
     }
 
-    let f = document.getElementById('CvFHVhLHjFBzNAz');
-    let f_ = document.getElementById('oUfnFiNPmXnNjzu');
-    let f2 = f_.options[f_.selectedIndex].value;
-    f.value = f2;
+    //let f = document.getElementById('CvFHVhLHjFBzNAz');
+    //let f_ = document.getElementById('oUfnFiNPmXnNjzu');
+    //let f2 = f_.options[f_.selectedIndex].value;
+    //f.value = f2;
 
     $('#KYZGriDIsqNJRxr').fadeIn(200);
 });
@@ -448,6 +449,153 @@ $('#iHCBwRzOLpgGYQG').on('change', function ()
     generateCalendar();
 });
 
+$('#XWRZMxZMLxBIsSg').on('click', function ()
+{
+    let e = document.getElementById('TEimYJFgtJHkEYN');
+    let e_ = document.getElementById('aFoQOFiXPQobjPX');
+    let e2 = e_.options[e_.selectedIndex].value;
+    e.value = e2;
+
+
+    let id = e.options[e.selectedIndex].value;
+    document.getElementById('ILEsYMjvtNNaevj').innerHTML = '';
+
+    for (let i = 0; i < model_w.length; i++) 
+    {
+        if (model_w[i].DepartmentID == id) 
+        {
+            document.getElementById('ILEsYMjvtNNaevj').innerHTML += `<option value="` + model_w[i].Id + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
+        }
+    }
+
+    //let f = document.getElementById('ILEsYMjvtNNaevj');
+    //let f_ = document.getElementById('oUfnFiNPmXnNjzu');
+    //let f2 = f_.options[f_.selectedIndex].value;
+    //f.value = f2;
+
+
+    $('#HkNBOhMkAyDsQyq').fadeIn(200);
+});
+
+
+
+$('#UxjkajUgJngZOkw').on('click', function ()
+{
+    let e = document.getElementById('NJFYeORUIiKTXrz');
+    let e_ = document.getElementById('aFoQOFiXPQobjPX');
+    let e2 = e_.options[e_.selectedIndex].value;
+    e.value = e2;
+
+
+    let id = e.options[e.selectedIndex].value;
+    document.getElementById('AEHzpmyFkSNvUdo').innerHTML = '';
+
+    for (let i = 0; i < model_w.length; i++) 
+    {
+        if (model_w[i].DepartmentID == id) 
+        {
+            document.getElementById('AEHzpmyFkSNvUdo').innerHTML += `<option value="` + model_w[i].Id + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
+        }
+    }
+
+
+    $('#cYgceuOTNRyhtgw').fadeIn(200);
+});
+
+$('#VXiKGpgSvpKOZKT').on('change', function ()
+{
+    document.getElementById('EBenMhrJHjRYloI').innerHTML = ``;
+
+    for (let i = 0; i < model_l.length; i++)
+    {
+        if (model_l[i].Name == this.options[this.selectedIndex].text)
+        {
+            if (model_l[i].Description != null)
+            {
+                $('#EBenMhrJHjRYloI').removeClass('fdjtgOVkxlRqfDM');
+                document.getElementById('EBenMhrJHjRYloI').innerHTML += `<option value="` + model_l[i].Id + `">` + model_l[i].Description + `</option>`;
+            }
+            else
+            {
+                $('#EBenMhrJHjRYloI').addClass('fdjtgOVkxlRqfDM');
+                document.getElementById('EBenMhrJHjRYloI').innerHTML += `<option value="` + model_l[i].Id + `">-</option>`;
+            }
+        }
+    }
+
+    sortSelect(document.getElementById('EBenMhrJHjRYloI'));
+});
+
+$('#VXiKGpgSvpKOZKT').trigger('change');
+
+$('#OiWbwAUjZnyKUtE').on('click', function ()
+{
+    $('#HkNBOhMkAyDsQyq').fadeOut(200);
+});
+
+$('#cMMVwSiiAWqslkZ').on('click', function ()
+{
+    $('#cYgceuOTNRyhtgw').fadeOut(200);
+});
+
+$('#jAHsTUaWMwBubwN').on('click', function ()
+{
+    var days = [];
+
+    let oUfnFiNPmXnNjzu = document.getElementById('ILEsYMjvtNNaevj');
+    let workerID_ = oUfnFiNPmXnNjzu.options[oUfnFiNPmXnNjzu.selectedIndex].value;
+    let enter_ = null;
+    let exit_ = null;
+    let dFiioMzmTCjjcWp = document.getElementById('EBenMhrJHjRYloI');
+    let leaveID_ = dFiioMzmTCjjcWp.options[dFiioMzmTCjjcWp.selectedIndex].value;
+
+    let od_ = document.getElementById('UaoNzsYOeLSszDN').value;
+    let do_ = document.getElementById('kHKjBWOtRRZfmIH').value;
+
+    if (od_ != '' && do_ != '') 
+    {
+        days = getDatesInRange(new Date(od_), new Date(do_));
+    }
+
+    if (days != null) 
+    {
+        for (let i = 0; i < days.length; i++)
+        {
+            //console.log(days[i].toISOString().split('T')[0]);
+            for (let j = 0; j < model_t.length; j++) 
+            {
+                if (model_t[j].Enter == null && model_t[j].Exit == null && model_t[j].WorkerID == workerID_) 
+                {
+                    if (model_t[j].LeaveDate.split('T')[0] == days[i].toISOString().split('T')[0]) 
+                    {
+                        //console.log(days[i].toISOString().split('T')[0]);
+                        $.ajax({
+                            type: 'POST',
+                            url: '/Times/EditLeave',
+                            data: {
+                                workerID: workerID_,
+                                enter: null,
+                                exit: null,
+                                leaveID: leaveID_,
+                                leaveDate: days[i].toISOString().split('T')[0]
+                            },
+                            success: function (response)
+                            {
+                                location.reload();
+                            },
+                            error: function (xhr, status, error)
+                            {
+                                console.log('Error updating column value:', error);
+                            }
+                        });
+                    }
+                }
+            }
+        }
+    }
+    
+
+});
 
 $(document).ready(function ()
 {
