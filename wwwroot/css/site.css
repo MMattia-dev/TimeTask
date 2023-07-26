@@ -1012,7 +1012,12 @@ button {
     align-items: center;
     justify-content: center;
     z-index: 100;
+
 }
+
+    .pGKcZvErUB.pGKcZvErUB_ {
+        background-color: transparent;
+    }
 
 .idCoFonIOIZS {
     height: 25px;
@@ -2068,7 +2073,7 @@ button {
     /*background-color: rgba(44, 46, 58, 1);*/
     gap: 8px;
     width: 100%;
-    padding: 30px;
+    padding: 45px 30px 30px 30px;
 }
 
 .iLPhCPQLeZriLNQ {
@@ -2146,6 +2151,16 @@ button {
                 transition: fill 0.2s;
                 fill: rgba(255, 255, 255, 1); 
             }
+
+.MPsxqaqUBggmTqH {
+    color: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    top: 12px;
+    font-size: 14px;
+    font-family: Arial;
+    
+}
+
 
 
 

@@ -44,21 +44,7 @@
         width: 350px;
     }
 
-    .btn-custom.oniAUhwBtvxShzt {
-        background-color: rgba(36, 142, 36, 0.6);
-    }
 
-        .btn-custom.oniAUhwBtvxShzt:hover {
-            background-color: rgba(36, 142, 36, 0.8);
-        }
-
-    .btn-custom.pHPHKjBORYLFyod {
-        background-color: rgba(142, 36, 36, 0.6);
-    }
-
-        .btn-custom.pHPHKjBORYLFyod:hover {
-            background-color: rgba(142, 36, 36, 0.8);
-        }
 
 .btn-custom_ {
     width: 275px;
@@ -114,6 +100,7 @@ form.form_2 {
 
 form.form_3 {
     /*height: 400px;*/
+    
 }
 
 /*form.form_0 {
@@ -121,6 +108,7 @@ form.form_3 {
     box-shadow: none;
 
 }*/
+
 
 .form-group-margin {
     margin-bottom: 10px;
