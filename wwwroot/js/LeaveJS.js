@@ -177,14 +177,25 @@ function generateCalendar()
         if (children.hasClass('PXHhlPBPzXQFpVg') && children.length > 4) {
             
             let PXHhlPBPzXQFpVg = dykKoaHBFtTPjlK[i].querySelectorAll('.PXHhlPBPzXQFpVg');
+            //let html = '';
             for (let j = 0; j < PXHhlPBPzXQFpVg.length; j++) {
-                $(PXHhlPBPzXQFpVg[j]).hide();
+                /*//$(PXHhlPBPzXQFpVg[j]).hide();*/
+                //html += $(PXHhlPBPzXQFpVg[j]).html();
+
+
             }
 
-            dykKoaHBFtTPjlK[i].innerHTML += `<div class="TYIUWPkeSfoEFoi" onclick="yKZSDGYyOfLkUoB(this)">`
-                + `<span>` + PXHhlPBPzXQFpVg.length + `</span>`
-                + `<span>pracowników ma zapisany urlop w tym dniu.</span>`
-            + `</div>`;
+            //dykKoaHBFtTPjlK[i].innerHTML += html;
+
+            ////dykKoaHBFtTPjlK[i].innerHTML += `<div class="TYIUWPkeSfoEFoi" onclick="yKZSDGYyOfLkUoB(this)">`
+            ////    + `<span>` + PXHhlPBPzXQFpVg.length + `</span>`
+            ////    + `<span>pracowników ma zapisany urlop w tym dniu.</span>`
+            ////+ `</div>`;
+
+
+
+
+
         }
     }
 };
@@ -196,7 +207,8 @@ function yKZSDGYyOfLkUoB(t) {
     
     document.querySelector('.efUljXvyQujgoTu').innerHTML = '';
 
-    let PXHhlPBPzXQFpVg = $(t).parent().children();
+    //let PXHhlPBPzXQFpVg = $(t).parent().children();
+    let PXHhlPBPzXQFpVg = $(t);
     for (let i = 0; i < PXHhlPBPzXQFpVg.length; i++) 
     {
         if ($(PXHhlPBPzXQFpVg[i]).hasClass('PXHhlPBPzXQFpVg')) 
