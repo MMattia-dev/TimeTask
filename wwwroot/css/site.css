@@ -1845,10 +1845,13 @@ button {
     /**/
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    /*justify-content: center;*/
     gap: 8px;
-    overflow: auto;
-
+    /*overflow: auto;*/
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-color: rgba(36, 110, 142, 1) rgba(0, 0, 0, 0.7);
+    scrollbar-width: thin;
 }
 
     .dykKoaHBFtTPjlK:last-child {
@@ -1858,10 +1861,10 @@ button {
 .KJIBNzKsADLdIeL {
     position: absolute;
     top: 12px;
+    right: 15px;
     height: 45px;
     display: flex;
     align-items: center;
-    right: 15px;
     color: rgba(255, 255, 255, 0.7);
     font-size: 40px;
     font-weight: bold;
@@ -1873,6 +1876,9 @@ button {
     }
 
 .TwzxYLTXdLMRpSd {
+    /*position: sticky;
+    right: 15px;
+    width: 0;*/
     position: absolute;
     bottom: 8px;
     right: 15px;
@@ -1882,6 +1888,10 @@ button {
 }
 
 .hvxzYIeIBOTysxy {
+    /*position: sticky;
+    left: 16px;
+    transform: translateY(16px);
+    width: 0;*/
     position: absolute;
     top: 16px;
     left: 16px;
@@ -1990,8 +2000,9 @@ button {
     transition: backdrop-filter 0.2s;
     /**/
     padding: 20px;
-    min-width: 300px;
+    /*min-width: 295px;*/
     /*width: 100%;*/
+    min-width: 300px;
     text-align: center;
 }
 
