@@ -37,12 +37,14 @@
             <svg viewBox="0 0 512 512" width="17" height="17"><path d="M1.20792265e-13,197.76 C54.5835501,218.995667 112.186031,231.452204 170.666667,234.666667 L170.666667,277.333333 L256,277.333333 L256,234.666667 C314.339546,231.013 371.833936,218.86731 426.666667,198.613333 L426.666667,362.666667 L1.20792265e-13,362.666667 L1.20792265e-13,197.76 Z M277.333333,-1.42108547e-14 L298.666667,21.3333333 L298.666667,64 L426.666667,64 L426.666667,175.146667 C361.254942,199.569074 292.110481,212.488551 222.293333,213.333333 L222.293333,213.333333 L206.933333,213.333333 C136.179047,212.568604 66.119345,199.278929 7.10542736e-15,174.08 L7.10542736e-15,174.08 L7.10542736e-15,64 L128,64 L128,21.3333333 L149.333333,-1.42108547e-14 L277.333333,-1.42108547e-14 Z M256,42.6666667 L170.666667,42.6666667 L170.666667,64 L256,64 L256,42.6666667 Z"></path></svg>
             <span>@Resource.WorkSchedule</span>
         </a>
+        <a onclick="JjOqfnhSGkmERfv()" id="gboJArEdzlzejok_" style="display: none;"></a>
     </div>
     <div class="vacation">
         <a href="@Url.Action("Leave", "Times")" id="gboJArEdzlzejoka">
             <svg viewBox="0 0 20 20" width="17" height="17"><path d="M8.4 12H2.8L1 15H0V5h1l1.8 3h5.6L6 0h2l4.8 8H18a2 2 0 1 1 0 4h-5.2L8 20H6l2.4-8z"></path></svg>
             <span>@Resource.Vacation</span>
         </a>
+        <a onclick="PKwZaFmqYpmvHvx()" id="gboJArEdzlzejoka_" style="display: none;"></a>
     </div>
     <div class="workingTime">
         <a>
@@ -166,18 +168,37 @@
         b.style.display = '';
     }
 
-    $('#gboJArEdzlzejok').on('click', function(){
+    $('#gboJArEdzlzejok').on('click', function(e){
         let IdRKPExyAQSewBL = document.querySelector('.IdRKPExyAQSewBL').getElementsByTagName('div');
         $(IdRKPExyAQSewBL).fadeOut(200);
 
         $('.loader_div').fadeIn();
+
+        e.preventDefault();
+        setTimeout(function (){
+            $('#gboJArEdzlzejok_').click();
+        }, 1000);
     });
 
-    $('#gboJArEdzlzejoka').on('click', function(){
+    $('#gboJArEdzlzejoka').on('click', function(e){
         let IdRKPExyAQSewBL = document.querySelector('.IdRKPExyAQSewBL').getElementsByTagName('div');
         $(IdRKPExyAQSewBL).fadeOut(200);
 
         $('.loader_div').fadeIn();
+
+        e.preventDefault();
+        setTimeout(function(){
+            $('#gboJArEdzlzejoka_').click();
+        }, 1000);
     });
+
+    function JjOqfnhSGkmERfv()
+    {
+        window.location.href = '/Tasks/Index/';
+    };
+
+    function PKwZaFmqYpmvHvx(){
+        window.location.href = '/Times/Leave/';
+    };
 
 </script>

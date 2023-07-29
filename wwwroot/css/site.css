@@ -43,11 +43,8 @@ html {
         box-sizing: border-box;
         display: block;
         position: absolute;
-        /*width: 64px;
-        height: 64px;*/
         width: 45px;
         height: 45px;
-        /*border: 8px solid #fff;*/
         border: 5px solid #fff;
         border-radius: 50%;
         animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
@@ -92,7 +89,8 @@ html {
     position: relative;
     min-height: 100%;
     /*background: url(img/night-island-scenery-macos-wallpaper-1920x1200_6.jpg) no-repeat fixed center;*/
-    background: url(img/backgrounds/the-illustration-graphic-consists-of-abstract-background-with-a-blue-gradient-dynamic-shapes-composition-eps10-perfect-for-presentation-background-website-landing-page-wallpaper-vector.jpg) no-repeat fixed center;
+    /*background: url(img/backgrounds/the-illustration-graphic-consists-of-abstract-background-with-a-blue-gradient-dynamic-shapes-composition-eps10-perfect-for-presentation-background-website-landing-page-wallpaper-vector.jpg) no-repeat fixed center;*/
+    background: url(img/backgrounds/digital-digital-art-artwork-illustration-minimalism-hd-wallpaper-08869d3810a06c28a09cf1be487204ea.jpg);
     background-size: cover;
     background-color: black;
     overflow-x: hidden;
@@ -1012,7 +1010,7 @@ button {
     align-items: center;
     justify-content: center;
     z-index: 100;
-
+    
 }
 
     .pGKcZvErUB.pGKcZvErUB_ {
@@ -1845,9 +1843,8 @@ button {
     /**/
     display: flex;
     flex-direction: row;
-    /*justify-content: center;*/
+    justify-content: center;
     gap: 8px;
-    /*overflow: auto;*/
     overflow-x: auto;
     overflow-y: hidden;
     scrollbar-color: rgba(36, 110, 142, 1) rgba(0, 0, 0, 0.7);
@@ -1990,6 +1987,10 @@ button {
             padding-right: 10px;
         }
 
+    .EmRSNqsShbDnTsE td svg {
+        fill: rgba(255, 255, 255, 0.8);
+    }
+
 .PXHhlPBPzXQFpVg {
     display: flex;
     justify-content: center;
@@ -2001,7 +2002,7 @@ button {
     /**/
     padding: 20px;
     /*min-width: 295px;*/
-    /*width: 100%;*/
+    width: 100%;
     min-width: 300px;
     text-align: center;
 }
@@ -2038,6 +2039,8 @@ button {
     gap: 4px;
     height: 100%;
     transition: backdrop-filter 0.2s;
+    /*background-color: cornflowerblue;*/
+    width: 100%;
 }
 
     .TYIUWPkeSfoEFoi:hover {
@@ -2067,17 +2070,34 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /*justify-content: center;*/
     background-color: rgba(34, 36, 48, 1);
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     position: relative;
+    max-height: 90%;
+    overflow: auto;
+    scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
+    scrollbar-width: thin;
 }
 
 .iEazXcrnGzwjSNB {
-    position: absolute;
+    /*position: absolute;
     top: 5px;
-    right: 10px;
+    right: 10px;*/
+    position: sticky;
+    top: 5px;
+    transform: translateX(213px);
+    z-index: 1;
 }
+
+    .iEazXcrnGzwjSNB a {
+        /*height: 25px;
+        width: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;*/
+        /*background-color: cornflowerblue;*/
+    }
 
     .iEazXcrnGzwjSNB a svg {
         fill: rgba(255, 255, 255, 0.8);
@@ -2088,11 +2108,12 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /*justify-content: center;*/
     /*background-color: rgba(44, 46, 58, 1);*/
     gap: 8px;
     width: 100%;
-    padding: 45px 30px 30px 30px;
+    padding: 20px 30px 30px 30px;
+    
 }
 
 .iLPhCPQLeZriLNQ {
