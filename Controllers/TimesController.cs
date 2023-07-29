@@ -178,6 +178,16 @@ namespace TimeTask.Controllers
                           Problem("Entity set 'ApplicationDbContext.Time'  is null.");
         }
 
+        public async Task<IActionResult> Time()
+        {
+            ViewBag.Departments = _context.Department;
+            ViewBag.Workers = _context.Workers2;
+
+            return _context.Time != null ?
+                          View(await _context.Time.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Time'  is null.");
+        }
+
         [HttpPost]
         public ActionResult AddLeave(int workerID, DateTime? enter, DateTime? exit, int leaveID, DateTime leaveDate)
         {

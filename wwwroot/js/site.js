@@ -80,6 +80,7 @@ function logOut() {
 
     let a = document.querySelector('.IdRKPExyAQSewBL');
     let b = document.querySelector('.user');
+
     $(a).fadeOut();
     $(b).fadeOut();
 

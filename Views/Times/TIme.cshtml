@@ -1,0 +1,24 @@
+﻿@model IEnumerable<TimeTask.Models.Time>
+@using Newtonsoft.Json
+
+<div class="parent">
+	<section class="left-nav">
+		<partial name="_Time"/>
+	</section>
+	<section class="right-nav">
+
+	</section>
+</div>
+
+<script type="text/javascript">
+	var model_w = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Workers));
+	var model_t = @Html.Raw(JsonConvert.SerializeObject(Model));
+
+	$(document).ready(function ()
+	{
+		$('.loader_div').fadeOut(200);
+	});
+</script>
+
+<script src="~/js/site.js"></script>
+<script src="~/js/TimeJS.js"></script>
