@@ -42,6 +42,50 @@ function generateCalendar() {
     let month = monthSelect.options[monthSelect.selectedIndex].value;
     let currentMonth = parseInt(month) + 1;
 
+    var daysLength = daysInMonth(currentMonth, year);
+
+    let SxyrJvNcldodWTh = document.querySelector('.SxyrJvNcldodWTh');
+    SxyrJvNcldodWTh.innerHTML = '';
+    for (let i = 1; i <= daysLength; i++)
+    {
+        SxyrJvNcldodWTh.innerHTML += `<div id="` + year + `-` + padWithLeadingZeros(currentMonth, 2) + `-` + padWithLeadingZeros(i, 2) + `" class="dykKoaHBFtTPjlK">`
+            + `<span class="KJIBNzKsADLdIeL">` + i + `</span>`
+            + `<span class="TwzxYLTXdLMRpSd"></span>`
+            + `<span class="hvxzYIeIBOTysxy"></span>`
+            + `</div>`;
+    }
+
+    let SxyrJvNcldodWTh_children = $(SxyrJvNcldodWTh).children();
+
+    for (let j = 0; j < SxyrJvNcldodWTh_children.length; j++)
+    {
+        for (let i = 0; i < model_h.length; i++)
+        {
+            if (model_h[i].Date.split('T')[0] == SxyrJvNcldodWTh_children[j].id)
+            {
+                $(SxyrJvNcldodWTh_children[j]).children().eq(0).addClass('pDBzSpSjrpyyUHr');
+                $(SxyrJvNcldodWTh_children[j]).children().eq(1).html(model_h[i].Name);
+            }
+
+            let dayName = getDayName(SxyrJvNcldodWTh_children[j].id, getLang() + '-' + getLang().toUpperCase());
+            $(SxyrJvNcldodWTh_children[j]).children().eq(2).html(dayName);
+        }
+    }
+
+
+    let dykKoaHBFtTPjlK = document.querySelectorAll('.dykKoaHBFtTPjlK');
+    for (let i = 0; i < dykKoaHBFtTPjlK.length; i++) 
+    {
+        let date = dykKoaHBFtTPjlK[i].id;
+        for (let j = 0; j < model_t.length; j++) 
+        {
+
+        }
+    }
+
+
+
+
 
 };
 
@@ -65,3 +109,17 @@ function PTPttVhoaMyUOyR()
 };
 PTPttVhoaMyUOyR();
 
+function ZJRABLNnRtfPJYl()
+{
+    generateCalendar();
+};
+
+$('#IsBAUOIAAHcAfcz').on('change', function ()
+{
+    generateCalendar();
+});
+
+$(document).ready(function ()
+{
+    generateCalendar();
+});

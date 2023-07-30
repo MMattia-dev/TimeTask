@@ -5,13 +5,21 @@
 	<section class="left-nav">
 		<partial name="_Time"/>
 	</section>
-	<section class="right-nav">
-
+	<section class="right-nav p-0">
+		<div class="SxyrJvNcldodWTh" id="xBuYErAxrbdvwoP">
+			@*@{
+			//string s = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[i];
+			int days
+			}*@
+			@*<div class="dykKoaHBFtTPjlK"></div>*@
+		</div>
 	</section>
 </div>
 
 <script type="text/javascript">
 	var model_w = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Workers));
+	var model_h = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Holiday));
+	var model_l = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Leave));
 	var model_t = @Html.Raw(JsonConvert.SerializeObject(Model));
 
 	$(document).ready(function ()

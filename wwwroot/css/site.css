@@ -430,40 +430,40 @@ button {
     pointer-events: none;
 }
 
-.departmentTasks {
+.xeaWxnRFaUgGDjj {
     margin-bottom: 10px;
     margin-left: 5px;
 }
 
-    .departmentTasks a span {
+    .xeaWxnRFaUgGDjj a span {
         transform: translateY(-1px);
     }
 
-    .departmentTasks a:disabled {
+    .xeaWxnRFaUgGDjj a:disabled {
         opacity: 0.6;
         pointer-events: none;
     }
 
-    .departmentTasks a svg {
+    .xeaWxnRFaUgGDjj a svg {
         transform: translateY(1px);
     }
 
-.vacation {
+.OPSkdeKKUQDVPBn {
     margin-bottom: 10px;
     margin-left: 5px;
 }
 
-    .vacation a:disabled {
+    .OPSkdeKKUQDVPBn a:disabled {
         opacity: 0.6;
         pointer-events: none;
     }
 
-.workingTime {
-    margin-bottom: 25px;
+.BAXXBWHPhOveBtS {
+    margin-bottom: 30px;
     margin-left: 5px;
 }
 
-    .workingTime a:disabled {
+    .BAXXBWHPhOveBtS a:disabled {
         opacity: 0.6;
         pointer-events: none;
     }
