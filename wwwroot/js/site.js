@@ -430,5 +430,31 @@ function removeA(arr)
     return arr;
 }
 
+function weekCount_Monday(year, month_number) //Weeks start on Monday
+{
+
+    // month_number is in the range 1..12
+
+    var firstOfMonth = new Date(year, month_number - 1, 1);
+    var lastOfMonth = new Date(year, month_number, 0);
+
+    var used = firstOfMonth.getDay() + 6 + lastOfMonth.getDate();
+
+    return Math.ceil(used / 7);
+}
+
+function weekCount_Sunday(year, month_number) //Weeks start on Sunday
+{
+
+    // month_number is in the range 1..12
+
+    var firstOfMonth = new Date(year, month_number - 1, 1);
+    var lastOfMonth = new Date(year, month_number, 0);
+
+    var used = firstOfMonth.getDay() + lastOfMonth.getDate();
+
+    return Math.ceil(used / 7);
+}
+
 
 

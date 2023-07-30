@@ -181,8 +181,6 @@ function generateCalendar()
             for (let j = 0; j < PXHhlPBPzXQFpVg.length; j++) {
                 $(PXHhlPBPzXQFpVg[j]).hide();
                 //html += $(PXHhlPBPzXQFpVg[j]).html();
-
-
             }
 
             //dykKoaHBFtTPjlK[i].innerHTML += html;
@@ -191,11 +189,6 @@ function generateCalendar()
                 + `<span>` + PXHhlPBPzXQFpVg.length + `</span>`
                 + `<span>pracowników ma zapisany urlop w tym dniu.</span>`
             + `</div>`;
-
-
-
-
-
         }
     }
 };
