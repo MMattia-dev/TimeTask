@@ -130,7 +130,7 @@ function generateCalendar() {
         let newDay = k;
         newDay = padWithLeadingZeros(newDay, 2);
 
-        divs += `<div id="` + year + `-` + newMonth + `-` + newDay + `"><span>${k}</span></div>`;
+        divs += `<div onclick="fYOxqwVQjemgdRd(this)" id="` + year + `-` + newMonth + `-` + newDay + `"><span>${k}</span></div>`;
     }
 
     //dodaj dni następnego miesiąca
@@ -147,10 +147,11 @@ function generateCalendar() {
     $('.days_').html(divs);
     
 
-    //Święta
+    //divy 
     let spans = document.querySelectorAll('.days_ div');
     for (let i = 0; i < spans.length; i++)
     {
+        //Święta
         for (let j = 0; j < model_h.length; j++) 
         {
             if (model_h[j].Date.split('T')[0] == spans[i].id) 
@@ -164,6 +165,21 @@ function generateCalendar() {
                 });
             }
         }
+        //
+
+        //<svg viewBox="0 0 24 24" height="22" width="22">
+        //    <path fill="none" d="M0 0h24v24H0z"></path>
+        //    <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path>
+        //</svg>
+        if (!$(spans[i]).hasClass('prev-date2') && !$(spans[i]).hasClass('next-date2')) 
+        {
+            spans[i].innerHTML += `<svg viewBox="0 0 24 24" height="22" width="22">`
+                + `<path fill="none" d="M0 0h24v24H0z"></path>`
+                + `<path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path>`
+                + `</svg>`;
+        }
+        
+
 
     }
 
@@ -249,12 +265,41 @@ function generateCalendar() {
     //        }
     //    }
     //}
+};
+
+//$('.days_').on('click', function ()
+//{
+//    let div = this.querySelector('div');
+//    alert(div.getAttribute('id'));
+
+//});
+function fYOxqwVQjemgdRd(t) {
+    //if ($(t).hasClass('fNFlwKQaZMgErcF'))
+    //{
+    //    $(t).removeClass('fNFlwKQaZMgErcF');
+    //}
+    //else {
+    //    $(t).addClass('fNFlwKQaZMgErcF');
+    //}
 
 
 
-
+    //jxiQgKjvVwKXqik
+    let svg = $(t).children().eq(1);
+    if ($(svg).hasClass('jxiQgKjvVwKXqik'))
+    {
+        $(svg).remove();
+        t.innerHTML += '<svg viewBox="0 0 24 24" height="22" width="22"><path fill="none" d="M0 0h24v24H0z"></path><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path></svg>';
+        $(t).removeClass('fNFlwKQaZMgErcF');
+    }
+    else {
+        $(svg).remove();
+        t.innerHTML += '<svg class="jxiQgKjvVwKXqik" viewBox="0 0 24 24" height="22" width="22"><path fill="none" d="M0 0h24v24H0z"></path><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path></svg>';
+        $(t).addClass('fNFlwKQaZMgErcF');
+    }
 
 };
+
 
 function PTPttVhoaMyUOyR()
 {

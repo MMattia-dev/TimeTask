@@ -1771,7 +1771,6 @@ button {
 .month_ {
     width: calc(100% + 4px);
     height: calc(100% + 4px);
-    
     transform: translateX(-2px) translateY(-2px);
 }
 
@@ -1807,17 +1806,37 @@ button {
         border: 1px solid rgb(50, 50, 50);
         color: rgba(255, 255, 255, 0.8);
         transition: background-color 0.2s;
+        position: relative;
     }
 
         .days_ div span {
-            height: 100%;
-            transform: translateX(5px);
+            /*height: 100%;*/
+            /*transform: translateX(5px);*/
+            position: absolute;
+            left: 5px;
+
         }
 
         .days_ div:hover {
             transition: background-color 0.2s;
             background-color: rgba(255, 255, 255, 0.075);
             cursor: pointer;
+        }
+
+        .days_ div svg {
+            fill: rgba(255, 255, 255, 0.7);
+            position: absolute;
+            right: 1px;
+            top: 2px;
+        }
+
+            .days_ div svg.jxiQgKjvVwKXqik {
+                fill: rgba(255, 255, 255, 1);
+            }
+
+        .days_ div.fNFlwKQaZMgErcF {
+            background-color: rgba(255, 255, 255, 0.05);
+            transition: background-color 0.2s;
         }
 
 .prev-date2,
