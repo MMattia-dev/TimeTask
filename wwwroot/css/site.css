@@ -1769,6 +1769,7 @@ button {
     /*align-items: center;*/
     /*justify-content: center;*/
     /*flex-direction: column;*/
+    
 }
 
 .month_ {
@@ -1776,6 +1777,7 @@ button {
     /*background-color: rgb(42, 43, 46);*/
     width: 100%;
     height: 100%;
+    
 }
 
 .weekdays_ {
@@ -1800,6 +1802,8 @@ button {
         display: flex;
         justify-content: center;
         align-items: center;
+        /*border: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: none;*/
     }
 
 .days_ {
@@ -1823,8 +1827,7 @@ button {
         /**/
         display: flex;
         user-select: none;
-        border: 1px solid rgba(70, 70, 70);
-        
+        border: 1px solid rgb(70, 70, 70);
         color: rgba(255, 255, 255, 0.8);
         transition: background-color 0.2s;
     }
@@ -1841,17 +1844,22 @@ button {
             cursor: pointer;
         }
 
+
 .prev-date2,
 .next-date2 {
     opacity: 0.5;
     color: rgba(255, 255, 255, 0.4) !important;
     pointer-events: none;
 }
-
     .prev-date2 span,
     .next-date2 span {
         transform: translateX(5px);
     }
+
+
+
+
+
 
 
 

@@ -57,7 +57,10 @@ function isSunday(date = new Date())
     return date.getDay() === 0;
 }
 
-
+function isMonday(date = new Date())
+{
+    return date.getDay() === 1;
+}
 
 
 
@@ -161,10 +164,6 @@ function generateCalendar() {
                 });
             }
         }
-
-        
-        //usun border
-
 
     }
 
