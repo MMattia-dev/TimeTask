@@ -163,6 +163,7 @@ function generateCalendar() {
         }
 
         
+        //usun border
 
 
     }
