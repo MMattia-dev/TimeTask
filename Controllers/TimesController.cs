@@ -185,6 +185,8 @@ namespace TimeTask.Controllers
             ViewBag.Holiday = _context.Holiday;
             ViewBag.Leave = _context.Leave4;
 
+            ViewBag.Hours = _context.Hours;
+
             return _context.Time != null ?
                           View(await _context.Time.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Time'  is null.");

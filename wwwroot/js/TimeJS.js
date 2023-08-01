@@ -76,6 +76,24 @@ function generateCalendar() {
     //
 
 
+
+    //hide hours based on chosen department
+    let ywHjDljWKvvCdNr = document.querySelectorAll('#ywHjDljWKvvCdNr');
+    for (let i = 0; i < ywHjDljWKvvCdNr.length; i++)
+    {
+        if (departmentID_ == ywHjDljWKvvCdNr[i].getAttribute('husseznikbzvyea') || ywHjDljWKvvCdNr[i].getAttribute('husseznikbzvyea') == '0')
+        {
+            $(ywHjDljWKvvCdNr[i]).show();
+        }
+        else
+        {
+            $(ywHjDljWKvvCdNr[i]).hide();
+        }
+    }
+    //
+
+
+
     let yearSelect = document.getElementById('IsBAUOIAAHcAfcz');
     let year = yearSelect.options[yearSelect.selectedIndex].value;
     let monthSelect = document.getElementById('DvSHNpXssZqqqtk');
@@ -144,6 +162,7 @@ function generateCalendar() {
         divs += `<div class="next-date2"><span>${i}</span></div>`;
     }
 
+    //dodaj divy
     $('.days_').html(divs);
     
 
@@ -333,8 +352,248 @@ $('#IsBAUOIAAHcAfcz').on('change', function ()
 
 $('#bCYkzWQqVqBfZXu').on('click', function ()
 {
-    //$('#GMyOrJWVImvTfZX').fadeIn(200);
+    let e = document.getElementById('JiEZMNdUHgcYMIC');
+    let e_ = document.getElementById('SLmdcavhxFjdwWi');
+    let e2 = e_.options[e_.selectedIndex].value;
+    e.value = e2;
+
+
+
+    let id = e.options[e.selectedIndex].value;
+    document.getElementById('HGrUdGnLanXMPiV').innerHTML = '';
+
+    for (let i = 0; i < model_w.length; i++) 
+    {
+        if (model_w[i].DepartmentID == id) 
+        {
+            document.getElementById('HGrUdGnLanXMPiV').innerHTML += `<option value="` + model_w[i].Id + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
+        }
+    }
+
+    let f = document.getElementById('HGrUdGnLanXMPiV');
+    let f_ = document.getElementById('QcLYVFuvuONgCrh');
+    let f2 = f_.options[f_.selectedIndex].value;
+    f.value = f2;
+
+
+
+
+    $('#GMyOrJWVImvTfZX').fadeIn(200);
 });
+
+$('#ZjgbqxHhgxIGJgv').on('click', function ()
+{
+    $('#GMyOrJWVImvTfZX').fadeOut(200);
+});
+
+$('#ojfoDQUNdsorzcr').on('click', function ()
+{
+    let e = document.getElementById('vEWCfPdwZDQYZtg');
+    let e_ = document.getElementById('SLmdcavhxFjdwWi');
+    let e2 = e_.options[e_.selectedIndex].value;
+    e.value = e2;
+
+
+    let id = e.options[e.selectedIndex].value;
+    document.getElementById('IzAjfDukSqEvnTJ').innerHTML = '';
+
+    for (let i = 0; i < model_w.length; i++) 
+    {
+        if (model_w[i].DepartmentID == id) 
+        {
+            document.getElementById('IzAjfDukSqEvnTJ').innerHTML += `<option value="` + model_w[i].Id + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
+        }
+    }
+
+    let f = document.getElementById('IzAjfDukSqEvnTJ');
+    let f_ = document.getElementById('QcLYVFuvuONgCrh');
+    let f2 = f_.options[f_.selectedIndex].value;
+    f.value = f2;
+
+
+
+
+    $('#UVrUwxmwuexyrPA').fadeIn(200);
+});
+
+$('#YtRNzXKyHTWrYyd').on('click', function ()
+{
+    $('#UVrUwxmwuexyrPA').fadeOut(200);
+});
+
+
+
+$('#BEUBKWapUSakQZq').on('click', function ()
+{
+    let e = document.getElementById('iuPSBJtXmKAXNMO');
+    let e_ = document.getElementById('SLmdcavhxFjdwWi');
+    let e2 = e_.options[e_.selectedIndex].value;
+    e.value = e2;
+
+    $('#zlQCJFwonYLdfrb').fadeIn(200);
+});
+
+$('#oXdxMTRERExKWkw').on('click', function ()
+{
+    $('#zlQCJFwonYLdfrb').fadeOut(200);
+});
+
+$('#imyjASpHfqOzhrU').on('click', function ()
+{
+    let deparmentID_ = document.getElementById('iuPSBJtXmKAXNMO');
+    let dep = deparmentID_.options[deparmentID_.selectedIndex].value;
+    let od_ = document.getElementById('ZjabMAAUQXFJECW').value;
+    let do_ = document.getElementById('RYlxVBsGwpGbang').value;
+
+    let godzinaOD = '0001-01-01 ' + od_;
+    let godzinaDO = '0001-01-01 ' + do_;
+
+    if (od_ != '' && do_ != '') 
+    {
+        if (dep != 'everyone')
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Hours/AddHours',
+                data: {
+                    departmentID: dep,
+                    enter: godzinaOD,
+                    exit: godzinaDO,
+                },
+                success: function (response)
+                {
+                    location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding value:', error);
+                }
+            });
+        }
+        else
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Hours/AddHours',
+                data: {
+                    departmentID: null,
+                    enter: godzinaOD,
+                    exit: godzinaDO,
+                },
+                success: function (response)
+                {
+                    location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding value:', error);
+                }
+            });
+        }
+    }
+});
+
+function iuzEPRgOsIttMeH(t) {
+    let id_ = t.getAttribute('FwQCFbYkSPqbBGw');
+
+    sessionStorage.setItem('ADSiITSrPqWlzKR', id_)
+
+    for (let i = 0; i < model_hours.length; i++) {
+        if (model_hours[i].Id == id_) {
+            let enter = model_hours[i].Enter.split('T')[1];
+            let exit = model_hours[i].Exit.split('T')[1];
+
+            enter = enter.split(':')[0] + ':' + enter.split(':')[1];
+            exit = exit.split(':')[0] + ':' + exit.split(':')[1];
+            
+            document.getElementById('aECtMXTycAccqpJ').value = enter;
+            document.getElementById('uZmtnFFAYylfMnt').value = exit;
+        }
+    }
+
+    $('#YCvtsCrDCOghwqE').fadeIn(200);
+};
+
+$('#bolxvOrRIqnSaCK').on('click', function ()
+{
+    $('#YCvtsCrDCOghwqE').fadeOut(200);
+});
+
+$('#QUyuGRfECVFxEJZ').on('click', function ()
+{
+    let id_ = sessionStorage.getItem('ADSiITSrPqWlzKR');
+    let dep = null;
+
+    for (let i = 0; i < model_hours.length; i++) {
+        if (model_hours[i].Id == id_) {
+            dep = model_hours[i].DepartmentID;
+        }
+    }
+
+    let godzinaOD = document.getElementById('aECtMXTycAccqpJ').value;
+    let godzinaDO = document.getElementById('uZmtnFFAYylfMnt').value;
+    godzinaOD = '0001-01-01 ' + godzinaOD;
+    godzinaDO = '0001-01-01 ' + godzinaDO;
+
+    $.ajax({
+        type: 'POST',
+        url: '/Hours/EditHours',
+        data: {
+            id: id_,
+            departmentID: dep,
+            enter: godzinaOD,
+            exit: godzinaDO,
+        },
+        success: function (response)
+        {
+            location.reload();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error updating value:', error);
+        }
+    });
+});
+
+function IjmlWUclbmyLfQN(t) {
+    let id_ = t.getAttribute('IPgOeCVXUkMyujw');
+
+    sessionStorage.setItem('kaMmojlEkfZKRTO', id_);
+
+    let span = $(t).parent().parent().children().children().html();
+    $('#hKRDBpQKBFycjxr').html(span);
+
+    $('#mcBWFIwkBOgyjaJ').fadeIn(200);
+};
+
+$('#txdAzUSvicNRywk').on('click', function ()
+{
+    let id_ = sessionStorage.getItem('kaMmojlEkfZKRTO');
+
+    $.ajax({
+        type: 'POST',
+        url: '/Hours/RemoveHours',
+        data: {
+            id: id_,
+        },
+        success: function (response)
+        {
+            location.reload();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error removing value:', error);
+        }
+    });
+});
+
+$('#juWEysZaDAWhIte').on('click', function ()
+{
+    $('#mcBWFIwkBOgyjaJ').fadeOut(200);
+});
+
+
+
 
 $(document).ready(function ()
 {

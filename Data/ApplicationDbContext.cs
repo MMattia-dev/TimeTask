@@ -25,5 +25,6 @@ namespace TimeTask.Data
         public DbSet<TimeTask.Models.Leave2> Leave2 { get; set; } = default!;
         public DbSet<TimeTask.Models.Leave3> Leave3 { get; set; } = default!;
         public DbSet<TimeTask.Models.Leave4> Leave4 { get; set; } = default!;
+        public DbSet<TimeTask.Models.Hours> Hours { get; set; } = default!;
     }
 }

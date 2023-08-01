@@ -34,7 +34,7 @@
 	</section>
 </div>
 
-@*<div id="GMyOrJWVImvTfZX" class="pGKcZvErUB" style="display: none;">
+<div id="GMyOrJWVImvTfZX" class="pGKcZvErUB" style="display: none;">
     <form class="form_3">
         <div class="form-group">
             <label>Wybierz dział:</label>
@@ -50,11 +50,24 @@
             <select class="form-control bYwPpsleuVCBkPv" id="HGrUdGnLanXMPiV">
             </select>
         </div>
+        <div class="form-group3">
+            <div class="form-group">
+                <label>od godziny:</label>
+                <input class="form-control sCnCesXdXjqdcnF" type="time" id="XrBSocHBgWCNkMI" />
+            </div>
+            <div class="form-group">
+                <label>do godziny:</label>
+                <input class="form-control sCnCesXdXjqdcnF" type="time" id="BjCnfIRbIUPPIlg" />
+            </div>
+        </div>
         <div class="form-group">
-            <label>Data:</label>
+            <label>Data od:</label>
             <input class="form-control" type="date" id="hHxPpWcyrsBIhwv" />
         </div>
-
+        <div class="form-group-margin">
+            <label>Data do:</label>
+            <input class="form-control" type="date" id="hHxPpWcyrsBIhwv" />
+        </div>
         <div class="form-group">
             <input type="button" value="Zapisz" class="btn-custom" id="XlTBIHFmaFNdQpf" />
         </div>
@@ -62,13 +75,118 @@
             <input type="button" value="Wróć" class="btn-custom_" id="ZjgbqxHhgxIGJgv" />
         </div>
     </form>
-</div>*@
+</div>
+
+<div id="UVrUwxmwuexyrPA" class="pGKcZvErUB" style="display: none;">
+    <form class="form_3">
+        <div class="form-group">
+            <label>Wybierz dział:</label>
+            <select class="form-control bYwPpsleuVCBkPv" id="vEWCfPdwZDQYZtg">
+                @foreach (var item in ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name))
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+
+        </div>
+        <div class="form-group">
+            <label>Wybierz pracownika:</label>
+            <select class="form-control bYwPpsleuVCBkPv" id="IzAjfDukSqEvnTJ">
+                <!---->
+            </select>
+        </div>
+        <div class="form-group">
+            <label>od dnia:</label>
+            <input class="form-control" type="date" id="BFdfdwwTBJroPRV" />
+        </div>
+        <div class="form-group form-group-margin">
+            <label>do dnia:</label>
+            <input class="form-control" type="date" id="hxqNvUIYSzvpSnu" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Usuń" class="btn-custom" id="QvXboIjjKTrEMMB" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" id="YtRNzXKyHTWrYyd" />
+        </div>
+    </form>
+</div>
+
+<div id="zlQCJFwonYLdfrb" class="pGKcZvErUB" style="display: none;">
+    <form class="form_3">
+        <div class="form-group">
+            <label>Wybierz dział:</label>
+            <select class="form-control bYwPpsleuVCBkPv" id="iuPSBJtXmKAXNMO">
+                @foreach (var item in ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name))
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+                <option value="everyone">Wszyscy</option>
+            </select>
+        </div>
+        <div class="form-group3 form-group-margin">
+            <div class="form-group">
+                <label>od godziny:</label>
+                <input class="form-control sCnCesXdXjqdcnF" type="time" id="ZjabMAAUQXFJECW" />
+            </div>
+            <div class="form-group">
+                <label>do godziny:</label>
+                <input class="form-control sCnCesXdXjqdcnF" type="time" id="RYlxVBsGwpGbang" />
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="button" value="Dodaj" class="btn-custom" id="imyjASpHfqOzhrU" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" id="oXdxMTRERExKWkw" />
+        </div>
+    </form>
+</div>
+
+<div id="YCvtsCrDCOghwqE" class="pGKcZvErUB" style="display: none;">
+    <form class="form_3">
+        <div class="form-group3 form-group-margin">
+            <div class="form-group">
+                <label>od godziny:</label>
+                <input class="form-control sCnCesXdXjqdcnF" type="time" id="aECtMXTycAccqpJ" />
+            </div>
+            <div class="form-group">
+                <label>do godziny:</label>
+                <input class="form-control sCnCesXdXjqdcnF" type="time" id="uZmtnFFAYylfMnt" />
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="button" value="Edytuj" class="btn-custom" id="QUyuGRfECVFxEJZ" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" id="bolxvOrRIqnSaCK" />
+        </div>
+    </form>
+</div>
+
+<div id="mcBWFIwkBOgyjaJ" class="pGKcZvErUB" style="display: none;">
+    <form class="form_2">
+        <div class="IvBtEDulLESDYxK">
+            <span id="hKRDBpQKBFycjxr"></span>
+            @*<span>Spowoduje to usunięcie wszystkich zadań z taką samą nazwą we wszystkich grafikach!</span>*@
+        </div>
+        <div class="btn-danger-div">
+            <input type="button" value="Usuń" id="txdAzUSvicNRywk" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" id="juWEysZaDAWhIte" />
+        </div>
+    </form>
+</div>
+
 
 <script type="text/javascript">
 	var model_w = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Workers));
 	var model_h = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Holiday));
 	var model_l = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Leave));
 	var model_t = @Html.Raw(JsonConvert.SerializeObject(Model));
+
+    var model_hours = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Hours));
 
 	$(document).ready(function ()
 	{

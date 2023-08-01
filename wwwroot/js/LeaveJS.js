@@ -36,8 +36,6 @@ function generateCalendar()
     let workerID_ = oUfnFiNPmXnNjzu.options[oUfnFiNPmXnNjzu.selectedIndex].value;
     //
 
-
-
     if (oUfnFiNPmXnNjzu.value == 'everyone')
     {
         $('.pyyxmssXgPCWuUc').addClass('fNPXdDDFqqbVOkt'); //disable
@@ -299,11 +297,6 @@ $('#TrbvupCIcixxNsx').on('change', function ()
             document.getElementById('CvFHVhLHjFBzNAz').innerHTML += `<option value="` + model_w[i].Id + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
         }
     }
-});
-
-$('#UxjkajUgJngZOkw').on('click', function ()
-{
-
 });
 
 $('#HvZxXypLRxeRXCo').on('change', function ()

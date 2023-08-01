@@ -1284,6 +1284,20 @@ button {
         margin-bottom: 8px;
     }
 
+    .pyyxmssXgPCWuUc.ajBvEiJoidaoDRb {
+        border-left: 4px solid rgb(36, 110, 142);
+        margin-bottom: 8px;
+        justify-content: space-between;
+        /*padding: 8px 4px 8px 8px;*/
+        padding: 0px;
+        /*padding-right: 4px;*/
+    }
+
+        .pyyxmssXgPCWuUc.ajBvEiJoidaoDRb:hover {
+            background-color: rgba(34, 36, 48, 0.6);
+            cursor: default;
+        }
+
 
 .YgYDRNgkzyxgztO {
     height: 35px;
@@ -1416,6 +1430,19 @@ button {
         white-space: nowrap;
         overflow: hidden;
         max-width: 160px;
+    }
+
+    .uESYaZNLlshNOzd.jqYeXudTAkiaMyC {
+        width: 21%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .uESYaZNLlshNOzd.jqYeXudTAkiaMyC a {
+        transform: translateX(1px);
     }
 
 .grZWUijDhGWKyHd {
@@ -2244,6 +2271,21 @@ button {
 
 }
 
+.JvRgPMayJbZGrZS {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 79%;
+    height: 100%;
+    padding-left: 8px;
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+    .JvRgPMayJbZGrZS:hover {
+        transition: background-color 0.2s;
+        background-color: rgb(52, 54, 66);
+        cursor: pointer;
+    }
 
 
 
