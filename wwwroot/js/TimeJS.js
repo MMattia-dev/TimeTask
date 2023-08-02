@@ -592,6 +592,73 @@ $('#juWEysZaDAWhIte').on('click', function ()
     $('#mcBWFIwkBOgyjaJ').fadeOut(200);
 });
 
+$('#XlTBIHFmaFNdQpf').on('click', function ()
+{
+    let HGrUdGnLanXMPiV = document.getElementById('HGrUdGnLanXMPiV');
+    let workerID_ = HGrUdGnLanXMPiV.options[HGrUdGnLanXMPiV.selectedIndex].value;
+
+    //XrBSocHBgWCNkMI od
+    //BjCnfIRbIUPPIlg do
+    let XrBSocHBgWCNkMI = document.getElementById('XrBSocHBgWCNkMI').value;
+    let BjCnfIRbIUPPIlg = document.getElementById('BjCnfIRbIUPPIlg').value;
+
+    //hHxPpWcyrsBIhwv data od
+    //avLWWBBFqQUeqZZ data do
+    let hHxPpWcyrsBIhwv = document.getElementById('hHxPpWcyrsBIhwv').value;
+    let avLWWBBFqQUeqZZ = document.getElementById('avLWWBBFqQUeqZZ').value;
+
+
+    if (XrBSocHBgWCNkMI != '' && BjCnfIRbIUPPIlg != '' && hHxPpWcyrsBIhwv != '' && avLWWBBFqQUeqZZ != '') 
+    {
+        //$.ajax({
+        //    type: 'POST',
+        //    url: '/Times/AddTime',
+        //    data: {
+        //        workerID: workerID_,
+        //        enter: null,
+        //        exit: null,
+        //        leaveID: null,
+        //        leaveDate: arrayOfDays[i]
+        //    },
+        //    success: function (response)
+        //    {
+        //        location.reload();
+        //    },
+        //    error: function (xhr, status, error)
+        //    {
+        //        console.log('Error adding column value:', error);
+        //    }
+        //});
+
+
+
+    }
+
+    let dates = getDatesInRange(new Date(hHxPpWcyrsBIhwv), new Date(avLWWBBFqQUeqZZ));
+    console.log(dates);
+
+    
+
+
+    
+});
+
+$('#JiEZMNdUHgcYMIC').on('change', function ()
+{
+    let e = document.getElementById('JiEZMNdUHgcYMIC');
+    let id = e.options[e.selectedIndex].value;
+    document.getElementById('HGrUdGnLanXMPiV').innerHTML = '';
+
+    for (let i = 0; i < model_w.length; i++) 
+    {
+        if (model_w[i].DepartmentID == id) 
+        {
+            document.getElementById('HGrUdGnLanXMPiV').innerHTML += `<option value="` + model_w[i].Id + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
+        }
+    }
+});
+
+
 
 
 

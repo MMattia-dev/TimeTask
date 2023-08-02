@@ -244,6 +244,63 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
+        [HttpPost]
+        public ActionResult AddTime(int workerID, DateTime enter, DateTime exit, int leaveID, DateTime? leaveDate)
+        {
+            var newData = new Time()
+            {
+                WorkerID = workerID,
+                Enter = enter,
+                Exit = exit,
+                LeaveID = leaveID,
+                LeaveDate = leaveDate
+            };
 
-    }
+            _context.Time.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+            //return Json(newData.Id);
+        }
+
+		[HttpPost]
+		public ActionResult EditTime(int id, int workerID, DateTime enter, DateTime exit, int leaveID, DateTime? leaveDate)
+		{
+			var row = _context.Time.FirstOrDefault(e => e.Id == id);
+			if (row != null)
+			{
+				row.WorkerID = workerID;
+				row.Enter = enter;
+				row.Exit = exit;
+				row.LeaveID = leaveID;
+				row.LeaveDate = leaveDate;
+				_context.SaveChanges();
+
+				return Json(new { success = true });
+			}
+
+			return Json(new { success = false });
+		}
+
+		[HttpPost]
+		public ActionResult RemoveTime(int id)
+		{
+			var row = _context.Time.FirstOrDefault(e => e.Id == id);
+			if (row != null)
+			{
+				_context.Time.Remove(row);
+				_context.SaveChanges();
+
+				return Json(new { success = true });
+			}
+
+			return Json(new { success = false });
+		}
+
+
+
+
+
+
+
+	}
 }
