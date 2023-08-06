@@ -392,9 +392,12 @@ $('#JTgCvImoJEyzGux').on('click', function ()
 
         for (let j = 0; j < model_t.length; j++) 
         {
-            if (workerID_ == model_t[j].WorkerID && model_t[j].LeaveDate.split('T')[0] != date && model_t[j].LeaveDate != null && model_t[j].Enter == null && model_t[j].Exit == null) 
-            {
-                toRemove2.push(model_t[j].LeaveDate.split('T')[0]);
+            //if (workerID_ == model_t[j].WorkerID && model_t[j].LeaveDate.split('T')[0] != date && model_t[j].LeaveDate != null && model_t[j].Enter == null && model_t[j].Exit == null) 
+            //{
+            //    toRemove2.push(model_t[j].LeaveDate.split('T')[0]);
+            //}
+            if (workerID_ == model_t[j].WorkerID && model_t[j].Enter.split('T')[0]) {
+
             }
         }
     }

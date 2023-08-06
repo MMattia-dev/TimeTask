@@ -1,4 +1,9 @@
 ﻿
+function isWeekend(date = new Date())
+{
+    return date.getDay() === 6 || date.getDay() === 0;
+}
+
 function daysInMonth(month, year)
 {
     return new Date(year, month, 0).getDate();
@@ -594,6 +599,14 @@ $('#juWEysZaDAWhIte').on('click', function ()
 
 $('#XlTBIHFmaFNdQpf').on('click', function ()
 {
+    let array = [];
+    let arrayWeekends = [];
+    let arrayHolidays = [];
+    for (let i = 0; i < model_h.length; i++) {
+        arrayHolidays.push(model_h[i].Date.split('T')[0]);
+    }
+
+
     let HGrUdGnLanXMPiV = document.getElementById('HGrUdGnLanXMPiV');
     let workerID_ = HGrUdGnLanXMPiV.options[HGrUdGnLanXMPiV.selectedIndex].value;
 
@@ -610,37 +623,84 @@ $('#XlTBIHFmaFNdQpf').on('click', function ()
 
     if (XrBSocHBgWCNkMI != '' && BjCnfIRbIUPPIlg != '' && hHxPpWcyrsBIhwv != '' && avLWWBBFqQUeqZZ != '') 
     {
-        //$.ajax({
-        //    type: 'POST',
-        //    url: '/Times/AddTime',
-        //    data: {
-        //        workerID: workerID_,
-        //        enter: null,
-        //        exit: null,
-        //        leaveID: null,
-        //        leaveDate: arrayOfDays[i]
-        //    },
-        //    success: function (response)
-        //    {
-        //        location.reload();
-        //    },
-        //    error: function (xhr, status, error)
-        //    {
-        //        console.log('Error adding column value:', error);
-        //    }
-        //});
-
-
-
+        let dates = getDatesInRange(new Date(hHxPpWcyrsBIhwv), new Date(avLWWBBFqQUeqZZ));
+        if (dates != null) 
+        {
+            for (let i = 0; i < dates.length; i++) 
+            {
+                array.push(dates[i].toISOString().split('T')[0]);
+                if (isWeekend(dates[i])) {
+                    arrayWeekends.push(dates[i].toISOString().split('T')[0]);
+                }
+            }
+        }
     }
 
-    let dates = getDatesInRange(new Date(hHxPpWcyrsBIhwv), new Date(avLWWBBFqQUeqZZ));
-    console.log(dates);
-
-    
 
 
-    
+    //pierwszy zaznaczony drugi odznaczony
+    if (document.getElementById('maTQQtSvXiTTwOk').checked == true && document.getElementById('wwyBXlaFoImkAmV').checked == false) 
+    {
+        array = array.filter(function (el, index)
+        {
+            return arrayHolidays.indexOf(el) < 0;
+        });
+    }
+
+    //pierwszy odznaczony drugi zaznaczony
+    if (document.getElementById('maTQQtSvXiTTwOk').checked == false && document.getElementById('wwyBXlaFoImkAmV').checked == true)
+    {
+        array = array.filter(function (el, index)
+        {
+            return arrayWeekends.indexOf(el) < 0;
+        });
+    }
+
+    //pierwszy zaznaczony drugi zaznaczony
+    if (document.getElementById('maTQQtSvXiTTwOk').checked == true && document.getElementById('wwyBXlaFoImkAmV').checked == true)
+    {
+        //
+    }
+
+    //pierwszy odznaczony drugi odznaczony
+    if (document.getElementById('maTQQtSvXiTTwOk').checked == false && document.getElementById('wwyBXlaFoImkAmV').checked == false)
+    {
+        array = array.filter(function (el, index)
+        {
+            return arrayHolidays.indexOf(el) < 0;
+        });
+
+        array = array.filter(function (el, index)
+        {
+            return arrayWeekends.indexOf(el) < 0;
+        });
+    }
+
+    array = [...new Set(array)]
+
+    if (array != null) {
+        for (let i = 0; i < array.length; i++) {
+            $.ajax({
+                type: 'POST',
+                url: '/Times/AddTime',
+                data: {
+                    workerID: workerID_,
+                    enter: array[i] + ' ' + XrBSocHBgWCNkMI,
+                    exit: array[i] + ' ' + BjCnfIRbIUPPIlg,
+                    leaveID: null,
+                    leaveDate: null
+                },
+                success: function (response)
+                {
+                    location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding column value:', error);
+                }
+            });
+        }
+    }
 });
 
 $('#JiEZMNdUHgcYMIC').on('change', function ()
@@ -658,7 +718,54 @@ $('#JiEZMNdUHgcYMIC').on('change', function ()
     }
 });
 
+$('#QvXboIjjKTrEMMB').on('click', function ()
+{
+    let array = [];
 
+    let IzAjfDukSqEvnTJ = document.getElementById('IzAjfDukSqEvnTJ');
+    let workerID_ = IzAjfDukSqEvnTJ.options[IzAjfDukSqEvnTJ.selectedIndex].value;
+
+    //BFdfdwwTBJroPRV data od
+    //hxqNvUIYSzvpSnu data do
+    let BFdfdwwTBJroPRV = document.getElementById('BFdfdwwTBJroPRV').value;
+    let hxqNvUIYSzvpSnu = document.getElementById('hxqNvUIYSzvpSnu').value;
+
+    if (BFdfdwwTBJroPRV != '' && hxqNvUIYSzvpSnu != '') 
+    {
+        let dates = getDatesInRange(new Date(BFdfdwwTBJroPRV), new Date(hxqNvUIYSzvpSnu));
+
+        for (let i = 0; i < model_t.length; i++) 
+        {
+            for (let j = 0; j < dates.length; j++) 
+            {
+                if (model_t[i].Enter.split('T')[0] == dates[j].toISOString().split('T')[0] && model_t[i].Exit.split('T')[0] == dates[j].toISOString().split('T')[0] && workerID_ == model_t[i].WorkerID)
+                {
+                    array.push(model_t[i].Id);
+                }
+            }
+            
+        }
+    }
+
+    for (let i = 0; i < array.length; i++) 
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/Times/RemoveTime',
+            data: {
+                id: array[i]
+            },
+            success: function (response)
+            {
+                location.reload();
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error removing value:', error);
+            }
+        });
+    }
+});
 
 
 
