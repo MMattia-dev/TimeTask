@@ -405,6 +405,7 @@ $('#JTgCvImoJEyzGux').on('click', function ()
     var toRemove2_new = [...new Set(toRemove2)];
     toRemove2_new.sort();
     
+
     arrayOfDays = arrayOfDays.filter((el) => !toRemove2_new.includes(el)); //usun wszystkie powtarzajace sie daty
 
     if (arrayOfDays != null) 
