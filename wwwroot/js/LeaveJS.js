@@ -293,28 +293,12 @@ $('#aFoQOFiXPQobjPX').on('change', function ()
 
     let department = this.options[this.selectedIndex].value;
     sessionStorage.setItem('lIglBkqRjlDZnab', department);
-    //if (sessionStorage.getItem('lIglBkqRjlDZnab') != null)
-    //{
-    //    //let departmentSelect = document.getElementById('aFoQOFiXPQobjPX');
-    //    //departmentSelect.value = sessionStorage.getItem('lIglBkqRjlDZnab');
-    //    aFoQOFiXPQobjPX.value = sessionStorage.getItem('lIglBkqRjlDZnab');
-    //}
-
-    
-
-    //generateCalendar();
-
-
 });
 //$('#aFoQOFiXPQobjPX').trigger('change');
 
 
 
 
-//function YDTyNWHkvmuAiCQ()
-//{
-//    generateCalendar();
-//};
 $('#IZdWjCoFNPZaIaP').on('change', function ()
 {
     generateCalendar();
@@ -824,11 +808,6 @@ $('#jJoxUyzeqPSCQvB').on('click', function ()
 
 });
 
-//$('#tkHxbToRJDFsHnu').on('click', function ()
-//{
-//    $('#SVFZxwVqgTyxitg').fadeIn(200);
-//});
-
 function RXklobeYunXfiov(t) {
 
     let id = t.getAttribute('BOBxrOhlBwoCJjS');
@@ -974,13 +953,6 @@ function AxniBufKgDcaYFA(t) {
 
 $(document).ready(function ()
 {
-    ////scroll
-    //if (sessionStorage.getItem('mcctFxsWDAvvPfs') != null) {
-    //    let rightNav = document.querySelector('.right-nav');
-    //    rightNav.scrollTop = sessionStorage.getItem('mcctFxsWDAvvPfs');
-    //}
-    ////
-
     //year select
     if (sessionStorage.getItem('MnqHzqBiryXOWYP') != null) {
         let yearSelect = document.getElementById('iHCBwRzOLpgGYQG');
@@ -996,17 +968,12 @@ $(document).ready(function ()
     //
 
     // department select
-    //if (sessionStorage.getItem('lIglBkqRjlDZnab') != null) {
-    //    let departmentSelect = document.getElementById('aFoQOFiXPQobjPX');
-    //    departmentSelect.value = sessionStorage.getItem('lIglBkqRjlDZnab');
-    //}
-    //
-
     if (sessionStorage.getItem('lIglBkqRjlDZnab') != null)
     {
         let departmentSelect = document.getElementById('aFoQOFiXPQobjPX');
         departmentSelect.value = sessionStorage.getItem('lIglBkqRjlDZnab');
     }
+    //
 
     generateCalendar();
 
