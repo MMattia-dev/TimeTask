@@ -54,7 +54,7 @@
 
     </select>
 
-    <select class="HQTuaisxjrtQHPq" id="IZdWjCoFNPZaIaP" onchange="YDTyNWHkvmuAiCQ()">
+    <select class="HQTuaisxjrtQHPq" id="IZdWjCoFNPZaIaP">
         <!--Miesiąc-->
         @for (int i = 0; i < 12; i++)
         {
@@ -75,7 +75,8 @@
 
     <span class="settings_span">Urlopy dla działu:</span>
     <div style="height: 5px;"></div>
-    <select class="HQTuaisxjrtQHPq" id="aFoQOFiXPQobjPX" onchange="FFkdMqNnTDbWkXb(this)">
+    <select class="HQTuaisxjrtQHPq" id="aFoQOFiXPQobjPX">
+        <!--FFkdMqNnTDbWkXb -->
         @foreach (var item in ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name))
         {
             <option value="@item.Id">@item.Name</option>

@@ -26,6 +26,11 @@ function getLang()
 
 function generateCalendar()
 {
+    
+    //$('#aFoQOFiXPQobjPX').trigger('change');
+
+
+
     //department
     let aFoQOFiXPQobjPX = document.getElementById('aFoQOFiXPQobjPX');
     let departmentID_ = aFoQOFiXPQobjPX.options[aFoQOFiXPQobjPX.selectedIndex].value;
@@ -33,7 +38,7 @@ function generateCalendar()
 
     //worker
     let oUfnFiNPmXnNjzu = document.getElementById('oUfnFiNPmXnNjzu');
-    let workerID_ = oUfnFiNPmXnNjzu.options[oUfnFiNPmXnNjzu.selectedIndex].value;
+    //let workerID_ = oUfnFiNPmXnNjzu.options[oUfnFiNPmXnNjzu.selectedIndex].value;
     //
 
     if (oUfnFiNPmXnNjzu.value == 'everyone')
@@ -126,46 +131,46 @@ function generateCalendar()
                     }
                 }
             }
-            else if (workerID_ == 'everyone' && model_t[j].Enter == null && model_t[j].Exit == null) 
-            {
-                if (model_t[j].LeaveDate.split('T')[0] == date) 
-                {
-                    for (let k = 0; k < model_l.length; k++)
-                    {
-                        if (model_l[k].Id == model_t[j].LeaveID)
-                        {
-                            let abc = $(oUfnFiNPmXnNjzu).children();
-                            for (let m = 0; m < abc.length; m++)
-                            {
-                                if (abc[m].style.display != 'none')
-                                {
-                                    if (model_t[j].WorkerID == abc[m].getAttribute('value')) {
-                                        let name = model_l[k].Name;
-                                        let description = model_l[k].Description;
+            //else if (workerID_ == 'everyone' && model_t[j].Enter == null && model_t[j].Exit == null) 
+            //{
+            //    if (model_t[j].LeaveDate.split('T')[0] == date) 
+            //    {
+            //        for (let k = 0; k < model_l.length; k++)
+            //        {
+            //            if (model_l[k].Id == model_t[j].LeaveID)
+            //            {
+            //                let abc = $(oUfnFiNPmXnNjzu).children();
+            //                for (let m = 0; m < abc.length; m++)
+            //                {
+            //                    if (abc[m].style.display != 'none')
+            //                    {
+            //                        if (model_t[j].WorkerID == abc[m].getAttribute('value')) {
+            //                            let name = model_l[k].Name;
+            //                            let description = model_l[k].Description;
                                         
-                                        if (description != null) 
-                                        {
-                                            dykKoaHBFtTPjlK[i].innerHTML += `<div class="PXHhlPBPzXQFpVg" onclick="yKZSDGYyOfLkUoB(this)" id="` + model_t[j].Id + `">`
-                                                + `<span>` + abc[m].innerHTML + `</span>`
-                                                + `<span>` + name + `</span>`
-                                                + `<span>(` + description + `)</span>`
-                                                + `</div>`;
-                                        }
-                                        else 
-                                        {
-                                            dykKoaHBFtTPjlK[i].innerHTML += `<div class="PXHhlPBPzXQFpVg" onclick="yKZSDGYyOfLkUoB(this)" id="` + model_t[j].Id + `">`
-                                                + `<span>` + abc[m].innerHTML + `</span>`
-                                                + `<span>` + name + `</span>`
-                                                + `</div>`;
-                                        }
+            //                            if (description != null) 
+            //                            {
+            //                                dykKoaHBFtTPjlK[i].innerHTML += `<div class="PXHhlPBPzXQFpVg" onclick="yKZSDGYyOfLkUoB(this)" id="` + model_t[j].Id + `">`
+            //                                    + `<span>` + abc[m].innerHTML + `</span>`
+            //                                    + `<span>` + name + `</span>`
+            //                                    + `<span>(` + description + `)</span>`
+            //                                    + `</div>`;
+            //                            }
+            //                            else 
+            //                            {
+            //                                dykKoaHBFtTPjlK[i].innerHTML += `<div class="PXHhlPBPzXQFpVg" onclick="yKZSDGYyOfLkUoB(this)" id="` + model_t[j].Id + `">`
+            //                                    + `<span>` + abc[m].innerHTML + `</span>`
+            //                                    + `<span>` + name + `</span>`
+            //                                    + `</div>`;
+            //                            }
 
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
         }
     }
 
@@ -189,6 +194,32 @@ function generateCalendar()
             + `</div>`;
         }
     }
+
+
+
+
+
+    //let today = new Date().toISOString().split('T')[0];
+    //for (let i = 0; i < dykKoaHBFtTPjlK.length; i++) 
+    //{
+    //    let divMonth = dykKoaHBFtTPjlK[i].id.split('-')[1];
+
+    //    if (dykKoaHBFtTPjlK[i].id == today && divMonth == currentMonth) 
+    //    {
+    //        dykKoaHBFtTPjlK[i].scrollIntoView();
+            
+    //    }
+    //    else {
+    //        /*dykKoaHBFtTPjlK[i].scrollTop = '0';*/
+    //        //$(dykKoaHBFtTPjlK[i]).parent().scrollTop = 0;
+    //        dykKoaHBFtTPjlK[i].scrollTop = 0;
+    //    }
+        
+    //}
+
+
+    
+
 };
 
 function yKZSDGYyOfLkUoB(t) {
@@ -217,11 +248,32 @@ function yKZSDGYyOfLkUoB(t) {
     $('#RHJIQRivZsUcFkm').fadeIn(200);
 };
 
-function NWEuFXskeXpBGBa() { 
+function NWEuFXskeXpBGBa(t) { 
     $('#RHJIQRivZsUcFkm').fadeOut(200);
 };
 
-function FFkdMqNnTDbWkXb()
+//function FFkdMqNnTDbWkXb()
+//{
+//    document.getElementById('oUfnFiNPmXnNjzu').innerHTML = '';
+
+//    let aFoQOFiXPQobjPX = document.getElementById('aFoQOFiXPQobjPX');
+//    let departmentID_ = aFoQOFiXPQobjPX.options[aFoQOFiXPQobjPX.selectedIndex].value;
+
+//    for (let i = 0; i < model_w.length; i++) {
+//        if (model_w[i].DepartmentID == departmentID_) {
+//            document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="` + model_w[i].Id + `" id="` + model_w[i].DepartmentID + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
+//        }
+//    }
+//    document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="everyone">Wszyscy</option>`;
+    
+//    generateCalendar();
+
+
+
+//    //sessionStorage.setItem('lIglBkqRjlDZnab', t.value)
+//};
+//FFkdMqNnTDbWkXb();
+$('#aFoQOFiXPQobjPX').on('change', function ()
 {
     document.getElementById('oUfnFiNPmXnNjzu').innerHTML = '';
 
@@ -234,15 +286,44 @@ function FFkdMqNnTDbWkXb()
         }
     }
     document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="everyone">Wszyscy</option>`;
-    
-    generateCalendar();
-};
-FFkdMqNnTDbWkXb();
 
-function YDTyNWHkvmuAiCQ()
+    generateCalendar();
+
+
+
+    let department = this.options[this.selectedIndex].value;
+    sessionStorage.setItem('lIglBkqRjlDZnab', department);
+    //if (sessionStorage.getItem('lIglBkqRjlDZnab') != null)
+    //{
+    //    //let departmentSelect = document.getElementById('aFoQOFiXPQobjPX');
+    //    //departmentSelect.value = sessionStorage.getItem('lIglBkqRjlDZnab');
+    //    aFoQOFiXPQobjPX.value = sessionStorage.getItem('lIglBkqRjlDZnab');
+    //}
+
+    
+
+    //generateCalendar();
+
+
+});
+//$('#aFoQOFiXPQobjPX').trigger('change');
+
+
+
+
+//function YDTyNWHkvmuAiCQ()
+//{
+//    generateCalendar();
+//};
+$('#IZdWjCoFNPZaIaP').on('change', function ()
 {
     generateCalendar();
-};
+
+    let month = this.options[this.selectedIndex].value;
+    sessionStorage.setItem('wSGVyznxxQsFpjg', month)
+
+});
+
 
 function dWVTVhqEBjJCURf(t)
 {
@@ -397,6 +478,7 @@ $('#JTgCvImoJEyzGux').on('click', function ()
             //    toRemove2.push(model_t[j].LeaveDate.split('T')[0]);
             //}
             if (workerID_ == model_t[j].WorkerID && model_t[j].Enter.split('T')[0]) {
+                //
 
             }
         }
@@ -437,6 +519,9 @@ $('#JTgCvImoJEyzGux').on('click', function ()
 $('#iHCBwRzOLpgGYQG').on('change', function ()
 {
     generateCalendar();
+
+    let year = this.options[this.selectedIndex].value;
+    sessionStorage.setItem('MnqHzqBiryXOWYP', year)
 });
 
 $('#XWRZMxZMLxBIsSg').on('click', function ()
@@ -881,7 +966,56 @@ $('#TDsKypeMijSzhDc').on('click', function ()
     });
 });
 
+
+
+function AxniBufKgDcaYFA(t) { 
+    sessionStorage.setItem('mcctFxsWDAvvPfs', t.scrollTop)
+};
+
 $(document).ready(function ()
 {
+    ////scroll
+    //if (sessionStorage.getItem('mcctFxsWDAvvPfs') != null) {
+    //    let rightNav = document.querySelector('.right-nav');
+    //    rightNav.scrollTop = sessionStorage.getItem('mcctFxsWDAvvPfs');
+    //}
+    ////
+
+    //year select
+    if (sessionStorage.getItem('MnqHzqBiryXOWYP') != null) {
+        let yearSelect = document.getElementById('iHCBwRzOLpgGYQG');
+        yearSelect.value = sessionStorage.getItem('MnqHzqBiryXOWYP');
+    }
+    //
+
+    // month select
+    if (sessionStorage.getItem('wSGVyznxxQsFpjg') != null) {
+        let monthSelect = document.getElementById('IZdWjCoFNPZaIaP');
+        monthSelect.value = sessionStorage.getItem('wSGVyznxxQsFpjg');
+    }
+    //
+
+    // department select
+    //if (sessionStorage.getItem('lIglBkqRjlDZnab') != null) {
+    //    let departmentSelect = document.getElementById('aFoQOFiXPQobjPX');
+    //    departmentSelect.value = sessionStorage.getItem('lIglBkqRjlDZnab');
+    //}
+    //
+
+    if (sessionStorage.getItem('lIglBkqRjlDZnab') != null)
+    {
+        let departmentSelect = document.getElementById('aFoQOFiXPQobjPX');
+        departmentSelect.value = sessionStorage.getItem('lIglBkqRjlDZnab');
+    }
+
     generateCalendar();
+
+    //scroll - po załadowaniu generateCalendar
+    if (sessionStorage.getItem('mcctFxsWDAvvPfs') != null)
+    {
+        let rightNav = document.querySelector('.right-nav');
+        rightNav.scrollTop = sessionStorage.getItem('mcctFxsWDAvvPfs');
+    }
+    //
+    
 });

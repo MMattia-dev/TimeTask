@@ -2141,7 +2141,7 @@ button {
     align-items: center;
     /*justify-content: center;*/
     background-color: rgba(34, 36, 48, 1);
-    /*border-radius: 8px;*/
+    border-radius: 8px;
     position: relative;
     max-height: 90%;
     overflow: auto;
