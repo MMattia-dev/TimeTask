@@ -196,7 +196,7 @@
                 <select class="form-control bYwPpsleuVCBkPv" id="uVPVZwEWSbHTwor">
                     @foreach (var item in ((IEnumerable<Leave4>)ViewBag.Leave).OrderBy(x => x.Name).Select(x => x.Name).Distinct())
                     {
-                        <option>@item</option>
+                        <option value="@item">@item</option>
                     }
                 </select>
             </div>
