@@ -462,10 +462,24 @@ $('#JTgCvImoJEyzGux').on('click', function ()
             //{
             //    toRemove2.push(model_t[j].LeaveDate.split('T')[0]);
             //}
-            if (workerID_ == model_t[j].WorkerID && model_t[j].Enter.split('T')[0]) {
-                //
 
+
+            //if (workerID_ == model_t[j].WorkerID && model_t[j].Enter.split('T')[0]) {
+                
+            //}
+
+            //if (model_t[j].Enter == null) {
+            //    console.log('OK');
+            //    return false;
+            //}
+
+            if (model_t[j].LeaveDate.split('T')[0] == date) {
+                console.log('OK');
+                return false;
+                //toRemove2.push(date);
             }
+
+
         }
     }
 
@@ -499,6 +513,9 @@ $('#JTgCvImoJEyzGux').on('click', function ()
             });
         }
     }
+    //else {
+    //    console.log(arrayOfDays);
+    //}
 });
 
 $('#iHCBwRzOLpgGYQG').on('change', function ()
