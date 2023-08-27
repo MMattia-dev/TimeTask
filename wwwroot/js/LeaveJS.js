@@ -391,6 +391,23 @@ $('#HvZxXypLRxeRXCo').on('change', function ()
 
 $('#HvZxXypLRxeRXCo').trigger('change');
 
+$('#OYRMUMzpHRsooyI').on('change', function ()
+{
+    if (this.value != '') {
+        $(this).removeAttr('style')
+        $(this).parent().children().eq(0).children().eq(1).hide();
+    }
+});
+
+$('#tyONXYuOELdPoLh').on('change', function ()
+{
+    if (this.value != '')
+    {
+        $(this).removeAttr('style');
+        $(this).parent().children().eq(0).children().eq(1).hide();
+    }
+});
+
 $('#JTgCvImoJEyzGux').on('click', function ()
 {
     var days = [];
@@ -440,6 +457,15 @@ $('#JTgCvImoJEyzGux').on('click', function ()
             }
         }
     }
+    else if (od_ == '' && do_ == '')
+    {
+        $('#WgfvjRVuUuqTHIz').show();
+        $('#OYRMUMzpHRsooyI').css({ 'border-color': '#ff471a' });
+
+        $('#xTeRKCqteTzkFTO').show();
+        $('#tyONXYuOELdPoLh').css({ 'border-color': '#ff471a' });
+    }
+
 
 
     var leaveDays = days.filter(function (e, index)
@@ -458,31 +484,12 @@ $('#JTgCvImoJEyzGux').on('click', function ()
 
         for (let j = 0; j < model_t.length; j++) 
         {
-            //if (workerID_ == model_t[j].WorkerID && model_t[j].LeaveDate.split('T')[0] != date && model_t[j].LeaveDate != null && model_t[j].Enter == null && model_t[j].Exit == null) 
-            //{
-            //    toRemove2.push(model_t[j].LeaveDate.split('T')[0]);
-            //}
-
-
-            //if (workerID_ == model_t[j].WorkerID && model_t[j].Enter.split('T')[0]) {
-                
-            //}
-
-            //if (model_t[j].Enter == null) {
-            //    console.log('OK');
-            //    return false;
-            //}
-
-            if (model_t[j].LeaveDate.split('T')[0] == date) {
-                console.log('OK');
-                return false;
-                //toRemove2.push(date);
+            if (model_t[j].LeaveDate.split('T')[0] == date && workerID_ == model_t[j].WorkerID) {
+                toRemove2.push(date);
             }
-
-
         }
     }
-
+    
     var toRemove2_new = [...new Set(toRemove2)];
     toRemove2_new.sort();
     
@@ -513,9 +520,6 @@ $('#JTgCvImoJEyzGux').on('click', function ()
             });
         }
     }
-    //else {
-    //    console.log(arrayOfDays);
-    //}
 });
 
 $('#iHCBwRzOLpgGYQG').on('change', function ()
