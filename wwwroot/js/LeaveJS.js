@@ -85,6 +85,17 @@ function generateCalendar()
 
             let dayName = getDayName(SxyrJvNcldodWTh_children[j].id, getLang() + '-' + getLang().toUpperCase());
             $(SxyrJvNcldodWTh_children[j]).children().eq(2).html(dayName);
+
+
+
+            let dayNameDate = new Date(SxyrJvNcldodWTh_children[j].id);
+            if (dayNameDate.getDay() == 0) {
+                //$(SxyrJvNcldodWTh_children[j]).children().eq(2).css('color', '#ff471a');
+                ////HqePNSyFErJjIHx
+                $(SxyrJvNcldodWTh_children[j]).children().eq(2).addClass('HqePNSyFErJjIHx');
+            }
+
+
         }
     }
 
