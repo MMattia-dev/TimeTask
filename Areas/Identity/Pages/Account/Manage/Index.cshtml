@@ -5,24 +5,43 @@
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<h3>@ViewData["Title"]</h3>
+<link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
+
+@*<h3>@ViewData["Title"]</h3>*@
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
-    <div class="col-md-6">
-        <form id="profile-form" method="post">
+    <div class="DhOaDlrUqJcgIUx">
+        <form id="profile-form" method="post" class="ZOVrPTgSspFJBET">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-            <div class="form-floating mb-3">
-                <input asp-for="Username" class="form-control" placeholder="Please choose your username." disabled />
+            <div class="form-floating mb-2 CvFOfCxRqEKEFvM">
+                <input asp-for="Username" class="form-control zyMjnkiLNtYlAAW" placeholder="Please choose your username." disabled />
                 <label asp-for="Username" class="form-label"></label>
             </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.PhoneNumber" class="form-control" placeholder="Please enter your phone number."/>
+            <div class="form-floating mb-3 CvFOfCxRqEKEFvM">
+                <input asp-for="Input.PhoneNumber" class="form-control zyMjnkiLNtYlAAW" placeholder="Please enter your phone number." />
                 <label asp-for="Input.PhoneNumber" class="form-label"></label>
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+            <button id="update-profile-button" type="submit" class="btn-custom">Save</button>
+            <!--w-100 btn btn-lg btn-primary-->
         </form>
     </div>
+
+    <div class="DhOaDlrUqJcgIUx">
+        <form class="bSaEpYjaUnwwExg">
+
+            <div class="vYNssMDjXkiqBLO">
+                <label id="jcCdkRVXykGrbBe" style="display: none;">Invalid link!</label>
+            </div>
+            
+            <div class="form-floating mb-2 CvFOfCxRqEKEFvM">
+                <input class="form-control zyMjnkiLNtYlAAW" id="xoMTaiKaxAoinee" placeholder="Paste link to wallpaper here." />
+                <label class="form-label" id="GTyCoJidzRasoFw">Add another wallpaper by putting link here...</label>
+            </div>
+            <input type="button" id="ZPHuxBbGXtBuQTe" class="btn-custom" value="Add"/>
+        </form>
+    </div>
+
 </div>
 
 
@@ -34,4 +53,61 @@
 <script type="text/javascript">
     let selected = document.getElementById('tOQtnXcpuxuGTqP');
     selected.classList.add('settings_a_selected');
+
+
+    function isValidHttpUrl(string)
+    {
+        let url;
+
+        try
+        {
+            url = new URL(string);
+        } catch (_)
+        {
+            return false;
+        }
+
+        return url.protocol === "http:" || url.protocol === "https:";
+    }
+
+
+    $('#ZPHuxBbGXtBuQTe').on('click', function (){
+        if (document.getElementById('xoMTaiKaxAoinee').value.length > 0 && isValidHttpUrl(document.getElementById('xoMTaiKaxAoinee').value))
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Wallpapers/AddWallpaper',
+                data: {
+                    link: document.getElementById('xoMTaiKaxAoinee').value,
+                },
+                success: function (response)
+                {
+                    location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding data:', error);
+                }
+            });
+        }
+        else if (document.getElementById('xoMTaiKaxAoinee').value.length > 0 && !isValidHttpUrl(document.getElementById('xoMTaiKaxAoinee').value))
+        {
+            $('#xoMTaiKaxAoinee').addClass('SHnDWPzuoAGGIwU');
+            $('#jcCdkRVXykGrbBe').show();
+        }
+        else if (document.getElementById('xoMTaiKaxAoinee').value.length == 0)
+        {
+            $('#xoMTaiKaxAoinee').addClass('SHnDWPzuoAGGIwU');
+            $('#jcCdkRVXykGrbBe').show();
+        }
+    });
+   
+    $('#xoMTaiKaxAoinee').on('keyup', function (){
+        if(this.value == 0){
+            $('#xoMTaiKaxAoinee').removeClass('SHnDWPzuoAGGIwU');
+            $('#jcCdkRVXykGrbBe').hide();
+        }
+    });
+
+
 </script>

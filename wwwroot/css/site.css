@@ -2155,6 +2155,7 @@ button {
     overflow: auto;
     scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
     scrollbar-width: thin;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .iEazXcrnGzwjSNB {
@@ -2322,6 +2323,46 @@ button {
     text-align: center;
     width: 100%;
 }
+
+.obLgFGUgLLffXsx {
+    font-size: 13px;
+    
+}
+
+.obLgFGUgLLffXsx_ {
+    width: 275px;
+    text-align: center;
+    line-height: 1.3em;
+}
+
+.vYNssMDjXkiqBLO {
+    display: flex;
+    justify-content: right;
+    height: auto;
+    width: 100%;
+    padding-right: 22px;
+    transform: translateY(5px);
+    position: relative;
+}
+
+    .vYNssMDjXkiqBLO label {
+        color: #ff471a;
+        position: absolute;
+        top: -20px;
+        right: 20px;
+    }
+
+.TklztUXRygbrLDz {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+
+
 
 
 
