@@ -27,20 +27,6 @@
         </form>
     </div>
 
-    <div class="DhOaDlrUqJcgIUx">
-        <form class="bSaEpYjaUnwwExg">
-
-            <div class="vYNssMDjXkiqBLO">
-                <label id="jcCdkRVXykGrbBe" style="display: none;">Invalid link!</label>
-            </div>
-            
-            <div class="form-floating mb-2 CvFOfCxRqEKEFvM">
-                <input class="form-control zyMjnkiLNtYlAAW" id="xoMTaiKaxAoinee" placeholder="Paste link to wallpaper here." />
-                <label class="form-label" id="GTyCoJidzRasoFw">Add another wallpaper by putting link here...</label>
-            </div>
-            <input type="button" id="ZPHuxBbGXtBuQTe" class="btn-custom" value="Add"/>
-        </form>
-    </div>
 
 </div>
 
@@ -55,59 +41,6 @@
     selected.classList.add('settings_a_selected');
 
 
-    function isValidHttpUrl(string)
-    {
-        let url;
-
-        try
-        {
-            url = new URL(string);
-        } catch (_)
-        {
-            return false;
-        }
-
-        return url.protocol === "http:" || url.protocol === "https:";
-    }
-
-
-    $('#ZPHuxBbGXtBuQTe').on('click', function (){
-        if (document.getElementById('xoMTaiKaxAoinee').value.length > 0 && isValidHttpUrl(document.getElementById('xoMTaiKaxAoinee').value))
-        {
-            $.ajax({
-                type: 'POST',
-                url: '/Wallpapers/AddWallpaper',
-                data: {
-                    link: document.getElementById('xoMTaiKaxAoinee').value,
-                },
-                success: function (response)
-                {
-                    location.reload();
-                },
-                error: function (xhr, status, error)
-                {
-                    console.log('Error adding data:', error);
-                }
-            });
-        }
-        else if (document.getElementById('xoMTaiKaxAoinee').value.length > 0 && !isValidHttpUrl(document.getElementById('xoMTaiKaxAoinee').value))
-        {
-            $('#xoMTaiKaxAoinee').addClass('SHnDWPzuoAGGIwU');
-            $('#jcCdkRVXykGrbBe').show();
-        }
-        else if (document.getElementById('xoMTaiKaxAoinee').value.length == 0)
-        {
-            $('#xoMTaiKaxAoinee').addClass('SHnDWPzuoAGGIwU');
-            $('#jcCdkRVXykGrbBe').show();
-        }
-    });
-   
-    $('#xoMTaiKaxAoinee').on('keyup', function (){
-        if(this.value == 0){
-            $('#xoMTaiKaxAoinee').removeClass('SHnDWPzuoAGGIwU');
-            $('#jcCdkRVXykGrbBe').hide();
-        }
-    });
 
 
 </script>

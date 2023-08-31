@@ -1,0 +1,120 @@
+﻿@model IEnumerable<TimeTask.Models.Wallpaper2>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
+
+<div class="parent">
+    <section class="left-nav">
+        <partial name="_Settings" />
+    </section>
+    <section class="right-nav">
+        <div class="DhOaDlrUqJcgIUx">
+            <form class="bSaEpYjaUnwwExg">
+
+                <div class="vYNssMDjXkiqBLO">
+                    <label id="jcCdkRVXykGrbBe" style="display: none;">Invalid link!</label>
+                </div>
+
+                <div class="form-floating mb-2 CvFOfCxRqEKEFvM">
+                    <input class="form-control zyMjnkiLNtYlAAW" id="xoMTaiKaxAoinee" placeholder="Paste link to wallpaper here." />
+                    <label class="form-label" id="GTyCoJidzRasoFw">Add wallpaper by putting link here...</label>
+                </div>
+                <input type="button" id="ZPHuxBbGXtBuQTe" class="btn-custom" value="Add" />
+            </form>
+        </div>
+
+
+        @if (Model.Count() != 0)
+        {
+            <div class="DhOaDlrUqJcgIUx">
+                <form class="bSaEpYjaUnwwExg">
+                    <div class="TklztUXRygbrLDz">
+                        @foreach (var item in Model)
+                        {
+                            <label>
+                                <input type="radio" name="same">
+                                <span>Wybierz</span>
+                                <img src="@item.Link" class="uPITXoaTMJUxLzR" />
+                            </label>
+                            
+                        }
+                    </div>
+                </form>
+            </div>
+        }
+
+
+
+
+    </section>
+</div>
+
+<script type="text/javascript">
+    let selected = document.getElementById('RulQCOUeIjlrFpq');
+    selected.classList.add('settings_a_selected');
+
+    function isValidHttpUrl(string)
+    {
+        let url;
+
+        try
+        {
+            url = new URL(string);
+        } catch (_)
+        {
+            return false;
+        }
+
+        return url.protocol === "http:" || url.protocol === "https:";
+    }
+
+
+    $('#ZPHuxBbGXtBuQTe').on('click', function ()
+    {
+        if (document.getElementById('xoMTaiKaxAoinee').value.length > 0 && isValidHttpUrl(document.getElementById('xoMTaiKaxAoinee').value))
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Wallpaper2/AddWallpaper',
+                data: {
+                    link: document.getElementById('xoMTaiKaxAoinee').value,
+                    chosen: false
+                },
+                success: function (response)
+                {
+                    location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding data:', error);
+                }
+            });
+        }
+        else if (document.getElementById('xoMTaiKaxAoinee').value.length > 0 && !isValidHttpUrl(document.getElementById('xoMTaiKaxAoinee').value))
+        {
+            $('#xoMTaiKaxAoinee').addClass('SHnDWPzuoAGGIwU');
+            $('#jcCdkRVXykGrbBe').show();
+        }
+        else if (document.getElementById('xoMTaiKaxAoinee').value.length == 0)
+        {
+            $('#xoMTaiKaxAoinee').addClass('SHnDWPzuoAGGIwU');
+            $('#jcCdkRVXykGrbBe').show();
+        }
+    });
+
+    $('#xoMTaiKaxAoinee').on('keyup', function ()
+    {
+        if (this.value == 0)
+        {
+            $('#xoMTaiKaxAoinee').removeClass('SHnDWPzuoAGGIwU');
+            $('#jcCdkRVXykGrbBe').hide();
+        }
+    });
+
+
+
+
+</script>

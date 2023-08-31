@@ -89,13 +89,15 @@ html {
     position: relative;
     min-height: 100%;
     /*background: url(img/night-island-scenery-macos-wallpaper-1920x1200_6.jpg) no-repeat fixed center;*/
-    /*background: url(img/backgrounds/the-illustration-graphic-consists-of-abstract-background-with-a-blue-gradient-dynamic-shapes-composition-eps10-perfect-for-presentation-background-website-landing-page-wallpaper-vector.jpg) no-repeat fixed center;*/
-    background: url(img/backgrounds/digital-digital-art-artwork-illustration-minimalism-hd-wallpaper-08869d3810a06c28a09cf1be487204ea.jpg);
+    background: url(img/backgrounds/the-illustration-graphic-consists-of-abstract-background-with-a-blue-gradient-dynamic-shapes-composition-eps10-perfect-for-presentation-background-website-landing-page-wallpaper-vector.jpg) no-repeat fixed center;
+    /*background: url(img/backgrounds/digital-digital-art-artwork-illustration-minimalism-hd-wallpaper-08869d3810a06c28a09cf1be487204ea.jpg);*/
     background-size: cover;
     background-color: black;
     overflow-x: hidden;
     overflow-y: hidden;
-
+    /*https://i.imgur.com/pyIbais.jpg*/
+    /*https://i.imgur.com/xbMaM28.jpg*/
+    /*https://i.imgur.com/S9ExQDu.jpg*/
 }
 
 body {
@@ -2353,14 +2355,46 @@ button {
     }
 
 .TklztUXRygbrLDz {
+    padding-left: 30px;
+    padding-right: 30px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
-
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
 }
 
+    .TklztUXRygbrLDz label {
+        position: relative;
+    }
 
+    .TklztUXRygbrLDz label:hover {
+        cursor: pointer;
+    }
+
+        .TklztUXRygbrLDz label span {
+            position: absolute;
+            top: 9px;
+            left: 28px;
+        }
+
+        .TklztUXRygbrLDz label input {
+            position: absolute;
+            top: 12px;
+            left: 10px;
+        }
+
+.uPITXoaTMJUxLzR {
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid black;
+    transition: 0.2s border-color;
+}
+
+    .uPITXoaTMJUxLzR:hover {
+        border-color: rgb(140, 140, 140);
+        transition: 0.2s border-color;
+    }
 
 
 
