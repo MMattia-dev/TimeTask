@@ -32,14 +32,23 @@
             <div class="DhOaDlrUqJcgIUx">
                 <form class="bSaEpYjaUnwwExg">
                     <div class="TklztUXRygbrLDz">
+
+                        <label>
+                            <input type="radio" name="same" id="defaultWallpaper" onchange="changeWallpaper(this)">
+                            <span>Domyślna</span>
+                            <img src="~/css/img/backgrounds/the-illustration-graphic-consists-of-abstract-background-with-a-blue-gradient-dynamic-shapes-composition-eps10-perfect-for-presentation-background-website-landing-page-wallpaper-vector.jpg" class="uPITXoaTMJUxLzR" />
+                        </label>
+
+                        @{ int i = 1; }
                         @foreach (var item in Model)
                         {
                             <label>
-                                <input type="radio" name="same">
-                                <span>Wybierz</span>
+                                <input type="radio" name="same" id="customWallpaper_@i" onchange="changeWallpaper(this)">
+                                <span>Wybierz #@i</span>
                                 <img src="@item.Link" class="uPITXoaTMJUxLzR" />
                             </label>
-                            
+
+                            i++;
                         }
                     </div>
                 </form>
@@ -50,9 +59,52 @@
 
 
     </section>
+
 </div>
 
 <script type="text/javascript">
+
+    let defaultWallpaper = localStorage.getItem('wallpaper');
+    if(defaultWallpaper != null){
+        $('html').css({
+            'background': 'url(' + defaultWallpaper + ')',
+            'background-size': 'cover'
+        });
+
+        let w = document.querySelectorAll('.uPITXoaTMJUxLzR');
+        for (let i = 0; i < w.length; i++)
+        {
+            if ($(w[i]).attr('src') == defaultWallpaper)
+            {
+                $(w[i]).parent().children().eq(0).prop("checked", true);
+                $(w[i]).addClass('cOAjaWuJVPBGngI');
+            }
+        }
+    }
+    else {
+        $('#defaultWallpaper').prop("checked", true);
+        $('#defaultWallpaper').parent().children().eq(2).addClass('cOAjaWuJVPBGngI');
+    }
+
+    function changeWallpaper(t) {
+        let w = document.querySelectorAll('.uPITXoaTMJUxLzR');
+        for(let i = 0; i < w.length; i++){
+            $(w[i]).removeClass('cOAjaWuJVPBGngI');
+        }
+
+        $(t).parent().children().eq(2).addClass('cOAjaWuJVPBGngI');
+
+
+        localStorage.setItem('wallpaper', $(t).parent().children().eq(2).attr('src'));
+        $('html').css({
+            'background': 'url(' + $(t).parent().children().eq(2).attr('src') + ')',
+            'background-size': 'cover'
+        });
+    };
+
+
+
+
     let selected = document.getElementById('RulQCOUeIjlrFpq');
     selected.classList.add('settings_a_selected');
 
