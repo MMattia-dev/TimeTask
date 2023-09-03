@@ -46,6 +46,9 @@
                                 <input type="radio" name="same" id="customWallpaper_@i" onchange="changeWallpaper(this)">
                                 <span>#@i</span>
                                 <img src="@item.Link" class="uPITXoaTMJUxLzR" />
+                                <a onclick="MVyuHPTvDFWSLCA(this, event)" id="sbkudnsgkdEqpwD" omdBELCmLLFmdFy="@item.Id">
+                                    <span>Delete</span>
+                                </a>
                             </label>
 
                             i++;
@@ -54,21 +57,60 @@
                 </form>
             </div>
         }
-
-
-
-
+        else
+        {
+            <div class="DhOaDlrUqJcgIUx">
+                <form class="bSaEpYjaUnwwExg">
+                    <div class="TklztUXRygbrLDz">
+                        <label>
+                            <input type="radio" name="same" id="defaultWallpaper" onchange="changeWallpaper(this)" checked>
+                            <span>Default</span>
+                            <img src="~/css/img/backgrounds/the-illustration-graphic-consists-of-abstract-background-with-a-blue-gradient-dynamic-shapes-composition-eps10-perfect-for-presentation-background-website-landing-page-wallpaper-vector.jpg" class="uPITXoaTMJUxLzR cOAjaWuJVPBGngI" />
+                        </label>
+                    </div>
+                </form>
+            </div>
+        }
     </section>
 
 </div>
 
 <script type="text/javascript">
 
+    function MVyuHPTvDFWSLCA(t, e){
+        e.preventDefault();
+
+        let id_ = t.getAttribute('omdBELCmLLFmdFy');
+
+        $.ajax({
+            type: 'POST',
+            url: '/Wallpaper2/RemoveWallpaper',
+            data: {
+                id: id_
+            },
+            success: function (response)
+            {
+                //localStorage.removeItem('wallpaper');
+                if ($(t).parent().children().eq(2).attr('src') == localStorage.getItem('wallpaper'))
+                {
+                    localStorage.removeItem('wallpaper');
+                }
+                location.reload();
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error adding data:', error);
+            }
+        });
+    };
+
+
     let defaultWallpaper = localStorage.getItem('wallpaper');
     if(defaultWallpaper != null){
         $('html').css({
             'background': 'url(' + defaultWallpaper + ')',
-            'background-size': 'cover'
+            'background-size': 'cover',
+            'background-position': 'center'
         });
 
         let w = document.querySelectorAll('.uPITXoaTMJUxLzR');
@@ -98,7 +140,8 @@
         localStorage.setItem('wallpaper', $(t).parent().children().eq(2).attr('src'));
         $('html').css({
             'background': 'url(' + $(t).parent().children().eq(2).attr('src') + ')',
-            'background-size': 'cover'
+            'background-size': 'cover',
+            'background-position': 'center'
         });
     };
 
@@ -123,10 +166,14 @@
         return url.protocol === "http:" || url.protocol === "https:";
     }
 
+    function checkURL(url)
+    {
+        return (url.match(/\.(jpeg|jpg|gif|png)$/) != null);
+    }
 
     $('#ZPHuxBbGXtBuQTe').on('click', function ()
     {
-        if (document.getElementById('xoMTaiKaxAoinee').value.length > 0 && isValidHttpUrl(document.getElementById('xoMTaiKaxAoinee').value))
+        if (document.getElementById('xoMTaiKaxAoinee').value.length > 0 && isValidHttpUrl(document.getElementById('xoMTaiKaxAoinee').value) && checkURL(document.getElementById('xoMTaiKaxAoinee').value))
         {
             $.ajax({
                 type: 'POST',
@@ -152,6 +199,10 @@
         }
         else if (document.getElementById('xoMTaiKaxAoinee').value.length == 0)
         {
+            $('#xoMTaiKaxAoinee').addClass('SHnDWPzuoAGGIwU');
+            $('#jcCdkRVXykGrbBe').show();
+        }
+        else {
             $('#xoMTaiKaxAoinee').addClass('SHnDWPzuoAGGIwU');
             $('#jcCdkRVXykGrbBe').show();
         }

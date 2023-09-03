@@ -93,6 +93,7 @@ html {
     /*background: url(img/backgrounds/digital-digital-art-artwork-illustration-minimalism-hd-wallpaper-08869d3810a06c28a09cf1be487204ea.jpg);*/
     background-size: cover;
     background-color: black;
+    background-position: center;
     overflow-x: hidden;
     overflow-y: hidden;
     /*https://i.imgur.com/pyIbais.jpg*/
@@ -1851,7 +1852,7 @@ button {
             /*height: 100%;*/
             /*transform: translateX(5px);*/
             position: absolute;
-            left: 5px;
+            left: 4px;
 
         }
 
@@ -1861,7 +1862,7 @@ button {
             cursor: pointer;
         }
 
-        .days_ div svg {
+        /*.days_ div svg {
             fill: rgba(255, 255, 255, 0.7);
             position: absolute;
             right: 1px;
@@ -1870,11 +1871,18 @@ button {
 
             .days_ div svg.jxiQgKjvVwKXqik {
                 fill: rgba(255, 255, 255, 1);
-            }
+            }*/
 
         .days_ div.fNFlwKQaZMgErcF {
             background-color: rgba(255, 255, 255, 0.05);
             transition: background-color 0.2s;
+        }
+
+        .days_ div input {
+            position: absolute;
+            right: 5px;
+            top: 7px;
+            opacity: 0.8;
         }
 
 .prev-date2,
@@ -1887,6 +1895,37 @@ button {
     .next-date2 span {
         transform: translateX(5px);
     }
+
+.jPigrYSgDbYPGjJ {
+    
+}
+
+    .jPigrYSgDbYPGjJ span {
+        font-size: 13px;
+        /*width: 36px;
+        height: 22px;*/
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+    }
+
+        .jPigrYSgDbYPGjJ span:first-child {
+            /*background-color: rgba(20, 180, 20, 0.7);
+            padding: 5px;*/
+            /*left: calc(50% - 18px);
+            top: calc(50% - 22px);*/
+            bottom: 25px;
+            left: 5px;
+        }
+
+        .jPigrYSgDbYPGjJ span:nth-child(2) {
+            /*background-color: rgba(180, 20, 20, 0.7);
+            padding: 5px;*/
+            /*left: calc(50% - 18px);
+            top: calc(50% + 0px);*/
+            bottom: 5px;
+            left: 5px;
+        }
 
 
 
@@ -2351,7 +2390,7 @@ button {
         color: #ff471a;
         position: absolute;
         top: -20px;
-        right: 20px;
+        right: 30px;
     }
 
 .TklztUXRygbrLDz {
@@ -2361,7 +2400,8 @@ button {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap: 30px;
+    /*gap: 30px;*/
+    gap: 40px;
 }
 
     .TklztUXRygbrLDz label {
@@ -2374,15 +2414,30 @@ button {
 
         .TklztUXRygbrLDz label span {
             position: absolute;
-            top: 9px;
-            left: 28px;
+            /*top: 9px;
+            left: 28px;*/
+            top: -20px;
+            left: 18px;
         }
 
         .TklztUXRygbrLDz label input {
             position: absolute;
-            top: 12px;
-            left: 10px;
+            /*top: 12px;
+            left: 10px;*/
+            top: -18px;
         }
+
+        .TklztUXRygbrLDz label #sbkudnsgkdEqpwD {
+            position: absolute;
+            right: 55px;
+            top: 1px;
+        }
+
+        .TklztUXRygbrLDz label #sbkudnsgkdEqpwD span {
+            color: red;
+            font-weight: bold;
+        }
+
 
 
 .uPITXoaTMJUxLzR {

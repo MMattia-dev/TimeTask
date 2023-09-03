@@ -191,25 +191,51 @@ function generateCalendar() {
         }
         //
 
+        //let dateSpan = new Date(spans[i].id);
+        //if (isSunday(dateSpan)) {
+        //    let span = spans[i].querySelector('span');
+        //    $(span).css({
+        //        'color': 'rgb(220, 20, 20)',
+        //        'font-weight': 'bold',
+        //    });
+        //}
+
         //<svg viewBox="0 0 24 24" height="22" width="22">
         //    <path fill="none" d="M0 0h24v24H0z"></path>
         //    <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path>
         //</svg>
         if (!$(spans[i]).hasClass('prev-date2') && !$(spans[i]).hasClass('next-date2')) 
         {
-            spans[i].innerHTML += `<svg viewBox="0 0 24 24" height="22" width="22">`
-                + `<path fill="none" d="M0 0h24v24H0z"></path>`
-                + `<path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path>`
-                + `</svg>`;
+            //spans[i].innerHTML += `<svg viewBox="0 0 24 24" height="22" width="22">`
+            //    + `<path fill="none" d="M0 0h24v24H0z"></path>`
+            //    + `<path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path>`
+            //    + `</svg>`;
+            spans[i].innerHTML += `<input type="checkbox" />`;
         }
         
 
 
     }
 
-
-
     //
+
+
+
+    //godziny do divów
+    for (let i = 0; i < spans.length; i++) {
+        for (let j = 0; j < model_t.length; j++) {
+            if (model_t[j].Enter.split('T')[0] == spans[i].id) {
+                let f_ = document.getElementById('QcLYVFuvuONgCrh'); //worker
+                let f2 = f_.options[f_.selectedIndex].value;
+
+                if (f2 == model_t[j].WorkerID) {
+                    spans[i].innerHTML += `<section class="jPigrYSgDbYPGjJ">` + `<span>` + model_t[j].Enter.split('T')[1].split(':')[0] + ':' + model_t[j].Enter.split('T')[1].split(':')[1] + `</span>` + `<span>` + model_t[j].Exit.split('T')[1].split(':')[0] + ':' + model_t[j].Exit.split('T')[1].split(':')[1] + `</span>` + `</section>`;
+                }
+            }
+        }
+    }
+    //
+
 
 
     
@@ -291,6 +317,11 @@ function generateCalendar() {
     //}
 };
 
+$('#QcLYVFuvuONgCrh').on('change', function ()
+{
+    generateCalendar();
+});
+
 //$('.days_').on('click', function ()
 //{
 //    let div = this.querySelector('div');
@@ -310,16 +341,18 @@ function fYOxqwVQjemgdRd(t) {
 
     //jxiQgKjvVwKXqik
     let svg = $(t).children().eq(1);
-    if ($(svg).hasClass('jxiQgKjvVwKXqik'))
+    if ($(t).hasClass('fNFlwKQaZMgErcF'))
     {
-        $(svg).remove();
-        t.innerHTML += '<svg viewBox="0 0 24 24" height="22" width="22"><path fill="none" d="M0 0h24v24H0z"></path><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path></svg>';
+        //$(svg).remove();
+        //t.innerHTML += '<svg viewBox="0 0 24 24" height="22" width="22"><path fill="none" d="M0 0h24v24H0z"></path><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path></svg>';
         $(t).removeClass('fNFlwKQaZMgErcF');
+        $(t).children().eq(1).prop("checked", false);
     }
     else {
-        $(svg).remove();
-        t.innerHTML += '<svg class="jxiQgKjvVwKXqik" viewBox="0 0 24 24" height="22" width="22"><path fill="none" d="M0 0h24v24H0z"></path><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path></svg>';
+        //$(svg).remove();
+        //t.innerHTML += '<svg class="jxiQgKjvVwKXqik" viewBox="0 0 24 24" height="22" width="22"><path fill="none" d="M0 0h24v24H0z"></path><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path></svg>';
         $(t).addClass('fNFlwKQaZMgErcF');
+        $(t).children().eq(1).prop("checked", true);
     }
 
 };
