@@ -492,9 +492,12 @@ $('#JTgCvImoJEyzGux').on('click', function ()
 
         for (let j = 0; j < model_t.length; j++) 
         {
-            if (model_t[j].LeaveDate.split('T')[0] == date && workerID_ == model_t[j].WorkerID) {
+            if (model_t[j].LeaveDate.split('T')[0] == date && workerID_ == model_t[j].WorkerID)
+            {
                 toRemove2.push(date);
+                //Uncaught TypeError: model_t[j].LeaveDate is null
             }
+            //toRemove2.push(date);
         }
     }
     
