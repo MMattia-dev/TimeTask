@@ -191,6 +191,7 @@ function generateCalendar() {
         }
         //
 
+
         //let dateSpan = new Date(spans[i].id);
         //if (isSunday(dateSpan)) {
         //    let span = spans[i].querySelector('span');
