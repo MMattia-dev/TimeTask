@@ -500,6 +500,7 @@ $('#JTgCvImoJEyzGux').on('click', function ()
             //toRemove2.push(date);
         }
     }
+
     
     var toRemove2_new = [...new Set(toRemove2)];
     toRemove2_new.sort();
