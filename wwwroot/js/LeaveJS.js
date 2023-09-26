@@ -490,15 +490,26 @@ $('#JTgCvImoJEyzGux').on('click', function ()
         let date = leaveDays[i].toISOString().split('T')[0];
         arrayOfDays.push(date);
 
-        for (let j = 0; j < model_t.length; j++) 
-        {
-            if (model_t[j].LeaveDate.split('T')[0] == date && workerID_ == model_t[j].WorkerID)
-            {
-                toRemove2.push(date);
-                //Uncaught TypeError: model_t[j].LeaveDate is null
-            }
-            //toRemove2.push(date);
+        //for (let j = 0; j < model_t.length; j++) 
+        //{
+        //    if (model_t[j].LeaveDate.split('T')[0] == date && workerID_ == model_t[j].WorkerID)
+        //    {
+        //        toRemove2.push(date);
+        //        //Uncaught TypeError: model_t[j].LeaveDate is null
+        //    }
+        //    //toRemove2.push(date);
+        //}
+
+        //for (let j = 0; j < model_t.length; j++) {
+        //    if (workerID_ == model_t[j].WorkerID && model_t[j].LeaveDate.split('T')[0] == date && model_t[j].Enter == null && model_t[j].Exit == null && model_t[j].LeaveDate != null) {
+        //        toRemove2.push(date);
+        //    }
+        //}
+
+        for (let j = 0; j < model_t.length; j++) {
+            toRemove2.push(date);
         }
+
     }
 
     
@@ -507,30 +518,34 @@ $('#JTgCvImoJEyzGux').on('click', function ()
     
     arrayOfDays = arrayOfDays.filter((el) => !toRemove2_new.includes(el)); //usun wszystkie powtarzajace sie daty
 
-    if (arrayOfDays != null) 
+    if (arrayOfDays.length > 0) 
     {
         for (let i = 0; i < arrayOfDays.length; i++) 
         {
-            $.ajax({
-                type: 'POST',
-                url: '/Times/AddLeave',
-                data: {
-                    workerID: workerID_,
-                    enter: null,
-                    exit: null,
-                    leaveID: leaveID_,
-                    leaveDate: arrayOfDays[i]
-                },
-                success: function (response)
-                {
-                    location.reload();
-                },
-                error: function (xhr, status, error)
-                {
-                    console.log('Error adding column value:', error);
-                }
-            });
+            console.log(arrayOfDays[i]);
+            //$.ajax({
+            //    type: 'POST',
+            //    url: '/Times/AddLeave',
+            //    data: {
+            //        workerID: workerID_,
+            //        enter: null,
+            //        exit: null,
+            //        leaveID: leaveID_,
+            //        leaveDate: arrayOfDays[i]
+            //    },
+            //    success: function (response)
+            //    {
+            //        location.reload();
+            //    },
+            //    error: function (xhr, status, error)
+            //    {
+            //        console.log('Error adding column value:', error);
+            //    }
+            //});
         }
+    }
+    else {
+        console.log('empty');
     }
 });
 
