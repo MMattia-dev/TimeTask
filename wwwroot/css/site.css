@@ -1844,7 +1844,7 @@ button {
         user-select: none;
         border: 1px solid rgb(50, 50, 50);
         color: rgba(255, 255, 255, 0.8);
-        transition: background-color 0.2s;
+        transition: background-color 0.2s, border 0.2s;
         position: relative;
     }
 
@@ -1874,8 +1874,9 @@ button {
             }*/
 
         .days_ div.fNFlwKQaZMgErcF {
+            border: 1px solid rgb(90, 90, 90);
             background-color: rgba(255, 255, 255, 0.05);
-            transition: background-color 0.2s;
+            transition: background-color 0.2s, border 0.2s;
         }
 
         .days_ div input {
@@ -1901,7 +1902,8 @@ button {
 }
 
     .jPigrYSgDbYPGjJ span {
-        font-size: 13px;
+        font-size: 12px;
+        font-family: Arial, Helvetica, sans-serif;
         /*width: 36px;
         height: 22px;*/
         display: flex;
@@ -1915,7 +1917,7 @@ button {
             /*left: calc(50% - 18px);
             top: calc(50% - 22px);*/
             bottom: 25px;
-            left: 5px;
+            left: 6px;
         }
 
         .jPigrYSgDbYPGjJ span:nth-child(2) {
@@ -1924,7 +1926,7 @@ button {
             /*left: calc(50% - 18px);
             top: calc(50% + 0px);*/
             bottom: 5px;
-            left: 5px;
+            left: 6px;
         }
 
 
@@ -2148,6 +2150,18 @@ button {
         font-family: Arial;
         user-select: auto;
     }
+
+    /*.PXHhlPBPzXQFpVg.LiMGacEyWjMyGtX {
+        pointer-events: none;
+    }
+
+        .PXHhlPBPzXQFpVg.LiMGacEyWjMyGtX span {
+            pointer-events: none;
+        }
+
+    .PXHhlPBPzXQFpVg.LiMGacEyWjMyGtX:hover {
+        pointer-events: none;
+    }*/
 
 .TYIUWPkeSfoEFoi {
     display: flex;

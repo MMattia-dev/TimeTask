@@ -115,9 +115,11 @@ function generateCalendar()
                         {
                             let name = model_l[k].Name;
                             let description = model_l[k].Description;
-                            
-                            for (let x = 0; x < model_w.length; x++) {
-                                if (model_t[j].WorkerID == model_w[x].Id && departmentID_ == model_w[x].DepartmentID) {
+
+                            for (let x = 0; x < model_w.length; x++)
+                            {
+                                if (model_t[j].WorkerID == model_w[x].Id && departmentID_ == model_w[x].DepartmentID)
+                                {
                                     if (description != null) 
                                     {
                                         dykKoaHBFtTPjlK[i].innerHTML += `<div class="PXHhlPBPzXQFpVg" onclick="yKZSDGYyOfLkUoB(this)" id="` + model_t[j].Id + `">`
@@ -139,6 +141,13 @@ function generateCalendar()
                     }
                 }
             }
+            //else {
+            //    if (model_t[j].Enter.split('T')[0] == date) {
+            //        dykKoaHBFtTPjlK[i].innerHTML += `<div class="PXHhlPBPzXQFpVg LiMGacEyWjMyGtX">`
+            //            + `<span>dostępne z widoku "Czas Pracy"</span>`
+            //            + `</div>`;
+            //    }
+            //}
             //else if (workerID_ == 'everyone' && model_t[j].Enter == null && model_t[j].Exit == null) 
             //{
             //    if (model_t[j].LeaveDate.split('T')[0] == date) 
@@ -485,6 +494,7 @@ $('#JTgCvImoJEyzGux').on('click', function ()
 
     var arrayOfDays = [];
     var toRemove2 = [];
+    //var ifUrlopIstnieje = [];
     for (let i = 0; i < leaveDays.length; i++)
     {
         let date = leaveDays[i].toISOString().split('T')[0];
@@ -507,7 +517,20 @@ $('#JTgCvImoJEyzGux').on('click', function ()
         //}
 
         for (let j = 0; j < model_t.length; j++) {
-            toRemove2.push(date);
+            //toRemove2.push(date);
+            if (workerID_ == model_t[j].WorkerID) {
+                //toRemove2.push(date);
+
+                //czy urlopy
+                if (model_t[j].LeaveDate != null && model_t[j].Enter == null && model_t[j].LeaveDate.split('T')[0] == date) {
+                    toRemove2.push(date);
+                }
+                //czy czas pracy
+                if (model_t[j].LeaveDate == null && model_t[j].Enter != null && model_t[j].Enter.split('T')[0] == date) {
+                    toRemove2.push(date);
+                    //ifUrlopIstnieje.push(date);
+                }
+            }
         }
 
     }
@@ -522,31 +545,44 @@ $('#JTgCvImoJEyzGux').on('click', function ()
     {
         for (let i = 0; i < arrayOfDays.length; i++) 
         {
-            console.log(arrayOfDays[i]);
-            //$.ajax({
-            //    type: 'POST',
-            //    url: '/Times/AddLeave',
-            //    data: {
-            //        workerID: workerID_,
-            //        enter: null,
-            //        exit: null,
-            //        leaveID: leaveID_,
-            //        leaveDate: arrayOfDays[i]
-            //    },
-            //    success: function (response)
-            //    {
-            //        location.reload();
-            //    },
-            //    error: function (xhr, status, error)
-            //    {
-            //        console.log('Error adding column value:', error);
-            //    }
-            //});
+            //console.log(arrayOfDays[i]);
+
+            $.ajax({
+                type: 'POST',
+                url: '/Times/AddLeave',
+                data: {
+                    workerID: workerID_,
+                    enter: null,
+                    exit: null,
+                    leaveID: leaveID_,
+                    leaveDate: arrayOfDays[i]
+                },
+                success: function (response)
+                {
+                    location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding column value:', error);
+                }
+            });
         }
     }
     else {
         console.log('empty');
     }
+
+    //if (ifUrlopIstnieje.length > 0) {
+    //    let new_ifUrlopIstnieje = [];
+    //    new_ifUrlopIstnieje = arrayOfDays.filter((el) => !ifUrlopIstnieje.includes(el));
+        
+    //    if (new_ifUrlopIstnieje.length > 0) {
+    //        console.log('pozostala data:' + new_ifUrlopIstnieje);
+    //    }
+    //}
+
+
+
 });
 
 $('#iHCBwRzOLpgGYQG').on('change', function ()

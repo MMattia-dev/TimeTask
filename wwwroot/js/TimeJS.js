@@ -224,13 +224,30 @@ function generateCalendar() {
 
     //godziny do divów
     for (let i = 0; i < spans.length; i++) {
+        //for (let j = 0; j < model_t.length; j++) {
+        //    if (model_t[j].Enter.split('T')[0] == spans[i].id) {
+        //        let f_ = document.getElementById('QcLYVFuvuONgCrh'); //worker
+        //        let f2 = f_.options[f_.selectedIndex].value;
+
+        //        if (f2 == model_t[j].WorkerID) {
+        //            spans[i].innerHTML += `<section class="jPigrYSgDbYPGjJ">` + `<span>` + model_t[j].Enter.split('T')[1].split(':')[0] + ':' + model_t[j].Enter.split('T')[1].split(':')[1] + `</span>` + `<span>` + model_t[j].Exit.split('T')[1].split(':')[0] + ':' + model_t[j].Exit.split('T')[1].split(':')[1] + `</span>` + `</section>`;
+        //        }
+        //    }
+        //}
         for (let j = 0; j < model_t.length; j++) {
-            if (model_t[j].Enter.split('T')[0] == spans[i].id) {
+            //czy urlopy
+            if (model_t[j].Enter == null && model_t[j].LeaveDate != null && model_t[j].LeaveDate.split('T')[0] == spans[i].id) 
+            {
+                //
+            }
+            //czy czas pracy
+            if (model_t[j].Enter != null && model_t[j].LeaveDate == null && model_t[j].Enter.split('T')[0] == spans[i].id)
+            {
                 let f_ = document.getElementById('QcLYVFuvuONgCrh'); //worker
                 let f2 = f_.options[f_.selectedIndex].value;
-
                 if (f2 == model_t[j].WorkerID) {
                     spans[i].innerHTML += `<section class="jPigrYSgDbYPGjJ">` + `<span>` + model_t[j].Enter.split('T')[1].split(':')[0] + ':' + model_t[j].Enter.split('T')[1].split(':')[1] + `</span>` + `<span>` + model_t[j].Exit.split('T')[1].split(':')[0] + ':' + model_t[j].Exit.split('T')[1].split(':')[1] + `</span>` + `</section>`;
+                    //console.log();
                 }
             }
         }
@@ -712,8 +729,28 @@ $('#XlTBIHFmaFNdQpf').on('click', function ()
 
     array = [...new Set(array)]
 
-    if (array != null) {
-        for (let i = 0; i < array.length; i++) {
+
+    // 27.09.2023
+    let toRemove = [];
+    for (let i = 0; i < array.length; i++) {
+        for (let j = 0; j < model_t.length; j++)
+        {
+            if (model_t[j].Enter != null && model_t[j].WorkerID == workerID_ && model_t[j].Enter.split('T')[0] == array[i] || model_t[j].LeaveDate != null && model_t[j].WorkerID == workerID_ && model_t[j].LeaveDate.split('T')[0] == array[i])
+            {
+                toRemove.push(array[i]);
+            }
+        }
+    }
+    var toRemove_new = [...new Set(toRemove)];
+    toRemove_new.sort();
+    array = array.filter((el) => !toRemove_new.includes(el)); //usun wszystkie powtarzajace sie daty
+    //
+
+
+    if (array.length > 0)
+    {
+        for (let i = 0; i < array.length; i++)
+        {
             $.ajax({
                 type: 'POST',
                 url: '/Times/AddTime',
@@ -735,7 +772,12 @@ $('#XlTBIHFmaFNdQpf').on('click', function ()
             });
         }
     }
+    else {
+        console.log('empty');
+    }
 });
+
+
 
 $('#JiEZMNdUHgcYMIC').on('change', function ()
 {
@@ -772,12 +814,15 @@ $('#QvXboIjjKTrEMMB').on('click', function ()
         {
             for (let j = 0; j < dates.length; j++) 
             {
-                if (model_t[i].Enter.split('T')[0] == dates[j].toISOString().split('T')[0] && model_t[i].Exit.split('T')[0] == dates[j].toISOString().split('T')[0] && workerID_ == model_t[i].WorkerID)
+                //if (model_t[i].Enter.split('T')[0] == dates[j].toISOString().split('T')[0] && model_t[i].Exit.split('T')[0] == dates[j].toISOString().split('T')[0] && workerID_ == model_t[i].WorkerID)
+                //{
+                //    array.push(model_t[i].Id);
+                //}
+                if (model_t[i].Enter != null && model_t[i].Enter.split('T')[0] == dates[j].toISOString().split('T')[0] && model_t[i].Exit.split('T')[0] == dates[j].toISOString().split('T')[0] && workerID_ == model_t[i].WorkerID)
                 {
                     array.push(model_t[i].Id);
                 }
             }
-            
         }
     }
 
@@ -801,6 +846,115 @@ $('#QvXboIjjKTrEMMB').on('click', function ()
     }
 });
 
+$('#gPyHcTBhSRhkIHB').on('click', function ()
+{
+    let QcLYVFuvuONgCrh = document.getElementById('QcLYVFuvuONgCrh');
+    let workerID_ = QcLYVFuvuONgCrh.options[QcLYVFuvuONgCrh.selectedIndex].value;
+
+    let godzinaOD = document.getElementById('YYooSdVQmSBFOBy').value;
+    let godzinaDO = document.getElementById('aOWPsQLgDIjpTqI').value;
+
+    if (godzinaOD && godzinaDO) {
+        let days = document.querySelectorAll('.fNFlwKQaZMgErcF');
+        if (days.length > 0) {
+            for (let i = 0; i < days.length; i++) {
+                let date = days[i].id;
+                
+                $.ajax({
+                    type: 'POST',
+                    url: '/Times/AddTime',
+                    data: {
+                        workerID: workerID_,
+                        enter: date + ' ' + godzinaOD,
+                        exit: date + ' ' + godzinaDO,
+                        leaveID: null,
+                        leaveDate: null
+                    },
+                    success: function (response)
+                    {
+                        location.reload();
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error adding column value:', error);
+                    }
+                });
+            }
+        }
+    }
+});
+
+$('#nhklYOXterdPTwH').on('click', function ()
+{
+    let QcLYVFuvuONgCrh = document.getElementById('QcLYVFuvuONgCrh');
+    let workerID_ = QcLYVFuvuONgCrh.options[QcLYVFuvuONgCrh.selectedIndex].value;
+
+    let days = document.querySelectorAll('.fNFlwKQaZMgErcF');
+    if (days.length > 0) {
+
+        for (let i = 0; i < model_t.length; i++) {
+            for (let j = 0; j < days.length; j++) {
+                if (workerID_ == model_t[i].WorkerID && days[j].id == model_t[i].Enter.split('T')[0])
+                {
+                    let id_ = model_t[i].Id;
+                    
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/RemoveTime',
+                        data: {
+                            id: id_
+                        },
+                        success: function (response)
+                        {
+                            location.reload();
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error removing value:', error);
+                        }
+                    });
+                }
+            }
+        }
+    }
+});
+
+function pQuWaMlNxUyZxiq(t) {
+    let QcLYVFuvuONgCrh = document.getElementById('QcLYVFuvuONgCrh');
+    let workerID_ = QcLYVFuvuONgCrh.options[QcLYVFuvuONgCrh.selectedIndex].value;
+
+    let godzinaOD = t.innerText.split(' - ')[0];
+    let godzinaDO = t.innerText.split(' - ')[1];
+
+    let days = document.querySelectorAll('.fNFlwKQaZMgErcF');
+    if (days.length > 0)
+    {
+        for (let i = 0; i < days.length; i++)
+        {
+            let date = days[i].id;
+
+            $.ajax({
+                type: 'POST',
+                url: '/Times/AddTime',
+                data: {
+                    workerID: workerID_,
+                    enter: date + ' ' + godzinaOD,
+                    exit: date + ' ' + godzinaDO,
+                    leaveID: null,
+                    leaveDate: null
+                },
+                success: function (response)
+                {
+                    location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding column value:', error);
+                }
+            });
+        }
+    }
+};
 
 
 $(document).ready(function ()
