@@ -926,34 +926,55 @@ function pQuWaMlNxUyZxiq(t) {
     let godzinaOD = t.innerText.split(' - ')[0];
     let godzinaDO = t.innerText.split(' - ')[1];
 
-    let days = document.querySelectorAll('.fNFlwKQaZMgErcF');
-    if (days.length > 0)
-    {
-        for (let i = 0; i < days.length; i++)
-        {
-            let date = days[i].id;
+    let array = document.querySelectorAll('.fNFlwKQaZMgErcF');
+    //if (array.length > 0)
+    //{
+    //    for (let i = 0; i < days.length; i++)
+    //    {
+    //        let date = days[i].id;
 
-            $.ajax({
-                type: 'POST',
-                url: '/Times/AddTime',
-                data: {
-                    workerID: workerID_,
-                    enter: date + ' ' + godzinaOD,
-                    exit: date + ' ' + godzinaDO,
-                    leaveID: null,
-                    leaveDate: null
-                },
-                success: function (response)
-                {
-                    location.reload();
-                },
-                error: function (xhr, status, error)
-                {
-                    console.log('Error adding column value:', error);
-                }
-            });
+    //        $.ajax({
+    //            type: 'POST',
+    //            url: '/Times/AddTime',
+    //            data: {
+    //                workerID: workerID_,
+    //                enter: date + ' ' + godzinaOD,
+    //                exit: date + ' ' + godzinaDO,
+    //                leaveID: null,
+    //                leaveDate: null
+    //            },
+    //            success: function (response)
+    //            {
+    //                location.reload();
+    //            },
+    //            error: function (xhr, status, error)
+    //            {
+    //                console.log('Error adding column value:', error);
+    //            }
+    //        });
+    //    }
+    //}
+
+    // 27.09.2023
+    let toRemove = [];
+    for (let i = 0; i < array.length; i++)
+    {
+        for (let j = 0; j < model_t.length; j++)
+        {
+            if (model_t[j].Enter != null && model_t[j].WorkerID == workerID_ && model_t[j].Enter.split('T')[0] == array[i] || model_t[j].LeaveDate != null && model_t[j].WorkerID == workerID_ && model_t[j].LeaveDate.split('T')[0] == array[i])
+            {
+                toRemove.push(array[i]);
+            }
         }
     }
+    var toRemove_new = [...new Set(toRemove)];
+    toRemove_new.sort();
+    array = array.filter((el) => !toRemove_new.includes(el)); //usun wszystkie powtarzajace sie daty
+    //
+
+
+
+
 };
 
 
