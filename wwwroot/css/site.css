@@ -2032,8 +2032,8 @@ button {
         height: 52px;
         max-height: 52px;
         min-height: 52px;
-        position: sticky;
-        top: 0;
+        /*position: sticky;
+        top: 0;*/
     }
 
         .VUXahzbNUTWtiZa thead tr th {
@@ -2069,6 +2069,9 @@ button {
             padding-left: 0;
             padding-right: 0;
             min-width: 100px;
+            max-width: 100px;
+            width: 100px;
+            text-align: center;
         }
 
 .EmRSNqsShbDnTsE {
