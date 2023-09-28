@@ -855,11 +855,63 @@ $('#gPyHcTBhSRhkIHB').on('click', function ()
     let godzinaDO = document.getElementById('aOWPsQLgDIjpTqI').value;
 
     if (godzinaOD && godzinaDO) {
-        let days = document.querySelectorAll('.fNFlwKQaZMgErcF');
-        if (days.length > 0) {
-            for (let i = 0; i < days.length; i++) {
-                let date = days[i].id;
+        //let days = document.querySelectorAll('.fNFlwKQaZMgErcF');
+        //if (days.length > 0) {
+        //    for (let i = 0; i < days.length; i++) {
+        //        let date = days[i].id;
                 
+        //        $.ajax({
+        //            type: 'POST',
+        //            url: '/Times/AddTime',
+        //            data: {
+        //                workerID: workerID_,
+        //                enter: date + ' ' + godzinaOD,
+        //                exit: date + ' ' + godzinaDO,
+        //                leaveID: null,
+        //                leaveDate: null
+        //            },
+        //            success: function (response)
+        //            {
+        //                location.reload();
+        //            },
+        //            error: function (xhr, status, error)
+        //            {
+        //                console.log('Error adding column value:', error);
+        //            }
+        //        });
+        //    }
+        //}
+
+        let days = document.querySelectorAll('.fNFlwKQaZMgErcF');
+
+        let array = [];
+        for (let i = 0; i < days.length; i++)
+        {
+            array.push(days[i].id);
+        }
+
+        // 27.09.2023
+        let toRemove = [];
+        for (let i = 0; i < array.length; i++)
+        {
+            for (let j = 0; j < model_t.length; j++)
+            {
+                if (model_t[j].Enter != null && model_t[j].WorkerID == workerID_ && model_t[j].Enter.split('T')[0] == array[i] || model_t[j].LeaveDate != null && model_t[j].WorkerID == workerID_ && model_t[j].LeaveDate.split('T')[0] == array[i])
+                {
+                    toRemove.push(array[i]);
+                }
+            }
+        }
+        var toRemove_new = [...new Set(toRemove)];
+        toRemove_new.sort();
+        array = array.filter((el) => !toRemove_new.includes(el)); //usun wszystkie powtarzajace sie daty
+        //
+
+        if (array.length > 0) {
+            for (let i = 0; i < array.length; i++) {
+
+                let date = array[i];
+
                 $.ajax({
                     type: 'POST',
                     url: '/Times/AddTime',
@@ -881,6 +933,8 @@ $('#gPyHcTBhSRhkIHB').on('click', function ()
                 });
             }
         }
+
+
     }
 });
 
@@ -894,7 +948,7 @@ $('#nhklYOXterdPTwH').on('click', function ()
 
         for (let i = 0; i < model_t.length; i++) {
             for (let j = 0; j < days.length; j++) {
-                if (workerID_ == model_t[i].WorkerID && days[j].id == model_t[i].Enter.split('T')[0])
+                if (model_t[i].Enter != null && workerID_ == model_t[i].WorkerID && days[j].id == model_t[i].Enter.split('T')[0])
                 {
                     let id_ = model_t[i].Id;
                     
@@ -926,8 +980,8 @@ function pQuWaMlNxUyZxiq(t) {
     let godzinaOD = t.innerText.split(' - ')[0];
     let godzinaDO = t.innerText.split(' - ')[1];
 
-    let array = document.querySelectorAll('.fNFlwKQaZMgErcF');
-    //if (array.length > 0)
+    let days = document.querySelectorAll('.fNFlwKQaZMgErcF');
+    //if (days.length > 0)
     //{
     //    for (let i = 0; i < days.length; i++)
     //    {
@@ -955,6 +1009,11 @@ function pQuWaMlNxUyZxiq(t) {
     //    }
     //}
 
+    let array = [];
+    for (let i = 0; i < days.length; i++) {
+        array.push(days[i].id);
+    }
+
     // 27.09.2023
     let toRemove = [];
     for (let i = 0; i < array.length; i++)
@@ -972,10 +1031,39 @@ function pQuWaMlNxUyZxiq(t) {
     array = array.filter((el) => !toRemove_new.includes(el)); //usun wszystkie powtarzajace sie daty
     //
 
+    if (array.length > 0) {
+        for (let i = 0; i < array.length; i++) {
+            //console.log(array[i]);
 
+            let date = array[i];
 
-
+            $.ajax({
+                type: 'POST',
+                url: '/Times/AddTime',
+                data: {
+                    workerID: workerID_,
+                    enter: date + ' ' + godzinaOD,
+                    exit: date + ' ' + godzinaDO,
+                    leaveID: null,
+                    leaveDate: null
+                },
+                success: function (response)
+                {
+                    location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding column value:', error);
+                }
+            });
+        }
+    }
 };
+
+
+
+
+
 
 
 $(document).ready(function ()

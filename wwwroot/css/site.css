@@ -1173,7 +1173,7 @@ button {
 .oZBtnmiLrunDFMC {
     cursor: pointer;
     font-size: 16px;
-    padding: 1px 10px 2px 10px;
+    padding: 0px 10px 2px 10px;
     border-radius: 50px;
     margin-left: 3px;
     border: 2px solid white;
@@ -2022,15 +2022,10 @@ button {
 
 .VUXahzbNUTWtiZa {
     width: 100%;
-    /*overflow-x: hidden;*/
-    /*overflow-y: auto;*/
-    /*scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
-    scrollbar-width: thin;*/
     display: table;
+    /*border-collapse: collapse;*/
     border-collapse: separate;
     border-spacing: 0 8px;
-    
-
 }
 
     .VUXahzbNUTWtiZa thead {
@@ -2045,21 +2040,36 @@ button {
             color: rgba(255, 255, 255, 0.8);
             font-size: 15px;
             user-select: none;
-            /*cursor: help;*/
+            border-right: 4px double rgba(255, 255, 255, 0.2);
         }
 
+            .VUXahzbNUTWtiZa thead tr th:last-child {
+                border: none;
+            }
+
         .VUXahzbNUTWtiZa thead tr th:nth-child(3) {
-            max-width: 100px;
-            text-overflow: ellipsis;
+            /*max-width: 100px;*/
+            /*text-overflow: ellipsis;
             white-space: nowrap;
-            overflow: hidden;
+            overflow: hidden;*/
         }
 
     .VUXahzbNUTWtiZa tr th, .VUXahzbNUTWtiZa tr td {
         padding-left: 20px;
-        max-width: 100px;
-        
+        padding-right: 20px;
+        /*max-width: 100px;*/
     }
+
+    .VUXahzbNUTWtiZa tr td {
+        border-right: 4px double rgba(255, 255, 255, 0.2);
+    }
+
+        .VUXahzbNUTWtiZa tr td:last-child {
+            border: none;
+            padding-left: 0;
+            padding-right: 0;
+            min-width: 100px;
+        }
 
 .EmRSNqsShbDnTsE {
     height: 60px;
