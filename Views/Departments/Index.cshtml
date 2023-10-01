@@ -10,13 +10,52 @@
 <div class="parent">
     <section class="left-nav">
         @Html.Partial("_Settings")
-        <div id="dragAndDropWorker" style="display: none;">
+        @*<div id="dragAndDropWorker" style="display: none;">
             <span>W celu zmiany przydziału pracownika, przeciągnij i upuść ich do jednego z działów.</span>
-        </div>
+        </div>*@
     </section>
     <section class="right-nav right-nav-flex">
        
-        <div class="right-nav-parent2">
+        <div class="ECTosDyufuTqvBV">
+            @*<div class="ECTosDyufuTqvBV_"></div>*@
+            @if (Model != null)
+            {
+                var r = Model.GroupBy(x => x.Name).Select(x => x.First());
+                foreach (var item in r)
+                {
+                    <input class="kzQkCNWOiUhJxRl" value="@item.Name" type="radio" name="name" id="@item.Id" onclick="bxDzoLwDZzickPI(this)" hidden />
+                    <label class="oZBtnmiLrunDFMC" for="@item.Id">@item.Name</label>
+                }
+            }
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        @*<div class="right-nav-parent2">
 
             <!---->
             <div class="right-nav-parent">
@@ -142,8 +181,9 @@
             </div>
 
             
-        </div>
+        </div>*@
     </section>
+
 </div>
 <div id="QmRrlOQPQW" class="pGKcZvErUB" style="display: none;">
     <form class="form_">
@@ -238,6 +278,69 @@
 
     let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[1];
     selected.classList.add('settings_a_selected');
+
+
+
+    function bxDzoLwDZzickPI(t) {
+        t.scrollIntoView(true);
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     let osoby = document.querySelectorAll('#osoby');

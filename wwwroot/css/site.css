@@ -1170,6 +1170,18 @@ button {
     align-items: center;
 }
 
+/*.ECTosDyufuTqvBV_ {
+    --mask: linear-gradient(to left, rgba(0,0,0, 1) 0, rgba(0,0,0, 1) 50%, rgba(0,0,0, 1) 70%, rgba(0,0,0, 1) 95%, rgba(0,0,0, 0) 100%, rgba(0,0,0, 0) 0 ) 100% 50% / 100% 100% repeat-x;
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
+    height: 40px;
+    min-width: 40px;
+    position: absolute;
+    z-index: 1;
+    background-color: lightgreen;
+    
+}*/
+
 .oZBtnmiLrunDFMC {
     cursor: pointer;
     font-size: 16px;
@@ -1177,6 +1189,7 @@ button {
     border-radius: 50px;
     margin-left: 3px;
     border: 2px solid white;
+    white-space: nowrap;
 }
 
     .oZBtnmiLrunDFMC:hover {
@@ -2038,7 +2051,18 @@ button {
             font-size: 15px;
             user-select: none;
             /*border-right: 4px double rgba(255, 255, 255, 0.2);*/
+            white-space: nowrap;
+            
         }
+
+            .VUXahzbNUTWtiZa thead tr th svg {
+                fill: rgba(255, 255, 255, 0.6);
+                transform: translateY(-1px);
+            }
+
+                .VUXahzbNUTWtiZa thead tr th svg:hover {
+                    fill: rgba(255, 255, 255, 0.8);
+                }
 
             .VUXahzbNUTWtiZa thead tr th:last-child {
                 border: none;
