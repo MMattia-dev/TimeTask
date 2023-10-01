@@ -86,12 +86,12 @@
             <table class="VUXahzbNUTWtiZa" id="tableId">
                 <thead>
                     <tr>
-                        <th title="Nazwa">Nazwa</th>
+                        <th title="Nazwa urlopu">Nazwa</th>
                         <th title="Komentarz">Komentarz</th>
                         <th title="Maksymalna długość urlopu">Maks.</th> <!-- długość urlopu -->
-                        <th title="Czy do urlopu wliczają się soboty i niedziele?">Weekendy</th>
-                        <th title="Czy do urlopu wliczają się święta?">Święta</th>
-                        <th></th>
+                        <th title="Czy do urlopu wliczają się soboty i niedziele">Weekendy</th>
+                        <th title="Czy do urlopu wliczają się święta">Święta</th>
+                        <th>Opcje</th>
                         <!--text-align: right; padding-right: 20px; width: 100px;-->
                     </tr>
                 </thead>
@@ -272,7 +272,7 @@ function resizableGrid(table) {
  
  var tableHeight = table.offsetHeight;
  
- for (var i=0;i<cols.length;i++){
+ for (var i=0;i<cols.length-2;i++){
   var div = createDiv(tableHeight);
   cols[i].appendChild(div);
   cols[i].style.position = 'relative';
@@ -296,11 +296,12 @@ function resizableGrid(table) {
 
   div.addEventListener('mouseover', function (e) {
    e.target.style.borderRight = '4px double rgb(150, 150, 150)';
-   e.target.style.transform = 'translateX(4px)';
+   @*e.target.style.transform = 'translateX(4px)';*@
   })
 
   div.addEventListener('mouseout', function (e) {
-   e.target.style.borderRight = '';
+   @*e.target.style.borderRight = '';*@
+     e.target.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
   })
 
   document.addEventListener('mousemove', function (e) {
@@ -331,7 +332,12 @@ function resizableGrid(table) {
   div.style.position = 'absolute';
   div.style.cursor = 'col-resize';
   div.style.userSelect = 'none';
-  div.style.height = height + 'px';
+  @*div.style.height = height + 'px';*@
+  div.style.height = '52px';
+  div.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
+  div.style.transform = 'translatex(2px)';
+  div.innerHTML += `<i class="arrow left"></i><i class="arrow right"></i>`;
+
   return div;
  }
  

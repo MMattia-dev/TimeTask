@@ -2023,7 +2023,6 @@ button {
 .VUXahzbNUTWtiZa {
     width: 100%;
     display: table;
-    /*border-collapse: collapse;*/
     border-collapse: separate;
     border-spacing: 0 8px;
 }
@@ -2032,36 +2031,30 @@ button {
         height: 52px;
         max-height: 52px;
         min-height: 52px;
-        /*position: sticky;
-        top: 0;*/
     }
 
         .VUXahzbNUTWtiZa thead tr th {
             color: rgba(255, 255, 255, 0.8);
             font-size: 15px;
             user-select: none;
-            border-right: 4px double rgba(255, 255, 255, 0.2);
+            /*border-right: 4px double rgba(255, 255, 255, 0.2);*/
         }
 
             .VUXahzbNUTWtiZa thead tr th:last-child {
                 border: none;
             }
 
-        .VUXahzbNUTWtiZa thead tr th:nth-child(3) {
-            /*max-width: 100px;*/
-            /*text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;*/
-        }
+            .VUXahzbNUTWtiZa thead tr th:nth-last-child(2) {
+                border-right: 1px solid rgba(255, 255, 255, 0.2);
+            }
 
     .VUXahzbNUTWtiZa tr th, .VUXahzbNUTWtiZa tr td {
         padding-left: 20px;
         padding-right: 20px;
-        /*max-width: 100px;*/
     }
 
     .VUXahzbNUTWtiZa tr td {
-        border-right: 4px double rgba(255, 255, 255, 0.2);
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
     }
 
         .VUXahzbNUTWtiZa tr td:last-child {
@@ -2073,6 +2066,33 @@ button {
             width: 100px;
             text-align: center;
         }
+
+.arrow {
+    border: solid rgba(255, 255, 255, 0.4);
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 2px;
+    cursor: default;
+    pointer-events: none;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    position: absolute;
+    right: -12px;
+    top: 24px;
+}
+
+.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    position: absolute;
+    right: 2px;
+    top: 24px;
+}
+
+
 
 .EmRSNqsShbDnTsE {
     height: 60px;

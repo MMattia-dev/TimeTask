@@ -38,7 +38,7 @@
                         <tr>
                             <th>Data</th>
                             <th>Nazwa</th>
-                            <th></th>
+                            <th>Opcje</th>
                             <!--text-align: right; padding-right: 20px; width: 100px;-->
                         </tr>
                     </thead>
@@ -126,7 +126,7 @@ function resizableGrid(table) {
  
  var tableHeight = table.offsetHeight;
  
- for (var i=0;i<cols.length;i++){
+ for (var i=0;i<cols.length - 2;i++){
   var div = createDiv(tableHeight);
   cols[i].appendChild(div);
   cols[i].style.position = 'relative';
@@ -151,11 +151,10 @@ function resizableGrid(table) {
 
   div.addEventListener('mouseover', function (e) {
    e.target.style.borderRight = '4px double rgb(150, 150, 150)';
-   e.target.style.transform = 'translateX(4px)';
   })
 
   div.addEventListener('mouseout', function (e) {
-   e.target.style.borderRight = '';
+   e.target.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
   })
 
   document.addEventListener('mousemove', function (e) {
@@ -182,14 +181,17 @@ function resizableGrid(table) {
   var div = document.createElement('div');
   div.style.top = 0;
   div.style.right = 0;
-  div.style.width = '5px';
+  div.style.width = '4px';
   div.style.position = 'absolute';
   div.style.cursor = 'col-resize';
   div.style.userSelect = 'none';
-  div.style.height = height + 'px';
-  @*div.style.height = '100vh';*@
-  return div;
+  @*div.style.height = height + 'px';*@
+  div.style.height = '52px';
+  div.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
+  div.style.transform = 'translateX(2px)';
+  div.innerHTML += `<i class="arrow left"></i><i class="arrow right"></i>`;
 
+  return div;
  }
  
  function paddingDiff(col){
