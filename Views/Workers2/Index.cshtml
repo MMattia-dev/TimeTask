@@ -1,67 +1,346 @@
 ﻿@model IEnumerable<TimeTask.Models.Workers2>
+@using Newtonsoft.Json
 
 @{
     ViewData["Title"] = "Index";
 }
 
-@*<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Surname)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DepartmentID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Employed)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Surname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepartmentID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Employed)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-*@
+<link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
 
 <div class="parent">
     <section class="left-nav">
         @Html.Partial("_Settings");
     </section>
     <section class="right-nav">
+
+        <div class="kxOMhDZFzkDb">
+            <div class="ECTosDyufuTqvBV">
+                @*@if (Model != null)
+                {
+                    var r = Model.GroupBy(x => x.DepartmentID).Select(x => x.First());
+                    foreach (var item in r.OrderBy(x => x.DepartmentID))
+                    {
+                        <input class="kzQkCNWOiUhJxRl" value="@item.DepartmentID" type="radio" name="name" id="@item.Id" onclick="bxDzoLwDZzickPI(this)" hidden />
+                        <label class="oZBtnmiLrunDFMC" for="@item.Id">@item.DepartmentID</label>
+                    }
+                }*@
+
+                @*<input type="button" class="oZBtnmiLrunDFMC uyGcnHMadlagzhh" id="dWaFnMJPHpXnJhm" value="Nowy dział"/>*@
+            </div>
+
+            <div class="IVnxgCORpPYL" onclick="fwsxYepQKkCq()">
+                <span>Nowy pracownik</span>
+                @*<svg viewBox="0 0 16 16" width="20" height="20"><path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path></svg>*@
+            </div>
+        </div>
+
+        <div class="YUPrikbkYzkc">
+            @if (Model != null)
+            {
+                <table class="VUXahzbNUTWtiZa" id="tableId">
+                    <thead>
+                        <tr>
+                            <th style="width: 100px;">ID</th>
+                            <th style="width: 50%;">Nazwisko</th>
+                            <th>Imię</th>
+                            <th>Opcje</th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model.OrderBy(x => x.Surname))
+                    {
+                        <tr class="EmRSNqsShbDnTsE" id="@item.DepartmentID">
+                            <td>@item.Id</td>
+                            <td>@item.Surname</td>
+                            <td>@item.Name</td>
+                            <td>
+                                <a onclick="EYwnRBQDFEHjzsN(this)" id="@item.Id" name="@item.Name" dep="@item.DepartmentID" title="Edytuj"><svg viewBox="0 0 512 512" height="16" width="16"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg></a>
+                                <a onclick="hFUdwiFlMmxASVH(this)" id="@item.Id" name="@item.Name" dep="@item.DepartmentID" title="Usuń"><svg viewBox="0 0 469.404 469.404" height="16" width="16"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            }
+
+
+
+        </div>
+
     </section>
+</div>
+
+<div id="QmRrlOQPQW" class="pGKcZvErUB" style="display: none;">
+    <form class="form_">
+        <div class="form-group">
+            <input class="form-control" autocomplete="off" placeholder="imię pracownika..." id="GVegODKbEh" />
+        </div>
+        <div class="form-group form-group-margin">
+            <input class="form-control" autocomplete="off" placeholder="nazwisko pracownika..." id="toPdQnPuvH" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Zapisz" class="btn-custom" onclick="TEqGSwRYnu()" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" onclick="EYVOxDPdHV()" />
+        </div>
+    </form>
+</div>
+
+<div id="XOrtKNkAwk" class="pGKcZvErUB" style="display: none;">
+    <form>
+        <div class="form-group form-group-margin">
+            <input class="form-control" autocomplete="off" placeholder="nazwa działu..." id="svFbsOqCAR" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Zapisz" class="btn-custom" onclick="GuDpHEcfHN()" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" onclick="bmIRCNZNky()" />
+        </div>
+    </form>
+</div>
+
+<div id="uLTJNrstvNEQ" class="pGKcZvErUB" style="display: none;">
+    <form>
+        <div class="form-group form-group-margin">
+            <input class="form-control" autocomplete="off" placeholder="nazwa działu..." id="coVYuzZVCFxh" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Zapisz" class="btn-custom" onclick="KOdkyXQcUVJW()" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" onclick="NlckkxcEbWXv()" />
+        </div>
+    </form>
+</div>
+
+<div id="PNujBEeIildr" class="pGKcZvErUB" style="display: none;">
+    <form>
+        <span id="JsFfTXmLOVbI" class="nknRtrdeAeIX">@Resource.ClickBelowToDelete @Resource.DepartmentLowecase.</span>
+        <input type="button" value="@Resource.Delete" class="btn-danger-custom" id="deleteID" onclick="IWantToDeleteDepartment(this)" />
+        <div class="btn-danger-div" id="bAWzKvvkmVmE">
+            <input type="button" value="Tak" id="nditIlzCWflU" onclick="adqwBJykaCzQ()" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" onclick="UOspQSjpbVdS()" />
+        </div>
+    </form>
+</div>
+
+<div id="jwOsncySQjwD" class="pGKcZvErUB" style="display: none;">
+    <form class="form_">
+        <div class="form-group">
+            <input class="form-control" autocomplete="off" placeholder="imię pracownika..." id="qxZnTneGdrVW" />
+        </div>
+        <div class="form-group form-group-margin">
+            <input class="form-control" autocomplete="off" placeholder="nazwisko pracownika..." id="xEjLBIPqUXLK" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Zapisz" class="btn-custom" onclick="KfdhlqmDXEsR()" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" onclick="vQaAzODstzsu()" />
+        </div>
+    </form>
+</div>
+
+<div id="UwCmLRqIRSZM" class="pGKcZvErUB" style="display: none;">
+    <form class="jbiihcodqinw">
+        <span id="zwQBaubcYWcJ" class="nknRtrdeAeIX">@Resource.ClickBelowToDeleteWorker.</span>
+        <input type="button" value="@Resource.Delete" class="btn-danger-custom" id="deleteID" onclick="fBTJyaaQRpDf(this)" />
+        <div class="btn-danger-div" id="FamcDfiHIvhi">
+            <input type="button" value="Tak" id="XSkMvvmEXCee" onclick="dDlRcSCJZAuO()" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" onclick="UOspQSjpbVdS()" />
+        </div>
+    </form>
 </div>
 
 <script type="text/javascript">
     //let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[2];
     //selected.classList.add('settings_a_selected');
+
+    var model_w = @Html.Raw(JsonConvert.SerializeObject(Model));
+    var model_d = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Department));
+
+    let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[1];
+    selected.classList.add('settings_a_selected');
+
+
+
+    let ECTosDyufuTqvBV = document.querySelector('.ECTosDyufuTqvBV');
+    model_d.sort(function (a, b)
+    {
+        if (a.Name < b.Name)
+        {
+            return -1;
+        }
+        if (a.Name > b.Name)
+        {
+            return 1;
+        }
+        return 0;
+    });
+    for(let i = 0; i < model_d.length; i++){
+        ECTosDyufuTqvBV.innerHTML += `<input class="kzQkCNWOiUhJxRl" value="` + model_d[i].Name + `" type="radio" name="name" id="` + model_d[i].Id + `" onclick="bxDzoLwDZzickPI(this)" hidden />` +
+            `<label class="oZBtnmiLrunDFMC" for="` + model_d[i].Id + `">` + model_d[i].Name + `</label>`;
+    }
+    ECTosDyufuTqvBV.innerHTML += `<input type="button" class="oZBtnmiLrunDFMC uyGcnHMadlagzhh" id="dWaFnMJPHpXnJhm" value="Nowy dział"/>`;
+
+    let kzQkCNWOiUhJxRl_array = document.querySelectorAll('.kzQkCNWOiUhJxRl');
+    if (sessionStorage.getItem('qbMvtjjezfxSFsv') != null)
+    {
+        for (let i = 0; i < kzQkCNWOiUhJxRl_array.length; i++)
+        {
+            if (kzQkCNWOiUhJxRl_array[i].id == sessionStorage.getItem('qbMvtjjezfxSFsv'))
+            {
+                $(kzQkCNWOiUhJxRl_array[i]).trigger('click');
+            }
+        }
+    }
+    else
+    {
+        $(kzQkCNWOiUhJxRl_array[0]).trigger('click');
+    }
+
+    function bxDzoLwDZzickPI(t)
+    {
+        let id = t.id;
+        let children = $(t).parent().children();
+        let VUXahzbNUTWtiZa = document.querySelectorAll('.VUXahzbNUTWtiZa tbody tr');
+        for (let i = 0; i < children.length; i++)
+        {
+            let for_ = $(children[i]).attr('for');
+            if (id == for_ && children[i].tagName.toLowerCase() == 'label')
+            {
+                sessionStorage.setItem('qbMvtjjezfxSFsv', for_);
+
+                let ECTosDyufuTqvBV = document.querySelector('.ECTosDyufuTqvBV');
+                let element = children[i];
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    //inline: 'start',
+                    block: 'nearest'
+                });
+            }
+        }
+
+        for (let j = 0; j < VUXahzbNUTWtiZa.length; j++)
+        {
+            let depID = VUXahzbNUTWtiZa[j].id;
+            if (depID == id)
+            {
+                $(VUXahzbNUTWtiZa[j]).show();
+            }
+            else
+            {
+                $(VUXahzbNUTWtiZa[j]).hide();
+            }
+        }
+    };
+
+    var tables = document.getElementsByTagName('table');
+for (var i=0; i<tables.length;i++){
+ resizableGrid(tables[i]);
+}
+
+function resizableGrid(table) {
+ var row = table.getElementsByTagName('tr')[0],
+ cols = row ? row.children : undefined;
+ if (!cols) return;
+ 
+ table.style.overflow = 'hidden';
+ 
+ var tableHeight = table.offsetHeight;
+ 
+ for (var i=0;i<cols.length-2;i++){
+  var div = createDiv(tableHeight);
+  cols[i].appendChild(div);
+  cols[i].style.position = 'relative';
+  setListeners(div);
+ }
+
+ function setListeners(div){
+  var pageX,curCol,nxtCol,curColWidth,nxtColWidth;
+
+  div.addEventListener('mousedown', function (e) {
+   curCol = e.target.parentElement;
+   nxtCol = curCol.nextElementSibling;
+   pageX = e.pageX; 
+ 
+   var padding = paddingDiff(curCol);
+ 
+   curColWidth = curCol.offsetWidth - padding;
+   if (nxtCol)
+    nxtColWidth = nxtCol.offsetWidth - padding;
+  });
+
+  div.addEventListener('mouseover', function (e) {
+   e.target.style.borderRight = '4px double rgb(150, 150, 150)';
+   @*e.target.style.transform = 'translateX(4px)';*@
+  })
+
+  div.addEventListener('mouseout', function (e) {
+   @*e.target.style.borderRight = '';*@
+     e.target.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
+  })
+
+  document.addEventListener('mousemove', function (e) {
+   if (curCol) {
+    var diffX = e.pageX - pageX;
+ 
+    if (nxtCol)
+     nxtCol.style.width = (nxtColWidth - (diffX))+'px';
+
+    curCol.style.width = (curColWidth + diffX)+'px';
+   }
+  });
+
+  document.addEventListener('mouseup', function (e) { 
+   curCol = undefined;
+   nxtCol = undefined;
+   pageX = undefined;
+   nxtColWidth = undefined;
+   curColWidth = undefined
+  });
+ }
+ 
+ function createDiv(height){
+  var div = document.createElement('div');
+  div.style.top = 0;
+  div.style.right = 0;
+  div.style.width = '5px';
+  div.style.position = 'absolute';
+  div.style.cursor = 'col-resize';
+  div.style.userSelect = 'none';
+  @*div.style.height = height + 'px';*@
+  div.style.height = '52px';
+  div.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
+  //div.style.transform = 'translatex(2px)';
+  div.innerHTML += `<i class="arrow left"></i><i class="arrow right"></i>`;
+
+  return div;
+ }
+ 
+ function paddingDiff(col){
+ 
+  if (getStyleVal(col,'box-sizing') == 'border-box'){
+   return 0;
+  }
+ 
+  var padLeft = getStyleVal(col,'padding-left');
+  var padRight = getStyleVal(col,'padding-right');
+  return (parseInt(padLeft) + parseInt(padRight));
+
+ }
+
+ function getStyleVal(elm,css){
+  return (window.getComputedStyle(elm, null).getPropertyValue(css))
+ }
+};
+
+
+
+
 </script>

@@ -38,8 +38,14 @@
         <div class="YUPrikbkYzkc">
             @if (Model != null)
             {
-                <table class="VUXahzbNUTWtiZa">
-
+                <table class="VUXahzbNUTWtiZa" id="tableId">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Nazwa</th>
+                            <th>Opcje</th>
+                        </tr>
+                    </thead>
                 </table>
             }
 
@@ -316,15 +322,15 @@
         for(let i = 0; i < children.length; i++){
             let for_ = $(children[i]).attr('for');
             if(id == for_ && children[i].tagName.toLowerCase() == 'label'){
-                //children[i].scrollIntoView();
 
                 sessionStorage.setItem('qbMvtjjezfxSFsv', for_);
 
-                //children[i].scrollIntoView({behavior: 'smooth',});
-                let ECTosDyufuTqvBV_ = $(t).parent();
-                
-
-
+                let ECTosDyufuTqvBV = document.querySelector('.ECTosDyufuTqvBV');
+                let element = children[i];
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    inline: 'start'
+                });
             }
         }
     };

@@ -23,7 +23,9 @@ namespace TimeTask.Controllers
         // GET: Workers2
         public async Task<IActionResult> Index()
         {
-              return _context.Workers2 != null ? 
+            ViewBag.Department = _context.Department;
+
+            return _context.Workers2 != null ? 
                           View(await _context.Workers2.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Workers2'  is null.");
         }
