@@ -16,23 +16,40 @@
     </section>
     <section class="right-nav right-nav-flex">
        
-        <div class="ECTosDyufuTqvBV">
-            @*<div class="ECTosDyufuTqvBV_"></div>*@
+        <div class="kxOMhDZFzkDb">
+            <div class="ECTosDyufuTqvBV">
+                @*<div class="ECTosDyufuTqvBV_"></div>*@
+                @if (Model != null)
+                {
+                    var r = Model.GroupBy(x => x.Name).Select(x => x.First());
+                    foreach (var item in r.OrderBy(x => x.Name))
+                    {
+                        <input class="kzQkCNWOiUhJxRl" value="@item.Name" type="radio" name="name" id="@item.Id" onclick="bxDzoLwDZzickPI(this)" hidden />
+                        <label class="oZBtnmiLrunDFMC" for="@item.Id">@item.Name</label>
+                    }
+                }
+            </div>
+
+            <div class="IVnxgCORpPYL" onclick="fwsxYepQKkCq()">
+                <span>Dodaj nowego pracownika</span>
+            </div>
+        </div>
+        
+        <div class="YUPrikbkYzkc">
             @if (Model != null)
             {
-                var r = Model.GroupBy(x => x.Name).Select(x => x.First());
-                foreach (var item in r)
-                {
-                    <input class="kzQkCNWOiUhJxRl" value="@item.Name" type="radio" name="name" id="@item.Id" onclick="bxDzoLwDZzickPI(this)" hidden />
-                    <label class="oZBtnmiLrunDFMC" for="@item.Id">@item.Name</label>
-                }
+                <table class="VUXahzbNUTWtiZa">
+
+                </table>
             }
+
+            
+
         </div>
 
+        
 
-
-
-
+        
 
 
 
@@ -278,14 +295,41 @@
 
     let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[1];
     selected.classList.add('settings_a_selected');
+    //
 
 
+    let kzQkCNWOiUhJxRl_array = document.querySelectorAll('.kzQkCNWOiUhJxRl');
+    if(sessionStorage.getItem('qbMvtjjezfxSFsv') != null){
+        for(let i = 0; i < kzQkCNWOiUhJxRl_array.length; i++){
+            if(kzQkCNWOiUhJxRl_array[i].id == sessionStorage.getItem('qbMvtjjezfxSFsv')){
+                $(kzQkCNWOiUhJxRl_array[i]).trigger('click');
+            }
+        }
+    }
+    else {
+        $(kzQkCNWOiUhJxRl_array[0]).trigger('click');
+    }
 
     function bxDzoLwDZzickPI(t) {
-        t.scrollIntoView(true);
+        let id = t.id;
+        let children = $(t).parent().children();
+        for(let i = 0; i < children.length; i++){
+            let for_ = $(children[i]).attr('for');
+            if(id == for_ && children[i].tagName.toLowerCase() == 'label'){
+                //children[i].scrollIntoView();
+
+                sessionStorage.setItem('qbMvtjjezfxSFsv', for_);
+
+                //children[i].scrollIntoView({behavior: 'smooth',});
+                let ECTosDyufuTqvBV_ = $(t).parent();
+                
+
+
+            }
+        }
     };
 
-
+    //
 
 
 

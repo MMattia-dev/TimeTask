@@ -1084,7 +1084,7 @@ button {
     display: flex;
     height: auto;
     width: 100%;
-    align-items: center;
+    /*align-items: center;*/
     justify-content: space-between;
     margin-bottom: 8px;
     gap: 20px;
