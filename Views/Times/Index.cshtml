@@ -84,27 +84,30 @@
 
         <div class="YUPrikbkYzkc">
 
-            <table class="VUXahzbNUTWtiZa" id="tableId">
+            <table class="VUXahzbNUTWtiZa sortable" id="tableId">
                 <thead>
                     <tr>
                         <th>Nazwa</th>
                         <th>Komentarz</th>
                         <th>
+                            @*Maks.*@
                             <span>Maks.</span>
                             <svg viewBox="0 0 12 12" width="15px" height="15px">
                                 <path d="M6,0C2.6862793,0,0,2.6862793,0,6s2.6862793,6,6,6s6-2.6862793,6-6S9.3137207,0,6,0z M6.5,9.5h-1v-1h1V9.5z   M7.2651367,6.1738281C6.7329102,6.5068359,6.5,6.6845703,6.5,7v0.5h-1V7c0-0.9023438,0.7138672-1.3486328,1.2348633-1.6738281  C7.2670898,4.9931641,7.5,4.8154297,7.5,4.5c0-0.5517578-0.4487305-1-1-1h-1c-0.5512695,0-1,0.4482422-1,1V5h-1V4.5  c0-1.1025391,0.8969727-2,2-2h1c1.1030273,0,2,0.8974609,2,2C8.5,5.4023438,7.7861328,5.8486328,7.2651367,6.1738281z"></path>
                                 <title>Maksymalna długość urlopu</title>
                             </svg>
                         </th>
-                        <th>
-                            <span>Weekendy</span>
+                        <th class="MSqNklVuATDPbHk">
+                            @*Weekendy*@
+                            <span class="FkyNgSytCCecyIP">Weekendy</span>
                             <svg viewBox="0 0 12 12" width="15px" height="15px">
                                 <path d="M6,0C2.6862793,0,0,2.6862793,0,6s2.6862793,6,6,6s6-2.6862793,6-6S9.3137207,0,6,0z M6.5,9.5h-1v-1h1V9.5z   M7.2651367,6.1738281C6.7329102,6.5068359,6.5,6.6845703,6.5,7v0.5h-1V7c0-0.9023438,0.7138672-1.3486328,1.2348633-1.6738281  C7.2670898,4.9931641,7.5,4.8154297,7.5,4.5c0-0.5517578-0.4487305-1-1-1h-1c-0.5512695,0-1,0.4482422-1,1V5h-1V4.5  c0-1.1025391,0.8969727-2,2-2h1c1.1030273,0,2,0.8974609,2,2C8.5,5.4023438,7.7861328,5.8486328,7.2651367,6.1738281z"></path>
                                 <title>Czy do urlopu wliczają się soboty i niedziele</title>
                             </svg>
                         </th>
-                        <th>
-                            <span>Święta</span> 
+                        <th class="MSqNklVuATDPbHk">
+                            @*Święta*@
+                            <span class="FkyNgSytCCecyIP">Święta</span>
                             <svg viewBox="0 0 12 12" width="15px" height="15px">
                                 <path d="M6,0C2.6862793,0,0,2.6862793,0,6s2.6862793,6,6,6s6-2.6862793,6-6S9.3137207,0,6,0z M6.5,9.5h-1v-1h1V9.5z   M7.2651367,6.1738281C6.7329102,6.5068359,6.5,6.6845703,6.5,7v0.5h-1V7c0-0.9023438,0.7138672-1.3486328,1.2348633-1.6738281  C7.2670898,4.9931641,7.5,4.8154297,7.5,4.5c0-0.5517578-0.4487305-1-1-1h-1c-0.5512695,0-1,0.4482422-1,1V5h-1V4.5  c0-1.1025391,0.8969727-2,2-2h1c1.1030273,0,2,0.8974609,2,2C8.5,5.4023438,7.7861328,5.8486328,7.2651367,6.1738281z"></path>
                                 <title>Czy do urlopu wliczają się święta</title>
@@ -275,9 +278,11 @@
     </form>
 </div>
 
+<script type="text/javascript" src="~/js/sorttable.js"></script>
+
 <script type="text/javascript">
 
-    var tables = document.getElementsByTagName('table');
+var tables = document.getElementsByTagName('table');
 for (var i=0; i<tables.length;i++){
  resizableGrid(tables[i]);
 }
@@ -314,13 +319,11 @@ function resizableGrid(table) {
   });
 
   div.addEventListener('mouseover', function (e) {
-   e.target.style.borderRight = '4px double rgb(150, 150, 150)';
-   @*e.target.style.transform = 'translateX(4px)';*@
+   //e.target.style.borderRight = '4px double rgb(150, 150, 150)';
   })
 
   div.addEventListener('mouseout', function (e) {
-   @*e.target.style.borderRight = '';*@
-     e.target.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
+     //e.target.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
   })
 
   document.addEventListener('mousemove', function (e) {
@@ -347,18 +350,30 @@ function resizableGrid(table) {
   var div = document.createElement('div');
   div.style.top = 0;
   div.style.right = 0;
-  div.style.width = '5px';
+  //div.style.width = '5px';
+  div.style.width = '23px';
+  //div.style.backgroundColor = 'rgba(255, 0, 0, 0.4)';
+  div.style.zIndex = '1';
   div.style.position = 'absolute';
   div.style.cursor = 'col-resize';
   div.style.userSelect = 'none';
   @*div.style.height = height + 'px';*@
   div.style.height = '52px';
-  div.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
-  @*div.style.transform = 'translatex(2px)';*@
-  div.innerHTML += `<i class="arrow left"></i><i class="arrow right"></i>`;
+  //div.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
+
+  //div.style.right = '-10px';
+
+  div.style.transform = 'translatex(10px)';
+  div.innerHTML += `<i class="arrow left"></i> <div class="lines line1"></div> <div class="lines line2"></div> <i class="arrow right"></i>`;//<div class="lines line1"></div> <div class="lines line2"></div>
+  div.setAttribute('id', 'GRgYMQCkHWKDuyb');
+  div.setAttribute('onmouseover', 'ZKHOrDgJBDHOpmW(this)');
+  div.setAttribute('onmouseout', 'pNxCxvPIUtCbSHM(this)');
+  div.setAttribute('onclick', 'kEDVBzpHnAzOqpp(this, event)');
 
   return div;
  }
+
+
  
  function paddingDiff(col){
  
@@ -377,6 +392,23 @@ function resizableGrid(table) {
  }
 };
 
+
+
+function kEDVBzpHnAzOqpp(t, e){
+    e.stopPropagation();
+};
+
+function ZKHOrDgJBDHOpmW(t){
+    if($(t).attr('id') == 'GRgYMQCkHWKDuyb'){
+        $(t).parent().addClass('qDIGovQQrGkMAIm');
+    }   
+};
+
+function pNxCxvPIUtCbSHM(t){
+    if($(t).attr('id') == 'GRgYMQCkHWKDuyb'){
+        $(t).parent().removeClass('qDIGovQQrGkMAIm');
+    } 
+}
 
 
 
@@ -784,5 +816,7 @@ function resizableGrid(table) {
             }
         }
     };
+
+
 
 </script>

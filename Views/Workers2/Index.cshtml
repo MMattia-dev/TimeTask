@@ -37,12 +37,12 @@
         <div class="YUPrikbkYzkc">
             @if (Model != null)
             {
-                <table class="VUXahzbNUTWtiZa" id="tableId">
+                <table class="VUXahzbNUTWtiZa sortable" id="tableId">
                     <thead>
                         <tr>
                             <th style="width: 100px;">ID</th>
                             <th style="width: 50%;">Nazwisko</th>
-                            <th>Imię</th>
+                            <th >Imię</th>
                             <th>Opcje</th>
                         </tr>
                     </thead>
@@ -157,6 +157,8 @@
     </form>
 </div>
 
+<script type="text/javascript" src="~/js/sorttable.js"></script>
+
 <script type="text/javascript">
     //let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[2];
     //selected.classList.add('settings_a_selected');
@@ -240,7 +242,7 @@
         }
     };
 
-    var tables = document.getElementsByTagName('table');
+var tables = document.getElementsByTagName('table');
 for (var i=0; i<tables.length;i++){
  resizableGrid(tables[i]);
 }
@@ -277,13 +279,11 @@ function resizableGrid(table) {
   });
 
   div.addEventListener('mouseover', function (e) {
-   e.target.style.borderRight = '4px double rgb(150, 150, 150)';
-   @*e.target.style.transform = 'translateX(4px)';*@
+   //e.target.style.borderRight = '4px double rgb(150, 150, 150)';
   })
 
   div.addEventListener('mouseout', function (e) {
-   @*e.target.style.borderRight = '';*@
-     e.target.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
+     //e.target.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
   })
 
   document.addEventListener('mousemove', function (e) {
@@ -310,18 +310,30 @@ function resizableGrid(table) {
   var div = document.createElement('div');
   div.style.top = 0;
   div.style.right = 0;
-  div.style.width = '5px';
+  //div.style.width = '5px';
+  div.style.width = '23px';
+  //div.style.backgroundColor = 'rgba(255, 0, 0, 0.4)';
+  div.style.zIndex = '1';
   div.style.position = 'absolute';
   div.style.cursor = 'col-resize';
   div.style.userSelect = 'none';
   @*div.style.height = height + 'px';*@
   div.style.height = '52px';
-  div.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
-  //div.style.transform = 'translatex(2px)';
-  div.innerHTML += `<i class="arrow left"></i><i class="arrow right"></i>`;
+  //div.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
+
+  //div.style.right = '-10px';
+
+  div.style.transform = 'translatex(10px)';
+  div.innerHTML += `<i class="arrow left"></i> <div class="lines line1"></div> <div class="lines line2"></div> <i class="arrow right"></i>`;//<div class="lines line1"></div> <div class="lines line2"></div>
+  div.setAttribute('id', 'GRgYMQCkHWKDuyb');
+  div.setAttribute('onmouseover', 'ZKHOrDgJBDHOpmW(this)');
+  div.setAttribute('onmouseout', 'pNxCxvPIUtCbSHM(this)');
+  div.setAttribute('onclick', 'kEDVBzpHnAzOqpp(this, event)');
 
   return div;
  }
+
+
  
  function paddingDiff(col){
  
@@ -342,5 +354,20 @@ function resizableGrid(table) {
 
 
 
+function kEDVBzpHnAzOqpp(t, e){
+    e.stopPropagation();
+};
+
+function ZKHOrDgJBDHOpmW(t){
+    if($(t).attr('id') == 'GRgYMQCkHWKDuyb'){
+        $(t).parent().addClass('qDIGovQQrGkMAIm');
+    }   
+};
+
+function pNxCxvPIUtCbSHM(t){
+    if($(t).attr('id') == 'GRgYMQCkHWKDuyb'){
+        $(t).parent().removeClass('qDIGovQQrGkMAIm');
+    } 
+}
 
 </script>

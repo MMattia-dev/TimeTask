@@ -34,7 +34,7 @@
         <div class="YUPrikbkYzkc">
             @if (Model != null)
             {
-                <table class="VUXahzbNUTWtiZa" id="tableId">
+                <table class="VUXahzbNUTWtiZa sortable" id="tableId">
                     <thead>
                         <tr>
                             <th>Data</th>
@@ -46,7 +46,7 @@
                     @foreach (var item in Model.OrderBy(x => x.Date))
                     {
                         <tr class="EmRSNqsShbDnTsE fQOipKjlgeboVkZ" style="display: none;" id="@item.Date.Year">
-                            <td id="@item.Date.Year">@item.Date.ToShortDateString()</td>
+                            <td id="@item.Date.Year">@item.Date.ToString("yyyy-MM-dd")</td>
                             <td>@item.Name</td>
                             <td>
                                 <a onclick="EYwnRBQDFEHjzsN(this)" id="@item.Id" name="@item.Name" date="@item.Date.ToString("yyyy-MM-dd")" title="Edytuj"><svg viewBox="0 0 512 512" height="16" width="16"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg></a>
@@ -110,6 +110,7 @@
     </form>
 </div>
 
+<script type="text/javascript" src="~/js/sorttable.js"></script>
 
 <script type="text/javascript">
 
@@ -127,13 +128,12 @@ function resizableGrid(table) {
  
  var tableHeight = table.offsetHeight;
  
- for (var i=0;i<cols.length - 2;i++){
+ for (var i=0;i<cols.length-2;i++){
   var div = createDiv(tableHeight);
   cols[i].appendChild(div);
   cols[i].style.position = 'relative';
   setListeners(div);
  }
-
 
  function setListeners(div){
   var pageX,curCol,nxtCol,curColWidth,nxtColWidth;
@@ -151,11 +151,11 @@ function resizableGrid(table) {
   });
 
   div.addEventListener('mouseover', function (e) {
-   e.target.style.borderRight = '4px double rgb(150, 150, 150)';
+   //e.target.style.borderRight = '4px double rgb(150, 150, 150)';
   })
 
   div.addEventListener('mouseout', function (e) {
-   e.target.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
+     //e.target.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
   })
 
   document.addEventListener('mousemove', function (e) {
@@ -182,18 +182,30 @@ function resizableGrid(table) {
   var div = document.createElement('div');
   div.style.top = 0;
   div.style.right = 0;
-  div.style.width = '4px';
+  //div.style.width = '5px';
+  div.style.width = '23px';
+  //div.style.backgroundColor = 'rgba(255, 0, 0, 0.4)';
+  div.style.zIndex = '1';
   div.style.position = 'absolute';
   div.style.cursor = 'col-resize';
   div.style.userSelect = 'none';
   @*div.style.height = height + 'px';*@
   div.style.height = '52px';
-  div.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
-  @*div.style.transform = 'translateX(2px)';*@
-  div.innerHTML += `<i class="arrow left"></i><i class="arrow right"></i>`;
+  //div.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
+
+  //div.style.right = '-10px';
+
+  div.style.transform = 'translatex(10px)';
+  div.innerHTML += `<i class="arrow left"></i> <div class="lines line1"></div> <div class="lines line2"></div> <i class="arrow right"></i>`;//<div class="lines line1"></div> <div class="lines line2"></div>
+  div.setAttribute('id', 'GRgYMQCkHWKDuyb');
+  div.setAttribute('onmouseover', 'ZKHOrDgJBDHOpmW(this)');
+  div.setAttribute('onmouseout', 'pNxCxvPIUtCbSHM(this)');
+  div.setAttribute('onclick', 'kEDVBzpHnAzOqpp(this, event)');
 
   return div;
  }
+
+
  
  function paddingDiff(col){
  
@@ -211,6 +223,24 @@ function resizableGrid(table) {
   return (window.getComputedStyle(elm, null).getPropertyValue(css))
  }
 };
+
+
+
+function kEDVBzpHnAzOqpp(t, e){
+    e.stopPropagation();
+};
+
+function ZKHOrDgJBDHOpmW(t){
+    if($(t).attr('id') == 'GRgYMQCkHWKDuyb'){
+        $(t).parent().addClass('qDIGovQQrGkMAIm');
+    }   
+};
+
+function pNxCxvPIUtCbSHM(t){
+    if($(t).attr('id') == 'GRgYMQCkHWKDuyb'){
+        $(t).parent().removeClass('qDIGovQQrGkMAIm');
+    } 
+}
 
 
 
@@ -362,7 +392,7 @@ function resizableGrid(table) {
         });
     };
 
-
+   
 
 
 </script>
