@@ -230,14 +230,15 @@ function blKTigJUXVdB(id_) {
     });
 };
 
-function kMCAxKgSATqh(id_, name_, surname_) {
+function kMCAxKgSATqh(id_, name_, surname_, dep_) {
     $.ajax({
         type: 'POST',
         url: '/Workers2/EditWorker',
         data: {
             id: id_,
             name: name_,
-            surname: surname_
+            surname: surname_,
+            departmentID: dep_
         },
         success: function (response)
         {
@@ -248,6 +249,7 @@ function kMCAxKgSATqh(id_, name_, surname_) {
             console.log('Error adding data:', error);
         }
     });
+    
 };
 
 function ertVmpwgdwWK(id_) {

@@ -233,13 +233,14 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditWorker(int id, string name, string surname)
+        public ActionResult EditWorker(int id, string name, string surname, int departmentID)
         {
             var row = _context.Workers2.FirstOrDefault(e => e.Id == id);
             if (row != null)
             {
                 row.Name = name;
                 row.Surname = surname;
+                row.DepartmentID = departmentID;
                 _context.SaveChanges();
 
                 return Json(new { success = true });

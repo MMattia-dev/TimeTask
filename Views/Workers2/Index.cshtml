@@ -28,7 +28,7 @@
                 @*<input type="button" class="oZBtnmiLrunDFMC uyGcnHMadlagzhh" id="dWaFnMJPHpXnJhm" value="Nowy dział"/>*@
             </div>
 
-            <div class="IVnxgCORpPYL" onclick="fwsxYepQKkCq()">
+            <div class="IVnxgCORpPYL" onclick="YENAVVQWwo()">
                 <span>Nowy pracownik</span>
                 @*<svg viewBox="0 0 16 16" width="20" height="20"><path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path></svg>*@
             </div>
@@ -53,8 +53,8 @@
                             <td>@item.Surname</td>
                             <td>@item.Name</td>
                             <td>
-                                <a onclick="EYwnRBQDFEHjzsN(this)" id="@item.Id" name="@item.Name" dep="@item.DepartmentID" title="Edytuj"><svg viewBox="0 0 512 512" height="16" width="16"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg></a>
-                                <a onclick="hFUdwiFlMmxASVH(this)" id="@item.Id" name="@item.Name" dep="@item.DepartmentID" title="Usuń"><svg viewBox="0 0 469.404 469.404" height="16" width="16"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>
+                                <a onclick="IxsCvPIuWwZw(this)" title="Edytuj"><svg viewBox="0 0 512 512" height="16" width="16"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg></a>
+                                <a onclick="deleteWorker(this)" title="Usuń"><svg viewBox="0 0 469.404 469.404" height="16" width="16"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>
                             </td>
                         </tr>
                     }
@@ -74,8 +74,17 @@
         <div class="form-group">
             <input class="form-control" autocomplete="off" placeholder="imię pracownika..." id="GVegODKbEh" />
         </div>
-        <div class="form-group form-group-margin">
+        <div class="form-group">
             <input class="form-control" autocomplete="off" placeholder="nazwisko pracownika..." id="toPdQnPuvH" />
+        </div>
+        <div class="form-group form-group-margin">
+            <label>Wybierz dział:</label>
+            <select class="form-control bYwPpsleuVCBkPv" id="OyRfwpeqzbeyVEW">
+                @foreach (var item in ((IEnumerable<Department>)ViewBag.Department).OrderBy(x => x.Name))
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
         </div>
         <div class="form-group">
             <input type="button" value="Zapisz" class="btn-custom" onclick="TEqGSwRYnu()" />
@@ -132,8 +141,17 @@
         <div class="form-group">
             <input class="form-control" autocomplete="off" placeholder="imię pracownika..." id="qxZnTneGdrVW" />
         </div>
-        <div class="form-group form-group-margin">
+        <div class="form-group">
             <input class="form-control" autocomplete="off" placeholder="nazwisko pracownika..." id="xEjLBIPqUXLK" />
+        </div>
+        <div class="form-group form-group-margin">
+            <label>Wybierz dział:</label>
+            <select class="form-control bYwPpsleuVCBkPv" id="ZRfCdgttdnOCfXF">
+                @foreach (var item in ((IEnumerable<Department>)ViewBag.Department).OrderBy(x => x.Name))
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
         </div>
         <div class="form-group">
             <input type="button" value="Zapisz" class="btn-custom" onclick="KfdhlqmDXEsR()" />
@@ -185,10 +203,16 @@
         return 0;
     });
     for(let i = 0; i < model_d.length; i++){
-        ECTosDyufuTqvBV.innerHTML += `<input class="kzQkCNWOiUhJxRl" value="` + model_d[i].Name + `" type="radio" name="name" id="` + model_d[i].Id + `" onclick="bxDzoLwDZzickPI(this)" hidden />` +
-            `<label class="oZBtnmiLrunDFMC" for="` + model_d[i].Id + `">` + model_d[i].Name + `</label>`;
+        ECTosDyufuTqvBV.innerHTML += `<input class="kzQkCNWOiUhJxRl" value="` + model_d[i].Name + `" type="radio" name="name" id="` + model_d[i].Id + `" onclick="bxDzoLwDZzickPI(this, event)" hidden />` +
+            `<label class="oZBtnmiLrunDFMC SqhCHzsNTMEsjQk" for="` + model_d[i].Id + `">` + model_d[i].Name + 
+            `<i class="OxwaVAXXNsMtYHu" onclick="sNYSYigDKYrjjtq(this, event)">` + 
+            `<svg viewBox="0 0 24 24" width="20" height="20">` + 
+            `<path d="M12,16a2,2,0,1,1-2,2A2,2,0,0,1,12,16ZM10,6a2,2,0,1,0,2-2A2,2,0,0,0,10,6Zm0,6a2,2,0,1,0,2-2A2,2,0,0,0,10,12Z"></path>` +
+            `</svg>` +
+            `</i>` + 
+            `</label>`;
     }
-    ECTosDyufuTqvBV.innerHTML += `<input type="button" class="oZBtnmiLrunDFMC uyGcnHMadlagzhh" id="dWaFnMJPHpXnJhm" value="Nowy dział"/>`;
+    ECTosDyufuTqvBV.innerHTML += `<input onclick="BqujyivUqK()" type="button" class="oZBtnmiLrunDFMC uyGcnHMadlagzhh" id="dWaFnMJPHpXnJhm" value="Nowy dział"/>`;
 
     let kzQkCNWOiUhJxRl_array = document.querySelectorAll('.kzQkCNWOiUhJxRl');
     if (sessionStorage.getItem('qbMvtjjezfxSFsv') != null)
@@ -206,8 +230,12 @@
         $(kzQkCNWOiUhJxRl_array[0]).trigger('click');
     }
 
-    function bxDzoLwDZzickPI(t)
+    function bxDzoLwDZzickPI(t, e)
     {
+        
+        //e.stopPropagation();
+
+        let arrayCheck = [];
         let id = t.id;
         let children = $(t).parent().children();
         let VUXahzbNUTWtiZa = document.querySelectorAll('.VUXahzbNUTWtiZa tbody tr');
@@ -216,6 +244,8 @@
             let for_ = $(children[i]).attr('for');
             if (id == for_ && children[i].tagName.toLowerCase() == 'label')
             {
+                arrayCheck.push(i);
+
                 sessionStorage.setItem('qbMvtjjezfxSFsv', for_);
 
                 let ECTosDyufuTqvBV = document.querySelector('.ECTosDyufuTqvBV');
@@ -226,6 +256,10 @@
                     block: 'nearest'
                 });
             }
+        }
+
+        if(arrayCheck.length > 0){
+
         }
 
         for (let j = 0; j < VUXahzbNUTWtiZa.length; j++)
@@ -240,6 +274,16 @@
                 $(VUXahzbNUTWtiZa[j]).hide();
             }
         }
+
+        
+    };
+
+    function sNYSYigDKYrjjtq(t, e) {
+
+
+        e.stopPropagation();
+
+
     };
 
 var tables = document.getElementsByTagName('table');
@@ -369,5 +413,144 @@ function pNxCxvPIUtCbSHM(t){
         $(t).parent().removeClass('qDIGovQQrGkMAIm');
     } 
 }
+
+    function BqujyivUqK() {
+        $('#XOrtKNkAwk').fadeIn(200);
+    };
+
+    function GuDpHEcfHN() {
+        if(document.getElementById('svFbsOqCAR').value != ''){
+            let DeViohCQjIFT = document.getElementById('svFbsOqCAR').value;
+
+            opvqVIGDmNiz(DeViohCQjIFT);
+        }
+    };
+
+    function bmIRCNZNky() {
+        $('#XOrtKNkAwk').fadeOut(200);
+        setTimeout(function (){
+            document.getElementById('svFbsOqCAR').value = '';
+        }, 200);
+    };
+
+    function YENAVVQWwo() {
+
+        let kzQkCNWOiUhJxRl = document.querySelectorAll('.kzQkCNWOiUhJxRl');
+        for(let i = 0; i < kzQkCNWOiUhJxRl.length; i++){
+            if(kzQkCNWOiUhJxRl[i].checked){
+                document.getElementById('OyRfwpeqzbeyVEW').value = kzQkCNWOiUhJxRl[i].id;   
+            }
+        }
+
+        $('#QmRrlOQPQW').fadeIn(200);
+    };
+
+    function EYVOxDPdHV() {
+        $('#QmRrlOQPQW').fadeOut(200);
+        setTimeout(function (){
+            document.getElementById('GVegODKbEh').value = '';
+            document.getElementById('toPdQnPuvH').value = '';
+        }, 200);
+    };
+
+    function TEqGSwRYnu() {
+        if(document.getElementById('GVegODKbEh').value != '' && document.getElementById('toPdQnPuvH').value != '') {
+            let name_ = document.getElementById('GVegODKbEh').value;
+            let surname_ = document.getElementById('toPdQnPuvH').value;
+            //let dep_id_ = parseInt(sessionStorage.getItem('storage_AddWorker'));
+            let e = document.getElementById('OyRfwpeqzbeyVEW');
+            let dep_id_ = e.options[e.selectedIndex].value;
+            let employed_ = true;
+
+            KOxtvRcBmzeo(name_, surname_, dep_id_, employed_);
+        }
+        else {
+            console.log('empty');
+        }
+    };
+
+    function IxsCvPIuWwZw(t) {
+        let jwOsncySQjwD = document.getElementById('jwOsncySQjwD');
+
+        //let id_ = t.getAttribute('uRiajmNrSFFv');
+        //let name_ = t.getAttribute('gvOdItWZFRSg');
+        //let surname_ = t.getAttribute('UcWvjqdRNTDD');
+        let id_ = $(t).parent().parent().children().eq(0).html();
+        let name_ = $(t).parent().parent().children().eq(2).html();
+        let surname_ = $(t).parent().parent().children().eq(1).html();
+        let dep_ = $(t).parent().parent().attr('id');
+
+        sessionStorage.setItem('rGjJZtPGkSIg', id_);
+
+        document.getElementById('qxZnTneGdrVW').value = name_;
+        document.getElementById('xEjLBIPqUXLK').value = surname_;
+        document.getElementById('ZRfCdgttdnOCfXF').value = dep_;
+
+        $(jwOsncySQjwD).fadeIn(200);
+    };
+
+    function vQaAzODstzsu() {
+        let jwOsncySQjwD = document.getElementById('jwOsncySQjwD');
+        $(jwOsncySQjwD).fadeOut(200);
+    };
+
+    function KfdhlqmDXEsR() {
+        let id_ = parseInt(sessionStorage.getItem('rGjJZtPGkSIg'));
+        let name_ = document.getElementById('qxZnTneGdrVW').value;
+        let surname_ = document.getElementById('xEjLBIPqUXLK').value;
+        let dep_ = document.getElementById('ZRfCdgttdnOCfXF').value;
+
+        kMCAxKgSATqh(id_, name_, surname_, dep_)
+    };
+
+    function deleteWorker(t) {
+        sessionStorage.setItem('dKorJSPZCYCt', $(t).parent().parent().children().eq(0).html());
+
+        let b = document.getElementById("FamcDfiHIvhi");
+        b.style.display = 'none';
+        let UwCmLRqIRSZM = document.getElementById('UwCmLRqIRSZM');
+        $(UwCmLRqIRSZM).fadeIn(200);
+
+        //console.log($(t).parent().parent().children().eq(0).html());
+    };
+
+    function UOspQSjpbVdS() {
+        location.reload();
+    };
+
+    function fBTJyaaQRpDf(t) {
+        document.getElementById("zwQBaubcYWcJ").innerHTML = '@Resource.AreYouSureYouWantToDeleteWorker';
+
+        let a = document.getElementById("FamcDfiHIvhi");
+        a.style.display = '';
+        t.style.display = 'none';
+
+        /*timer*/
+        let count = 4;
+        document.getElementById("XSkMvvmEXCee").value = '@Resource.Yes' + ' ' + '(' + 5 + ')';
+        setInterval(function() {
+            if (count > 0) {
+                document.getElementById("XSkMvvmEXCee").value = '@Resource.Yes' + ' ' + '(' + count + ')';
+                count--;
+            }
+            else {
+                document.getElementById("XSkMvvmEXCee").value = '@Resource.Yes';
+            }
+        }, 1000);
+
+        document.getElementById("XSkMvvmEXCee").setAttribute('disabled', '');
+        setTimeout(function() {
+            document.getElementById("XSkMvvmEXCee").removeAttribute('disabled');
+        }, 5000);
+        /**/
+    };
+
+    function dDlRcSCJZAuO() {
+        let id_ = parseInt(sessionStorage.getItem('dKorJSPZCYCt')) ;
+        blKTigJUXVdB(id_);
+    };
+
+    
+
 
 </script>
