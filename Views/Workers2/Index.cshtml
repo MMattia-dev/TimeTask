@@ -175,6 +175,11 @@
     </form>
 </div>
 
+@*<div class="toolTip_department" style="">
+    <div>Edytuj</div>
+    <div>Usuń</div>
+</div>*@
+
 <script type="text/javascript" src="~/js/sorttable.js"></script>
 
 <script type="text/javascript">
@@ -204,13 +209,24 @@
     });
     for(let i = 0; i < model_d.length; i++){
         ECTosDyufuTqvBV.innerHTML += `<input class="kzQkCNWOiUhJxRl" value="` + model_d[i].Name + `" type="radio" name="name" id="` + model_d[i].Id + `" onclick="bxDzoLwDZzickPI(this, event)" hidden />` +
-            `<label class="oZBtnmiLrunDFMC SqhCHzsNTMEsjQk" for="` + model_d[i].Id + `">` + model_d[i].Name + 
-            `<i class="OxwaVAXXNsMtYHu" onclick="sNYSYigDKYrjjtq(this, event)">` + 
-            `<svg viewBox="0 0 24 24" width="20" height="20">` + 
-            `<path d="M12,16a2,2,0,1,1-2,2A2,2,0,0,1,12,16ZM10,6a2,2,0,1,0,2-2A2,2,0,0,0,10,6Zm0,6a2,2,0,1,0,2-2A2,2,0,0,0,10,12Z"></path>` +
+            `<label class="oZBtnmiLrunDFMC" for="` + model_d[i].Id + `">` + model_d[i].Name + // class + SqhCHzsNTMEsjQk
+            `<i class="OxwaVAXXNsMtYHu JxeYECtwrfrUhgj" onclick="sNYSYigDKYrjjtq(this, event)" style="display: none;">` + 
+            `<svg viewBox="0 0 512 512" width="16" height="16">` + 
+            `<path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path>` +
+            `<polygon class="st0" points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751"/>` +
+            `</svg>` +
+            `</i>` + 
+            `<i class="OxwaVAXXNsMtYHu" onclick="bdoycBpPxFPywju(this, event)" style="display: none;">` + 
+            `<svg viewBox="0 0 469.404 469.404" width="16" height="16">` + 
+            `<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0
+		L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671
+		l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0
+		l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671
+		L310.4,235.083z"></path>` +
             `</svg>` +
             `</i>` + 
             `</label>`;
+
     }
     ECTosDyufuTqvBV.innerHTML += `<input onclick="BqujyivUqK()" type="button" class="oZBtnmiLrunDFMC uyGcnHMadlagzhh" id="dWaFnMJPHpXnJhm" value="Nowy dział"/>`;
 
@@ -234,6 +250,7 @@
     {
         
         //e.stopPropagation();
+        
 
         let arrayCheck = [];
         let id = t.id;
@@ -244,8 +261,6 @@
             let for_ = $(children[i]).attr('for');
             if (id == for_ && children[i].tagName.toLowerCase() == 'label')
             {
-                arrayCheck.push(i);
-
                 sessionStorage.setItem('qbMvtjjezfxSFsv', for_);
 
                 let ECTosDyufuTqvBV = document.querySelector('.ECTosDyufuTqvBV');
@@ -255,12 +270,21 @@
                     //inline: 'start',
                     block: 'nearest'
                 });
+
+
+                //console.log($(t).parent().children().eq(1).children().eq(0));
+                //console.log($(e.target).children());
+                //console.log();
+                $(children[i]).children().show()
+                $(children[i]).addClass('SqhCHzsNTMEsjQk');
+            }
+            else if(id != for_){
+                $(children[i]).children().hide();
+                $(children[i]).removeClass('SqhCHzsNTMEsjQk');
             }
         }
 
-        if(arrayCheck.length > 0){
 
-        }
 
         for (let j = 0; j < VUXahzbNUTWtiZa.length; j++)
         {
@@ -268,6 +292,7 @@
             if (depID == id)
             {
                 $(VUXahzbNUTWtiZa[j]).show();
+                arrayCheck.push(depID);
             }
             else
             {
@@ -275,13 +300,30 @@
             }
         }
 
+        if(arrayCheck.length > 0){
+            $('#tableId').show();
+        }
+        else {
+            $('#tableId').hide();
+        }
+
+
+        //let tooltip = document.querySelector('.toolTip_department');
+        //$(tooltip).hide();
+
         
     };
 
     function sNYSYigDKYrjjtq(t, e) {
 
+        //let x = $(t).parent().position().left + 25;
+        //let y = $(t).parent().position().top + 68;
+        
+        //var div = document.querySelector('.toolTip_department');
+        //div.style.left = x + 'px';
+        //div.style.top = y + 'px';
 
-        e.stopPropagation();
+
 
 
     };

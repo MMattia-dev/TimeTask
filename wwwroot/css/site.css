@@ -1204,10 +1204,17 @@ button {
     height: 34px;
     width: auto;
     display: flex;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     align-items: center;
-    gap: 5px;
+    /*gap: 5px;*/
+    /*-webkit-box-shadow: 0px 8px 24px -11px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0px 8px 24px -11px rgba(0, 0, 0, 1);
+    box-shadow: 0px 8px 24px -11px rgba(0, 0, 0, 1);*/
 }
+
+    .oZBtnmiLrunDFMC span {
+        
+    }
 
     .oZBtnmiLrunDFMC:hover {
         background-color: rgba(255, 255, 255, 0.1);
@@ -1229,18 +1236,19 @@ button {
         }
 
 .OxwaVAXXNsMtYHu {
-    height: 24px;
-    width: 24px;
+    height: 28px;
+    width: 28px;
     display: flex;
     justify-content: center;
     align-items: center;
     /*background-color: white;*/
     border-radius: 50px;
     /*transform: translateX(-2px);*/
+    
 }
 
     .OxwaVAXXNsMtYHu:hover {
-        background-color: rgba(255, 255, 255, 0.5);       
+        background-color: rgba(255, 255, 255, 0.5);
     }
 
         .OxwaVAXXNsMtYHu:hover > svg {
@@ -1262,11 +1270,52 @@ button {
         background-color: black;
     }
 
+        .kzQkCNWOiUhJxRl:checked + .oZBtnmiLrunDFMC .OxwaVAXXNsMtYHu:hover {
+            /*background-color: black;*/
+            /*background-color: dimgrey;*/
+            background-color: rgb(195, 107, 108);
+        }
+
+            .kzQkCNWOiUhJxRl:checked + .oZBtnmiLrunDFMC .OxwaVAXXNsMtYHu:hover svg {
+                fill: black;
+            }
+
+        .kzQkCNWOiUhJxRl:checked + .oZBtnmiLrunDFMC .OxwaVAXXNsMtYHu:first-child:hover {
+            background-color: rgb(107, 197, 108);
+        }
+
         .kzQkCNWOiUhJxRl:checked + .oZBtnmiLrunDFMC .OxwaVAXXNsMtYHu svg {
             fill: white;
             /*fill: black;*/
         }
 
+.JxeYECtwrfrUhgj {
+    margin-left: 3px;
+}
+/*.toolTip_department {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+    .toolTip_department div {
+        color: black;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: white;
+        border-radius: 50px;
+        padding-right: 10px;
+        padding-left: 10px;
+        height: 34px;
+        width: 120px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid white;
+        white-space: nowrap;
+        margin-bottom: 5px;
+    }*/
 .wKEbxxtCIJSAepL {
     user-select: auto !important;
 }
