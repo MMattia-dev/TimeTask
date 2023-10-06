@@ -115,7 +115,7 @@
             <input class="form-control" autocomplete="off" placeholder="nazwa działu..." id="coVYuzZVCFxh" />
         </div>
         <div class="form-group">
-            <input type="button" value="Zapisz" class="btn-custom" onclick="KOdkyXQcUVJW()" />
+            <input type="button" value="Edytuj" class="btn-custom" onclick="KOdkyXQcUVJW()" />
         </div>
         <div class="form-group">
             <input type="button" value="Wróć" class="btn-custom_" onclick="NlckkxcEbWXv()" />
@@ -209,7 +209,7 @@
     });
     for(let i = 0; i < model_d.length; i++){
         ECTosDyufuTqvBV.innerHTML += `<input class="kzQkCNWOiUhJxRl" value="` + model_d[i].Name + `" type="radio" name="name" id="` + model_d[i].Id + `" onclick="bxDzoLwDZzickPI(this, event)" hidden />` +
-            `<label class="oZBtnmiLrunDFMC" for="` + model_d[i].Id + `">` + model_d[i].Name + // class + SqhCHzsNTMEsjQk
+            `<label class="oZBtnmiLrunDFMC" for="` + model_d[i].Id + `"><span>` + model_d[i].Name + `</span>` + // class + SqhCHzsNTMEsjQk
             `<i class="OxwaVAXXNsMtYHu JxeYECtwrfrUhgj" onclick="sNYSYigDKYrjjtq(this, event)" style="display: none;">` + 
             `<svg viewBox="0 0 512 512" width="16" height="16">` + 
             `<path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path>` +
@@ -228,6 +228,22 @@
             `</label>`;
 
     }
+    //
+    let depCheck = [];
+    var workersWithNoDepartment = [];
+    for(let i = 0; i < model_d.length; i++){
+        depCheck.push(model_d[i].Id);
+    }
+    for(let i = 0; i < model_w.length; i++){
+        if(!depCheck.includes(model_w[i].DepartmentID)){
+            workersWithNoDepartment.push({ id: model_w[i].Id, name: model_w[i].Name, surname: model_w[i].Surname, department: model_w[i].DepartmentID, employed: model_w[i].Employed });
+            ECTosDyufuTqvBV.innerHTML += `<input class="kzQkCNWOiUhJxRl" type="radio" name="name" id="undefined" onclick="bxDzoLwDZzickPI(this, event)" hidden />` +
+                `<label class="oZBtnmiLrunDFMC lMliDWsRdSOjYmB" for="undefined"><span>Nieprzypisani pracownicy</span>` +
+                `` +
+                `</label>`;
+        }
+    }
+    //
     ECTosDyufuTqvBV.innerHTML += `<input onclick="BqujyivUqK()" type="button" class="oZBtnmiLrunDFMC uyGcnHMadlagzhh" id="dWaFnMJPHpXnJhm" value="Nowy dział"/>`;
 
     let kzQkCNWOiUhJxRl_array = document.querySelectorAll('.kzQkCNWOiUhJxRl');
@@ -248,10 +264,6 @@
 
     function bxDzoLwDZzickPI(t, e)
     {
-        
-        //e.stopPropagation();
-        
-
         let arrayCheck = [];
         let id = t.id;
         let children = $(t).parent().children();
@@ -272,14 +284,14 @@
                 });
 
 
-                //console.log($(t).parent().children().eq(1).children().eq(0));
-                //console.log($(e.target).children());
-                //console.log();
-                $(children[i]).children().show()
+
+                $(children[i]).children().eq(1).show();
+                $(children[i]).children().eq(2).show();
                 $(children[i]).addClass('SqhCHzsNTMEsjQk');
             }
             else if(id != for_){
-                $(children[i]).children().hide();
+                $(children[i]).children().eq(1).hide();
+                $(children[i]).children().eq(2).hide();
                 $(children[i]).removeClass('SqhCHzsNTMEsjQk');
             }
         }
@@ -308,24 +320,81 @@
         }
 
 
-        //let tooltip = document.querySelector('.toolTip_department');
-        //$(tooltip).hide();
 
-        
     };
 
     function sNYSYigDKYrjjtq(t, e) {
+        let uLTJNrstvNEQ = document.getElementById('uLTJNrstvNEQ');
+        $(uLTJNrstvNEQ).fadeIn(200);
 
-        //let x = $(t).parent().position().left + 25;
-        //let y = $(t).parent().position().top + 68;
-        
-        //var div = document.querySelector('.toolTip_department');
-        //div.style.left = x + 'px';
-        //div.style.top = y + 'px';
+        sessionStorage.setItem('oKVpUNCSlKRZWqW', $(t).parent().attr('for'));
 
+        document.getElementById('coVYuzZVCFxh').value = $(t).parent().children().eq(0).text();
+    };
 
+    function NlckkxcEbWXv() {
+        let uLTJNrstvNEQ = document.getElementById('uLTJNrstvNEQ');
+        $(uLTJNrstvNEQ).fadeOut(200);
+    };
 
+    function KOdkyXQcUVJW() {
+        if(document.getElementById('coVYuzZVCFxh').value != null){
+            let XozBLvRgROAw = document.getElementById('coVYuzZVCFxh').value;
 
+            let RNeDYmxNNzoe = sessionStorage.getItem('oKVpUNCSlKRZWqW');
+
+            //id, name
+            VYhhVLCczCoE(RNeDYmxNNzoe, XozBLvRgROAw);
+        }
+    };
+    
+    function bdoycBpPxFPywju(t, e) {
+        sessionStorage.setItem('NdheQmPNteYHXBD', $(t).parent().attr('for'));
+
+        let b = document.getElementById("bAWzKvvkmVmE");
+        b.style.display = 'none';
+        let PNujBEeIildr = document.getElementById('PNujBEeIildr');
+        $(PNujBEeIildr).fadeIn(200);
+    };
+
+    function adqwBJykaCzQ(){
+        let RNeDYmxNNzoe = sessionStorage.getItem('NdheQmPNteYHXBD');
+        ertVmpwgdwWK(RNeDYmxNNzoe);
+    };
+
+    function IWantToDeleteDepartment(t) {
+        document.getElementById("JsFfTXmLOVbI").innerHTML = '@Resource.AreYouSureYouWantToDeleteDepartment';
+        let RNeDYmxNNzoe = sessionStorage.getItem('NdheQmPNteYHXBD');
+        for(let i = 0; i < model_w.length; i++){
+            if(model_w[i].DepartmentID == RNeDYmxNNzoe){
+                if(model_w.length != 0){
+                    document.getElementById("JsFfTXmLOVbI").innerHTML = 'Dział nie jest pusty!' + '<br>' + '@Resource.AreYouSureYouWantToDeleteDepartment';
+                }
+            }
+        }
+
+        let a = document.getElementById("bAWzKvvkmVmE");
+        a.style.display = '';
+        t.style.display = 'none';
+
+        /*timer*/
+        let count = 4;
+        document.getElementById("nditIlzCWflU").value = '@Resource.Yes' + ' ' + '(' + 5 + ')';
+        setInterval(function() {
+            if (count > 0) {
+                document.getElementById("nditIlzCWflU").value = '@Resource.Yes' + ' ' + '(' + count + ')';
+                count--;
+            }
+            else {
+                document.getElementById("nditIlzCWflU").value = '@Resource.Yes';
+            }
+        }, 1000);
+
+        document.getElementById("nditIlzCWflU").setAttribute('disabled', '');
+        setTimeout(function() {
+            document.getElementById("nditIlzCWflU").removeAttribute('disabled');
+        }, 5000);
+        /**/
     };
 
 var tables = document.getElementsByTagName('table');
