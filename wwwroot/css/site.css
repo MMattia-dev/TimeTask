@@ -611,7 +611,12 @@ button {
     -webkit-box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);
     -moz-box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);
     box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);
+    border-radius: 3px;
 }
+
+    .settings_a .DnnTeTYpszZXNnO {
+        transform: translateX(12px);
+    }
 
     .settings_a:first-child {
         background-color: transparent;
@@ -625,9 +630,16 @@ button {
     .settings_a.sett_collapse {
         width: 46px;
         background-color: rgba(255, 255, 255, 0.06);
+        border-radius: 7px;
     }
 
-        .settings_a.sett
+        .settings_a.sett_collapse svg {
+            transform: translateX(8px);
+        }
+
+        .settings_a.sett_collapse .DnnTeTYpszZXNnO {
+            transform: translateX(11px);
+        }
 
         .settings_a.sett_collapse:hover {
             background-color: rgba(255, 255, 255, 0.15);
@@ -635,16 +647,20 @@ button {
 
     .settings_a.sett_first {
         border: none;
-        background-color: rgba(255, 255, 255, 0.015);
+        background-color: rgba(255, 255, 255, 0.06);
         -webkit-box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);
         -moz-box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);
         box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);
     }
 
+        .settings_a.sett_first svg {
+            transform: translateX(5px);
+        }
+
     .settings_a:hover {
         background-color: rgba(255, 255, 255, 0.075);
         transition: background-color 0.2s !important;
-        border-radius: 3px;
+        /*border-radius: 3px;*/
     }
 
     .settings_a svg {
@@ -666,7 +682,8 @@ button {
 .settings_a.settings_a_selected {
     background-color: rgba(0, 0, 0, 0.7);
     pointer-events: none;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
     .settings_a.settings_a_selected svg {
@@ -675,6 +692,10 @@ button {
 
     .settings_a.settings_a_selected span {
         color: rgba(255, 255, 255, 0.8);
+    }
+
+    .settings_a.settings_a_selected.sett_collapse svg {
+        transform: translateX(7px);
     }
 
 .right-nav-parent_ {
@@ -1948,9 +1969,7 @@ button {
     box-shadow: 0px 0px 25px 5px rgba(0, 0, 0, 1);*/
 }
 
-.DnnTeTYpszZXNnO {
-    transform: translateX(12px) !important;
-}
+
 
 
 
@@ -2699,16 +2718,12 @@ button {
 
         .TklztUXRygbrLDz label span {
             position: absolute;
-            /*top: 9px;
-            left: 28px;*/
             top: -20px;
             left: 18px;
         }
 
         .TklztUXRygbrLDz label input {
             position: absolute;
-            /*top: 12px;
-            left: 10px;*/
             top: -18px;
         }
 
