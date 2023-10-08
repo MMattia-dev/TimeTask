@@ -462,9 +462,21 @@ function weekCount_Sunday(year, month_number) //Weeks start on Sunday
     return Math.ceil(used / 7);
 }
 
+
+
+
+
 function collapse() {
     $('.left-nav').addClass('THyXDYqsJcsKFtR');
     $('.settings_span').hide();
+    $('.user').addClass('KoDNMyZmmmSkuFI');
+    $('.userFirstA').addClass('settings_a');
+    $('.userFirstA').addClass('sett_collapse');
+    $('.logOut button').addClass('settings_a');
+    $('.logOut button').addClass('sett_collapse');
+
+
+
     let settings_a = $('.settings_a');
     $(settings_a[0]).addClass('sett_first');
     for (let i = 0; i < settings_a.length; i++)
@@ -473,7 +485,6 @@ function collapse() {
         $(settings_a[i]).addClass('sett_collapse');
 
     }
-
 };
 
 if (localStorage.getItem('IVsEIeXIRNQqrAG')) {
