@@ -12,7 +12,7 @@ namespace TimeTask.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> _logger;
 
         //public HomeController(ILogger<HomeController> logger)
         //{
@@ -21,15 +21,17 @@ namespace TimeTask.Controllers
 
         public readonly ApplicationDbContext _context;
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context, ILogger<HomeController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public IActionResult Index()
         {
             ViewBag.Department = _context.Department;
             ViewBag.Workers = _context.Workers2;
+            ViewBag.Wallpaper = _context.Wallpaper2;
 
             return View();
         }

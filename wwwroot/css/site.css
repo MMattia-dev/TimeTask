@@ -10,6 +10,10 @@ html {
   }
 }
 
+.displayNone {
+    display: none;
+}
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -88,9 +92,7 @@ html {
 html {
     position: relative;
     min-height: 100%;
-    /*background: url(img/night-island-scenery-macos-wallpaper-1920x1200_6.jpg) no-repeat fixed center;*/
-    background: url(img/backgrounds/the-illustration-graphic-consists-of-abstract-background-with-a-blue-gradient-dynamic-shapes-composition-eps10-perfect-for-presentation-background-website-landing-page-wallpaper-vector.jpg) no-repeat fixed center;
-    /*background: url(img/backgrounds/digital-digital-art-artwork-illustration-minimalism-hd-wallpaper-08869d3810a06c28a09cf1be487204ea.jpg);*/
+    /*background: url(img/backgrounds/the-illustration-graphic-consists-of-abstract-background-with-a-blue-gradient-dynamic-shapes-composition-eps10-perfect-for-presentation-background-website-landing-page-wallpaper-vector.jpg) no-repeat fixed center;*/
     background-size: cover;
     background-color: black;
     background-position: center;
@@ -238,6 +240,11 @@ button {
 
     .oKuDQuaWdDBDLIN svg {
         fill: rgba(255, 255, 255, 0.6);
+        /*transform: rotate(180deg);*/
+    }
+
+    .oKuDQuaWdDBDLIN.aiOcyKSzNcNxolO svg {
+        transform: rotate(180deg);
     }
 
     .oKuDQuaWdDBDLIN:hover {
@@ -313,7 +320,6 @@ button {
 }
 
     .user.KoDNMyZmmmSkuFI {
-        /*transform: translateY(-60px);*/
         min-width: 100px;
         max-width: 100px;
         width: 100px;
@@ -323,24 +329,16 @@ button {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        /*align-content: center;*/
     }
 
     .user.KoDNMyZmmmSkuFI .userDiv {
         display: none;
     }
 
-        .user.KoDNMyZmmmSkuFI .userFirstA {
-            /*display: flex;
-            justify-content: center;
-            align-items: center;*/
-
-        }
-
         .user.KoDNMyZmmmSkuFI .userFirstA.sett_collapse {
             min-height: 56px;
             border: none;
-            transform: translateX(-4px) translateY(10px); 
+            transform: translateX(0px) translateY(10px); /**/
         }
 
             .user.KoDNMyZmmmSkuFI .userFirstA svg {
@@ -353,7 +351,7 @@ button {
 
         .user.KoDNMyZmmmSkuFI .logOut button {
             min-height: 56px;
-            transform: translateX(-4px);
+            transform: translateX(0px);/**/
         }
 
         .user.KoDNMyZmmmSkuFI .logOut svg {
