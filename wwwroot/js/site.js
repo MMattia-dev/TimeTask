@@ -59,6 +59,28 @@ main.appendChild(loader);
 
 
 
+//wallpaper
+var defaultWallpaper_ = localStorage.getItem('wallpaper');
+if (defaultWallpaper_ != null)
+{
+    $('html').css({
+        'background': 'url(' + defaultWallpaper_ + ')',
+        'background-size': 'cover',
+        'background-position': 'center'
+    });
+}
+else {
+    $('html').css({
+        'background': 'url(/css/img/backgrounds/the-illustration-graphic-consists-of-abstract-background-with-a-blue-gradient-dynamic-shapes-composition-eps10-perfect-for-presentation-background-website-landing-page-wallpaper-vector.jpg) no-repeat fixed center',
+        'background-size': 'cover',
+        'background-position': 'center'
+    });
+    
+}
+//
+
+
+
 function sortArray(array) {
     array.sort(function (a, b)
     {
@@ -511,13 +533,9 @@ function expand() {
 
 if (localStorage.getItem('IVsEIeXIRNQqrAG')) {
     collapse();
+    $($('#oKuDQuaWdDBDLIN_ input').parent()).addClass('aiOcyKSzNcNxolO');
+    document.getElementById('oKuDQuaWdDBDLIN_input').checked = true;
 }
-
-//$('#oKuDQuaWdDBDLIN_').on('click', function ()
-//{
-//    collapse();
-//    //localStorage.setItem('IVsEIeXIRNQqrAG', '1');
-//});
 
 $('#oKuDQuaWdDBDLIN_ input').on('change', function (e)
 {
@@ -533,3 +551,4 @@ $('#oKuDQuaWdDBDLIN_ input').on('change', function (e)
         expand();
     }
 });
+

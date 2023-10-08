@@ -165,6 +165,7 @@
 </div>
 
 <script type="text/javascript" src="~/js/sorttable.js"></script>
+<script type="text/javascript" src="~/js/site.js"></script>
 
 <script type="text/javascript">
     var model_w = @Html.Raw(JsonConvert.SerializeObject(Model));
@@ -182,21 +183,15 @@
 
 
     let ECTosDyufuTqvBV = document.querySelector('.ECTosDyufuTqvBV');
-    model_d.sort(function (a, b)
-    {
-        if (a.Name < b.Name)
-        {
-            return -1;
-        }
-        if (a.Name > b.Name)
-        {
-            return 1;
-        }
-        return 0;
-    });
+    sortArray(model_d);
     for(let i = 0; i < model_d.length; i++){
         ECTosDyufuTqvBV.innerHTML += `<input class="kzQkCNWOiUhJxRl" value="` + model_d[i].Name + `" type="radio" name="name" id="` + model_d[i].Id + `" onclick="bxDzoLwDZzickPI(this, event)" hidden />` +
             `<label class="oZBtnmiLrunDFMC" for="` + model_d[i].Id + `"><span>` + model_d[i].Name + `</span>` + // class + SqhCHzsNTMEsjQk
+                //`<i class="OxwaVAXXNsMtYHu JxeYECtwrfrUhgj"  style="display: none;">` +
+                //    `<svg viewBox="0 0 16 16" width="16" height="16">` +
+                //        `<path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path>` +
+                //    `</svg>` +
+                //`</i>` +
                 `<i class="OxwaVAXXNsMtYHu JxeYECtwrfrUhgj" onclick="sNYSYigDKYrjjtq(this, event)" style="display: none;">` + 
                     `<svg viewBox="0 0 512 512" width="16" height="16">` + 
                         `<path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path>` +
@@ -278,11 +273,13 @@
 
                 $(children[i]).children().eq(1).show();
                 $(children[i]).children().eq(2).show();
+                //$(children[i]).children().eq(3).show();
                 $(children[i]).addClass('SqhCHzsNTMEsjQk');
             }
             else if(id != for_){
                 $(children[i]).children().eq(1).hide();
                 $(children[i]).children().eq(2).hide();
+                //$(children[i]).children().eq(3).hide();
                 $(children[i]).removeClass('SqhCHzsNTMEsjQk');
             }
         }
@@ -552,6 +549,13 @@ function pNxCxvPIUtCbSHM(t){
         }, 200);
     };
 
+    $('#svFbsOqCAR').on('keydown', function(e){
+        if(e.keyCode == '13'){//enter
+            e.preventDefault();
+            GuDpHEcfHN();
+        }
+    });
+
     function YENAVVQWwo() {
 
         let kzQkCNWOiUhJxRl = document.querySelectorAll('.kzQkCNWOiUhJxRl');
@@ -583,10 +587,21 @@ function pNxCxvPIUtCbSHM(t){
 
             KOxtvRcBmzeo(name_, surname_, dep_id_, employed_);
         }
-        else {
-            console.log('empty');
-        }
     };
+
+    $('#GVegODKbEh').on('keydown', function(e){
+        if(e.keyCode == '13'){
+            e.preventDefault();
+            TEqGSwRYnu();
+        }
+    });
+
+    $('#toPdQnPuvH').on('keydown', function(e){
+        if(e.keyCode == '13'){
+            e.preventDefault();
+            TEqGSwRYnu();
+        }
+    });
 
     function IxsCvPIuWwZw(t) {
         let jwOsncySQjwD = document.getElementById('jwOsncySQjwD');
@@ -674,4 +689,3 @@ function pNxCxvPIUtCbSHM(t){
 
 </script>
 
-<script type="text/javascript" src="~/js/site.js"></script>

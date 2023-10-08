@@ -1,9 +1,5 @@
-﻿@*@model IEnumerable<TimeTask.Models.Wallpaper2>*@
-
-<!DOCTYPE html>
-<html lang="en" style="">
-    @*var r = Model.GroupBy(x => x.Name).Select(x => x.First());*@
-@*@((IEnumerable<Wallpaper2>)ViewBag.Wallpaper)*@
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -66,19 +62,6 @@
     <script src="~/js/site.js"></script>
     <script src="~/js/moment.js"></script>
     
-    <script type="text/javascript">
-        //wallpaper
-        let defaultWallpaper_ = localStorage.getItem('wallpaper');
-        if (defaultWallpaper_ != null)
-        {
-            $('html').css({
-                'background': 'url(' + defaultWallpaper_ + ')',
-                'background-size': 'cover',
-                'background-position': 'center'
-            });
-        }
-        //
-    </script>
     
 
     @await RenderSectionAsync("Scripts", required: false)
