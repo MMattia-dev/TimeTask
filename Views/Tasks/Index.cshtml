@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<TimeTask.Models.Task>
+@using Newtonsoft.Json
 
 @{
     ViewData["Title"] = "Index";
@@ -130,7 +131,7 @@
     <form class="form_2">
         <div class="IvBtEDulLESDYxK">
             <span id="cKSpcSCmKURLYSF"></span>
-            <span>Spowoduje to usunięcie wszystkich zadań z taką samą nazwą we wszystkich grafikach!</span>
+            <span>Spowoduje to usunięcie zadań z tą nazwą we wszystkich grafikach! Upewnij się, że wszystkie potrzebne grafiki zostały najpierw pobrane!</span>
         </div>
         <div class="btn-danger-div" id="eUkBfdkCVpxXxot">
             <input type="button" value="Usuń" id="ApFOgPcwItDNkKp" onclick="aDkOgungYCvMbHN()" />
@@ -140,18 +141,10 @@
         </div>
     </form>
 </div>
-@*<div class="pGKcZvErUB" id="LwwlygAZbajHYIb" style="display: none;">
-    <div class="QzmjBfeBaWcRPCc">
-        <div class="IvBtEDulLESDYxK IifKberCJgUGDkZ">
-            <span>W grafiku istnieją niezapisane zmiany!</span>
-            <span>Jeżeli nie chcesz zapisywać, kliknij 'Anuluj'.</span>
-            <span>Jeżeli chcesz zapisać zmiany, kliknij 'Zapisz'.</span>
-        </div>
-        <div class="form-group">
-            <input type="button" value="Zapisz" class="btn-custom QBiQxdGMSxadTWR" onclick="iLamqpKjJfYwsCa()" />
-        </div>
-        <div class="form-group">
-            <a href="@Url.Action("Index", "Home")" class="btn-custom_ QBiQxdGMSxadTWR" id="jBekDHEGdZbSlXG" onclick="qaVyBCsukshoMvN()">Anuluj</a>
-        </div>
-    </div>
-</div>*@
+
+<script type="text/javascript">
+    var model_t = @Html.Raw(JsonConvert.SerializeObject(Model));
+</script>
+
+<script type="text/javascript" src="~/js/TaskJS.js"></script>
+<script type="text/javascript" src="~/js/site.js"></script>

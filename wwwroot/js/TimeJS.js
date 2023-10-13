@@ -76,8 +76,8 @@ function generateCalendar() {
     //
 
     //worker
-    let oUfnFiNPmXnNjzu = document.getElementById('QcLYVFuvuONgCrh');
-    let workerID_ = oUfnFiNPmXnNjzu.options[oUfnFiNPmXnNjzu.selectedIndex].value;
+    //let oUfnFiNPmXnNjzu = document.getElementById('QcLYVFuvuONgCrh');
+    //let workerID_ = oUfnFiNPmXnNjzu.options[oUfnFiNPmXnNjzu.selectedIndex].value;
     //
 
 
@@ -335,6 +335,7 @@ function generateCalendar() {
     //}
 };
 
+
 $('#QcLYVFuvuONgCrh').on('change', function ()
 {
     generateCalendar();
@@ -392,7 +393,7 @@ function PTPttVhoaMyUOyR()
     }
     //document.getElementById('QcLYVFuvuONgCrh').innerHTML += `<option value="everyone">Wszyscy</option>`;
 
-    generateCalendar();
+    generateCalendar();  
 };
 PTPttVhoaMyUOyR();
 

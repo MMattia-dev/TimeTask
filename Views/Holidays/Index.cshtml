@@ -249,7 +249,9 @@ function pNxCxvPIUtCbSHM(t){
     //var model_h = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Public_Holidays));
     //console.log(model_h);
 
-    let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[5];
+    @*let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[5];
+    selected.classList.add('settings_a_selected');*@
+    let selected = document.getElementById('settings_holidays_id');
     selected.classList.add('settings_a_selected');
 
 

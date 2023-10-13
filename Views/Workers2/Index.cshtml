@@ -171,7 +171,9 @@
     var model_w = @Html.Raw(JsonConvert.SerializeObject(Model));
     var model_d = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Department));
 
-    let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[1];
+    //let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[1];
+    //selected.classList.add('settings_a_selected');
+    let selected = document.getElementById('settings_departs_workers_id');
     selected.classList.add('settings_a_selected');
 
     if(model_d.length == 0){

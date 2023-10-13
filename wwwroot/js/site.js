@@ -168,13 +168,29 @@ $(document).ready(function ()
         //console.info("This page is not reloaded");
         
         if (localStorage.getItem('logged') != null) {
-            ihJchOaMxWUD.style.transition = 'min-width 0.75s, max-width 0.75s, width 0.75s';
-            setTimeout(function ()
-            {
-                ihJchOaMxWUD.style.width = '300px';
-                ihJchOaMxWUD.style.maxWidth = '300px';
-                ihJchOaMxWUD.style.minWidth = '300px';
-            }, 5000);
+            if (ihJchOaMxWUD != null) {
+                ihJchOaMxWUD.style.transition = 'min-width 0.75s, max-width 0.75s, width 0.75s';
+                if (localStorage.getItem('IVsEIeXIRNQqrAG'))
+                {
+                    setTimeout(function ()
+                    {
+                        ihJchOaMxWUD.style.width = '100px';
+                        ihJchOaMxWUD.style.maxWidth = '100px';
+                        ihJchOaMxWUD.style.minWidth = '100px';
+                    }, 5000);
+                }
+                else
+                {
+                    setTimeout(function ()
+                    {
+                        ihJchOaMxWUD.style.width = '300px';
+                        ihJchOaMxWUD.style.maxWidth = '300px';
+                        ihJchOaMxWUD.style.minWidth = '300px';
+                    }, 5000);
+                }
+            }
+            
+            
             setTimeout(function ()
             {
                 $(ZLD38GJQEtrB).fadeIn();
@@ -531,10 +547,21 @@ function expand() {
     }
 };
 
-if (localStorage.getItem('IVsEIeXIRNQqrAG')) {
+if (localStorage.getItem('IVsEIeXIRNQqrAG'))
+{
     collapse();
     $($('#oKuDQuaWdDBDLIN_ input').parent()).addClass('aiOcyKSzNcNxolO');
-    document.getElementById('oKuDQuaWdDBDLIN_input').checked = true;
+    if (document.getElementById('oKuDQuaWdDBDLIN_input') != null) {
+        document.getElementById('oKuDQuaWdDBDLIN_input').checked = true;
+    }
+}
+else {
+    expand();
+    $($('#oKuDQuaWdDBDLIN_ input').parent()).removeClass('aiOcyKSzNcNxolO');
+    if (document.getElementById('oKuDQuaWdDBDLIN_input') != null) {
+        document.getElementById('oKuDQuaWdDBDLIN_input').checked = false;
+    }
+    
 }
 
 $('#oKuDQuaWdDBDLIN_ input').on('change', function (e)
