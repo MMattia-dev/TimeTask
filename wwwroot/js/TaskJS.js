@@ -23,6 +23,7 @@ function task_lock_headers() {
     //document.getElementById('task_lock_headers_input').setAttribute('checked', '');
     //$('#task_lock_headers_input').attr('checked', '');
 
+
 };
 
 function task_unlock_headers() {
