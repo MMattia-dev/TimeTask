@@ -2966,6 +2966,11 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     gap: 10px;
 }
 
+    .msdgExEZCpefgcL.msdgExEZCpefgcL_disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+
 .hFzZLqJdsEqdlrx {
     font-size: 14px;
     color: white;
@@ -2974,6 +2979,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 .hFzZLqJdsEqdlrx_ {
     font-size: 14px;
     color: cornflowerblue;
+    font-family: 'Segoe UI';
 }
 
     .hFzZLqJdsEqdlrx_:hover {

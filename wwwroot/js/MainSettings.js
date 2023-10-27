@@ -1,14 +1,37 @@
-﻿$('#zaOUenxMdmwGCGR').on('click', function ()
-{
-    
-});
+﻿
+function SWsLyZvwqDpSdQO_(t) {
+    if (t.checked)
+    {
+        $(t).parent().parent().children().eq(2).removeClass('msdgExEZCpefgcL_disabled');
+    }
+    else {
+        $(t).parent().parent().children().eq(2).addClass('msdgExEZCpefgcL_disabled');
+    }
+};
 
-const color = document.querySelector(".inputColor");
+function nLzkASTGLjvGiSi_(t) {
+    if (t.checked)
+    {
+        $(t).parent().parent().children().eq(2).removeClass('msdgExEZCpefgcL_disabled');
+    }
+    else
+    {
+        $(t).parent().parent().children().eq(2).addClass('msdgExEZCpefgcL_disabled');
+    }
+};
 
-color.addEventListener("input", (event) =>
-{
-    //backRGB.style.backgroundColor = color.value;
-    console.log('asd');
-    // You can also do it with the event object as event object holds the value of the current color
-    //  backRGB.style.backgroundColor = event.target.value;
-});
+function hQJwclGLiNLiRrQ_(t) {
+    if (t.checked)
+    {
+        localStorage.setItem('IVsEIeXIRNQqrAG', '1');
+        collapse();
+    }
+    else {
+        localStorage.removeItem('IVsEIeXIRNQqrAG');
+        expand();
+    }
+};
+
+
+
+
