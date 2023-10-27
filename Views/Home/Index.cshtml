@@ -11,6 +11,20 @@
 
 	<section class="right-nav">
 
+		<div class="YavvRCMQscelhIs tePqkpVdZPYCotv">
+			<img src="~/css/img/clock3.png" width="160" height="160"/>
+			<div class="clockDiv">
+				@*<span class="clockDiv_">
+					<span class="clockContainer">
+                        <span id="hour"></span>
+                        <span id="minute"></span>
+                        <span id="second"></span>
+                    </span>
+				</span>*@
+
+			</div>
+		</div>
+
 	</section>
 
 </div>
@@ -18,6 +32,33 @@
 @*<a target="_blank" href="https://icons8.com/icon/2797/home">Home</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>*@
 
 <script type="text/javascript">
+	setInterval(() => {
+        d = new Date(); //object of date()
+        hr = d.getHours();
+        min = d.getMinutes();
+        sec = d.getSeconds();
+        hr_rotation = 30 * hr + min / 2; //converting current time
+        min_rotation = 6 * min;
+        sec_rotation = 6 * sec;
+
+        hour.style.transform = `rotate(${hr_rotation}deg)`;
+        minute.style.transform = `rotate(${min_rotation}deg)`;
+        second.style.transform = `rotate(${sec_rotation}deg)`;
+
+
+
+        //clockSpanID
+        document.getElementById("clockSpanID").innerHTML = ('0' + hr).slice(-2) + ":" + ('0' + min).slice(-2) + ":" + ('0' + sec).slice(-2);
+
+
+
+    }, 1000);
+
+
+
+
+
+
 	var rightNav = document.querySelector('.right-nav');
 	var spanInfo = document.createElement('div');
 	spanInfo.id = 'info';
