@@ -28,5 +28,6 @@ namespace TimeTask.Data
         public DbSet<TimeTask.Models.Hours> Hours { get; set; } = default!;
         public DbSet<TimeTask.Models.Wallpaper> Wallpaper { get; set; } = default!;
         public DbSet<TimeTask.Models.Wallpaper2> Wallpaper2 { get; set; } = default!;
+        public DbSet<TimeTask.Models.MainSettings> MainSettings { get; set; } = default!;
     }
 }

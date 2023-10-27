@@ -2893,6 +2893,126 @@ button {
 
 
 
+/*slider*/
+.FdcnMtAlziKwEep {
+    position: relative;
+    display: inline-block;
+    /*width: 60px;*/
+    width: 50px;
+    /*height: 34px;*/
+    height: 28px;
+    min-width: 50px;
+    min-height: 28px;
+}
+
+    .FdcnMtAlziKwEep input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.HsRFJWiSLmrJcoG {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: dimgrey;
+    -webkit-transition: .2s;
+    transition: .2s;
+}
+
+    .HsRFJWiSLmrJcoG:before {
+        position: absolute;
+        content: "";
+        /*height: 26px;
+        width: 26px;*/
+        height: 20px;
+        width: 20px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .2s;
+        transition: .2s;
+    }
+
+input:checked + .HsRFJWiSLmrJcoG {
+    background-color: #2196F3;
+}
+
+input:focus + .HsRFJWiSLmrJcoG {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .HsRFJWiSLmrJcoG:before {
+    -webkit-transform: translateX(22px);
+    -ms-transform: translateX(22px);
+    transform: translateX(22px);
+}
+
+.HsRFJWiSLmrJcoG.xHKISVUdAfxZoPT {
+    border-radius: 34px;
+}
+
+.HsRFJWiSLmrJcoG.xHKISVUdAfxZoPT:before {
+    border-radius: 50%;
+}
+/**/
+
+.msdgExEZCpefgcL {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hFzZLqJdsEqdlrx {
+    font-size: 14px;
+    color: white;
+}
+
+.hFzZLqJdsEqdlrx_ {
+    font-size: 14px;
+    color: cornflowerblue;
+}
+
+    .hFzZLqJdsEqdlrx_:hover {
+        color: royalblue;
+        cursor: pointer;
+    }
+
+.hFzZLqJdsEqdlrx__ {
+    font-size: 14px;
+    color: indianred;
+}
+
+    .hFzZLqJdsEqdlrx__:hover {
+        color: orangered;
+        cursor: pointer;
+    }
+
+.YavvRCMQscelhIs {
+    background-color: rgba(34, 36, 48, 0.3);
+    width: 100%;
+    /*min-height: 250px;*/
+    padding: 40px;
+    border-radius: 8px;
+    display: flex;
+    gap: 30px;
+    /*flex-wrap: wrap;*/
+    flex-direction: column;
+}
+
+.inputColor {
+    border: none;
+    padding: 0px;
+    height: 28px;
+    width: 28px;
+}
+
+
+
+
 
 
 

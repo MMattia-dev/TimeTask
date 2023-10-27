@@ -138,11 +138,12 @@ form:not(.logOut) {
         width: 100%;
         min-height: 250px;
         max-height: 250px;
-        border-radius: unset;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        /*border-radius: unset;*/
+        /*border: 1px solid rgba(255, 255, 255, 0.1);*/
         -webkit-box-shadow: none;
         -moz-box-shadow: none;
         box-shadow: none;
+        border: unset;
     }
 
     form:not(.logOut).bSaEpYjaUnwwExg {
