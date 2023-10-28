@@ -579,3 +579,34 @@ $('#oKuDQuaWdDBDLIN_ input').on('change', function (e)
     }
 });
 
+
+setInterval(() =>
+{
+    d = new Date(); //object of date()
+    hr = d.getHours();
+    min = d.getMinutes();
+    sec = d.getSeconds();
+    hr_rotation = 30 * hr + min / 2; //converting current time
+    min_rotation = 6 * min;
+    sec_rotation = 6 * sec;
+
+    const hour = document.getElementById('hour');
+    const minute = document.getElementById('minute');
+    const second = document.getElementById('second');
+
+    if (hour != null) {
+        hour.style.transform = `rotate(${hr_rotation}deg)`;
+    }
+    if (minute != null) {
+        minute.style.transform = `rotate(${min_rotation}deg)`;
+    }
+    if (second != null) {
+        second.style.transform = `rotate(${sec_rotation}deg)`;
+    }
+    
+    //clockSpanID
+    if (document.getElementById("clockSpanID") != null) {
+        document.getElementById("clockSpanID").innerHTML = ('0' + hr).slice(-2) + ":" + ('0' + min).slice(-2) + ":" + ('0' + sec).slice(-2);
+
+    }
+}, 1000);
