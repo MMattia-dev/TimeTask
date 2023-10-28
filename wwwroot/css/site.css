@@ -3059,6 +3059,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         flex-direction: row;
         justify-content: space-between;
         /*align-items: end;*/
+        gap: 10px;
     }
 
 .kxlFuByfFFOpwAf {
@@ -3152,6 +3153,9 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     align-items: center;
     justify-content: center;
 }
+
+
+
 
 
 
