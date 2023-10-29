@@ -6,6 +6,7 @@
 var ihJchOaMxWUD = document.querySelector('.left-nav');
 var ZLD38GJQEtrB = document.querySelector('.IdRKPExyAQSewBL');
 var ozozaNCrSaQI = document.querySelector('.user');
+var ATKLsxSduWPahPh = document.querySelector('.ATKLsxSduWPahPh');
 
 if (performance.navigation.type == performance.navigation.TYPE_RELOAD)
 {
@@ -22,6 +23,7 @@ if (performance.navigation.type == performance.navigation.TYPE_RELOAD)
         }
         $(ZLD38GJQEtrB).hide();
         $(ozozaNCrSaQI).hide();
+        $(ATKLsxSduWPahPh).hide();
         
     }
 }
@@ -195,6 +197,7 @@ $(document).ready(function ()
             {
                 $(ZLD38GJQEtrB).fadeIn();
                 $(ozozaNCrSaQI).fadeIn();
+                $(ATKLsxSduWPahPh).fadeIn();
                 localStorage.removeItem('logged');
                 
             }, 5700);
@@ -206,6 +209,20 @@ $(document).ready(function ()
 
     
     
+
+
+
+
+
+    //var $round = $('.round'),
+    //    roundRadius =
+    //        $round.find('circle').attr('r'),
+    //    roundPercent = $round.data('percent'),
+    //    roundCircum = 2 * roundRadius * Math.PI,
+    //    roundDraw = roundPercent * roundCircum / 100;
+    //$round.css('stroke-dasharray', roundDraw + ' 999')
+
+
 
 
 });

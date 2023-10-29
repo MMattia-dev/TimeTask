@@ -2,6 +2,7 @@
 
 @{
 	ViewData["Title"] = "Home Page";
+	var culture = new System.Globalization.CultureInfo("pl-PL");
 }
 
 <div class="parent">
@@ -19,10 +20,27 @@
 			<div class="YavvRCMQscelhIs tePqkpVdZPYCotv">
 
 				<div class="AipWiPstniVIhkC">
-
+					<svg class="round" viewBox="0 0 100 100" width="190" height="190" data-percent="70" xmlns="http://www.w3.org/2000/svg">
+						<circle cx="50" cy="50" r="40" />
+						<text id="XLkvcgJWzEfxPvE" x="50" y="50" text-anchor="middle" dominant-baseline="central" transform="rotate(90, 50, 50)"></text>
+					</svg>
+					<svg class="roundBackground" viewBox="0 0 100 100" width="190" height="190" data-percent="100" xmlns="http://www.w3.org/2000/svg">
+						<circle cx="50" cy="50" r="40" />
+					</svg>
 				</div>  
 
+				<div class="quickNotepad">
+					<span>Notatnik</span>
+					<textarea spellcheck="false"></textarea>
+				</div>
+
 				<div class="kxlFuByfFFOpwAf">
+					<div class="clock clockDigital">
+						<span class="clockSpan clockSpanDate">@DateTime.Now.Date.ToShortDateString()</span>
+					</div>
+					<div class="clock clockDigital">
+						<span class="clockSpan clockSpanDate">@culture.DateTimeFormat.GetDayName(DateTime.Today.DayOfWeek)</span>
+					</div>
 					<div class="clock clockAnalog">
 						<img src="~/css/img/clock4.png" width="200" height="200"/>
 						<span id="hour"></span>
@@ -30,9 +48,12 @@
 						<span id="second"></span> 
 					</div>
 					<div class="clock clockDigital">
-						<span class="clockSpan" id="clockSpanID"></span>
+						<span class="clockSpan" id="clockSpanID">@DateTime.Now.ToLongTimeString()</span>
 					</div> 
 				</div>  
+
+				
+
 			</div>
 
 
@@ -93,6 +114,33 @@
 			//	rightNav.removeAttribute('style');
 			//}, 5100);
 		}
+
+
+		var $round = $('.round'),
+		  roundRadius = $round.find('circle').attr('r'),
+		  roundPercent = $round.data('percent'),
+		  roundCircum = 2 * roundRadius * Math.PI,
+		  roundDraw = roundPercent * roundCircum / 100
+		$round.css('stroke-dasharray', roundDraw  + ' 999')
+
+
+
+		let count = 70;
+		var percentage = count / 1000;
+		let i = 0;
+		
+		var interval = setInterval(function(){
+			if(i>=count){
+				
+				clearInterval(interval);
+			}
+			else {
+				i++;
+				$('#XLkvcgJWzEfxPvE').text(i + '%');
+			}
+		}, percentage);
+
+
 	});
 
 	//window.onload = function() {

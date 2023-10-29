@@ -196,6 +196,7 @@
     </a>
     <div class="userDiv">
         <a>@User.Identity?.Name?.Split('@')[0]</a>
+        @*<a>username</a>*@
         @*<a asp-area="Identity" asp-page="/Account/Manage/Index">Ustawienia konta</a>*@
     </div>
     <form class="logOut" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

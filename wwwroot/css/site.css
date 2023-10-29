@@ -262,9 +262,9 @@ button {
     overflow-x: hidden;
     scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
     scrollbar-width: thin;
-    -webkit-box-shadow: -19px 0px 30px -20px rgba(0, 0, 0, 1);
-    -moz-box-shadow: -19px 0px 30px -20px rgba(0, 0, 0, 1);
-    box-shadow: -19px 0px 30px -20px rgba(0, 0, 0, 1);
+    -webkit-box-shadow: -19px 0px 30px -20px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -19px 0px 30px -20px rgba(0, 0, 0, 0.75);
+    box-shadow: -19px 0px 30px -20px rgba(0, 0, 0, 0.75);
 }
 
 #info {
@@ -310,14 +310,14 @@ button {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    -webkit-box-shadow: 0px -18px 22px -22px rgba(100, 100, 100, 1);
-    -moz-box-shadow: 0px -18px 22px -22px rgba(100, 100, 100, 1);
-    box-shadow: 0px -18px 22px -22px rgba(100, 100, 100, 1);
     gap: 10px;
     padding: 0 25px 0 25px;
     min-width: 300px;
     max-width: 300px;
     width: 300px;
+    -webkit-box-shadow: 0px -18px 22px -22px rgba(100, 100, 100, 1);
+    -moz-box-shadow: 0px -18px 22px -22px rgba(100, 100, 100, 1);
+    box-shadow: 0px -18px 22px -22px rgba(100, 100, 100, 1);
 }
 
     .user.KoDNMyZmmmSkuFI {
@@ -371,7 +371,7 @@ button {
         font-size: 13px;
         color: rgba(255, 255, 255, 0.5);
         pointer-events: none;
-        letter-spacing: 0.025em;
+        /*letter-spacing: 0.025em;*/
     }
 
     .userDiv a:nth-child(2) {
@@ -3054,13 +3054,62 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     }
 
     .YavvRCMQscelhIs.tePqkpVdZPYCotv {
-        /*background-color: transparent;*/
+        background-color: transparent;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         /*align-items: end;*/
         gap: 10px;
     }
+
+.quickNotepad {
+    background-color: rgba(34, 36, 48, 0.5);
+    transition: background-color 0.2s;
+    min-width: 200px;
+    height: 395px;
+    width: 100%;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+    .quickNotepad span:first-child {
+        color: white;
+        font-size: 15px;
+        font-weight: bold;
+        opacity: 0.8;
+        text-transform: uppercase;
+        transform: translateX(1px);
+    }
+
+    .quickNotepad textarea {
+        border: none;
+        background: transparent;
+        outline: none;
+        height: 100%;
+        color: white;
+        resize: none;
+        opacity: 0.3;
+        transition: opacity 0.2s;
+        /*horizontal rules*/
+        line-height: 31px;
+        background-image: -webkit-linear-gradient(left, transparent 0, transparent 0), -webkit-linear-gradient(right, transparent 0, transparent 0), -webkit-linear-gradient(transparent 30px, transparent 30px, rgba(204, 204, 204, 0.6) 31px, white 31px);
+        background-repeat: repeat-y;
+        background-size: 100% 100%, 100% 100%, 100% 31px;
+        background-attachment: local;
+    }
+
+    .quickNotepad:hover {
+        background-color: rgba(34, 36, 48, 0.8);
+        transition: background-color 0.2s;
+    }
+
+        .quickNotepad:hover textarea {
+            opacity: 0.9;
+            transition: opacity 0.2s;
+        }
 
 .kxlFuByfFFOpwAf {
     display: flex;
@@ -3073,12 +3122,14 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(34, 36, 48, 0.3);
+    text-align: center;
+    background-color: rgba(34, 36, 48, 0.5);
     transition: background-color 0.2s;
+    height: 55px;
 }
 
     .clock:hover {
-        background-color: rgba(34, 36, 48, 0.5);
+        background-color: rgba(34, 36, 48, 0.8);
         transition: background-color 0.2s;
     }
 
@@ -3097,17 +3148,24 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 
 .clockDigital {
     width: 200px;
-    height: 75px;
+    
+    /*height: auto;*/
+    /*padding-top: 10px;*/
+    /*padding-bottom: 10px;*/
 }
 
 
 .clockSpan {
-    font-family: Verdana;
+    /*font-family: Verdana;*/
     font-weight: bold;
-    font-size: 30px;
+    font-size: 28px;
     user-select: none;
     opacity: 0.8;
     color: white;
+}
+
+.clockSpan.clockSpanDate {
+    font-size: 24px;
 }
 
 #hour,
@@ -3147,16 +3205,56 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 .AipWiPstniVIhkC {
     width: 200px;
     height: 200px;
-    background-color: rgba(34, 36, 48, 0.3);
+    background-color: rgba(34, 36, 48, 0.5);
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    transition: background-color 0.2s;
 }
 
+    .AipWiPstniVIhkC:hover {
+        background-color: rgba(34, 36, 48, 0.8);
+        transition: background-color 0.2s;
+    }
 
+.round {
+    transform: rotate(-90deg);
+    fill: none;
+    stroke-dasharray: 0 999;
+    z-index: 1;
+}
 
+    .round circle {
+        stroke-width: 6;
+        transition: stroke-dasharray 1s ease;
+        stroke: #e65c00;
+        /*stroke-linecap: round;*/
+        /*opacity: 0.8;*/
+    }
 
+    .round text {
+        font-weight: bold;
+        font-size: 14px;
+        paint-order: stroke;
+        stroke: white;
+        stroke-width: 0.2px;
+        fill: white;
+        user-select: none;
+        opacity: 0.8;
+    }
+
+.roundBackground {
+    fill: none;
+    position: absolute;
+    z-index: 0;
+}
+
+    .roundBackground circle {
+        stroke-width: 2;
+        stroke: rgba(255, 255, 255, 0.2);
+    }
 
 
 
