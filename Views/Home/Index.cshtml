@@ -19,15 +19,27 @@
 
 			<div class="YavvRCMQscelhIs tePqkpVdZPYCotv">
 
-				<div class="AipWiPstniVIhkC">
-					<svg class="round" viewBox="0 0 100 100" width="190" height="190" data-percent="70" xmlns="http://www.w3.org/2000/svg">
-						<circle cx="50" cy="50" r="40" />
-						<text id="XLkvcgJWzEfxPvE" x="50" y="50" text-anchor="middle" dominant-baseline="central" transform="rotate(90, 50, 50)"></text>
-					</svg>
-					<svg class="roundBackground" viewBox="0 0 100 100" width="190" height="190" data-percent="100" xmlns="http://www.w3.org/2000/svg">
-						<circle cx="50" cy="50" r="40" />
-					</svg>
-				</div>  
+				<div class="kxlFuByfFFOpwAf">
+					<div class="AipWiPstniVIhkC">
+						<svg class="round" id="round1" viewBox="0 0 100 100" width="190" height="190" data-percent="71" xmlns="http://www.w3.org/2000/svg">
+							<circle cx="50" cy="50" r="34" />
+							<text id="XLkvcgJWzEfxPvE" x="50" y="48" text-anchor="middle" dominant-baseline="central" transform="rotate(90, 50, 50)"></text>
+						</svg>
+						<svg class="roundBackground" viewBox="0 0 100 100" width="190" height="190" data-percent="100" xmlns="http://www.w3.org/2000/svg">
+							<circle cx="50" cy="50" r="40" />
+						</svg>
+					</div> 
+					<div class="AipWiPstniVIhkC">
+						<svg class="round" id="round2" viewBox="0 0 100 100" width="190" height="190" data-percent="42" xmlns="http://www.w3.org/2000/svg">
+							<circle cx="50" cy="50" r="34" />
+							<text id="HTdLmnPsRaqTSUU" x="50" y="48" text-anchor="middle" dominant-baseline="central" transform="rotate(90, 50, 50)"></text>
+						</svg>
+						<svg class="roundBackground" viewBox="0 0 100 100" width="190" height="190" data-percent="100" xmlns="http://www.w3.org/2000/svg">
+							<circle cx="50" cy="50" r="40" />
+						</svg>
+					</div> 
+				</div>
+				
 
 				<div class="quickNotepad">
 					<span>Notatnik</span>
@@ -117,36 +129,53 @@
 		}
 
 
-		var $round = $('.round'),
+		/**/
+		var $round = $('#round1'),
 		  roundRadius = $round.find('circle').attr('r'),
 		  roundPercent = $round.data('percent'),
 		  roundCircum = 2 * roundRadius * Math.PI,
 		  roundDraw = roundPercent * roundCircum / 100
 		$round.css('stroke-dasharray', roundDraw  + ' 999')
 
-
-
-		let count = 70;
-		var percentage = count / 1000;
+		let count1 = 71;
+		var percentage1 = count1 / 1000;
 		let i = 0;
-		
-		var interval = setInterval(function(){
-			if(i>=count){
+		var interval1 = setInterval(function(){
+			if(i>=count1){
 				
-				clearInterval(interval);
+				clearInterval(interval1);
 			}
 			else {
 				i++;
 				$('#XLkvcgJWzEfxPvE').text(i + '%');
 			}
-		}, percentage);
+		}, percentage1);
+		/**/
 
+		/**/
+		var $round2 = $('#round2'),
+		  roundRadius2 = $round2.find('circle').attr('r'),
+		  roundPercent2 = $round2.data('percent'),
+		  roundCircum2 = 2 * roundRadius2 * Math.PI,
+		  roundDraw2 = roundPercent2 * roundCircum2 / 100
+		$round2.css('stroke-dasharray', roundDraw2  + ' 999')
+
+		let count2 = 42;
+		var percentage2 = count2 / 1000;
+		let j = 0;
+		var interval2 = setInterval(function(){
+			if(j>=count2){
+				
+				clearInterval(interval2);
+			}
+			else {
+				j++;
+				$('#HTdLmnPsRaqTSUU').text(j + '%');
+			}
+		}, percentage2);
+		/**/
 
 	});
-
-	//window.onload = function() {
-	//	rightNav.removeAttribute('style');
-	//};
 
 
 

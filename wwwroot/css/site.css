@@ -166,6 +166,10 @@ button {
     -webkit-box-shadow: 19px 0px 30px -20px rgba(0, 0, 0, 1);
     -moz-box-shadow: 19px 0px 30px -20px rgba(0, 0, 0, 1);
     box-shadow: 19px 0px 30px -20px rgba(0, 0, 0, 1);
+    /**/
+    /*border-start-start-radius: 10px;
+    border-end-start-radius: 10px;*/
+    border-radius: 10px;
 }
 
 .left-nav {
@@ -178,6 +182,8 @@ button {
     -webkit-box-shadow: -19px 0px 30px -20px rgba(0, 0, 0, 1);
     -moz-box-shadow: -19px 0px 30px -20px rgba(0, 0, 0, 1);
     box-shadow: -19px 0px 30px -20px rgba(0, 0, 0, 1);
+    /**/
+    border-end-start-radius: 10px;
 }
 
     .left-nav.THyXDYqsJcsKFtR {
@@ -188,6 +194,7 @@ button {
         flex-direction: column;
         justify-content: center;
         align-items: center;*/
+        /*border-end-start-radius: 10px;*/
     }
 
         .left-nav.THyXDYqsJcsKFtR .IdRKPExyAQSewBL {
@@ -197,9 +204,9 @@ button {
             --mask: linear-gradient(to bottom, rgba(0,0,0, 1) 0, rgba(0,0,0, 1) 50%, rgba(0,0,0, 1) 70%, rgba(0,0,0, 1) 90%, rgba(0,0,0, 0) 100%, rgba(0,0,0, 0) 0 ) 100% 50% / 100% 100% repeat-x;
             -webkit-mask: var(--mask);
             mask: var(--mask);
-            
             height: calc(100% - 160px);
             /*height: 100%;*/
+            /*border-end-start-radius: 10px;*/
         }
 
     .left-nav.THyXDYqsJcsKFtR .IdRKPExyAQSewBL .sett_collapse {
@@ -265,6 +272,9 @@ button {
     -webkit-box-shadow: -19px 0px 30px -20px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: -19px 0px 30px -20px rgba(0, 0, 0, 0.75);
     box-shadow: -19px 0px 30px -20px rgba(0, 0, 0, 0.75);
+    /**/
+    border-start-end-radius: 10px;
+    border-end-end-radius: 10px;
 }
 
 #info {
@@ -318,6 +328,7 @@ button {
     -webkit-box-shadow: 0px -18px 22px -22px rgba(100, 100, 100, 1);
     -moz-box-shadow: 0px -18px 22px -22px rgba(100, 100, 100, 1);
     box-shadow: 0px -18px 22px -22px rgba(100, 100, 100, 1);
+
 }
 
     .user.KoDNMyZmmmSkuFI {
@@ -2291,6 +2302,8 @@ button {
     width: 100%;
     height: auto;
     padding: 15px;
+    /*border-start-end-radius: 10px;
+    border-end-end-radius: 10px;*/
 }
 
 .LlyqvplhWUOzxRy {
@@ -3057,7 +3070,8 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         background-color: transparent;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
+        /*justify-content: space-between;*/
+        justify-content: start;
         /*align-items: end;*/
         gap: 10px;
     }
@@ -3065,9 +3079,9 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 .quickNotepad {
     background-color: rgba(34, 36, 48, 0.5);
     transition: background-color 0.2s;
-    min-width: 200px;
-    height: 395px;
+    height: 410px;
     width: 100%;
+    min-width: 200px;
     border-radius: 10px;
     padding: 15px;
     display: flex;
@@ -3094,11 +3108,11 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         opacity: 0.3;
         transition: opacity 0.2s;
         /*horizontal rules*/
-        line-height: 31px;
+        /*line-height: 31px;
         background-image: -webkit-linear-gradient(left, transparent 0, transparent 0), -webkit-linear-gradient(right, transparent 0, transparent 0), -webkit-linear-gradient(transparent 30px, transparent 30px, rgba(204, 204, 204, 0.6) 31px, white 31px);
         background-repeat: repeat-y;
         background-size: 100% 100%, 100% 100%, 100% 31px;
-        background-attachment: local;
+        background-attachment: local;*/
     }
 
     .quickNotepad:hover {
@@ -3125,7 +3139,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     text-align: center;
     background-color: rgba(34, 36, 48, 0.5);
     transition: background-color 0.2s;
-    height: 55px;
+    height: 60px;
 }
 
     .clock:hover {
@@ -3227,22 +3241,25 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 }
 
     .round circle {
-        stroke-width: 6;
+        stroke-width: 8;
         transition: stroke-dasharray 1s ease;
         stroke: #e65c00;
-        /*stroke-linecap: round;*/
-        /*opacity: 0.8;*/
+        stroke-linecap: round;
     }
 
     .round text {
         font-weight: bold;
-        font-size: 14px;
+        font-size: 13px;
         paint-order: stroke;
         stroke: white;
         stroke-width: 0.2px;
         fill: white;
         user-select: none;
         opacity: 0.8;
+    }
+
+    .round#round2 circle {
+        stroke: #2196F3;
     }
 
 .roundBackground {
@@ -3255,6 +3272,11 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         stroke-width: 2;
         stroke: rgba(255, 255, 255, 0.2);
     }
+
+
+
+
+
 
 
 
