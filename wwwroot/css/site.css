@@ -3082,6 +3082,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     transition: background-color 0.2s;
     /*height: 410px;*/
     height: 200px;
+
     /*width: 100%;*/
     width: 200px;
     min-width: 200px;
