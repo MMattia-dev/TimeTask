@@ -3093,6 +3093,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     display: flex;
     flex-direction: column;
     gap: 4px;
+
 }
 
     .quickNotepad span:first-child {
