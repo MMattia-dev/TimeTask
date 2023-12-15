@@ -3241,6 +3241,8 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     justify-content: center;
     position: relative;
     transition: background-color 0.2s;
+    /**/
+    /*overflow: hidden;*/
 }
 
     .AipWiPstniVIhkC:hover {
@@ -3288,23 +3290,51 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         stroke: rgba(255, 255, 255, 0.2);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+.MAoVlTMOGZzPPsu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    /*position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 35px;
+    background-color: white;
+    transform: rotate(45deg) translateX(-3px) translateY(-12px);*/
 }
+
+    .MAoVlTMOGZzPPsu div:first-child {
+        position: absolute;
+        width: 1px;
+        height: 40px;
+        background-color: white;
+        transform: rotate(45deg) translateX(-3px) translateY(-14px);
+    }
+
+    .MAoVlTMOGZzPPsu div:nth-child(2) {
+        position: absolute;
+        width: 1px;
+        height: 50px;
+        background-color: white;
+        transform: rotate(45deg) translateX(-3px) translateY(-17px);
+    }
+
+
+
+
+
+
+
+
+
+
+
+    input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 
 input[type=number] {
     -moz-appearance: textfield;
