@@ -3074,6 +3074,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         justify-content: start;
         /*align-items: end;*/
         gap: 10px;
+        flex-wrap: wrap;
 
     }
 
@@ -3093,10 +3094,11 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     display: flex;
     flex-direction: column;
     gap: 4px;
-
+    position: relative;
+    overflow: hidden;
 }
 
-    .quickNotepad span:first-child {
+    .quickNotepad span {
         color: white;
         font-size: 13px;
         font-weight: bold;
@@ -3132,10 +3134,18 @@ input:checked + .HsRFJWiSLmrJcoG:before {
             transition: opacity 0.2s;
         }
 
+        .quickNotepad:hover .BnDZmDEehCCybzG {
+            opacity: 1;
+            transition: opacity 0.2s;
+        }
+
 .kxlFuByfFFOpwAf {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    position: relative;
+    overflow: hidden;
+    background-color: green;
 }
 
 .clock {
@@ -3151,6 +3161,8 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     height: auto;
     padding-top: 5px;
     padding-bottom: 6px;
+    position: relative;
+    overflow: hidden;
 }
 
     .clock:hover {
@@ -3158,9 +3170,15 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         transition: background-color 0.2s;
     }
 
+        .clock:hover .BnDZmDEehCCybzG {
+            opacity: 1;
+            transition: opacity 0.2s;
+        }
+
 .clockAnalog {
     position: relative;
     width: 200px;
+    min-width: 200px;
     height: 200px;
 }
 
@@ -3233,6 +3251,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 
 .AipWiPstniVIhkC {
     width: 200px;
+    min-width: 200px;
     height: 200px;
     background-color: rgba(34, 36, 48, 0.5);
     border-radius: 10px;
@@ -3242,12 +3261,18 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     position: relative;
     transition: background-color 0.2s;
     /**/
-    /*overflow: hidden;*/
+    overflow: hidden;
 }
 
     .AipWiPstniVIhkC:hover {
         background-color: rgba(34, 36, 48, 0.8);
         transition: background-color 0.2s;
+    }
+
+    .AipWiPstniVIhkC:hover .BnDZmDEehCCybzG {
+        /*visibility: visible;*/
+        opacity: 1;
+        transition: opacity 0.2s;
     }
 
 .round {
@@ -3294,32 +3319,93 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     position: absolute;
     top: 0;
     left: 0;
-    width: 20px;
-    height: 20px;
-    /*position: absolute;
-    top: 0;
-    left: 0;
-    width: 1px;
-    height: 35px;
-    background-color: white;
-    transform: rotate(45deg) translateX(-3px) translateY(-12px);*/
+    /*z-index: 1;*/
 }
 
-    .MAoVlTMOGZzPPsu div:first-child {
+    .MAoVlTMOGZzPPsu div:not(.GteoTFWvjCrnpmN) {
         position: absolute;
         width: 1px;
-        height: 40px;
-        background-color: white;
-        transform: rotate(45deg) translateX(-3px) translateY(-14px);
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+        .MAoVlTMOGZzPPsu div:first-child {
+            height: 40px;
+            transform: rotate(45deg) translateX(-3px) translateY(-14px);
+        }
+
+        .MAoVlTMOGZzPPsu div:nth-child(2) {
+            height: 50px;
+            transform: rotate(45deg) translateX(-3px) translateY(-17px);
+        }
+
+.GteoTFWvjCrnpmN {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 22px;
+    height: 22px;
+    z-index: 2;
+    /*background-color: green;*/
+}
+
+    .GteoTFWvjCrnpmN:hover {
+        cursor: move;
     }
 
-    .MAoVlTMOGZzPPsu div:nth-child(2) {
-        position: absolute;
-        width: 1px;
-        height: 50px;
-        background-color: white;
-        transform: rotate(45deg) translateX(-3px) translateY(-17px);
+.BnDZmDEehCCybzG {
+    position: absolute;
+    top: 2px;
+    right: 7px;
+    /*visibility: hidden;*/
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 1;
+}
+
+    .BnDZmDEehCCybzG svg {
+        fill: rgba(255, 255, 255, 0.75);
     }
+
+    .BnDZmDEehCCybzG:hover {
+        cursor: pointer;
+    }
+
+        .BnDZmDEehCCybzG:hover svg {
+            fill: rgba(255, 255, 255, 1);
+        }
+
+.iKlKXUFEJUNEQul {
+    width: 200px;
+    min-width: 200px;
+    height: 200px;
+    /*background-color: rgba(34, 36, 48, 0.5);*/
+    border: 4px solid rgba(54, 56, 68, 1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    /*transition: all 0.2s;*/
+    /**/
+    overflow: hidden;
+}
+
+    .iKlKXUFEJUNEQul svg {
+        fill: rgba(54, 56, 68, 1);
+    }
+
+    .iKlKXUFEJUNEQul:hover {
+        transition: border 0.2s;
+        border: 4px solid rgba(74, 76, 88, 1);
+        cursor: pointer;
+    }
+
+        .iKlKXUFEJUNEQul:hover svg {
+            fill: rgba(74, 76, 88, 1);
+            transition: fill 0.2s;
+        }
+
+
+
 
 
 
