@@ -3098,13 +3098,18 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     overflow: hidden;
 }
 
+    .quickNotepad.PyfcxvgCKODayJL {
+        height: 410px;
+        width: 100%;
+    }
+
     .quickNotepad span {
         color: white;
         font-size: 13px;
         font-weight: bold;
         opacity: 0.8;
         text-transform: uppercase;
-        transform: translateX(1px);
+        transform: translateX(1px) translateY(-3px);
     }
 
     .quickNotepad textarea {
@@ -3125,7 +3130,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     }
 
     .quickNotepad:hover {
-        background-color: rgba(34, 36, 48, 0.8);
+        background-color: rgba(34, 36, 48, 1);
         transition: background-color 0.2s;
     }
 
@@ -3135,6 +3140,26 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         }
 
         .quickNotepad:hover .BnDZmDEehCCybzG {
+            opacity: 1;
+            transition: opacity 0.2s;
+        }
+
+        .quickNotepad:hover .MAoVlTMOGZzPPsu {
+            opacity: 1;
+            transition: opacity 0.2s;
+        }
+
+        .quickNotepad:hover .rzVCoiMyvGxrbEa {
+            opacity: 1;
+            transition: opacity 0.2s;
+        }
+
+        .quickNotepad:hover .MprLrIoIAXLqljb {
+            opacity: 1;
+            transition: opacity 0.2s;
+        }
+
+        .quickNotepad:hover .uttPwSlVwzYRFsN {
             opacity: 1;
             transition: opacity 0.2s;
         }
@@ -3166,11 +3191,16 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 }
 
     .clock:hover {
-        background-color: rgba(34, 36, 48, 0.8);
+        background-color: rgba(34, 36, 48, 1);
         transition: background-color 0.2s;
     }
 
         .clock:hover .BnDZmDEehCCybzG {
+            opacity: 1;
+            transition: opacity 0.2s;
+        }
+
+        .clock:hover .MAoVlTMOGZzPPsu {
             opacity: 1;
             transition: opacity 0.2s;
         }
@@ -3265,11 +3295,16 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 }
 
     .AipWiPstniVIhkC:hover {
-        background-color: rgba(34, 36, 48, 0.8);
+        background-color: rgba(34, 36, 48, 1);
         transition: background-color 0.2s;
     }
 
     .AipWiPstniVIhkC:hover .BnDZmDEehCCybzG {
+        opacity: 1;
+        transition: opacity 0.2s;
+    }
+
+    .AipWiPstniVIhkC:hover .MAoVlTMOGZzPPsu {
         opacity: 1;
         transition: opacity 0.2s;
     }
@@ -3319,6 +3354,8 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     top: 0;
     left: 0;
     /*z-index: 1;*/
+    opacity: 0;
+    transition: opacity 0.2s;
 }
 
     .MAoVlTMOGZzPPsu div:not(.GteoTFWvjCrnpmN) {
@@ -3353,7 +3390,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 .BnDZmDEehCCybzG {
     position: absolute;
     top: 2px;
-    right: 7px;
+    right: 8px;
     opacity: 0;
     transition: opacity 0.2s;
     z-index: 1;
@@ -3403,23 +3440,87 @@ input:checked + .HsRFJWiSLmrJcoG:before {
             transition: fill 0.2s;*/
         }
 
+.rzVCoiMyvGxrbEa {
+    position: absolute;
+    top: 2px;
+    right: 33px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 1;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-    input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
+    .rzVCoiMyvGxrbEa svg g {
+        fill: rgba(255, 255, 255, 0.75);
     }
+
+    .rzVCoiMyvGxrbEa:hover {
+        cursor: pointer;
+    }
+
+        .rzVCoiMyvGxrbEa:hover svg g {
+            fill: rgba(255, 255, 255, 1);
+        }
+
+.MprLrIoIAXLqljb {
+    position: absolute;
+    top: 2px;
+    right: 33px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 1;
+}
+
+    .MprLrIoIAXLqljb svg {
+        fill: rgba(255, 255, 255, 0.75);
+    }
+
+    .MprLrIoIAXLqljb:hover {
+        cursor: pointer;
+    }
+
+        .MprLrIoIAXLqljb:hover svg {
+            fill: rgba(255, 255, 255, 1);
+        }
+
+.uttPwSlVwzYRFsN {
+    position: absolute;
+    top: 2px;
+    right: 53px;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 1;
+}
+
+    .uttPwSlVwzYRFsN svg {
+        fill: rgba(255, 255, 255, 0.75);
+    }
+
+    .uttPwSlVwzYRFsN:hover {
+        cursor: pointer;
+    }
+
+        .uttPwSlVwzYRFsN:hover svg {
+            fill: rgba(255, 255, 255, 1);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
 input[type=number] {
     -moz-appearance: textfield;
