@@ -155,8 +155,15 @@ $('#tNQKplspKGJSQLU').on('click', function()
 });
 
 
+$('#LldXkbnodmhlJIn').on('click', function ()
+{
+	$('.aLTkEQlLIqOrXvT').fadeIn(200);
+});
 
-
+$('#rCnoNzileMKWYLc').on('click', function ()
+{
+	$('.aLTkEQlLIqOrXvT').fadeOut(200);
+});
 
 
 

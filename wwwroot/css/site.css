@@ -204,7 +204,7 @@ button {
             --mask: linear-gradient(to bottom, rgba(0,0,0, 1) 0, rgba(0,0,0, 1) 50%, rgba(0,0,0, 1) 70%, rgba(0,0,0, 1) 90%, rgba(0,0,0, 0) 100%, rgba(0,0,0, 0) 0 ) 100% 50% / 100% 100% repeat-x;
             -webkit-mask: var(--mask);
             mask: var(--mask);
-            height: calc(100% - 160px);
+            height: calc(100% - 170px);
             /*height: 100%;*/
             /*border-end-start-radius: 10px;*/
         }
@@ -328,19 +328,19 @@ button {
     -webkit-box-shadow: 0px -18px 22px -22px rgba(100, 100, 100, 1);
     -moz-box-shadow: 0px -18px 22px -22px rgba(100, 100, 100, 1);
     box-shadow: 0px -18px 22px -22px rgba(100, 100, 100, 1);
-
 }
 
     .user.KoDNMyZmmmSkuFI {
         min-width: 100px;
         max-width: 100px;
         width: 100px;
-        height: 160px;
-        min-height: 160px;
+        height: 170px;
+        min-height: 170px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        /*transform: translateY(-10px);*/
     }
 
     .user.KoDNMyZmmmSkuFI .userDiv {
@@ -701,8 +701,6 @@ button {
     box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);*/
     border-radius: 3px;
 }
-
-    
 
     .settings_a .DnnTeTYpszZXNnO {
         transform: translateX(12px);
@@ -3103,6 +3101,11 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         width: 100%;
     }
 
+    .quickNotepad.uERspJxBzaiedUf {
+        background-color: rgba(34, 36, 48, 1);
+        transform: scale(80%);
+    }
+
     .quickNotepad span {
         color: white;
         font-size: 13px;
@@ -3193,6 +3196,11 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     .clock:hover {
         background-color: rgba(34, 36, 48, 1);
         transition: background-color 0.2s;
+    }
+
+    .clock.uERspJxBzaiedUf {
+        background-color: rgba(34, 36, 48, 1);
+        transform: scale(80%);
     }
 
         .clock:hover .BnDZmDEehCCybzG {
@@ -3309,6 +3317,11 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         transition: opacity 0.2s;
     }
 
+    .AipWiPstniVIhkC.uERspJxBzaiedUf {
+        background-color: rgba(34, 36, 48, 1);
+        transform: scale(80%);
+    }
+
 .round {
     transform: rotate(-90deg);
     fill: none;
@@ -3395,6 +3408,13 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     transition: opacity 0.2s;
     z-index: 1;
 }
+
+    .BnDZmDEehCCybzG.DYnUImwbtfMRlDe {
+        opacity: 1;
+        position: fixed;
+        /*height: 30px;
+        width: 30px;*/
+    }
 
     .BnDZmDEehCCybzG svg {
         fill: rgba(255, 255, 255, 0.75);
@@ -3502,6 +3522,82 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         .uttPwSlVwzYRFsN:hover svg {
             fill: rgba(255, 255, 255, 1);
         }
+
+.aLTkEQlLIqOrXvT {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.aLTkEQlLIqOrXvT_ {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    flex-direction: column;
+    background-color: rgba(34, 36, 48, 0.2);
+    /*backdrop-filter: blur(5px);*/
+    width: 370px;
+    height: 80%;
+    border-radius: 8px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 1);
+    /**/
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
+    scrollbar-width: thin;
+    position: relative;
+}
+
+.ElementWidg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid rgba(34, 36, 48, 0.4);
+    border-radius: 8px;
+    padding-bottom: 8px;
+}
+
+.HXkSPSnoVyQiCrS {
+    border-radius: 8px;
+    border: 1px solid rgba(34, 36, 48, 1);
+    width: 160px;
+    height: 33px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-8px);
+    /*transform: translateY(-14px);*/
+    transition: background-color 0.2s;
+}
+
+    .HXkSPSnoVyQiCrS:hover {
+        background-color: rgba(34, 36, 48, 0.4);
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .HXkSPSnoVyQiCrS span {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+    }
+
+
+
+
+
+
+
+
 
 
 
