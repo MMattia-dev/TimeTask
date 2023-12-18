@@ -3411,9 +3411,19 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 
     .BnDZmDEehCCybzG.DYnUImwbtfMRlDe {
         opacity: 1;
-        position: fixed;
-        /*height: 30px;
-        width: 30px;*/
+        height: 20px;
+        width: 20px;
+        transition: unset;
+        /*background-color: yellowgreen;*/
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        /**/
+        align-self: flex-start;
+        /*transform: translateY(calc(100% + 30px));*/
+        transform: translateY(45px) translateX(-5px);
+
     }
 
     .BnDZmDEehCCybzG svg {
@@ -3541,10 +3551,12 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     gap: 25px;
     flex-direction: column;
     background-color: rgba(34, 36, 48, 0.2);
-    /*backdrop-filter: blur(5px);*/
+    backdrop-filter: blur(5px);
     width: 370px;
-    height: 80%;
-    border-radius: 8px;
+    /*height: 80%;*/
+    height: calc(100% - 80px);
+    /*height: 500px;*/
+    /*border-radius: 8px;*/
     padding-top: 40px;
     padding-bottom: 40px;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -3554,7 +3566,8 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     overflow-x: hidden;
     scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
     scrollbar-width: thin;
-    position: relative;
+    /*position: relative;*/
+    transform: translateX(20px);
 }
 
 .ElementWidg {
