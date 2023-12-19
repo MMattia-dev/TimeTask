@@ -14,6 +14,10 @@
 GnOVtpeUPfxjSRq();
 
 
+var widg_list = ["widg1", "widg2", "widg3", "widg4", "widg5"];
+//console.log(widg_list);
+
+
 function grabAndDrab1()
 {
 	$('#widg1').draggable({
@@ -24,17 +28,29 @@ function grabAndDrab1()
 		start: function (event, ui)
 		{
 			$(this).css({ 'z-index': '100', 'background-color': 'rgba(34, 36, 48, 1)' });
-			$('#widg2').css({ 'pointer-events': 'none' });
-			$('#widg3').css({ 'pointer-events': 'none' });
-			$('#widg4').css({ 'pointer-events': 'none' });
+			//$('#widg2').css({ 'pointer-events': 'none' });
+			//$('#widg3').css({ 'pointer-events': 'none' });
+			//$('#widg4').css({ 'pointer-events': 'none' });
+
+			widg_list = widg_list.filter(e => e !== this.id);
+			for (let i = 0; i < widg_list.length; i++) 
+			{
+				$('#' + widg_list[i]).css({ 'pointer-events': 'none' });
+			}
 		},
 		stop: function (event, ui) 
 		{
 			$(this).css({ 'top': '0', left: '0' });
 			$(this).removeAttr('style');
-			$('#widg2').css({ 'pointer-events': 'all' });
-			$('#widg3').css({ 'pointer-events': 'all' });
-			$('#widg4').css({ 'pointer-events': 'all' });
+			//$('#widg2').css({ 'pointer-events': 'all' });
+			//$('#widg3').css({ 'pointer-events': 'all' });
+			//$('#widg4').css({ 'pointer-events': 'all' });
+
+			widg_list = widg_list.filter(e => e !== this.id);
+			for (let i = 0; i < widg_list.length; i++)
+			{
+				$('#' + widg_list[i]).css({ 'pointer-events': 'all' });
+			}
 		}
 	});
 };
@@ -50,17 +66,29 @@ function grabAndDrab2()
 		start: function (event, ui)
 		{
 			$(this).css({ 'z-index': '100', 'background-color': 'rgba(34, 36, 48, 1)' });
-			$('#widg1').css({ 'pointer-events': 'none' });
-			$('#widg3').css({ 'pointer-events': 'none' });
-			$('#widg4').css({ 'pointer-events': 'none' });
+			//$('#widg1').css({ 'pointer-events': 'none' });
+			//$('#widg3').css({ 'pointer-events': 'none' });
+			//$('#widg4').css({ 'pointer-events': 'none' });
+
+			widg_list = widg_list.filter(e => e !== this.id);
+			for (let i = 0; i < widg_list.length; i++) 
+			{
+				$('#' + widg_list[i]).css({ 'pointer-events': 'none' });
+			}
 		},
 		stop: function (event, ui) 
 		{
 			$(this).css({ 'top': '0', left: '0' });
 			$(this).removeAttr('style');
-			$('#widg1').css({ 'pointer-events': 'all' });
-			$('#widg3').css({ 'pointer-events': 'all' });
-			$('#widg4').css({ 'pointer-events': 'all' });
+			//$('#widg1').css({ 'pointer-events': 'all' });
+			//$('#widg3').css({ 'pointer-events': 'all' });
+			//$('#widg4').css({ 'pointer-events': 'all' });
+
+			widg_list = widg_list.filter(e => e !== this.id);
+			for (let i = 0; i < widg_list.length; i++)
+			{
+				$('#' + widg_list[i]).css({ 'pointer-events': 'all' });
+			}
 		}
 	});
 };
@@ -76,9 +104,15 @@ function grabAndDrab3()
 		start: function (event, ui)
 		{
 			$(this).css({ 'z-index': '100', 'background-color': 'rgba(34, 36, 48, 1)' });
-			$('#widg1').css({ 'pointer-events': 'none' });
-			$('#widg2').css({ 'pointer-events': 'none' });
-			$('#widg4').css({ 'pointer-events': 'none' });
+			//$('#widg1').css({ 'pointer-events': 'none' });
+			//$('#widg2').css({ 'pointer-events': 'none' });
+			//$('#widg4').css({ 'pointer-events': 'none' });
+
+			widg_list = widg_list.filter(e => e !== this.id);
+			for (let i = 0; i < widg_list.length; i++) 
+			{
+				$('#' + widg_list[i]).css({ 'pointer-events': 'none' });
+			}
 		},
 		stop: function (event, ui) 
 		{
@@ -95,9 +129,14 @@ function grabAndDrab3()
 				$(this).removeAttr('style');
 			}
 
-			$('#widg1').css({ 'pointer-events': 'all' });
-			$('#widg2').css({ 'pointer-events': 'all' });
-			$('#widg4').css({ 'pointer-events': 'all' });
+			//$('#widg1').css({ 'pointer-events': 'all' });
+			//$('#widg2').css({ 'pointer-events': 'all' });
+			//$('#widg4').css({ 'pointer-events': 'all' });
+			widg_list = widg_list.filter(e => e !== this.id);
+			for (let i = 0; i < widg_list.length; i++)
+			{
+				$('#' + widg_list[i]).css({ 'pointer-events': 'all' });
+			}
 		}
 	});
 };
@@ -113,21 +152,72 @@ function grabAndDrab4()
 		start: function (event, ui)
 		{
 			$(this).css({ 'z-index': '100', 'background-color': 'rgba(34, 36, 48, 1)' });
-			$('#widg1').css({ 'pointer-events': 'none' });
-			$('#widg2').css({ 'pointer-events': 'none' });
-			$('#widg3').css({ 'pointer-events': 'none' });
+			//$('#widg1').css({ 'pointer-events': 'none' });
+			//$('#widg2').css({ 'pointer-events': 'none' });
+			//$('#widg3').css({ 'pointer-events': 'none' });
+
+			widg_list = widg_list.filter(e => e !== this.id);
+			for (let i = 0; i < widg_list.length; i++) 
+			{
+				$('#' + widg_list[i]).css({ 'pointer-events': 'none' });
+			}
 		},
 		stop: function (event, ui) 
 		{
 			$(this).css({ 'top': '0', left: '0' });
 			$(this).removeAttr('style');
-			$('#widg1').css({ 'pointer-events': 'all' });
-			$('#widg2').css({ 'pointer-events': 'all' });
-			$('#widg3').css({ 'pointer-events': 'all' });
+			//$('#widg1').css({ 'pointer-events': 'all' });
+			//$('#widg2').css({ 'pointer-events': 'all' });
+			//$('#widg3').css({ 'pointer-events': 'all' });
+
+			widg_list = widg_list.filter(e => e !== this.id);
+			for (let i = 0; i < widg_list.length; i++)
+			{
+				$('#' + widg_list[i]).css({ 'pointer-events': 'all' });
+			}
 		}
 	});
 };
 grabAndDrab4();
+
+function grabAndDrab5()
+{
+	$('#widg5').draggable({
+		//revert: true,
+		handle: $('#widg5_handle'),
+		cursorAt: { top: 38, left: 33 },
+
+		start: function (event, ui)
+		{
+			$(this).css({ 'z-index': '100', 'background-color': 'rgba(34, 36, 48, 1)' });
+			//$('#widg1').css({ 'pointer-events': 'none' });
+			//$('#widg2').css({ 'pointer-events': 'none' });
+			//$('#widg3').css({ 'pointer-events': 'none' });
+
+			widg_list = widg_list.filter(e => e !== this.id);
+			for (let i = 0; i < widg_list.length; i++) 
+			{
+				$('#' + widg_list[i]).css({ 'pointer-events': 'none' });
+			}
+		},
+		stop: function (event, ui) 
+		{
+			$(this).css({ 'top': '0', left: '0' });
+			$(this).removeAttr('style');
+			//$('#widg1').css({ 'pointer-events': 'all' });
+			//$('#widg2').css({ 'pointer-events': 'all' });
+			//$('#widg3').css({ 'pointer-events': 'all' });
+
+			widg_list = widg_list.filter(e => e !== this.id);
+			for (let i = 0; i < widg_list.length; i++)
+			{
+				$('#' + widg_list[i]).css({ 'pointer-events': 'all' });
+			}
+		}
+	});
+};
+grabAndDrab5();
+
 
 
 
@@ -167,3 +257,164 @@ $('#rCnoNzileMKWYLc').on('click', function ()
 
 
 
+function isWeekend(date = new Date())
+{
+	return date.getDay() === 6 || date.getDay() === 0;
+}
+
+function daysInMonth(month, year)
+{
+	return new Date(year, month, 0).getDate();
+};
+
+function padWithLeadingZeros(num, totalLength)
+{
+	return String(num).padStart(totalLength, '0');
+};
+
+function getDayName(dateStr, locale)
+{
+	var date = new Date(dateStr);
+	return date.toLocaleDateString(locale, { weekday: 'long' });
+};
+
+function getLastMonday(month, year)
+{
+	var d = new Date();
+	if (year) { d.setFullYear(year); }
+	d.setDate(1); // Roll to the first day of ...
+	d.setMonth(month || d.getMonth() + 1); // ... the next month.
+	do
+	{ // Roll the days backwards until Monday.
+		d.setDate(d.getDate() - 1);
+	} while (d.getDay() !== 1);
+	return d;
+}
+
+function getDatesInRange(startDate, endDate)
+{
+	const date = new Date(startDate.getTime());
+
+	const dates = [];
+
+	while (date <= endDate)
+	{
+		dates.push(new Date(date));
+		date.setDate(date.getDate() + 1);
+	}
+
+	return dates;
+}
+
+function isSunday(date = new Date())
+{
+	return date.getDay() === 0;
+}
+
+function isMonday(date = new Date())
+{
+	return date.getDay() === 1;
+}
+
+//
+function getLang()
+{
+	if (navigator.languages != undefined)
+		return navigator.languages[0];
+	return navigator.language;
+}
+//
+
+
+
+
+function generateCalendar_widg() {
+	let year = new Date().getFullYear();
+	let month = new Date().getMonth();
+	let currentMonth = parseInt(month) + 1;
+
+	let daysLength = daysInMonth(currentMonth, year);
+	
+	let divs = '';
+
+	const prevLastDay = new Date(
+		year,
+		month,
+		0
+	).getDate();
+
+	const firstDayIndex = new Date(year, month, 1).getDay(); //pierwszy dzień miesiąca
+
+	const lastDayIndex = new Date(
+		year,
+		month,
+		0
+	).getDay();
+
+	//dodaj dni poprzedniego miesiąca
+	if (firstDayIndex == 0)
+	{
+		for (let x = 7; x > 1; x--)
+		{
+			divs += `<div class="prev-date2"><span>${prevLastDay - x + 2}</span></div>`;
+		}
+	}
+	else
+	{
+		for (let x = firstDayIndex; x > 1; x--)
+		{
+			divs += `<div class="prev-date2"><span>${prevLastDay - x + 2}</span></div>`;
+		}
+	}
+
+	//dodaj dni miesiąca
+	for (let k = 1; k <= daysLength; k++)
+	{
+		let newMonth = parseInt(month) + 1;
+		newMonth = padWithLeadingZeros(newMonth, 2);
+
+		let newDay = k;
+		newDay = padWithLeadingZeros(newDay, 2);
+
+		divs += `<div onclick="nmrkmXwejzdYahQ(this)" id="` + year + `-` + newMonth + `-` + newDay + `"><span>${k}</span></div>`;
+	}
+
+	//dodaj dni następnego miesiąca
+	let lastMonday = getLastMonday(currentMonth, year);
+	let lastDateInMonth = new Date(year, month, daysLength);
+
+	let daysCount = getDatesInRange(lastMonday, lastDateInMonth).length + 1;
+	let nextDays = 7 - daysCount;
+	for (let i = 1; i <= nextDays; i++)
+	{
+		divs += `<div class="next-date2"><span>${i}</span></div>`;
+	}
+
+	//dodaj divy
+	//$('.days_').html(divs);
+
+
+
+	//divy
+	let spans = document.querySelectorAll('.days_ div');
+	for (let i = 0; i < spans.length; i++) 
+	{
+		//Święta
+		for (let j = 0; j < model_h.length; j++) 
+		{
+			if (model_h[j].Date.split('T')[0] == spans[i].id) 
+			{
+				spans[i].setAttribute('title', model_h[j].Name);
+
+				let span = spans[i].querySelector('span');
+				$(span).css({
+					'color': 'rgb(220, 20, 20)',
+				});
+			}
+		}
+        //
+	}
+
+
+};
+generateCalendar_widg();

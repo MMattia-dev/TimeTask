@@ -171,7 +171,7 @@ function generateCalendar() {
     $('.days_').html(divs);
     
 
-    //divy 
+    //divy
     let spans = document.querySelectorAll('.days_ div');
     for (let i = 0; i < spans.length; i++)
     {
