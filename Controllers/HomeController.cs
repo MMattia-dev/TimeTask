@@ -32,8 +32,10 @@ namespace TimeTask.Controllers
             ViewBag.Department = _context.Department;
             ViewBag.Workers = _context.Workers2;
             ViewBag.Wallpaper = _context.Wallpaper2;
+			ViewBag.Holiday = _context.Holiday;
 
-            return View();
+
+			return View();
         }
 
         public IActionResult Privacy()

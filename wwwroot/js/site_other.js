@@ -331,6 +331,7 @@ function getLang()
 function generateCalendar_widg() {
 	let year = new Date().getFullYear();
 	let month = new Date().getMonth();
+	//let month = 0;
 	let currentMonth = parseInt(month) + 1;
 
 	let daysLength = daysInMonth(currentMonth, year);
@@ -356,14 +357,14 @@ function generateCalendar_widg() {
 	{
 		for (let x = 7; x > 1; x--)
 		{
-			divs += `<div class="prev-date2"><span>${prevLastDay - x + 2}</span></div>`;
+			divs += `<div class="prev-date_widg"><span>${prevLastDay - x + 2}</span></div>`;
 		}
 	}
 	else
 	{
 		for (let x = firstDayIndex; x > 1; x--)
 		{
-			divs += `<div class="prev-date2"><span>${prevLastDay - x + 2}</span></div>`;
+			divs += `<div class="prev-date_widg"><span>${prevLastDay - x + 2}</span></div>`;
 		}
 	}
 
@@ -385,18 +386,44 @@ function generateCalendar_widg() {
 
 	let daysCount = getDatesInRange(lastMonday, lastDateInMonth).length + 1;
 	let nextDays = 7 - daysCount;
-	for (let i = 1; i <= nextDays; i++)
+	if (nextDays > 0)
 	{
-		divs += `<div class="next-date2"><span>${i}</span></div>`;
+		for (let i = 1; i <= nextDays; i++)
+		{
+			divs += `<div class="next-date_widg"><span>${i}</span></div>`;
+		}
+
+		//if (nextDays >= 1 && nextDays <= 6)
+		//{
+		//	nextDays = nextDays + 7;
+		//	for (let i = 1; i <= nextDays; i++)
+		//	{
+		//		divs += `<div class="next-date_widg"><span>${i}</span></div>`;
+		//	}
+		//}
+		//else {
+		//	for (let i = 1; i <= nextDays; i++)
+		//	{
+		//		divs += `<div class="next-date_widg"><span>${i}</span></div>`;
+		//	}
+		//}
+
 	}
+	else {
+		for (let i = 1; i <= 7; i++) 
+		{
+			divs += `<div class="next-date_widg"><span>${i}</span></div>`;
+		}
+	}
+	
 
 	//dodaj divy
-	//$('.days_').html(divs);
+	$('.days_widg').html(divs);
 
 
 
 	//divy
-	let spans = document.querySelectorAll('.days_ div');
+	let spans = document.querySelectorAll('.days_widg div');
 	for (let i = 0; i < spans.length; i++) 
 	{
 		//Święta
@@ -413,6 +440,33 @@ function generateCalendar_widg() {
 			}
 		}
         //
+
+		//niedziele
+		if (isSunday(new Date(spans[i].id))) {
+			let span = spans[i].querySelector('span');
+			$(span).css({
+				'color': 'rgb(220, 20, 20)',
+			});
+		}
+		//
+
+		//dzisiaj
+		let today = new Date();
+		today = today.getDate();
+		let new_today = new Date(year, month, today + 1).toISOString().split('T')[0];
+		
+		//if (new Date(spans[i].id).toISOString().split('T')[0] == new Date(year, month, today.getDate())) {
+		//	console.log(spans);
+		//}
+		if (spans[i].id == new_today) {
+			$(spans[i]).addClass('ahfjwxcLELZHUbp');
+		}
+
+		//console.log(today.getDate());
+		//console.log(today.toISOString().split('T')[0]);
+		//console.log(new Date(year, month, today.getDate()).toISOString().split('T')[0]);
+		
+		//
 	}
 
 

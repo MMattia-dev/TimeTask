@@ -151,12 +151,27 @@
 
 					<div class="iEJFylzLAwnEGbD">
 						<div class="laelGSoQzzZzzxU">
+							@*<i class="fas fa-angle-left"></i>
 							<input type="number" min="2001" max="2099" step="1" value="@DateTime.Now.Year" class="fhFRYaTZTHxYsWV" />
+							<i class="fas fa-angle-right"></i>*@
+							<input type="month" min="2000-01" max="2099-12" value="2023-12"/>
 						</div>
 						<div class="QUDSzRKLukXdIRq">
-
+							<div class="calendar_widg" id="calendar_id_widg">
+								<div class="month_widg">
+									<div class="weekdays_widg">
+										<div>Pon</div>
+										<div>Wto</div>
+										<div>Śro</div>
+										<div>Czw</div>
+										<div>Pią</div>
+										<div>Sob</div>
+										<div>Nie</div>
+									</div>
+									<div class="days_widg"></div>
+								</div>
+							</div>
 						</div>
-
 					</div>
 					
 
@@ -248,9 +263,13 @@
 
 @*<a target="_blank" href="https://icons8.com/icon/2797/home">Home</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>*@
 
-<script type="text/javascript" src="~/js/site_other.js"></script>
-
 <script type="text/javascript">
+	var model_h = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Holiday));
+
+
+
+
+
 	var rightNav = document.querySelector('.right-nav');
 	var spanInfo = document.createElement('div');
 	spanInfo.id = 'info';
@@ -573,3 +592,4 @@
 
 </script>
 
+<script type="text/javascript" src="~/js/site_other.js"></script>
