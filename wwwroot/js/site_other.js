@@ -14,7 +14,7 @@
 GnOVtpeUPfxjSRq();
 
 
-var widg_list = ["widg1", "widg2", "widg3", "widg4", "widg5"];
+var widg_list = ["widg1", "widg2", "widg3", "widg4", "widg5", "widg6"];
 //console.log(widg_list);
 
 
@@ -218,6 +218,43 @@ function grabAndDrab5()
 };
 grabAndDrab5();
 
+function grabAndDrab6()
+{
+	$('#widg6').draggable({
+		//revert: true,
+		handle: $('#widg6_handle'),
+		cursorAt: { top: 38, left: 33 },
+
+		start: function (event, ui)
+		{
+			$(this).css({ 'z-index': '100', 'background-color': 'rgba(34, 36, 48, 1)' });
+			//$('#widg1').css({ 'pointer-events': 'none' });
+			//$('#widg2').css({ 'pointer-events': 'none' });
+			//$('#widg3').css({ 'pointer-events': 'none' });
+
+			widg_list = widg_list.filter(e => e !== this.id);
+			for (let i = 0; i < widg_list.length; i++) 
+			{
+				$('#' + widg_list[i]).css({ 'pointer-events': 'none' });
+			}
+		},
+		stop: function (event, ui) 
+		{
+			$(this).css({ 'top': '0', left: '0' });
+			$(this).removeAttr('style');
+			//$('#widg1').css({ 'pointer-events': 'all' });
+			//$('#widg2').css({ 'pointer-events': 'all' });
+			//$('#widg3').css({ 'pointer-events': 'all' });
+
+			widg_list = widg_list.filter(e => e !== this.id);
+			for (let i = 0; i < widg_list.length; i++)
+			{
+				$('#' + widg_list[i]).css({ 'pointer-events': 'all' });
+			}
+		}
+	});
+};
+grabAndDrab6();
 
 
 
