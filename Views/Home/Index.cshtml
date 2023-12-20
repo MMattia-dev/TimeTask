@@ -154,7 +154,9 @@
 							@*<i class="fas fa-angle-left"></i>
 							<input type="number" min="2001" max="2099" step="1" value="@DateTime.Now.Year" class="fhFRYaTZTHxYsWV" />
 							<i class="fas fa-angle-right"></i>*@
-							<input type="month" min="2000-01" max="2099-12" value="2023-12"/>
+							<i class="fas fa-angle-left" id="calendar_widg_previous"></i>
+							<input type="month" value="@DateTime.Now.Year-@DateTime.Now.Month" id="calendar_widg_month" />
+							<i class="fas fa-angle-right" id="calendar_widg_next"></i>
 						</div>
 						<div class="QUDSzRKLukXdIRq">
 							<div class="calendar_widg" id="calendar_id_widg">

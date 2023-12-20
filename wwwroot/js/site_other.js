@@ -377,7 +377,7 @@ function generateCalendar_widg() {
 		let newDay = k;
 		newDay = padWithLeadingZeros(newDay, 2);
 
-		divs += `<div onclick="nmrkmXwejzdYahQ(this)" id="` + year + `-` + newMonth + `-` + newDay + `"><span>${k}</span></div>`;
+		divs += `<div id="` + year + `-` + newMonth + `-` + newDay + `"><span>${k}</span></div>`;
 	}
 
 	//dodaj dni następnego miesiąca
@@ -472,3 +472,32 @@ function generateCalendar_widg() {
 
 };
 generateCalendar_widg();
+
+
+$('#calendar_widg_previous').on('click', function ()
+{
+	//document.getElementById("calendar_widg_month").stepDown(1);
+
+});
+
+$('#calendar_widg_next').on('click', function ()
+{
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
