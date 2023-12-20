@@ -477,7 +477,7 @@ generateCalendar_widg();
 $('#calendar_widg_previous').on('click', function ()
 {
 	//document.getElementById("calendar_widg_month").stepDown(1);
-
+	
 });
 
 $('#calendar_widg_next').on('click', function ()
