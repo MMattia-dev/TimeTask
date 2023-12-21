@@ -3071,25 +3071,19 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 
     .YavvRCMQscelhIs.tePqkpVdZPYCotv {
         background-color: transparent;
-        display: flex;
-        flex-direction: row;
-        /*justify-content: space-between;*/
-        justify-content: start;
-        /*align-items: end;*/
+        /*display: flex;
         gap: 10px;
-        flex-wrap: wrap;
-
+        flex-wrap: wrap;*/
+        /**/
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 
 .quickNotepad {
     background-color: rgba(34, 36, 48, 0.5);
     transition: background-color 0.2s;
-    /*height: 410px;*/
     height: 200px;
-
-
-
-    /*width: 100%;*/
     width: 200px;
     min-width: 200px;
     border-radius: 10px;
@@ -3136,6 +3130,32 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         background-size: 100% 100%, 100% 100%, 100% 31px;
         background-attachment: local;*/
     }
+
+    .quickNotepad.ECaaSDRIYJCuREK {
+        width: 410px;
+        min-width: 410px;
+        height: 410px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
+        scrollbar-width: thin;
+    }
+
+    .quickNotepad .oJSrXlbUoUZELPZ {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .quickNotepad .oJSrXlbUoUZELPZ span {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 14px;
+            text-transform: unset;
+            font-weight: unset;
+            font-style: italic;
+        }
 
     .quickNotepad:hover {
         background-color: rgba(34, 36, 48, 1);
@@ -3646,6 +3666,13 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         transform: translateY(5px);
     }
 
+    .laelGSoQzzZzzxU span {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 16px;
+        pointer-events: none;
+        transform: translateY(5px);
+    }
+
 .fhFRYaTZTHxYsWV {
     border: none;
     background-color: transparent;
@@ -3727,6 +3754,10 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     color: rgba(255, 255, 255, 0.3) !important;
     pointer-events: none;
 }
+
+
+
+
 
 
 

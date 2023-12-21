@@ -1,6 +1,6 @@
 ﻿function GnOVtpeUPfxjSRq() {
 	let quickNotepad = document.querySelector('.quickNotepad');
-	if ($(quickNotepad).hasClass('placeholderClass'))
+	if ($(quickNotepad).hasClass('cJeYzlOltXRHMNK'))
 	{
 		$('.rzVCoiMyvGxrbEa').hide();
 		$('.MprLrIoIAXLqljb').show();
@@ -118,7 +118,7 @@ function grabAndDrab3()
 		{
 			$(this).css({ 'top': '0', left: '0' });
 			//$(this).removeAttr('style');
-			if ($('.quickNotepad').hasClass('placeholderClass'))
+			if ($('.quickNotepad').hasClass('cJeYzlOltXRHMNK'))
 			{
 				this.style.removeProperty('z-index');
 				this.style.removeProperty('background-color');
@@ -260,7 +260,7 @@ grabAndDrab6();
 
 $('#yaSffAvBMRaDXMN').on('click', function()
 {
-	$(this).parent().addClass('placeholderClass'); //PyfcxvgCKODayJL
+	$(this).parent().addClass('cJeYzlOltXRHMNK'); //PyfcxvgCKODayJL
 
 	$(this).parent().animate({
 		width: "100%",
@@ -269,9 +269,10 @@ $('#yaSffAvBMRaDXMN').on('click', function()
 
 	GnOVtpeUPfxjSRq();
 });
+
 $('#tNQKplspKGJSQLU').on('click', function()
 {
-	$(this).parent().removeClass('placeholderClass');
+	$(this).parent().removeClass('cJeYzlOltXRHMNK');
 
 	$(this).parent().animate({
 		width: "200px",
@@ -523,6 +524,46 @@ $('#calendar_widg_next').on('click', function ()
 });
 
 
+
+function cgpUUZVxGDJVnXk()
+{
+	let przypomnienia = document.querySelector('.quickNotepad.ECaaSDRIYJCuREK');
+	if ($(przypomnienia).hasClass('sZuNsiVOUnHcqbL'))
+	{
+		$('.rzVCoiMyvGxrbEa.rzVCoiMyvGxrbEa_').hide();
+		$('.MprLrIoIAXLqljb.MprLrIoIAXLqljb_').show();
+	}
+	else
+	{
+		$('.rzVCoiMyvGxrbEa.rzVCoiMyvGxrbEa_').show();
+		$('.MprLrIoIAXLqljb.MprLrIoIAXLqljb_').hide();
+	}
+}
+cgpUUZVxGDJVnXk();
+
+$('#yrHcVnwJhiNRpeh').on('click', function ()
+{
+	$(this).parent().addClass('sZuNsiVOUnHcqbL');
+
+	$(this).parent().animate({
+		width: "410px",
+		height: "830px",
+	}, 500);
+
+	cgpUUZVxGDJVnXk();
+});
+
+$('#MyASZDrJkXegceG').on('click', function ()
+{
+	$(this).parent().removeClass('sZuNsiVOUnHcqbL');
+
+	$(this).parent().animate({
+		width: "410px",
+		height: "410px",
+	}, 500);
+
+	cgpUUZVxGDJVnXk();
+});
 
 
 
