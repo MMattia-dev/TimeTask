@@ -1,17 +1,4 @@
-﻿function GnOVtpeUPfxjSRq() {
-	let quickNotepad = document.querySelector('.quickNotepad');
-	if ($(quickNotepad).hasClass('cJeYzlOltXRHMNK'))
-	{
-		$('.rzVCoiMyvGxrbEa').hide();
-		$('.MprLrIoIAXLqljb').show();
-	}
-	else
-	{
-		$('.rzVCoiMyvGxrbEa').show();
-		$('.MprLrIoIAXLqljb').hide();
-	}
-};
-GnOVtpeUPfxjSRq();
+﻿
 
 
 var widg_list = ["widg1", "widg2", "widg3", "widg4", "widg5", "widg6"];
@@ -258,29 +245,6 @@ grabAndDrab6();
 
 
 
-$('#yaSffAvBMRaDXMN').on('click', function()
-{
-	$(this).parent().addClass('cJeYzlOltXRHMNK'); //PyfcxvgCKODayJL
-
-	$(this).parent().animate({
-		width: "100%",
-		height: "410px",
-	}, 1000);
-
-	GnOVtpeUPfxjSRq();
-});
-
-$('#tNQKplspKGJSQLU').on('click', function()
-{
-	$(this).parent().removeClass('cJeYzlOltXRHMNK');
-
-	$(this).parent().animate({
-		width: "200px",
-		height: "200px",
-	}, 1000);
-
-	GnOVtpeUPfxjSRq();
-});
 
 
 $('#LldXkbnodmhlJIn').on('click', function ()
@@ -477,7 +441,7 @@ function generateCalendar_widg() {
 				});
 			}
 		}
-        //
+		//
 
 		//niedziele
 		if (isSunday(new Date(spans[i].id))) {
@@ -521,6 +485,48 @@ $('#calendar_widg_previous').on('click', function ()
 $('#calendar_widg_next').on('click', function ()
 {
 
+});
+
+
+
+function GnOVtpeUPfxjSRq()
+{
+	let quickNotepad = document.querySelector('#widg3'); //#widg3 .quickNotepad
+	if ($(quickNotepad).hasClass('cJeYzlOltXRHMNK'))
+	{
+		$('#yaSffAvBMRaDXMN').hide(); //.rzVCoiMyvGxrbEa
+		$('#tNQKplspKGJSQLU').show(); //.MprLrIoIAXLqljb
+	}
+	else
+	{
+		$('#yaSffAvBMRaDXMN').show(); //.rzVCoiMyvGxrbEa
+		$('#tNQKplspKGJSQLU').hide(); //.MprLrIoIAXLqljb
+	}
+};
+GnOVtpeUPfxjSRq();
+
+$('#yaSffAvBMRaDXMN').on('click', function ()
+{
+	$(this).parent().addClass('cJeYzlOltXRHMNK'); //PyfcxvgCKODayJL
+
+	$(this).parent().animate({
+		width: "100%",
+		height: "410px",
+	}, 1000);
+
+	GnOVtpeUPfxjSRq();
+});
+
+$('#tNQKplspKGJSQLU').on('click', function ()
+{
+	$(this).parent().removeClass('cJeYzlOltXRHMNK');
+
+	$(this).parent().animate({
+		width: "200px",
+		height: "200px",
+	}, 1000);
+
+	GnOVtpeUPfxjSRq();
 });
 
 
