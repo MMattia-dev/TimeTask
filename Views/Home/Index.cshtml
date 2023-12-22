@@ -1,11 +1,25 @@
 ﻿@using Newtonsoft.Json
+@using System.Security.Claims;
 
 @{
 	ViewData["Title"] = "Home Page";
 	var culture = new System.Globalization.CultureInfo("pl-PL");
 	var monthName = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day).ToString("MMMM", culture);
+
+	//userID
+	var claimsIdentity = User.Identity as ClaimsIdentity;
+    var userID = "";
+    if (claimsIdentity != null)
+    {
+        var userIdClaim = claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+        if (userIdClaim != null)
+        {
+            userID = userIdClaim.Value;
+        }
+    }
 }
 
+<link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
 <script src="~/lib/jquery/dist/jquery-ui.min.js"></script>
 
 <div class="parent">
@@ -15,116 +29,148 @@
 
 	<section class="right-nav">
 		<div class="ATKLsxSduWPahPh">
+			<div class="kfVQjJnCTNjZlgW">
+				<div class="TOBgPdZDnrCaJEf">@DateTime.Now.Day @monthName @DateTime.Now.Year</div>
+				<div class="nLnyXKLeDWgYvPh">
+					<span id="clockSpanID">@DateTime.Now.ToString("HH:mm:ss")</span>
+				</div>
+			</div>
 			<div class="YavvRCMQscelhIs tePqkpVdZPYCotv">
 
+				<div class="miDoCHDzMtfgfwJ">
+					<!--Przypomnienia-->
+					<div class="quickNotepad ECaaSDRIYJCuREK" id="widg6">
+						<!--grab-->
+						@*<div class="MAoVlTMOGZzPPsu">
+							<div></div>
+							<div></div>
+							<div class="GteoTFWvjCrnpmN" id="widg6_handle"></div>
+						</div>*@
+						<!---->
 
+						@*<span>Przypomnienia</span>*@
+						<span>Notatki i Przypomnienia</span>
+						@if (((IEnumerable<Reminders>)ViewBag.Reminders).Any())
+						{
+							<div class="npcFeVbrHTwFdfE">
+								@foreach (var item in ((IEnumerable<Reminders>)ViewBag.Reminders).OrderBy(x => x.RemindDate))
+								{
+									<div class="RXURyrVQZpeADOh" title="Kliknij, aby zobaczyć szczegóły">
+										<span>@item.ReminderDescription</span>
+										@*<span>@item.RemindDate.ToString("dd MMMM yyyy")</span>*@
+										@if(DateTime.Now.Date == item.RemindDate || DateTime.Now.Date > item.RemindDate)
+										{
+											<span style="color: #ff0000;">@item.RemindDate.ToString("dd MMMM yyyy")</span>
+										}
+										else
+										{
+											<span>@item.RemindDate.ToString("dd MMMM yyyy")</span>
+										}
+									</div>
+								}
+							</div>
+						}
+						else
+						{
+							<div class="oJSrXlbUoUZELPZ">
+								<span>Brak przypomnień</span>
+							</div>
+						}
 
-				<!--Przypomnienia-->
-				<div class="quickNotepad ECaaSDRIYJCuREK" id="widg6">
-					<!--grab-->
-					<div class="MAoVlTMOGZzPPsu">
-						<div></div>
-						<div></div>
-						<div class="GteoTFWvjCrnpmN" id="widg6_handle"></div>
+						<!--expand-->
+						@*<div class="rzVCoiMyvGxrbEa rzVCoiMyvGxrbEa_" title="Rozszerz" id="yrHcVnwJhiNRpeh">
+							<svg width="15" height="15" viewBox="0 0 32 32">
+								<g transform="translate(-310.000000, -1193.000000)">
+									<path d="M341.977,1194.15 C341.976,1193.84 341.836,1193.56 341.623,1193.37 C341.43,1193.16 341.158,1193.01 340.849,1193.01 L332.079,1193 C331.499,1193 331.029,1193.47 331.029,1194.06 C331.03,1194.64 331.708,1195.3 331.998,1195.59 L334.216,1197.82 L328,1204 L331,1207 L337.174,1200.8 L339.392,1203.03 C339.871,1203.52 340.358,1204.03 340.938,1204.03 C341.52,1204.03 341.989,1203.56 341.988,1202.97 L341.977,1194.15 L341.977,1194.15 Z M321,1211 L314.746,1217.38 L312.565,1215.2 C312.094,1214.73 311.614,1214.22 311.044,1214.22 C310.473,1214.22 310.011,1214.68 310.012,1215.25 L310.023,1223.88 C310.023,1224.18 310.161,1224.45 310.371,1224.64 C310.561,1224.85 310.828,1224.99 311.132,1224.99 L319.756,1225 C320.326,1225 320.788,1224.54 320.788,1223.97 C320.787,1223.4 320.121,1222.75 319.835,1222.47 L317.654,1220.29 L324,1214 L321,1211 L321,1211 Z"></path>
+								</g>
+							</svg>
+						</div>*@
+						<!---->
+						<!--contract-->
+						@*<div class="MprLrIoIAXLqljb MprLrIoIAXLqljb_" title="Zmniejsz" id="MyASZDrJkXegceG">
+							<svg width="15" height="15" viewBox="0 0 52 52">
+								<g>
+									<path d="M29.6,23.9H45c1,0,1.3-1.1,0.5-1.9l-4.9-5l9-9.1c0.5-0.5,0.5-1.4,0-1.9l-3.7-3.7c-0.5-0.4-1.3-0.4-1.9,0.1l-9,9l-5.1-4.9C29.1,5.7,28,6,28,7v15.4C28,23.1,28.9,23.9,29.6,23.9z"/>
+									<path d="M22.4,28H7c-1,0-1.3,1.1-0.5,1.9l4.9,5l-9,9.1c-0.5,0.5-0.5,1.4,0,1.9l3.7,3.7c0.5,0.5,1.3,0.5,1.9,0l9.1-9.1l5.1,4.9C22.9,46.3,24,46,24,45V29.7C24,29,23.1,28,22.4,28z"/>
+								</g>
+							</svg>
+						</div>*@
+						<!---->
+						<!--disable-->
+						@*<div class="BnDZmDEehCCybzG" title="Usuń">
+							<svg viewBox="0 0 470 470" width="15" height="15">
+								<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>
+							</svg>
+						</div>*@
+						<!---->
+						<!--Add button-->
+						<div class="uttPwSlVwzYRFsN" id="cKyQznqiHBCNqod" title="Dodaj przypomnienie">
+							<svg viewBox="-6 -4.5 25 25" width="38" height="38">
+								<path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path>
+							</svg>
+						</div>
+						<!---->
 					</div>
-					<!---->
-
-					<span>Przypomnienia</span>
-					<div class="oJSrXlbUoUZELPZ">
-						<span>Brak przypomnień</span>
-					</div>
-
-					<!--expand-->
-					<div class="rzVCoiMyvGxrbEa rzVCoiMyvGxrbEa_" title="Rozszerz" id="yrHcVnwJhiNRpeh">
-						<svg width="15" height="15" viewBox="0 0 32 32">
-							<g transform="translate(-310.000000, -1193.000000)">
-								<path d="M341.977,1194.15 C341.976,1193.84 341.836,1193.56 341.623,1193.37 C341.43,1193.16 341.158,1193.01 340.849,1193.01 L332.079,1193 C331.499,1193 331.029,1193.47 331.029,1194.06 C331.03,1194.64 331.708,1195.3 331.998,1195.59 L334.216,1197.82 L328,1204 L331,1207 L337.174,1200.8 L339.392,1203.03 C339.871,1203.52 340.358,1204.03 340.938,1204.03 C341.52,1204.03 341.989,1203.56 341.988,1202.97 L341.977,1194.15 L341.977,1194.15 Z M321,1211 L314.746,1217.38 L312.565,1215.2 C312.094,1214.73 311.614,1214.22 311.044,1214.22 C310.473,1214.22 310.011,1214.68 310.012,1215.25 L310.023,1223.88 C310.023,1224.18 310.161,1224.45 310.371,1224.64 C310.561,1224.85 310.828,1224.99 311.132,1224.99 L319.756,1225 C320.326,1225 320.788,1224.54 320.788,1223.97 C320.787,1223.4 320.121,1222.75 319.835,1222.47 L317.654,1220.29 L324,1214 L321,1211 L321,1211 Z"></path>
-							</g>
-						</svg>
-					</div>
-					<!---->
-					<!--contract-->
-					<div class="MprLrIoIAXLqljb MprLrIoIAXLqljb_" title="Zmniejsz" id="MyASZDrJkXegceG">
-						<svg width="15" height="15" viewBox="0 0 52 52">
-							<g>
-								<path d="M29.6,23.9H45c1,0,1.3-1.1,0.5-1.9l-4.9-5l9-9.1c0.5-0.5,0.5-1.4,0-1.9l-3.7-3.7c-0.5-0.4-1.3-0.4-1.9,0.1l-9,9l-5.1-4.9C29.1,5.7,28,6,28,7v15.4C28,23.1,28.9,23.9,29.6,23.9z"/>
-								<path d="M22.4,28H7c-1,0-1.3,1.1-0.5,1.9l4.9,5l-9,9.1c-0.5,0.5-0.5,1.4,0,1.9l3.7,3.7c0.5,0.5,1.3,0.5,1.9,0l9.1-9.1l5.1,4.9C22.9,46.3,24,46,24,45V29.7C24,29,23.1,28,22.4,28z"/>
-							</g>
-						</svg>
-					</div>
-					<!---->
-					<!--disable-->
-					<div class="BnDZmDEehCCybzG" title="Usuń">
-						<svg viewBox="0 0 470 470" width="15" height="15">
-							<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>
-						</svg>
-					</div>
-					<!---->
-					<!--Add button-->
-					<div class="uttPwSlVwzYRFsN" title="Dodaj przypomnienie">
-						<svg viewBox="-4.5 -4.5 25 25" width="25" height="25">
-							<path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path>
-						</svg>
-					</div>
-					<!---->
-				</div>
 				
 
-				<!--notatnik-->
-				<div class="quickNotepad" id="widg3">
-					<!--grab-->
-					<div class="MAoVlTMOGZzPPsu">
-						<div></div>
-						<div></div>
-						<div class="GteoTFWvjCrnpmN" id="widg3_handle"></div>
+					<!--notatnik-->
+					<div class="quickNotepad" id="widg3" style="display: none;">
+						<!--grab-->
+						@*<div class="MAoVlTMOGZzPPsu">
+							<div></div>
+							<div></div>
+							<div class="GteoTFWvjCrnpmN" id="widg3_handle"></div>
+						</div>*@
+						<!---->
+						<span>Notatnik</span>
+						<textarea spellcheck="false" id=""></textarea>
+						<!--expand-->
+						@*<div class="rzVCoiMyvGxrbEa" title="Rozszerz" id="yaSffAvBMRaDXMN">
+							<svg width="15" height="15" viewBox="0 0 32 32">
+								<g transform="translate(-310.000000, -1193.000000)">
+									<path d="M341.977,1194.15 C341.976,1193.84 341.836,1193.56 341.623,1193.37 C341.43,1193.16 341.158,1193.01 340.849,1193.01 L332.079,1193 C331.499,1193 331.029,1193.47 331.029,1194.06 C331.03,1194.64 331.708,1195.3 331.998,1195.59 L334.216,1197.82 L328,1204 L331,1207 L337.174,1200.8 L339.392,1203.03 C339.871,1203.52 340.358,1204.03 340.938,1204.03 C341.52,1204.03 341.989,1203.56 341.988,1202.97 L341.977,1194.15 L341.977,1194.15 Z M321,1211 L314.746,1217.38 L312.565,1215.2 C312.094,1214.73 311.614,1214.22 311.044,1214.22 C310.473,1214.22 310.011,1214.68 310.012,1215.25 L310.023,1223.88 C310.023,1224.18 310.161,1224.45 310.371,1224.64 C310.561,1224.85 310.828,1224.99 311.132,1224.99 L319.756,1225 C320.326,1225 320.788,1224.54 320.788,1223.97 C320.787,1223.4 320.121,1222.75 319.835,1222.47 L317.654,1220.29 L324,1214 L321,1211 L321,1211 Z"></path>
+								</g>
+							</svg>
+						</div>*@
+						<!---->
+						<!--contract-->
+						@*<div class="MprLrIoIAXLqljb" title="Zmniejsz" id="tNQKplspKGJSQLU">
+							<svg width="15" height="15" viewBox="0 0 52 52">
+								<g>
+									<path d="M29.6,23.9H45c1,0,1.3-1.1,0.5-1.9l-4.9-5l9-9.1c0.5-0.5,0.5-1.4,0-1.9l-3.7-3.7c-0.5-0.4-1.3-0.4-1.9,0.1l-9,9l-5.1-4.9C29.1,5.7,28,6,28,7v15.4C28,23.1,28.9,23.9,29.6,23.9z"/>
+									<path d="M22.4,28H7c-1,0-1.3,1.1-0.5,1.9l4.9,5l-9,9.1c-0.5,0.5-0.5,1.4,0,1.9l3.7,3.7c0.5,0.5,1.3,0.5,1.9,0l9.1-9.1l5.1,4.9C22.9,46.3,24,46,24,45V29.7C24,29,23.1,28,22.4,28z"/>
+								</g>
+							</svg>
+						</div>*@
+						<!---->
+						<!--disable-->
+						@*<div class="BnDZmDEehCCybzG" title="Usuń">
+							<svg viewBox="0 0 470 470" width="15" height="15">
+								<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>
+							</svg>
+						</div>*@
+						<!---->
+						<!--Save button-->
+						<div class="uttPwSlVwzYRFsN" title="Zapisz">
+							<svg viewBox="-2.5 0 19 19" width="35" height="35">
+								<path d="M13.014 3.638v11.133a.476.476 0 0 1-.475.475H3.214a1.342 1.342 0 0 1-.813-.333L1.325 13.86a1.301 1.301 0 0 1-.34-.808V3.638a.476.476 0 0 1 .476-.475H12.54a.476.476 0 0 1 .474.475zm-2.208.954a.476.476 0 0 0-.475-.475H3.67a.476.476 0 0 0-.475.475v3.212a.476.476 0 0 0 .475.475h6.66a.476.476 0 0 0 .476-.475zm-.5 5.883a.477.477 0 0 0-.475-.476H4.16a.477.477 0 0 0-.475.476v3.442a.476.476 0 0 0 .475.475h5.67a.476.476 0 0 0 .475-.475zm-4.356.635H4.74v2.2h1.21z"></path>
+							</svg>
+						</div>
+						<!---->
 					</div>
-					<!---->
-					<span>Notatnik</span>
-					<textarea spellcheck="false"></textarea>
-					<!--expand-->
-					<div class="rzVCoiMyvGxrbEa" title="Rozszerz" id="yaSffAvBMRaDXMN">
-						<svg width="15" height="15" viewBox="0 0 32 32">
-							<g transform="translate(-310.000000, -1193.000000)">
-								<path d="M341.977,1194.15 C341.976,1193.84 341.836,1193.56 341.623,1193.37 C341.43,1193.16 341.158,1193.01 340.849,1193.01 L332.079,1193 C331.499,1193 331.029,1193.47 331.029,1194.06 C331.03,1194.64 331.708,1195.3 331.998,1195.59 L334.216,1197.82 L328,1204 L331,1207 L337.174,1200.8 L339.392,1203.03 C339.871,1203.52 340.358,1204.03 340.938,1204.03 C341.52,1204.03 341.989,1203.56 341.988,1202.97 L341.977,1194.15 L341.977,1194.15 Z M321,1211 L314.746,1217.38 L312.565,1215.2 C312.094,1214.73 311.614,1214.22 311.044,1214.22 C310.473,1214.22 310.011,1214.68 310.012,1215.25 L310.023,1223.88 C310.023,1224.18 310.161,1224.45 310.371,1224.64 C310.561,1224.85 310.828,1224.99 311.132,1224.99 L319.756,1225 C320.326,1225 320.788,1224.54 320.788,1223.97 C320.787,1223.4 320.121,1222.75 319.835,1222.47 L317.654,1220.29 L324,1214 L321,1211 L321,1211 Z"></path>
-							</g>
-						</svg>
-					</div>
-					<!---->
-					<!--contract-->
-					<div class="MprLrIoIAXLqljb" title="Zmniejsz" id="tNQKplspKGJSQLU">
-						<svg width="15" height="15" viewBox="0 0 52 52">
-							<g>
-								<path d="M29.6,23.9H45c1,0,1.3-1.1,0.5-1.9l-4.9-5l9-9.1c0.5-0.5,0.5-1.4,0-1.9l-3.7-3.7c-0.5-0.4-1.3-0.4-1.9,0.1l-9,9l-5.1-4.9C29.1,5.7,28,6,28,7v15.4C28,23.1,28.9,23.9,29.6,23.9z"/>
-								<path d="M22.4,28H7c-1,0-1.3,1.1-0.5,1.9l4.9,5l-9,9.1c-0.5,0.5-0.5,1.4,0,1.9l3.7,3.7c0.5,0.5,1.3,0.5,1.9,0l9.1-9.1l5.1,4.9C22.9,46.3,24,46,24,45V29.7C24,29,23.1,28,22.4,28z"/>
-							</g>
-						</svg>
-					</div>
-					<!---->
-					<!--disable-->
-					<div class="BnDZmDEehCCybzG" title="Usuń">
-						<svg viewBox="0 0 470 470" width="15" height="15">
-							<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>
-						</svg>
-					</div>
-					<!---->
-					<!--Save button-->
-					<div class="uttPwSlVwzYRFsN" title="Zapisz">
-						<svg viewBox="-2.5 0 19 19" width="25" height="25">
-							<path d="M13.014 3.638v11.133a.476.476 0 0 1-.475.475H3.214a1.342 1.342 0 0 1-.813-.333L1.325 13.86a1.301 1.301 0 0 1-.34-.808V3.638a.476.476 0 0 1 .476-.475H12.54a.476.476 0 0 1 .474.475zm-2.208.954a.476.476 0 0 0-.475-.475H3.67a.476.476 0 0 0-.475.475v3.212a.476.476 0 0 0 .475.475h6.66a.476.476 0 0 0 .476-.475zm-.5 5.883a.477.477 0 0 0-.475-.476H4.16a.477.477 0 0 0-.475.476v3.442a.476.476 0 0 0 .475.475h5.67a.476.476 0 0 0 .475-.475zm-4.356.635H4.74v2.2h1.21z"></path>
-						</svg>
-					</div>
-					<!---->
 				</div>
+
+				
 
 
 				<!--zegar-->
-				<div class="clock clockAnalog" id="widg4">
+				<div class="clock clockAnalog" id="widg4" style="display: none;">
 					<!--grab-->
-					<div class="MAoVlTMOGZzPPsu">
+					@*<div class="MAoVlTMOGZzPPsu">
 						<div></div>
 						<div></div>
 						<div class="GteoTFWvjCrnpmN" id="widg4_handle"></div>
-					</div>
+					</div>*@
 					<!---->
 
 					<img src="~/css/img/clock4.png" width="200" height="200"/>
@@ -133,23 +179,23 @@
 					<span id="second"></span> 
 
 					<!--disable-->
-					<div class="BnDZmDEehCCybzG" title="Usuń">
+					@*<div class="BnDZmDEehCCybzG" title="Usuń">
 						<svg viewBox="0 0 470 470" width="15" height="15">
 							<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>
 						</svg>
-					</div>
+					</div>*@
 					<!---->
 				</div>
 				
 
 				<!--kalendarz-->
-				<div class="AipWiPstniVIhkC" id="widg5">
+				<div class="AipWiPstniVIhkC" id="widg5" style="display: none;">
 					<!--grab-->
-					<div class="MAoVlTMOGZzPPsu">
+					@*<div class="MAoVlTMOGZzPPsu">
 						<div></div>
 						<div></div>
 						<div class="GteoTFWvjCrnpmN" id="widg5_handle"></div>
-					</div>
+					</div>*@
 					<!---->
 					<div class="iEJFylzLAwnEGbD">
 						<div class="laelGSoQzzZzzxU">
@@ -176,71 +222,73 @@
 						</div>
 					</div>
 					<!--disable-->
-					<div class="BnDZmDEehCCybzG" title="Usuń">
+					@*<div class="BnDZmDEehCCybzG" title="Usuń">
 						<svg viewBox="0 0 470 470" width="15" height="15">
 							<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>
 						</svg>
-					</div>
+					</div>*@
 					<!---->
 				</div>
 
 
 				
 
-
-				<!--procent1-->
-				<div class="AipWiPstniVIhkC" id="widg1">
-						<!--grab-->
-						<div class="MAoVlTMOGZzPPsu">
-							<div></div>
-							<div></div>
-							<div class="GteoTFWvjCrnpmN" id="widg1_handle"></div>
-						</div>
-						<!---->
-						<svg class="round" id="round1" viewBox="0 0 100 100" width="190" height="190" data-percent="71" xmlns="http://www.w3.org/2000/svg">
-							<circle cx="50" cy="50" r="34" />
-							<text id="XLkvcgJWzEfxPvE" x="50" y="48" text-anchor="middle" dominant-baseline="central" transform="rotate(90, 50, 50)"></text>
-						</svg>
-						<svg class="roundBackground" viewBox="0 0 100 100" width="190" height="190" data-percent="100" xmlns="http://www.w3.org/2000/svg">
-							<circle cx="50" cy="50" r="40" />
-						</svg>
-						<!--disable-->
-						<div class="BnDZmDEehCCybzG" title="Usuń">
-							<svg viewBox="0 0 470 470" width="15" height="15">
-								<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>
+				<div class="miDoCHDzMtfgfwJ">
+					<!--procent1-->
+					<div class="AipWiPstniVIhkC" id="widg1">
+							<!--grab-->
+							@*<div class="MAoVlTMOGZzPPsu">
+								<div></div>
+								<div></div>
+								<div class="GteoTFWvjCrnpmN" id="widg1_handle"></div>
+							</div>*@
+							<!---->
+							<svg class="round" id="round1" viewBox="0 0 100 100" width="190" height="190" data-percent="71" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="50" cy="50" r="34" />
+								<text id="XLkvcgJWzEfxPvE" x="50" y="48" text-anchor="middle" dominant-baseline="central" transform="rotate(90, 50, 50)"></text>
 							</svg>
-						</div>
-						<!---->
-				</div> 
-
-
-				<!--procent2-->
-				<div class="AipWiPstniVIhkC" id="widg2">
-						<!--grab-->
-						<div class="MAoVlTMOGZzPPsu">
-							<div></div>
-							<div></div>
-							<div class="GteoTFWvjCrnpmN" id="widg2_handle"></div>
-						</div>
-						<!---->
-						<svg class="round" id="round2" viewBox="0 0 100 100" width="190" height="190" data-percent="42" xmlns="http://www.w3.org/2000/svg">
-							<circle cx="50" cy="50" r="34" />
-							<text id="HTdLmnPsRaqTSUU" x="50" y="48" text-anchor="middle" dominant-baseline="central" transform="rotate(90, 50, 50)"></text>
-						</svg>
-						<svg class="roundBackground" viewBox="0 0 100 100" width="190" height="190" data-percent="100" xmlns="http://www.w3.org/2000/svg">
-							<circle cx="50" cy="50" r="40" />
-						</svg>
-						<!--disable-->
-						<div class="BnDZmDEehCCybzG" title="Usuń">
-							<svg viewBox="0 0 470 470" width="15" height="15">
-								<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>
+							<svg class="roundBackground" viewBox="0 0 100 100" width="190" height="190" data-percent="100" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="50" cy="50" r="40" />
 							</svg>
-						</div>
-						<!---->
-				</div> 
+							<!--disable-->
+							@*<div class="BnDZmDEehCCybzG" title="Usuń">
+								<svg viewBox="0 0 470 470" width="15" height="15">
+									<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>
+								</svg>
+							</div>*@
+							<!---->
+					</div> 
+
+
+					<!--procent2-->
+					<div class="AipWiPstniVIhkC" id="widg2">
+							<!--grab-->
+							@*<div class="MAoVlTMOGZzPPsu">
+								<div></div>
+								<div></div>
+								<div class="GteoTFWvjCrnpmN" id="widg2_handle"></div>
+							</div>*@
+							<!---->
+							<svg class="round" id="round2" viewBox="0 0 100 100" width="190" height="190" data-percent="42" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="50" cy="50" r="34" />
+								<text id="HTdLmnPsRaqTSUU" x="50" y="48" text-anchor="middle" dominant-baseline="central" transform="rotate(90, 50, 50)"></text>
+							</svg>
+							<svg class="roundBackground" viewBox="0 0 100 100" width="190" height="190" data-percent="100" xmlns="http://www.w3.org/2000/svg">
+								<circle cx="50" cy="50" r="40" />
+							</svg>
+							<!--disable-->
+							@*<div class="BnDZmDEehCCybzG" title="Usuń">
+								<svg viewBox="0 0 470 470" width="15" height="15">
+									<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>
+								</svg>
+							</div>*@
+							<!---->
+					</div> 
+				</div>
+				
 				
 
-				<div class="iKlKXUFEJUNEQul" id="LldXkbnodmhlJIn">
+				<div class="iKlKXUFEJUNEQul" id="LldXkbnodmhlJIn" style="display: none;">
 					<svg viewBox="0 0 1920 1920" width="50" height="50">
 						<path d="M866.332 213v653.332H213v186.666h653.332v653.332h186.666v-653.332h653.332V866.332h-653.332V213z"></path>
 					</svg>
@@ -316,14 +364,38 @@
 	<!---->
 </div>
 
+<div id="SifCPThsCoyHbct" class="pGKcZvErUB" style="display: none;">
+    <form class="form_3">
+		<div class="form-group">
+			<label>Opis przypomnienia</label>
+			<textarea class="form-control" id="ITnLhNHsrVsLMlU" required></textarea>
+		</div>
+		<div class="form-group form-group-margin">
+			<label>Data przypomnienia</label>
+			<input class="form-control" type="date" id="SxtTxveciNblgyY" required />
+		</div>
+		<div class="form-group">
+            <input type="button" value="Zapisz" class="btn-custom" id="CKwCPBbYtspreJT" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" id="ueUfjQYGkUvCTDV" />
+        </div>
+    </form>
+</div>
+
+<div id="aZVwWFKbYTeoWFY" class="HRvGYpBLRXqiEGy">
+
+</div>
+
 @*<a target="_blank" href="https://icons8.com/icon/2797/home">Home</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>*@
 
 <script type="text/javascript">
+	sessionStorage.setItem('XqeDUTCSnAFTQgb', `@userID`);
+
 	var model_h = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Holiday));
-
-
-
-
+	var model_r = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Reminders));
+	
+	
 
 	var rightNav = document.querySelector('.right-nav');
 	var spanInfo = document.createElement('div');
@@ -420,6 +492,9 @@
 		}, percentage2);
 		/**/
 
+
+
+		
 	});
 
 

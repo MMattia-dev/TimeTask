@@ -1,4 +1,36 @@
-﻿
+﻿setInterval(() =>
+{
+	d = new Date(); //object of date()
+	hr = d.getHours();
+	min = d.getMinutes();
+	sec = d.getSeconds();
+	hr_rotation = 30 * hr + min / 2; //converting current time
+	min_rotation = 6 * min;
+	sec_rotation = 6 * sec;
+
+	const hour = document.getElementById('hour');
+	const minute = document.getElementById('minute');
+	const second = document.getElementById('second');
+
+	if (hour != null)
+	{
+		hour.style.transform = `rotate(${hr_rotation}deg)`;
+	}
+	if (minute != null)
+	{
+		minute.style.transform = `rotate(${min_rotation}deg)`;
+	}
+	if (second != null)
+	{
+		second.style.transform = `rotate(${sec_rotation}deg)`;
+	}
+
+	//clockSpanID
+	if (document.getElementById("clockSpanID") != null)
+	{
+		document.getElementById("clockSpanID").innerHTML = ('0' + hr).slice(-2) + ":" + ('0' + min).slice(-2) + ":" + ('0' + sec).slice(-2);
+	}
+}, 1000);
 
 
 var widg_list = ["widg1", "widg2", "widg3", "widg4", "widg5", "widg6"];
@@ -510,9 +542,9 @@ $('#yaSffAvBMRaDXMN').on('click', function ()
 	$(this).parent().addClass('cJeYzlOltXRHMNK'); //PyfcxvgCKODayJL
 
 	$(this).parent().animate({
-		width: "100%",
+		width: "410px",
 		height: "410px",
-	}, 1000);
+	}, 500);
 
 	GnOVtpeUPfxjSRq();
 });
@@ -524,7 +556,7 @@ $('#tNQKplspKGJSQLU').on('click', function ()
 	$(this).parent().animate({
 		width: "200px",
 		height: "200px",
-	}, 1000);
+	}, 500);
 
 	GnOVtpeUPfxjSRq();
 });
@@ -550,18 +582,7 @@ cgpUUZVxGDJVnXk();
 $('#yrHcVnwJhiNRpeh').on('click', function ()
 {
 	$(this).parent().addClass('sZuNsiVOUnHcqbL');
-
-	$(this).parent().animate({
-		width: "410px",
-		height: "830px",
-	}, 500);
-
-	cgpUUZVxGDJVnXk();
-});
-
-$('#MyASZDrJkXegceG').on('click', function ()
-{
-	$(this).parent().removeClass('sZuNsiVOUnHcqbL');
+	$(this).parent().addClass('sZuNsiVOUnHcqbL_');
 
 	$(this).parent().animate({
 		width: "410px",
@@ -571,13 +592,68 @@ $('#MyASZDrJkXegceG').on('click', function ()
 	cgpUUZVxGDJVnXk();
 });
 
+$('#MyASZDrJkXegceG').on('click', function ()
+{
+	$(this).parent().removeClass('sZuNsiVOUnHcqbL');
+	$(this).parent().removeClass('sZuNsiVOUnHcqbL_');
+
+	$(this).parent().animate({
+		width: "200px",
+		height: "200px",
+	}, 500);
+
+	cgpUUZVxGDJVnXk();
+});
 
 
 
 
 
+$(document).ready(function ()
+{
+	
+});
 
 
+
+
+$('#cKyQznqiHBCNqod').on('click', function ()
+{
+	$('#SifCPThsCoyHbct').fadeIn(200);
+});
+
+$('#ueUfjQYGkUvCTDV').on('click', function ()
+{
+	$('#SifCPThsCoyHbct').fadeOut(200);
+});
+
+$('#CKwCPBbYtspreJT').on('click', function ()
+{
+	let uID = sessionStorage.getItem('XqeDUTCSnAFTQgb');
+	let string = document.getElementById('ITnLhNHsrVsLMlU').value;
+	let date = document.getElementById('SxtTxveciNblgyY').value;
+
+	if (uID.length > 0 && string.length > 0 && date.length > 0) {
+		$.ajax({
+			type: 'POST',
+			url: '/Home/AddReminder',
+			data: {
+				userID: uID,
+				reminderDescription: string,
+				remindDate: date,
+			},
+			success: function (response)
+			{
+				location.reload();
+			},
+			error: function (xhr, status, error)
+			{
+				console.log('Error adding value:', error);
+			}
+		});
+	}
+	
+});
 
 
 
