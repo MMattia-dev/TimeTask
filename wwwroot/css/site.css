@@ -3086,12 +3086,13 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     width: 410px;
     min-width: 410px;
     /*border-radius: 10px;*/
-    padding: 15px;
+    padding: 5px 15px 15px 15px;
+    /*padding-top: 0px;*/
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    position: relative;
-    overflow: hidden;
+    /*gap: 4px;*/
+    /*position: relative;*/
+    /*overflow: hidden;*/
 }
 
     .quickNotepad.PyfcxvgCKODayJL {
@@ -3105,12 +3106,12 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     }
 
     .quickNotepad span {
-        color: white;
+        /*color: white;
         font-size: 14px;
         font-weight: bold;
         opacity: 0.8;
         text-transform: uppercase;
-        transform: translateX(1px) translateY(-3px);
+        transform: translateX(1px) translateY(-3px);*/
     }
 
     .quickNotepad textarea {
@@ -3122,26 +3123,106 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         resize: none;
         opacity: 0.3;
         transition: opacity 0.2s;
-        /*horizontal rules*/
-        /*line-height: 31px;
-        background-image: -webkit-linear-gradient(left, transparent 0, transparent 0), -webkit-linear-gradient(right, transparent 0, transparent 0), -webkit-linear-gradient(transparent 30px, transparent 30px, rgba(204, 204, 204, 0.6) 31px, white 31px);
-        background-repeat: repeat-y;
-        background-size: 100% 100%, 100% 100%, 100% 31px;
-        background-attachment: local;*/
     }
 
     .quickNotepad.ECaaSDRIYJCuREK {
         width: 410px;
         min-width: 410px;
         height: 410px;
-        /*width: 200px;
-        min-width: 200px;
-        height: 200px;*/
         overflow-x: hidden;
-        overflow-y: auto;
-        scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
+        overflow-y: scroll;
+        scrollbar-color: rgba(36, 110, 142, 0.7) rgba(34, 36, 48, 1);
         scrollbar-width: thin;
+        /*position: relative;*/
     }
+
+        .quickNotepad.ECaaSDRIYJCuREK .hzbdsLoiCKYdXki {
+            height: 45px;
+            min-height: 45px;
+            width: 400px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            transform: translateX(-15px) translateY(-5px);
+            z-index: 2;
+            padding-left: 15px;
+            padding-right: 5px;
+            background-color: rgba(34, 36, 48, 1);
+        }
+
+            .quickNotepad.ECaaSDRIYJCuREK .hzbdsLoiCKYdXki span {
+                color: white;
+                font-size: 14px;
+                font-weight: bold;
+                opacity: 0.8;
+                text-transform: uppercase;
+            }
+
+        .quickNotepad.ECaaSDRIYJCuREK .LnUQrJmWUuewBhp {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 400px;
+            height: 30px;
+            min-height: 30px;
+            position: sticky;
+            bottom: 0;
+            left: 0;
+            /*background-color: darkgreen;*/
+            transform: translateX(-15px) translateY(15px);
+            z-index: 2;
+            gap: 3px;
+            
+        }
+
+            .quickNotepad.ECaaSDRIYJCuREK .LnUQrJmWUuewBhp .YANONwJheyppZDG {
+                background-color: rgba(34, 36, 48, 1);
+                height: 100%;
+                width: 50%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-left: 7px;
+                padding-right: 3px;
+            }
+
+                .quickNotepad.ECaaSDRIYJCuREK .LnUQrJmWUuewBhp .YANONwJheyppZDG.XeTGvGxHJzYJimR {
+                    background-color: rgba(54, 56, 68, 1);
+                }
+
+                .quickNotepad.ECaaSDRIYJCuREK .LnUQrJmWUuewBhp .YANONwJheyppZDG span {
+                    color: rgba(255, 255, 255, 0.7);
+                    font-size: 12px;
+                    /*font-weight: bold;*/
+                }
+
+            .quickNotepad.ECaaSDRIYJCuREK .LnUQrJmWUuewBhp .TJfLhELXhofvBlO {
+                background-color: rgba(34, 36, 48, 1);
+                height: 100%;
+                width: 50%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-left: 7px;
+                padding-right: 3px;
+            }
+
+                .quickNotepad.ECaaSDRIYJCuREK .LnUQrJmWUuewBhp .TJfLhELXhofvBlO.XeTGvGxHJzYJimR {
+                    background-color: rgba(54, 56, 68, 1);
+                }
+
+                .quickNotepad.ECaaSDRIYJCuREK .LnUQrJmWUuewBhp .TJfLhELXhofvBlO span {
+                    color: rgba(255, 255, 255, 0.7);
+                    font-size: 12px;
+                    /*font-weight: bold;*/
+                }
+
+            .quickNotepad.ECaaSDRIYJCuREK .LnUQrJmWUuewBhp div:hover {
+                cursor: pointer;
+                background-color: rgba(44, 46, 58, 1);
+            }
 
     .quickNotepad .oJSrXlbUoUZELPZ {
         height: 100%;
@@ -3160,9 +3241,28 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         }
 
     .quickNotepad:hover {
-        background-color: rgba(34, 36, 48, 1);
-        transition: background-color 0.2s;
+        /*background-color: rgba(34, 36, 48, 1);*/
+        /*transition: background-color 0.2s;*/
     }
+
+        .quickNotepad:hover .hzbdsLoiCKYdXki {
+            /*background-color: rgba(24, 26, 38, 1);
+            transition: background-color 0.2s;*/
+        }
+
+        .quickNotepad:hover .LnUQrJmWUuewBhp {
+            /*background-color: rgba(34, 36, 48, 1);*/
+        }
+
+        .quickNotepad:hover .LnUQrJmWUuewBhp .YANONwJheyppZDG {
+            /*background-color: rgba(24, 26, 38, 1);
+            transition: background-color 0.2s;*/
+        }
+
+        .quickNotepad:hover .LnUQrJmWUuewBhp .TJfLhELXhofvBlO {
+            /*background-color: rgba(24, 26, 38, 1);
+            transition: background-color 0.2s;*/
+        }
 
         .quickNotepad:hover textarea {
             opacity: 0.9;
@@ -3190,8 +3290,8 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         }
 
         .quickNotepad:hover .uttPwSlVwzYRFsN {
-            opacity: 1;
-            transition: opacity 0.2s;
+            /*opacity: 1;
+            transition: opacity 0.2s;*/
         }
 
 .kxlFuByfFFOpwAf {
@@ -3514,18 +3614,22 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         }
 
 .uttPwSlVwzYRFsN {
-    position: absolute;
-    top: 2px;
+    /*position: absolute;*/
+    /*top: 2px;*/
     /*right: 53px;*/
     /*right: 28px;*/
-    right: 4px;
-    opacity: 0;
-    transition: opacity 0.2s;
-    z-index: 1;  
+    /*right: 4px;*/
+    /*opacity: 0;
+    transition: opacity 0.2s;*/
+    /*z-index: 1;*/
+    /*background-color: rgba(64, 66, 78, 1);
+    border-radius: 50px;*/
+    /*background-color: darkgreen;*/
 }
 
     .uttPwSlVwzYRFsN svg {
         fill: rgba(255, 255, 255, 0.75);
+        transform: translateX(-0.12em);
     }
 
     .uttPwSlVwzYRFsN:hover {
@@ -3781,15 +3885,21 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     display: flex;
     flex-direction: column;
     padding-top: 5px;
+    /*padding-bottom: 10px;*/
+    /*height: 100%;
+    overflow: hidden;*/
+    height: 100%;
+    width: 100%;
 }
 
 .RXURyrVQZpeADOh {
     height: 55px;
+    min-height: 55px;
     width: 100%;
     display: flex;
     justify-content: left;
     align-items: flex-end;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     padding-left: 5px;
     padding-right: 5px;
     position: relative;
@@ -3798,6 +3908,10 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     .RXURyrVQZpeADOh:hover {
         cursor: pointer;
         background-color: rgba(44, 46, 58, 1);
+    }
+
+    .RXURyrVQZpeADOh span {
+        color: rgba(255, 255, 255, 0.8);
     }
 
     .RXURyrVQZpeADOh span:first-child {
@@ -3818,6 +3932,27 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         text-transform: unset;
         font-style: italic;
     }
+
+.roNwzjAutuLOrAX {
+    /*background-color: rgba(0, 0, 0, 0.5);*/
+    height: 20px;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    /*background-color: white;*/
+    pointer-events: none;
+}
+
+    .roNwzjAutuLOrAX span {
+        color: orangered !important;
+        /*color: black !important;*/
+        font-weight: bold !important;
+        /*font-size: 14px !important;*/
+    } 
+
+
 
 
 

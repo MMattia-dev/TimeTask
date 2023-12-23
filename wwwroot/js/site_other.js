@@ -633,7 +633,7 @@ $('#CKwCPBbYtspreJT').on('click', function ()
 	let string = document.getElementById('ITnLhNHsrVsLMlU').value;
 	let date = document.getElementById('SxtTxveciNblgyY').value;
 
-	if (uID.length > 0 && string.length > 0 && date.length > 0) {
+	if (uID.length > 0 && string.length > 0) {
 		$.ajax({
 			type: 'POST',
 			url: '/Home/AddReminder',
@@ -654,6 +654,82 @@ $('#CKwCPBbYtspreJT').on('click', function ()
 	}
 	
 });
+
+function SFnCnjucFGPsUMa(t) {
+	
+};
+
+//przypomnienia
+function przypomnienia() {
+	document.getElementById('avFbWLrryTfbsfN_').checked = true;
+	$('#avFbWLrryTfbsfN').addClass('XeTGvGxHJzYJimR');
+	$('#kEWZMkOkYppAIql').removeClass('XeTGvGxHJzYJimR');
+
+	let przypomnienia_ids = document.querySelectorAll('#przypomnienia_id');
+	let notatki_ids = document.querySelectorAll('#notatki_id');
+
+	for (let i = 0; i < przypomnienia_ids.length; i++) 
+	{
+		$(przypomnienia_ids[i]).show();
+	}
+
+	for (let i = 0; i < notatki_ids.length; i++)
+	{
+		$(notatki_ids[i]).hide();
+	}
+};
+
+//notatki
+function notatki() {
+	document.getElementById('kEWZMkOkYppAIql_').checked = true;
+	$('#kEWZMkOkYppAIql').addClass('XeTGvGxHJzYJimR');
+	$('#avFbWLrryTfbsfN').removeClass('XeTGvGxHJzYJimR');
+
+	let przypomnienia_ids = document.querySelectorAll('#przypomnienia_id');
+	let notatki_ids = document.querySelectorAll('#notatki_id');
+
+	for (let i = 0; i < przypomnienia_ids.length; i++) 
+	{
+		$(przypomnienia_ids[i]).hide();
+	}
+
+	for (let i = 0; i < notatki_ids.length; i++)
+	{
+		$(notatki_ids[i]).show();
+	}
+};
+
+//przypomnienia
+$('#avFbWLrryTfbsfN').on('click', function ()
+{
+	sessionStorage.removeItem('xwyVpyzcHmPkwMO');
+	przypomnienia();
+});
+
+//notatki
+$('#kEWZMkOkYppAIql').on('click', function ()
+{
+	sessionStorage.setItem('xwyVpyzcHmPkwMO', 'true');
+	notatki();
+});
+
+function PrzypomnieniaNotatki() {
+	if (sessionStorage.getItem('xwyVpyzcHmPkwMO') == null)
+	{
+		//document.getElementById('avFbWLrryTfbsfN_').checked = true;
+		//$('#avFbWLrryTfbsfN').addClass('XeTGvGxHJzYJimR');
+		//$('#kEWZMkOkYppAIql').removeClass('XeTGvGxHJzYJimR');
+		przypomnienia();
+	}
+	else
+	{
+		//document.getElementById('kEWZMkOkYppAIql_').checked = true;
+		//$('#kEWZMkOkYppAIql').addClass('XeTGvGxHJzYJimR');
+		//$('#avFbWLrryTfbsfN').removeClass('XeTGvGxHJzYJimR');
+		notatki();
+	}
+};
+PrzypomnieniaNotatki();
 
 
 

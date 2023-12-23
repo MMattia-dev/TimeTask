@@ -49,33 +49,75 @@
 						<!---->
 
 						@*<span>Przypomnienia</span>*@
-						<span>Notatki i Przypomnienia</span>
-						@if (((IEnumerable<Reminders>)ViewBag.Reminders).Any())
+						<div class="hzbdsLoiCKYdXki">
+							<span>Przypomnienia i Notatki</span>
+							<!--Add button-->
+							<div class="uttPwSlVwzYRFsN" id="cKyQznqiHBCNqod" title="Dodaj">
+								<svg viewBox="-6 -4.5 25 25" width="38" height="38">
+									<path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path>
+								</svg>
+							</div>
+							<!---->
+						</div>
+						@*<span>Przypomnienia i Notatki</span>*@
+						@if (((IEnumerable<Reminders2>)ViewBag.Reminders).Any())
 						{
 							<div class="npcFeVbrHTwFdfE">
-								@foreach (var item in ((IEnumerable<Reminders>)ViewBag.Reminders).OrderBy(x => x.RemindDate))
+								@foreach (var item in ((IEnumerable<Reminders2>)ViewBag.Reminders).OrderBy(x => x.RemindDate))
 								{
-									<div class="RXURyrVQZpeADOh" title="Kliknij, aby zobaczyć szczegóły">
+									@if (item.RemindDate != null)
+									{
+										<div class="RXURyrVQZpeADOh" id="przypomnienia_id" onclick="SFnCnjucFGPsUMa(this)" title="Kliknij, aby zobaczyć szczegóły">
 										<span>@item.ReminderDescription</span>
-										@*<span>@item.RemindDate.ToString("dd MMMM yyyy")</span>*@
-										@if(DateTime.Now.Date == item.RemindDate || DateTime.Now.Date > item.RemindDate)
+
+										@if (DateTime.Now.Date == item.RemindDate || DateTime.Now.Date > item.RemindDate)
 										{
-											<span style="color: #ff0000;">@item.RemindDate.ToString("dd MMMM yyyy")</span>
+											<span style="color: #ff0000;">@item.RemindDate?.ToString("dd MMMM yyyy")</span>
 										}
 										else
 										{
-											<span>@item.RemindDate.ToString("dd MMMM yyyy")</span>
+											<span>@item.RemindDate?.ToString("dd MMMM yyyy")</span>
 										}
-									</div>
+										</div>
+									}
+									else
+									{
+										<div class="RXURyrVQZpeADOh" id="notatki_id" onclick="SFnCnjucFGPsUMa(this)" title="Kliknij, aby zobaczyć szczegóły">
+											<span>@item.ReminderDescription</span>
+										</div>
+									}
 								}
 							</div>
 						}
 						else
 						{
 							<div class="oJSrXlbUoUZELPZ">
-								<span>Brak przypomnień</span>
+								<span>Brak przypomnień/notatek</span>
 							</div>
 						}
+
+						<div class="LnUQrJmWUuewBhp">
+							<div class="YANONwJheyppZDG" id="avFbWLrryTfbsfN">
+								<span>Przypomnienia</span>
+								<input type="radio" name="reminder_" id="avFbWLrryTfbsfN_" style="display: none;" />
+								<div class="roNwzjAutuLOrAX">
+									@{
+										var count_p = ((IEnumerable<Reminders2>)ViewBag.Reminders).Count(x => x.RemindDate != null);
+									}
+									<span>@count_p</span>
+								</div>
+							</div>
+							<div class="TJfLhELXhofvBlO" id="kEWZMkOkYppAIql">
+								<span>Notatki</span>
+								<input type="radio" name="reminder_" id="kEWZMkOkYppAIql_" style="display: none;" />
+								<div class="roNwzjAutuLOrAX">
+									@{
+										var count_n = ((IEnumerable<Reminders2>)ViewBag.Reminders).Count(x => x.RemindDate == null);
+									}
+									<span>@count_n</span>
+								</div>
+							</div>
+						</div>
 
 						<!--expand-->
 						@*<div class="rzVCoiMyvGxrbEa rzVCoiMyvGxrbEa_" title="Rozszerz" id="yrHcVnwJhiNRpeh">
@@ -104,11 +146,11 @@
 						</div>*@
 						<!---->
 						<!--Add button-->
-						<div class="uttPwSlVwzYRFsN" id="cKyQznqiHBCNqod" title="Dodaj przypomnienie">
+						@*<div class="uttPwSlVwzYRFsN" id="cKyQznqiHBCNqod" title="Dodaj">
 							<svg viewBox="-6 -4.5 25 25" width="38" height="38">
 								<path d="M10 1H6V6L1 6V10H6V15H10V10H15V6L10 6V1Z"></path>
 							</svg>
-						</div>
+						</div>*@
 						<!---->
 					</div>
 				
@@ -367,11 +409,13 @@
 <div id="SifCPThsCoyHbct" class="pGKcZvErUB" style="display: none;">
     <form class="form_3">
 		<div class="form-group">
-			<label>Opis przypomnienia</label>
+			@*<label>Opis przypomnienia</label>*@
+			<label>Opis przypomnienia/notatki</label>
 			<textarea class="form-control" id="ITnLhNHsrVsLMlU" required></textarea>
 		</div>
 		<div class="form-group form-group-margin">
-			<label>Data przypomnienia</label>
+			@*<label>Data przypomnienia</label>*@
+			<label>Data przypomnienia/notatki (opcjonalne)</label>
 			<input class="form-control" type="date" id="SxtTxveciNblgyY" required />
 		</div>
 		<div class="form-group">

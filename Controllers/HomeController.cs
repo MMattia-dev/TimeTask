@@ -33,7 +33,7 @@ namespace TimeTask.Controllers
             ViewBag.Workers = _context.Workers2;
             ViewBag.Wallpaper = _context.Wallpaper2;
 			ViewBag.Holiday = _context.Holiday;
-            ViewBag.Reminders = _context.Reminders;
+            ViewBag.Reminders = _context.Reminders2;
 
 
 			return View();
@@ -56,9 +56,9 @@ namespace TimeTask.Controllers
         }
 
 		[HttpPost]
-		public ActionResult AddReminder(string userID, string reminderDescription, DateTime createdDate, DateTime remindDate)
+		public ActionResult AddReminder(string userID, string reminderDescription, DateTime createdDate, DateTime? remindDate)
 		{
-			var newData = new Reminders()
+			var newData = new Reminders2()
 			{
 				UserID = userID,
 				ReminderDescription = reminderDescription,
@@ -66,11 +66,12 @@ namespace TimeTask.Controllers
 				RemindDate = remindDate
 			};
 
-			_context.Reminders.Add(newData);
+			_context.Reminders2.Add(newData);
 			_context.SaveChanges();
 			return Json(new { success = true });
-			//return Json(newData.Id);
 		}
+
+
 
 
 

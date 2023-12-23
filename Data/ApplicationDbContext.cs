@@ -30,5 +30,6 @@ namespace TimeTask.Data
         public DbSet<TimeTask.Models.Wallpaper2> Wallpaper2 { get; set; } = default!;
         public DbSet<TimeTask.Models.MainSettings> MainSettings { get; set; } = default!;
         public DbSet<TimeTask.Models.Reminders> Reminders { get; set; } = default!;
+        public DbSet<TimeTask.Models.Reminders2> Reminders2 { get; set; } = default!;
     }
 }
