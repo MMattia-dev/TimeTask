@@ -60,7 +60,7 @@
 							<!---->
 						</div>
 						@*<span>Przypomnienia i Notatki</span>*@
-						@if (((IEnumerable<Reminders2>)ViewBag.Reminders).Any())
+						@if (((IEnumerable<Reminders2>)ViewBag.Reminders).Any() && ((IEnumerable<Reminders2>)ViewBag.Reminders).Contains(x => x.UserID == userID))
 						{
 							<div class="npcFeVbrHTwFdfE">
 								@foreach (var item in ((IEnumerable<Reminders2>)ViewBag.Reminders).OrderBy(x => x.RemindDate))
