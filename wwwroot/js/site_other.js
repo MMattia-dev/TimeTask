@@ -731,7 +731,19 @@ function PrzypomnieniaNotatki() {
 };
 PrzypomnieniaNotatki();
 
-
+$('#ssVGkNItXJosOsP').on('change', function ()
+{
+	//$('#iGxMAezVPdacNFH').hide();
+	//console.log($(this).val());
+	//console.log(document.getElementById('ssVGkNItXJosOsP').selectedIndex);
+	if (document.getElementById('ssVGkNItXJosOsP').selectedIndex == 0)
+	{
+		$('#iGxMAezVPdacNFH').show();
+	}
+	else if (document.getElementById('ssVGkNItXJosOsP').selectedIndex == 1) {
+		$('#iGxMAezVPdacNFH').hide();
+	}
+});
 
 
 

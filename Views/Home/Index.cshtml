@@ -17,6 +17,12 @@
             userID = userIdClaim.Value;
         }
     }
+
+	//policz przypomnienia
+	var count_p = ((IEnumerable<Reminders2>)ViewBag.Reminders).Count(x => x.RemindDate != null);
+
+	//policz notatki
+	var count_n = ((IEnumerable<Reminders2>)ViewBag.Reminders).Count(x => x.RemindDate == null);
 }
 
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
@@ -60,14 +66,17 @@
 							<!---->
 						</div>
 						@*<span>Przypomnienia i Notatki</span>*@
-						@if (((IEnumerable<Reminders2>)ViewBag.Reminders).Any() && ((IEnumerable<Reminders2>)ViewBag.Reminders).Contains(x => x.UserID == userID))
+						@{
+							var if_userID = ((IEnumerable<Reminders2>)ViewBag.Reminders).Any(x => x.UserID == userID);
+						}
+						@if (((IEnumerable<Reminders2>)ViewBag.Reminders).Any() && if_userID)
 						{
 							<div class="npcFeVbrHTwFdfE">
 								@foreach (var item in ((IEnumerable<Reminders2>)ViewBag.Reminders).OrderBy(x => x.RemindDate))
 								{
 									@if (item.RemindDate != null)
 									{
-										<div class="RXURyrVQZpeADOh" id="przypomnienia_id" onclick="SFnCnjucFGPsUMa(this)" title="Kliknij, aby zobaczyć szczegóły">
+										<div class="RXURyrVQZpeADOh" id="przypomnienia_id" aMPKLBaWjjzJFbN="@item.Id" onclick="SFnCnjucFGPsUMa(this)" title="Kliknij, aby zobaczyć szczegóły">
 										<span>@item.ReminderDescription</span>
 
 										@if (DateTime.Now.Date == item.RemindDate || DateTime.Now.Date > item.RemindDate)
@@ -82,7 +91,7 @@
 									}
 									else
 									{
-										<div class="RXURyrVQZpeADOh" id="notatki_id" onclick="SFnCnjucFGPsUMa(this)" title="Kliknij, aby zobaczyć szczegóły">
+										<div class="RXURyrVQZpeADOh" id="notatki_id" aMPKLBaWjjzJFbN="@item.Id" onclick="SFnCnjucFGPsUMa(this)" title="Kliknij, aby zobaczyć szczegóły">
 											<span>@item.ReminderDescription</span>
 										</div>
 									}
@@ -101,20 +110,20 @@
 								<span>Przypomnienia</span>
 								<input type="radio" name="reminder_" id="avFbWLrryTfbsfN_" style="display: none;" />
 								<div class="roNwzjAutuLOrAX">
-									@{
-										var count_p = ((IEnumerable<Reminders2>)ViewBag.Reminders).Count(x => x.RemindDate != null);
+									@if (if_userID)
+									{
+										<span>@count_p</span>
 									}
-									<span>@count_p</span>
 								</div>
 							</div>
 							<div class="TJfLhELXhofvBlO" id="kEWZMkOkYppAIql">
 								<span>Notatki</span>
 								<input type="radio" name="reminder_" id="kEWZMkOkYppAIql_" style="display: none;" />
 								<div class="roNwzjAutuLOrAX">
-									@{
-										var count_n = ((IEnumerable<Reminders2>)ViewBag.Reminders).Count(x => x.RemindDate == null);
+									@if (if_userID)
+									{
+										<span>@count_n</span>
 									}
-									<span>@count_n</span>
 								</div>
 							</div>
 						</div>
@@ -409,15 +418,21 @@
 <div id="SifCPThsCoyHbct" class="pGKcZvErUB" style="display: none;">
     <form class="form_3">
 		<div class="form-group">
-			@*<label>Opis przypomnienia</label>*@
-			<label>Opis przypomnienia/notatki</label>
+			<label>Wybierz</label>
+			<select class="form-control" id="ssVGkNItXJosOsP">
+				<option>Przypomnienie</option>
+				<option>Notatka</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label>Opis</label>
 			<textarea class="form-control" id="ITnLhNHsrVsLMlU" required></textarea>
 		</div>
-		<div class="form-group form-group-margin">
-			@*<label>Data przypomnienia</label>*@
-			<label>Data przypomnienia/notatki (opcjonalne)</label>
+		<div class="form-group" id="iGxMAezVPdacNFH">
+			<label>Data przypomnienia</label>
 			<input class="form-control" type="date" id="SxtTxveciNblgyY" required />
 		</div>
+		<div style="margin-bottom: 10px;"></div>
 		<div class="form-group">
             <input type="button" value="Zapisz" class="btn-custom" id="CKwCPBbYtspreJT" />
         </div>
@@ -427,8 +442,10 @@
     </form>
 </div>
 
-<div id="aZVwWFKbYTeoWFY" class="HRvGYpBLRXqiEGy">
+<div id="aZVwWFKbYTeoWFY" class="HRvGYpBLRXqiEGy" style="">
+	<div class="EJVmUUDGWRneSip">
 
+	</div>
 </div>
 
 @*<a target="_blank" href="https://icons8.com/icon/2797/home">Home</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>*@

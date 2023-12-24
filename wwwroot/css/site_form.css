@@ -9,7 +9,6 @@
     box-shadow: none !important;
     width: 275px;
     font-size: 14px;
-    /*background-color: transparent;*/
     background-color: rgba(34, 36, 48, 1);
     border-color: rgba(255, 255, 255, 0.4);
     color: rgba(255, 255, 255, 0.8) !important;
@@ -183,6 +182,14 @@ form.form_3 {
     box-shadow: none;
 
 }*/
+
+.form-group select {
+    -moz-appearance: button-arrow-down;
+    -webkit-appearance: auto;
+    appearance: menulist;
+    cursor: pointer;
+}
+
 .form-group-margin {
     margin-bottom: 10px;
 }
