@@ -289,6 +289,9 @@ $('#rCnoNzileMKWYLc').on('click', function ()
 	$('.aLTkEQlLIqOrXvT').fadeOut(200);
 });
 
+$('#xcMbuPyBDAClZLf').on('click', function () {
+	$('#aZVwWFKbYTeoWFY').fadeOut(200);
+});
 
 
 function isWeekend(date = new Date())
@@ -655,8 +658,20 @@ $('#CKwCPBbYtspreJT').on('click', function ()
 	
 });
 
+//przypomnienia
 function SFnCnjucFGPsUMa(t) {
-	
+
+	//mmoyAbgbxQKYSoj - textarea id
+	//aMPKLBaWjjzJFbN - item.id
+
+	$('#mmoyAbgbxQKYSoj').html($(t).children().eq(0).html());
+
+	$('#aZVwWFKbYTeoWFY').fadeIn(200);
+};
+
+//notatki
+function QtokgKHdkxlbOgO(t) {
+
 };
 
 //przypomnienia
