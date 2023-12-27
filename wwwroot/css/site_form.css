@@ -79,6 +79,11 @@
         background-color: rgba(153, 153, 153, 0.4);
     }
 
+    .btn-custom:disabled {
+        pointer-events: none;
+        background-color: rgba(153, 153, 153, 0.4);
+    }
+
 .btn-custom_ {
     width: 275px;
     font-family: Arial;
@@ -160,6 +165,16 @@ form:not(.logOut) {
         border: unset;
     }
 
+    form:not(.logOut).mcplGLYbKYUWdZP {
+        /*width: 400px;*/
+        padding-top: 55px;
+        padding-bottom: 55px;
+    }
+
+        /*form:not(.logOut).mcplGLYbKYUWdZP .form-group {
+            transform: translateX(5px);
+        }*/
+
 .DhOaDlrUqJcgIUx {
     margin-bottom: 25px;
 }
@@ -190,19 +205,30 @@ form.form_3 {
     cursor: pointer;
 }
 
+.form-group input.SSwvVHQbXDMTOIM {
+    /*background-color: rgba(24, 26, 38, 1) !important;*/
+}
+
+    .form-group input.SSwvVHQbXDMTOIM:read-only {
+        background-color: rgba(24, 26, 38, 1) !important;
+        /*background-color: rgba(14, 16, 28, 1) !important;*/
+    }
+
 .form-group textarea {
-    background-color: rgba(34, 36, 48, 1) !important;
+    /*background-color: rgba(34, 36, 48, 1) !important;*/
+    max-height: 200px;
+    height: 100px;
 }
 
     .form-group textarea:read-only {
         background-color: rgba(24, 26, 38, 1) !important;
+        /*background-color: rgba(14, 16, 28, 1) !important;*/
     }
 
-    .form-group #mmoyAbgbxQKYSoj {
+    /*.form-group #mmoyAbgbxQKYSoj {
         height: 200px;
         max-height: 200px;
-
-    }
+    }*/
 
 .form-group-margin {
     margin-bottom: 10px;
@@ -436,3 +462,12 @@ label {
     opacity: 0.5;
     pointer-events: none;
 }
+
+.EGRzqdMqFGbncKx {
+    position: absolute;
+    transform: translateY(24px) translateX(-27px);
+}
+
+    .EGRzqdMqFGbncKx path {
+        fill: rgba(255, 255, 255, 0.8);
+    }

@@ -19,10 +19,10 @@
     }
 
 	//policz przypomnienia
-	var count_p = ((IEnumerable<Reminders2>)ViewBag.Reminders).Count(x => x.RemindDate != null);
+	var count_p = ((IEnumerable<Reminders3>)ViewBag.Reminders).Count(x => x.RemindDate != null);
 
 	//policz notatki
-	var count_n = ((IEnumerable<Reminders2>)ViewBag.Reminders).Count(x => x.RemindDate == null);
+	var count_n = ((IEnumerable<Reminders3>)ViewBag.Reminders).Count(x => x.RemindDate == null);
 }
 
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
@@ -36,7 +36,8 @@
 	<section class="right-nav">
 		<div class="ATKLsxSduWPahPh">
 			<div class="kfVQjJnCTNjZlgW">
-				<div class="TOBgPdZDnrCaJEf">@DateTime.Now.Day @monthName @DateTime.Now.Year</div>
+				@*<div class="TOBgPdZDnrCaJEf">@DateTime.Now.Day @monthName @DateTime.Now.Year</div>*@
+				<div class="TOBgPdZDnrCaJEf">@DateTime.Now.ToString("dd MMMM yyyy")</div>
 				<div class="nLnyXKLeDWgYvPh">
 					<span id="clockSpanID">@DateTime.Now.ToString("HH:mm:ss")</span>
 				</div>
@@ -67,32 +68,40 @@
 						</div>
 						@*<span>Przypomnienia i Notatki</span>*@
 						@{
-							var if_userID = ((IEnumerable<Reminders2>)ViewBag.Reminders).Any(x => x.UserID == userID);
+							var if_userID = ((IEnumerable<Reminders3>)ViewBag.Reminders).Any(x => x.UserID == userID);
 						}
-						@if (((IEnumerable<Reminders2>)ViewBag.Reminders).Any() && if_userID)
+						@if (((IEnumerable<Reminders3>)ViewBag.Reminders).Any() && if_userID)
 						{
 							<div class="npcFeVbrHTwFdfE">
-								@foreach (var item in ((IEnumerable<Reminders2>)ViewBag.Reminders).OrderBy(x => x.RemindDate))
+								@foreach (var item in ((IEnumerable<Reminders3>)ViewBag.Reminders).OrderBy(x => x.RemindDate))
 								{
 									@if (item.RemindDate != null)
 									{
 										<div class="RXURyrVQZpeADOh" id="przypomnienia_id" aMPKLBaWjjzJFbN="@item.Id" onclick="SFnCnjucFGPsUMa(this)" title="Kliknij, aby zobaczyć szczegóły">
-											<span>@item.ReminderDescription</span>
+											<span class="qPLshtSBjcUMPhi">@item.Title</span>
+											<span class="qPLshtSBjcUMPhi_" style="display: none;">@item.ReminderDescription</span>
 
 											@if (DateTime.Now.Date == item.RemindDate || DateTime.Now.Date > item.RemindDate)
 											{
-												<span style="color: #ff0000;">@item.RemindDate?.ToString("dd MMMM yyyy")</span>
+												<span class="fNNuHCyCzMAKIiN" id="PBCVQWJaipMqDOZ" style="color: #ff0000;" OPBZAtSFbCoqXRK="@item.RemindDate">@item.RemindDate?.ToString("dd MMMM yyyy")</span>
 											}
 											else
 											{
-												<span>@item.RemindDate?.ToString("dd MMMM yyyy")</span>
+												<span class="fNNuHCyCzMAKIiN" id="PBCVQWJaipMqDOZ" OPBZAtSFbCoqXRK="@item.RemindDate">@item.RemindDate?.ToString("dd MMMM yyyy")</span>
 											}
+											<svg width="20" height="20" viewBox="0 0 24 15" fill="rgba(255, 255, 255, 0.8)">
+												<path d="M8,12a2,2,0,1,1-2-2A2,2,0,0,1,8,12Zm10-2a2,2,0,1,0,2,2A2,2,0,0,0,18,10Zm-6,0a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z" />
+											</svg>
 										</div>
 									}
 									else
 									{
 										<div class="RXURyrVQZpeADOh" id="notatki_id" aMPKLBaWjjzJFbN="@item.Id" onclick="QtokgKHdkxlbOgO(this)" title="Kliknij, aby zobaczyć szczegóły">
-											<span>@item.ReminderDescription</span>
+											<span class="qPLshtSBjcUMPhi">@item.Title</span>
+											<span class="qPLshtSBjcUMPhi_" style="display: none;">@item.ReminderDescription</span>
+											<svg width="20" height="20" viewBox="0 0 24 15" fill="rgba(255, 255, 255, 0.8)">
+												<path d="M8,12a2,2,0,1,1-2-2A2,2,0,0,1,8,12Zm10-2a2,2,0,1,0,2,2A2,2,0,0,0,18,10Zm-6,0a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z" />
+											</svg>
 										</div>
 									}
 								}
@@ -425,11 +434,15 @@
 			</select>
 		</div>
 		<div class="form-group">
-			<label>Opis</label>
-			<textarea class="form-control" id="ITnLhNHsrVsLMlU" required></textarea>
+			<label>Tytuł*</label>
+			<input class="form-control" id="fFWegXyYZmbBpEN" required/>
+		</div>
+		<div class="form-group">
+			<label>Opis (opcjonalny)</label>
+			<textarea class="form-control" id="ITnLhNHsrVsLMlU" spellcheck="false"></textarea>
 		</div>
 		<div class="form-group" id="iGxMAezVPdacNFH">
-			<label>Data przypomnienia</label>
+			<label>Data przypomnienia*</label>
 			<input class="form-control" type="date" id="SxtTxveciNblgyY" required />
 		</div>
 		<div style="margin-bottom: 10px;"></div>
@@ -442,11 +455,10 @@
     </form>
 </div>
 
-<div id="aZVwWFKbYTeoWFY" class="HRvGYpBLRXqiEGy" style="display: none;">
+@*<div id="aZVwWFKbYTeoWFY" class="HRvGYpBLRXqiEGy" style="display: none;">
 	<div class="EJVmUUDGWRneSip">
-		<!--aMPKLBaWjjzJFbN = item.id-->
 		<div class="form-group">
-			<textarea class="form-control" readonly id="mmoyAbgbxQKYSoj"></textarea>
+			<label>Tytuł</label>
 		</div>
 		
 
@@ -459,6 +471,60 @@
 		</div>
 		<!---->
 	</div>
+</div>*@
+<div id="aZVwWFKbYTeoWFY" class="pGKcZvErUB" style="display: none;">
+	<form class="form_3 mcplGLYbKYUWdZP">
+		<div class="form-group">
+			<svg width="24" height="24" viewBox="-3.5 0 19 19" class="EGRzqdMqFGbncKx" id="nIuUYPMpJnDKAdU">
+				<path d="M11.182 8.927v6.912a.794.794 0 0 1-.792.792H1.61a.794.794 0 0 1-.792-.792V8.927a.794.794 0 0 1 .792-.792h.856V6.367a3.534 3.534 0 1 1 7.068 0v1.768h.856a.794.794 0 0 1 .792.792zm-2.756-2.56a2.426 2.426 0 1 0-4.852 0v1.768h4.852zM7.108 11.47a1.108 1.108 0 1 0-1.583 1.001v1.849a.475.475 0 0 0 .95 0v-1.849a1.108 1.108 0 0 0 .633-1.001z"></path>
+			</svg>
+			<svg width="24" height="24" viewBox="-3.5 0 19 19" class="EGRzqdMqFGbncKx" id="eHtCczehqWNQbOp" style="display: none;">
+				<path d="M11.182 8.927v6.912a.794.794 0 0 1-.792.792H1.61a.794.794 0 0 1-.792-.792V8.927a.794.794 0 0 1 .792-.792h.654L1.956 7.11a3.534 3.534 0 0 1 6.769-2.035.554.554 0 1 1-1.062.32A2.426 2.426 0 0 0 3.017 6.79l.404 1.345h6.97a.794.794 0 0 1 .79.792zM7.108 11.47a1.108 1.108 0 1 0-1.583 1.001v1.849a.475.475 0 1 0 .95 0v-1.849a1.108 1.108 0 0 0 .633-1.001z"></path>
+			</svg>
+			<label>Tytuł</label>
+			<input class="form-control SSwvVHQbXDMTOIM" id="tAnrJNlkpUSBwYm" readonly/>
+		</div>
+		<div class="form-group">
+			<svg width="24" height="24" viewBox="-3.5 0 19 19" class="EGRzqdMqFGbncKx" id="nIuUYPMpJnDKAdU">
+				<path d="M11.182 8.927v6.912a.794.794 0 0 1-.792.792H1.61a.794.794 0 0 1-.792-.792V8.927a.794.794 0 0 1 .792-.792h.856V6.367a3.534 3.534 0 1 1 7.068 0v1.768h.856a.794.794 0 0 1 .792.792zm-2.756-2.56a2.426 2.426 0 1 0-4.852 0v1.768h4.852zM7.108 11.47a1.108 1.108 0 1 0-1.583 1.001v1.849a.475.475 0 0 0 .95 0v-1.849a1.108 1.108 0 0 0 .633-1.001z"></path>
+			</svg>
+			<svg width="24" height="24" viewBox="-3.5 0 19 19" class="EGRzqdMqFGbncKx" id="eHtCczehqWNQbOp" style="display: none;">
+				<path d="M11.182 8.927v6.912a.794.794 0 0 1-.792.792H1.61a.794.794 0 0 1-.792-.792V8.927a.794.794 0 0 1 .792-.792h.654L1.956 7.11a3.534 3.534 0 0 1 6.769-2.035.554.554 0 1 1-1.062.32A2.426 2.426 0 0 0 3.017 6.79l.404 1.345h6.97a.794.794 0 0 1 .79.792zM7.108 11.47a1.108 1.108 0 1 0-1.583 1.001v1.849a.475.475 0 1 0 .95 0v-1.849a1.108 1.108 0 0 0 .633-1.001z"></path>
+			</svg>
+			<label>Opis</label>
+			<textarea class="form-control" id="mmoyAbgbxQKYSoj" readonly spellcheck="false"></textarea>
+		</div>
+		<div class="form-group" id="zbzEzYandOHZEfD">
+			<svg width="24" height="24" viewBox="-3.5 0 19 19" class="EGRzqdMqFGbncKx" id="nIuUYPMpJnDKAdU">
+				<path d="M11.182 8.927v6.912a.794.794 0 0 1-.792.792H1.61a.794.794 0 0 1-.792-.792V8.927a.794.794 0 0 1 .792-.792h.856V6.367a3.534 3.534 0 1 1 7.068 0v1.768h.856a.794.794 0 0 1 .792.792zm-2.756-2.56a2.426 2.426 0 1 0-4.852 0v1.768h4.852zM7.108 11.47a1.108 1.108 0 1 0-1.583 1.001v1.849a.475.475 0 0 0 .95 0v-1.849a1.108 1.108 0 0 0 .633-1.001z"></path>
+			</svg>
+			<svg width="24" height="24" viewBox="-3.5 0 19 19" class="EGRzqdMqFGbncKx" id="eHtCczehqWNQbOp" style="display: none;">
+				<path d="M11.182 8.927v6.912a.794.794 0 0 1-.792.792H1.61a.794.794 0 0 1-.792-.792V8.927a.794.794 0 0 1 .792-.792h.654L1.956 7.11a3.534 3.534 0 0 1 6.769-2.035.554.554 0 1 1-1.062.32A2.426 2.426 0 0 0 3.017 6.79l.404 1.345h6.97a.794.794 0 0 1 .79.792zM7.108 11.47a1.108 1.108 0 1 0-1.583 1.001v1.849a.475.475 0 1 0 .95 0v-1.849a1.108 1.108 0 0 0 .633-1.001z"></path>
+			</svg>
+			<label>Data przypomnienia*</label>
+			<input class="form-control SSwvVHQbXDMTOIM" type="date" id="ZCzfTXZrzTrrevD" readonly />
+		</div>
+		<div style="height: 10px;"></div>
+		<!--save-->
+		<div class="form-group">
+            <input type="button" value="Zapisz" class="btn-custom" id="oJBIgYGPcPhAnBT" disabled />
+        </div>
+		<!---->
+		<!--edit-->
+		<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk xpsijJzntnReBBE" id="mwWoomQJyONfwSI" title="Edytuj">
+			<span>Edytuj</span>
+			<span style="display: none;">W trakcie edycji</span>
+			<svg viewBox="0 0 512 512" height="16" width="16"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg>			
+		</div>
+		<!---->
+		<!--exit-->
+		<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk" id="xcMbuPyBDAClZLf" title="Zamknij">
+			<svg viewBox="0 0 470 470" width="15" height="15">
+				<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>
+			</svg>
+		</div>
+		<!---->
+	</form>
 </div>
 
 @*<a target="_blank" href="https://icons8.com/icon/2797/home">Home</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>*@
