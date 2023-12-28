@@ -19,10 +19,10 @@
     }
 
 	//policz przypomnienia
-	var count_p = ((IEnumerable<Reminders3>)ViewBag.Reminders).Count(x => x.RemindDate != null);
+	var count_p = ((IEnumerable<Reminders3>)ViewBag.Reminders).Count(x => x.RemindDate != null && x.UserID == userID);
 
 	//policz notatki
-	var count_n = ((IEnumerable<Reminders3>)ViewBag.Reminders).Count(x => x.RemindDate == null);
+	var count_n = ((IEnumerable<Reminders3>)ViewBag.Reminders).Count(x => x.RemindDate == null && x.UserID == userID);
 }
 
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
@@ -36,7 +36,6 @@
 	<section class="right-nav">
 		<div class="ATKLsxSduWPahPh">
 			<div class="kfVQjJnCTNjZlgW">
-				@*<div class="TOBgPdZDnrCaJEf">@DateTime.Now.Day @monthName @DateTime.Now.Year</div>*@
 				<div class="TOBgPdZDnrCaJEf">@DateTime.Now.ToString("dd MMMM yyyy")</div>
 				<div class="nLnyXKLeDWgYvPh">
 					<span id="clockSpanID">@DateTime.Now.ToString("HH:mm:ss")</span>
@@ -67,13 +66,10 @@
 							<!---->
 						</div>
 						@*<span>Przypomnienia i Notatki</span>*@
-						@{
-							var if_userID = ((IEnumerable<Reminders3>)ViewBag.Reminders).Any(x => x.UserID == userID);
-						}
-						@if (((IEnumerable<Reminders3>)ViewBag.Reminders).Any() && if_userID)
+						@if (((IEnumerable<Reminders3>)ViewBag.Reminders).Any(x => x.UserID == userID))
 						{
 							<div class="npcFeVbrHTwFdfE">
-								@foreach (var item in ((IEnumerable<Reminders3>)ViewBag.Reminders).OrderBy(x => x.RemindDate))
+								@foreach (var item in ((IEnumerable<Reminders3>)ViewBag.Reminders).OrderBy(x => x.RemindDate).Where(e => e.UserID == userID))
 								{
 									@if (item.RemindDate != null)
 									{
@@ -119,20 +115,14 @@
 								<span>Przypomnienia</span>
 								<input type="radio" name="reminder_" id="avFbWLrryTfbsfN_" style="display: none;" />
 								<div class="roNwzjAutuLOrAX">
-									@if (if_userID)
-									{
-										<span>@count_p</span>
-									}
+									<span>@count_p</span>
 								</div>
 							</div>
 							<div class="TJfLhELXhofvBlO" id="kEWZMkOkYppAIql">
 								<span>Notatki</span>
 								<input type="radio" name="reminder_" id="kEWZMkOkYppAIql_" style="display: none;" />
 								<div class="roNwzjAutuLOrAX">
-									@if (if_userID)
-									{
-										<span>@count_n</span>
-									}
+									<span>@count_n</span>
 								</div>
 							</div>
 						</div>

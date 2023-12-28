@@ -648,6 +648,8 @@ $(document).ready(function ()
 
 $('#cKyQznqiHBCNqod').on('click', function ()
 {
+	//wyczysc pola
+
 	$('#SifCPThsCoyHbct').fadeIn(200);
 });
 
