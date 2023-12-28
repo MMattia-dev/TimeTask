@@ -317,6 +317,8 @@ $('#xcMbuPyBDAClZLf').on('click', function () {
 
 	}, 250);
 	
+
+	sessionStorage.removeItem('mroVVIkOkxMcDez');
 });
 
 
@@ -649,6 +651,10 @@ $(document).ready(function ()
 $('#cKyQznqiHBCNqod').on('click', function ()
 {
 	//wyczysc pola
+	document.getElementById('fFWegXyYZmbBpEN').value = '';
+	document.getElementById('ITnLhNHsrVsLMlU').value = '';
+	document.getElementById('SxtTxveciNblgyY').value = '';
+
 
 	$('#SifCPThsCoyHbct').fadeIn(200);
 });
@@ -656,6 +662,64 @@ $('#cKyQznqiHBCNqod').on('click', function ()
 $('#ueUfjQYGkUvCTDV').on('click', function ()
 {
 	$('#SifCPThsCoyHbct').fadeOut(200);
+});
+
+$('#oJBIgYGPcPhAnBT').on('click', function ()
+{
+	let id_ = sessionStorage.getItem('mroVVIkOkxMcDez');
+	let uID = sessionStorage.getItem('XqeDUTCSnAFTQgb');
+	let title_ = document.getElementById('tAnrJNlkpUSBwYm').value;
+	let string = document.getElementById('mmoyAbgbxQKYSoj').value;
+	let date = document.getElementById('ZCzfTXZrzTrrevD').value;
+
+	if (document.getElementById('zbzEzYandOHZEfD').style.display != 'none')
+	{
+		//przypomnienie
+		if (uID.length > 0 && title_.length > 0 && date.length > 0)
+		{
+			$.ajax({
+				type: 'POST',
+				url: '/Home/EditReminder',
+				data: {
+					id: id_,
+					title: title_,
+					reminderDescription: string,
+					remindDate: date,
+				},
+				success: function (response)
+				{
+					location.reload();
+				},
+				error: function (xhr, status, error)
+				{
+					console.log('Error adding value:', error);
+				}
+			});
+		}
+	}
+	else {
+		//notatka
+		if (uID.length > 0 && title_.length > 0)
+		{
+			$.ajax({
+				type: 'POST',
+				url: '/Home/EditReminder',
+				data: {
+					id: id_,
+					title: title_,
+					reminderDescription: string,
+				},
+				success: function (response)
+				{
+					location.reload();
+				},
+				error: function (xhr, status, error)
+				{
+					console.log('Error adding value:', error);
+				}
+			});
+		}
+	}
 });
 
 $('#CKwCPBbYtspreJT').on('click', function ()
@@ -700,7 +764,7 @@ $('#CKwCPBbYtspreJT').on('click', function ()
 					userID: uID,
 					title: title_,
 					reminderDescription: string,
-					remindDate: date,
+					remindDate: null,
 				},
 				success: function (response)
 				{
@@ -742,6 +806,8 @@ function SFnCnjucFGPsUMa(t) {
 	}
 
 	$('#aZVwWFKbYTeoWFY').fadeIn(200);
+
+	sessionStorage.setItem('mroVVIkOkxMcDez', $(t).attr('ampklbawjjzjfbn'));
 };
 
 //notatki
@@ -757,6 +823,8 @@ function QtokgKHdkxlbOgO(t) {
 	$('#ZCzfTXZrzTrrevD').val(null);
 
 	$('#aZVwWFKbYTeoWFY').fadeIn(200);
+
+	sessionStorage.setItem('mroVVIkOkxMcDez', $(t).attr('ampklbawjjzjfbn'));
 };
 
 //przypomnienia
@@ -833,9 +901,10 @@ PrzypomnieniaNotatki();
 
 $('#ssVGkNItXJosOsP').on('change', function ()
 {
-	//$('#iGxMAezVPdacNFH').hide();
-	//console.log($(this).val());
-	//console.log(document.getElementById('ssVGkNItXJosOsP').selectedIndex);
+	//document.getElementById('fFWegXyYZmbBpEN').value = '';
+	//document.getElementById('ITnLhNHsrVsLMlU').value = '';
+	//document.getElementById('SxtTxveciNblgyY').value = '';
+
 	if (document.getElementById('ssVGkNItXJosOsP').selectedIndex == 0)
 	{
 		$('#iGxMAezVPdacNFH').show();

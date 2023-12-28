@@ -72,6 +72,37 @@ namespace TimeTask.Controllers
 			return Json(new { success = true });
 		}
 
+        [HttpPost]
+        public ActionResult EditReminder(int id, string userID, string title, string? reminderDescription, DateTime createdDate, DateTime? remindDate)
+        {
+            var row = _context.Reminders3.FirstOrDefault(e => e.Id == id);
+            if (row != null) 
+            { 
+                row.Title = title;
+                row.ReminderDescription = reminderDescription;
+                row.RemindDate = remindDate;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult DeleteReminder(int id) 
+        { 
+            var row = _context.Reminders3.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.Reminders3.Remove(row);
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
 
 
 
