@@ -471,3 +471,73 @@ label {
     .EGRzqdMqFGbncKx path {
         fill: rgba(255, 255, 255, 0.8);
     }
+
+.YjkkjeNTfcoaTKV {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(34, 36, 48, 1);
+}
+
+    .YjkkjeNTfcoaTKV:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        cursor: pointer;
+    }
+
+    .YjkkjeNTfcoaTKV.xPLaPJesAjcxiqJ {
+        background-color: rgba(255, 255, 255, 0.25);
+    }
+
+.lNtafEivzgxCGEt {
+    display: flex;
+    /*flex-direction: column;*/
+    /*border-radius: 8px;*/
+    gap: 5px;
+    position: absolute;
+    /*top: 45px;
+    left: 5px;*/
+    top: 7px;
+    left: 47px;
+    width: auto;
+}
+
+.ZowjxyOWQjRdLqf {
+    background-color: rgba(34, 36, 48, 1);
+    border-radius: 5px;
+    /*width: auto;*/
+    height: 30px;
+    padding-left: 8px;
+    padding-right: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+    .ZowjxyOWQjRdLqf svg {
+        fill: rgba(255, 255, 255, 0.8);
+    }
+
+    .ZowjxyOWQjRdLqf span {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+    }
+
+    .ZowjxyOWQjRdLqf:hover {
+        background-color: rgba(54, 56, 68, 1);
+        cursor: pointer;
+    }
+
+    .ZowjxyOWQjRdLqf.MAPQjnLFJnlRyhu {
+        background-color: rgba(36, 110, 142, 0.7);
+    }
+
+

@@ -85,9 +85,9 @@
 											{
 												<span class="fNNuHCyCzMAKIiN" id="PBCVQWJaipMqDOZ" OPBZAtSFbCoqXRK="@item.RemindDate">@item.RemindDate?.ToString("dd MMMM yyyy")</span>
 											}
-											<svg width="20" height="20" viewBox="0 0 24 15" fill="rgba(255, 255, 255, 0.8)">
+											@*<svg width="20" height="20" viewBox="0 0 24 15" fill="rgba(255, 255, 255, 0.8)">
 												<path d="M8,12a2,2,0,1,1-2-2A2,2,0,0,1,8,12Zm10-2a2,2,0,1,0,2,2A2,2,0,0,0,18,10Zm-6,0a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z" />
-											</svg>
+											</svg>*@
 										</div>
 									}
 									else
@@ -95,9 +95,9 @@
 										<div class="RXURyrVQZpeADOh" id="notatki_id" aMPKLBaWjjzJFbN="@item.Id" onclick="QtokgKHdkxlbOgO(this)" title="Kliknij, aby zobaczyć szczegóły">
 											<span class="qPLshtSBjcUMPhi">@item.Title</span>
 											<span class="qPLshtSBjcUMPhi_" style="display: none;">@item.ReminderDescription</span>
-											<svg width="20" height="20" viewBox="0 0 24 15" fill="rgba(255, 255, 255, 0.8)">
+											@*<svg width="20" height="20" viewBox="0 0 24 15" fill="rgba(255, 255, 255, 0.8)">
 												<path d="M8,12a2,2,0,1,1-2-2A2,2,0,0,1,8,12Zm10-2a2,2,0,1,0,2,2A2,2,0,0,0,18,10Zm-6,0a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z" />
-											</svg>
+											</svg>*@
 										</div>
 									}
 								}
@@ -500,13 +500,41 @@
             <input type="button" value="Zapisz" class="btn-custom" id="oJBIgYGPcPhAnBT" disabled />
         </div>
 		<!---->
-		<!--edit-->
+		<!--dropdown menu-->
+
+
+		<div class="YjkkjeNTfcoaTKV" id="XNHJrvIVqCNmgtk" title="Pokaż opcje">
+			<svg width="24" height="24" viewBox="0 0 24 24" fill="rgba(255, 255, 255, 0.8)">
+				<path d="M8,12a2,2,0,1,1-2-2A2,2,0,0,1,8,12Zm10-2a2,2,0,1,0,2,2A2,2,0,0,0,18,10Zm-6,0a2,2,0,1,0,2,2A2,2,0,0,0,12,10Z" />
+			</svg>
+			<input type="checkbox" style="display: none;" />
+		</div>
+		<div class="lNtafEivzgxCGEt" id="bYagNRvDbxmLPLr" style="display: none;">
+			<div class="ZowjxyOWQjRdLqf" id="mwWoomQJyONfwSI">
+				<span>Edytuj</span>
+				<svg viewBox="0 0 512 512" height="16" width="16"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg>			
+			</div>
+			<div class="ZowjxyOWQjRdLqf" id="hnYUcPVRjsmjSBc">
+				<span>Usuń</span>
+				<svg width="18" height="18" viewBox="0 0 24 24"><path d="M5.755,20.283,4,8H20L18.245,20.283A2,2,0,0,1,16.265,22H7.735A2,2,0,0,1,5.755,20.283ZM21,4H16V3a1,1,0,0,0-1-1H9A1,1,0,0,0,8,3V4H3A1,1,0,0,0,3,6H21a1,1,0,0,0,0-2Z"></path></svg>
+			</div>
+		</div>
+
+
+		<!---->
+		@*<!--edit-->
 		<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk xpsijJzntnReBBE" id="mwWoomQJyONfwSI" title="Edytuj">
 			<span>Edytuj</span>
 			<span style="display: none;">W trakcie edycji</span>
 			<svg viewBox="0 0 512 512" height="16" width="16"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg>			
 		</div>
 		<!---->
+		<!--delete-->
+		<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk xpsijJzntnReBBE ZUjudUWQaFITMQG" id="CdQpMPhonsugjYc" title="Usuń">
+			<span>Usuń</span>
+			<svg width="18" height="18" viewBox="0 0 24 24"><path d="M5.755,20.283,4,8H20L18.245,20.283A2,2,0,0,1,16.265,22H7.735A2,2,0,0,1,5.755,20.283ZM21,4H16V3a1,1,0,0,0-1-1H9A1,1,0,0,0,8,3V4H3A1,1,0,0,0,3,6H21a1,1,0,0,0,0-2Z"></path></svg>
+		</div>
+		<!---->*@
 		<!--exit-->
 		<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk" id="xcMbuPyBDAClZLf" title="Zamknij">
 			<svg viewBox="0 0 470 470" width="15" height="15">
@@ -516,6 +544,21 @@
 		<!---->
 	</form>
 </div>
+
+@*<div id="lZTzyyrlsKUKtLZ" class="pGKcZvErUB" style="display: none;">
+    <form class="jbiihcodqinw">
+        <div class="IvBtEDulLESDYxK">
+            <span id="ewZOdyapfFtPtMi"></span>
+            <span id="nZDLxLTZwFzAFCY"></span>
+        </div>
+        <div class="btn-danger-div" id="FamcDfiHIvhi">
+            <input type="button" value="Usuń" id="BwVzvkXmOvPyjNM"/>
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" />
+        </div>
+    </form>
+</div>*@
 
 @*<a target="_blank" href="https://icons8.com/icon/2797/home">Home</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>*@
 

@@ -3532,32 +3532,31 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     }
 
     .BnDZmDEehCCybzG.xpsijJzntnReBBE {
-        /*right: 35px;*/
-        right: unset;
+        /*right: unset;
         left: 5px;
-        /*top: 2px;*/
         top: 5px;
         border-radius: 5px;
         padding: 1px 6px 3px 6px;
         user-select: none;
+        border: 1px solid rgba(255, 255, 255, 0.2);*/
     }
 
         .BnDZmDEehCCybzG.xpsijJzntnReBBE:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            /*background-color: rgba(255, 255, 255, 0.1);*/
         }
 
         .BnDZmDEehCCybzG.xpsijJzntnReBBE:hover > span {
-            color: rgba(255, 255, 255, 1);
+            /*color: rgba(255, 255, 255, 1);*/
         }
 
         .BnDZmDEehCCybzG.xpsijJzntnReBBE span {
-            font-size: 14px;
+            /*font-size: 14px;
             color: rgba(255, 255, 255, 0.8);
-            margin-right: 3px;
+            margin-right: 3px;*/
         }
 
         .BnDZmDEehCCybzG.xpsijJzntnReBBE.MAPQjnLFJnlRyhu {
-            background-color: rgba(36, 110, 142, 0.7);
+            /*background-color: rgba(36, 110, 142, 0.7);*/
         }
 
     .BnDZmDEehCCybzG svg {
@@ -3572,6 +3571,10 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         .BnDZmDEehCCybzG:hover svg {
             fill: rgba(255, 255, 255, 1);
         }
+
+    .BnDZmDEehCCybzG.xpsijJzntnReBBE.ZUjudUWQaFITMQG {
+        /*left: 85px;*/
+    }
 
 .iKlKXUFEJUNEQul {
     width: 200px;
@@ -3945,9 +3948,10 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     }
 
     .RXURyrVQZpeADOh svg {
-        position: absolute;
+        /*position: absolute;
         bottom: 0;
         right: 2px;
+        fill: rgba(255, 255, 255, 0.8);*/
     }
 
     .RXURyrVQZpeADOh span {
