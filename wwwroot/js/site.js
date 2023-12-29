@@ -140,7 +140,7 @@ function logOut() {
 
 function logIn() {
     localStorage.setItem('logged', 'true');
-    $(loader).fadeIn();
+    //$(loader).fadeIn();
     $('#logInClick').trigger('click');
 };
 
@@ -168,27 +168,32 @@ $(document).ready(function ()
     } else
     {
         //console.info("This page is not reloaded");
-        
         if (localStorage.getItem('logged') != null) {
             if (ihJchOaMxWUD != null) {
                 ihJchOaMxWUD.style.transition = 'min-width 0.75s, max-width 0.75s, width 0.75s';
                 if (localStorage.getItem('IVsEIeXIRNQqrAG'))
                 {
-                    setTimeout(function ()
-                    {
-                        ihJchOaMxWUD.style.width = '100px';
-                        ihJchOaMxWUD.style.maxWidth = '100px';
-                        ihJchOaMxWUD.style.minWidth = '100px';
-                    }, 5000);
+                    //setTimeout(function ()
+                    //{
+                    //    ihJchOaMxWUD.style.width = '100px';
+                    //    ihJchOaMxWUD.style.maxWidth = '100px';
+                    //    ihJchOaMxWUD.style.minWidth = '100px';
+                    //}, 5000);
+                    ihJchOaMxWUD.style.width = '100px';
+                    ihJchOaMxWUD.style.maxWidth = '100px';
+                    ihJchOaMxWUD.style.minWidth = '100px';
                 }
                 else
                 {
-                    setTimeout(function ()
-                    {
+                    //setTimeout(function ()
+                    //{
+                    //    ihJchOaMxWUD.style.width = '300px';
+                    //    ihJchOaMxWUD.style.maxWidth = '300px';
+                    //    ihJchOaMxWUD.style.minWidth = '300px';
+                    //}, 5000);
                         ihJchOaMxWUD.style.width = '300px';
                         ihJchOaMxWUD.style.maxWidth = '300px';
                         ihJchOaMxWUD.style.minWidth = '300px';
-                    }, 5000);
                 }
             }
             
@@ -200,7 +205,7 @@ $(document).ready(function ()
                 $(ATKLsxSduWPahPh).fadeIn();
                 localStorage.removeItem('logged');
                 
-            }, 5700);
+            }, 700); //5700
         }
         
     }

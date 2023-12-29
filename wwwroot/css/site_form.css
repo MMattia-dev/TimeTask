@@ -482,7 +482,7 @@ label {
     position: absolute;
     top: 5px;
     left: 5px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    /*border: 1px solid rgba(255, 255, 255, 0.2);*/
     background-color: rgba(34, 36, 48, 1);
 }
 
@@ -519,7 +519,7 @@ label {
     justify-content: center;
     align-items: center;
     gap: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    /*border: 1px solid rgba(255, 255, 255, 0.2);*/
 }
 
     .ZowjxyOWQjRdLqf svg {
