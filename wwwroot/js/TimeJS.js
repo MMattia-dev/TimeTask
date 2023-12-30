@@ -238,7 +238,14 @@ function generateCalendar() {
             //czy urlopy
             if (model_t[j].Enter == null && model_t[j].LeaveDate != null && model_t[j].LeaveDate.split('T')[0] == spans[i].id) 
             {
-                //
+                //$(spans[i]).addClass('zXCmayRQqBuTbaj');
+                //spans[i].innerHTML += `<section class="jPigrYSgDbYPGjJ"><span>Urlop</span></section>`;
+                let f_ = document.getElementById('QcLYVFuvuONgCrh'); //worker
+                let f2 = f_.options[f_.selectedIndex].value;
+                if (f2 == model_t[j].WorkerID) {
+                    $(spans[i]).addClass('zXCmayRQqBuTbaj');
+                    spans[i].innerHTML += `<section class="jPigrYSgDbYPGjJ edXeNSPzuVuBafm"><span>Urlop</span></section>`;
+                }
             }
             //czy czas pracy
             if (model_t[j].Enter != null && model_t[j].LeaveDate == null && model_t[j].Enter.split('T')[0] == spans[i].id)
@@ -247,7 +254,6 @@ function generateCalendar() {
                 let f2 = f_.options[f_.selectedIndex].value;
                 if (f2 == model_t[j].WorkerID) {
                     spans[i].innerHTML += `<section class="jPigrYSgDbYPGjJ">` + `<span>` + model_t[j].Enter.split('T')[1].split(':')[0] + ':' + model_t[j].Enter.split('T')[1].split(':')[1] + `</span>` + `<span>` + model_t[j].Exit.split('T')[1].split(':')[0] + ':' + model_t[j].Exit.split('T')[1].split(':')[1] + `</span>` + `</section>`;
-                    //console.log();
                 }
             }
         }
@@ -752,25 +758,27 @@ $('#XlTBIHFmaFNdQpf').on('click', function ()
     {
         for (let i = 0; i < array.length; i++)
         {
-            $.ajax({
-                type: 'POST',
-                url: '/Times/AddTime',
-                data: {
-                    workerID: workerID_,
-                    enter: array[i] + ' ' + XrBSocHBgWCNkMI,
-                    exit: array[i] + ' ' + BjCnfIRbIUPPIlg,
-                    leaveID: null,
-                    leaveDate: null
-                },
-                success: function (response)
-                {
-                    location.reload();
-                },
-                error: function (xhr, status, error)
-                {
-                    console.log('Error adding column value:', error);
-                }
-            });
+            if (workerID_ != 0 || workerID_ != '0' || workerID_ != null) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Times/AddTime',
+                    data: {
+                        workerID: workerID_,
+                        enter: array[i] + ' ' + XrBSocHBgWCNkMI,
+                        exit: array[i] + ' ' + BjCnfIRbIUPPIlg,
+                        leaveID: null,
+                        leaveDate: null
+                    },
+                    success: function (response)
+                    {
+                        location.reload();
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error adding column value:', error);
+                    }
+                });
+            }
         }
     }
     else {
@@ -913,25 +921,27 @@ $('#gPyHcTBhSRhkIHB').on('click', function ()
 
                 let date = array[i];
 
-                $.ajax({
-                    type: 'POST',
-                    url: '/Times/AddTime',
-                    data: {
-                        workerID: workerID_,
-                        enter: date + ' ' + godzinaOD,
-                        exit: date + ' ' + godzinaDO,
-                        leaveID: null,
-                        leaveDate: null
-                    },
-                    success: function (response)
-                    {
-                        location.reload();
-                    },
-                    error: function (xhr, status, error)
-                    {
-                        console.log('Error adding column value:', error);
-                    }
-                });
+                if (workerID_ != 0 || workerID_ != '0' || workerID_ != null) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/AddTime',
+                        data: {
+                            workerID: workerID_,
+                            enter: date + ' ' + godzinaOD,
+                            exit: date + ' ' + godzinaDO,
+                            leaveID: null,
+                            leaveDate: null
+                        },
+                        success: function (response)
+                        {
+                            location.reload();
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding column value:', error);
+                        }
+                    });
+                }
             }
         }
 
@@ -1038,25 +1048,27 @@ function pQuWaMlNxUyZxiq(t) {
 
             let date = array[i];
 
-            $.ajax({
-                type: 'POST',
-                url: '/Times/AddTime',
-                data: {
-                    workerID: workerID_,
-                    enter: date + ' ' + godzinaOD,
-                    exit: date + ' ' + godzinaDO,
-                    leaveID: null,
-                    leaveDate: null
-                },
-                success: function (response)
-                {
-                    location.reload();
-                },
-                error: function (xhr, status, error)
-                {
-                    console.log('Error adding column value:', error);
-                }
-            });
+            if (workerID_ != 0 || workerID_ != '0' || workerID_ != null) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Times/AddTime',
+                    data: {
+                        workerID: workerID_,
+                        enter: date + ' ' + godzinaOD,
+                        exit: date + ' ' + godzinaDO,
+                        leaveID: null,
+                        leaveDate: null
+                    },
+                    success: function (response)
+                    {
+                        location.reload();
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error adding column value:', error);
+                    }
+                });
+            }
         }
     }
 };

@@ -547,25 +547,27 @@ $('#JTgCvImoJEyzGux').on('click', function ()
         {
             //console.log(arrayOfDays[i]);
 
-            $.ajax({
-                type: 'POST',
-                url: '/Times/AddLeave',
-                data: {
-                    workerID: workerID_,
-                    enter: null,
-                    exit: null,
-                    leaveID: leaveID_,
-                    leaveDate: arrayOfDays[i]
-                },
-                success: function (response)
-                {
-                    location.reload();
-                },
-                error: function (xhr, status, error)
-                {
-                    console.log('Error adding column value:', error);
-                }
-            });
+            if (workerID_ != 0 || workerID_ != '0' || workerID_ != null) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Times/AddLeave',
+                    data: {
+                        workerID: workerID_,
+                        enter: null,
+                        exit: null,
+                        leaveID: leaveID_,
+                        leaveDate: arrayOfDays[i]
+                    },
+                    success: function (response)
+                    {
+                        location.reload();
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error adding column value:', error);
+                    }
+                });
+            }
         }
     }
     else {
@@ -771,26 +773,28 @@ $('#jAHsTUaWMwBubwN').on('click', function ()
                 {
                     if (model_t[j].LeaveDate.split('T')[0] == arrayOfDays[i]) 
                     {
-                        $.ajax({
-                            type: 'POST',
-                            url: '/Times/EditLeave',
-                            data: {
-                                id: model_t[j].Id,
-                                workerID: workerID_,
-                                enter: null,
-                                exit: null,
-                                leaveID: leaveID_,
-                                leaveDate: arrayOfDays[i]
-                            },
-                            success: function (response)
-                            {
-                                location.reload();
-                            },
-                            error: function (xhr, status, error)
-                            {
-                                console.log('Error updating column value:', error);
-                            }
-                        });
+                        if (workerID_ != 0 || workerID_ != '0' || workerID_ != null) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/Times/EditLeave',
+                                data: {
+                                    id: model_t[j].Id,
+                                    workerID: workerID_,
+                                    enter: null,
+                                    exit: null,
+                                    leaveID: leaveID_,
+                                    leaveDate: arrayOfDays[i]
+                                },
+                                success: function (response)
+                                {
+                                    location.reload();
+                                },
+                                error: function (xhr, status, error)
+                                {
+                                    console.log('Error updating column value:', error);
+                                }
+                            });
+                        }
                     }
                 }
             }
