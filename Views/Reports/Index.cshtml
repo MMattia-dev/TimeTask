@@ -19,6 +19,8 @@
 </div>
 
 <script type="text/javascript">
+    var model_w = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Workers));
+
 	$(document).ready(function ()
 	{
 		$('.loader_div').fadeOut(200);

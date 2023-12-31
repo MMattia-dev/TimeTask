@@ -56,7 +56,7 @@
 
     <span class="settings_span">Dział:</span>
     <div style="height: 5px;"></div>
-    <select class="HQTuaisxjrtQHPq" id="IrtDSkGZAKrOlBd">
+    <select class="HQTuaisxjrtQHPq" id="IrtDSkGZAKrOlBd" onchange="ohGskGVRJUeutBg(this)">
         @foreach (var item in ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name))
         {
             <option value="@item.Id">@item.Name</option>
