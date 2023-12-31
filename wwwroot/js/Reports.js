@@ -19,3 +19,12 @@ function ohGskGVRJUeutBg() {
 };
 ohGskGVRJUeutBg();
 
+function QGJieqVtcQkpMtw() {
+    generateReport1();
+};
+
+$('#MCtUJSqMvcgGYCa').on('change', function ()
+{
+    generateReport1();
+});
+

@@ -69,9 +69,9 @@
         <div class="kxOMhDZFzkDb">
 
             <div class="ECTosDyufuTqvBV">
-                <input class="kzQkCNWOiUhJxRl" type="radio" id="czas" name="radio" onclick="OnvqHvCoOiDaFEV(this)" hidden />
+                <input class="kzQkCNWOiUhJxRl" type="radio" id="czas" name="radio" onclick="OnvqHvCoOiDaFEV()" hidden checked />
                 <label class="oZBtnmiLrunDFMC" for="czas">Czas pracy</label>
-                <input class="kzQkCNWOiUhJxRl" type="radio" id="urlop" name="radio" onclick="ZucUMOWKGdlqgYv(this)" hidden checked />
+                <input class="kzQkCNWOiUhJxRl" type="radio" id="urlop" name="radio" onclick="ZucUMOWKGdlqgYv()" hidden />
                 <label class="oZBtnmiLrunDFMC" for="urlop">Urlopy</label>
                 @*<label class="oZBtnmiLrunDFMC" >Klikniecie na nazwe urlopu wyswietla calą nazwe</label>*@
             </div>
@@ -83,6 +83,18 @@
         </div>
 
         <div class="YUPrikbkYzkc">
+
+            <div class="YavvRCMQscelhIs riqhWBvtFoKacNt KJiwNsHiMAVNLKL" id="azbBzlvMooPdIMA">
+                <!--Okres rozliczeniowy-->
+                <div class="msdgExEZCpefgcL">
+                    <span class="hFzZLqJdsEqdlrx">Okres rozliczeniowy wynosi </span>
+                    <input class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="IkruzJFAfehduep" onkeypress="return isNumberKey(event)"/>
+                    <span class="hFzZLqJdsEqdlrx"> miesiąc/miesiące/miesięcy (maks. 12)</span>
+                </div>
+            </div>
+
+
+
 
             <table class="VUXahzbNUTWtiZa sortable" id="tableId">
                 <thead>
@@ -284,6 +296,18 @@
 <script type="text/javascript" src="~/js/site.js"></script>
 
 <script type="text/javascript">
+
+function isNumberKey(event){
+var charCode = (event.which) ? event.which : event.keyCode
+
+
+    if(charCode > 31 && (charCode < 48 || charCode > 57)){
+        return false;
+    }
+    else {
+        return true;
+    }
+}
 
 var tables = document.getElementsByTagName('table');
 for (var i=0; i<tables.length;i++){
@@ -647,13 +671,16 @@ function pNxCxvPIUtCbSHM(t){
         // cb.checked = true;
     }
 
-    function OnvqHvCoOiDaFEV(t) {
+    function OnvqHvCoOiDaFEV() {
         $('.VUXahzbNUTWtiZa').hide();
+        $('#azbBzlvMooPdIMA').show();
         $('.IVnxgCORpPYL').hide();
     };
+    OnvqHvCoOiDaFEV();
 
-    function ZucUMOWKGdlqgYv(t) {
+    function ZucUMOWKGdlqgYv() {
         $('.VUXahzbNUTWtiZa').show();
+        $('#azbBzlvMooPdIMA').hide();
         $('.IVnxgCORpPYL').show();
     };
 

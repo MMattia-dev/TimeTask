@@ -1,0 +1,42 @@
+﻿@model TimeTask.Models.TimeSettings
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>TimeSettings</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WorkerId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WorkerId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OkresRozliczeniowy)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OkresRozliczeniowy)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CzasPracy)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CzasPracy)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MaksymalnaLiczbaNadgodzin)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MaksymalnaLiczbaNadgodzin)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
