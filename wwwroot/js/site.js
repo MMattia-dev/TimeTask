@@ -602,24 +602,57 @@ $('#oKuDQuaWdDBDLIN_ input').on('change', function (e)
 });
 
 function YaohyXTjGdIPVHK(t) {
-    if (t.value.length > 0) {
-        let okres = t.value;
-        $.ajax({
-            type: 'POST',
-            url: '/Times/AddOkres',
-            data: {
-                okresRozliczeniowy: okres
-            },
-            success: function (response)
-            {
-                location.reload();
-            },
-            Error: function (xhr, status, error)
-            {
-                console.log('Error adding data:', error);
-            }
-        });
+    let okres = t.value;
+
+    for (let i = 0; i < model_ts.length; i++) {
+        //if (model_ts[i].WorkerId == null) {
+        //    //console.log(model_ts[i].OkresRozliczeniowy);
+        //    if (model_ts[i].OkresRozliczeniowy.length == 0)
+        //    {
+        //        console.log('asd');
+        //    }
+        //    else {
+
+        //    }
+        //}
+
+        //if (!model_ts[i].WorkerId)
+        //{
+        //    console.log('asd');
+        //}
+        //else {
+        //    console.log('asd');
+        //}
+
     }
+
+    if (model_ts.length == 0)
+    {
+
+    }
+    else {
+
+    }
+
+
+    //if (t.value.length > 0) {
+    //    let okres = t.value;
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: '/Times/AddOkres',
+    //        data: {
+    //            okresRozliczeniowy: okres
+    //        },
+    //        success: function (response)
+    //        {
+    //            location.reload();
+    //        },
+    //        Error: function (xhr, status, error)
+    //        {
+    //            console.log('Error adding data:', error);
+    //        }
+    //    });
+    //}
 };
 
 
