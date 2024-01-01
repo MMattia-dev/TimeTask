@@ -601,6 +601,25 @@ $('#oKuDQuaWdDBDLIN_ input').on('change', function (e)
     }
 });
 
-
+function YaohyXTjGdIPVHK(t) {
+    if (t.value.length > 0) {
+        let okres = t.value;
+        $.ajax({
+            type: 'POST',
+            url: '/Times/AddOkres',
+            data: {
+                okresRozliczeniowy: okres
+            },
+            success: function (response)
+            {
+                location.reload();
+            },
+            Error: function (xhr, status, error)
+            {
+                console.log('Error adding data:', error);
+            }
+        });
+    }
+};
 
 

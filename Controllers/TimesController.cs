@@ -296,11 +296,35 @@ namespace TimeTask.Controllers
 			return Json(new { success = false });
 		}
 
+        [HttpPost]
+        public ActionResult AddOkres(int workerID, int okresRozliczeniowy, int czasPracy, int maksymalnaLiczbaNadgodzin)
+        {
+            var newData = new TimeSettings()
+            {
+                WorkerId = null,
+                OkresRozliczeniowy = okresRozliczeniowy,
+                CzasPracy = null,
+                MaksymalnaLiczbaNadgodzin = null
+            };
+
+            _context.TimeSettings.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
+
+
+        
 
 
 
 
 
 
-	}
+
+
+
+
+
+
+    }
 }
