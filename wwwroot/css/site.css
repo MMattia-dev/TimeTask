@@ -3932,6 +3932,33 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     transform: translateY(-10px);
 }
 
+    .kfVQjJnCTNjZlgW.ozZkrSfXdfbxJPO {
+        transform: translateY(10px);
+        height: 20px;
+        justify-content: left;
+        gap: 5px;
+    }
+
+        .kfVQjJnCTNjZlgW.ozZkrSfXdfbxJPO .TOBgPdZDnrCaJEf {
+            font-size: 16px;
+            text-transform: unset;
+            font-weight: normal;
+        }
+
+            .kfVQjJnCTNjZlgW.ozZkrSfXdfbxJPO .TOBgPdZDnrCaJEf.HaNiODyyZAMDvgK {
+                font-size: 16px;
+                text-transform: unset;
+                font-weight: bold;
+            }
+
+        .kfVQjJnCTNjZlgW.ozZkrSfXdfbxJPO select {
+            font-size: 16px;
+            background-color: rgba(34, 36, 48, 1);
+            color: rgba(255, 255, 255, 0.8);
+            border-radius: 3px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
 .TOBgPdZDnrCaJEf {
     color: rgba(255, 255, 255, 0.8);
     font-weight: bold;

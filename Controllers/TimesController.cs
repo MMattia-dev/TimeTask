@@ -28,6 +28,7 @@ namespace TimeTask.Controllers
             ViewBag.Workers = _context.Workers2;
             ViewBag.Leave = _context.Leave4;
             ViewBag.TimeSetting = _context.TimeSettings;
+            ViewBag.Holiday = _context.Holiday;
 
             return _context.Time != null ? 
                           View(await _context.Time.ToListAsync()) :

@@ -1,4 +1,7 @@
-﻿namespace TimeTask.Models
+﻿using Microsoft.AspNetCore.SignalR;
+using System.Collections.Generic;
+
+namespace TimeTask.Models
 {
     public class TimeSettings
     {
@@ -15,10 +18,16 @@
 
         //Pora nocna obejmuje 8 godzin między godzinami 21:00 a 7:00.
 
+        //public int? MaksymalnaLiczbaNadgodzinDzien { get; set; } // 
+        //public int? MaksymalnaLiczbaNadgodzinTydzien { get; set; } // 8h
+        //public int? NieprzerwanyOdpoczynek { get; set; } // Nieprzerwany odpoczynek między dniami pracy (11h)
 
 
-
-
+        //O ile może zostać zwiększony roczny limit pracy w nadgodzinach? W związku z tym,
+        //że pracownik może mieć w tygodniu 8 godzin
+        //nadliczbowych, maksymalny limit godzin nadliczbowych jaki można wprowadzić w regulaminie pracy,
+        //układzie zbiorowym lub umowie o pracę,
+        //może wynosić maksymalnie 416 nadgodzin w ciągu roku.
 
 
 

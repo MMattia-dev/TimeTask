@@ -85,24 +85,30 @@
 
         <div class="YUPrikbkYzkc">
 
+            <div class="kfVQjJnCTNjZlgW ozZkrSfXdfbxJPO" id="arZXMQdbSQIRrUe">
+                <div class="TOBgPdZDnrCaJEf">Ilość godzin roboczych w </div>
+                <div class="TOBgPdZDnrCaJEf">: </div>
+                <div class="TOBgPdZDnrCaJEf HaNiODyyZAMDvgK" id="cJKKxespUKquUPA"></div>
+            </div>
 
             <div class="YavvRCMQscelhIs riqhWBvtFoKacNt KJiwNsHiMAVNLKL" id="UOrGQHMwMiwAhOM">
                 <!--Okres rozliczeniowy-->
                 <div class="msdgExEZCpefgcL">
                     <span class="hFzZLqJdsEqdlrx">Okres rozliczeniowy wynosi </span>
                     <input class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="IkruzJFAfehduep" onkeypress="return isNumberKey(event)" onblur="YaohyXTjGdIPVHK(this)"/>
-                    <span class="hFzZLqJdsEqdlrx"> miesiąc/miesiące/miesięcy (maks. 12)</span>
+                    <span class="hFzZLqJdsEqdlrx"> miesiąc/miesiące/miesięcy (maks. 12).</span>
                 </div>
                 <!--czas pracy-->
                 <div class="msdgExEZCpefgcL">
                     <span class="hFzZLqJdsEqdlrx">Czas pracy wynosi </span>
                     <input class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="mNLCvwMfyDsHDRo" onkeypress="return isNumberKey(event)"/>
-                    <span class="hFzZLqJdsEqdlrx"> godzin</span>
+                    <span class="hFzZLqJdsEqdlrx"> godzin. (liczba godzin czasu pracy w jednym dniu)</span>
                 </div>
                 <!--max nadgodzin w roku-->
                 <div class="msdgExEZCpefgcL">
-                    <span class="hFzZLqJdsEqdlrx">Maksymalna liczba nadgodzin w roku </span>
+                    <span class="hFzZLqJdsEqdlrx">Maksymalna liczba nadgodzin w roku -</span>
                     <input class="form-control DnSGyEINFwTACsK" type="text" maxlength="3" id="qFciKrITNFzxtSL" onkeypress="return isNumberKey(event)"/>
+                    <span class="hFzZLqJdsEqdlrx">godz.</span>
                 </div>
 
             </div>
@@ -312,10 +318,10 @@
 
 <script type="text/javascript">
     var model_ts = @Html.Raw(JsonConvert.SerializeObject(ViewBag.TimeSetting));
+    var model_h = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Holiday));
 
 function isNumberKey(event){
-var charCode = (event.which) ? event.which : event.keyCode
-
+    var charCode = (event.which) ? event.which : event.keyCode
 
     if(charCode > 31 && (charCode < 48 || charCode > 57)){
         return false;
@@ -690,6 +696,7 @@ function pNxCxvPIUtCbSHM(t){
     function OnvqHvCoOiDaFEV() {
         $('.VUXahzbNUTWtiZa').hide();
         $('#UOrGQHMwMiwAhOM').show();
+        $('#arZXMQdbSQIRrUe').show();
         $('.IVnxgCORpPYL').hide();
     };
     OnvqHvCoOiDaFEV();
@@ -697,6 +704,7 @@ function pNxCxvPIUtCbSHM(t){
     function ZucUMOWKGdlqgYv() {
         $('.VUXahzbNUTWtiZa').show();
         $('#UOrGQHMwMiwAhOM').hide();
+        $('#arZXMQdbSQIRrUe').hide();
         $('.IVnxgCORpPYL').show();
     };
 
@@ -867,7 +875,10 @@ function pNxCxvPIUtCbSHM(t){
 
 
 
+
 </script>
 
-<script type="text/javascript" src="~/js/sorttable.js"></script>
+
 <script type="text/javascript" src="~/js/site.js"></script>
+<script type="text/javascript" src="~/js/TimeIndex.js"></script>
+<script type="text/javascript" src="~/js/sorttable.js"></script>
