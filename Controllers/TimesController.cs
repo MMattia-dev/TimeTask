@@ -27,7 +27,7 @@ namespace TimeTask.Controllers
             ViewBag.Departments = _context.Department;
             ViewBag.Workers = _context.Workers2;
             ViewBag.Leave = _context.Leave4;
-            ViewBag.TimeSetting = _context.TimeSettings;
+            ViewBag.TimeSetting = _context.TimeSettings2;
             ViewBag.Holiday = _context.Holiday;
 
             return _context.Time != null ? 
@@ -299,39 +299,174 @@ namespace TimeTask.Controllers
 		}
 
         [HttpPost]
-        public ActionResult AddOkres(int workerID, int okresRozliczeniowy, int czasPracy, int maksymalnaLiczbaNadgodzin)
+        public ActionResult AddOkres(int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
         {
-            var newData = new TimeSettings()
+            var newData = new TimeSettings2()
             {
                 WorkerId = null,
                 OkresRozliczeniowy = okresRozliczeniowy,
                 CzasPracy = null,
-                MaksymalnaLiczbaNadgodzin = null
+                MaksymalnaLiczbaNadgodzin = null,
+                MaksymalnaLiczbaNadgodzinTydzien = null,
+                NieprzerwanyOdpoczynek = null
             };
 
-            _context.TimeSettings.Add(newData);
+            _context.TimeSettings2.Add(newData);
             _context.SaveChanges();
             return Json(new { success = true });
         }
 
+        [HttpPost]
+        public ActionResult EditOkres(int id, int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        {
+            var row = _context.TimeSettings2.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.OkresRozliczeniowy = okresRozliczeniowy;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult AddCzasPracy(int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        {
+            var newData = new TimeSettings2()
+            {
+                WorkerId = null,
+                OkresRozliczeniowy = null,
+                CzasPracy = czasPracy,
+                MaksymalnaLiczbaNadgodzin = null,
+                MaksymalnaLiczbaNadgodzinTydzien = null,
+                NieprzerwanyOdpoczynek = null
+            };
+
+            _context.TimeSettings2.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public ActionResult EditCzasPracy(int id, int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        {
+            var row = _context.TimeSettings2.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.CzasPracy = czasPracy;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult AddMaksymalnaLiczbaNadgodzinTydzien(int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        {
+            var newData = new TimeSettings2()
+            {
+                WorkerId = null,
+                OkresRozliczeniowy = null,
+                CzasPracy = null,
+                MaksymalnaLiczbaNadgodzin = null,
+                MaksymalnaLiczbaNadgodzinTydzien = maksymalnaLiczbaNadgodzinTydzien,
+                NieprzerwanyOdpoczynek = null
+            };
+
+            _context.TimeSettings2.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public ActionResult EditMaksymalnaLiczbaNadgodzinTydzien(int id, int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        {
+            var row = _context.TimeSettings2.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.MaksymalnaLiczbaNadgodzinTydzien = maksymalnaLiczbaNadgodzinTydzien;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult AddMaksymalnaLiczbaNadgodzin(int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        {
+            var newData = new TimeSettings2()
+            {
+                WorkerId = null,
+                OkresRozliczeniowy = null,
+                CzasPracy = null,
+                MaksymalnaLiczbaNadgodzin = maksymalnaLiczbaNadgodzin,
+                MaksymalnaLiczbaNadgodzinTydzien = null,
+                NieprzerwanyOdpoczynek = null
+            };
+
+            _context.TimeSettings2.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public ActionResult EditMaksymalnaLiczbaNadgodzin(int id, int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        {
+            var row = _context.TimeSettings2.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.MaksymalnaLiczbaNadgodzin = maksymalnaLiczbaNadgodzin;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult AddNieprzerwanyOdpoczynek(int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        {
+            var newData = new TimeSettings2()
+            {
+                WorkerId = null,
+                OkresRozliczeniowy = null,
+                CzasPracy = null,
+                MaksymalnaLiczbaNadgodzin = null,
+                MaksymalnaLiczbaNadgodzinTydzien = null,
+                NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek
+            };
+
+            _context.TimeSettings2.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public ActionResult EditNieprzerwanyOdpoczynek(int id, int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        {
+            var row = _context.TimeSettings2.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
 
 
-        //[HttpPost]
-        //public ActionResult EditReminder(int id, string userID, string title, string? reminderDescription, DateTime createdDate, DateTime? remindDate)
-        //{
-        //    var row = _context.Reminders3.FirstOrDefault(e => e.Id == id);
-        //    if (row != null)
-        //    {
-        //        row.Title = title;
-        //        row.ReminderDescription = reminderDescription;
-        //        row.RemindDate = remindDate;
-        //        _context.SaveChanges();
 
-        //        return Json(new { success = true });
-        //    }
 
-        //    return Json(new { success = false });
-        //}
+
 
 
 

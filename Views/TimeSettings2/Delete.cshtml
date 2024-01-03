@@ -1,0 +1,57 @@
+﻿@model TimeTask.Models.TimeSettings2
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TimeSettings2</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WorkerId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WorkerId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OkresRozliczeniowy)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OkresRozliczeniowy)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CzasPracy)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CzasPracy)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MaksymalnaLiczbaNadgodzin)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MaksymalnaLiczbaNadgodzin)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MaksymalnaLiczbaNadgodzinTydzien)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MaksymalnaLiczbaNadgodzinTydzien)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NieprzerwanyOdpoczynek)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NieprzerwanyOdpoczynek)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

@@ -1,4 +1,54 @@
-﻿function ileDniRoboczychWRoku(year)
+﻿function hivknQXjTsiqtUI() {
+    if (model_ts.length > 0) {
+        for (let i = 0; i < model_ts.length; i++) {
+            //IkruzJFAfehduep - Okres rozliczeniowy
+            //mNLCvwMfyDsHDRo - czas pracy
+            //rShbhZqNInnuIPw - max nadgodzin w tygodniu
+            //qFciKrITNFzxtSL - max nadgodzin w roku
+            //FqvhrnXefCjthHG - Nieprzerwany odpoczynek między dniami roboczymi
+            $('#IkruzJFAfehduep').val(model_ts[i].OkresRozliczeniowy);
+            $('#mNLCvwMfyDsHDRo').val(model_ts[i].CzasPracy);
+            $('#rShbhZqNInnuIPw').val(model_ts[i].MaksymalnaLiczbaNadgodzinTydzien);
+            $('#qFciKrITNFzxtSL').val(model_ts[i].MaksymalnaLiczbaNadgodzin);
+            $('#FqvhrnXefCjthHG').val(model_ts[i].NieprzerwanyOdpoczynek);
+        }
+    }
+};
+hivknQXjTsiqtUI();
+
+function jbhrPXeSiRSagdK() {
+    if (sessionStorage.getItem('ZucUMOWKGdlqgYv') != null)
+    {
+        $('#urlop').attr('checked', true);
+        $('#czas').attr('checked', false);
+        $('#urlop').trigger('change');
+    }
+    else {
+        $('#urlop').attr('checked', false);
+        $('#czas').attr('checked', true);
+        $('#czas').trigger('change');
+    }
+};
+jbhrPXeSiRSagdK();
+
+function OnvqHvCoOiDaFEV()
+{
+    $('#tableId').addClass('None');
+    $('#cJsHHcdodjVadhY').removeClass('None');
+    $('#yYNizTMVTEhbkFD').addClass('None');
+    sessionStorage.removeItem('ZucUMOWKGdlqgYv');
+};
+//OnvqHvCoOiDaFEV();
+
+function ZucUMOWKGdlqgYv()
+{
+    $('#tableId').removeClass('None');
+    $('#cJsHHcdodjVadhY').addClass('None');
+    $('#yYNizTMVTEhbkFD').removeClass('None');
+    sessionStorage.setItem('ZucUMOWKGdlqgYv', 'true');
+};
+
+function ileDniRoboczychWRoku(year)
 {
     let a = new Date(year + '-01-01');
     let b = new Date(year + '-12-31');
@@ -45,72 +95,1073 @@
 function zgEcbvlXdHwxDcW() {
     let currentYear = new Date().getFullYear();
     let dniRobocze = ileDniRoboczychWRoku(currentYear);
-    let godzinyRobocze = dniRobocze * 8; //trzeba zmienic z bazy!!!!!!!
+    //let godzinyRobocze = dniRobocze * 8; //trzeba zmienic z bazy!!!!!!!
+    let godzinyRobocze = null;
+
+    if (model_ts.length > 0) {
+        for (let i = 0; i < model_ts.length; i++)
+        {
+            if (model_ts[i].WorkerId == null) {
+                godzinyRobocze = dniRobocze * model_ts[i].CzasPracy;
+            }
+        }
+    }
+
     document.getElementById('cJKKxespUKquUPA').innerHTML = godzinyRobocze;
+    document.getElementById('cJKKxespUKquUPA_').innerHTML = dniRobocze;
+    //console.log(dniRobocze);
 };
 zgEcbvlXdHwxDcW();
 
 
+//dodaj okres rozliczeniowy
 function YaohyXTjGdIPVHK(t)
 {
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    $(t).parent().append(lds);
+    $(lds).hide();
+
+    //
     let okres = t.value;
-
-    for (let i = 0; i < model_ts.length; i++)
-    {
-        //if (model_ts[i].WorkerId == null) {
-        //    //console.log(model_ts[i].OkresRozliczeniowy);
-        //    if (model_ts[i].OkresRozliczeniowy.length == 0)
-        //    {
-        //        console.log('asd');
-        //    }
-        //    else {
-
-        //    }
-        //}
-
-        //if (!model_ts[i].WorkerId)
-        //{
-        //    console.log('asd');
-        //}
-        //else {
-        //    console.log('asd');
-        //}
-
-    }
+    //
 
     if (model_ts.length == 0)
     {
-        /*console.log('asd');*/
-
+        if (okres.length > 0) {
+            $.ajax({
+                type: 'POST',
+                url: '/Times/AddOkres',
+                data: {
+                    okresRozliczeniowy: okres
+                },
+                success: function (response)
+                {
+                    $(lds).show();
+                    setTimeout(function ()
+                    {
+                        location.reload();
+                    }, 300);
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding data:', error);
+                }
+            });
+        }
     }
     else
     {
-        if (model_ts[i].WorkerId == null)
+        for (let i = 0; i < model_ts.length; i++)
         {
-
+            if (model_ts[i].WorkerId == null)
+            {
+                let id_ = model_ts[i].Id;
+                //
+                if (model_ts[i].OkresRozliczeniowy != okres && okres.length != 0)
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditOkres',
+                        data: {
+                            id: id_,
+                            okresRozliczeniowy: okres
+                        },
+                        success: function (response)
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding data:', error);
+                        }
+                    });
+                }
+                else if (model_ts[i].OkresRozliczeniowy != null && okres.length == 0) 
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditOkres',
+                        data: {
+                            id: id_,
+                            okresRozliczeniowy: okres
+                        },
+                        success: function (response)
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding data:', error);
+                        }
+                    });
+                }
+            }
         }
+    }
+};
+
+//dodaj czas pracy
+function IIjDrhHnsJwmqtN(t) {
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    $(t).parent().append(lds);
+    $(lds).hide();
+
+    //
+    let okres = t.value;
+    //
+
+    if (model_ts.length == 0)
+    {
+        if (okres.length > 0)
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Times/AddCzasPracy',
+                data: {
+                    czasPracy: okres
+                },
+                success: function (response)
+                {
+                    $(lds).show();
+                    setTimeout(function ()
+                    {
+                        location.reload();
+                    }, 300);
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding data:', error);
+                }
+            });
+        }
+    }
+    else
+    {
+        for (let i = 0; i < model_ts.length; i++)
+        {
+            if (model_ts[i].WorkerId == null)
+            {
+                let id_ = model_ts[i].Id;
+                //
+                if (model_ts[i].CzasPracy != okres && okres.length != 0)
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditCzasPracy',
+                        data: {
+                            id: id_,
+                            czasPracy: okres
+                        },
+                        success: function (response)
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding data:', error);
+                        }
+                    });
+                }
+                else if (model_ts[i].CzasPracy != null && okres.length == 0) 
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditCzasPracy',
+                        data: {
+                            id: id_,
+                            czasPracy: okres
+                        },
+                        success: function (response)
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding data:', error);
+                        }
+                    });
+                }
+            }
+        }
+    }
+};
+
+//dodaj max godzin w tygodniu
+function jShPfjshHZwMBZw(t) {
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    $(t).parent().append(lds);
+    $(lds).hide();
+
+    //
+    let okres = t.value;
+    //
+
+    if (model_ts.length == 0)
+    {
+        if (okres.length > 0)
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Times/AddMaksymalnaLiczbaNadgodzinTydzien',
+                data: {
+                    maksymalnaLiczbaNadgodzinTydzien: okres
+                },
+                success: function (response)
+                {
+                    $(lds).show();
+                    setTimeout(function ()
+                    {
+                        location.reload();
+                    }, 300);
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding data:', error);
+                }
+            });
+        }
+    }
+    else
+    {
+        for (let i = 0; i < model_ts.length; i++)
+        {
+            if (model_ts[i].WorkerId == null)
+            {
+                let id_ = model_ts[i].Id;
+                //
+                if (model_ts[i].MaksymalnaLiczbaNadgodzinTydzien != okres && okres.length != 0)
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditMaksymalnaLiczbaNadgodzinTydzien',
+                        data: {
+                            id: id_,
+                            maksymalnaLiczbaNadgodzinTydzien: okres
+                        },
+                        success: function (response)
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding data:', error);
+                        }
+                    });
+                }
+                else if (model_ts[i].MaksymalnaLiczbaNadgodzinTydzien != null && okres.length == 0) 
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditMaksymalnaLiczbaNadgodzinTydzien',
+                        data: {
+                            id: id_,
+                            maksymalnaLiczbaNadgodzinTydzien: okres
+                        },
+                        success: function (response)
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding data:', error);
+                        }
+                    });
+                }
+            }
+        }
+    }
+};
+
+//dodaj max godzin w roku
+function XzSwltkFnFZxgQl(t) {
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    $(t).parent().append(lds);
+    $(lds).hide();
+
+    //
+    let okres = t.value;
+    //
+
+    if (model_ts.length == 0)
+    {
+        if (okres.length > 0)
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Times/AddMaksymalnaLiczbaNadgodzin',
+                data: {
+                    maksymalnaLiczbaNadgodzin: okres
+                },
+                success: function (response)
+                {
+                    $(lds).show();
+                    setTimeout(function ()
+                    {
+                        location.reload();
+                    }, 300);
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding data:', error);
+                }
+            });
+        }
+    }
+    else
+    {
+        for (let i = 0; i < model_ts.length; i++)
+        {
+            if (model_ts[i].WorkerId == null)
+            {
+                let id_ = model_ts[i].Id;
+                //
+                if (model_ts[i].MaksymalnaLiczbaNadgodzin != okres && okres.length != 0)
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditMaksymalnaLiczbaNadgodzin',
+                        data: {
+                            id: id_,
+                            maksymalnaLiczbaNadgodzin: okres
+                        },
+                        success: function (response)
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding data:', error);
+                        }
+                    });
+                }
+                else if (model_ts[i].MaksymalnaLiczbaNadgodzin != null && okres.length == 0) 
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditMaksymalnaLiczbaNadgodzin',
+                        data: {
+                            id: id_,
+                            maksymalnaLiczbaNadgodzin: okres
+                        },
+                        success: function (response)
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding data:', error);
+                        }
+                    });
+                }
+            }
+        }
+    }
+};
+
+//dodaj Nieprzerwany odpoczynek między dniami roboczymi
+function bnjRnAOHPyGsOAT(t) {
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    $(t).parent().append(lds);
+    $(lds).hide();
+
+    //
+    let okres = t.value;
+    //
+
+    if (model_ts.length == 0)
+    {
+        if (okres.length > 0)
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Times/AddNieprzerwanyOdpoczynek',
+                data: {
+                    nieprzerwanyOdpoczynek: okres
+                },
+                success: function (response)
+                {
+                    $(lds).show();
+                    setTimeout(function ()
+                    {
+                        location.reload();
+                    }, 300);
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding data:', error);
+                }
+            });
+        }
+    }
+    else
+    {
+        for (let i = 0; i < model_ts.length; i++)
+        {
+            if (model_ts[i].WorkerId == null)
+            {
+                let id_ = model_ts[i].Id;
+                //
+                if (model_ts[i].NieprzerwanyOdpoczynek != okres && okres.length != 0)
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditNieprzerwanyOdpoczynek',
+                        data: {
+                            id: id_,
+                            nieprzerwanyOdpoczynek: okres
+                        },
+                        success: function (response)
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding data:', error);
+                        }
+                    });
+                }
+                else if (model_ts[i].NieprzerwanyOdpoczynek != null && okres.length == 0) 
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditNieprzerwanyOdpoczynek',
+                        data: {
+                            id: id_,
+                            nieprzerwanyOdpoczynek: okres
+                        },
+                        success: function (response)
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding data:', error);
+                        }
+                    });
+                }
+            }
+        }
+    }
+};
+
+
+
+function isNumberKey(event)
+{
+    var charCode = (event.which) ? event.which : event.keyCode;
+
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+var tables = document.getElementsByTagName('table');
+for (var i = 0; i < tables.length; i++)
+{
+    resizableGrid(tables[i]);
+}
+
+function resizableGrid(table)
+{
+    var row = table.getElementsByTagName('tr')[0],
+        cols = row ? row.children : undefined;
+    if (!cols) return;
+
+    table.style.overflow = 'hidden';
+
+    var tableHeight = table.offsetHeight;
+
+    for (var i = 0; i < cols.length - 2; i++)
+    {
+        var div = createDiv(tableHeight);
+        cols[i].appendChild(div);
+        cols[i].style.position = 'relative';
+        setListeners(div);
+    }
+
+    function setListeners(div)
+    {
+        var pageX, curCol, nxtCol, curColWidth, nxtColWidth;
+
+        div.addEventListener('mousedown', function (e)
+        {
+            curCol = e.target.parentElement;
+            nxtCol = curCol.nextElementSibling;
+            pageX = e.pageX;
+
+            var padding = paddingDiff(curCol);
+
+            curColWidth = curCol.offsetWidth - padding;
+            if (nxtCol)
+                nxtColWidth = nxtCol.offsetWidth - padding;
+        });
+
+        div.addEventListener('mouseover', function (e)
+        {
+            //e.target.style.borderRight = '4px double rgb(150, 150, 150)';
+        });
+
+        div.addEventListener('mouseout', function (e)
+        {
+            //e.target.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
+        });
+
+        document.addEventListener('mousemove', function (e)
+        {
+            if (curCol)
+            {
+                var diffX = e.pageX - pageX;
+
+                if (nxtCol)
+                    nxtCol.style.width = (nxtColWidth - (diffX)) + 'px';
+
+                curCol.style.width = (curColWidth + diffX) + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', function (e)
+        {
+            curCol = undefined;
+            nxtCol = undefined;
+            pageX = undefined;
+            nxtColWidth = undefined;
+            curColWidth = undefined;
+        });
+    }
+
+    function createDiv(height)
+    {
+        var div = document.createElement('div');
+        div.style.top = 0;
+        div.style.right = 0;
+        //div.style.width = '5px';
+        div.style.width = '23px';
+        //div.style.backgroundColor = 'rgba(255, 0, 0, 0.4)';
+        div.style.zIndex = '1';
+        div.style.position = 'absolute';
+        div.style.cursor = 'col-resize';
+        div.style.userSelect = 'none';
+        div.style.height = '52px';
+        //div.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
+
+        //div.style.right = '-10px';
+
+        div.style.transform = 'translatex(10px)';
+        div.innerHTML += `<i class="arrow left"></i> <div class="lines line1"></div> <div class="lines line2"></div> <i class="arrow right"></i>`;//<div class="lines line1"></div> <div class="lines line2"></div>
+        div.setAttribute('id', 'GRgYMQCkHWKDuyb');
+        div.setAttribute('onmouseover', 'ZKHOrDgJBDHOpmW(this)');
+        div.setAttribute('onmouseout', 'pNxCxvPIUtCbSHM(this)');
+        div.setAttribute('onclick', 'kEDVBzpHnAzOqpp(this, event)');
+
+        return div;
     }
 
 
-    //if (t.value.length > 0) {
-    //    let okres = t.value;
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: '/Times/AddOkres',
-    //        data: {
-    //            okresRozliczeniowy: okres
-    //        },
-    //        success: function (response)
+
+    function paddingDiff(col)
+    {
+
+        if (getStyleVal(col, 'box-sizing') == 'border-box')
+        {
+            return 0;
+        }
+
+        var padLeft = getStyleVal(col, 'padding-left');
+        var padRight = getStyleVal(col, 'padding-right');
+        return (parseInt(padLeft) + parseInt(padRight));
+
+    }
+
+    function getStyleVal(elm, css)
+    {
+        return (window.getComputedStyle(elm, null).getPropertyValue(css));
+    }
+};
+
+
+
+function kEDVBzpHnAzOqpp(t, e)
+{
+    e.stopPropagation();
+};
+
+function ZKHOrDgJBDHOpmW(t)
+{
+    if ($(t).attr('id') == 'GRgYMQCkHWKDuyb')
+    {
+        $(t).parent().addClass('qDIGovQQrGkMAIm');
+    }
+};
+
+function pNxCxvPIUtCbSHM(t)
+{
+    if ($(t).attr('id') == 'GRgYMQCkHWKDuyb')
+    {
+        $(t).parent().removeClass('qDIGovQQrGkMAIm');
+    }
+}
+
+
+
+let selected = document.getElementById('settings_times_id');
+selected.classList.add('settings_a_selected');
+
+
+function fwsxYepQKkCq()
+{
+    //document.getElementById('oVxJeHhcExMV').value = '';
+    //document.getElementById('kwYypucEEAnX').value = '';
+    //document.getElementById('IyWRFThVHhEX').value = '';
+    //document.getElementById('cb1').checked = false;
+    //document.getElementById('cb2').checked = false;
+    //document.getElementById('cb3').checked = false;
+    //document.getElementById('cb4').checked = false;
+    //document.getElementById('cb5').checked = false;
+    //document.getElementById('cb6').checked = false;
+
+
+    let a = document.getElementById('GpoavnFwAOos');
+    $(a).fadeIn(200);
+};
+
+function EjaqSVIBTCAu()
+{
+    let a = document.getElementById('GpoavnFwAOos');
+    $(a).fadeOut(200);
+};
+
+function vscNmCABakSwTKc()
+{
+    let a = document.getElementById('nGWLQDZPlPSDQaC');
+    $(a).fadeOut(200);
+};
+
+function validate(t, evt)
+{
+    var theEvent = evt || window.event;
+
+    // Handle paste
+    if (theEvent.type === 'paste')
+    {
+        key = event.clipboardData.getData('text/plain');
+    } else
+    {
+        // Handle key press
+        var key = theEvent.keyCode || theEvent.which;
+        key = String.fromCharCode(key);
+    }
+    var regex = /[0-9]|\./;
+    if (!regex.test(key))
+    {
+        theEvent.returnValue = false;
+        if (theEvent.preventDefault) theEvent.preventDefault();
+    }
+
+
+};
+
+function UXOaovmCsnlURsn(t, evt)
+{
+    //if (t.value.length > -1)
+    //{
+    //    let children = $(t).parent().children().eq(1).children();
+    //    for (let i = 0; i < children.length; i++)
+    //    {
+    //        $(children[i]).removeClass('flYuCaWkWLvKDYr');
+    //        $(children[i]).children().removeAttr('disabled');
+    //    }
+    //}
+    //else 
+    //{
+    //    let children = $(t).parent().children().eq(1).children();
+    //    for (let i = 0; i < children.length; i++)
+    //    {
+    //        $(children[i]).addClass('flYuCaWkWLvKDYr');
+    //        $(children[i]).children().attr('disabled');
+    //    }
+    //}
+
+    //if (t.value.length > -1)
+    //{
+    //    let children = $(t).parent().children().eq(1).children();
+    //    for (let i = 0; i < children.length; i++)
+    //    {
+    //        $(children[i]).removeClass('flYuCaWkWLvKDYr');
+    //        $(children[i]).children().removeAttr('disabled');
+    //    }
+    //}
+    //else 
+    //{
+
+    //}
+
+    //var key = evt.keyCode || evt.charCode;
+    //if (key == 8 || key == 46)
+    //{            
+    //        let children = $(t).parent().children().eq(1).children();
+    //        for (let i = 0; i < children.length; i++)
     //        {
-    //            location.reload();
-    //        },
-    //        Error: function (xhr, status, error)
-    //        {
-    //            console.log('Error adding data:', error);
+    //            $(children[i]).addClass('flYuCaWkWLvKDYr');
+    //            $(children[i]).children().attr('disabled', '');
     //        }
-    //    });
     //}
 };
+
+function BmJPiKFdcncS()
+{
+    let name_ = document.getElementById('oVxJeHhcExMV').value;
+    let description_ = document.getElementById('kwYypucEEAnX').value;
+    let max_ = document.getElementById('IyWRFThVHhEX').value;
+    let ifDays_ = document.getElementById('cb1').checked;
+    let ifWeeks_ = document.getElementById('cb2').checked;
+    let ifMonths_ = document.getElementById('cb3').checked;
+    let ifYears_ = document.getElementById('cb4').checked;
+    let ifWeekends_ = document.getElementById('cb5').checked;
+    let ifHolidays_ = document.getElementById('cb6').checked;
+
+    if (name_)
+    {
+        if (max_)
+        {
+            if (ifDays_ || ifWeeks_ || ifMonths_ || ifYears_)
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Leave4/AddLeave',
+                    data: {
+                        name: name_,
+                        description: description_,
+                        max: max_,
+                        ifDays: ifDays_,
+                        ifWeeks: ifWeeks_,
+                        ifMonths: ifMonths_,
+                        ifYears: ifYears_,
+                        ifWeekends: ifWeekends_,
+                        ifHolidays: ifHolidays_
+                    },
+                    success: function (response)
+                    {
+                        //let a = document.getElementById('GpoavnFwAOos');
+                        //$(a).fadeOut(200);
+                        location.reload();
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error updating data:', error);
+                    }
+                });
+            }
+        }
+        else if (ifDays_ || ifWeeks_ || ifMonths_ || ifYears_)
+        {
+            if (max_)
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Leave4/AddLeave',
+                    data: {
+                        name: name_,
+                        description: description_,
+                        max: max_,
+                        ifDays: ifDays_,
+                        ifWeeks: ifWeeks_,
+                        ifMonths: ifMonths_,
+                        ifYears: ifYears_,
+                        ifWeekends: ifWeekends_,
+                        ifHolidays: ifHolidays_
+                    },
+                    success: function (response)
+                    {
+                        //let a = document.getElementById('GpoavnFwAOos');
+                        //$(a).fadeOut(200);
+                        location.reload();
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error updating data:', error);
+                    }
+                });
+            }
+        }
+        else 
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Leave4/AddLeave',
+                data: {
+                    name: name_,
+                    description: description_,
+                    max: max_,
+                    ifDays: ifDays_,
+                    ifWeeks: ifWeeks_,
+                    ifMonths: ifMonths_,
+                    ifYears: ifYears_,
+                    ifWeekends: ifWeekends_,
+                    ifHolidays: ifHolidays_
+                },
+                success: function (response)
+                {
+                    //let a = document.getElementById('GpoavnFwAOos');
+                    //$(a).fadeOut(200);
+                    location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error updating data:', error);
+                }
+            });
+        }
+    }
+};
+
+
+function cbclick(e)
+{
+    e = e || event;
+    var cb = e.srcElement || e.target;
+    if (cb.type !== 'checkbox') { return true; }
+    var cbxs = document.getElementById('radiocb').getElementsByTagName('input'), i = cbxs.length;
+    while (i--)
+    {
+        if (cbxs[i].type && cbxs[i].type == 'checkbox' && cbxs[i].id !== cb.id)
+        {
+            cbxs[i].checked = false;
+        }
+    }
+    // if the click should always result in a checked checkbox
+    // unconmment this:
+    // cb.checked = true;
+}
+
+
+
+function GTUwirLRmPXoIuh(t)
+{
+    sessionStorage.setItem('hCiEUYaJyBZCWTU', t.id);
+    //document.getElementById('ewZOdyapfFtPtMi').innerHTML = t.getAttribute('name');
+    document.getElementById('ewZOdyapfFtPtMi').innerHTML = $(t).parent().parent().children().eq(0).html();
+    document.getElementById('nZDLxLTZwFzAFCY').innerHTML = $(t).parent().parent().children().eq(1).html();
+
+    let a = document.getElementById('YiAVCpnVzhDnOsL');
+    $(a).fadeIn(200);
+};
+
+function UOspQSjpbVdS()
+{
+    let a = document.getElementById('YiAVCpnVzhDnOsL');
+    $(a).fadeOut(200);
+};
+
+function dDlRcSCJZAuO()
+{
+    let id_ = sessionStorage.getItem('hCiEUYaJyBZCWTU');
+
+    $.ajax({
+        type: 'POST',
+        url: '/Leave4/RemoveLeave',
+        data: {
+            id: id_
+        },
+        success: function (response)
+        {
+            location.reload();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error deleting data:', error);
+        }
+    });
+};
+
+function klhLiQVRwGfWrSp(t)
+{
+    sessionStorage.setItem('MRZrhugkTpKvhtm', t.id);
+    document.getElementById('AazUHXhkXIbdKWH').value = $(t).parent().parent().children().eq(0).html();
+    document.getElementById('TDGIADzVjJqefsV').value = $(t).parent().parent().children().eq(1).html();
+    document.getElementById('VumSHUqECwbXZcK').value = $(t).parent().parent().children().eq(2).html().split(' ')[0];
+    document.getElementById('cb1_').checked = $(t).parent().parent().children().eq(2).attr('checked1');
+    document.getElementById('cb2_').checked = $(t).parent().parent().children().eq(2).attr('checked2');
+    document.getElementById('cb3_').checked = $(t).parent().parent().children().eq(2).attr('checked3');
+    document.getElementById('cb4_').checked = $(t).parent().parent().children().eq(2).attr('checked4');
+    document.getElementById('cb5_').checked = $(t).parent().parent().children().eq(3).children().eq(0).attr('checked');
+    document.getElementById('cb6_').checked = $(t).parent().parent().children().eq(4).children().eq(0).attr('checked');
+
+
+
+    let nGWLQDZPlPSDQaC = document.getElementById('nGWLQDZPlPSDQaC');
+    $(nGWLQDZPlPSDQaC).fadeIn(200);
+};
+
+function LkHTSbDyYLLvJeC()
+{
+    let id_ = sessionStorage.getItem('MRZrhugkTpKvhtm');
+
+    let name_ = document.getElementById('AazUHXhkXIbdKWH').value;
+    let description_ = document.getElementById('TDGIADzVjJqefsV').value;
+    let max_ = document.getElementById('VumSHUqECwbXZcK').value;
+    let ifDays_ = document.getElementById('cb1_').checked;
+    let ifWeeks_ = document.getElementById('cb2_').checked;
+    let ifMonths_ = document.getElementById('cb3_').checked;
+    let ifYears_ = document.getElementById('cb4_').checked;
+    let ifWeekends_ = document.getElementById('cb5_').checked;
+    let ifHolidays_ = document.getElementById('cb6_').checked;
+
+    if (name_)
+    {
+        if (max_)
+        {
+            if (ifDays_ || ifWeeks_ || ifMonths_ || ifYears_)
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Leave4/EditLeave',
+                    data: {
+                        id: id_,
+                        name: name_,
+                        description: description_,
+                        max: max_,
+                        ifDays: ifDays_,
+                        ifWeeks: ifWeeks_,
+                        ifMonths: ifMonths_,
+                        ifYears: ifYears_,
+                        ifWeekends: ifWeekends_,
+                        ifHolidays: ifHolidays_
+                    },
+                    success: function (response)
+                    {
+                        //let a = document.getElementById('GpoavnFwAOos');
+                        //$(a).fadeOut(200);
+                        location.reload();
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error updating data:', error);
+                    }
+                });
+            }
+        }
+        else if (ifDays_ || ifWeeks_ || ifMonths_ || ifYears_)
+        {
+            if (max_)
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Leave4/EditLeave',
+                    data: {
+                        id: id_,
+                        name: name_,
+                        description: description_,
+                        max: max_,
+                        ifDays: ifDays_,
+                        ifWeeks: ifWeeks_,
+                        ifMonths: ifMonths_,
+                        ifYears: ifYears_,
+                        ifWeekends: ifWeekends_,
+                        ifHolidays: ifHolidays_
+                    },
+                    success: function (response)
+                    {
+                        //let a = document.getElementById('GpoavnFwAOos');
+                        //$(a).fadeOut(200);
+                        location.reload();
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error updating data:', error);
+                    }
+                });
+            }
+        }
+        else
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Leave4/EditLeave',
+                data: {
+                    id: id_,
+                    name: name_,
+                    description: description_,
+                    max: max_,
+                    ifDays: ifDays_,
+                    ifWeeks: ifWeeks_,
+                    ifMonths: ifMonths_,
+                    ifYears: ifYears_,
+                    ifWeekends: ifWeekends_,
+                    ifHolidays: ifHolidays_
+                },
+                success: function (response)
+                {
+                    //let a = document.getElementById('GpoavnFwAOos');
+                    //$(a).fadeOut(200);
+                    location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error updating data:', error);
+                }
+            });
+        }
+    }
+};
+
+
+
+
 
 
 

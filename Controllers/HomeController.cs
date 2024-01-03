@@ -36,7 +36,7 @@ namespace TimeTask.Controllers
             ViewBag.Reminders = _context.Reminders3;
 
 
-			return View();
+            return View();
         }
 
         public IActionResult Privacy()
