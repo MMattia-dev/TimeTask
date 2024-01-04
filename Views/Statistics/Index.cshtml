@@ -1,0 +1,31 @@
+﻿@model IEnumerable<TimeTask.Models.Statistics>
+@using Newtonsoft.Json
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
+<script src="~/lib/jquery/dist/jquery-ui.min.js"></script>
+
+<div class="parent">
+    <section class="left-nav">
+        <partial name="_Statistics" />
+    </section>
+    <section class="right-nav">
+
+    </section>
+</div>
+
+<script type="text/javascript">
+    var model_w = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Workers));
+
+    $(document).ready(function ()
+    {
+        $('.loader_div').fadeOut(200);
+    });
+</script>
+
+<script src="~/js/site.js"></script>
+<script src="~/js/Statistics.js"></script>

@@ -35,5 +35,6 @@ namespace TimeTask.Data
         public DbSet<TimeTask.Models.Reports> Reports { get; set; } = default!;
         public DbSet<TimeTask.Models.TimeSettings> TimeSettings { get; set; } = default!;
         public DbSet<TimeTask.Models.TimeSettings2> TimeSettings2 { get; set; } = default!;
+        public DbSet<TimeTask.Models.Statistics> Statistics { get; set; } = default!;
     }
 }

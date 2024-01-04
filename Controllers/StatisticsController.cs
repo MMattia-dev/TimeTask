@@ -12,16 +12,16 @@ using TimeTask.Models;
 namespace TimeTask.Controllers
 {
     [Authorize]
-    public class ReportsController : Controller
+    public class StatisticsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ReportsController(ApplicationDbContext context)
+        public StatisticsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Reports
+        // GET: Statistics
         public async Task<IActionResult> Index()
         {
             ViewBag.Departments = _context.Department;
@@ -29,75 +29,75 @@ namespace TimeTask.Controllers
             ViewBag.Leave = _context.Leave4;
             ViewBag.Time = _context.Time;
 
-            return _context.Reports != null ? 
-                          View(await _context.Reports.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Reports'  is null.");
+            return _context.Statistics != null ? 
+                          View(await _context.Statistics.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Statistics'  is null.");
         }
 
-        // GET: Reports/Details/5
+        // GET: Statistics/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Reports == null)
+            if (id == null || _context.Statistics == null)
             {
                 return NotFound();
             }
 
-            var reports = await _context.Reports
+            var statistics = await _context.Statistics
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (reports == null)
+            if (statistics == null)
             {
                 return NotFound();
             }
 
-            return View(reports);
+            return View(statistics);
         }
 
-        // GET: Reports/Create
+        // GET: Statistics/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Reports/Create
+        // POST: Statistics/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Reports reports)
+        public async Task<IActionResult> Create([Bind("Id")] Statistics statistics)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(reports);
+                _context.Add(statistics);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(reports);
+            return View(statistics);
         }
 
-        // GET: Reports/Edit/5
+        // GET: Statistics/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Reports == null)
+            if (id == null || _context.Statistics == null)
             {
                 return NotFound();
             }
 
-            var reports = await _context.Reports.FindAsync(id);
-            if (reports == null)
+            var statistics = await _context.Statistics.FindAsync(id);
+            if (statistics == null)
             {
                 return NotFound();
             }
-            return View(reports);
+            return View(statistics);
         }
 
-        // POST: Reports/Edit/5
+        // POST: Statistics/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Reports reports)
+        public async Task<IActionResult> Edit(int id, [Bind("Id")] Statistics statistics)
         {
-            if (id != reports.Id)
+            if (id != statistics.Id)
             {
                 return NotFound();
             }
@@ -106,12 +106,12 @@ namespace TimeTask.Controllers
             {
                 try
                 {
-                    _context.Update(reports);
+                    _context.Update(statistics);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ReportsExists(reports.Id))
+                    if (!StatisticsExists(statistics.Id))
                     {
                         return NotFound();
                     }
@@ -122,49 +122,49 @@ namespace TimeTask.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(reports);
+            return View(statistics);
         }
 
-        // GET: Reports/Delete/5
+        // GET: Statistics/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Reports == null)
+            if (id == null || _context.Statistics == null)
             {
                 return NotFound();
             }
 
-            var reports = await _context.Reports
+            var statistics = await _context.Statistics
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (reports == null)
+            if (statistics == null)
             {
                 return NotFound();
             }
 
-            return View(reports);
+            return View(statistics);
         }
 
-        // POST: Reports/Delete/5
+        // POST: Statistics/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Reports == null)
+            if (_context.Statistics == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Reports'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Statistics'  is null.");
             }
-            var reports = await _context.Reports.FindAsync(id);
-            if (reports != null)
+            var statistics = await _context.Statistics.FindAsync(id);
+            if (statistics != null)
             {
-                _context.Reports.Remove(reports);
+                _context.Statistics.Remove(statistics);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ReportsExists(int id)
+        private bool StatisticsExists(int id)
         {
-          return (_context.Reports?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Statistics?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

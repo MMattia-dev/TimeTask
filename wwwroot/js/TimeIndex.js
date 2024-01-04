@@ -36,6 +36,7 @@ function OnvqHvCoOiDaFEV()
     $('#tableId').addClass('None');
     $('#cJsHHcdodjVadhY').removeClass('None');
     $('#yYNizTMVTEhbkFD').addClass('None');
+    //$('#yYNizTMVTEhbkFD').hide();
     sessionStorage.removeItem('ZucUMOWKGdlqgYv');
 };
 //OnvqHvCoOiDaFEV();
@@ -45,6 +46,7 @@ function ZucUMOWKGdlqgYv()
     $('#tableId').removeClass('None');
     $('#cJsHHcdodjVadhY').addClass('None');
     $('#yYNizTMVTEhbkFD').removeClass('None');
+    //$('#yYNizTMVTEhbkFD').show();
     sessionStorage.setItem('ZucUMOWKGdlqgYv', 'true');
 };
 
@@ -95,17 +97,20 @@ function ileDniRoboczychWRoku(year)
 function zgEcbvlXdHwxDcW() {
     let currentYear = new Date().getFullYear();
     let dniRobocze = ileDniRoboczychWRoku(currentYear);
-    //let godzinyRobocze = dniRobocze * 8; //trzeba zmienic z bazy!!!!!!!
-    let godzinyRobocze = null;
 
-    if (model_ts.length > 0) {
-        for (let i = 0; i < model_ts.length; i++)
-        {
-            if (model_ts[i].WorkerId == null) {
-                godzinyRobocze = dniRobocze * model_ts[i].CzasPracy;
-            }
-        }
-    }
+
+    let godzinyRobocze = dniRobocze * 8; // 8 to stała.
+
+    //let godzinyRobocze = null;
+    //if (model_ts.length > 0) {
+    //    for (let i = 0; i < model_ts.length; i++)
+    //    {
+    //        if (model_ts[i].WorkerId == null) {
+    //            godzinyRobocze = dniRobocze * model_ts[i].CzasPracy;
+    //        }
+    //    }
+    //}
+
 
     document.getElementById('cJKKxespUKquUPA').innerHTML = godzinyRobocze;
     document.getElementById('cJKKxespUKquUPA_').innerHTML = dniRobocze;
