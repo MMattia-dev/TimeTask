@@ -793,25 +793,6 @@ $('#dQIPREqlxghevrV').trigger('change');
 
 $('#cDoWdsoylXsqbSk').on('click', function ()
 {
-    //$.ajax({
-    //    type: 'POST',
-    //    url: '/Times/AddNieprzerwanyOdpoczynek',
-    //    data: {
-    //        nieprzerwanyOdpoczynek: okres
-    //    },
-    //    success: function (response)
-    //    {
-    //        $(lds).show();
-    //        setTimeout(function ()
-    //        {
-    //            location.reload();
-    //        }, 300);
-    //    },
-    //    error: function (xhr, status, error)
-    //    {
-    //        console.log('Error adding data:', error);
-    //    }
-    //});
     let wID = document.getElementById('issyAJUIywIPgIQ').value;
     let okres = document.getElementById('ehgSlSwjIFIEMWH').value;
     let wymiar = document.getElementById('zVbJqIMfPhbOnum').value;
