@@ -36,7 +36,8 @@ function OnvqHvCoOiDaFEV()
     $('#tableId').addClass('None');
     $('#cJsHHcdodjVadhY').removeClass('None');
     $('#yYNizTMVTEhbkFD').addClass('None');
-    //$('#yYNizTMVTEhbkFD').hide();
+    $('#LRKPgUoIPlhVTMS').removeClass('None');
+
     sessionStorage.removeItem('ZucUMOWKGdlqgYv');
 };
 //OnvqHvCoOiDaFEV();
@@ -46,7 +47,8 @@ function ZucUMOWKGdlqgYv()
     $('#tableId').removeClass('None');
     $('#cJsHHcdodjVadhY').addClass('None');
     $('#yYNizTMVTEhbkFD').removeClass('None');
-    //$('#yYNizTMVTEhbkFD').show();
+    $('#LRKPgUoIPlhVTMS').addClass('None');
+
     sessionStorage.setItem('ZucUMOWKGdlqgYv', 'true');
 };
 
@@ -767,22 +769,84 @@ let selected = document.getElementById('settings_times_id');
 selected.classList.add('settings_a_selected');
 
 
-function fwsxYepQKkCq()
+
+$('#yYNizTMVTEhbkFD').on('click', function ()
 {
-    //document.getElementById('oVxJeHhcExMV').value = '';
-    //document.getElementById('kwYypucEEAnX').value = '';
-    //document.getElementById('IyWRFThVHhEX').value = '';
-    //document.getElementById('cb1').checked = false;
-    //document.getElementById('cb2').checked = false;
-    //document.getElementById('cb3').checked = false;
-    //document.getElementById('cb4').checked = false;
-    //document.getElementById('cb5').checked = false;
-    //document.getElementById('cb6').checked = false;
+    $('#GpoavnFwAOos').fadeIn(200);
+});
 
+$('#eNILXHlgCbgJCln').on('click', function ()
+{
+    $('#ftcuESUFJMUetmm').fadeOut(200);
+});
 
-    let a = document.getElementById('GpoavnFwAOos');
-    $(a).fadeIn(200);
-};
+$('#dQIPREqlxghevrV').on('change', function (e)
+{
+    document.getElementById('issyAJUIywIPgIQ').innerHTML = '';
+    for (let i = 0; i < model_w.length; i++) {
+        if (e.target.value == model_w[i].DepartmentID) {
+            document.getElementById('issyAJUIywIPgIQ').innerHTML += '<option value=' + model_w[i].Id + '>' + model_w[i].Surname + ' ' + model_w[i].Name + '</option>';
+        }
+    }
+});
+$('#dQIPREqlxghevrV').trigger('change');
+
+$('#cDoWdsoylXsqbSk').on('click', function ()
+{
+    //$.ajax({
+    //    type: 'POST',
+    //    url: '/Times/AddNieprzerwanyOdpoczynek',
+    //    data: {
+    //        nieprzerwanyOdpoczynek: okres
+    //    },
+    //    success: function (response)
+    //    {
+    //        $(lds).show();
+    //        setTimeout(function ()
+    //        {
+    //            location.reload();
+    //        }, 300);
+    //    },
+    //    error: function (xhr, status, error)
+    //    {
+    //        console.log('Error adding data:', error);
+    //    }
+    //});
+    let wID = document.getElementById('issyAJUIywIPgIQ').value;
+    let okres = document.getElementById('ehgSlSwjIFIEMWH').value;
+    let wymiar = document.getElementById('zVbJqIMfPhbOnum').value;
+    let nadgodzin_tyg = document.getElementById('klyMbuAvknxCxgo').value;
+    let nadgodzin_rok = document.getElementById('KZzKslyEOOrVYOF').value;
+    let odpoczynek = document.getElementById('WdWDgtaDQwkuFxr').value;
+
+    if (wymiar.length > 0) {
+        $.ajax({
+            type: 'POST',
+            url: '/Times/AddWorkerException',
+            data: {
+                workerID: wID,
+                okresRozliczeniowy: okres,
+                czasPracy: wymiar,
+                maksymalnaLiczbaNadgodzin: nadgodzin_rok,
+                maksymalnaLiczbaNadgodzinTydzien: nadgodzin_tyg,
+                nieprzerwanyOdpoczynek: odpoczynek
+            },
+            success: function (response)
+            {
+                location.reload();
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error adding data:', error);
+            }
+        });
+    }
+});
+
+$('#LRKPgUoIPlhVTMS').on('click', function ()
+{
+    $('#ftcuESUFJMUetmm').fadeIn(200);
+});
 
 function EjaqSVIBTCAu()
 {

@@ -20,8 +20,11 @@
                 <input class="kzQkCNWOiUhJxRl" type="radio" id="urlop" name="radio" onchange="ZucUMOWKGdlqgYv()" hidden />
                 <label class="oZBtnmiLrunDFMC" for="urlop">Urlopy</label>
             </div>
-            <div class="IVnxgCORpPYL" id="yYNizTMVTEhbkFD" onclick="fwsxYepQKkCq()">
+            <div class="IVnxgCORpPYL" id="yYNizTMVTEhbkFD">
                 <span>Nowy urlop</span>
+            </div>
+            <div class="IVnxgCORpPYL" id="LRKPgUoIPlhVTMS">
+                <span>Wyjątek dla pracownika</span>
             </div>
         </div>
 
@@ -38,19 +41,19 @@
                 </div>
 
                 <div class="YavvRCMQscelhIs riqhWBvtFoKacNt KJiwNsHiMAVNLKL">
+                    <!--czas pracy-->
+                    <div class="msdgExEZCpefgcL">
+                        <span class="hFzZLqJdsEqdlrx">Dobowy wymiar czasu pracy wynosi </span>
+                        <input class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="mNLCvwMfyDsHDRo" onkeypress="return isNumberKey(event)" onblur="IIjDrhHnsJwmqtN(this)" />
+                        <span class="hFzZLqJdsEqdlrx"> godz.</span>
+                    </div>
                     <!--Okres rozliczeniowy-->
                     <div class="msdgExEZCpefgcL">
                         <span class="hFzZLqJdsEqdlrx">Okres rozliczeniowy wynosi </span>
                         <input class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="IkruzJFAfehduep" onkeypress="return isNumberKey(event)" onblur="YaohyXTjGdIPVHK(this)"/>
-                        <span class="hFzZLqJdsEqdlrx"> miesiąc/miesiące/miesięcy (maks. 12).</span>
+                        <span class="hFzZLqJdsEqdlrx"> miesiąc/miesiące/miesięcy.</span>
                         @*<div class="lds-ring-small"><div></div><div></div><div></div><div></div></div>*@
-                    </div>
-                    <!--czas pracy-->
-                    <div class="msdgExEZCpefgcL">
-                        <span class="hFzZLqJdsEqdlrx">Czas pracy wynosi </span>
-                        <input class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="mNLCvwMfyDsHDRo" onkeypress="return isNumberKey(event)" onblur="IIjDrhHnsJwmqtN(this)"/>
-                        <span class="hFzZLqJdsEqdlrx"> godzin. (liczba godzin czasu pracy w jednym dniu)</span>
-                    </div>
+                    </div>                   
                     <!--max nadgodzin w tygodniu-->
                     <div class="msdgExEZCpefgcL">
                         <span class="hFzZLqJdsEqdlrx">Maksymalna liczba nadgodzin w tygodniu -</span>
@@ -65,7 +68,7 @@
                     </div>
                     <!--Nieprzerwany odpoczynek między dniami roboczymi-->
                     <div class="msdgExEZCpefgcL">
-                        <span class="hFzZLqJdsEqdlrx">Liczba godzin nieprzerwanego odpoczynku między dniami roboczymi -</span>
+                        <span class="hFzZLqJdsEqdlrx">Nieprzerwany odpoczynek między dniami roboczymi -</span>
                         <input class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="FqvhrnXefCjthHG" onkeypress="return isNumberKey(event)" onblur="bnjRnAOHPyGsOAT(this)"/>
                         <span class="hFzZLqJdsEqdlrx">godz.</span>
                     </div>
@@ -183,6 +186,47 @@
     </section>
 </div>
 
+<div id="ftcuESUFJMUetmm" class="pGKcZvErUB" style="display: none;">
+    <form class="form_">
+        <div class="form-group">
+            <label>Wybierz dział:</label>
+            <select class="form-control bYwPpsleuVCBkPv" id="dQIPREqlxghevrV">
+                @foreach (var item in ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name))
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Wybierz pracownika:</label>
+            <select class="form-control bYwPpsleuVCBkPv" id="issyAJUIywIPgIQ">
+                <!---->
+            </select>
+        </div>
+        <div class="form-group">
+            <input placeholder="Dobowy wymiar czasu pracy (godz.)" class="form-control" type="text" maxlength="2" id="zVbJqIMfPhbOnum" onkeypress="return isNumberKey(event)" />
+        </div>
+        <div class="form-group">
+            <input placeholder="Okres rozliczeniowy (miesiące)" class="form-control" type="text" maxlength="2" id="ehgSlSwjIFIEMWH" onkeypress="return isNumberKey(event)" />
+        </div>
+        <div class="form-group">
+            <input placeholder="Maks. nadgodzin w tygodniu (godz.)" class="form-control" type="text" maxlength="2" id="klyMbuAvknxCxgo" onkeypress="return isNumberKey(event)" />
+        </div>
+        <div class="form-group">
+            <input placeholder="Maks. nadgodzin w roku (godz.)" class="form-control" type="text" maxlength="3" id="KZzKslyEOOrVYOF" onkeypress="return isNumberKey(event)" />
+        </div>
+        <div class="form-group form-group-margin">
+            <input placeholder="Nieprzerwany odpoczynek (godz.)" class="form-control" type="text" maxlength="2" id="WdWDgtaDQwkuFxr" onkeypress="return isNumberKey(event)" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Zapisz" class="btn-custom" id="cDoWdsoylXsqbSk" />
+        </div>
+        <div class="form-group">
+            <input type="button" value="Wróć" class="btn-custom_" id="eNILXHlgCbgJCln" />
+        </div>
+    </form>
+</div>
+
 <div id="GpoavnFwAOos" class="pGKcZvErUB" style="display: none;">
     <form class="form_">
         <div class="form-group">
@@ -275,6 +319,7 @@
 <script type="text/javascript">
     var model_ts = @Html.Raw(JsonConvert.SerializeObject(ViewBag.TimeSetting));
     var model_h = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Holiday));
+    var model_w = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Workers));
 </script>
 
 <script type="text/javascript" src="~/js/site.js"></script>

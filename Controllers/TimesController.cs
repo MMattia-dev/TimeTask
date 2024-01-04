@@ -30,7 +30,7 @@ namespace TimeTask.Controllers
             ViewBag.TimeSetting = _context.TimeSettings2;
             ViewBag.Holiday = _context.Holiday;
 
-            return _context.Time != null ? 
+            return _context.Time != null ?
                           View(await _context.Time.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Time'  is null.");
         }
@@ -158,14 +158,14 @@ namespace TimeTask.Controllers
             {
                 _context.Time.Remove(time);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TimeExists(int id)
         {
-          return (_context.Time?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Time?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
         public async Task<IActionResult> Leave()
@@ -264,39 +264,77 @@ namespace TimeTask.Controllers
             //return Json(newData.Id);
         }
 
-		[HttpPost]
-		public ActionResult EditTime(int id, int workerID, DateTime enter, DateTime exit, int leaveID, DateTime? leaveDate)
-		{
-			var row = _context.Time.FirstOrDefault(e => e.Id == id);
-			if (row != null)
-			{
-				row.WorkerID = workerID;
-				row.Enter = enter;
-				row.Exit = exit;
-				row.LeaveID = leaveID;
-				row.LeaveDate = leaveDate;
-				_context.SaveChanges();
+        [HttpPost]
+        public ActionResult EditTime(int id, int workerID, DateTime enter, DateTime exit, int leaveID, DateTime? leaveDate)
+        {
+            var row = _context.Time.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.WorkerID = workerID;
+                row.Enter = enter;
+                row.Exit = exit;
+                row.LeaveID = leaveID;
+                row.LeaveDate = leaveDate;
+                _context.SaveChanges();
 
-				return Json(new { success = true });
-			}
+                return Json(new { success = true });
+            }
 
-			return Json(new { success = false });
-		}
+            return Json(new { success = false });
+        }
 
-		[HttpPost]
-		public ActionResult RemoveTime(int id)
-		{
-			var row = _context.Time.FirstOrDefault(e => e.Id == id);
-			if (row != null)
-			{
-				_context.Time.Remove(row);
-				_context.SaveChanges();
+        [HttpPost]
+        public ActionResult RemoveTime(int id)
+        {
+            var row = _context.Time.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.Time.Remove(row);
+                _context.SaveChanges();
 
-				return Json(new { success = true });
-			}
+                return Json(new { success = true });
+            }
 
-			return Json(new { success = false });
-		}
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult AddWorkerException(int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        {
+            var newData = new TimeSettings2()
+            {
+                WorkerId = workerID,
+                OkresRozliczeniowy = okresRozliczeniowy,
+                CzasPracy = czasPracy,
+                MaksymalnaLiczbaNadgodzin = maksymalnaLiczbaNadgodzin,
+                MaksymalnaLiczbaNadgodzinTydzien = maksymalnaLiczbaNadgodzinTydzien,
+                NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek
+            };
+
+            _context.TimeSettings2.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public ActionResult EditWorkerException(int id, int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        {
+            var row = _context.TimeSettings2.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.WorkerId = workerID;
+                row.OkresRozliczeniowy = okresRozliczeniowy;
+                row.CzasPracy = czasPracy;
+                row.MaksymalnaLiczbaNadgodzin = maksymalnaLiczbaNadgodzin;
+                row.MaksymalnaLiczbaNadgodzinTydzien = maksymalnaLiczbaNadgodzinTydzien;
+                row.NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
 
         [HttpPost]
         public ActionResult AddOkres(int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
@@ -463,7 +501,7 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
-
+        
 
 
 
