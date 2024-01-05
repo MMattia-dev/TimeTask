@@ -68,7 +68,7 @@
                         </label>
 
                         @{ int i = 1; }
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.OrderByDescending(x => x.Id))
                         {
                             <label>
                                 <input type="radio" name="same" id="customWallpaper_@i" onchange="changeWallpaper(this)">

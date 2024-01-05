@@ -337,6 +337,36 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
+        public ActionResult RemoveWorkerException(int id)
+        {
+            var row = _context.TimeSettings2.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.TimeSettings2.Remove(row);
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+        //[HttpPost]
+        //public ActionResult DeleteReminder(int id)
+        //{
+        //    var row = _context.Reminders3.FirstOrDefault(e => e.Id == id);
+        //    if (row != null)
+        //    {
+        //        _context.Reminders3.Remove(row);
+        //        _context.SaveChanges();
+
+        //        return Json(new { success = true });
+        //    }
+
+        //    return Json(new { success = false });
+        //}
+
+        [HttpPost]
         public ActionResult AddOkres(int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
         {
             var newData = new TimeSettings2()
