@@ -81,6 +81,7 @@
                     {
                         if (item.WorkerId != null)
                         {
+
                             var workerSurname = ((IEnumerable<Workers2>)ViewBag.Workers).FirstOrDefault(x => x.Id == item.WorkerId).Surname;
                             var workerName = ((IEnumerable<Workers2>)ViewBag.Workers).FirstOrDefault(x => x.Id == item.WorkerId).Name;
                             var workerDepartment_id = ((IEnumerable<Workers2>)ViewBag.Workers).FirstOrDefault(x => x.Id == item.WorkerId).DepartmentID;
