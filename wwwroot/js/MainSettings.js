@@ -32,6 +32,14 @@ function hQJwclGLiNLiRrQ_(t) {
     }
 };
 
-
-
+function hQJwclGLiNLiRrQ__() {
+    if (localStorage.getItem('IVsEIeXIRNQqrAG') != null)
+    {
+        document.getElementById('hQJwclGLiNLiRrQ').checked = true;
+    }
+    else {
+        document.getElementById('hQJwclGLiNLiRrQ').checked = false;
+    }
+};
+hQJwclGLiNLiRrQ__();
 

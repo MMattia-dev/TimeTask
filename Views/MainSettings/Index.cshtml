@@ -4,35 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-@*<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>*@
+<link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
 
 <div class="parent">
     <section class="left-nav">
@@ -65,7 +37,7 @@
             </div>
 
             <!--Odwróć kolor czcionki-->
-            <div class="msdgExEZCpefgcL">
+            @*<div class="msdgExEZCpefgcL">
                 <label class="FdcnMtAlziKwEep">
                     <input type="checkbox" id="SWsLyZvwqDpSdQO" onchange="SWsLyZvwqDpSdQO_(this)" />
                     <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
@@ -77,21 +49,21 @@
                     <input type="color" class="inputColor" value="#ffffff" />
                 </label>
                 <span id="HfWCJVSWcwekwai" class="hFzZLqJdsEqdlrx__" style="display: none;">Resetuj kolor</span>
-            </div>
+            </div>*@
 
             <!--Zaokrąglone rogi okienek-->
-            <div class="msdgExEZCpefgcL">
+            @*<div class="msdgExEZCpefgcL">
                 <label class="FdcnMtAlziKwEep">
                     <input type="checkbox" checked id="TTMVSxbkjvHXBjL" />
                     <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                 </label>
                 <span class="hFzZLqJdsEqdlrx">Zaokrąglone rogi okienek</span>
-            </div>
+            </div>*@
 
             <!--tydzień zaczyna się od poniedziałku czy niedzieli?-->
             <div class="msdgExEZCpefgcL">
                 <span class="hFzZLqJdsEqdlrx">Pierwszy dzień tygodnia</span>
-                <select class="dNuWeYicIiNhdHW">
+                <select>
                     <option>Poniedziałek</option>
                     <option>Niedziela</option>
                 </select>
