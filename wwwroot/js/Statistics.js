@@ -93,7 +93,8 @@ function generateStatistics(){
         let dayName = getDayName(wholeDate, getLang() + '-' + getLang().toUpperCase());
 
         divs += `<div><span>${k}</span><span>${dayName}</span></div>`;
-        slupki += `<div></div>`;
+        //slupki += `<div class="kmrOEZkQcUWqaEc" id=` + wholeDate + `><div class="XxmPCNwZkVSMeOm"></div></div>`;
+        slupki += `<div class="kmrOEZkQcUWqaEc" id=` + wholeDate + `></div>`;
     }
 
     $('#KjseMRiNyEJWtCR_').html(divs);
