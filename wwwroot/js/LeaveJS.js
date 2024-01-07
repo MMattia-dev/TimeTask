@@ -570,8 +570,6 @@ $('#JTgCvImoJEyzGux').on('click', function ()
         {
             for (let i = 0; i < arrayOfDays.length; i++) 
             {
-                //console.log(arrayOfDays[i]);
-
                 if (workerID_ != 0 || workerID_ != '0' || workerID_ != null)
                 {
                     $.ajax({
@@ -598,48 +596,6 @@ $('#JTgCvImoJEyzGux').on('click', function ()
         }
     }
     else if (department_chosen == 'wszyscy') {
-        //if (arrayOfDays.length > 0) {
-        //    for (let j = 0; j < model_w.length; j++) {
-        //        for (let i = 0; i < arrayOfDays.length; i++) {
-        //            if (model_w[j].Id != 0 || model_w[j].Id != '0' || model_w[j].Id != null) {
-
-
-
-        //                for (let k = 0; k < model_t.length; k++) {
-
-        //                    let yyyy = new Date(model_t[k].LeaveDate).getFullYear();
-        //                    let MM = padWithLeadingZeros(new Date(model_t[k].LeaveDate).getMonth() + 1, 2);
-        //                    let dd = padWithLeadingZeros(new Date(model_t[k].LeaveDate).getDate(), 2);
-        //                    let wholeDay = yyyy + '-' + MM + '-' + dd;
-
-        //                    if (model_t[k].WorkerID != model_w[j].Id && wholeDay != new Date(arrayOfDays[i]).toISOString().split('T')[0]) {
-        //                        //console.log(model_w[j].Id);
-        //                        console.log(new Date(arrayOfDays[i]).toISOString().split('T')[0]);
-        //                    }
-        //                }
-                        
-
-        //            }
-        //        }
-        //    }
-        //}
-
-
-        //for (let i = 0; i < model_t.length; i++) {
-        //    for (let j = 0; j < model_w.length; j++) {
-        //        if (model_w[j].Id == model_t[i].WorkerID) {
-        //            if (model_t[i].Enter == null) {
-        //                for (let k = 0; k < arrayOfDays.length; k++) {
-        //                    if (model_t[i].) {
-
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
-
-
 
         let allWorkersIDs = [];
         for (let i = 0; i < model_w.length; i++) {
@@ -659,29 +615,58 @@ $('#JTgCvImoJEyzGux').on('click', function ()
                 if (allWorkersIDs[i] == leaves[j].workerid) {
                     for (let k = 0; k < arrayOfDays.length; k++) {
                         if (leaves[j].leavedate == arrayOfDays[k]) {
-                            console.log(allWorkersIDs[i]);
-                            console.log(leaves[j].leavedate);
-                            //what.push({ workerid:  });
+                            what.push({ workerid: allWorkersIDs[i], leavedate: leaves[j].leavedate });
                         }
                     }
                 }
             }
         }
 
-        
+        // filter
+        let leaves_filtered = leaves.filter(function (objFromA)
+        {
+            return !what.find(function (objFromB)
+            {
+                return objFromA.workerid === objFromB.workerid;
+            });
+        })
+        //
 
+        let ids = [];
+        for (let i = 0; i < what.length; i++) {
+            ids.push(what[i].workerid);
+        }
 
+        allWorkersIDs = allWorkersIDs.filter((el) => !ids.includes(el));
 
-
-
+        if (arrayOfDays.length > 0) {
+            for (let i = 0; i < allWorkersIDs.length; i++) {
+                for (let j = 0; j < arrayOfDays.length; j++) {
+                    if (allWorkersIDs[i] != 0 || allWorkersIDs[i] != '0' || allWorkersIDs[i] != null) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '/Times/AddLeave',
+                            data: {
+                                workerID: allWorkersIDs[i],
+                                enter: null,
+                                exit: null,
+                                leaveID: leaveID_,
+                                leaveDate: arrayOfDays[j]
+                            },
+                            success: function (response)
+                            {
+                                location.reload();
+                            },
+                            error: function (xhr, status, error)
+                            {
+                                console.log('Error adding column value:', error);
+                            }
+                        });
+                    }
+                }
+            }
+        }
     }
-
-
-    
-
-
-
-
 });
 
 $('#iHCBwRzOLpgGYQG').on('change', function ()
