@@ -4,6 +4,8 @@
     ViewData["Title"] = "Log out";
 }
 
+<link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
+
 @*<header>
     <h1>@ViewData["Title"]</h1>
     @{
@@ -23,6 +25,11 @@
 
 <div class="parent">
     <section class="right-nav right-nav-fix">
-
+        <form class="form_2" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+            <div class="form-group uwkkiQswLEzRtjM">
+                <span class="lpvkxYGkWpuAQSj">Użytkownik został wylogowany</span>
+                <button type="submit" class="btn-custom">Powrót do strony logowania</button>
+            </div>
+        </form>
     </section>
 </div>

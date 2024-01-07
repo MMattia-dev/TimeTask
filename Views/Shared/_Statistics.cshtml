@@ -12,8 +12,62 @@
         <span>Strona główna</span>
     </a>
 
-    
+    <select class="HQTuaisxjrtQHPq" id="OvLPfkiiNwdRYgn">
+        @{
+            int year = DateTime.Now.Year;
+            int prevYear = year - 5;
+            //int nextYear = year + 3;
+            int nextYear = year + 1;
+            int pn = nextYear - prevYear;
+        }
 
+        @for (int i = 1; i < pn; i++)
+        {
+            prevYear++;
+            if (prevYear == year)
+            {
+                <option selected value="@prevYear">@prevYear</option>
+            }
+            else
+            {
+                <option value="@prevYear">@prevYear</option>
+            }
+        }
+    </select>
+
+    <select class="HQTuaisxjrtQHPq" id="VQnvdBYLMNSKvmR">
+        <!--Miesiąc-->
+        @for (int i = 0; i < 12; i++)
+        {
+            string s = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[i];
+            string c = char.ToUpper(s[0]) + s.Substring(1);
+
+            int month = DateTime.Now.Month - 1;
+            if (i == month)
+            {
+                <option selected value="@i.ToString()">@c</option>
+            }
+            else
+            {
+                <option value="@i.ToString()">@c</option>
+            }
+        }
+    </select>
+
+    <span class="settings_span">Dział:</span>
+    <div style="height: 5px;"></div>
+    <select class="HQTuaisxjrtQHPq" id="ZaLlHWcvXQiYgTv">
+        @foreach (var item in ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name))
+        {
+            <option value="@item.Id">@item.Name</option>
+        }
+    </select>
+
+    <span class="settings_span">Pracownik:</span>
+    <div style="height: 5px;"></div>
+    <select class="HQTuaisxjrtQHPq" id="AOZzvXnLtNqUPwN">
+        <!---->
+    </select>
 
 
 

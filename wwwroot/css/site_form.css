@@ -73,6 +73,7 @@
 
     .btn-custom:hover {
         background-color: rgba(36, 110, 142, 0.7);
+        cursor: pointer;
     }
 
     .btn-custom.QBiQxdGMSxadTWR {
@@ -106,6 +107,7 @@
 
     .btn-custom_:hover {
         background-color: rgba(212, 115, 115, 0.7);
+        cursor: pointer;
     }
 
     .btn-custom_.QBiQxdGMSxadTWR {
@@ -202,6 +204,19 @@ form.form_3 {
     box-shadow: none;
 
 }*/
+
+.form-group.uwkkiQswLEzRtjM {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-direction: column;
+}
+
+    .form-group.uwkkiQswLEzRtjM .lpvkxYGkWpuAQSj {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 14px;
+    }
 
 .form-group select {
     -moz-appearance: button-arrow-down;
@@ -544,5 +559,4 @@ label {
     .ZowjxyOWQjRdLqf.MAPQjnLFJnlRyhu {
         background-color: rgba(36, 110, 142, 0.7);
     }
-
 

@@ -338,6 +338,10 @@ button {
     border-end-end-radius: 10px;*/
 }
 
+    .right-nav.ItNFqlExibVaOjt {
+        overflow-x: auto;
+    }
+
 #info {
     font-size: 14px;
     color: rgba(255, 255, 255, 0.7);
@@ -4220,9 +4224,43 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     margin-bottom: -5px;
 }
 
+.GobmBwqqBbAsPaX {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 50px;
+    /*background-color: black;*/
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    /*border: 1px solid black;*/
+    gap: 8px;
+}
 
+    .GobmBwqqBbAsPaX div {
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border-radius: 5px;
+    }
 
+        .GobmBwqqBbAsPaX div.pEvsatYDpkDeDPp {
+            background-color: rgba(54, 56, 68, 1);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
 
+        .GobmBwqqBbAsPaX div:hover {
+            background-color: rgba(54, 56, 68, 1);
+        }
+
+        .GobmBwqqBbAsPaX div:hover svg {
+            fill: rgba(255, 255, 255, 1);
+        }
 
 
 

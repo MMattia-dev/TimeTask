@@ -337,6 +337,7 @@ function dWVTVhqEBjJCURf(t)
 $('#ttGSoqUHUjOErnf').on('click', function ()
 {
     $('#KYZGriDIsqNJRxr').fadeOut(200);
+    $('#CvFHVhLHjFBzNAz').removeClass('fdjtgOVkxlRqfDM');
 });
 
 $('#KhUYdWBbOzZAJwi').on('click', function ()
@@ -372,6 +373,17 @@ $('#TrbvupCIcixxNsx').on('change', function ()
     let e = document.getElementById('TrbvupCIcixxNsx');
     let id = e.options[e.selectedIndex].value;
     document.getElementById('CvFHVhLHjFBzNAz').innerHTML = '';
+
+    /**/
+    if (id == 'wszyscy')
+    {
+        $('#CvFHVhLHjFBzNAz').addClass('fdjtgOVkxlRqfDM');
+    }
+    else
+    {
+        $('#CvFHVhLHjFBzNAz').removeClass('fdjtgOVkxlRqfDM');
+    }
+    /**/
 
     for (let i = 0; i < model_w.length; i++) 
     {
@@ -427,11 +439,19 @@ $('#tyONXYuOELdPoLh').on('change', function ()
 
 $('#JTgCvImoJEyzGux').on('click', function ()
 {
+    //let e = document.getElementById('TrbvupCIcixxNsx');
+    //let id = e.options[e.selectedIndex].value;
+    let e = document.getElementById('TrbvupCIcixxNsx');
+    let department_chosen = e.options[e.selectedIndex].value;
+
+
+
     var days = [];
     var toRemove = [];
 
     let oUfnFiNPmXnNjzu = document.getElementById('CvFHVhLHjFBzNAz');
-    let workerID_ = oUfnFiNPmXnNjzu.options[oUfnFiNPmXnNjzu.selectedIndex].value;
+    //let workerID_ = oUfnFiNPmXnNjzu.options[oUfnFiNPmXnNjzu.selectedIndex].value;
+    let workerID_ = oUfnFiNPmXnNjzu.value;
     let enter_ = null;
     let exit_ = null;
     let dFiioMzmTCjjcWp = document.getElementById('dFiioMzmTCjjcWp');
@@ -541,47 +561,124 @@ $('#JTgCvImoJEyzGux').on('click', function ()
     
     arrayOfDays = arrayOfDays.filter((el) => !toRemove2_new.includes(el)); //usun wszystkie powtarzajace sie daty
 
-    if (arrayOfDays.length > 0) 
-    {
-        for (let i = 0; i < arrayOfDays.length; i++) 
-        {
-            //console.log(arrayOfDays[i]);
 
-            if (workerID_ != 0 || workerID_ != '0' || workerID_ != null) {
-                $.ajax({
-                    type: 'POST',
-                    url: '/Times/AddLeave',
-                    data: {
-                        workerID: workerID_,
-                        enter: null,
-                        exit: null,
-                        leaveID: leaveID_,
-                        leaveDate: arrayOfDays[i]
-                    },
-                    success: function (response)
-                    {
-                        location.reload();
-                    },
-                    error: function (xhr, status, error)
-                    {
-                        console.log('Error adding column value:', error);
-                    }
-                });
+
+
+    if (department_chosen != 'wszyscy')
+    {
+        if (arrayOfDays.length > 0) 
+        {
+            for (let i = 0; i < arrayOfDays.length; i++) 
+            {
+                //console.log(arrayOfDays[i]);
+
+                if (workerID_ != 0 || workerID_ != '0' || workerID_ != null)
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/AddLeave',
+                        data: {
+                            workerID: workerID_,
+                            enter: null,
+                            exit: null,
+                            leaveID: leaveID_,
+                            leaveDate: arrayOfDays[i]
+                        },
+                        success: function (response)
+                        {
+                            location.reload();
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding column value:', error);
+                        }
+                    });
+                }
             }
         }
     }
-    else {
-        console.log('empty');
+    else if (department_chosen == 'wszyscy') {
+        //if (arrayOfDays.length > 0) {
+        //    for (let j = 0; j < model_w.length; j++) {
+        //        for (let i = 0; i < arrayOfDays.length; i++) {
+        //            if (model_w[j].Id != 0 || model_w[j].Id != '0' || model_w[j].Id != null) {
+
+
+
+        //                for (let k = 0; k < model_t.length; k++) {
+
+        //                    let yyyy = new Date(model_t[k].LeaveDate).getFullYear();
+        //                    let MM = padWithLeadingZeros(new Date(model_t[k].LeaveDate).getMonth() + 1, 2);
+        //                    let dd = padWithLeadingZeros(new Date(model_t[k].LeaveDate).getDate(), 2);
+        //                    let wholeDay = yyyy + '-' + MM + '-' + dd;
+
+        //                    if (model_t[k].WorkerID != model_w[j].Id && wholeDay != new Date(arrayOfDays[i]).toISOString().split('T')[0]) {
+        //                        //console.log(model_w[j].Id);
+        //                        console.log(new Date(arrayOfDays[i]).toISOString().split('T')[0]);
+        //                    }
+        //                }
+                        
+
+        //            }
+        //        }
+        //    }
+        //}
+
+
+        //for (let i = 0; i < model_t.length; i++) {
+        //    for (let j = 0; j < model_w.length; j++) {
+        //        if (model_w[j].Id == model_t[i].WorkerID) {
+        //            if (model_t[i].Enter == null) {
+        //                for (let k = 0; k < arrayOfDays.length; k++) {
+        //                    if (model_t[i].) {
+
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
+
+
+        let allWorkersIDs = [];
+        for (let i = 0; i < model_w.length; i++) {
+            allWorkersIDs.push(model_w[i].Id);
+        }
+        
+        let leaves = [];
+        for (let i = 0; i < model_t.length; i++) {
+            if (model_t[i].LeaveDate != null) {
+                leaves.push({ workerid: model_t[i].WorkerID, leavedate: model_t[i].LeaveDate.split('T')[0] });
+            }
+        }
+        
+        let what = [];
+        for (let i = 0; i < allWorkersIDs.length; i++) {
+            for (let j = 0; j < leaves.length; j++) {
+                if (allWorkersIDs[i] == leaves[j].workerid) {
+                    for (let k = 0; k < arrayOfDays.length; k++) {
+                        if (leaves[j].leavedate == arrayOfDays[k]) {
+                            console.log(allWorkersIDs[i]);
+                            console.log(leaves[j].leavedate);
+                            //what.push({ workerid:  });
+                        }
+                    }
+                }
+            }
+        }
+
+        
+
+
+
+
+
     }
 
-    //if (ifUrlopIstnieje.length > 0) {
-    //    let new_ifUrlopIstnieje = [];
-    //    new_ifUrlopIstnieje = arrayOfDays.filter((el) => !ifUrlopIstnieje.includes(el));
-        
-    //    if (new_ifUrlopIstnieje.length > 0) {
-    //        console.log('pozostala data:' + new_ifUrlopIstnieje);
-    //    }
-    //}
+
+    
+
 
 
 
