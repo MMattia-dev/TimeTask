@@ -13,7 +13,7 @@ function padWithLeadingZeros(num, totalLength)
     return String(num).padStart(totalLength, '0');
 };
 
-function getDayName(dateStr, locale)
+function getDayName2(dateStr, locale)
 {
     var date = new Date(dateStr);
     return date.toLocaleDateString(locale, { weekday: 'short' });
@@ -90,7 +90,7 @@ function generateStatistics(){
         newDay = padWithLeadingZeros(newDay, 2);
 
         let wholeDate = year + `-` + newMonth + `-` + newDay;
-        let dayName = getDayName(wholeDate, getLang() + '-' + getLang().toUpperCase());
+        let dayName = getDayName2(wholeDate, getLang() + '-' + getLang().toUpperCase());
 
         divs += `<div><span>${k}</span><span>${dayName}</span></div>`;
         //slupki += `<div class="kmrOEZkQcUWqaEc" id=` + wholeDate + `><div class="XxmPCNwZkVSMeOm"></div></div>`;
