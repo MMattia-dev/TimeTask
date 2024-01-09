@@ -85,7 +85,6 @@ function isMonday(date = new Date())
 }
 
 function generateStatistics(){
-
     let workerID = document.getElementById('AOZzvXnLtNqUPwN').value;
     let departmentID_ = document.getElementById('ZaLlHWcvXQiYgTv').value;
     let year = document.getElementById('OvLPfkiiNwdRYgn').value;
@@ -131,6 +130,34 @@ function generateStatistics(){
         }
     }
 
+
+    let okresRozliczeniowy = null;
+    let czasPracyMax = null;
+    let maksymalnaLiczbaNadgodzin = null;
+    let maksymalnaLiczbaNadgodzinTydzien = null;
+    let nieprzerwanyOdpoczynek = null;
+    for (let i = 0; i < model_ts.length; i++) {
+        if (model_ts[i].WorkerID != null)
+        {
+            okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            czasPracyMax = model_ts[i].CzasPracy;
+            maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
+            maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
+            nieprzerwanyOdpoczynek = model_ts[i].NieprzerwanyOdpoczynek;
+        }
+        else {
+            okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            czasPracyMax = model_ts[i].CzasPracy;
+            maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
+            maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
+            nieprzerwanyOdpoczynek = model_ts[i].NieprzerwanyOdpoczynek;
+        }
+    }
+
+
+
+
+
     let slupkiDivs = document.querySelectorAll('.kmrOEZkQcUWqaEc');
     for (let i = 0; i < slupkiDivs.length; i++) {
         for (let j = 0; j < model_t.length; j++) {
@@ -148,7 +175,21 @@ function generateStatistics(){
                         let diff = date2 - date1;
                         let godzinyPracy = Math.abs(parseFloat(convertTime(diff)));
                         godzinyPracy = godzinyPracy.toFixed(2);
-                        console.log(godzinyPracy);
+                        //console.log(godzinyPracy);
+
+                        //nadgodziny
+                        if (godzinyPracy > czasPracyMax) {
+
+                        }
+                        //normalny czas pracy
+                        if (godzinyPracy == czasPracyMax) {
+
+                        }
+                        //niedogodziny
+                        if (godzinyPracy < czasPracyMax) {
+
+                        }
+
                     }
                     else 
                     {
