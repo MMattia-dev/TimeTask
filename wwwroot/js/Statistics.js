@@ -1,4 +1,22 @@
-﻿function isWeekend(date = new Date())
+﻿function convertTime(time)
+{
+    var msec = time;
+    var hh = Math.floor(msec / 1000 / 60 / 60);
+    msec -= hh * 1000 * 60 * 60;
+    var mm = Math.floor(msec / 1000 / 60);
+    msec -= mm * 1000 * 60;
+    var ss = Math.floor(msec / 1000);
+    msec -= ss * 1000;
+
+    mm = mm / 60;
+
+    //return hh + "h " + mm + "m";
+    //return hh + "." + mm;
+    //return hh;
+    return hh + mm;
+}
+
+function isWeekend(date = new Date())
 {
     return date.getDay() === 6 || date.getDay() === 0;
 }
@@ -68,6 +86,7 @@ function isMonday(date = new Date())
 
 function generateStatistics(){
 
+    let workerID = document.getElementById('AOZzvXnLtNqUPwN').value;
     let departmentID_ = document.getElementById('ZaLlHWcvXQiYgTv').value;
     let year = document.getElementById('OvLPfkiiNwdRYgn').value;
     let month = document.getElementById('VQnvdBYLMNSKvmR').value;
@@ -92,13 +111,63 @@ function generateStatistics(){
         let wholeDate = year + `-` + newMonth + `-` + newDay;
         let dayName = getDayName2(wholeDate, getLang() + '-' + getLang().toUpperCase());
 
-        divs += `<div><span>${k}</span><span>${dayName}</span></div>`;
+        divs += `<div class="QlVtsqDYVktZFfQ" id="` + wholeDate + `"><span>${k}</span><span>${dayName}</span></div>`;
         //slupki += `<div class="kmrOEZkQcUWqaEc" id=` + wholeDate + `><div class="XxmPCNwZkVSMeOm"></div></div>`;
         slupki += `<div class="kmrOEZkQcUWqaEc" id=` + wholeDate + `></div>`;
     }
 
     $('#KjseMRiNyEJWtCR_').html(divs);
     $('#yTKpwuaIyVAZjYk_').html(slupki);
+
+
+
+    let QlVtsqDYVktZFfQ = document.querySelectorAll('.QlVtsqDYVktZFfQ');
+    for (let i = 0; i < model_h.length; i++) {
+        for (let j = 0; j < QlVtsqDYVktZFfQ.length; j++) {
+            if (new Date(model_h[i].Date).toLocaleDateString() == new Date(QlVtsqDYVktZFfQ[j].id).toLocaleDateString()) {
+                $(QlVtsqDYVktZFfQ[j]).addClass('wNirVIsdmzAKynQ');
+                $(QlVtsqDYVktZFfQ[j]).attr('title', model_h[i].Name);
+            }
+        }
+    }
+
+    let slupkiDivs = document.querySelectorAll('.kmrOEZkQcUWqaEc');
+    for (let i = 0; i < slupkiDivs.length; i++) {
+        for (let j = 0; j < model_t.length; j++) {
+            //czas pracy
+            if (model_t[j].Enter != null && model_t[j].WorkerID == workerID) 
+            {
+                if (new Date(slupkiDivs[i].id).toLocaleDateString() == new Date(model_t[j].Enter).toLocaleDateString())
+                {
+                    let date1 = new Date(model_t[j].Enter);
+                    let date2 = new Date(model_t[j].Exit);
+
+                    if (date2 > date1)
+                    {
+                        //dzien
+                        let diff = date2 - date1;
+                        let godzinyPracy = Math.abs(parseFloat(convertTime(diff)));
+                        godzinyPracy = godzinyPracy.toFixed(2);
+                        console.log(godzinyPracy);
+                    }
+                    else 
+                    {
+                        //nocka
+
+                    }
+                }
+            }
+            //urlopy
+            if (model_t[j].Enter == null && model_t[j].WorkerID == workerID) 
+            {
+
+            }
+        }
+    }
+
+
+
+
 
 
 
