@@ -131,32 +131,39 @@ function generateStatistics(){
     }
 
 
-    let okresRozliczeniowy = null;
-    let czasPracyMax = null;
-    let maksymalnaLiczbaNadgodzin = null;
-    let maksymalnaLiczbaNadgodzinTydzien = null;
-    let nieprzerwanyOdpoczynek = null;
+    let okresRozliczeniowy;
+    let czasPracyMax;
+    let maksymalnaLiczbaNadgodzin;
+    let maksymalnaLiczbaNadgodzinTydzien;
+    let nieprzerwanyOdpoczynek;
+
     for (let i = 0; i < model_ts.length; i++) {
-        if (model_ts[i].WorkerID != null)
+        if (model_ts[i].WorkerId != null && model_ts[i].WorkerId == workerID)
         {
             okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
             czasPracyMax = model_ts[i].CzasPracy;
             maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
             maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
             nieprzerwanyOdpoczynek = model_ts[i].NieprzerwanyOdpoczynek;
+            //break;
         }
-        else {
+        if (model_ts[i].WorkerId == null) {
             okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
             czasPracyMax = model_ts[i].CzasPracy;
             maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
             maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
             nieprzerwanyOdpoczynek = model_ts[i].NieprzerwanyOdpoczynek;
+            //break;
         }
     }
 
 
 
 
+    let nadgodziny = [];
+    let normalneGodziny = [];
+    let niedogodziny = [];
+    let urlopy = [];
 
     let slupkiDivs = document.querySelectorAll('.kmrOEZkQcUWqaEc');
     for (let i = 0; i < slupkiDivs.length; i++) {
@@ -175,21 +182,24 @@ function generateStatistics(){
                         let diff = date2 - date1;
                         let godzinyPracy = Math.abs(parseFloat(convertTime(diff)));
                         godzinyPracy = godzinyPracy.toFixed(2);
-                        //console.log(godzinyPracy);
 
                         //nadgodziny
-                        if (godzinyPracy > czasPracyMax) {
-
+                        if (godzinyPracy > czasPracyMax) 
+                        {
+                            let roz = godzinyPracy - czasPracyMax;
+                            nadgodziny.push({ wejscie: date1, wyjscie: date2, ile: godzinyPracy, roznica: roz.toFixed(2) });
                         }
                         //normalny czas pracy
-                        if (godzinyPracy == czasPracyMax) {
-
+                        if (godzinyPracy == czasPracyMax) 
+                        {
+                            normalneGodziny.push({ wejscie: date1, wyjscie: date2, ile: godzinyPracy });
                         }
                         //niedogodziny
-                        if (godzinyPracy < czasPracyMax) {
-
+                        if (godzinyPracy < czasPracyMax) 
+                        {
+                            let roz = godzinyPracy - czasPracyMax;
+                            niedogodziny.push({ wejscie: date1, wyjscie: date2, ile: godzinyPracy, roznica: roz.toFixed(2) });
                         }
-
                     }
                     else 
                     {
@@ -206,10 +216,22 @@ function generateStatistics(){
         }
     }
 
+    let nawyzszaWartosc = Math.max(...nadgodziny.map(x => x.ile));
+    let heightOfDiv;
+    for (let i = 0; i < nadgodziny.length; i++) {
+        if (nawyzszaWartosc == nadgodziny[i].ile) {
+            heightOfDiv = 100;// %
+        }
+    }
 
 
 
 
+
+
+
+
+    
 
 
 
@@ -229,7 +251,7 @@ function generateStatistics(){
         
     }
 };
-generateStatistics();
+//generateStatistics();
 
 $('#OvLPfkiiNwdRYgn').on('change', function ()
 {
@@ -259,6 +281,11 @@ $('#ZaLlHWcvXQiYgTv').on('change', function ()
     generateStatistics();
 });
 $('#ZaLlHWcvXQiYgTv').trigger('change');
+
+$('#AOZzvXnLtNqUPwN').on('change', function ()
+{
+    generateStatistics();
+});
 
 function piQGwnkhyVDjpuD() {
     sessionStorage.setItem('piQGwnkhyVDjpuD', 'true');
