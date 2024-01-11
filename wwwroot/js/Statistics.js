@@ -188,17 +188,19 @@ function generateStatistics(){
                         {
                             let roz = godzinyPracy - czasPracyMax;
                             nadgodziny.push({ wejscie: date1, wyjscie: date2, ile: godzinyPracy, roznica: roz.toFixed(2) });
+                            //console.log(roz);
                         }
                         //normalny czas pracy
                         if (godzinyPracy == czasPracyMax) 
                         {
                             normalneGodziny.push({ wejscie: date1, wyjscie: date2, ile: godzinyPracy });
+                            //console.log(godzinyPracy);
                         }
                         //niedogodziny
                         if (godzinyPracy < czasPracyMax) 
                         {
                             let roz = godzinyPracy - czasPracyMax;
-                            niedogodziny.push({ wejscie: date1, wyjscie: date2, ile: godzinyPracy, roznica: roz.toFixed(2) });
+                            niedogodziny.push({ wejscie: date1, wyjscie: date2, ile: godzinyPracy, roznica: Math.abs(roz.toFixed(2)) });
                         }
                     }
                     else 
@@ -217,14 +219,78 @@ function generateStatistics(){
     }
 
     let nawyzszaWartosc = Math.max(...nadgodziny.map(x => x.ile));
-    let heightOfDiv;
-    for (let i = 0; i < nadgodziny.length; i++) {
-        if (nawyzszaWartosc == nadgodziny[i].ile) {
-            heightOfDiv = 100;// %
+    
+    if (nadgodziny.length > 0)
+    {
+        let percentHeight_8;
+        let percentHeight_nadgodziny;
+
+        for (let i = 0; i < nadgodziny.length; i++)
+        {
+            for (let j = 0; j < slupkiDivs.length; j++) 
+            {
+                if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(nadgodziny[i].wejscie).toLocaleDateString())
+                {
+                    if (nawyzszaWartosc == nadgodziny[i].ile) 
+                    {
+                        let godzin_8 = nadgodziny[i].ile - nadgodziny[i].roznica; //powinno zawsze być tyle ile w bazie
+                        percentHeight_8 = (100 * godzin_8) / nadgodziny[i].ile;
+                        percentHeight_nadgodziny = 100 - percentHeight_8;
+
+                        slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm_" style="height: ${percentHeight_nadgodziny}%;"></div>`; //nadgodzimy
+                        slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm" style="height: ${percentHeight_8}%;"></div>`; //normalne godziny
+                    }
+                    else 
+                    {
+                        let godzin = nadgodziny[i].ile - nadgodziny[i].roznica;
+                        let percentHeight = (percentHeight_8 * godzin) / nadgodziny[i].ile;
+                        let percentHeight_nadgodziny_ = percentHeight_8 - percentHeight;
+
+                        slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm_" style="height: ${percentHeight_nadgodziny_}%;"></div>`; //nadgodzimy
+                        slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm" style="height: ${percentHeight_8}%;"></div>`; //normalne godziny
+                    }
+                }
+            }
+        }
+
+        if (normalneGodziny.length > 0) 
+        {
+            for (let i = 0; i < normalneGodziny.length; i++) 
+            {
+                for (let j = 0; j < slupkiDivs.length; j++) 
+                {
+                    if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(normalneGodziny[i].wejscie).toLocaleDateString()) 
+                    {
+                        slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm" style="height: ${percentHeight_8}%;"></div>`; //normalne godziny
+                    }
+                }
+            }
+        }
+        if (niedogodziny.length > 0) 
+        {
+            for (let i = 0; i < niedogodziny.length; i++) 
+            {
+                for (let j = 0; j < slupkiDivs.length; j++) 
+                {
+                    if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(niedogodziny[i].wejscie).toLocaleDateString()) 
+                    {
+                        let godzin = niedogodziny[i].ile - niedogodziny[i].roznica;
+                        let percentHeight = (percentHeight_8 * godzin) / niedogodziny[i].ile;
+
+                        slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm__" style="height: ${percentHeight}%;"></div>`; //niedogodziny
+                    }
+                }
+            }
         }
     }
+    else 
+    {
+        //nadgodziny.length == 0
+        console.log(nadgodziny);
+    }
+    
 
-
+    
 
 
 
@@ -250,6 +316,9 @@ function generateStatistics(){
     {
         
     }
+
+    $('#JhmmaXkQXmKMKml_').prop('checked', false);
+    $('#JhmmaXkQXmKMKml_').parent('label').removeClass('HOZnyZWeKKoQdIf');
 };
 //generateStatistics();
 
@@ -319,4 +388,54 @@ function jHMXFoMqHBqRHoJ() {
     }
 };
 jHMXFoMqHBqRHoJ();
+
+function JhmmaXkQXmKMKml(t) {
+    let QlVtsqDYVktZFfQ = document.querySelectorAll('.QlVtsqDYVktZFfQ');
+    let kmrOEZkQcUWqaEc = document.querySelectorAll('.kmrOEZkQcUWqaEc');
+
+    if (t.checked)
+    {
+        $(t).parent('label').addClass('HOZnyZWeKKoQdIf');
+
+        for (let i = 0; i < QlVtsqDYVktZFfQ.length; i++) 
+        {
+            let data = new Date(QlVtsqDYVktZFfQ[i].id);
+            if (isWeekend(data)) 
+            {
+                $(QlVtsqDYVktZFfQ[i]).hide();
+            }
+        }
+
+        for (let i = 0; i < kmrOEZkQcUWqaEc.length; i++)
+        {
+            let data = new Date(kmrOEZkQcUWqaEc[i].id);
+            if (isWeekend(data))
+            {
+                $(kmrOEZkQcUWqaEc[i]).hide();
+            }
+        }
+    }
+    else {
+        $(t).parent('label').removeClass('HOZnyZWeKKoQdIf');
+
+        for (let i = 0; i < QlVtsqDYVktZFfQ.length; i++) 
+        {
+            let data = new Date(QlVtsqDYVktZFfQ[i].id);
+            if (isWeekend(data)) 
+            {
+                $(QlVtsqDYVktZFfQ[i]).show();
+            }
+        }
+
+        for (let i = 0; i < kmrOEZkQcUWqaEc.length; i++)
+        {
+            let data = new Date(kmrOEZkQcUWqaEc[i].id);
+            if (isWeekend(data))
+            {
+                $(kmrOEZkQcUWqaEc[i]).show();
+            }
+        }
+    }
+    
+};
 
