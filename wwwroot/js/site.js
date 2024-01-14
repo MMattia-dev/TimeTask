@@ -603,6 +603,3 @@ $('#oKuDQuaWdDBDLIN_ input').on('change', function (e)
 
 
 
-
-
-

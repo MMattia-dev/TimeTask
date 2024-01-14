@@ -98,6 +98,9 @@ function generateStatistics(){
 
     document.getElementById('KjseMRiNyEJWtCR_').innerHTML = '';
 
+    slupki += '<div class="PClmWtOMrNAvPvx WKjuhXBDPRbWrrF" id="PClmWtOMrNAvPvx_"></div>';
+    divs += '<div class="PClmWtOMrNAvPvx"></div>';
+
     //dni miesiąca
     for (let k = 1; k <= daysLength; k++)
     {
@@ -111,7 +114,6 @@ function generateStatistics(){
         let dayName = getDayName2(wholeDate, getLang() + '-' + getLang().toUpperCase());
 
         divs += `<div class="QlVtsqDYVktZFfQ" id="` + wholeDate + `"><span>${k}</span><span>${dayName}</span></div>`;
-        //slupki += `<div class="kmrOEZkQcUWqaEc" id=` + wholeDate + `><div class="XxmPCNwZkVSMeOm"></div></div>`;
         slupki += `<div class="kmrOEZkQcUWqaEc" id=` + wholeDate + `></div>`;
     }
 
@@ -220,10 +222,31 @@ function generateStatistics(){
 
     let nawyzszaWartosc = Math.max(...nadgodziny.map(x => x.ile));
     
+    let percentHeight_8;
+    let percentHeight_nadgodziny;
+
     if (nadgodziny.length > 0)
     {
-        let percentHeight_8;
-        let percentHeight_nadgodziny;
+        //znajdz najwyzsza wartosc i przypisz percentHeight_8 i percentHeight_nadgodziny
+        for (let i = 0; i < nadgodziny.length; i++) 
+        {
+            for (let j = 0; j < slupkiDivs.length; j++) 
+            {
+                if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(nadgodziny[i].wejscie).toLocaleDateString()) 
+                {
+                    if (nawyzszaWartosc == nadgodziny[i].ile) 
+                    {
+                        let godzin_8 = nadgodziny[i].ile - nadgodziny[i].roznica; //powinno zawsze być tyle ile w bazie
+                        percentHeight_8 = (100 * godzin_8) / nadgodziny[i].ile;
+                        percentHeight_nadgodziny = 100 - percentHeight_8;
+
+                        break;
+                    }
+                }
+            }
+        }
+        //
+
 
         for (let i = 0; i < nadgodziny.length; i++)
         {
@@ -240,7 +263,7 @@ function generateStatistics(){
                         slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm_" style="height: ${percentHeight_nadgodziny}%;"></div>`; //nadgodzimy
                         slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm" style="height: ${percentHeight_8}%;"></div>`; //normalne godziny
                     }
-                    else 
+                    else
                     {
                         let godzin = nadgodziny[i].ile - nadgodziny[i].roznica;
                         let percentHeight = (percentHeight_8 * godzin) / nadgodziny[i].ile;
@@ -285,17 +308,28 @@ function generateStatistics(){
     }
     else 
     {
-        //nadgodziny.length == 0
-        console.log(nadgodziny);
+        
     }
     
 
     
+    //znaczniki
+    if (percentHeight_8 != undefined) {
+        let divide_8 = 100 / czasPracyMax;
 
+        let ymCjBkLWIjwBVgR_innerDivs = '';
+        for (let i = czasPracyMax; i >= 0; i--)
+        {
+            ymCjBkLWIjwBVgR_innerDivs += `<div class="ymCjBkLWIjwBVgR_" style="height:` + divide_8 + `%;"><span>` + i.toFixed(2) + `</span></div>`;
+        }
 
+        let dividers = `<div class="lhduMWDCUEGkJNw" style="height:` + percentHeight_nadgodziny + `%;">` + `<span>` + nawyzszaWartosc + `</span>` + `</div>` +
+            `<div class="ymCjBkLWIjwBVgR" style="height:` + percentHeight_8 + `%;">` + ymCjBkLWIjwBVgR_innerDivs + `</div>`;
 
-
-
+        $('#PClmWtOMrNAvPvx_').html(dividers);
+    }
+    //
+    
 
     
 
@@ -415,7 +449,8 @@ function JhmmaXkQXmKMKml(t) {
             }
         }
     }
-    else {
+    else 
+    {
         $(t).parent('label').removeClass('HOZnyZWeKKoQdIf');
 
         for (let i = 0; i < QlVtsqDYVktZFfQ.length; i++) 
