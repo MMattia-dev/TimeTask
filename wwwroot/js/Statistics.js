@@ -320,17 +320,43 @@ function generateStatistics(){
         let ymCjBkLWIjwBVgR_innerDivs = '';
         for (let i = czasPracyMax; i >= 0; i--)
         {
-            ymCjBkLWIjwBVgR_innerDivs += `<div class="ymCjBkLWIjwBVgR_" style="height:` + divide_8 + `%;"><span>` + i.toFixed(2) + `</span></div>`;
+            ymCjBkLWIjwBVgR_innerDivs += `<div class="ymCjBkLWIjwBVgR_" style="height:${divide_8}%;"><span>${i.toFixed(2) }</span></div>`;
         }
 
-        let dividers = `<div class="lhduMWDCUEGkJNw" style="height:` + percentHeight_nadgodziny + `%;">` + `<span>` + nawyzszaWartosc + `</span>` + `</div>` +
-            `<div class="ymCjBkLWIjwBVgR" style="height:` + percentHeight_8 + `%;">` + ymCjBkLWIjwBVgR_innerDivs + `</div>`;
+        let dividers = `<div class="lhduMWDCUEGkJNw" style="height:${percentHeight_nadgodziny}%;">` + `<span>${nawyzszaWartosc}</span>` + `</div>` +
+            `<div class="ymCjBkLWIjwBVgR" style="height:${percentHeight_8}%;">${ymCjBkLWIjwBVgR_innerDivs}</div>`;
 
         $('#PClmWtOMrNAvPvx_').html(dividers);
+
+        //znacznik 8h
+        let kmrOEZkQcUWqaEc_padding = $('.kmrOEZkQcUWqaEc').css('padding-top');
+        //kmrOEZkQcUWqaEc_padding = parseInt(kmrOEZkQcUWqaEc_padding) - 4;
+        kmrOEZkQcUWqaEc_padding = parseInt(kmrOEZkQcUWqaEc_padding);
+        let yTKpwuaIyVAZjYk_totalWidth = document.getElementById('yTKpwuaIyVAZjYk_').scrollWidth;
+        let ymCjBkLWIjwBVgR_height = $('.ymCjBkLWIjwBVgR').height();
+        let height = parseFloat(ymCjBkLWIjwBVgR_height) / parseFloat($('.ymCjBkLWIjwBVgR').parent().height()) * 100;
+        $('#yTKpwuaIyVAZjYk_').append(`<div class="xCrmrXtXYGYxmQt" style="width:` + yTKpwuaIyVAZjYk_totalWidth + `px; height:` + percentHeight_8 + `%; transform: translateY(` + kmrOEZkQcUWqaEc_padding + `px);"></div>`);
+        //$('#yTKpwuaIyVAZjYk_').append(`<div class="xCrmrXtXYGYxmQt" style="width:` + yTKpwuaIyVAZjYk_totalWidth + `px; height:` + height + `%;"></div>`);
+        
+        
+        
+        //let kmrOEZkQcUWqaEc = document.querySelector('.kmrOEZkQcUWqaEc');
+        //let computedStyle = getComputedStyle(kmrOEZkQcUWqaEc);
+        //let kmrOEZkQcUWqaEc_height = kmrOEZkQcUWqaEc.clientHeight;
+        //kmrOEZkQcUWqaEc_height -= parseFloat(computedStyle.paddingTop);
+        //$('#yTKpwuaIyVAZjYk_').append(`<div class="xCrmrXtXYGYxmQt" style="width:` + yTKpwuaIyVAZjYk_totalWidth + `px; height:` + kmrOEZkQcUWqaEc_height + `px;"></div>`);
+
+
+
+
+
+
     }
     //
     
-
+    $('#fAWuyOhIlyZnPpU').html(`=` + czasPracyMax + `h`);
+    $('#fAWuyOhIlyZnPpU_').html(`>` + czasPracyMax + `h`);
+    $('#fAWuyOhIlyZnPpU__').html(`<` + czasPracyMax + `h`);
     
 
 
