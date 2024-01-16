@@ -4399,25 +4399,14 @@ input:checked + .HsRFJWiSLmrJcoG:before {
             opacity: 1;
             cursor: pointer;
         }
-
-        /*.yTKpwuaIyVAZjYk div.kmrOEZkQcUWqaEc:hover .XxmPCNwZkVSMeOm {
-            opacity: 1;
-            cursor: pointer;
-
-        }
-
-        .yTKpwuaIyVAZjYk div.kmrOEZkQcUWqaEc:hover .XxmPCNwZkVSMeOm_ {
-            opacity: 1;
-            cursor: pointer;
-
-        }*/
         
     .yTKpwuaIyVAZjYk .xCrmrXtXYGYxmQt {
         border-top: 1px dashed rgba(255, 255, 255, 0.6);
         position: absolute;
         bottom: 0;
-        left: 0;
-        z-index: -1;
+        /*left: 0;*/
+        /*z-index: -1;*/
+        
     }
 
 .PClmWtOMrNAvPvx {

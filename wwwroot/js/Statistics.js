@@ -331,25 +331,14 @@ function generateStatistics(){
         //znacznik 8h
         let kmrOEZkQcUWqaEc_padding = $('.kmrOEZkQcUWqaEc').css('padding-top');
         //kmrOEZkQcUWqaEc_padding = parseInt(kmrOEZkQcUWqaEc_padding) - 4;
-        kmrOEZkQcUWqaEc_padding = parseInt(kmrOEZkQcUWqaEc_padding);
+        kmrOEZkQcUWqaEc_padding = parseFloat(kmrOEZkQcUWqaEc_padding);
         let yTKpwuaIyVAZjYk_totalWidth = document.getElementById('yTKpwuaIyVAZjYk_').scrollWidth;
-        let ymCjBkLWIjwBVgR_height = $('.ymCjBkLWIjwBVgR').height();
-        let height = parseFloat(ymCjBkLWIjwBVgR_height) / parseFloat($('.ymCjBkLWIjwBVgR').parent().height()) * 100;
-        $('#yTKpwuaIyVAZjYk_').append(`<div class="xCrmrXtXYGYxmQt" style="width:` + yTKpwuaIyVAZjYk_totalWidth + `px; height:` + percentHeight_8 + `%; transform: translateY(` + kmrOEZkQcUWqaEc_padding + `px);"></div>`);
-        //$('#yTKpwuaIyVAZjYk_').append(`<div class="xCrmrXtXYGYxmQt" style="width:` + yTKpwuaIyVAZjYk_totalWidth + `px; height:` + height + `%;"></div>`);
+        //$('#yTKpwuaIyVAZjYk_').append(`<div class="xCrmrXtXYGYxmQt" style="width:` + yTKpwuaIyVAZjYk_totalWidth + `px; height:` + percentHeight_8 + `%;"></div>`);
         
         
         
-        //let kmrOEZkQcUWqaEc = document.querySelector('.kmrOEZkQcUWqaEc');
-        //let computedStyle = getComputedStyle(kmrOEZkQcUWqaEc);
-        //let kmrOEZkQcUWqaEc_height = kmrOEZkQcUWqaEc.clientHeight;
-        //kmrOEZkQcUWqaEc_height -= parseFloat(computedStyle.paddingTop);
-        //$('#yTKpwuaIyVAZjYk_').append(`<div class="xCrmrXtXYGYxmQt" style="width:` + yTKpwuaIyVAZjYk_totalWidth + `px; height:` + kmrOEZkQcUWqaEc_height + `px;"></div>`);
-
-
-
-
-
+        //let new_percentHeight_8 = percentHeight_8 + 0.35;
+        $('#yTKpwuaIyVAZjYk_').append(`<div class="xCrmrXtXYGYxmQt" style="width:` + yTKpwuaIyVAZjYk_totalWidth + `px; height:calc(` + percentHeight_8 + `% - ` + kmrOEZkQcUWqaEc_padding + `px);"></div>`);
 
     }
     //
