@@ -86,13 +86,6 @@ function isMonday(date = new Date())
 
 function godziny_mouseOver(t) 
 {
-    //if ($(t).children().length > 0) 
-    //{
-    //    //$(t).addClass("DfZPpNxblEsHqXy");
-
-
-    //}
-
     $(t).css({
         'opacity': '1',
         'cursor': 'pointer',
@@ -102,21 +95,42 @@ function godziny_mouseOver(t)
         'opacity': '1',
         'cursor': 'pointer',
     });
+};
 
-    
+function nadgodziny_mouseOver(t) 
+{
+    $(t).css({
+        'opacity': '1',
+        'cursor': 'pointer',
+    });
 
+    $(t).parent().parent().children().eq(1).children().eq(0).css({
+        'opacity': '1',
+        'cursor': 'pointer',
+    });
 };
 
 function godziny_mouseOut(t) 
 {
-    //$(t).removeClass("DfZPpNxblEsHqXy");
-
     $(t).css({
         'opacity': '',
         'cursor': '',
     });
 
     $(t).parent().parent().children().eq(0).children().eq(0).css({
+        'opacity': '',
+        'cursor': '',
+    });
+};
+
+function nadgodziny_mouseOut(t) 
+{
+    $(t).css({
+        'opacity': '',
+        'cursor': '',
+    });
+
+    $(t).parent().parent().children().eq(1).children().eq(0).css({
         'opacity': '',
         'cursor': '',
     });
@@ -316,7 +330,7 @@ function generateStatistics()
                         //$(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" style="height: ${percentHeight_8}%;"></div>`);
 
                         $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)"></div>`);
-                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_" style="height: 100%;"></div>`);
+                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_" style="height: 100%;" onmouseover="nadgodziny_mouseOver(this)" onmouseout="nadgodziny_mouseOut(this)"></div>`);
                     }
                     else
                     {
@@ -335,7 +349,7 @@ function generateStatistics()
                         let roznica = nawyzszaWartosc - (nadgodziny[i].ile - nadgodziny[i].roznica);
                         let percentHeight = (100 * nadgodziny[i].roznica) / roznica;
 
-                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_" style="height: ${Math.ceil(percentHeight)}%; min-height: 1px;"></div>`);
+                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_" style="height: ${percentHeight}%; min-height: 1px;" onmouseover="nadgodziny_mouseOver(this)" onmouseout="nadgodziny_mouseOut(this)"></div>`);
                     }
                 }
             }
@@ -491,10 +505,10 @@ function fZyjOJhrSKbOWIT() {
 function jHMXFoMqHBqRHoJ() {
     if (sessionStorage.getItem('fZyjOJhrSKbOWIT') != null)
     {
-        fZyjOJhrSKbOWIT();
+        piQGwnkhyVDjpuD();
     }
     else {
-        piQGwnkhyVDjpuD();
+        fZyjOJhrSKbOWIT();
     }
 };
 jHMXFoMqHBqRHoJ();
