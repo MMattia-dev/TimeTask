@@ -4396,8 +4396,26 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     }
 
         .yTKpwuaIyVAZjYk div.kmrOEZkQcUWqaEc:hover * {
-            opacity: 1;
-            cursor: pointer;
+            /*opacity: 1;
+            cursor: pointer;*/
+        }
+
+        .yTKpwuaIyVAZjYk div.kmrOEZkQcUWqaEc .godziny {
+            width: 100%;
+            /*background-color: lightcoral;*/
+            display: flex;
+            justify-content: center;
+            align-items: end;
+
+        }
+
+        .yTKpwuaIyVAZjYk div.kmrOEZkQcUWqaEc .nadgodziny {
+            width: 100%;
+            /*background-color: lightblue;*/
+            display: flex;
+            justify-content: center;
+            align-items: end;
+
         }
         
     .yTKpwuaIyVAZjYk .xCrmrXtXYGYxmQt {

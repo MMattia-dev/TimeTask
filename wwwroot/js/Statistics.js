@@ -114,7 +114,8 @@ function generateStatistics(){
         let dayName = getDayName2(wholeDate, getLang() + '-' + getLang().toUpperCase());
 
         divs += `<div class="QlVtsqDYVktZFfQ" id="` + wholeDate + `"><span>${k}</span><span>${dayName}</span></div>`;
-        slupki += `<div class="kmrOEZkQcUWqaEc" id=` + wholeDate + `></div>`;
+        //slupki += `<div class="kmrOEZkQcUWqaEc" id=` + wholeDate + `></div>`;
+        slupki += `<div class="kmrOEZkQcUWqaEc" id=` + wholeDate + `><div class="nadgodziny" id="nadgodziny_"></div><div class="godziny" id="godziny_"></div></div>`;
     }
 
     $('#KjseMRiNyEJWtCR_').html(divs);
@@ -242,8 +243,17 @@ function generateStatistics(){
 
                         break;
                     }
+                    
                 }
             }
+        }
+        //
+
+
+        //
+        for (let j = 0; j < slupkiDivs.length; j++) {
+            $(slupkiDivs[j]).children('.nadgodziny').css({ 'height': percentHeight_nadgodziny + '%', });
+            $(slupkiDivs[j]).children('.godziny').css({ 'height': percentHeight_8 + '%', });
         }
         //
 
@@ -260,8 +270,11 @@ function generateStatistics(){
                         percentHeight_8 = (100 * godzin_8) / nadgodziny[i].ile;
                         percentHeight_nadgodziny = 100 - percentHeight_8;
 
-                        slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm_" style="height: ${percentHeight_nadgodziny}%;"></div>`; //nadgodzimy
-                        slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm" style="height: ${percentHeight_8}%;"></div>`; //normalne godziny
+                        //slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm_" style="height: ${percentHeight_nadgodziny}%;"></div>`; //nadgodzimy
+                        //slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm" style="height: ${percentHeight_8}%;"></div>`; //normalne godziny
+
+                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_" style="height: ${percentHeight_nadgodziny}%;"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" style="height: 100%;"></div>`);
                     }
                     else
                     {
@@ -269,8 +282,11 @@ function generateStatistics(){
                         let percentHeight = (percentHeight_8 * godzin) / nadgodziny[i].ile;
                         let percentHeight_nadgodziny_ = percentHeight_8 - percentHeight;
 
-                        slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm_" style="height: ${percentHeight_nadgodziny_}%;"></div>`; //nadgodzimy
-                        slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm" style="height: ${percentHeight_8}%;"></div>`; //normalne godziny
+                        //slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm_" style="height: ${percentHeight_nadgodziny_}%;"></div>`; //nadgodzimy
+                        //slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm" style="height: ${percentHeight_8}%;"></div>`; //normalne godziny
+
+                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_" style="height: ${percentHeight_nadgodziny_}%;"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" style="height: 100%;"></div>`);
                     }
                 }
             }
@@ -284,7 +300,8 @@ function generateStatistics(){
                 {
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(normalneGodziny[i].wejscie).toLocaleDateString()) 
                     {
-                        slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm" style="height: ${percentHeight_8}%;"></div>`; //normalne godziny
+                        //slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm" style="height: ${percentHeight_8}%;"></div>`; //normalne godziny
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" style="height: 100%;"></div>`);
                     }
                 }
             }
@@ -300,7 +317,8 @@ function generateStatistics(){
                         let godzin = niedogodziny[i].ile - niedogodziny[i].roznica;
                         let percentHeight = (percentHeight_8 * godzin) / niedogodziny[i].ile;
 
-                        slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm__" style="height: ${percentHeight}%;"></div>`; //niedogodziny
+                        //slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm__" style="height: ${percentHeight}%;"></div>`; //niedogodziny
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__" style="height: ${percentHeight}%;"></div>`);
                     }
                 }
             }
@@ -329,16 +347,10 @@ function generateStatistics(){
         $('#PClmWtOMrNAvPvx_').html(dividers);
 
         //znacznik 8h
-        let kmrOEZkQcUWqaEc_padding = $('.kmrOEZkQcUWqaEc').css('padding-top');
-        //kmrOEZkQcUWqaEc_padding = parseInt(kmrOEZkQcUWqaEc_padding) - 4;
-        kmrOEZkQcUWqaEc_padding = parseFloat(kmrOEZkQcUWqaEc_padding);
-        let yTKpwuaIyVAZjYk_totalWidth = document.getElementById('yTKpwuaIyVAZjYk_').scrollWidth;
-        //$('#yTKpwuaIyVAZjYk_').append(`<div class="xCrmrXtXYGYxmQt" style="width:` + yTKpwuaIyVAZjYk_totalWidth + `px; height:` + percentHeight_8 + `%;"></div>`);
-        
-        
-        
-        //let new_percentHeight_8 = percentHeight_8 + 0.35;
-        $('#yTKpwuaIyVAZjYk_').append(`<div class="xCrmrXtXYGYxmQt" style="width:` + yTKpwuaIyVAZjYk_totalWidth + `px; height:calc(` + percentHeight_8 + `% - ` + kmrOEZkQcUWqaEc_padding + `px);"></div>`);
+        //let kmrOEZkQcUWqaEc_padding = $('.kmrOEZkQcUWqaEc').css('padding-top');
+        //kmrOEZkQcUWqaEc_padding = parseFloat(kmrOEZkQcUWqaEc_padding);
+        //let yTKpwuaIyVAZjYk_totalWidth = document.getElementById('yTKpwuaIyVAZjYk_').scrollWidth;
+        //$('#yTKpwuaIyVAZjYk_').append(`<div class="xCrmrXtXYGYxmQt" style="width:` + yTKpwuaIyVAZjYk_totalWidth + `px; height:calc(` + percentHeight_8 + `% - ` + kmrOEZkQcUWqaEc_padding + `px);"></div>`);
 
     }
     //
