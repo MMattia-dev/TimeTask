@@ -16,6 +16,13 @@
     return hh + mm;
 }
 
+//function numbersBetweenNumbers(firstNumber, lastNumber) {
+//    let array = [];
+//    for (let ) {
+
+//    }
+//};
+
 function isWeekend(date = new Date())
 {
     return date.getDay() === 6 || date.getDay() === 0;
@@ -97,19 +104,6 @@ function godziny_mouseOver(t)
     });
 };
 
-function nadgodziny_mouseOver(t) 
-{
-    $(t).css({
-        'opacity': '1',
-        'cursor': 'pointer',
-    });
-
-    $(t).parent().parent().children().eq(1).children().eq(0).css({
-        'opacity': '1',
-        'cursor': 'pointer',
-    });
-};
-
 function godziny_mouseOut(t) 
 {
     $(t).css({
@@ -120,6 +114,19 @@ function godziny_mouseOut(t)
     $(t).parent().parent().children().eq(0).children().eq(0).css({
         'opacity': '',
         'cursor': '',
+    });
+};
+
+function nadgodziny_mouseOver(t) 
+{
+    $(t).css({
+        'opacity': '1',
+        'cursor': 'pointer',
+    });
+
+    $(t).parent().parent().children().eq(1).children().eq(0).css({
+        'opacity': '1',
+        'cursor': 'pointer',
     });
 };
 
@@ -139,7 +146,6 @@ function nadgodziny_mouseOut(t)
 function generateStatistics()
 {
     let workerID = document.getElementById('AOZzvXnLtNqUPwN').value;
-    let departmentID_ = document.getElementById('ZaLlHWcvXQiYgTv').value;
     let year = document.getElementById('OvLPfkiiNwdRYgn').value;
     let month = document.getElementById('VQnvdBYLMNSKvmR').value;
     let currentMonth = parseInt(month) + 1;
@@ -167,8 +173,7 @@ function generateStatistics()
         let dayName = getDayName2(wholeDate, getLang() + '-' + getLang().toUpperCase());
 
         divs += `<div class="QlVtsqDYVktZFfQ" id="` + wholeDate + `"><span>${k}</span><span>${dayName}</span></div>`;
-        //slupki += `<div class="kmrOEZkQcUWqaEc" id=` + wholeDate + `></div>`;
-        slupki += `<div class="kmrOEZkQcUWqaEc" id=` + wholeDate + `><div class="nadgodziny" id="nadgodziny_"></div><div class="godziny" id="godziny_"></div></div>`;
+        slupki += `<div class="kmrOEZkQcUWqaEc" id=` + wholeDate + `><div class="nadgodziny"></div><div class="godziny"></div></div>`;
     }
 
     $('#KjseMRiNyEJWtCR_').html(divs);
@@ -177,9 +182,12 @@ function generateStatistics()
 
 
     let QlVtsqDYVktZFfQ = document.querySelectorAll('.QlVtsqDYVktZFfQ');
-    for (let i = 0; i < model_h.length; i++) {
-        for (let j = 0; j < QlVtsqDYVktZFfQ.length; j++) {
-            if (new Date(model_h[i].Date).toLocaleDateString() == new Date(QlVtsqDYVktZFfQ[j].id).toLocaleDateString()) {
+    for (let i = 0; i < model_h.length; i++) 
+    {
+        for (let j = 0; j < QlVtsqDYVktZFfQ.length; j++) 
+        {
+            if (new Date(model_h[i].Date).toLocaleDateString() == new Date(QlVtsqDYVktZFfQ[j].id).toLocaleDateString())
+            {
                 $(QlVtsqDYVktZFfQ[j]).addClass('wNirVIsdmzAKynQ');
                 $(QlVtsqDYVktZFfQ[j]).attr('title', model_h[i].Name);
             }
@@ -319,31 +327,11 @@ function generateStatistics()
                 {
                     if (nawyzszaWartosc == nadgodziny[i].ile) 
                     {
-                        //let godzin_8 = nadgodziny[i].ile - nadgodziny[i].roznica; //powinno zawsze być tyle ile w bazie
-                        //percentHeight_8 = (100 * godzin_8) / nadgodziny[i].ile;
-                        //percentHeight_nadgodziny = 100 - percentHeight_8;
-
-                        //slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm_" style="height: ${percentHeight_nadgodziny}%;"></div>`; //nadgodzimy
-                        //slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm" style="height: ${percentHeight_8}%;"></div>`; //normalne godziny
-
-                        //$(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_" style="height: ${percentHeight_nadgodziny}%;"></div>`);
-                        //$(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" style="height: ${percentHeight_8}%;"></div>`);
-
                         $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)"></div>`);
                         $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_" style="height: 100%;" onmouseover="nadgodziny_mouseOver(this)" onmouseout="nadgodziny_mouseOut(this)"></div>`);
                     }
                     else
                     {
-                        //let godzin = nadgodziny[i].ile - nadgodziny[i].roznica;
-                        //let percentHeight = (percentHeight_8 * godzin) / nadgodziny[i].ile;
-                        //let percentHeight_nadgodziny_ = percentHeight_8 - percentHeight;
-
-                        //slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm_" style="height: ${percentHeight_nadgodziny_}%;"></div>`; //nadgodzimy
-                        //slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm" style="height: ${percentHeight_8}%;"></div>`; //normalne godziny
-
-                        //$(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_" style="height: ${percentHeight_nadgodziny_}%;"></div>`);
-                        //$(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" style="height: ${percentHeight}%;"></div>`);
-
                         $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)"></div>`);
 
                         let roznica = nawyzszaWartosc - (nadgodziny[i].ile - nadgodziny[i].roznica);
@@ -363,7 +351,6 @@ function generateStatistics()
                 {
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(normalneGodziny[i].wejscie).toLocaleDateString()) 
                     {
-                        //slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm" style="height: ${percentHeight_8}%;"></div>`; //normalne godziny
                         $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)"></div>`);
                     }
                 }
@@ -377,12 +364,6 @@ function generateStatistics()
                 {
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(niedogodziny[i].wejscie).toLocaleDateString()) 
                     {
-                        //let godzin = niedogodziny[i].ile - niedogodziny[i].roznica;
-                        //let percentHeight = (percentHeight_8 * godzin) / niedogodziny[i].ile;
-
-                        //slupkiDivs[j].innerHTML += `<div class="XxmPCNwZkVSMeOm__" style="height: ${percentHeight}%;"></div>`; //niedogodziny
-                        //$(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__" style="height: ${percentHeight}%;"></div>`);
-
                         let percentHeight = (niedogodziny[i].ile * 100) / (parseFloat(niedogodziny[i].ile) + parseFloat(niedogodziny[i].roznica));
                         $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__" style="height: ${percentHeight}%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)"></div>`);
                     }
@@ -414,6 +395,7 @@ function generateStatistics()
 
         for (let i = 0; i < $('.godziny').length; i++) {
             $('.godziny').css({ 'border-top': '1px dashed rgb(90, 90, 90)' });
+            //$('.nadgodziny').css({ 'border-top': '1px dashed rgb(90, 90, 90)' });
         }
     }
     //
@@ -424,36 +406,269 @@ function generateStatistics()
     
 
 
+    $('#imAZBCksRVUuDsR_').show();
+    $('#kCJfJXsYxCydUDw_').hide();
+    $('#GYgSdzJuBJAuFcM_').hide();
 
 
 
 
-
-    //widok poziomy
-    if ($('#relrPYFTLYqMaqt').prop('checked')) 
-    {
+    ////widok poziomy
+    //if ($('#relrPYFTLYqMaqt').prop('checked')) 
+    //{
         
-    }
+    //}
 
-    //widok pionowy
-    if ($('#qDXIOKGzpBOMvoB').prop('checked')) 
-    {
+    ////widok pionowy
+    //if ($('#qDXIOKGzpBOMvoB').prop('checked')) 
+    //{
         
-    }
+    //}
 
     //$('#JhmmaXkQXmKMKml_').prop('checked', false);
     //$('#JhmmaXkQXmKMKml_').parent('label').removeClass('HOZnyZWeKKoQdIf');
 };
 //generateStatistics();
 
+function generateStatistics2() 
+{
+
+
+
+    $('#imAZBCksRVUuDsR_').hide();
+    $('#kCJfJXsYxCydUDw_').show();
+    $('#GYgSdzJuBJAuFcM_').hide();
+};
+
+function generateStatistics3() 
+{
+    let workerID = document.getElementById('AOZzvXnLtNqUPwN').value;
+    let year = document.getElementById('OvLPfkiiNwdRYgn').value;
+    let month = document.getElementById('VQnvdBYLMNSKvmR').value;
+    let currentMonth = parseInt(month) + 1;
+
+    var daysLength = daysInMonth(currentMonth, year);
+
+    let divs = '';
+    let slupki = '';
+
+    document.getElementById('GFYnHZkcKqlZmQu_').innerHTML = '';
+
+    slupki += '<div class="PClmWtOMrNAvPvx JNwAoqBiFHcfLgW" id="PClmWtOMrNAvPvx__"></div>';
+    divs += '<div class="PClmWtOMrNAvPvx"></div>';
+
+    let doba = 24 - 1;
+    let divide_8 = 100 / 24;
+
+
+    //let _23height = divide_8 * 23;
+
+
+    //dni miesiąca
+    for (let k = 1; k <= daysLength; k++)
+    {
+        let newMonth = parseInt(month) + 1;
+        newMonth = padWithLeadingZeros(newMonth, 2);
+
+        let newDay = k;
+        newDay = padWithLeadingZeros(newDay, 2);
+
+        let wholeDate = year + `-` + newMonth + `-` + newDay;
+        let dayName = getDayName2(wholeDate, getLang() + '-' + getLang().toUpperCase());
+
+        divs += `<div class="QlVtsqDYVktZFfQ" id="` + wholeDate + `"><span>${k}</span><span>${dayName}</span></div>`;
+        //slupki += `<div class="kmrOEZkQcUWqaEc kmrOEZkQcUWqaEc_" id=` + wholeDate + `><div class="nadgodziny3"></div><div class="godziny3"></div><div class="godziny_linia"></div></div>`; //style="height:${_23height}%;"
+        slupki += `<div class="kmrOEZkQcUWqaEc kmrOEZkQcUWqaEc_" id=` + wholeDate + `></div>`;
+    }
+
+    $('#GFYnHZkcKqlZmQu_').html(divs);
+    $('#qoawyUybNhotJKO_').html(slupki);
+
+
+
+    let QlVtsqDYVktZFfQ = document.querySelectorAll('.QlVtsqDYVktZFfQ');
+    for (let i = 0; i < model_h.length; i++)
+    {
+        for (let j = 0; j < QlVtsqDYVktZFfQ.length; j++)
+        {
+            if (new Date(model_h[i].Date).toLocaleDateString() == new Date(QlVtsqDYVktZFfQ[j].id).toLocaleDateString())
+            {
+                $(QlVtsqDYVktZFfQ[j]).addClass('wNirVIsdmzAKynQ');
+                $(QlVtsqDYVktZFfQ[j]).attr('title', model_h[i].Name);
+            }
+        }
+    }
+
+
+    let okresRozliczeniowy;
+    let czasPracyMax;
+    let maksymalnaLiczbaNadgodzin;
+    let maksymalnaLiczbaNadgodzinTydzien;
+    let nieprzerwanyOdpoczynek;
+
+    for (let i = 0; i < model_ts.length; i++)
+    {
+        if (model_ts[i].WorkerId != null && model_ts[i].WorkerId == workerID)
+        {
+            okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            czasPracyMax = model_ts[i].CzasPracy;
+            maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
+            maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
+            nieprzerwanyOdpoczynek = model_ts[i].NieprzerwanyOdpoczynek;
+            //break;
+        }
+        if (model_ts[i].WorkerId == null)
+        {
+            okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            czasPracyMax = model_ts[i].CzasPracy;
+            maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
+            maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
+            nieprzerwanyOdpoczynek = model_ts[i].NieprzerwanyOdpoczynek;
+            //break;
+        }
+    }
+
+
+
+
+
+    let nadgodziny = [];
+    let normalneGodziny = [];
+    let niedogodziny = [];
+    let urlopy = [];
+
+    let slupkiDivs = document.querySelectorAll('.kmrOEZkQcUWqaEc_');
+    for (let i = 0; i < slupkiDivs.length; i++)
+    {
+        for (let j = 0; j < model_t.length; j++)
+        {
+            //czas pracy
+            if (model_t[j].Enter != null && model_t[j].WorkerID == workerID) 
+            {
+                if (new Date(slupkiDivs[i].id).toLocaleDateString() == new Date(model_t[j].Enter).toLocaleDateString())
+                {
+                    let date1 = new Date(model_t[j].Enter);
+                    let date2 = new Date(model_t[j].Exit);
+
+                    if (date2 > date1)
+                    {
+                        //dzien
+                        let diff = date2 - date1;
+                        let godzinyPracy = Math.abs(parseFloat(convertTime(diff)));
+                        godzinyPracy = godzinyPracy.toFixed(2);
+
+                        //nadgodziny
+                        if (godzinyPracy > czasPracyMax) 
+                        {
+                            let roz = godzinyPracy - czasPracyMax;
+                            nadgodziny.push({ wejscie: date1, wyjscie: date2, ile: godzinyPracy, roznica: roz.toFixed(2) });
+                            //console.log(roz);
+                        }
+                        //normalny czas pracy
+                        if (godzinyPracy == czasPracyMax) 
+                        {
+                            normalneGodziny.push({ wejscie: date1, wyjscie: date2, ile: godzinyPracy });
+                            //console.log(godzinyPracy);
+                        }
+                        //niedogodziny
+                        if (godzinyPracy < czasPracyMax) 
+                        {
+                            let roz = godzinyPracy - czasPracyMax;
+                            niedogodziny.push({ wejscie: date1, wyjscie: date2, ile: godzinyPracy, roznica: Math.abs(roz.toFixed(2)) });
+                        }
+                    }
+                    else 
+                    {
+                        //nocka
+
+                    }
+                }
+            }
+            //urlopy
+            if (model_t[j].Enter == null && model_t[j].WorkerID == workerID) 
+            {
+
+            }
+        }
+    }
+
+    //znaczniki
+    let ymCjBkLWIjwBVgR_innerDivs = '';
+    for (let i = doba; i >= 0; i--) 
+    {
+        ymCjBkLWIjwBVgR_innerDivs += `<div class="ymCjBkLWIjwBVgR_ ymCjBkLWIjwBVgR__" style="height:${divide_8}%;"><span>${i}:00</span></div>`;
+
+        $('.kmrOEZkQcUWqaEc_').append(`<div class="jMxTKSnHwAAorfW" id="${i}"><div class="osWizyDOwUfGTME"></div></div>`);
+    }
+
+    let dividers = `<div class="ymCjBkLWIjwBVgR" style="height: 100%;">${ymCjBkLWIjwBVgR_innerDivs}</div>`;
+    $('#PClmWtOMrNAvPvx__').html(dividers);
+    //
+
+
+
+    if (nadgodziny.length > 0) 
+    {
+        for (let i = 0; i < nadgodziny.length; i++) 
+        {
+            for (let j = 0; j < slupkiDivs.length; j++) 
+            {
+                if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(nadgodziny[i].wejscie).toLocaleDateString()) 
+                {
+                    //$(slupkiDivs[j]).children('.jMxTKSnHwAAorfW').append(`<div class="XxmPCNwZkVSMeOm" style="height: 100%;"></div>`);
+
+                    let wejscie_godzina = parseInt(new Date(nadgodziny[i].wejscie).toLocaleTimeString().split(':')[0]);
+                    let wejscie_minuty = parseInt(new Date(nadgodziny[i].wejscie).toLocaleTimeString().split(':')[1]);
+
+                    let wyjscie_godzina = parseInt(new Date(nadgodziny[i].wyjscie).toLocaleTimeString().split(':')[0]);
+                    let wyjscie_minuty = parseInt(new Date(nadgodziny[i].wyjscie).toLocaleTimeString().split(':')[1]);
+
+                    //60 min = 100% height
+
+                    for (let k = wejscie_godzina; k <= wyjscie_godzina; k++) {
+                        let jMxTKSnHwAAorfW = $(slupkiDivs[j]).children('.jMxTKSnHwAAorfW');
+                        for (let l = 0; l < jMxTKSnHwAAorfW.length; l++) {
+                            if (k == jMxTKSnHwAAorfW[l].id) {
+                                $(jMxTKSnHwAAorfW[l]).append(`<div class="XxmPCNwZkVSMeOm" style="height: 100%;"></div>`);
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        }
+
+
+    }
+    else 
+    {
+
+    }
+
+
+
+
+
+
+
+
+
+    $('#imAZBCksRVUuDsR_').hide();
+    $('#kCJfJXsYxCydUDw_').hide();
+    $('#GYgSdzJuBJAuFcM_').show();
+};
+
 $('#OvLPfkiiNwdRYgn').on('change', function ()
 {
-    generateStatistics();
+    //generateStatistics();
+    jHMXFoMqHBqRHoJ();
 });
 
 $('#VQnvdBYLMNSKvmR').on('change', function ()
 {
-    generateStatistics();
+    //generateStatistics();
+    jHMXFoMqHBqRHoJ();
 });
 
 $('#ZaLlHWcvXQiYgTv').on('change', function ()
@@ -471,45 +686,93 @@ $('#ZaLlHWcvXQiYgTv').on('change', function ()
         }
     }
 
-    generateStatistics();
+    //generateStatistics();
+    jHMXFoMqHBqRHoJ();
 });
 $('#ZaLlHWcvXQiYgTv').trigger('change');
 
 $('#AOZzvXnLtNqUPwN').on('change', function ()
 {
-    generateStatistics();
+    //generateStatistics();
+    jHMXFoMqHBqRHoJ();
 });
 
-function piQGwnkhyVDjpuD() {
-    sessionStorage.setItem('piQGwnkhyVDjpuD', 'true');
-    sessionStorage.removeItem('fZyjOJhrSKbOWIT');
-    $('#relrPYFTLYqMaqt').prop('checked', true);
+function fZyjOJhrSKbOWIT()
+{
+    //sessionStorage.setItem('fZyjOJhrSKbOWIT', 'true');
+    //sessionStorage.removeItem('piQGwnkhyVDjpuD');
+    //$('#qDXIOKGzpBOMvoB').prop('checked', true);
 
-    $('#piQGwnkhyVDjpuD_').addClass('pEvsatYDpkDeDPp');
-    $('#fZyjOJhrSKbOWIT_').removeClass('pEvsatYDpkDeDPp');
+    //$('#piQGwnkhyVDjpuD_').removeClass('pEvsatYDpkDeDPp');
+    //$('#fZyjOJhrSKbOWIT_').addClass('pEvsatYDpkDeDPp');
 
-    generateStatistics();
-};
+    //generateStatistics();
 
-function fZyjOJhrSKbOWIT() {
-    sessionStorage.setItem('fZyjOJhrSKbOWIT', 'true');
-    sessionStorage.removeItem('piQGwnkhyVDjpuD');
-    $('#qDXIOKGzpBOMvoB').prop('checked', true);
-
-    $('#piQGwnkhyVDjpuD_').removeClass('pEvsatYDpkDeDPp');
     $('#fZyjOJhrSKbOWIT_').addClass('pEvsatYDpkDeDPp');
+    $('#piQGwnkhyVDjpuD_').removeClass('pEvsatYDpkDeDPp');
+    $('#aUsCMMTyjqhmxBa_').removeClass('pEvsatYDpkDeDPp');
+
+    //sessionStorage.getItem('piQGwnkhyVDjpuD') == null || sessionStorage.getItem('aUsCMMTyjqhmxBa') == null;
+    sessionStorage.removeItem('piQGwnkhyVDjpuD');
+    sessionStorage.removeItem('aUsCMMTyjqhmxBa');
 
     generateStatistics();
 };
+
+function piQGwnkhyVDjpuD() {
+    //sessionStorage.setItem('piQGwnkhyVDjpuD', 'true');
+    //sessionStorage.removeItem('fZyjOJhrSKbOWIT');
+    //$('#relrPYFTLYqMaqt').prop('checked', true);
+
+    //$('#piQGwnkhyVDjpuD_').addClass('pEvsatYDpkDeDPp');
+    //$('#fZyjOJhrSKbOWIT_').removeClass('pEvsatYDpkDeDPp');
+
+    //generateStatistics();
+
+    $('#fZyjOJhrSKbOWIT_').removeClass('pEvsatYDpkDeDPp');
+    $('#piQGwnkhyVDjpuD_').addClass('pEvsatYDpkDeDPp');
+    $('#aUsCMMTyjqhmxBa_').removeClass('pEvsatYDpkDeDPp');
+
+    sessionStorage.setItem('piQGwnkhyVDjpuD', 'true');
+    sessionStorage.removeItem('aUsCMMTyjqhmxBa');
+
+    generateStatistics2();
+};
+function aUsCMMTyjqhmxBa() {
+    $('#fZyjOJhrSKbOWIT_').removeClass('pEvsatYDpkDeDPp');
+    $('#piQGwnkhyVDjpuD_').removeClass('pEvsatYDpkDeDPp');
+    $('#aUsCMMTyjqhmxBa_').addClass('pEvsatYDpkDeDPp');
+
+    sessionStorage.removeItem('piQGwnkhyVDjpuD');
+    sessionStorage.setItem('aUsCMMTyjqhmxBa', 'true');
+
+    generateStatistics3();
+}
 
 function jHMXFoMqHBqRHoJ() {
-    if (sessionStorage.getItem('fZyjOJhrSKbOWIT') != null)
+    //if (sessionStorage.getItem('fZyjOJhrSKbOWIT') != null)
+    //{
+    //    piQGwnkhyVDjpuD();
+    //}
+    //else {
+    //    fZyjOJhrSKbOWIT();
+    //}
+
+
+
+    if (sessionStorage.getItem('piQGwnkhyVDjpuD') != null && sessionStorage.getItem('aUsCMMTyjqhmxBa') == null)
     {
         piQGwnkhyVDjpuD();
     }
-    else {
+    else if (sessionStorage.getItem('piQGwnkhyVDjpuD') == null && sessionStorage.getItem('aUsCMMTyjqhmxBa') != null)
+    {
+        aUsCMMTyjqhmxBa();
+    }
+    else 
+    {
         fZyjOJhrSKbOWIT();
     }
+
 };
 jHMXFoMqHBqRHoJ();
 
