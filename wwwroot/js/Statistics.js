@@ -93,54 +93,50 @@ function isMonday(date = new Date())
 
 function godziny_mouseOver(t) 
 {
-    $(t).css({
-        'opacity': '1',
-        'cursor': 'pointer',
-    });
+    $(t).addClass('cySGpFzCuwaKsRB');
 
-    $(t).parent().parent().children().eq(0).children().eq(0).css({
-        'opacity': '1',
-        'cursor': 'pointer',
-    });
+    $(t).parent().parent().children().eq(0).children().eq(0).addClass('cySGpFzCuwaKsRB_');
 };
 
 function godziny_mouseOut(t) 
 {
-    $(t).css({
-        'opacity': '',
-        'cursor': '',
-    });
+    $(t).removeClass('cySGpFzCuwaKsRB');
 
-    $(t).parent().parent().children().eq(0).children().eq(0).css({
-        'opacity': '',
-        'cursor': '',
-    });
+    $(t).parent().parent().children().eq(0).children().eq(0).removeClass('cySGpFzCuwaKsRB_');
 };
 
 function nadgodziny_mouseOver(t) 
 {
-    $(t).css({
-        'opacity': '1',
-        'cursor': 'pointer',
-    });
+    $(t).addClass('cySGpFzCuwaKsRB_');
 
-    $(t).parent().parent().children().eq(1).children().eq(0).css({
-        'opacity': '1',
-        'cursor': 'pointer',
-    });
+    $(t).parent().parent().children().eq(1).children().eq(0).addClass('cySGpFzCuwaKsRB');
 };
 
 function nadgodziny_mouseOut(t) 
 {
-    $(t).css({
-        'opacity': '',
-        'cursor': '',
-    });
+    $(t).removeClass('cySGpFzCuwaKsRB_');
 
-    $(t).parent().parent().children().eq(1).children().eq(0).css({
-        'opacity': '',
-        'cursor': '',
-    });
+    $(t).parent().parent().children().eq(1).children().eq(0).removeClass('cySGpFzCuwaKsRB');
+};
+
+//mouseover
+function BNITIHZVtwqfmzK(t) {
+    let hoverItems = $(t).parent().parent().children('.jMxTKSnHwAAorfW').children('#BFRZfHjWhBzGEmI');
+
+    for (let i = 0; i < hoverItems.length; i++) 
+    {
+        $(hoverItems[i]).addClass('cySGpFzCuwaKsRB');
+    }
+};
+
+//mouseout
+function PLhsOBgSRcqunQC(t) {
+    let hoverItems = $(t).parent().parent().children('.jMxTKSnHwAAorfW').children('#BFRZfHjWhBzGEmI');
+
+    for (let i = 0; i < hoverItems.length; i++)
+    {
+        $(hoverItems[i]).removeClass('cySGpFzCuwaKsRB');
+    }
 };
 
 function generateStatistics()
@@ -395,14 +391,14 @@ function generateStatistics()
 
         for (let i = 0; i < $('.godziny').length; i++) {
             $('.godziny').css({ 'border-top': '1px dashed rgb(90, 90, 90)' });
-            //$('.nadgodziny').css({ 'border-top': '1px dashed rgb(90, 90, 90)' });
+            $('.nadgodziny').css({ 'border-top': '1px dashed rgb(90, 90, 90)' });
         }
     }
     //
     
-    $('#fAWuyOhIlyZnPpU').html(`=` + czasPracyMax + `h`);
-    $('#fAWuyOhIlyZnPpU_').html(`>` + czasPracyMax + `h`);
-    $('#fAWuyOhIlyZnPpU__').html(`<` + czasPracyMax + `h`);
+    //$('#fAWuyOhIlyZnPpU').html(`=` + czasPracyMax + `h`);
+    //$('#fAWuyOhIlyZnPpU_').html(`>` + czasPracyMax + `h`);
+    //$('#fAWuyOhIlyZnPpU__').html(`<` + czasPracyMax + `h`);
     
 
 
@@ -455,7 +451,7 @@ function generateStatistics3()
     document.getElementById('GFYnHZkcKqlZmQu_').innerHTML = '';
 
     slupki += '<div class="PClmWtOMrNAvPvx JNwAoqBiFHcfLgW" id="PClmWtOMrNAvPvx__"></div>';
-    divs += '<div class="PClmWtOMrNAvPvx"></div>';
+    divs += '<div class="PClmWtOMrNAvPvx YBHnGvtIcHAOqaK"></div>';
 
     let doba = 24 - 1;
     let divide_8 = 100 / 24;
@@ -601,7 +597,7 @@ function generateStatistics3()
         $('.kmrOEZkQcUWqaEc_').append(`<div class="jMxTKSnHwAAorfW" id="${i}"><div class="osWizyDOwUfGTME"></div></div>`);
     }
 
-    let dividers = `<div class="ymCjBkLWIjwBVgR" style="height: 100%;">${ymCjBkLWIjwBVgR_innerDivs}</div>`;
+    let dividers = `<div class="ymCjBkLWIjwBVgR urCwRPsnRGpEUXb" >${ymCjBkLWIjwBVgR_innerDivs}</div>`; //style="height: 100%;"
     $('#PClmWtOMrNAvPvx__').html(dividers);
     //
 
@@ -615,31 +611,155 @@ function generateStatistics3()
             {
                 if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(nadgodziny[i].wejscie).toLocaleDateString()) 
                 {
-                    //$(slupkiDivs[j]).children('.jMxTKSnHwAAorfW').append(`<div class="XxmPCNwZkVSMeOm" style="height: 100%;"></div>`);
-
                     let wejscie_godzina = parseInt(new Date(nadgodziny[i].wejscie).toLocaleTimeString().split(':')[0]);
                     let wejscie_minuty = parseInt(new Date(nadgodziny[i].wejscie).toLocaleTimeString().split(':')[1]);
 
                     let wyjscie_godzina = parseInt(new Date(nadgodziny[i].wyjscie).toLocaleTimeString().split(':')[0]);
                     let wyjscie_minuty = parseInt(new Date(nadgodziny[i].wyjscie).toLocaleTimeString().split(':')[1]);
 
-                    //60 min = 100% height
-
-                    for (let k = wejscie_godzina; k <= wyjscie_godzina; k++) {
-                        let jMxTKSnHwAAorfW = $(slupkiDivs[j]).children('.jMxTKSnHwAAorfW');
-                        for (let l = 0; l < jMxTKSnHwAAorfW.length; l++) {
-                            if (k == jMxTKSnHwAAorfW[l].id) {
-                                $(jMxTKSnHwAAorfW[l]).append(`<div class="XxmPCNwZkVSMeOm" style="height: 100%;"></div>`);
+                    
+                    let jMxTKSnHwAAorfW = $(slupkiDivs[j]).children('.jMxTKSnHwAAorfW');
+                    for (let l = 0; l < jMxTKSnHwAAorfW.length; l++) 
+                    {
+                        
+                        for (let k = wejscie_godzina + 1; k < wyjscie_godzina; k++)
+                        {
+                            if (k == jMxTKSnHwAAorfW[l].id)
+                            {
+                                $(jMxTKSnHwAAorfW[l]).append(`<div class="XxmPCNwZkVSMeOm pSvvteXuxRtsjRu" id="BFRZfHjWhBzGEmI" style="height: 100%;" onmouseover="BNITIHZVtwqfmzK(this)" onmouseout="PLhsOBgSRcqunQC(this)"></div>`);
                             }
                         }
+
+                        if (wejscie_godzina == jMxTKSnHwAAorfW[l].id) 
+                        {
+                            let minuty = wejscie_minuty;
+
+                            let height_wejscie = (minuty * 100) / 60; //100% - 60min
+                            height_wejscie = 100 - height_wejscie;
+
+                            $(jMxTKSnHwAAorfW[l]).css({ 'align-items': 'start' });
+                            $(jMxTKSnHwAAorfW[l]).append(`<div class="XxmPCNwZkVSMeOm pSvvteXuxRtsjRu" id="BFRZfHjWhBzGEmI" style="height: ${height_wejscie}%;" onmouseover="BNITIHZVtwqfmzK(this)" onmouseout="PLhsOBgSRcqunQC(this)"></div>`);
+                        }
+
+                        if (wyjscie_godzina == jMxTKSnHwAAorfW[l].id) 
+                        {
+                            let minuty = wyjscie_minuty;
+
+                            let height_wyjscie = (minuty * 100) / 60; //100% - 60min
+                            console.log(height_wyjscie);
+                            $(jMxTKSnHwAAorfW[l]).css({ 'align-items': 'end' });
+                            $(jMxTKSnHwAAorfW[l]).append(`<div class="XxmPCNwZkVSMeOm pSvvteXuxRtsjRu" id="BFRZfHjWhBzGEmI" style="height: ${height_wyjscie}%;" onmouseover="BNITIHZVtwqfmzK(this)" onmouseout="PLhsOBgSRcqunQC(this)"></div>`);
+                        }
                     }
-
-
                 }
             }
         }
 
+        if (normalneGodziny.length > 0) 
+        {
+            for (let i = 0; i < normalneGodziny.length; i++) 
+            {
+                for (let j = 0; j < slupkiDivs.length; j++) 
+                {
+                    if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(normalneGodziny[i].wejscie).toLocaleDateString()) 
+                    {
+                        let wejscie_godzina = parseInt(new Date(normalneGodziny[i].wejscie).toLocaleTimeString().split(':')[0]);
+                        let wejscie_minuty = parseInt(new Date(normalneGodziny[i].wejscie).toLocaleTimeString().split(':')[1]);
 
+                        let wyjscie_godzina = parseInt(new Date(normalneGodziny[i].wyjscie).toLocaleTimeString().split(':')[0]);
+                        let wyjscie_minuty = parseInt(new Date(normalneGodziny[i].wyjscie).toLocaleTimeString().split(':')[1]);
+
+
+                        let jMxTKSnHwAAorfW = $(slupkiDivs[j]).children('.jMxTKSnHwAAorfW');
+                        for (let l = 0; l < jMxTKSnHwAAorfW.length; l++) 
+                        {
+
+                            for (let k = wejscie_godzina + 1; k < wyjscie_godzina; k++)
+                            {
+                                if (k == jMxTKSnHwAAorfW[l].id)
+                                {
+                                    $(jMxTKSnHwAAorfW[l]).append(`<div class="XxmPCNwZkVSMeOm pSvvteXuxRtsjRu" id="BFRZfHjWhBzGEmI" style="height: 100%;" onmouseover="BNITIHZVtwqfmzK(this)" onmouseout="PLhsOBgSRcqunQC(this)"></div>`);
+                                }
+                            }
+
+                            if (wejscie_godzina == jMxTKSnHwAAorfW[l].id) 
+                            {
+                                let minuty = wejscie_minuty;
+
+                                let height_wejscie = (minuty * 100) / 60; //100% - 60min
+                                height_wejscie = 100 - height_wejscie;
+
+                                $(jMxTKSnHwAAorfW[l]).css({ 'align-items': 'start' });
+                                $(jMxTKSnHwAAorfW[l]).append(`<div class="XxmPCNwZkVSMeOm pSvvteXuxRtsjRu" id="BFRZfHjWhBzGEmI" style="height: ${height_wejscie}%;" onmouseover="BNITIHZVtwqfmzK(this)" onmouseout="PLhsOBgSRcqunQC(this)"></div>`);
+                            }
+
+                            if (wyjscie_godzina == jMxTKSnHwAAorfW[l].id) 
+                            {
+                                let minuty = wyjscie_minuty;
+
+                                let height_wyjscie = (minuty * 100) / 60; //100% - 60min
+
+                                $(jMxTKSnHwAAorfW[l]).css({ 'align-items': 'end' });
+                                $(jMxTKSnHwAAorfW[l]).append(`<div class="XxmPCNwZkVSMeOm pSvvteXuxRtsjRu" id="BFRZfHjWhBzGEmI" style="height: ${height_wyjscie}%;" onmouseover="BNITIHZVtwqfmzK(this)" onmouseout="PLhsOBgSRcqunQC(this)"></div>`);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (niedogodziny.length > 0) 
+        {
+            for (let i = 0; i < niedogodziny.length; i++) 
+            {
+                for (let j = 0; j < slupkiDivs.length; j++) 
+                {
+                    if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(niedogodziny[i].wejscie).toLocaleDateString()) 
+                    {
+                        let wejscie_godzina = parseInt(new Date(niedogodziny[i].wejscie).toLocaleTimeString().split(':')[0]);
+                        let wejscie_minuty = parseInt(new Date(niedogodziny[i].wejscie).toLocaleTimeString().split(':')[1]);
+
+                        let wyjscie_godzina = parseInt(new Date(niedogodziny[i].wyjscie).toLocaleTimeString().split(':')[0]);
+                        let wyjscie_minuty = parseInt(new Date(niedogodziny[i].wyjscie).toLocaleTimeString().split(':')[1]);
+
+
+                        let jMxTKSnHwAAorfW = $(slupkiDivs[j]).children('.jMxTKSnHwAAorfW');
+                        for (let l = 0; l < jMxTKSnHwAAorfW.length; l++) 
+                        {
+
+                            for (let k = wejscie_godzina + 1; k < wyjscie_godzina; k++)
+                            {
+                                if (k == jMxTKSnHwAAorfW[l].id)
+                                {
+                                    $(jMxTKSnHwAAorfW[l]).append(`<div class="XxmPCNwZkVSMeOm pSvvteXuxRtsjRu" id="BFRZfHjWhBzGEmI" style="height: 100%;" onmouseover="BNITIHZVtwqfmzK(this)" onmouseout="PLhsOBgSRcqunQC(this)"></div>`);
+                                }
+                            }
+
+                            if (wejscie_godzina == jMxTKSnHwAAorfW[l].id) 
+                            {
+                                let minuty = wejscie_minuty;
+
+                                let height_wejscie = (minuty * 100) / 60; //100% - 60min
+                                height_wejscie = 100 - height_wejscie;
+
+                                $(jMxTKSnHwAAorfW[l]).css({ 'align-items': 'start' });
+                                $(jMxTKSnHwAAorfW[l]).append(`<div class="XxmPCNwZkVSMeOm pSvvteXuxRtsjRu" id="BFRZfHjWhBzGEmI" style="height: ${height_wejscie}%;" onmouseover="BNITIHZVtwqfmzK(this)" onmouseout="PLhsOBgSRcqunQC(this)"></div>`);
+                            }
+
+                            if (wyjscie_godzina == jMxTKSnHwAAorfW[l].id) 
+                            {
+                                let minuty = wyjscie_minuty;
+
+                                let height_wyjscie = (minuty * 100) / 60; //100% - 60min
+                                console.log(height_wyjscie);
+                                $(jMxTKSnHwAAorfW[l]).css({ 'align-items': 'end' });
+                                $(jMxTKSnHwAAorfW[l]).append(`<div class="XxmPCNwZkVSMeOm pSvvteXuxRtsjRu" id="BFRZfHjWhBzGEmI" style="height: ${height_wyjscie}%;" onmouseover="BNITIHZVtwqfmzK(this)" onmouseout="PLhsOBgSRcqunQC(this)"></div>`);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     else 
     {
