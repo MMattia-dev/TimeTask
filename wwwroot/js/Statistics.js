@@ -672,6 +672,26 @@ function generateStatistics3()
                     for (let l = 0; l < jMxTKSnHwAAorfW.length; l++) 
                     {
                         
+
+                        for (let y = 0; y < model_task.length; y++) {
+                            if (model_task[y].WorkerID == workerID && new Date(model_task[y].Date).toLocaleDateString() == new Date(slupkiDivs[j].id).toLocaleDateString() && new Date(model_task[y].Date).toLocaleDateString() == new Date(nadgodziny[i].wejscie).toLocaleDateString())
+                            {
+                                //console.log(new Date(model_task[y].Date).getDay());
+                                //console.log(slupkiDivs[j].id);
+
+
+
+
+
+                                //break;
+                            }
+                        }
+
+
+
+
+
+
                         for (let k = wejscie_godzina + 1; k < wyjscie_godzina; k++)
                         {
                             if (k == jMxTKSnHwAAorfW[l].id)
