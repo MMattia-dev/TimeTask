@@ -212,80 +212,76 @@
 
 				
 
+				<div class="miDoCHDzMtfgfwJ">
+					<!--zegar-->
+					<div class="clock clockAnalog" id="widg4" style="">
+						<!--grab-->
+						@*<div class="MAoVlTMOGZzPPsu">
+							<div></div>
+							<div></div>
+							<div class="GteoTFWvjCrnpmN" id="widg4_handle"></div>
+						</div>*@
+						<!---->
 
-				<!--zegar-->
-				<div class="clock clockAnalog" id="widg4" style="display: none;">
-					<!--grab-->
-					@*<div class="MAoVlTMOGZzPPsu">
-						<div></div>
-						<div></div>
-						<div class="GteoTFWvjCrnpmN" id="widg4_handle"></div>
-					</div>*@
-					<!---->
+						<img src="~/css/img/clock4.png" width="200" height="200"/>
+						<span id="hour"></span>
+						<span id="minute"></span>
+						<span id="second"></span> 
 
-					<img src="~/css/img/clock4.png" width="200" height="200"/>
-					<span id="hour"></span>
-					<span id="minute"></span>
-					<span id="second"></span> 
+						<!--disable-->
+						@*<div class="BnDZmDEehCCybzG" title="Usuń">
+							<svg viewBox="0 0 470 470" width="15" height="15">
+								<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>
+							</svg>
+						</div>*@
+						<!---->
+					</div>
 
-					<!--disable-->
-					@*<div class="BnDZmDEehCCybzG" title="Usuń">
-						<svg viewBox="0 0 470 470" width="15" height="15">
-							<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>
-						</svg>
-					</div>*@
-					<!---->
-				</div>
-				
-
-				<!--kalendarz-->
-				<div class="AipWiPstniVIhkC" id="widg5" style="display: none;">
-					<!--grab-->
-					@*<div class="MAoVlTMOGZzPPsu">
-						<div></div>
-						<div></div>
-						<div class="GteoTFWvjCrnpmN" id="widg5_handle"></div>
-					</div>*@
-					<!---->
-					<div class="iEJFylzLAwnEGbD">
-						<div class="laelGSoQzzZzzxU">
-							@*<i class="fas fa-angle-left" id="calendar_widg_previous"></i>*@
-							@*<input type="month" value="@DateTime.Now.Year-@DateTime.Now.Month" id="calendar_widg_month" />*@
-							@*<i class="fas fa-angle-right" id="calendar_widg_next"></i>*@
-							<span>@monthName @DateTime.Now.Year</span>
-						</div>
-						<div class="QUDSzRKLukXdIRq">
-							<div class="calendar_widg" id="calendar_id_widg">
-								<div class="month_widg">
-									<div class="weekdays_widg">
-										<div>Pon</div>
-										<div>Wto</div>
-										<div>Śro</div>
-										<div>Czw</div>
-										<div>Pią</div>
-										<div>Sob</div>
-										<div>Nie</div>
+					<!--kalendarz-->
+					<div class="AipWiPstniVIhkC" id="widg5" style="">
+						<!--grab-->
+						@*<div class="MAoVlTMOGZzPPsu">
+							<div></div>
+							<div></div>
+							<div class="GteoTFWvjCrnpmN" id="widg5_handle"></div>
+						</div>*@
+						<!---->
+						<div class="iEJFylzLAwnEGbD">
+							<div class="laelGSoQzzZzzxU">
+								@*<i class="fas fa-angle-left" id="calendar_widg_previous"></i>*@
+								@*<input type="month" value="@DateTime.Now.Year-@DateTime.Now.Month" id="calendar_widg_month" />*@
+								@*<i class="fas fa-angle-right" id="calendar_widg_next"></i>*@
+								<span>@monthName @DateTime.Now.Year</span>
+							</div>
+							<div class="QUDSzRKLukXdIRq">
+								<div class="calendar_widg" id="calendar_id_widg">
+									<div class="month_widg">
+										<div class="weekdays_widg">
+											<div>Pon</div>
+											<div>Wto</div>
+											<div>Śro</div>
+											<div>Czw</div>
+											<div>Pią</div>
+											<div>Sob</div>
+											<div>Nie</div>
+										</div>
+										<div class="days_widg"></div>
 									</div>
-									<div class="days_widg"></div>
 								</div>
 							</div>
 						</div>
+						<!--disable-->
+						@*<div class="BnDZmDEehCCybzG" title="Usuń">
+							<svg viewBox="0 0 470 470" width="15" height="15">
+								<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>
+							</svg>
+						</div>*@
+						<!---->
 					</div>
-					<!--disable-->
-					@*<div class="BnDZmDEehCCybzG" title="Usuń">
-						<svg viewBox="0 0 470 470" width="15" height="15">
-							<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>
-						</svg>
-					</div>*@
-					<!---->
-				</div>
 
 
-				
-
-				<div class="miDoCHDzMtfgfwJ">
 					<!--procent1-->
-					<div class="AipWiPstniVIhkC" id="widg1">
+					<div class="AipWiPstniVIhkC" id="widg1" style="display: none;">
 							<!--grab-->
 							@*<div class="MAoVlTMOGZzPPsu">
 								<div></div>
@@ -311,7 +307,7 @@
 
 
 					<!--procent2-->
-					<div class="AipWiPstniVIhkC" id="widg2">
+					<div class="AipWiPstniVIhkC" id="widg2" style="display: none;">
 							<!--grab-->
 							@*<div class="MAoVlTMOGZzPPsu">
 								<div></div>

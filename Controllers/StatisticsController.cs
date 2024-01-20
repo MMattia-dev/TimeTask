@@ -30,6 +30,7 @@ namespace TimeTask.Controllers
             ViewBag.Time = _context.Time;
             ViewBag.Holiday = _context.Holiday;
             ViewBag.TimeSetting = _context.TimeSettings2;
+            ViewBag.Task = _context.Task;
 
             return _context.Statistics != null ? 
                           View(await _context.Statistics.ToListAsync()) :
