@@ -1,55 +1,4 @@
-﻿if (sessionStorage.getItem('qweznPAaXCMlTFi') != null)
-{
-    let qweznPAaXCMlTFi = sessionStorage.getItem('qweznPAaXCMlTFi');
-
-    let e = document.getElementById('kRyEzzxRxADfSZj');
-    e.value = qweznPAaXCMlTFi;
-}
-
-if (sessionStorage.getItem('task_lock_headers') != null)
-{
-    task_lock_headers();
-}
-
-function task_lock_headers() {
-        $('.fSJtEaXwJSHzoxW').addClass('fSJtEaXwJSHzoxW_');
-        $('.oKvcDSylPNSLgqr').addClass('oKvcDSylPNSLgqr_');
-        $('.LwxRoYhfmyzTlGm').addClass('LwxRoYhfmyzTlGm_');
-        $('.SBVWNWOJZnTplXL').addClass('SBVWNWOJZnTplXL_');
-        $('.AQzCKqmlrQJmxzn').addClass('AQzCKqmlrQJmxzn_');
-        sessionStorage.setItem('task_lock_headers', 'true');
-
-    //$('#task_lock_headers_id').trigger('click');
-    //document.getElementById('task_lock_headers_input').setAttribute('checked', '');
-    //$('#task_lock_headers_input').attr('checked', '');
-
-
-
-};
-
-function task_unlock_headers() {
-        $('.fSJtEaXwJSHzoxW').removeClass('fSJtEaXwJSHzoxW_');
-        $('.oKvcDSylPNSLgqr').removeClass('oKvcDSylPNSLgqr_');
-        $('.LwxRoYhfmyzTlGm').removeClass('LwxRoYhfmyzTlGm_');
-        $('.SBVWNWOJZnTplXL').removeClass('SBVWNWOJZnTplXL_');
-        $('.AQzCKqmlrQJmxzn').removeClass('AQzCKqmlrQJmxzn_');
-        sessionStorage.removeItem('task_lock_headers');
-
-
-
-};
-
-function task_lock_headers_onchange(t)
-{
-    if ($('#' + t.id + ' input').prop('checked'))
-    {
-        task_lock_headers();
-    }
-    else
-    {
-        task_unlock_headers();
-    }
-};
+﻿
 
 function loadOnLoad()
 {
@@ -109,6 +58,56 @@ function loadOnLoad()
 };
 loadOnLoad();
 
+if (sessionStorage.getItem('qweznPAaXCMlTFi') != null)
+{
+    let qweznPAaXCMlTFi = sessionStorage.getItem('qweznPAaXCMlTFi');
+
+    let e = document.getElementById('kRyEzzxRxADfSZj');
+    e.value = qweznPAaXCMlTFi;
+}
+
+
+
+function task_lock_headers()
+{
+    $('.fSJtEaXwJSHzoxW').addClass('fSJtEaXwJSHzoxW_');
+    $('.oKvcDSylPNSLgqr').addClass('oKvcDSylPNSLgqr_');
+    $('.LwxRoYhfmyzTlGm').addClass('LwxRoYhfmyzTlGm_');
+    $('.SBVWNWOJZnTplXL').addClass('SBVWNWOJZnTplXL_');
+    $('.AQzCKqmlrQJmxzn').addClass('AQzCKqmlrQJmxzn_');
+    sessionStorage.setItem('task_lock_headers', 'true');
+
+    $('#lock1').hide();
+    $('#lock2').show();
+    document.getElementById('task_lock_headers_input').checked = true;
+};
+
+function task_unlock_headers()
+{
+    $('.fSJtEaXwJSHzoxW').removeClass('fSJtEaXwJSHzoxW_');
+    $('.oKvcDSylPNSLgqr').removeClass('oKvcDSylPNSLgqr_');
+    $('.LwxRoYhfmyzTlGm').removeClass('LwxRoYhfmyzTlGm_');
+    $('.SBVWNWOJZnTplXL').removeClass('SBVWNWOJZnTplXL_');
+    $('.AQzCKqmlrQJmxzn').removeClass('AQzCKqmlrQJmxzn_');
+    sessionStorage.removeItem('task_lock_headers');
+
+    $('#lock1').show();
+    $('#lock2').hide();
+    document.getElementById('task_lock_headers_input').checked = false;
+};
+
+function task_lock_headers_onchange(t)
+{
+    if ($('#' + t.id + ' input').prop('checked'))
+    {
+        task_lock_headers();
+    }
+    else
+    {
+        task_unlock_headers();
+    }
+};
+
 function getDayName(dateStr, locale)
 {
     var date = new Date(dateStr);
@@ -138,24 +137,50 @@ function drmZhscxvPoxiya()
             year: year_,
             weekOfYear: week_
         },
-        success: function (response2)
+        success: function (response)
         {
             let fSJtEaXwJSHzoxW = document.querySelector('.fSJtEaXwJSHzoxW');
             fSJtEaXwJSHzoxW.innerHTML = `<div class="GJakzZdfXNDmfZz">` +
-                `<label id="task_lock_headers_id" onchange="task_lock_headers_onchange(this)">zablokuj nagłówki` +
+                `<label id="task_lock_headers_id" onchange="task_lock_headers_onchange(this)">` +
                 `<input type="checkbox" id="task_lock_headers_input" />` +
+                `<svg id="lock1" viewBox="-3.5 0 19 19" width="34" height="34"><path d="M11.182 8.927v6.912a.794.794 0 0 1-.792.792H1.61a.794.794 0 0 1-.792-.792V8.927a.794.794 0 0 1 .792-.792h.654L1.956 7.11a3.534 3.534 0 0 1 6.769-2.035.554.554 0 1 1-1.062.32A2.426 2.426 0 0 0 3.017 6.79l.404 1.345h6.97a.794.794 0 0 1 .79.792zM7.108 11.47a1.108 1.108 0 1 0-1.583 1.001v1.849a.475.475 0 1 0 .95 0v-1.849a1.108 1.108 0 0 0 .633-1.001z"></path></svg>` +
+                `<svg id="lock2" viewBox="-3.5 0 19 19" width="34" height="34"><path d="M11.182 8.927v6.912a.794.794 0 0 1-.792.792H1.61a.794.794 0 0 1-.792-.792V8.927a.794.794 0 0 1 .792-.792h.856V6.367a3.534 3.534 0 1 1 7.068 0v1.768h.856a.794.794 0 0 1 .792.792zm-2.756-2.56a2.426 2.426 0 1 0-4.852 0v1.768h4.852zM7.108 11.47a1.108 1.108 0 1 0-1.583 1.001v1.849a.475.475 0 0 0 .95 0v-1.849a1.108 1.108 0 0 0 .633-1.001z"></path></svg>` +
+                `<span>zablokuj</span>` +
                 `</label>` +
                 `</div>`;
 
 
-            for (let i = 0; i < response2.length; i++)
+            for (let i = 0; i < response.result.length; i++)
             {
-                let date__ = response2[i].split('T')[0];
+                let date__ = response.result[i].split('T')[0];
                 let dayName = getDayName(date__, 'pl-PL');
                 fSJtEaXwJSHzoxW.innerHTML += `<div class="XJsRKtmIfTCptru"><span>` + date__ + `</span><span>` + dayName + `</span></div>`;
 
                 array.push(date__);
             }
+
+            
+            let XJsRKtmIfTCptru = document.querySelectorAll('.XJsRKtmIfTCptru');
+            for (let k = 0; k < XJsRKtmIfTCptru.length; k++) 
+            {
+                for (let l = 0; l < model_h.length; l++) {
+                    if (new Date($(XJsRKtmIfTCptru[k]).children('span').eq(0).html()).toLocaleDateString() == new Date(model_h[l].Date).toLocaleDateString()) {
+                        $(XJsRKtmIfTCptru[k]).children('span').eq(0).css({ 'color': 'red' });
+                    }
+                }
+            }
+
+
+            if (sessionStorage.getItem('task_lock_headers') != null)
+            {
+                task_lock_headers();
+            }
+            else {
+                task_unlock_headers();
+            }
+
+
+
         },
         error: function (xhr2, status2, error2)
         {
@@ -249,8 +274,6 @@ function drmZhscxvPoxiya()
         sessionStorage.setItem('hQxHXfkxHkfALTJ', week_);
     });
 };
-
-
 
 
 function arKOctcZVJhWuhL()

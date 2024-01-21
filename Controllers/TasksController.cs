@@ -27,6 +27,7 @@ namespace TimeTask.Controllers
             ViewBag.Departments = _context.Department;
             ViewBag.TaskNames = _context.TaskName2;
             ViewBag.Workers = _context.Workers2;
+            ViewBag.Holiday = _context.Holiday;
             
             //ViewBag.WeeksInYear = GetWeeksInYear(DateTime.Now.Year);
 
@@ -229,7 +230,26 @@ namespace TimeTask.Controllers
         public ActionResult DatesInChosenWeek(int year, int weekOfYear)
         {
             var result = Enumerable.Range(0, 1 + LastDateOfWeekISO8601(year, weekOfYear).Subtract(FirstDateOfWeekISO8601(year, weekOfYear)).Days).Select(x => FirstDateOfWeekISO8601(year, weekOfYear).AddDays(x)).ToArray();
-            return Json(result);
+
+            var result_ = new List<string>();
+            foreach (var day in result)
+            {
+                foreach(var holiday in _context.Holiday)
+                {
+                    if (day.ToShortDateString() == holiday.Date.ToShortDateString())
+                    {
+                        result_.Add(day.ToShortDateString());
+                    }
+                }
+            }
+
+
+
+            //return Json(result);
+            return Json(new
+            {
+                result, result_
+            });
         }
 
         [HttpPost]

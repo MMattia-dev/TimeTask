@@ -651,6 +651,61 @@ function generateStatistics3()
     $('#PClmWtOMrNAvPvx__').html(dividers);
     //
 
+    //znaczniki godzin z grafiku
+    for (let j = 0; j < slupkiDivs.length; j++) 
+    {
+        let jMxTKSnHwAAorfW = $(slupkiDivs[j]).children('.jMxTKSnHwAAorfW');
+        for (let l = 0; l < jMxTKSnHwAAorfW.length; l++) 
+        {
+            for (let y = 0; y < model_task.length; y++) 
+            {
+                if (model_task[y].WorkerID == workerID && new Date(model_task[y].Date).toLocaleDateString() == new Date(slupkiDivs[j].id).toLocaleDateString())
+                {
+                    let wejscie_godzina_grafik = parseInt(new Date(model_task[y].JobStart).toLocaleTimeString().split(':')[0]);
+                    let wejscie_minuty_grafik = parseInt(new Date(model_task[y].JobStart).toLocaleTimeString().split(':')[1]);
+
+                    let wyjscie_godzina_grafik = parseInt(new Date(model_task[y].JobEnd).toLocaleTimeString().split(':')[0]);
+                    let wyjscie_minuty_grafik = parseInt(new Date(model_task[y].JobEnd).toLocaleTimeString().split(':')[1]);
+
+                    let date1 = new Date(model_task[y].JobStart);
+                    let date2 = new Date(model_task[y].JobEnd);
+
+                    if (date2 > date1) 
+                    {
+                        //dzien
+
+                        if (wejscie_godzina_grafik == jMxTKSnHwAAorfW[l].id)
+                        {
+                            let minuty = wejscie_minuty_grafik;
+
+                            let height_wejscie = (minuty * 100) / 60; //100% - 60min
+                            height_wejscie = 100 - height_wejscie;
+
+                            $(jMxTKSnHwAAorfW[l]).append(`<div class="sDNWoHChtnkFbSv" style="height: ${height_wejscie}%;"></div>`);
+                        }
+
+                        if (wyjscie_godzina_grafik == jMxTKSnHwAAorfW[l].id)
+                        {
+                            let minuty = wyjscie_minuty_grafik;
+
+                            let height_wejscie = (minuty * 100) / 60; //100% - 60min
+                            height_wejscie = 100 - height_wejscie;
+
+                            $(jMxTKSnHwAAorfW[l]).append(`<div class="UPLggzHUmhGMnUS" style="height: ${height_wejscie}%;"></div>`);
+                        }
+                    }
+                    else 
+                    {
+                        //nocka
+
+
+                    }
+                }
+            }
+        }
+    }
+    //
+
 
 
     if (nadgodziny.length > 0) 
@@ -673,49 +728,7 @@ function generateStatistics3()
                     {
 
                         //godziny z grafiku
-                        for (let y = 0; y < model_task.length; y++) 
-                        {
-                            if (model_task[y].WorkerID == workerID && new Date(model_task[y].Date).toLocaleDateString() == new Date(slupkiDivs[j].id).toLocaleDateString() && new Date(model_task[y].Date).toLocaleDateString() == new Date(nadgodziny[i].wejscie).toLocaleDateString())
-                            {
-                                let wejscie_godzina_grafik = parseInt(new Date(model_task[y].JobStart).toLocaleTimeString().split(':')[0]);
-                                let wejscie_minuty_grafik = parseInt(new Date(model_task[y].JobStart).toLocaleTimeString().split(':')[1]);
-
-                                let wyjscie_godzina_grafik = parseInt(new Date(model_task[y].JobEnd).toLocaleTimeString().split(':')[0]);
-                                let wyjscie_minuty_grafik = parseInt(new Date(model_task[y].JobEnd).toLocaleTimeString().split(':')[1]);
-
-                                let date1 = new Date(model_task[y].JobStart);
-                                let date2 = new Date(model_task[y].JobEnd);
-
-                                if (date2 > date1) 
-                                {
-                                    //dzien
-
-                                    if (wejscie_godzina_grafik == jMxTKSnHwAAorfW[l].id) {
-                                        let minuty = wejscie_minuty_grafik;
-
-                                        let height_wejscie = (minuty * 100) / 60; //100% - 60min
-                                        height_wejscie = 100 - height_wejscie;
-
-                                        $(jMxTKSnHwAAorfW[l]).append(`<div class="sDNWoHChtnkFbSv" style="height: ${height_wejscie}%;"></div>`);
-                                    }
-
-                                    if (wyjscie_godzina_grafik == jMxTKSnHwAAorfW[l].id) {
-                                        let minuty = wyjscie_minuty_grafik;
-
-                                        let height_wejscie = (minuty * 100) / 60; //100% - 60min
-                                        height_wejscie = 100 - height_wejscie;
-
-                                        $(jMxTKSnHwAAorfW[l]).append(`<div class="UPLggzHUmhGMnUS" style="height: ${height_wejscie}%;"></div>`);
-                                    }
-                                }
-                                else 
-                                {
-                                    //nocka
-
-
-                                }
-                            }
-                        }
+                        
                         //
 
 
@@ -771,66 +784,6 @@ function generateStatistics3()
                         let jMxTKSnHwAAorfW = $(slupkiDivs[j]).children('.jMxTKSnHwAAorfW');
                         for (let l = 0; l < jMxTKSnHwAAorfW.length; l++) 
                         {
-
-                            //godziny z grafiku
-                            for (let y = 0; y < model_task.length; y++) 
-                            {
-                                if (model_task[y].WorkerID == workerID && new Date(model_task[y].Date).toLocaleDateString() == new Date(slupkiDivs[j].id).toLocaleDateString() && new Date(model_task[y].Date).toLocaleDateString() == new Date(normalneGodziny[i].wejscie).toLocaleDateString())
-                                {
-                                    let wejscie_godzina_grafik = parseInt(new Date(model_task[y].JobStart).toLocaleTimeString().split(':')[0]);
-                                    let wejscie_minuty_grafik = parseInt(new Date(model_task[y].JobStart).toLocaleTimeString().split(':')[1]);
-
-                                    let wyjscie_godzina_grafik = parseInt(new Date(model_task[y].JobEnd).toLocaleTimeString().split(':')[0]);
-                                    let wyjscie_minuty_grafik = parseInt(new Date(model_task[y].JobEnd).toLocaleTimeString().split(':')[1]);
-
-                                    let date1 = new Date(model_task[y].JobStart);
-                                    let date2 = new Date(model_task[y].JobEnd);
-
-                                    if (date2 > date1) 
-                                    {
-                                        //dzien
-
-                                        if (wejscie_godzina_grafik == jMxTKSnHwAAorfW[l].id)
-                                        {
-                                            let minuty = wejscie_minuty_grafik;
-
-                                            let height_wejscie = (minuty * 100) / 60; //100% - 60min
-                                            height_wejscie = 100 - height_wejscie;
-
-                                            $(jMxTKSnHwAAorfW[l]).append(`<div class="sDNWoHChtnkFbSv" style="height: ${height_wejscie}%;"></div>`);
-                                        }
-
-                                        if (wyjscie_godzina_grafik == jMxTKSnHwAAorfW[l].id)
-                                        {
-                                            let minuty = wyjscie_minuty_grafik;
-
-                                            let height_wejscie = (minuty * 100) / 60; //100% - 60min
-                                            height_wejscie = 100 - height_wejscie;
-
-                                            $(jMxTKSnHwAAorfW[l]).append(`<div class="UPLggzHUmhGMnUS" style="height: ${height_wejscie}%;"></div>`);
-                                        }
-                                    }
-                                    else 
-                                    {
-                                        //nocka
-
-
-                                    }
-                                }
-                            }
-                            //
-
-
-
-
-
-
-
-
-
-
-
-
                             for (let k = wejscie_godzina + 1; k < wyjscie_godzina; k++)
                             {
                                 if (k == jMxTKSnHwAAorfW[l].id)
@@ -883,63 +836,6 @@ function generateStatistics3()
                         let jMxTKSnHwAAorfW = $(slupkiDivs[j]).children('.jMxTKSnHwAAorfW');
                         for (let l = 0; l < jMxTKSnHwAAorfW.length; l++) 
                         {
-
-                            //godziny z grafiku
-                            for (let y = 0; y < model_task.length; y++) 
-                            {
-                                if (model_task[y].WorkerID == workerID && new Date(model_task[y].Date).toLocaleDateString() == new Date(slupkiDivs[j].id).toLocaleDateString() && new Date(model_task[y].Date).toLocaleDateString() == new Date(niedogodziny[i].wejscie).toLocaleDateString())
-                                {
-                                    let wejscie_godzina_grafik = parseInt(new Date(model_task[y].JobStart).toLocaleTimeString().split(':')[0]);
-                                    let wejscie_minuty_grafik = parseInt(new Date(model_task[y].JobStart).toLocaleTimeString().split(':')[1]);
-
-                                    let wyjscie_godzina_grafik = parseInt(new Date(model_task[y].JobEnd).toLocaleTimeString().split(':')[0]);
-                                    let wyjscie_minuty_grafik = parseInt(new Date(model_task[y].JobEnd).toLocaleTimeString().split(':')[1]);
-
-                                    let date1 = new Date(model_task[y].JobStart);
-                                    let date2 = new Date(model_task[y].JobEnd);
-
-                                    if (date2 > date1) 
-                                    {
-                                        //dzien
-
-                                        if (wejscie_godzina_grafik == jMxTKSnHwAAorfW[l].id)
-                                        {
-                                            let minuty = wejscie_minuty_grafik;
-
-                                            let height_wejscie = (minuty * 100) / 60; //100% - 60min
-                                            height_wejscie = 100 - height_wejscie;
-
-                                            $(jMxTKSnHwAAorfW[l]).append(`<div class="sDNWoHChtnkFbSv" style="height: ${height_wejscie}%;"></div>`);
-                                        }
-
-                                        if (wyjscie_godzina_grafik == jMxTKSnHwAAorfW[l].id)
-                                        {
-                                            let minuty = wyjscie_minuty_grafik;
-
-                                            let height_wejscie = (minuty * 100) / 60; //100% - 60min
-                                            height_wejscie = 100 - height_wejscie;
-
-                                            $(jMxTKSnHwAAorfW[l]).append(`<div class="UPLggzHUmhGMnUS" style="height: ${height_wejscie}%;"></div>`);
-                                        }
-                                    }
-                                    else 
-                                    {
-                                        //nocka
-
-
-                                    }
-                                }
-                            }
-                            //
-
-
-
-
-
-
-
-
-
                             for (let k = wejscie_godzina + 1; k < wyjscie_godzina; k++)
                             {
                                 if (k == jMxTKSnHwAAorfW[l].id)

@@ -2023,25 +2023,53 @@ button {
     height: 82px;
     min-height: 82px;
     max-height: 82px;
-    display: inherit;
+    display: flex;
     justify-content: center;
     align-items: center;
-
-    /*background-color: rgba(34, 36, 48, 1);*/
+    width: 100%;
     border-right: 1px solid rgba(55, 55, 55, 0.5);
     transition: background-color 0.2s, border 0.2s;
 }
 
-    .GJakzZdfXNDmfZz span {
-        color: rgba(255, 255, 255, 0.8);
-        user-select: none;
-        font-size: 13px;
+    .GJakzZdfXNDmfZz label {
+        display: flex;
+        height: 100%;
+        width: 100%;
+        gap: 1px;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
+
+        .GJakzZdfXNDmfZz label:hover {
+            cursor: pointer;
+        }
+
+            .GJakzZdfXNDmfZz label:hover svg {
+                fill: rgba(255, 255, 255, 1);
+            }
+
+            .GJakzZdfXNDmfZz label:hover span {
+                color: rgba(255, 255, 255, 1);
+            }
+
+        .GJakzZdfXNDmfZz label span {
+            color: rgba(255, 255, 255, 0.8);
+            user-select: none;
+            font-size: 11px;            
+        }
+
+        .GJakzZdfXNDmfZz label input {
+            display: none;
+        }
+
+        .GJakzZdfXNDmfZz label svg {
+            fill: rgba(255, 255, 255, 0.8);
+        }
 
 .XJsRKtmIfTCptru {
     height: 200px;
     min-height: 200px;
-    /*background-color: rgba(34, 36, 48, 1);*/
     display: inherit;
     flex-direction: column;
     align-items: center;
