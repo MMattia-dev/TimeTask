@@ -2035,7 +2035,7 @@ button {
         display: flex;
         height: 100%;
         width: 100%;
-        gap: 1px;
+        gap: 0px;
         justify-content: center;
         align-items: center;
         flex-direction: column;
@@ -2056,7 +2056,9 @@ button {
         .GJakzZdfXNDmfZz label span {
             color: rgba(255, 255, 255, 0.8);
             user-select: none;
-            font-size: 11px;            
+            font-size: 11px;  
+            text-align: center;
+            line-height: 14px; 
         }
 
         .GJakzZdfXNDmfZz label input {
@@ -4376,6 +4378,11 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         cursor: pointer;
     }
 
+    .XxmPCNwZkVSMeOm_.pSvvteXuxRtsjRu.cySGpFzCuwaKsRB {
+        background-color: rgba(68, 183, 194, 1);
+        cursor: pointer;
+    }
+
 .XxmPCNwZkVSMeOm__ {
     width: 40px;
     background-color: rgba(235, 154, 53, 1);
@@ -4617,6 +4624,21 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     .KjseMRiNyEJWtCR div:last-child {
         border-right: none;
     }
+
+.ojoBTKJoCXNHgxz {
+    height: 250px;
+    width: 151px;
+    background-color: rgba(34, 36, 48, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    position: fixed;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
 
 
 
