@@ -1378,8 +1378,8 @@ button {
 
 .YUPrikbkYzkc {
     width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
+    /*overflow-x: hidden;
+    overflow-y: auto;*/
     scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
     scrollbar-width: thin;
     display: flex;
