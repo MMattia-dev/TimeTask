@@ -139,6 +139,19 @@ function PLhsOBgSRcqunQC(t) {
     }
 };
 
+function isInViewport(element)
+{
+    //var el = document.getElementById(element);
+    var bounding = element.getBoundingClientRect();
+
+    if (bounding.right > (window.innerWidth || document.documentElement.clientWidth))
+    {
+        // Right side is out of viewport
+        return false;
+    }
+    return true;
+}
+
 function godziny_click(e, t) {
     let left = e.clientX + 'px';
     let top = e.clientY + 'px';
@@ -148,9 +161,30 @@ function godziny_click(e, t) {
     div.style.left = left;
     div.style.top = top;
 
-    $(div).toggle();
-    return false;
+
+    //
+    if (!isInViewport(div))
+    {
+        //div.style.right = left;
+        console.log('false');
+    }
+    else {
+        console.log('true');
+    }
+    //
+
+
+    $(div).show();
+
+    e.stopPropagation();
 };
+
+$(window).on('click', function (e)
+{
+    if (e.target.id != 'ojoBTKJoCXNHgxz_') {
+        $('#ojoBTKJoCXNHgxz_').hide();
+    }
+});
 
 function generateStatistics()
 {
