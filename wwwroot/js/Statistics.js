@@ -139,34 +139,37 @@ function PLhsOBgSRcqunQC(t) {
     }
 };
 
-//function isInViewport(element)
-//{
-//    //var el = document.getElementById(element);
-//    var bounding = element.getBoundingClientRect();
+function isInViewport(element)
+{
+    //var el = document.getElementById(element);
+    var bounding = element.getBoundingClientRect();
 
-//    if (bounding.right > (window.innerWidth || document.documentElement.clientWidth))
-//    {
-//        // Right side is out of viewport
-//        return false;
-//    }
-//    return true;
-//}
+    if (bounding.right > (window.innerWidth || document.documentElement.clientWidth))
+    {
+        // Right side is out of viewport
+        return false;
+    }
+    return true;
+}
 
 $(window).on('click', function (e)
 {
     if (e.target.id != 'ojoBTKJoCXNHgxz_')
     {
-        $('#ojoBTKJoCXNHgxz_').hide();
+        $('#ojoBTKJoCXNHgxz_').css({ 'visibility': 'hidden' });
+        $('#ojoBTKJoCXNHgxz_').css({ 'top': 'unset', 'left': 'unset' });
+        $('.fcSzKrgpFHjjxjy').html(``);
     }
 });
 
 $(document).ready(function ()
 {
-    //$('#AuvrcQcAMQCKZhb').trigger('click');
-    ////$('#ojoBTKJoCXNHgxz_').hide();
+    $('#AuvrcQcAMQCKZhb').trigger('click');
 });
 
 function godziny_click(e, t) {
+    $('.fcSzKrgpFHjjxjy').html(``);
+
     let left = e.clientX + 'px';
     let top = e.clientY + 'px';
 
@@ -175,32 +178,72 @@ function godziny_click(e, t) {
     div.style.left = left;
     div.style.top = top;
 
-    //if (!isInViewport(div))
-    //{
-    //    let newLeft = parseInt(left) - parseInt($(div).width());
-    //    div.style.left = newLeft + 'px';
-    //}
-    var rightEdge = $(div).width() + $(div).offset().left;
-    var screenWidth = $(window).width();
-    if (rightEdge - screenWidth > $(div).width() * .1) {
-        console.log('as');
+    if (!isInViewport(div))
+    {
+        let newLeft = parseInt(left) - parseInt($(div).width());
+        div.style.left = newLeft + 'px';
     }
-
 
     //
     let workerID = document.getElementById('AOZzvXnLtNqUPwN').value;
     let id_date = new Date($(t).parent().parent().attr('id')).toLocaleDateString();
-    for (let i = 0; i < model_t.length; i++) {
-        if (model_t[i].WorkerID == workerID && new Date(model_t[i].Enter).toLocaleDateString() == id_date) {
-            console.log();
+    for (let i = 0; i < model_t.length; i++) 
+    {
+        let enter = new Date(model_t[i].Enter).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        let enterDate = new Date(model_t[i].Enter).toLocaleDateString();
+        let exit = new Date(model_t[i].Exit).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        //if (model_t[i].WorkerID == workerID && new Date(model_t[i].Enter).toLocaleDateString() == id_date)
+        //{
+        //    $('.fcSzKrgpFHjjxjy').append(`<span>` + enterDate + `</span>`);
+        //    $('.fcSzKrgpFHjjxjy').append(`<span>Wejście: ` + enter + `</span>`);
+        //}
+        //if (model_t[i].WorkerID == workerID && new Date(model_t[i].Exit).toLocaleDateString() == id_date) 
+        //{
+        //    $('.fcSzKrgpFHjjxjy').append(`<span>Wyjście: ` + exit + `</span>`);
+        //}
+
+        if (model_t[i].WorkerID == workerID && new Date(model_t[i].Enter).toLocaleDateString() == id_date && new Date(model_t[i].Exit).toLocaleDateString() == id_date) 
+        {
+            $('.fcSzKrgpFHjjxjy').append(`<span>` + enterDate + `</span>`);
+            $('.fcSzKrgpFHjjxjy').append(`<span>Wejście: ` + enter + `</span>`);
+            $('.fcSzKrgpFHjjxjy').append(`<span>Wyjście: ` + exit + `</span>`);
+
+            let date1 = new Date(model_t[i].Enter);
+            let date2 = new Date(model_t[i].Exit);
+            if (date2 > date1)
+            {
+                //dzien
+
+                let diff = date2 - date1;
+                let godzinyPracy = Math.abs(parseFloat(convertTime(diff)));
+                godzinyPracy = godzinyPracy.toFixed(2);
+
+                $('.fcSzKrgpFHjjxjy').append(`<span>Godziny: ` + godzinyPracy + `</span>`);
+            }
+            else 
+            {
+                //nocka
+
+
+            }
         }
+
+        //let date1 = new Date(model_t[j].Enter);
+        //let date2 = new Date(model_t[j].Exit);
     }
     //
 
-    $(div).show();
+    $(div).css({ 'visibility': 'unset' });
     e.stopPropagation();
 };
 
+$('#LweSESSvPIbScca').on('click', function ()
+{
+    $('#ojoBTKJoCXNHgxz_').css({ 'visibility': 'hidden' });
+    $('#ojoBTKJoCXNHgxz_').css({ 'top': 'unset', 'left': 'unset' });
+    $('.fcSzKrgpFHjjxjy').html(``);
+});
 
 
 function generateStatistics()
@@ -306,6 +349,7 @@ function generateStatistics()
                 {
                     let date1 = new Date(model_t[j].Enter);
                     let date2 = new Date(model_t[j].Exit);
+
 
                     if (date2 > date1)
                     {
