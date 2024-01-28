@@ -215,6 +215,7 @@ function godziny_click(e, t) {
             {
                 //dzien
 
+
                 let diff = date2 - date1;
                 let godzinyPracy = Math.abs(parseFloat(convertTime(diff)));
                 godzinyPracy = godzinyPracy.toFixed(2);
