@@ -164,7 +164,7 @@ $(window).on('click', function (e)
 
 $(document).ready(function ()
 {
-    $('#AuvrcQcAMQCKZhb').trigger('click');
+    //$('#AuvrcQcAMQCKZhb').trigger('click');
 });
 
 function godziny_click(e, t) {
@@ -183,6 +183,38 @@ function godziny_click(e, t) {
         let newLeft = parseInt(left) - parseInt($(div).width());
         div.style.left = newLeft + 'px';
     }
+
+
+    //
+    let okresRozliczeniowy;
+    let czasPracyMax;
+    let maksymalnaLiczbaNadgodzin;
+    let maksymalnaLiczbaNadgodzinTydzien;
+    let nieprzerwanyOdpoczynek;
+
+    for (let i = 0; i < model_ts.length; i++)
+    {
+        if (model_ts[i].WorkerId != null && model_ts[i].WorkerId == workerID)
+        {
+            okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            czasPracyMax = model_ts[i].CzasPracy;
+            maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
+            maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
+            nieprzerwanyOdpoczynek = model_ts[i].NieprzerwanyOdpoczynek;
+            //break;
+        }
+        if (model_ts[i].WorkerId == null)
+        {
+            okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            czasPracyMax = model_ts[i].CzasPracy;
+            maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
+            maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
+            nieprzerwanyOdpoczynek = model_ts[i].NieprzerwanyOdpoczynek;
+            //break;
+        }
+    }
+    //
+
 
     //
     let workerID = document.getElementById('AOZzvXnLtNqUPwN').value;
@@ -205,9 +237,9 @@ function godziny_click(e, t) {
 
         if (model_t[i].WorkerID == workerID && new Date(model_t[i].Enter).toLocaleDateString() == id_date && new Date(model_t[i].Exit).toLocaleDateString() == id_date) 
         {
-            $('.fcSzKrgpFHjjxjy').append(`<span>` + enterDate + `</span>`);
-            $('.fcSzKrgpFHjjxjy').append(`<span>Wejście: ` + enter + `</span>`);
-            $('.fcSzKrgpFHjjxjy').append(`<span>Wyjście: ` + exit + `</span>`);
+            $('.fcSzKrgpFHjjxjy').append(`<div class="rJkkfFyEZRVefEH"><span>` + enterDate + `</span></div>`);
+            $('.fcSzKrgpFHjjxjy').append(`<div class="rJkkfFyEZRVefEH"><span>Wejście</span><span>` + enter + `</span></div>`);
+            $('.fcSzKrgpFHjjxjy').append(`<div class="rJkkfFyEZRVefEH"><span>Wyjście</span><span>` + exit + `</span></div>`);
 
             let date1 = new Date(model_t[i].Enter);
             let date2 = new Date(model_t[i].Exit);
@@ -215,12 +247,29 @@ function godziny_click(e, t) {
             {
                 //dzien
 
-
                 let diff = date2 - date1;
                 let godzinyPracy = Math.abs(parseFloat(convertTime(diff)));
                 godzinyPracy = godzinyPracy.toFixed(2);
 
-                $('.fcSzKrgpFHjjxjy').append(`<span>Godziny: ` + godzinyPracy + `</span>`);
+                $('.fcSzKrgpFHjjxjy').append(`<div class="rJkkfFyEZRVefEH"><span>Godziny</span><span>` + godzinyPracy + `</span></div>`);
+
+                //nadgodziny
+                if (godzinyPracy > czasPracyMax) 
+                {
+                    let roz = godzinyPracy - czasPracyMax;
+                    $('.fcSzKrgpFHjjxjy').append(`<div class="rJkkfFyEZRVefEH"><span>Nadgodziny</span><span>` + roz.toFixed(2) + `</span></div>`);
+                }
+                //normalny czas pracy
+                if (godzinyPracy == czasPracyMax) 
+                {
+                    $('.fcSzKrgpFHjjxjy').append(`<div class="rJkkfFyEZRVefEH"><span>Nadgodziny</span><span>0.00</span></div>`);
+                }
+                //niedogodziny
+                if (godzinyPracy < czasPracyMax) 
+                {
+                    let roz = godzinyPracy - czasPracyMax;
+                    $('.fcSzKrgpFHjjxjy').append(`<div class="rJkkfFyEZRVefEH"><span>Nadgodziny</span><span>` + roz.toFixed(2) + `</span></div>`);
+                }
             }
             else 
             {
@@ -229,13 +278,21 @@ function godziny_click(e, t) {
 
             }
         }
-
-        //let date1 = new Date(model_t[j].Enter);
-        //let date2 = new Date(model_t[j].Exit);
     }
     //
 
-    $(div).css({ 'visibility': 'unset' });
+    //$(div).css({ 'visibility': 'unset' });
+
+
+
+
+    $(t).parent().parent().css({ 'transition': 'all 1s', 'min-width': '200px'});
+    $(t).parent().css({ 'transition': 'all 1s', 'min-width': '200px'});
+    $(t).css({ 'transition': 'all 1s', 'min-width': '200px'});
+
+
+
+
     e.stopPropagation();
 };
 
