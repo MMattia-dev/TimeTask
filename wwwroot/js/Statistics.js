@@ -286,9 +286,22 @@ function godziny_click(e, t) {
 
 
 
-    $(t).parent().parent().css({ 'transition': 'all 1s', 'min-width': '200px'});
-    $(t).parent().css({ 'transition': 'all 1s', 'min-width': '200px'});
-    $(t).css({ 'transition': 'all 1s', 'min-width': '200px'});
+    //$(t).parent().parent().css({ 'transition': 'all .2s ease', 'min-width': '200px'});
+    //$(t).parent().css({ 'transition': 'all .2s ease', 'min-width': '200px'});
+    //$(t).css({ 'transition': 'all .2s ease', 'width': '200px'});
+
+
+    //let vWbUhILVpdyutyE = document.getElementById('vWbUhILVpdyutyE');
+    //$('#vWbUhILVpdyutyE').css({ 'min-height': vWbUhILVpdyutyE.offsetHeight + 'px' });
+    //$('#vWbUhILVpdyutyE').children().fadeOut(200);
+
+    for (let i = 1; i < $('#JiqrmfnbjXICdKP').children().length; i++) 
+    {
+        $('#JiqrmfnbjXICdKP').children().eq(i).fadeOut(200);
+    }
+
+
+
 
 
 
