@@ -320,6 +320,7 @@ function godziny_click(e, t) {
     //for (let i = 0; i < $(t)) {
 
     //}
+
     let kmrOEZkQcUWqaEc_all = $(t).parent().parent().parent().children('.kmrOEZkQcUWqaEc');
     console.log(kmrOEZkQcUWqaEc_all);
 
