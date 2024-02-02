@@ -304,32 +304,91 @@ function godziny_click(e, t) {
 
     
 
-    //XxmPCNwZkVSMeOm
-    //XxmPCNwZkVSMeOm_
-    
-    if ($(t).parent().parent().children().eq(0).children().length > 0)
-    {
-        $(t).parent().parent().children().eq(0).children().css({ 'border': '2px solid rgba(255, 255, 255, 1)', 'border-bottom': 'none' });
-        $(t).parent().parent().children().eq(1).children().css({ 'border': '2px solid rgba(255, 255, 255, 1)', 'border-bottom': 'none', 'border-top': 'none' });
-    }
-    else 
-    {
-        $(t).parent().parent().children().eq(1).children().css({ 'border': '2px solid rgba(255, 255, 255, 1)', 'border-bottom': 'none' });
-    }
-    
-    //for (let i = 0; i < $(t)) {
-
-    //}
-
     let kmrOEZkQcUWqaEc_all = $(t).parent().parent().parent().children('.kmrOEZkQcUWqaEc');
-    console.log(kmrOEZkQcUWqaEc_all);
+    for (let i = 0; i < kmrOEZkQcUWqaEc_all.length; i++) 
+    {
+        if ($(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().length > 0)
+        {
+            
+
+            //$(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().removeClass('AOwYMEVGxKdwzSH');
+            //$(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().removeClass('AOwYMEVGxKdwzSH');
 
 
+
+            if ($(t).parent().parent().attr('id') != kmrOEZkQcUWqaEc_all[i].id)
+            {
+                $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().css({ 'opacity': '0.5', 'border': '' });
+                $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().css({ 'opacity': '0.5', 'border': '' });
+
+            }
+            else 
+            {
+                $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().css({ 'opacity': '' });
+                $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().css({ 'opacity': '' });
+
+                
+
+                //remove opacity from all and border from selected
+                if ($(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().hasClass('AOwYMEVGxKdwzSH') || $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().hasClass('AOwYMEVGxKdwzSH'))
+                {
+                    if ($(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().length > 0)
+                    {
+                        $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().css({ 'border': '', 'border-bottom': '' });
+                        $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().css({ 'border': '', 'border-bottom': '', 'border-top': '' });
+                    }
+                    else 
+                    {
+                        $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().css({ 'border': '', 'border-bottom': '' });
+                    }
+
+
+                    console.log('asd');
+
+                    $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().removeClass('AOwYMEVGxKdwzSH');
+                    $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().removeClass('AOwYMEVGxKdwzSH');
+                }
+                else
+                {
+                    if ($(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().length > 0)
+                    {
+                        $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().css({ 'border': '2px solid rgba(255, 255, 255, 1)', 'border-bottom': 'none' });
+                        $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().css({ 'border': '2px solid rgba(255, 255, 255, 1)', 'border-bottom': 'none', 'border-top': 'none' });
+                    }
+                    else 
+                    {
+                        $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().css({ 'border': '2px solid rgba(255, 255, 255, 1)', 'border-bottom': 'none' });
+                    }
+
+
+                    //$(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().removeClass('AOwYMEVGxKdwzSH');
+                    //$(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().removeClass('AOwYMEVGxKdwzSH');
+                }
+
+
+                //AOwYMEVGxKdwzSH
+                $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().addClass('AOwYMEVGxKdwzSH');
+                $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().addClass('AOwYMEVGxKdwzSH');
+
+
+
+            }
+        }
+    }
 
 
 
 
     e.stopPropagation();
+};
+
+function godziny_click_selected(e, t) {
+    //if ($(t).css('border-color')) {
+    //    console.log('asd');
+    //}
+    if ($(t).hasClass('AOwYMEVGxKdwzSH')) {
+
+    }
 };
 
 $('#LweSESSvPIbScca').on('click', function ()
@@ -338,7 +397,6 @@ $('#LweSESSvPIbScca').on('click', function ()
     $('#ojoBTKJoCXNHgxz_').css({ 'top': 'unset', 'left': 'unset' });
     $('.fcSzKrgpFHjjxjy').html(``);
 });
-
 
 function generateStatistics()
 {
@@ -531,17 +589,17 @@ function generateStatistics()
                 {
                     if (nawyzszaWartosc == nadgodziny[i].ile) 
                     {
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
-                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="nadgodziny_mouseOver(this)" onmouseout="nadgodziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click_selected(event, this); godziny_click(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="nadgodziny_mouseOver(this)" onmouseout="nadgodziny_mouseOut(this)" onclick="godziny_click_selected(event, this) ;godziny_click(event, this)"></div>`);
                     }
                     else
                     {
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click_selected(event, this); godziny_click(event, this)"></div>`);
 
                         let roznica = nawyzszaWartosc - (nadgodziny[i].ile - nadgodziny[i].roznica);
                         let percentHeight = (100 * nadgodziny[i].roznica) / roznica;
 
-                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_" id="AuvrcQcAMQCKZhb" style="height: ${percentHeight}%; min-height: 1px;" onmouseover="nadgodziny_mouseOver(this)" onmouseout="nadgodziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_" id="AuvrcQcAMQCKZhb" style="height: ${percentHeight}%; min-height: 1px;" onmouseover="nadgodziny_mouseOver(this)" onmouseout="nadgodziny_mouseOut(this)" onclick="godziny_click_selected(event, this); godziny_click(event, this)"></div>`);
                     }
                 }
             }
@@ -555,7 +613,7 @@ function generateStatistics()
                 {
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(normalneGodziny[i].wejscie).toLocaleDateString()) 
                     {
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click_selected(event, this); godziny_click(event, this)"></div>`);
                     }
                 }
             }
@@ -570,7 +628,7 @@ function generateStatistics()
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(niedogodziny[i].wejscie).toLocaleDateString()) 
                     {
                         let percentHeight = (niedogodziny[i].ile * 100) / (parseFloat(niedogodziny[i].ile) + parseFloat(niedogodziny[i].roznica));
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__" id="AuvrcQcAMQCKZhb" style="height: ${percentHeight}%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__" id="AuvrcQcAMQCKZhb" style="height: ${percentHeight}%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click_selected(event, this); godziny_click(event, this)"></div>`);
                     }
                 }
             }
@@ -593,7 +651,7 @@ function generateStatistics()
                 {
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(normalneGodziny[i].wejscie).toLocaleDateString()) 
                     {
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click_selected(event, this); godziny_click(event, this)"></div>`);
                     }
                 }
             }
@@ -608,7 +666,7 @@ function generateStatistics()
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(niedogodziny[i].wejscie).toLocaleDateString()) 
                     {
                         let percentHeight = (niedogodziny[i].ile * 100) / (parseFloat(niedogodziny[i].ile) + parseFloat(niedogodziny[i].roznica));
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__" id="AuvrcQcAMQCKZhb" style="height: ${percentHeight}%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__" id="AuvrcQcAMQCKZhb" style="height: ${percentHeight}%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click_selected(event, this); godziny_click(event, this)"></div>`);
                     }
                 }
             }
