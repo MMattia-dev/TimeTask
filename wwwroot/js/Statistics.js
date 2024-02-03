@@ -152,37 +152,13 @@ function isInViewport(element)
     return true;
 }
 
-$(window).on('click', function (e)
-{
-    if (e.target.id != 'ojoBTKJoCXNHgxz_')
-    {
-        $('#ojoBTKJoCXNHgxz_').css({ 'visibility': 'hidden' });
-        $('#ojoBTKJoCXNHgxz_').css({ 'top': 'unset', 'left': 'unset' });
-        $('.fcSzKrgpFHjjxjy').html(``);
-    }
-});
-
 $(document).ready(function ()
 {
-    //$('#AuvrcQcAMQCKZhb').trigger('click');
+    sessionStorage.removeItem('AyLyCuPgYYYxaJX');
 });
 
 function godziny_click(e, t) {
-    $('.fcSzKrgpFHjjxjy').html(``);
-
-    let left = e.clientX + 'px';
-    let top = e.clientY + 'px';
-
-    let div = document.getElementById('ojoBTKJoCXNHgxz_');
-
-    div.style.left = left;
-    div.style.top = top;
-
-    if (!isInViewport(div))
-    {
-        let newLeft = parseInt(left) - parseInt($(div).width());
-        div.style.left = newLeft + 'px';
-    }
+    let lifDKbCfNCuDQMs_inner = '';
 
 
     //
@@ -225,21 +201,12 @@ function godziny_click(e, t) {
         let enterDate = new Date(model_t[i].Enter).toLocaleDateString();
         let exit = new Date(model_t[i].Exit).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-        //if (model_t[i].WorkerID == workerID && new Date(model_t[i].Enter).toLocaleDateString() == id_date)
-        //{
-        //    $('.fcSzKrgpFHjjxjy').append(`<span>` + enterDate + `</span>`);
-        //    $('.fcSzKrgpFHjjxjy').append(`<span>Wejście: ` + enter + `</span>`);
-        //}
-        //if (model_t[i].WorkerID == workerID && new Date(model_t[i].Exit).toLocaleDateString() == id_date) 
-        //{
-        //    $('.fcSzKrgpFHjjxjy').append(`<span>Wyjście: ` + exit + `</span>`);
-        //}
-
         if (model_t[i].WorkerID == workerID && new Date(model_t[i].Enter).toLocaleDateString() == id_date && new Date(model_t[i].Exit).toLocaleDateString() == id_date) 
         {
-            $('.fcSzKrgpFHjjxjy').append(`<div class="rJkkfFyEZRVefEH"><span>` + enterDate + `</span></div>`);
-            $('.fcSzKrgpFHjjxjy').append(`<div class="rJkkfFyEZRVefEH"><span>Wejście</span><span>` + enter + `</span></div>`);
-            $('.fcSzKrgpFHjjxjy').append(`<div class="rJkkfFyEZRVefEH"><span>Wyjście</span><span>` + exit + `</span></div>`);
+            lifDKbCfNCuDQMs_inner += `<div class="tCXsXbRkjrIUFhL WnsxQjKwiwuSdTR"><span>` + enterDate + `</span></div>`;
+            lifDKbCfNCuDQMs_inner += `<div class="tCXsXbRkjrIUFhL ATLUjzIISjBjfVm"><span>Wejście</span><span>` + enter + `</span></div>`;
+            lifDKbCfNCuDQMs_inner += `<div class="tCXsXbRkjrIUFhL ATLUjzIISjBjfVm"><span>Wyjście</span><span>` + exit + `</span></div>`;
+
 
             let date1 = new Date(model_t[i].Enter);
             let date2 = new Date(model_t[i].Exit);
@@ -251,24 +218,24 @@ function godziny_click(e, t) {
                 let godzinyPracy = Math.abs(parseFloat(convertTime(diff)));
                 godzinyPracy = godzinyPracy.toFixed(2);
 
-                $('.fcSzKrgpFHjjxjy').append(`<div class="rJkkfFyEZRVefEH"><span>Godziny</span><span>` + godzinyPracy + `</span></div>`);
+                lifDKbCfNCuDQMs_inner += `<div class="tCXsXbRkjrIUFhL ATLUjzIISjBjfVm"><span>Godziny</span><span>` + godzinyPracy + `</span></div>`;
 
                 //nadgodziny
                 if (godzinyPracy > czasPracyMax) 
                 {
                     let roz = godzinyPracy - czasPracyMax;
-                    $('.fcSzKrgpFHjjxjy').append(`<div class="rJkkfFyEZRVefEH"><span>Nadgodziny</span><span>` + roz.toFixed(2) + `</span></div>`);
+                    lifDKbCfNCuDQMs_inner += `<div class="tCXsXbRkjrIUFhL ATLUjzIISjBjfVm"><span>Nadgodziny</span><span>` + roz.toFixed(2) + `</span></div>`;
                 }
                 //normalny czas pracy
                 if (godzinyPracy == czasPracyMax) 
                 {
-                    $('.fcSzKrgpFHjjxjy').append(`<div class="rJkkfFyEZRVefEH"><span>Nadgodziny</span><span>0.00</span></div>`);
+                    lifDKbCfNCuDQMs_inner += `<div class="tCXsXbRkjrIUFhL ATLUjzIISjBjfVm"><span>Nadgodziny</span><span>0.00</span></div>`;
                 }
                 //niedogodziny
                 if (godzinyPracy < czasPracyMax) 
                 {
                     let roz = godzinyPracy - czasPracyMax;
-                    $('.fcSzKrgpFHjjxjy').append(`<div class="rJkkfFyEZRVefEH"><span>Nadgodziny</span><span>` + roz.toFixed(2) + `</span></div>`);
+                    lifDKbCfNCuDQMs_inner += `<div class="tCXsXbRkjrIUFhL ATLUjzIISjBjfVm"><span>Nadgodziny</span><span>` + roz.toFixed(2) + `</span></div>`;
                 }
             }
             else 
@@ -281,53 +248,41 @@ function godziny_click(e, t) {
     }
     //
 
+
+
+
     //$(div).css({ 'visibility': 'unset' });
 
 
 
-
-    //$(t).parent().parent().css({ 'transition': 'all .2s ease', 'min-width': '200px'});
-    //$(t).parent().css({ 'transition': 'all .2s ease', 'min-width': '200px'});
-    //$(t).css({ 'transition': 'all .2s ease', 'width': '200px'});
-
-
-    //let vWbUhILVpdyutyE = document.getElementById('vWbUhILVpdyutyE');
-    //$('#vWbUhILVpdyutyE').css({ 'min-height': vWbUhILVpdyutyE.offsetHeight + 'px' });
-    //$('#vWbUhILVpdyutyE').children().fadeOut(200);
-    
-
-    //for (let i = 1; i < $('#JiqrmfnbjXICdKP').children().length; i++) 
-    //{
-    //    //$('#JiqrmfnbjXICdKP').children().eq(i).fadeOut(200);
-    //    $('#JiqrmfnbjXICdKP').children().eq(i).fadeToggle(200);
-    //}
-
-    
 
     let kmrOEZkQcUWqaEc_all = $(t).parent().parent().parent().children('.kmrOEZkQcUWqaEc');
     for (let i = 0; i < kmrOEZkQcUWqaEc_all.length; i++) 
     {
         if ($(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().length > 0)
         {
-            
-
-            //$(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().removeClass('AOwYMEVGxKdwzSH');
-            //$(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().removeClass('AOwYMEVGxKdwzSH');
-
-
-
             if ($(t).parent().parent().attr('id') != kmrOEZkQcUWqaEc_all[i].id)
             {
                 $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().css({ 'opacity': '0.5', 'border': '' });
                 $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().css({ 'opacity': '0.5', 'border': '' });
 
+
+                $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().removeClass('AOwYMEVGxKdwzSH');
+                $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().removeClass('AOwYMEVGxKdwzSH');
+
+
+                $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().attr('onclick', 'godziny_click(event, this)');
+                $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().attr('onclick', 'godziny_click(event, this)');
             }
             else 
             {
                 $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().css({ 'opacity': '' });
                 $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().css({ 'opacity': '' });
 
-                
+
+                $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().attr('onclick', 'godziny_already_selected(event, this)');
+                $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().attr('onclick', 'godziny_already_selected(event, this)');
+
 
                 //remove opacity from all and border from selected
                 if ($(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().hasClass('AOwYMEVGxKdwzSH') || $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().hasClass('AOwYMEVGxKdwzSH'))
@@ -341,40 +296,66 @@ function godziny_click(e, t) {
                     {
                         $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().css({ 'border': '', 'border-bottom': '' });
                     }
-
-
-                    console.log('asd');
-
-                    $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().removeClass('AOwYMEVGxKdwzSH');
-                    $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().removeClass('AOwYMEVGxKdwzSH');
                 }
                 else
                 {
                     if ($(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().length > 0)
                     {
-                        $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().css({ 'border': '2px solid rgba(255, 255, 255, 1)', 'border-bottom': 'none' });
-                        $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().css({ 'border': '2px solid rgba(255, 255, 255, 1)', 'border-bottom': 'none', 'border-top': 'none' });
+                        $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().css({ 'border': '1px solid rgba(255, 255, 255, 1)', 'border-bottom': 'none' });
+                        $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().css({ 'border': '1px solid rgba(255, 255, 255, 1)', 'border-bottom': 'none', 'border-top': 'none' });
                     }
                     else 
                     {
-                        $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().css({ 'border': '2px solid rgba(255, 255, 255, 1)', 'border-bottom': 'none' });
+                        $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().css({ 'border': '1px solid rgba(255, 255, 255, 1)', 'border-bottom': 'none' });
                     }
-
-
-                    //$(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().removeClass('AOwYMEVGxKdwzSH');
-                    //$(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().removeClass('AOwYMEVGxKdwzSH');
                 }
-
 
                 //AOwYMEVGxKdwzSH
                 $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().addClass('AOwYMEVGxKdwzSH');
                 $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().addClass('AOwYMEVGxKdwzSH');
-
-
-
             }
         }
     }
+
+
+
+    //disable 3 icons
+    let GobmBwqqBbAsPaX_divs = $('#qgPGzbIhlJSHVqt').children();
+    for (let i = 0; i < GobmBwqqBbAsPaX_divs.length; i++) {
+        $(GobmBwqqBbAsPaX_divs[i]).addClass('bxBvYhrbLSeGbvD');
+    }
+
+    //hide all elements from left
+    let JiqrmfnbjXICdKP_children = $('#JiqrmfnbjXICdKP').children();
+    for (let i = 1; i < JiqrmfnbjXICdKP_children.length; i++) {
+        //$(JiqrmfnbjXICdKP_children[i]).fadeOut(100);
+        $(JiqrmfnbjXICdKP_children[i]).hide();
+    }
+
+    //show details of the day
+    let html_inner = `<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk eoqqePJDEGcpBVc" onclick="ofzefwgkFWVagFY()" title="Zamknij">` +
+        `<svg viewBox="0 0 470 470" width="15" height="15">` +
+        `<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>` +
+        `</svg>` +
+        `</div>` +
+        lifDKbCfNCuDQMs_inner +
+        `<div></div>` +
+        `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" onclick="RtXMmuxnBpNuBeS()"><span>Drukuj</span></div>` +
+        `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" onclick=""><span>Eksportuj do PDF</span></div>` +
+        `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" onclick=""><span>Edytuj</span></div>`;
+
+    $('#lifDKbCfNCuDQMs').html(html_inner);
+
+    if (sessionStorage.getItem('AyLyCuPgYYYxaJX') != null)
+    {
+        $('#lifDKbCfNCuDQMs').show();
+    }
+    else {
+        sessionStorage.setItem('AyLyCuPgYYYxaJX', 'true');
+        $('#lifDKbCfNCuDQMs').fadeIn(100);
+    }
+
+
 
 
 
@@ -382,21 +363,102 @@ function godziny_click(e, t) {
     e.stopPropagation();
 };
 
-function godziny_click_selected(e, t) {
-    //if ($(t).css('border-color')) {
-    //    console.log('asd');
-    //}
-    if ($(t).hasClass('AOwYMEVGxKdwzSH')) {
+function ofzefwgkFWVagFY() {
+    sessionStorage.removeItem('AyLyCuPgYYYxaJX');
+    $('#lifDKbCfNCuDQMs').hide();
 
+    let kmrOEZkQcUWqaEc_all = document.querySelectorAll('.kmrOEZkQcUWqaEc');
+    for (let i = 0; i < kmrOEZkQcUWqaEc_all.length; i++) 
+    {
+        if ($(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().length > 0) 
+        {
+            $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().css({ 'opacity': '', 'border': '' });
+            $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().css({ 'opacity': '', 'border': '' });
+
+
+            $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().removeClass('AOwYMEVGxKdwzSH');
+            $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().removeClass('AOwYMEVGxKdwzSH');
+
+
+            $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().attr('onclick', 'godziny_click(event, this)');
+            $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().attr('onclick', 'godziny_click(event, this)');
+        }
+    }
+
+    //enable 3 icons
+    let GobmBwqqBbAsPaX_divs = $('#qgPGzbIhlJSHVqt').children();
+    for (let i = 0; i < GobmBwqqBbAsPaX_divs.length; i++)
+    {
+        $(GobmBwqqBbAsPaX_divs[i]).removeClass('bxBvYhrbLSeGbvD');
+    }
+
+    //show all elements from left
+    let JiqrmfnbjXICdKP_children = $('#JiqrmfnbjXICdKP').children();
+    for (let i = 1; i < JiqrmfnbjXICdKP_children.length; i++)
+    {
+        $(JiqrmfnbjXICdKP_children[i]).fadeIn(100);
+    }
+
+    //hide details of the day
+    $('#lifDKbCfNCuDQMs').hide();
+    if (sessionStorage.getItem('AyLyCuPgYYYxaJX') != null)
+    {
+        sessionStorage.removeItem('AyLyCuPgYYYxaJX');
     }
 };
 
-$('#LweSESSvPIbScca').on('click', function ()
+function godziny_already_selected(e, t) 
 {
-    $('#ojoBTKJoCXNHgxz_').css({ 'visibility': 'hidden' });
-    $('#ojoBTKJoCXNHgxz_').css({ 'top': 'unset', 'left': 'unset' });
-    $('.fcSzKrgpFHjjxjy').html(``);
-});
+    let kmrOEZkQcUWqaEc_all = $(t).parent().parent().parent().children('.kmrOEZkQcUWqaEc');
+    for (let i = 0; i < kmrOEZkQcUWqaEc_all.length; i++) 
+    {
+        if ($(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().length > 0) 
+        {
+            if ($(t).parent().parent().attr('id') != kmrOEZkQcUWqaEc_all[i].id) 
+            {
+                $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().css({ 'opacity': '' });
+                $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().css({ 'opacity': '' });
+            }
+            else 
+            {
+                $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().css({ 'opacity': '', 'border': '' });
+                $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().css({ 'opacity': '', 'border': '' });
+
+
+                $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().removeClass('AOwYMEVGxKdwzSH');
+                $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().removeClass('AOwYMEVGxKdwzSH');
+
+
+                $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().attr('onclick', 'godziny_click(event, this)');
+                $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().attr('onclick', 'godziny_click(event, this)');
+            }
+        }
+    }
+
+    //enable 3 icons
+    let GobmBwqqBbAsPaX_divs = $('#qgPGzbIhlJSHVqt').children();
+    for (let i = 0; i < GobmBwqqBbAsPaX_divs.length; i++)
+    {
+        $(GobmBwqqBbAsPaX_divs[i]).removeClass('bxBvYhrbLSeGbvD');
+    }
+
+    //show all elements from left
+    let JiqrmfnbjXICdKP_children = $('#JiqrmfnbjXICdKP').children();
+    for (let i = 1; i < JiqrmfnbjXICdKP_children.length; i++)
+    {
+        $(JiqrmfnbjXICdKP_children[i]).fadeIn(100);
+    }
+
+    //hide details of the day
+    $('#lifDKbCfNCuDQMs').hide();
+    if (sessionStorage.getItem('AyLyCuPgYYYxaJX') != null)
+    {
+        sessionStorage.removeItem('AyLyCuPgYYYxaJX');
+    }
+
+
+    e.stopPropagation();
+};
 
 function generateStatistics()
 {
@@ -589,17 +651,17 @@ function generateStatistics()
                 {
                     if (nawyzszaWartosc == nadgodziny[i].ile) 
                     {
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click_selected(event, this); godziny_click(event, this)"></div>`);
-                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="nadgodziny_mouseOver(this)" onmouseout="nadgodziny_mouseOut(this)" onclick="godziny_click_selected(event, this) ;godziny_click(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="nadgodziny_mouseOver(this)" onmouseout="nadgodziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
                     }
                     else
                     {
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click_selected(event, this); godziny_click(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
 
                         let roznica = nawyzszaWartosc - (nadgodziny[i].ile - nadgodziny[i].roznica);
                         let percentHeight = (100 * nadgodziny[i].roznica) / roznica;
 
-                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_" id="AuvrcQcAMQCKZhb" style="height: ${percentHeight}%; min-height: 1px;" onmouseover="nadgodziny_mouseOver(this)" onmouseout="nadgodziny_mouseOut(this)" onclick="godziny_click_selected(event, this); godziny_click(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_" id="AuvrcQcAMQCKZhb" style="height: ${percentHeight}%; min-height: 1px;" onmouseover="nadgodziny_mouseOver(this)" onmouseout="nadgodziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
                     }
                 }
             }
@@ -613,7 +675,7 @@ function generateStatistics()
                 {
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(normalneGodziny[i].wejscie).toLocaleDateString()) 
                     {
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click_selected(event, this); godziny_click(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
                     }
                 }
             }
@@ -628,7 +690,8 @@ function generateStatistics()
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(niedogodziny[i].wejscie).toLocaleDateString()) 
                     {
                         let percentHeight = (niedogodziny[i].ile * 100) / (parseFloat(niedogodziny[i].ile) + parseFloat(niedogodziny[i].roznica));
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__" id="AuvrcQcAMQCKZhb" style="height: ${percentHeight}%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click_selected(event, this); godziny_click(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__" id="AuvrcQcAMQCKZhb" style="height: ${percentHeight}%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
+                        //$(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" id="AuvrcQcAMQCKZhb" style="height: ${percentHeight}%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
                     }
                 }
             }
@@ -651,7 +714,7 @@ function generateStatistics()
                 {
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(normalneGodziny[i].wejscie).toLocaleDateString()) 
                     {
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click_selected(event, this); godziny_click(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
                     }
                 }
             }
@@ -666,7 +729,7 @@ function generateStatistics()
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(niedogodziny[i].wejscie).toLocaleDateString()) 
                     {
                         let percentHeight = (niedogodziny[i].ile * 100) / (parseFloat(niedogodziny[i].ile) + parseFloat(niedogodziny[i].roznica));
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__" id="AuvrcQcAMQCKZhb" style="height: ${percentHeight}%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click_selected(event, this); godziny_click(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__" id="AuvrcQcAMQCKZhb" style="height: ${percentHeight}%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
                     }
                 }
             }
@@ -721,9 +784,9 @@ function generateStatistics()
 
 
 
-    $('.bBNboGLWvBAfXbf').children().eq(0).show();
-    $('.bBNboGLWvBAfXbf').children().eq(2).show();
-    $('.bBNboGLWvBAfXbf').children().eq(3).hide();
+    $('#vWbUhILVpdyutyE').children().eq(0).show();
+    $('#vWbUhILVpdyutyE').children().eq(2).show();
+    $('#vWbUhILVpdyutyE').children().eq(3).hide();
 
     $('#imAZBCksRVUuDsR_').show();
     $('#kCJfJXsYxCydUDw_').hide();
@@ -764,9 +827,9 @@ function generateStatistics2()
 
 
 
-    $('.bBNboGLWvBAfXbf').children().eq(0).show();
-    $('.bBNboGLWvBAfXbf').children().eq(2).show();
-    $('.bBNboGLWvBAfXbf').children().eq(3).hide();
+    $('#vWbUhILVpdyutyE').children().eq(0).show();
+    $('#vWbUhILVpdyutyE').children().eq(2).show();
+    $('#vWbUhILVpdyutyE').children().eq(3).hide();
 
     $('#imAZBCksRVUuDsR_').hide();
     $('#kCJfJXsYxCydUDw_').show();
@@ -1156,9 +1219,9 @@ function generateStatistics3()
 
 
 
-    $('.bBNboGLWvBAfXbf').children().eq(0).hide();
-    $('.bBNboGLWvBAfXbf').children().eq(2).hide();
-    $('.bBNboGLWvBAfXbf').children().eq(3).show();
+    $('#vWbUhILVpdyutyE').children().eq(0).hide();
+    $('#vWbUhILVpdyutyE').children().eq(2).hide();
+    $('#vWbUhILVpdyutyE').children().eq(3).show();
 
     $('#imAZBCksRVUuDsR_').hide();
     $('#kCJfJXsYxCydUDw_').hide();
