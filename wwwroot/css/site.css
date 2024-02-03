@@ -1694,6 +1694,10 @@ button {
         justify-content: space-between;
     }
 
+    .tCXsXbRkjrIUFhL.ATLUjzIISjBjfVm.ATCrevbfpQDiJPh {
+        margin-bottom: 3px;
+    }
+
 /*.odelxotySxHLgph {
     height: calc(100% - 300px);
     width: 100%;
@@ -1747,15 +1751,23 @@ button {
     }
 
         .pyyxmssXgPCWuUc.xVZlAxNFqwZlPbw.xoVNvtfbkkicGGv {
-            border-left: 4px solid rgb(36, 110, 142);
+            /*border-left: 4px solid rgb(36, 110, 142);*/
+            /*border-left: 1px solid rgba(255, 255, 255, 0.1);*/
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transform: unset;
             margin-bottom: unset;
             background-color: rgba(34, 36, 48, 1);
+            justify-content: space-between;
+            padding-left: 6px;
+            padding-right: 9px;
+            /*gap: 8px;*/
         }
 
             .pyyxmssXgPCWuUc.xVZlAxNFqwZlPbw.xoVNvtfbkkicGGv:hover {
                 background-color: rgba(54, 56, 68, 1);
             }
+
+
 
     .pyyxmssXgPCWuUc.ajBvEiJoidaoDRb {
         border-left: 4px solid rgb(36, 110, 142);
@@ -4482,6 +4494,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         justify-content: end;
         flex-direction: column;
         padding-top: 25px;
+        position: relative;
     }
 
         .yTKpwuaIyVAZjYk div.kmrOEZkQcUWqaEc .godziny {
