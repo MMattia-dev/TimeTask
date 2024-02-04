@@ -340,9 +340,17 @@ function godziny_click(e, t) {
         `</svg>` +
         `</div>` +
         lifDKbCfNCuDQMs_inner +
-        `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" onclick=""><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6H20M4 12H20M4 18H20" stroke="rgba(255, 255, 255, 0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Opcje</span></div>`;
+        //`<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" onclick=""><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6H20M4 12H20M4 18H20" stroke="rgba(255, 255, 255, 0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Opcje</span></div>`;
+        `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv BhxMqaleScpQOIB" onclick=""><span>Eksportuj do PDF</span></div>` +
+        `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" onclick=""><span>Edytuj</span></div>` +
+            `<div class="uuJdinqoZMWGSOQ">` +
+            `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zmień godziny pracy</span></div>` +
+            `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zapisz jako nadgodziny</span></div>` +
+            `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zapisz jako nocne godziny</span></div>` +
+            //`<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw dkwnFnNHXjaPCYV" onclick=""><span>Usuń</span></div>` +
+        `</div>`;
 
-    //$('#JiqrmfnbjXICdKP').append(`<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" onclick=""><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6H20M4 12H20M4 18H20" stroke="rgba(255, 255, 255, 0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Opcje</span></div>`);
+
 
     $('#lifDKbCfNCuDQMs').html(html_inner);
 

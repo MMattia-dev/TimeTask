@@ -1668,7 +1668,7 @@ button {
     }
 
     .bBNboGLWvBAfXbf.YQRYCAnIjZCguDe {
-        height: 155px;
+        /*height: 155px;*/
     }
 
 .tCXsXbRkjrIUFhL {
@@ -1755,27 +1755,20 @@ button {
     }
 
         .pyyxmssXgPCWuUc.xVZlAxNFqwZlPbw.xoVNvtfbkkicGGv {
-            /*border-left: 4px solid rgb(36, 110, 142);*/
-            /*border-left: 1px solid rgba(255, 255, 255, 0.1);*/
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            /*transform: unset;*/
+            border-left: 4px solid rgb(36, 110, 142);
+            transform: unset;
             margin-bottom: unset;
-            /*background-color: rgba(34, 36, 48, 1);*/
+            background-color: rgba(34, 36, 48, 1);
             justify-content: space-between;
-            padding-left: 6px;
-            padding-right: 9px;
-            margin-top: 8px;
-            /*gap: 8px;*/
-            /**/
-            transform: translateX(-9px);
-            width: 260px;
         }
 
             .pyyxmssXgPCWuUc.xVZlAxNFqwZlPbw.xoVNvtfbkkicGGv:hover {
-                /*background-color: rgba(54, 56, 68, 1);*/
+                background-color: rgba(54, 56, 68, 1);
             }
 
-
+            .pyyxmssXgPCWuUc.xVZlAxNFqwZlPbw.xoVNvtfbkkicGGv.BhxMqaleScpQOIB {
+                border-left: 4px solid rgb(195, 107, 108);
+            }
 
     .pyyxmssXgPCWuUc.ajBvEiJoidaoDRb {
         border-left: 4px solid rgb(36, 110, 142);
@@ -1791,6 +1784,31 @@ button {
             cursor: default;
         }
 
+    .pyyxmssXgPCWuUc.UFRwAQEzzfXjfNw {
+        height: 30px;
+        border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+        /*border-color: rgb(36, 110, 142) !important;*/
+    }
+
+        .pyyxmssXgPCWuUc.UFRwAQEzzfXjfNw span {
+            font-size: 12px;
+        }
+
+        .pyyxmssXgPCWuUc.UFRwAQEzzfXjfNw.dkwnFnNHXjaPCYV {
+            border-color: rgb(195, 107, 108) !important;
+        }
+
+.uuJdinqoZMWGSOQ {
+    /*height: 0;*/
+    margin-top: -5px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
 
 .YgYDRNgkzyxgztO {
     height: 35px;
