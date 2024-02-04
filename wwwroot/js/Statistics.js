@@ -157,6 +157,16 @@ $(document).ready(function ()
     sessionStorage.removeItem('AyLyCuPgYYYxaJX');
 });
 
+function xgNCiYYvDQOyAsg(e, t) 
+{
+    let child = $(t).children('.barContainer');
+    child.toggleClass('change');
+    let parent = $(t);
+    parent.toggleClass('MfcUcFWBWPWVCrS');
+
+    $('#ItKaYYquFHeJjGF').slideToggle(200);
+};
+
 function godziny_click(e, t) {
     let lifDKbCfNCuDQMs_inner = '';
 
@@ -247,14 +257,22 @@ function godziny_click(e, t) {
 
             }
         }
+        if (model_t[i].WorkerID == workerID && new Date(model_t[i].LeaveDate).toLocaleDateString() == id_date) 
+        {
+            let enterDate = new Date(model_t[i].LeaveDate).toLocaleDateString();
+
+            lifDKbCfNCuDQMs_inner += `<div class="tCXsXbRkjrIUFhL WnsxQjKwiwuSdTR"><span>` + enterDate + `</span></div>`;
+
+            for (let j = 0; j < model_l.length; j++) 
+            {
+                if (model_t[i].LeaveID == model_l[j].Id) 
+                {
+                    lifDKbCfNCuDQMs_inner += `<div class="tCXsXbRkjrIUFhL ATLUjzIISjBjfVm ATCrevbfpQDiJPh"><span>` + model_l[j].Name + `</span></div>`;
+                }
+            }
+        }
     }
     //
-
-
-
-
-    //$(div).css({ 'visibility': 'unset' });
-
 
 
 
@@ -339,20 +357,35 @@ function godziny_click(e, t) {
         `<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>` +
         `</svg>` +
         `</div>` +
-        lifDKbCfNCuDQMs_inner +
-        //`<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" onclick=""><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6H20M4 12H20M4 18H20" stroke="rgba(255, 255, 255, 0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Opcje</span></div>`;
-        `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv BhxMqaleScpQOIB" onclick=""><span>Eksportuj do PDF</span></div>` +
-        `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" onclick=""><span>Edytuj</span></div>` +
-            `<div class="uuJdinqoZMWGSOQ">` +
+        `<div class="WVnJiTrzzpihqVh">` + lifDKbCfNCuDQMs_inner + `</div>` +
+        //`<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv BhxMqaleScpQOIB" onclick=""><span>Eksportuj do PDF</span></div>` +
+        `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" onclick="xgNCiYYvDQOyAsg(event, this)"><span>Edytuj</span>     <div class="barContainer"><div class="bar1"></div><div class="bar2"></div><div class="bar3"></div></div>      </div>` +
+            `<div class="uuJdinqoZMWGSOQ" id="ItKaYYquFHeJjGF" style="display: none;">` +
             `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zmień godziny pracy</span></div>` +
             `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zapisz jako nadgodziny</span></div>` +
             `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zapisz jako nocne godziny</span></div>` +
-            //`<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw dkwnFnNHXjaPCYV" onclick=""><span>Usuń</span></div>` +
-        `</div>`;
+            `</div>`;
+
+    let html_inner_urlop = `<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk eoqqePJDEGcpBVc" onclick="ofzefwgkFWVagFY()" title="Zamknij">` +
+        `<svg viewBox="0 0 470 470" width="15" height="15">` +
+        `<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>` +
+        `</svg>` +
+        `</div>` +
+        `<div class="WVnJiTrzzpihqVh">` + lifDKbCfNCuDQMs_inner + `</div>`;
+    
+    for (let i = 0; i < model_t.length; i++) 
+    {
+        if (model_t[i].WorkerID == workerID && new Date(model_t[i].Enter).toLocaleDateString() == id_date && new Date(model_t[i].Exit).toLocaleDateString() == id_date) 
+        {
+            $('#lifDKbCfNCuDQMs').html(html_inner);
+        }
+        if (model_t[i].WorkerID == workerID && new Date(model_t[i].LeaveDate).toLocaleDateString() == id_date) 
+        {
+            $('#lifDKbCfNCuDQMs').html(html_inner_urlop);
+        }
+    }
 
 
-
-    $('#lifDKbCfNCuDQMs').html(html_inner);
 
     if (sessionStorage.getItem('AyLyCuPgYYYxaJX') != null)
     {
@@ -584,13 +617,11 @@ function generateStatistics()
                         {
                             let roz = godzinyPracy - czasPracyMax;
                             nadgodziny.push({ wejscie: date1, wyjscie: date2, ile: godzinyPracy, roznica: roz.toFixed(2) });
-                            //console.log(roz);
                         }
                         //normalny czas pracy
                         if (godzinyPracy == czasPracyMax) 
                         {
                             normalneGodziny.push({ wejscie: date1, wyjscie: date2, ile: godzinyPracy });
-                            //console.log(godzinyPracy);
                         }
                         //niedogodziny
                         if (godzinyPracy < czasPracyMax) 
@@ -609,7 +640,10 @@ function generateStatistics()
             //urlopy
             if (model_t[j].Enter == null && model_t[j].WorkerID == workerID) 
             {
-
+                if (new Date(slupkiDivs[i].id).toLocaleDateString() == new Date(model_t[j].LeaveDate).toLocaleDateString()) 
+                {
+                    urlopy.push({ leaveDate: model_t[j].LeaveDate });
+                }
             }
         }
     }
@@ -788,6 +822,23 @@ function generateStatistics()
     //
 
 
+    //urlopy
+    if (urlopy.length > 0) 
+    {
+        //XxmPCNwZkVSMeOm_urlopy
+
+        for (let i = 0; i < urlopy.length; i++) 
+        {
+            for (let j = 0; j < slupkiDivs.length; j++) 
+            {
+                if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(urlopy[i].leaveDate).toLocaleDateString()) 
+                {
+                    $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm_urlopy" id="AuvrcQcAMQCKZhb" style="height: 100%;" onmouseover="godziny_mouseOver(this)" onmouseout="godziny_mouseOut(this)" onclick="godziny_click(event, this)"></div>`);
+                }
+            }
+        }
+    }
+    //
 
 
 
