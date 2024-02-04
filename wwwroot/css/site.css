@@ -1667,6 +1667,10 @@ button {
 
     }
 
+    .bBNboGLWvBAfXbf.YQRYCAnIjZCguDe {
+        height: 155px;
+    }
+
 .tCXsXbRkjrIUFhL {
     display: flex;
     gap: 8px;
@@ -1754,17 +1758,21 @@ button {
             /*border-left: 4px solid rgb(36, 110, 142);*/
             /*border-left: 1px solid rgba(255, 255, 255, 0.1);*/
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transform: unset;
+            /*transform: unset;*/
             margin-bottom: unset;
-            background-color: rgba(34, 36, 48, 1);
+            /*background-color: rgba(34, 36, 48, 1);*/
             justify-content: space-between;
             padding-left: 6px;
             padding-right: 9px;
+            margin-top: 8px;
             /*gap: 8px;*/
+            /**/
+            transform: translateX(-9px);
+            width: 260px;
         }
 
             .pyyxmssXgPCWuUc.xVZlAxNFqwZlPbw.xoVNvtfbkkicGGv:hover {
-                background-color: rgba(54, 56, 68, 1);
+                /*background-color: rgba(54, 56, 68, 1);*/
             }
 
 

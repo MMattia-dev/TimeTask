@@ -342,6 +342,8 @@ function godziny_click(e, t) {
         lifDKbCfNCuDQMs_inner +
         `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" onclick=""><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6H20M4 12H20M4 18H20" stroke="rgba(255, 255, 255, 0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Opcje</span></div>`;
 
+    //$('#JiqrmfnbjXICdKP').append(`<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" onclick=""><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6H20M4 12H20M4 18H20" stroke="rgba(255, 255, 255, 0.8)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Opcje</span></div>`);
+
     $('#lifDKbCfNCuDQMs').html(html_inner);
 
     if (sessionStorage.getItem('AyLyCuPgYYYxaJX') != null)
