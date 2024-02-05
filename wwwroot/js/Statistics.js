@@ -276,11 +276,13 @@ function godziny_click(e, t) {
 
 
 
+
     let kmrOEZkQcUWqaEc_all = $(t).parent().parent().parent().children('.kmrOEZkQcUWqaEc');
     for (let i = 0; i < kmrOEZkQcUWqaEc_all.length; i++) 
     {
         if ($(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().length > 0)
         {
+
             if ($(t).parent().parent().attr('id') != kmrOEZkQcUWqaEc_all[i].id)
             {
                 $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().css({ 'opacity': '0.5', 'border': '' });
@@ -304,7 +306,6 @@ function godziny_click(e, t) {
                 $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().attr('onclick', 'godziny_already_selected(event, this)');
 
 
-                //remove opacity from all and border from selected
                 if ($(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().hasClass('AOwYMEVGxKdwzSH') || $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().hasClass('AOwYMEVGxKdwzSH'))
                 {
                     if ($(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().length > 0)
@@ -330,7 +331,6 @@ function godziny_click(e, t) {
                     }
                 }
 
-                //AOwYMEVGxKdwzSH
                 $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().addClass('AOwYMEVGxKdwzSH');
                 $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().addClass('AOwYMEVGxKdwzSH');
             }
@@ -363,7 +363,8 @@ function godziny_click(e, t) {
             `<div class="uuJdinqoZMWGSOQ" id="ItKaYYquFHeJjGF" style="display: none;">` +
             `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zmień godziny pracy</span></div>` +
             `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zapisz jako nadgodziny</span></div>` +
-            `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zapisz jako nocne godziny</span></div>` +
+            //`<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zapisz jako godziny nocne</span></div>` +
+            `` +
             `</div>`;
 
     let html_inner_urlop = `<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk eoqqePJDEGcpBVc" onclick="ofzefwgkFWVagFY()" title="Zamknij">` +
@@ -420,6 +421,8 @@ function ofzefwgkFWVagFY() {
 
             $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().attr('onclick', 'godziny_click(event, this)');
             $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().attr('onclick', 'godziny_click(event, this)');
+
+
         }
     }
 
@@ -472,6 +475,8 @@ function godziny_already_selected(e, t)
                 $(kmrOEZkQcUWqaEc_all[i]).children('.nadgodziny').children().attr('onclick', 'godziny_click(event, this)');
                 $(kmrOEZkQcUWqaEc_all[i]).children('.godziny').children().attr('onclick', 'godziny_click(event, this)');
             }
+
+
         }
     }
 
@@ -1043,7 +1048,10 @@ function generateStatistics3()
             //urlopy
             if (model_t[j].Enter == null && model_t[j].WorkerID == workerID) 
             {
-
+                if (new Date(slupkiDivs[i].id).toLocaleDateString() == new Date(model_t[j].LeaveDate).toLocaleDateString()) 
+                {
+                    urlopy.push({ leaveDate: model_t[j].LeaveDate });
+                }
             }
         }
     }
@@ -1281,7 +1289,20 @@ function generateStatistics3()
         }
     }
 
-
+    //urlopy
+    if (urlopy.length > 0) {
+        for (let i = 0; i < urlopy.length; i++) {
+            for (let j = 0; j < slupkiDivs.length; j++) {
+                if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(urlopy[i].leaveDate).toLocaleDateString()) {
+                    let jMxTKSnHwAAorfW = $(slupkiDivs[j]).children('.jMxTKSnHwAAorfW');
+                    for (let l = 0; l < jMxTKSnHwAAorfW.length; l++) {
+                        $(jMxTKSnHwAAorfW[l]).append(`<div class="XxmPCNwZkVSMeOm_urlopy pSvvteXuxRtsjRu" id="BFRZfHjWhBzGEmI" style="height: 100%;" onmouseover="BNITIHZVtwqfmzK(this)" onmouseout="PLhsOBgSRcqunQC(this)"></div>`);
+                    }
+                }
+            }
+        }
+    }
+    
 
 
 
