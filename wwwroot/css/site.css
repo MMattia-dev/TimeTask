@@ -4533,6 +4533,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     /*background-color: rgba(255, 255, 255, 0.2);*/
     border-bottom: 2px dotted white;
     pointer-events: none;
+    z-index: 1;
 }
 
 .sDNWoHChtnkFbSv {
@@ -4541,6 +4542,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     /*background-color: rgba(255, 255, 255, 0.2);*/
     border-bottom: 2px dotted white;
     pointer-events: none;
+    z-index: 1;
 }
 
 .imAZBCksRVUuDsR, .GYgSdzJuBJAuFcM {
