@@ -358,14 +358,12 @@ function godziny_click(e, t)
         `</svg>` +
         `</div>` +
         `<div class="WVnJiTrzzpihqVh">` + lifDKbCfNCuDQMs_inner + `</div>` +
-        //`<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv BhxMqaleScpQOIB" onclick=""><span>Eksportuj do PDF</span></div>` +
-        `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" onclick="xgNCiYYvDQOyAsg(event, this)"><span>Edytuj</span>     <div class="barContainer"><div class="bar1"></div><div class="bar2"></div><div class="bar3"></div></div>      </div>` +
+        `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" style="display: none;" onclick="xgNCiYYvDQOyAsg(event, this)"><span>Edytuj</span>     <div class="barContainer"><div class="bar1"></div><div class="bar2"></div><div class="bar3"></div></div>      </div>` +
             `<div class="uuJdinqoZMWGSOQ" id="ItKaYYquFHeJjGF" style="display: none;">` +
             `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zmień godziny pracy</span></div>` +
             `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zapisz jako godziny nadliczbowe</span></div>` +
-            //`<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zapisz jako godziny nocne</span></div>` +
-            `` +
             `</div>`;
+
 
     let html_inner_urlop = `<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk eoqqePJDEGcpBVc" onclick="ofzefwgkFWVagFY()" title="Zamknij">` +
         `<svg viewBox="0 0 470 470" width="15" height="15">` +
@@ -893,6 +891,21 @@ function YfChmciZscDmcSq(e, t)
 
 function generateStatistics2() 
 {
+    let workerID = document.getElementById('AOZzvXnLtNqUPwN').value;
+    let year = document.getElementById('OvLPfkiiNwdRYgn').value;
+    let month = document.getElementById('VQnvdBYLMNSKvmR').value;
+    let currentMonth = parseInt(month) + 1;
+
+    var daysLength = daysInMonth(currentMonth, year);
+
+    let divs = '';
+    let slupki = '';
+
+    document.getElementById('GSOAbETpVUcbpao_').innerHTML = '';
+
+    //slupki += '<div class="PClmWtOMrNAvPvx WKjuhXBDPRbWrrF CNnQQTvDmNXvaft" id="PClmWtOMrNAvPvx_"></div>';
+    //divs += '<div class="PClmWtOMrNAvPvx"></div>';
+
 
 
 
@@ -1453,6 +1466,9 @@ function godziny_click3(e, t)
 
             $(kmrOEZkQcUWqaEc_all[i]).children().children('#BFRZfHjWhBzGEmI').addClass('AOwYMEVGxKdwzSH');
         }
+
+        $(kmrOEZkQcUWqaEc_all[i]).children().children('.UPLggzHUmhGMnUS').fadeOut(100);
+        $(kmrOEZkQcUWqaEc_all[i]).children().children('.sDNWoHChtnkFbSv').fadeOut(100);
     }
 
     
@@ -1478,14 +1494,12 @@ function godziny_click3(e, t)
         `</svg>` +
         `</div>` +
         `<div class="WVnJiTrzzpihqVh">` + lifDKbCfNCuDQMs_inner + `</div>` +
-        //`<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv BhxMqaleScpQOIB" onclick=""><span>Eksportuj do PDF</span></div>` +
-        `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" onclick="xgNCiYYvDQOyAsg(event, this)"><span>Edytuj</span>     <div class="barContainer"><div class="bar1"></div><div class="bar2"></div><div class="bar3"></div></div>      </div>` +
+        `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" style="display: none;" onclick="xgNCiYYvDQOyAsg(event, this)"><span>Edytuj</span>     <div class="barContainer"><div class="bar1"></div><div class="bar2"></div><div class="bar3"></div></div>      </div>` +
         `<div class="uuJdinqoZMWGSOQ" id="ItKaYYquFHeJjGF" style="display: none;">` +
         `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zmień godziny pracy</span></div>` +
         `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zapisz jako godziny nadliczbowe</span></div>` +
-        //`<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zapisz jako godziny nocne</span></div>` +
-        `` +
         `</div>`;
+
 
     let html_inner_urlop = `<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk eoqqePJDEGcpBVc" onclick="FUWElaBdItrkWya()" title="Zamknij">` +
         `<svg viewBox="0 0 470 470" width="15" height="15">` +
@@ -1541,6 +1555,10 @@ function FUWElaBdItrkWya()
 
 
         $(kmrOEZkQcUWqaEc_all[i]).children().children('#BFRZfHjWhBzGEmI').attr('onclick', 'godziny_click3(event, this)');
+
+
+        $(kmrOEZkQcUWqaEc_all[i]).children().children('.UPLggzHUmhGMnUS').fadeIn(100);
+        $(kmrOEZkQcUWqaEc_all[i]).children().children('.sDNWoHChtnkFbSv').fadeIn(100);
     }
 
     //enable 3 icons
@@ -1582,6 +1600,9 @@ function godziny_already_selected3(e, t)
 
             $(kmrOEZkQcUWqaEc_all[i]).children().children('#BFRZfHjWhBzGEmI').attr('onclick', 'godziny_click3(event, this)');
         }
+
+        $(kmrOEZkQcUWqaEc_all[i]).children().children('.UPLggzHUmhGMnUS').fadeIn(100);
+        $(kmrOEZkQcUWqaEc_all[i]).children().children('.sDNWoHChtnkFbSv').fadeIn(100);
     }
 
 
