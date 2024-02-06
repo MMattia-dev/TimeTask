@@ -4451,11 +4451,13 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         .GobmBwqqBbAsPaX div.bxBvYhrbLSeGbvD {
             opacity: 0.8;
             pointer-events: none;
+            /*display: none;*/
         }
 
         .GobmBwqqBbAsPaX div.pEvsatYDpkDeDPp.bxBvYhrbLSeGbvD {
             opacity: 0.8;
             pointer-events: none;
+            /*display: none;*/
         }
 
 

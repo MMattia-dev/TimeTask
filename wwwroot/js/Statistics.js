@@ -362,7 +362,7 @@ function godziny_click(e, t)
         `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" onclick="xgNCiYYvDQOyAsg(event, this)"><span>Edytuj</span>     <div class="barContainer"><div class="bar1"></div><div class="bar2"></div><div class="bar3"></div></div>      </div>` +
             `<div class="uuJdinqoZMWGSOQ" id="ItKaYYquFHeJjGF" style="display: none;">` +
             `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zmień godziny pracy</span></div>` +
-            `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zapisz jako nadgodziny</span></div>` +
+            `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zapisz jako godziny nadliczbowe</span></div>` +
             //`<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zapisz jako godziny nocne</span></div>` +
             `` +
             `</div>`;
@@ -1482,7 +1482,7 @@ function godziny_click3(e, t)
         `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv" onclick="xgNCiYYvDQOyAsg(event, this)"><span>Edytuj</span>     <div class="barContainer"><div class="bar1"></div><div class="bar2"></div><div class="bar3"></div></div>      </div>` +
         `<div class="uuJdinqoZMWGSOQ" id="ItKaYYquFHeJjGF" style="display: none;">` +
         `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zmień godziny pracy</span></div>` +
-        `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zapisz jako nadgodziny</span></div>` +
+        `<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zapisz jako godziny nadliczbowe</span></div>` +
         //`<div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw xoVNvtfbkkicGGv UFRwAQEzzfXjfNw" onclick=""><span>Zapisz jako godziny nocne</span></div>` +
         `` +
         `</div>`;
