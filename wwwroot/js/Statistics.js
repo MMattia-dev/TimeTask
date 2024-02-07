@@ -891,21 +891,7 @@ function YfChmciZscDmcSq(e, t)
 
 function generateStatistics2() 
 {
-    let workerID = document.getElementById('AOZzvXnLtNqUPwN').value;
-    let year = document.getElementById('OvLPfkiiNwdRYgn').value;
-    let month = document.getElementById('VQnvdBYLMNSKvmR').value;
-    let currentMonth = parseInt(month) + 1;
-
-    var daysLength = daysInMonth(currentMonth, year);
-
-    let divs = '';
-    let slupki = '';
-
-    document.getElementById('GSOAbETpVUcbpao_').innerHTML = '';
-
-    //slupki += '<div class="PClmWtOMrNAvPvx WKjuhXBDPRbWrrF CNnQQTvDmNXvaft" id="PClmWtOMrNAvPvx_"></div>';
-    //divs += '<div class="PClmWtOMrNAvPvx"></div>';
-
+    
 
 
 
