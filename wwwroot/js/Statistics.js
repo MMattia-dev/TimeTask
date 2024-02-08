@@ -899,8 +899,6 @@ function generateStatistics2()
     let divs = '';
     let slupki = '';
 
-    //slupki += '<div class="PClmWtOMrNAvPvx mUkjOrjHYvNwQhn JAOcatFgucDDfXK" id="PClmWtOMrNAvPvx__"></div>';
-
     //dni miesiąca
     for (let k = 1; k <= daysLength; k++)
     {
@@ -917,6 +915,7 @@ function generateStatistics2()
     }
 
     divs += '<div class="PClmWtOMrNAvPvx wBaeYoRrlfYPQrQ"></div>';
+    slupki += '<div class="kmrOEZkQcUWqaEc uPuVQkLXgKdgzst" id="PClmWtOMrNAvPvx__"><div class="godziny"></div><div class="nadgodziny"></div></div>';
     $('#ZswYHvYTUqugSGk_').html(divs);
     $('#GSOAbETpVUcbpao_').html(slupki);
 
@@ -1077,17 +1076,17 @@ function generateStatistics2()
                 {
                     if (nawyzszaWartosc == nadgodziny[i].ile) 
                     {
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;" onmouseover="CrzQijBCRdKuSrl(this)" onmouseout="PvHdpaEeSoXEvoO(this)" onclick="godziny_click2(event, this)"></div>`);
-                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_ KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;" onmouseover="CrzQijBCRdKuSrl(this)" onmouseout="PvHdpaEeSoXEvoO(this)" onclick="godziny_click2(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;" onmouseover="" onmouseout="" onclick="godziny_click2(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_ KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;" onmouseover="" onmouseout="" onclick="godziny_click2(event, this)"></div>`);
                     }
                     else 
                     {
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;" onmouseover="CrzQijBCRdKuSrl(this)" onmouseout="PvHdpaEeSoXEvoO(this)" onclick="godziny_click2(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;" onmouseover="" onmouseout="" onclick="godziny_click2(event, this)"></div>`);
 
                         let roznica = nawyzszaWartosc - (nadgodziny[i].ile - nadgodziny[i].roznica);
                         let percentHeight = (100 * nadgodziny[i].roznica) / roznica;
 
-                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_ KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: ${percentHeight}%; min-width: 1px;" onmouseover="CrzQijBCRdKuSrl(this)" onmouseout="PvHdpaEeSoXEvoO(this)" onclick="godziny_click2(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_ KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: ${percentHeight}%; min-width: 1px;" onmouseover="" onmouseout="" onclick="godziny_click2(event, this)"></div>`);
                     }
                 }
             }
@@ -1101,7 +1100,7 @@ function generateStatistics2()
                 {
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(normalneGodziny[i].wejscie).toLocaleDateString()) 
                     {
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;" onmouseover="CrzQijBCRdKuSrl(this)" onmouseout="PvHdpaEeSoXEvoO(this)" onclick="godziny_click2(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;" onmouseover="" onmouseout="" onclick="godziny_click2(event, this)"></div>`);
                     }
                 }
             }
@@ -1116,7 +1115,7 @@ function generateStatistics2()
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(niedogodziny[i].wejscie).toLocaleDateString()) 
                     {
                         let percentHeight = (niedogodziny[i].ile * 100) / (parseFloat(niedogodziny[i].ile) + parseFloat(niedogodziny[i].roznica));
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__ KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: ${percentHeight}%;" onmouseover="CrzQijBCRdKuSrl(this)" onmouseout="PvHdpaEeSoXEvoO(this)" onclick="godziny_click2(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__ KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: ${percentHeight}%;" onmouseover="" onmouseout="" onclick="godziny_click2(event, this)"></div>`);
                     }
                 }
             }
@@ -1139,7 +1138,7 @@ function generateStatistics2()
                 {
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(normalneGodziny[i].wejscie).toLocaleDateString()) 
                     {
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;" onmouseover="CrzQijBCRdKuSrl(this)" onmouseout="PvHdpaEeSoXEvoO(this)" onclick="godziny_click2(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;" onmouseover="" onmouseout="" onclick="godziny_click2(event, this)"></div>`);
                     }
                 }
             }
@@ -1154,7 +1153,7 @@ function generateStatistics2()
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(niedogodziny[i].wejscie).toLocaleDateString()) 
                     {
                         let percentHeight = (niedogodziny[i].ile * 100) / (parseFloat(niedogodziny[i].ile) + parseFloat(niedogodziny[i].roznica));
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__ KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: ${percentHeight}%;" onmouseover="CrzQijBCRdKuSrl(this)" onmouseout="PvHdpaEeSoXEvoO(this)" onclick="godziny_click2(event, this)"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__ KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: ${percentHeight}%;" onmouseover="" onmouseout="" onclick="godziny_click2(event, this)"></div>`);
                     }
                 }
             }
@@ -1163,8 +1162,31 @@ function generateStatistics2()
 
 
 
+    //znaczniki
+    if (percentHeight_8 != undefined) 
+    {
+        let divide_8 = 100 / czasPracyMax;
 
+        let ymCjBkLWIjwBVgR_innerDivs = '';
+        for (let i = 1; i <= czasPracyMax; i++)
+        {
+            ymCjBkLWIjwBVgR_innerDivs += `<div class="ymCjBkLWIjwBVgR_" style="width:${divide_8}%;"><span>${i.toFixed(2)}</span></div>`;
+        }
 
+        let dividers = `<div class="ymCjBkLWIjwBVgR" style="width:${percentHeight_8}%;">${ymCjBkLWIjwBVgR_innerDivs}</div>` + 
+            `<div class="lhduMWDCUEGkJNw" style="width:${percentHeight_nadgodziny}%;">` + `<span>${nawyzszaWartosc}</span>` + `</div>`;
+
+        $('#PClmWtOMrNAvPvx__').html(dividers);
+
+        for (let i = 0; i < $('.godziny').length; i++)
+        {
+            $('.godziny').css({ 'border-right': '1px dashed rgb(90, 90, 90)' });
+            $('.nadgodziny').css({ 'border-right': '1px dashed rgb(90, 90, 90)' });
+        }
+    }
+    else {
+
+    }
 
 
 
