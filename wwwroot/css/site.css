@@ -4498,7 +4498,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         transition: all 0.2s;
         /**/
         display: flex;
-        justify-content: start;
+        justify-content: space-between;
         align-items: center;
         padding-left: 5px;
         padding-right: 5px;
@@ -4506,7 +4506,10 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 
         .XxmPCNwZkVSMeOm.KoHHmbXxPkfkekb span {
             color: white;
-            font-size: 15px;
+            font-size: 14px;
+            /**/
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
 .XxmPCNwZkVSMeOm_ {
@@ -4546,7 +4549,21 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         height: 30px;
         background-color: rgba(235, 154, 53, 1);
         transition: all 0.2s;
+        /**/
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 5px;
+        padding-right: 5px;
     }
+
+        .XxmPCNwZkVSMeOm__.KoHHmbXxPkfkekb span {
+            color: black;
+            font-size: 14px;
+            /**/
+            text-transform: uppercase;
+            font-weight: bold;
+        }
 
 .XxmPCNwZkVSMeOm_urlopy {
     width: 40px;
@@ -4573,7 +4590,10 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 
         .XxmPCNwZkVSMeOm_urlopy.KoHHmbXxPkfkekb span {
             color: white;
-            font-size: 15px;
+            font-size: 14px;
+            /**/
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
 
@@ -4752,6 +4772,8 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         min-height: 40px;
         border-top: none;
         border-right: 1px solid rgba(255, 255, 255, 0.1);
+        /*height: 10px;
+        min-height: 10px;*/
     }
 
 
@@ -4863,7 +4885,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         }
 
     .KjseMRiNyEJWtCR.qCORnkNrOhYvXqu {
-        /*height: 100%;*/
+        height: 100%;
         width: calc(100% - 40px);
         min-width: calc(100% - 40px);
         display: flex;
@@ -4947,6 +4969,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     width: 100%;
     height: 100%;
     margin-top: 7px;
+    /*margin-bottom: 7px;*/
     position: relative;
 }
 

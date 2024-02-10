@@ -914,8 +914,9 @@ function generateStatistics2()
         slupki += `<div class="kmrOEZkQcUWqaEc" id=` + wholeDate + `><div class="godziny"></div><div class="nadgodziny"></div></div>`;
     }
 
-    divs += '<div class="PClmWtOMrNAvPvx wBaeYoRrlfYPQrQ"></div>';
-    slupki += '<div class="kmrOEZkQcUWqaEc uPuVQkLXgKdgzst" id="PClmWtOMrNAvPvx___"><div class="godziny"></div><div class="nadgodziny"></div></div>';
+    //divs += '<div class="PClmWtOMrNAvPvx wBaeYoRrlfYPQrQ"></div>';
+    //slupki += '<div class="kmrOEZkQcUWqaEc uPuVQkLXgKdgzst" id="PClmWtOMrNAvPvx___"><div class="godziny"></div><div class="nadgodziny"></div></div>';
+    slupki += `<div style="height: 7px; min-height: 7px;"></div>`;
     $('#ZswYHvYTUqugSGk_').html(divs);
     $('#GSOAbETpVUcbpao_').html(slupki);
 
@@ -972,11 +973,6 @@ function generateStatistics2()
     let slupkiDivs = document.querySelectorAll('.kmrOEZkQcUWqaEc');
     for (let i = 0; i < slupkiDivs.length; i++) 
     {
-        //if (i == 0) 
-        //{
-        //    $(slupkiDivs[i]).css({ 'margin-left': '35px' });
-        //}
-
         for (let j = 0; j < model_t.length; j++) 
         {
             //czas pracy
@@ -1081,16 +1077,18 @@ function generateStatistics2()
             {
                 if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(nadgodziny[i].wejscie).toLocaleDateString()) 
                 {
-                    let czas = new Date(nadgodziny[i].wejscie).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ` - ` + new Date(nadgodziny[i].wyjscie).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    let czas_ = new Date(nadgodziny[i].wejscie).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ` - ` + new Date(nadgodziny[i].wyjscie).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    let godziny_ = nadgodziny[i].ile;
+                    let roznica_ = nadgodziny[i].roznica;
 
                     if (nawyzszaWartosc == nadgodziny[i].ile) 
                     {
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;">` + `<span>` + czas + `</span>` + `</div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;"><span>` + czas_ + `</span><span>Nadgodziny: ` + roznica_ + `</span><span>Godziny pracy: ` + godziny_ + `</span></div>`);
                         $(slupkiDivs[j]).children('.nadgodziny').html(`<div class="XxmPCNwZkVSMeOm_ KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;"></div>`);
                     }
                     else 
                     {
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;"><span>` + czas_ + `</span><span>Nadgodziny: ` + roznica_ + `</span><span>Godziny pracy: ` + godziny_ + `</span></div>`);
 
                         let roznica = nawyzszaWartosc - (nadgodziny[i].ile - nadgodziny[i].roznica);
                         let percentHeight = (100 * nadgodziny[i].roznica) / roznica;
@@ -1109,7 +1107,10 @@ function generateStatistics2()
                 {
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(normalneGodziny[i].wejscie).toLocaleDateString()) 
                     {
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;"></div>`);
+                        let czas_ = new Date(normalneGodziny[i].wejscie).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ` - ` + new Date(normalneGodziny[i].wyjscie).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        let godziny_ = normalneGodziny[i].ile;
+
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;"><span>` + czas_ + `</span><span>Godziny pracy: ` + godziny_ + `</span></div>`);
                     }
                 }
             }
@@ -1123,8 +1124,11 @@ function generateStatistics2()
                 {
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(niedogodziny[i].wejscie).toLocaleDateString()) 
                     {
+                        let czas_ = new Date(niedogodziny[i].wejscie).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ` - ` + new Date(niedogodziny[i].wyjscie).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        let godziny_ = niedogodziny[i].ile;
+
                         let percentHeight = (niedogodziny[i].ile * 100) / (parseFloat(niedogodziny[i].ile) + parseFloat(niedogodziny[i].roznica));
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__ KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: ${percentHeight}%;"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__ KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: ${percentHeight}%;"><span>` + czas_ + `</span><span>Godziny pracy: ` + godziny_ + `</span></div>`);
                     }
                 }
             }
@@ -1185,7 +1189,7 @@ function generateStatistics2()
         let dividers = `<div class="ymCjBkLWIjwBVgR" style="width:${percentHeight_8}%;">${ymCjBkLWIjwBVgR_innerDivs}</div>` + 
             `<div class="lhduMWDCUEGkJNw" style="width:${percentHeight_nadgodziny}%;">` + `<span>${nawyzszaWartosc}</span>` + `</div>`;
 
-        $('#PClmWtOMrNAvPvx___').html(dividers);
+        //$('#PClmWtOMrNAvPvx___').html(dividers);
 
         for (let i = 0; i < $('.godziny').length; i++)
         {
@@ -1204,7 +1208,7 @@ function generateStatistics2()
 
         let dividers = `<div class="ymCjBkLWIjwBVgR" style="width: 100%;">${ymCjBkLWIjwBVgR_innerDivs}</div>`;
 
-        $('#PClmWtOMrNAvPvx___').html(dividers);
+        //$('#PClmWtOMrNAvPvx___').html(dividers);
 
         for (let i = 0; i < $('.godziny').length; i++)
         {
@@ -1225,7 +1229,7 @@ function generateStatistics2()
             {
                 if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(urlopy[i].leaveDate).toLocaleDateString()) 
                 {
-                    $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm_urlopy KoHHmbXxPkfkekb" id="AuvrcQcAMQCKZhb" style="width: 100%;">` + `<span>` + urlopy[i].Name + `</span>` + `</div>`);
+                    $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm_urlopy KoHHmbXxPkfkekb" id="AuvrcQcAMQCKZhb" style="width: 100%;"><span>` + urlopy[i].Name + `</span></div>`);
                 }
             }
         }
