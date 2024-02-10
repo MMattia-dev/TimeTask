@@ -4496,7 +4496,18 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         height: 30px;
         background-color: rgba(2, 75, 122, 1);
         transition: all 0.2s;
+        /**/
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        padding-left: 5px;
+        padding-right: 5px;
     }
+
+        .XxmPCNwZkVSMeOm.KoHHmbXxPkfkekb span {
+            color: white;
+            font-size: 15px;
+        }
 
 .XxmPCNwZkVSMeOm_ {
     width: 40px;
@@ -4552,7 +4563,18 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         height: 30px;
         background-color: rgb(0, 128, 43);
         transition: all 0.2s;
+        /**/
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        padding-left: 5px;
+        padding-right: 5px;
     }
+
+        .XxmPCNwZkVSMeOm_urlopy.KoHHmbXxPkfkekb span {
+            color: white;
+            font-size: 15px;
+        }
 
 
 
@@ -4841,7 +4863,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         }
 
     .KjseMRiNyEJWtCR.qCORnkNrOhYvXqu {
-        height: 100%;
+        /*height: 100%;*/
         width: calc(100% - 40px);
         min-width: calc(100% - 40px);
         display: flex;
@@ -4849,6 +4871,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
         scrollbar-width: thin;
         position: relative;
+
     }
 
         .KjseMRiNyEJWtCR.qCORnkNrOhYvXqu .kmrOEZkQcUWqaEc {
@@ -4878,55 +4901,44 @@ input:checked + .HsRFJWiSLmrJcoG:before {
             }
 
             .KjseMRiNyEJWtCR.qCORnkNrOhYvXqu .kmrOEZkQcUWqaEc.uPuVQkLXgKdgzst {
-                width: 100%;
-                height: 40px;
-                min-height: 40px;
-                display: flex;
-                align-items: center;
-                justify-content: start;
-                flex-direction: row;
-                padding-right: 25px;
-                /*position: relative;*/
-                /*transform: translateY(-3px);*/
-                /*position: fixed;
-                bottom: 0;*/
+                position: fixed;
+                bottom: 0;
+                right: 8px;
+                width: calc(100% - 347px);
             }
 
                 .KjseMRiNyEJWtCR.qCORnkNrOhYvXqu .kmrOEZkQcUWqaEc.uPuVQkLXgKdgzst .ymCjBkLWIjwBVgR {
                     display: flex;
-
-
                 }
 
                     .KjseMRiNyEJWtCR.qCORnkNrOhYvXqu .kmrOEZkQcUWqaEc.uPuVQkLXgKdgzst .ymCjBkLWIjwBVgR .ymCjBkLWIjwBVgR_ {
                         border: none;
-                        border-right: 1px solid rgb(90, 90, 90);
+                        border-right: 1px solid rgb(120, 120, 120);
                         height: 40px;
                         display: flex;
                         justify-content: center;
                         align-items: center;
-                        
                     }
 
                         .KjseMRiNyEJWtCR.qCORnkNrOhYvXqu .kmrOEZkQcUWqaEc.uPuVQkLXgKdgzst .ymCjBkLWIjwBVgR .ymCjBkLWIjwBVgR_ span {
-                            /*transform: rotate(90deg);*/
                             transform: none;
                             font-size: 13px;
+                            color: white;
                         }
 
                 .KjseMRiNyEJWtCR.qCORnkNrOhYvXqu .kmrOEZkQcUWqaEc.uPuVQkLXgKdgzst .lhduMWDCUEGkJNw {
                     border: none;
-                    border-right: 1px solid rgb(90, 90, 90);
+                    border-right: 1px solid rgb(120, 120, 120);
                     height: 40px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
-
                 }
 
                     .KjseMRiNyEJWtCR.qCORnkNrOhYvXqu .kmrOEZkQcUWqaEc.uPuVQkLXgKdgzst .lhduMWDCUEGkJNw span {
                         transform: none;
                         font-size: 13px;
+                        color: white;
                     }
 
 .kCJfJXsYxCydUDw {
@@ -4934,9 +4946,6 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     flex-direction: row;
     width: 100%;
     height: 100%;
-    /*overflow-x: hidden;
-    scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
-    scrollbar-width: thin;*/
     margin-top: 7px;
     position: relative;
 }
