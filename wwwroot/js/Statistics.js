@@ -1401,7 +1401,7 @@ function generateStatistics3()
     let ymCjBkLWIjwBVgR_innerDivs = '';
     for (let i = doba; i >= 0; i--) 
     {
-        ymCjBkLWIjwBVgR_innerDivs += `<div class="ymCjBkLWIjwBVgR_ ymCjBkLWIjwBVgR__" style="height:${divide_8}%;"><span>${i}:00</span></div>`;
+        ymCjBkLWIjwBVgR_innerDivs += `<div class="ymCjBkLWIjwBVgR_ ymCjBkLWIjwBVgR__" onmouseover="KHPLvgvQxFmHMtE(event, this)" onmouseout="JseGUINRHEBAnvv(event, this)" style="height:${divide_8}%;"><span>${i}:00</span></div>`;
 
         $('.kmrOEZkQcUWqaEc_').append(`<div class="jMxTKSnHwAAorfW" id="${i}"><div class="osWizyDOwUfGTME"></div></div>`);
     }
@@ -1656,9 +1656,16 @@ function generateStatistics3()
     $('#GYgSdzJuBJAuFcM_').show();
 };
 
-function generateStatistics4() 
+function KHPLvgvQxFmHMtE(e, t) 
 {
+    //let height = $(t).height();
 
+    //$(t).append(`<div class="dMFrkMfYnGnosOU" style="height:` + height + `px; "></div>`);
+};
+
+function JseGUINRHEBAnvv(e, t) 
+{
+    //$(t).children('.dMFrkMfYnGnosOU').remove();
 };
 
 function godziny_click3(e, t) 

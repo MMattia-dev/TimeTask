@@ -4799,21 +4799,25 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 
         .ymCjBkLWIjwBVgR .ymCjBkLWIjwBVgR_.ymCjBkLWIjwBVgR__ span {
             transform: unset;
+            pointer-events: none;
         }
 
         .ymCjBkLWIjwBVgR .ymCjBkLWIjwBVgR_:last-child:not(.ymCjBkLWIjwBVgR__) {
             border-top: none;
         }
 
-    .ymCjBkLWIjwBVgR .ymCjBkLWIjwBVgR_.ymCjBkLWIjwBVgR__ {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+        .ymCjBkLWIjwBVgR .ymCjBkLWIjwBVgR_.ymCjBkLWIjwBVgR__ {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            /*box-sizing: border-box;*/
+        }
 
-    .ymCjBkLWIjwBVgR .ymCjBkLWIjwBVgR_.ymCjBkLWIjwBVgR__:first-child {
-        border-top: none;
-    }
+            .ymCjBkLWIjwBVgR .ymCjBkLWIjwBVgR_.ymCjBkLWIjwBVgR__:first-child {
+                border-top: none;
+                /*pointer-events: none;*/
+            }
 
     .ymCjBkLWIjwBVgR.urCwRPsnRGpEUXb {
         position: fixed;
@@ -4822,7 +4826,40 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         min-width: 35px;
     }
 
+        .ymCjBkLWIjwBVgR .ymCjBkLWIjwBVgR_.ymCjBkLWIjwBVgR__ .dMFrkMfYnGnosOU {
+            position: fixed;
+            /*top: 0;
+            left: 0;*/
+            /*height: 100%;*/
+            right: 0;
+            width: 100%;
+            border-top: 1px dashed rgb(90, 90, 90);
+            border-bottom: 1px dashed rgb(90, 90, 90);
 
+        }
+
+    .ymCjBkLWIjwBVgR .ymCjBkLWIjwBVgR_.ymCjBkLWIjwBVgR__:after {
+        content: "";
+        position: fixed;
+        left: 337px;
+        width: 100%;
+        border-top: 1px dashed rgb(90, 90, 90);
+        border-bottom: 1px dashed rgb(90, 90, 90);
+        height: inherit;
+        /*height: calc(inherit - 1px);*/
+        /*transform: translateY(5%);*/
+        visibility: hidden;
+        /*height: calc(100% - 10px);*/
+        
+    }
+
+        .ymCjBkLWIjwBVgR .ymCjBkLWIjwBVgR_.ymCjBkLWIjwBVgR__:hover:after {
+            visibility: visible;
+        }
+
+        .ymCjBkLWIjwBVgR .ymCjBkLWIjwBVgR_.ymCjBkLWIjwBVgR__:first-child:after {
+            /*display: none;*/ 
+        }
 
 
 
