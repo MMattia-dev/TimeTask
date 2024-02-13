@@ -3420,20 +3420,15 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 .quickNotepad {
     background-color: rgba(34, 36, 48, 0.5);
     transition: background-color 0.2s;
-    /*height: 200px;
-    width: 200px;
-    min-width: 200px;*/
     height: 410px;
     width: 410px;
     min-width: 410px;
     /*border-radius: 10px;*/
     padding: 5px 15px 15px 15px;
-    /*padding-top: 0px;*/
     display: flex;
     flex-direction: column;
-    /*gap: 4px;*/
-    /*position: relative;*/
-    /*overflow: hidden;*/
+    /*justify-content: center;*/
+
 }
 
     .quickNotepad.PyfcxvgCKODayJL {
@@ -3444,15 +3439,6 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     .quickNotepad.uERspJxBzaiedUf {
         background-color: rgba(34, 36, 48, 1);
         transform: scale(80%);
-    }
-
-    .quickNotepad span {
-        /*color: white;
-        font-size: 14px;
-        font-weight: bold;
-        opacity: 0.8;
-        text-transform: uppercase;
-        transform: translateX(1px) translateY(-3px);*/
     }
 
     .quickNotepad textarea {
@@ -3471,9 +3457,10 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         min-width: 410px;
         height: 410px;
         overflow-x: hidden;
-        overflow-y: scroll;
-        scrollbar-color: rgba(36, 110, 142, 0.7) rgba(34, 36, 48, 1);
-        scrollbar-width: thin;
+        /*overflow-y: scroll;*/
+        overflow-y: hidden;
+        /*scrollbar-color: rgba(36, 110, 142, 0.7) rgba(34, 36, 48, 1);
+        scrollbar-width: thin;*/
         /*position: relative;*/
     }
 
@@ -3491,6 +3478,8 @@ input:checked + .HsRFJWiSLmrJcoG:before {
             padding-left: 15px;
             padding-right: 5px;
             background-color: rgba(34, 36, 48, 1);
+            /**/
+
         }
 
             .quickNotepad.ECaaSDRIYJCuREK .hzbdsLoiCKYdXki span {
@@ -3511,7 +3500,6 @@ input:checked + .HsRFJWiSLmrJcoG:before {
             position: sticky;
             bottom: 0;
             left: 0;
-            /*background-color: darkgreen;*/
             transform: translateX(-15px) translateY(15px);
             z-index: 2;
             gap: 3px;
@@ -3655,7 +3643,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 }
 
 .clock {
-    /*border-radius: 10px;*/
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3744,7 +3732,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     min-width: 200px;
     height: 200px;
     background-color: rgba(34, 36, 48, 0.5);
-    /*border-radius: 10px;*/
+    border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -4106,6 +4094,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     width: 100%;
     height: 100%;
     flex-direction: column;
+    
 }
 
 .laelGSoQzzZzzxU {
@@ -4301,15 +4290,17 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 }*/
 
 .npcFeVbrHTwFdfE {
-    /*border-bottom: 1px solid rgba(255, 255, 255, 0.5);*/
     display: flex;
     flex-direction: column;
     padding-top: 5px;
-    /*padding-bottom: 10px;*/
-    /*height: 100%;
-    overflow: hidden;*/
     height: 100%;
     width: 100%;
+    /*overflow: hidden;*/
+    /**/
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
+    scrollbar-width: thin;
 }
 
 .RXURyrVQZpeADOh {
@@ -5010,6 +5001,8 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     /*margin-bottom: 7px;*/
     position: relative;
 }
+
+
 
 
 
