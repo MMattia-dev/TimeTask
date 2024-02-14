@@ -66,10 +66,115 @@ function isMonday(date = new Date())
 {
     return date.getDay() === 1;
 }
+function generateNewTable() 
+{
+    //year
+    let year = document.getElementById('IsBAUOIAAHcAfcz').value;
+
+    //department
+    let SLmdcavhxFjdwWi = document.getElementById('SLmdcavhxFjdwWi').value;
+
+    //$('.OFUHGxtWfLsHZeB_MonthDays').html(`<div></div>`);
+    //for (let i = 1; i <= 31; i++) 
+    //{
+    //    $('.OFUHGxtWfLsHZeB_MonthDays').append(`<div><span>` + i + `</span></div>`);
+    //}
 
 
 
-function generateCalendar() {
+    //$('.OFUHGxtWfLsHZeB_months').html(``);
+
+    //for (let i = 0; i < 12; i++)
+    //{
+    //    $('.OFUHGxtWfLsHZeB_months').append(`<div></div>`);
+    //}
+
+    //let monthsDivs = document.querySelectorAll('.OFUHGxtWfLsHZeB_months div');
+    //for (let i = 0; i < monthsDivs.length; i++) 
+    //{
+    //    $(monthsDivs[i]).append(`<div><span>` + new Date(year, i + 1, 0).toLocaleString('pl-PL', { month: 'long' }) + `</span></div>`)
+
+    //    let numberOfDays = new Date(year, i + 1, 0).getDate();
+    //    for (let j = 1; j <= numberOfDays; j++) {
+    //        $(monthsDivs[i]).append(`<div><span>` + j + `</span></div>`);
+    //        //$(monthsDivs[i]).append(`<div></div>`);
+    //    }
+    //}
+
+    document.getElementById('xhXEyORRmmYlQgG').innerHTML = '';
+
+    document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th><th>Styczeń</th><th>Luty</th><th>Marzec</th><th>Kwiecień</th><th>Maj</th><th>Czerwiec</th><th>Lipiec</th><th>Sierpień</th><th>Wrzesień</th><th>Październik</th><th>Listopad</th><th>Grudzień</th></tr></thead>`;
+
+    for (let i = 1; i <= 31; i++) 
+    {
+        document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody>`;
+    }
+
+    let TDs = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr td:not(:first-child)');
+    for (let i = 0; i < TDs.length; i++) 
+    {
+        TDs[i].innerHTML += `<div id="NGWhvCmkPUIWclY">` + //onmouseout="xGCnnFtbrNPSNPm(this)" onmouseover="bxLcBeaOvMopDll(this)"
+            `<div title="Zaznacz dzień" onclick="OdAaYwlLkdNUOjt(this)" style="display: none;">` +
+                `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path></svg>` +
+            `</div>` +
+            `<div title="Odznacz dzień" onclick="efBsSMDrIHdzcWF(this)" style="display: none;">` +
+                `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path></svg>` +
+            `</div>` +
+            `<div title="Wpisz godziny" onclick="HIJPFbwutXHZxGn(this)" style="display: none;">` +
+                `<svg viewBox="0 0 512 512" width="20" height="20"><path d="M256,0C114.6,0,0,114.6,0,256s114.6,256,256,256c141.4,0,256-114.6,256-256S397.4,0,256,0z M256,469.3c-117.8,0-213.3-95.5-213.3-213.3c0-117.8,95.5-213.3,213.3-213.3c117.8,0,213.3,95.5,213.3,213.3C469.3,373.8,373.8,469.3,256,469.3z M234.7,234.7L149.3,320l32,32l96-96V85.3h-42.7V234.7z"></path></svg>` +
+            `</div>` +
+        `</div>`;
+
+        TDs[i].setAttribute('onmouseover', 'bxLcBeaOvMopDll(event, this)');
+        TDs[i].setAttribute('onmouseout', 'xGCnnFtbrNPSNPm(event, this)');
+    } 
+
+
+};
+
+function bxLcBeaOvMopDll(e, t) 
+{
+    $(t).children().children(':not("input")').eq(0).show();
+    $(t).children().children(':not("input")').eq(2).show();
+
+    if ($(t).children().children(':not("input")').eq(1).css('display') != 'none')
+    {
+        $(t).children().children(':not("input")').eq(0).hide();
+        $(t).children().children(':not("input")').eq(2).hide();
+    }
+};
+
+function xGCnnFtbrNPSNPm(e, t) 
+{
+    $(t).children().children(':not("input")').eq(0).hide();
+    $(t).children().children(':not("input")').eq(2).hide();
+};
+
+function OdAaYwlLkdNUOjt(t) 
+{
+    $(t).parent().children(':not("input")').eq(1).show();
+    $(t).parent().children(':not("input")').eq(0).hide();
+
+    $(t).parent().parent().addClass('VSEIRMVnLrwIkVf');
+};
+
+function efBsSMDrIHdzcWF(t) 
+{
+    $(t).parent().children(':not("input")').eq(1).hide();
+    $(t).parent().children(':not("input")').eq(0).show();
+
+    $(t).parent().parent().removeClass('VSEIRMVnLrwIkVf');
+};
+
+function HIJPFbwutXHZxGn(t) 
+{
+    $(t).parent().hide();
+
+    $(t).parent().parent().html(`<div><input type="time" /><input type="time" /></div>`);
+};
+
+function generateCalendar() 
+{
     //department
     let aFoQOFiXPQobjPX = document.getElementById('SLmdcavhxFjdwWi');
     let departmentID_ = aFoQOFiXPQobjPX.options[aFoQOFiXPQobjPX.selectedIndex].value;
@@ -228,7 +333,7 @@ function generateCalendar() {
 $('#QcLYVFuvuONgCrh').on('change', function ()
 {
     //generateCalendar();
-
+    generateNewTable();
 });
 
 function fYOxqwVQjemgdRd(t) 
@@ -264,20 +369,20 @@ function PTPttVhoaMyUOyR()
     }
 
     //generateCalendar();
-
+    generateNewTable();
 };
 PTPttVhoaMyUOyR();
 
 function ZJRABLNnRtfPJYl()
 {
     //generateCalendar();
-
+    generateNewTable();
 };
 
 $('#IsBAUOIAAHcAfcz').on('change', function ()
 {
     //generateCalendar();
-
+    generateNewTable();
 });
 
 $('#bCYkzWQqVqBfZXu').on('click', function ()
@@ -949,5 +1054,8 @@ function pQuWaMlNxUyZxiq(t) {
 $(document).ready(function ()
 {
     //generateCalendar();
-
+    generateNewTable();
 });
+
+
+
