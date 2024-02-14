@@ -74,32 +74,6 @@ function generateNewTable()
     //department
     let SLmdcavhxFjdwWi = document.getElementById('SLmdcavhxFjdwWi').value;
 
-    //$('.OFUHGxtWfLsHZeB_MonthDays').html(`<div></div>`);
-    //for (let i = 1; i <= 31; i++) 
-    //{
-    //    $('.OFUHGxtWfLsHZeB_MonthDays').append(`<div><span>` + i + `</span></div>`);
-    //}
-
-
-
-    //$('.OFUHGxtWfLsHZeB_months').html(``);
-
-    //for (let i = 0; i < 12; i++)
-    //{
-    //    $('.OFUHGxtWfLsHZeB_months').append(`<div></div>`);
-    //}
-
-    //let monthsDivs = document.querySelectorAll('.OFUHGxtWfLsHZeB_months div');
-    //for (let i = 0; i < monthsDivs.length; i++) 
-    //{
-    //    $(monthsDivs[i]).append(`<div><span>` + new Date(year, i + 1, 0).toLocaleString('pl-PL', { month: 'long' }) + `</span></div>`)
-
-    //    let numberOfDays = new Date(year, i + 1, 0).getDate();
-    //    for (let j = 1; j <= numberOfDays; j++) {
-    //        $(monthsDivs[i]).append(`<div><span>` + j + `</span></div>`);
-    //        //$(monthsDivs[i]).append(`<div></div>`);
-    //    }
-    //}
 
     document.getElementById('xhXEyORRmmYlQgG').innerHTML = '';
 
@@ -129,6 +103,7 @@ function generateNewTable()
         TDs[i].setAttribute('onmouseout', 'xGCnnFtbrNPSNPm(event, this)');
     } 
 
+    
 
 };
 
