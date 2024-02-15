@@ -70,9 +70,11 @@ function generateNewTable()
 {
     //year
     let year = document.getElementById('IsBAUOIAAHcAfcz').value;
-
     //department
     let SLmdcavhxFjdwWi = document.getElementById('SLmdcavhxFjdwWi').value;
+    //worker
+    let QcLYVFuvuONgCrh = document.getElementById('QcLYVFuvuONgCrh').value;
+
 
 
     document.getElementById('xhXEyORRmmYlQgG').innerHTML = '';
@@ -81,7 +83,7 @@ function generateNewTable()
 
     for (let i = 1; i <= 31; i++) 
     {
-        document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody>`;
+        document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td id="` + year + `-1-` + i + `"></td><td id="` + year + `-2-` + i + `"></td><td id="` + year + `-3-` + i + `"></td><td id="` + year + `-4-` + i + `"></td><td id="` + year + `-5-` + i + `"></td><td id="` + year + `-6-` + i + `"></td><td id="` + year + `-7-` + i + `"></td><td id="` + year + `-8-` + i + `"></td><td id="` + year + `-9-` + i + `"></td><td id="` + year + `-10-` + i + `"></td><td id="` + year + `-11-` + i + `"></td><td id="` + year + `-12-` + i + `"></td></tr></tbody>`;
     }
 
     let TDs = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr td:not(:first-child)');
@@ -103,40 +105,76 @@ function generateNewTable()
         TDs[i].setAttribute('onmouseout', 'xGCnnFtbrNPSNPm(event, this)');
     } 
 
+    //czas
+    for (let i = 0; i < TDs.length; i++) {
+        let TDdate = new Date(TDs[i].id).toLocaleDateString();
+        for (let l = 0; l < model_t.length; l++) {
+            if (model_t[l].Enter != null && model_t[l].Exit != null)
+            {
+                let enterDate = new Date(model_t[l].Enter).toLocaleDateString();
+                let exitDate = new Date(model_t[l].Exit).toLocaleDateString();
+
+                let enterTime = new Date(model_t[l].Enter).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                let exitTime = new Date(model_t[l].Exit).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                if (enterDate == TDdate && exitDate == TDdate) {
+                    TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat">` +
+                                            `<input type="time" value="` + enterTime + `" />` +
+                                            `<span>-</span>` +
+                                            `<input type="time" value="` + exitTime + `" />` +
+                                        `</div>`;
+                }
+            }
+            else 
+            {
+                let leaveDate = new Date(model_t[l].LeaveDate).toLocaleDateString();
+
+                if (leaveDate == TDdate) {
+                    for (let j = 0; j < model_l.length; j++) {
+                        if (model_t[l].LeaveID == model_l[j].Id) {
+                            TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat" title="` + model_l[j].Name + `">` +
+                                                    `<span>` + model_l[j].Name + `</span>` +
+                                                `</div>`;
+                        }
+                    }
+                }
+            }
+        }
+    }
     
 
 };
 
 function bxLcBeaOvMopDll(e, t) 
 {
-    $(t).children().children(':not("input")').eq(0).show();
-    $(t).children().children(':not("input")').eq(2).show();
+    $(t).children().children(':not("input"):not("span")').eq(0).show();
+    $(t).children().children(':not("input"):not("span")').eq(2).show();
 
-    if ($(t).children().children(':not("input")').eq(1).css('display') != 'none')
+    if ($(t).children().children(':not("input"):not("span")').eq(1).css('display') != 'none')
     {
-        $(t).children().children(':not("input")').eq(0).hide();
-        $(t).children().children(':not("input")').eq(2).hide();
+        $(t).children().children(':not("input"):not("span")').eq(0).hide();
+        $(t).children().children(':not("input"):not("span")').eq(2).hide();
     }
 };
 
 function xGCnnFtbrNPSNPm(e, t) 
 {
-    $(t).children().children(':not("input")').eq(0).hide();
-    $(t).children().children(':not("input")').eq(2).hide();
+    $(t).children().children(':not("input"):not("span")').eq(0).hide();
+    $(t).children().children(':not("input"):not("span")').eq(2).hide();
 };
 
 function OdAaYwlLkdNUOjt(t) 
 {
-    $(t).parent().children(':not("input")').eq(1).show();
-    $(t).parent().children(':not("input")').eq(0).hide();
+    $(t).parent().children(':not("input"):not("span")').eq(1).show();
+    $(t).parent().children(':not("input"):not("span")').eq(0).hide();
 
     $(t).parent().parent().addClass('VSEIRMVnLrwIkVf');
 };
 
 function efBsSMDrIHdzcWF(t) 
 {
-    $(t).parent().children(':not("input")').eq(1).hide();
-    $(t).parent().children(':not("input")').eq(0).show();
+    $(t).parent().children(':not("input"):not("span")').eq(1).hide();
+    $(t).parent().children(':not("input"):not("span")').eq(0).show();
 
     $(t).parent().parent().removeClass('VSEIRMVnLrwIkVf');
 };
