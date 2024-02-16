@@ -3850,8 +3850,8 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 
 .BnDZmDEehCCybzG {
     position: absolute;
-    top: 2px;
-    right: 8px;
+    top: 8px;
+    right: 10px;
     opacity: 0;
     transition: opacity 0.2s;
     z-index: 1;
@@ -5051,6 +5051,10 @@ input:checked + .HsRFJWiSLmrJcoG:before {
                 background-color: rgba(255, 255, 255, 0.15);
             }
 
+            .ciPwrXhCJKttlZY tbody tr td.IdBgKIHybgYpxXJ {
+                cursor: pointer;
+            }
+
             .ciPwrXhCJKttlZY tbody tr td:first-child {
                 font-size: 16px;
                 font-weight: bold;
@@ -5090,33 +5094,37 @@ input:checked + .HsRFJWiSLmrJcoG:before {
                         background-color: rgba(255, 255, 255, 0.3);
                     }
 
-                .ciPwrXhCJKttlZY tbody tr td div div svg {
-                    fill: rgba(255, 255, 255, 0.8);
-                }
+                    .ciPwrXhCJKttlZY tbody tr td div div svg {
+                        fill: rgba(255, 255, 255, 0.8);
+                    }
 
-                .ciPwrXhCJKttlZY tbody tr td div input {
-                    background-color: transparent;
-                    color: white;
-                    border: none;
-                    outline: none;
-                    font-size: 13px;
-                }
+                    .ciPwrXhCJKttlZY tbody tr td div input {
+                        background-color: transparent;
+                        color: white;
+                        border: none;
+                        outline: none;
+                        font-size: 13px;
+                    }
 
                 .ciPwrXhCJKttlZY tbody tr td div.IpLJVyLZIbPJsat {
                     justify-content: center;
                 }
 
-                .ciPwrXhCJKttlZY tbody tr td div.IpLJVyLZIbPJsat input {
-                    pointer-events: none;
-                    text-align: center; 
-                }
+                    .ciPwrXhCJKttlZY tbody tr td div.IpLJVyLZIbPJsat.FUPZhBNEXqjiqdk {
+                        pointer-events: none;
+                    }
 
-                .ciPwrXhCJKttlZY tbody tr td div.IpLJVyLZIbPJsat span {
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    max-width: 95px;
-                }
+                    .ciPwrXhCJKttlZY tbody tr td div.IpLJVyLZIbPJsat input {
+                        pointer-events: none;
+                        text-align: center; 
+                    }
+
+                    .ciPwrXhCJKttlZY tbody tr td div.IpLJVyLZIbPJsat span {
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        max-width: 95px;
+                    }
 
                 .ciPwrXhCJKttlZY tbody tr td div:disabled {
                     pointer-events: none;

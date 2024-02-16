@@ -123,6 +123,10 @@ function generateNewTable()
                                             `<span>-</span>` +
                                             `<input type="time" value="` + exitTime + `" />` +
                                         `</div>`;
+
+                    $(TDs[i]).addClass('IdBgKIHybgYpxXJ');
+                    TDs[i].setAttribute('onclick', 'BHuhsNtfdNbyAVV(this)');
+                    TDs[i].setAttribute('title', 'Edytuj godziny');
                 }
             }
             else 
@@ -130,13 +134,19 @@ function generateNewTable()
                 let leaveDate = new Date(model_t[l].LeaveDate).toLocaleDateString();
 
                 if (leaveDate == TDdate) {
-                    for (let j = 0; j < model_l.length; j++) {
-                        if (model_t[l].LeaveID == model_l[j].Id) {
-                            TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat" title="` + model_l[j].Name + `">` +
-                                                    `<span>` + model_l[j].Name + `</span>` +
-                                                `</div>`;
-                        }
-                    }
+                    //for (let j = 0; j < model_l.length; j++) {
+                    //    if (model_t[l].LeaveID == model_l[j].Id) {
+                    //        TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat" title="` + model_l[j].Name + `">` +
+                    //                                `<span>` + model_l[j].Name + `</span>` +
+                    //                            `</div>`;
+
+                    //        $(TDs[i]).addClass('IdBgKIHybgYpxXJ');
+                    //    }
+                    //}
+
+                    TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat FUPZhBNEXqjiqdk">` +
+                                            `<span>Urlop</span>` +
+                                        `</div>`;
                 }
             }
         }
@@ -179,12 +189,117 @@ function efBsSMDrIHdzcWF(t)
     $(t).parent().parent().removeClass('VSEIRMVnLrwIkVf');
 };
 
+function BHuhsNtfdNbyAVV(t) 
+{
+    let QcLYVFuvuONgCrh = document.getElementById('QcLYVFuvuONgCrh');
+    let worker = QcLYVFuvuONgCrh.options[QcLYVFuvuONgCrh.selectedIndex].text;
+
+    let date = $(t).attr('id');
+    let day = date.split('-')[2];
+    let month = new Date(date).toLocaleDateString('pl-PL', { month: 'long' });
+    let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
+    let year = document.getElementById('IsBAUOIAAHcAfcz').value;
+    let newDate = day + ' ' + month_capitalize + ' ' + year;
+
+    sessionStorage.setItem('jnCsicsQykceNRr', date);
+
+
+    let godzinaOD = $(t).children().children('input').eq(0).val();
+    let godzinaDO = $(t).children().children('input').eq(1).val();
+
+
+    let form = `<div id="yflqRyBYjmsZJlN" class="pGKcZvErUB" style="display: none;">` +
+            `<form class="form_3">` +
+                `<div class="IvBtEDulLESDYxK">` +
+                    `<span>` + worker + `</span>` +
+                `</div>` +
+                `<div class="IvBtEDulLESDYxK" id="` + date + `">` +
+                    `<span>` + newDate + `</span>` +
+                `</div>` +
+                `<div class="form-group3 form-group-margin">` +
+                    `<div class="form-group">` +
+                        `<label>od godziny:</label>` +
+                        `<input type="time" class="form-control sCnCesXdXjqdcnF" id="vYPsbsKQRUpHzhU" value="` + godzinaOD + `" />` +
+                    `</div>` +
+                    `<div class="form-group">` +
+                        `<label>do godziny:</label>` +
+                        `<input type="time" class="form-control sCnCesXdXjqdcnF" id="iNfGuPIzEcZmVWl" value="` + godzinaDO + `" />` +
+                    `</div>` +
+                `</div>` +
+                `<div class="form-group">` +
+                    `<input type="button" value="Edytuj" class="btn-custom" onclick="cUikqcCdqYXiOhb(this)" />` +
+                `</div>` +
+                `<div class="form-group btn-danger-div">` +
+                    `<input type="button" value="Usuń" class="" onclick="erAjvPaJaDFYeWu(this)" />` +
+                `</div>` +
+                `<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk" onclick="xZlZPWWTfaNMpXj_(this)">` +
+                    `<svg viewBox="0 0 470 470" height="15" width="15"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg>` +
+                `</div>` +
+            `</form>` +
+        `</div>`;
+
+    $('body').append(form);
+
+    $('#yflqRyBYjmsZJlN').fadeIn(200);
+};
+
 function HIJPFbwutXHZxGn(t) 
 {
-    $(t).parent().hide();
+    let QcLYVFuvuONgCrh = document.getElementById('QcLYVFuvuONgCrh');
+    let worker = QcLYVFuvuONgCrh.options[QcLYVFuvuONgCrh.selectedIndex].text;
 
-    $(t).parent().parent().html(`<div><input type="time" /><input type="time" /></div>`);
+    let date = $(t).parent().parent().attr('id');
+    let day = date.split('-')[2];
+    let month = new Date(date).toLocaleDateString('pl-PL', { month: 'long' });
+    let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
+    let year = document.getElementById('IsBAUOIAAHcAfcz').value;
+    let newDate = day + ' ' + month_capitalize + ' ' + year;
+
+    sessionStorage.setItem('EDoQJqNDPEApXNE', date);
+
+    let form = `<div id="vjaHMXanUmPdVZF" class="pGKcZvErUB" style="display: none;">` +
+        `<form class="form_3">` +
+            `<div class="IvBtEDulLESDYxK">` +
+                `<span>` + worker + `</span>` +
+            `</div>` +
+            `<div class="IvBtEDulLESDYxK" id="` + date + `">` +
+                `<span>` + newDate + `</span>` +
+            `</div>` +
+            `<div class="form-group3 form-group-margin">` +
+                `<div class="form-group">` +
+                    `<label>od godziny:</label>` +
+                    `<input type="time" class="form-control sCnCesXdXjqdcnF" id="ybBTKgXSwnWglwT" />` +
+                `</div>` +
+                `<div class="form-group">` +
+                    `<label>do godziny:</label>` +
+                    `<input type="time" class="form-control sCnCesXdXjqdcnF" id="knZWoMordRYeUfn" />` +
+                `</div>` +
+            `</div>` +
+            `<div class="form-group">` +
+                `<input type="button" value="Zapisz" class="btn-custom" onclick="MbcIEXgByuxsGWM_(this)" />` +
+            `</div>` +
+            `<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk" onclick="xZlZPWWTfaNMpXj_(this)">` +
+                `<svg viewBox="0 0 470 470" height="15" width="15"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg>` +
+            `</div>` +
+        `</form>` +
+    `</div>`;
+
+
+    $('body').append(form);
+
+    $('#vjaHMXanUmPdVZF').fadeIn(200);
 };
+
+function xZlZPWWTfaNMpXj_(t) 
+{
+    $(t).parent().parent().fadeOut(200);
+
+    setTimeout(function ()
+    {
+        $(t).parent().parent().remove();
+    }, 300);
+};
+
 
 function generateCalendar() 
 {
