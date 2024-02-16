@@ -24,6 +24,234 @@ function getLang()
 }
 //
 
+function generateNewTable() 
+{
+    //year
+    let year = document.getElementById('iHCBwRzOLpgGYQG').value;
+    //department
+    let SLmdcavhxFjdwWi = document.getElementById('aFoQOFiXPQobjPX').value;
+    //worker
+    let QcLYVFuvuONgCrh = document.getElementById('oUfnFiNPmXnNjzu').value;
+
+
+
+    document.getElementById('xhXEyORRmmYlQgG').innerHTML = '';
+
+    document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th><th>Styczeń</th><th>Luty</th><th>Marzec</th><th>Kwiecień</th><th>Maj</th><th>Czerwiec</th><th>Lipiec</th><th>Sierpień</th><th>Wrzesień</th><th>Październik</th><th>Listopad</th><th>Grudzień</th></tr></thead>`;
+
+    for (let i = 1; i <= 31; i++) 
+    {
+        document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td id="` + year + `-1-` + i + `"></td><td id="` + year + `-2-` + i + `"></td><td id="` + year + `-3-` + i + `"></td><td id="` + year + `-4-` + i + `"></td><td id="` + year + `-5-` + i + `"></td><td id="` + year + `-6-` + i + `"></td><td id="` + year + `-7-` + i + `"></td><td id="` + year + `-8-` + i + `"></td><td id="` + year + `-9-` + i + `"></td><td id="` + year + `-10-` + i + `"></td><td id="` + year + `-11-` + i + `"></td><td id="` + year + `-12-` + i + `"></td></tr></tbody>`;
+    }
+
+    let TDs = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr td:not(:first-child)');
+    for (let i = 0; i < TDs.length; i++) 
+    {
+        TDs[i].innerHTML += `<div id="NGWhvCmkPUIWclY">` + //onmouseout="xGCnnFtbrNPSNPm(this)" onmouseover="bxLcBeaOvMopDll(this)"
+            `<div title="Zaznacz dzień" onclick="OdAaYwlLkdNUOjt(this)" style="display: none;">` +
+            `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path></svg>` +
+            `</div>` +
+            `<div title="Odznacz dzień" onclick="efBsSMDrIHdzcWF(this)" style="display: none;">` +
+            `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path></svg>` +
+            `</div>` +
+            `<div title="Wpisz urlop" onclick="HIJPFbwutXHZxGn(this)" style="display: none;">` +
+            `<svg viewBox="0 0 24 24" width="20" height="20" class="HRcyzPKclmUXnPb"><path d="M8.4 12H2.8L1 15H0V5h1l1.8 3h5.6L6 0h2l4.8 8H18a2 2 0 1 1 0 4h-5.2L8 20H6l2.4-8z"></path></svg>` +
+            `</div>` +
+            `</div>`;
+
+        TDs[i].setAttribute('onmouseover', 'bxLcBeaOvMopDll(event, this)');
+        TDs[i].setAttribute('onmouseout', 'xGCnnFtbrNPSNPm(event, this)');
+    }
+
+    //czas
+    for (let i = 0; i < TDs.length; i++)
+    {
+        let TDdate = new Date(TDs[i].id).toLocaleDateString();
+        for (let l = 0; l < model_t.length; l++)
+        {
+            if (model_t[l].Enter != null && model_t[l].Exit != null)
+            {
+                let enterDate = new Date(model_t[l].Enter).toLocaleDateString();
+                let exitDate = new Date(model_t[l].Exit).toLocaleDateString();
+
+                if (enterDate == TDdate && exitDate == TDdate)
+                {
+                    //TDs[i].innerHTML = `<span>`;
+
+                    $(TDs[i]).addClass('disabled');
+                }
+            }
+            else 
+            {
+                let leaveDate = new Date(model_t[l].LeaveDate).toLocaleDateString();
+
+                if (leaveDate == TDdate)
+                {
+                    for (let j = 0; j < model_l.length; j++) {
+                        if (model_t[l].LeaveID == model_l[j].Id) {
+                            TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat" id="` + model_l[j].Id + `">` + //title="` + model_l[j].Name + `"
+                                                    `<span>` + model_l[j].Name + `</span>` +
+                                                `</div>`;
+
+                            $(TDs[i]).addClass('IdBgKIHybgYpxXJ');
+                            TDs[i].setAttribute('onclick', 'BHuhsNtfdNbyAVV(this)');
+                            TDs[i].setAttribute('title', 'Edytuj urlop');
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+};
+
+function bxLcBeaOvMopDll(e, t) 
+{
+    $(t).children().children(':not("input"):not("span")').eq(0).show();
+    $(t).children().children(':not("input"):not("span")').eq(2).show();
+
+    if ($(t).children().children(':not("input"):not("span")').eq(1).css('display') != 'none')
+    {
+        $(t).children().children(':not("input"):not("span")').eq(0).hide();
+        $(t).children().children(':not("input"):not("span")').eq(2).hide();
+    }
+};
+
+function xGCnnFtbrNPSNPm(e, t) 
+{
+    $(t).children().children(':not("input"):not("span")').eq(0).hide();
+    $(t).children().children(':not("input"):not("span")').eq(2).hide();
+};
+
+function OdAaYwlLkdNUOjt(t) 
+{
+    $(t).parent().children(':not("input"):not("span")').eq(1).show();
+    $(t).parent().children(':not("input"):not("span")').eq(0).hide();
+
+    $(t).parent().parent().addClass('VSEIRMVnLrwIkVf');
+};
+
+function efBsSMDrIHdzcWF(t) 
+{
+    $(t).parent().children(':not("input"):not("span")').eq(1).hide();
+    $(t).parent().children(':not("input"):not("span")').eq(0).show();
+
+    $(t).parent().parent().removeClass('VSEIRMVnLrwIkVf');
+};
+
+function BHuhsNtfdNbyAVV(t) 
+{
+    let QcLYVFuvuONgCrh = document.getElementById('oUfnFiNPmXnNjzu');
+    let worker = QcLYVFuvuONgCrh.options[QcLYVFuvuONgCrh.selectedIndex].text;
+
+    let date = $(t).attr('id');
+    let day = date.split('-')[2];
+    let month = new Date(date).toLocaleDateString('pl-PL', { month: 'long' });
+    let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
+    let year = document.getElementById('iHCBwRzOLpgGYQG').value;
+    let newDate = day + ' ' + month_capitalize + ' ' + year;
+
+
+    //let godzinaOD = $(t).children().children('input').eq(0).val();
+    //let godzinaDO = $(t).children().children('input').eq(1).val();
+
+
+    //let form = `<div id="yflqRyBYjmsZJlN" class="pGKcZvErUB" style="display: none;">` +
+    //    `<form class="form_3">` +
+    //    `<div class="IvBtEDulLESDYxK">` +
+    //    `<span>` + worker + `</span>` +
+    //    `</div>` +
+    //    `<div class="IvBtEDulLESDYxK" id="` + date + `">` +
+    //    `<span>` + newDate + `</span>` +
+    //    `</div>` +
+    //    `<div class="form-group3 form-group-margin">` +
+    //    `<div class="form-group">` +
+    //    `<label>od godziny:</label>` +
+    //    `<input type="time" class="form-control sCnCesXdXjqdcnF" id="vYPsbsKQRUpHzhU" value="` + godzinaOD + `" />` +
+    //    `</div>` +
+    //    `<div class="form-group">` +
+    //    `<label>do godziny:</label>` +
+    //    `<input type="time" class="form-control sCnCesXdXjqdcnF" id="iNfGuPIzEcZmVWl" value="` + godzinaDO + `" />` +
+    //    `</div>` +
+    //    `</div>` +
+    //    `<div class="form-group">` +
+    //    `<input type="button" value="Edytuj" class="btn-custom" onclick="cUikqcCdqYXiOhb(this)" />` +
+    //    `</div>` +
+    //    `<div class="form-group btn-danger-div">` +
+    //    `<input type="button" value="Usuń" class="" onclick="erAjvPaJaDFYeWu(this)" />` +
+    //    `</div>` +
+    //    `<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk" onclick="xZlZPWWTfaNMpXj_(this)">` +
+    //    `<svg viewBox="0 0 470 470" height="15" width="15"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg>` +
+    //    `</div>` +
+    //    `</form>` +
+    //    `</div>`;
+
+    //$('body').append(form);
+
+    //$('#yflqRyBYjmsZJlN').fadeIn(200);
+
+
+};
+
+function HIJPFbwutXHZxGn(t) 
+{
+    let QcLYVFuvuONgCrh = document.getElementById('oUfnFiNPmXnNjzu');
+    let worker = QcLYVFuvuONgCrh.options[QcLYVFuvuONgCrh.selectedIndex].text;
+
+    let date = $(t).parent().parent().attr('id');
+    let day = date.split('-')[2];
+    let month = new Date(date).toLocaleDateString('pl-PL', { month: 'long' });
+    let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
+    let year = document.getElementById('iHCBwRzOLpgGYQG').value;
+    let newDate = day + ' ' + month_capitalize + ' ' + year;
+
+
+    //let form = `<div id="vjaHMXanUmPdVZF" class="pGKcZvErUB" style="display: none;">` +
+    //    `<form class="form_3">` +
+    //    `<div class="IvBtEDulLESDYxK">` +
+    //    `<span>` + worker + `</span>` +
+    //    `</div>` +
+    //    `<div class="IvBtEDulLESDYxK" id="` + date + `">` +
+    //    `<span>` + newDate + `</span>` +
+    //    `</div>` +
+    //    `<div class="form-group3 form-group-margin">` +
+    //    `<div class="form-group">` +
+    //    `<label>od godziny:</label>` +
+    //    `<input type="time" class="form-control sCnCesXdXjqdcnF" id="ybBTKgXSwnWglwT" />` +
+    //    `</div>` +
+    //    `<div class="form-group">` +
+    //    `<label>do godziny:</label>` +
+    //    `<input type="time" class="form-control sCnCesXdXjqdcnF" id="knZWoMordRYeUfn" />` +
+    //    `</div>` +
+    //    `</div>` +
+    //    `<div class="form-group">` +
+    //    `<input type="button" value="Zapisz" class="btn-custom" onclick="MbcIEXgByuxsGWM_(this)" />` +
+    //    `</div>` +
+    //    `<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk" onclick="xZlZPWWTfaNMpXj_(this)">` +
+    //    `<svg viewBox="0 0 470 470" height="15" width="15"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg>` +
+    //    `</div>` +
+    //    `</form>` +
+    //    `</div>`;
+
+
+    //$('body').append(form);
+
+    //$('#vjaHMXanUmPdVZF').fadeIn(200);
+
+
+};
+
+function xZlZPWWTfaNMpXj_(t) 
+{
+    $(t).parent().parent().fadeOut(200);
+
+    setTimeout(function ()
+    {
+        $(t).parent().parent().remove();
+    }, 300);
+};
+
 function generateCalendar()
 {
     
@@ -269,27 +497,28 @@ function NWEuFXskeXpBGBa(t) {
     $('#RHJIQRivZsUcFkm').fadeOut(200);
 };
 
-//function FFkdMqNnTDbWkXb()
-//{
-//    document.getElementById('oUfnFiNPmXnNjzu').innerHTML = '';
+function FFkdMqNnTDbWkXb()
+{
+    document.getElementById('oUfnFiNPmXnNjzu').innerHTML = '';
 
-//    let aFoQOFiXPQobjPX = document.getElementById('aFoQOFiXPQobjPX');
-//    let departmentID_ = aFoQOFiXPQobjPX.options[aFoQOFiXPQobjPX.selectedIndex].value;
+    let aFoQOFiXPQobjPX = document.getElementById('aFoQOFiXPQobjPX');
+    let departmentID_ = aFoQOFiXPQobjPX.options[aFoQOFiXPQobjPX.selectedIndex].value;
 
-//    for (let i = 0; i < model_w.length; i++) {
-//        if (model_w[i].DepartmentID == departmentID_) {
-//            document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="` + model_w[i].Id + `" id="` + model_w[i].DepartmentID + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
-//        }
-//    }
-//    document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="everyone">Wszyscy</option>`;
+    for (let i = 0; i < model_w.length; i++) {
+        if (model_w[i].DepartmentID == departmentID_) {
+            document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="` + model_w[i].Id + `" id="` + model_w[i].DepartmentID + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
+        }
+    }
+    document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="everyone">Wszyscy z działu</option>`;
     
-//    generateCalendar();
+    //generateCalendar();
+    generateNewTable();
 
 
+    //sessionStorage.setItem('lIglBkqRjlDZnab', t.value)
+};
+FFkdMqNnTDbWkXb();
 
-//    //sessionStorage.setItem('lIglBkqRjlDZnab', t.value)
-//};
-//FFkdMqNnTDbWkXb();
 $('#aFoQOFiXPQobjPX').on('change', function ()
 {
     document.getElementById('oUfnFiNPmXnNjzu').innerHTML = '';
@@ -302,10 +531,10 @@ $('#aFoQOFiXPQobjPX').on('change', function ()
             document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="` + model_w[i].Id + `" id="` + model_w[i].DepartmentID + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
         }
     }
-    document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="everyone">Wszyscy</option>`;
+    document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="everyone">Wszyscy z działu</option>`;
 
-    generateCalendar();
-
+    //generateCalendar();
+    generateNewTable();
 
 
     let department = this.options[this.selectedIndex].value;
@@ -319,7 +548,8 @@ $('#aFoQOFiXPQobjPX').on('change', function ()
 
 $('#IZdWjCoFNPZaIaP').on('change', function ()
 {
-    generateCalendar();
+    //generateCalendar();
+    generateNewTable();
 
     let month = this.options[this.selectedIndex].value;
     sessionStorage.setItem('wSGVyznxxQsFpjg', month)
@@ -330,7 +560,8 @@ $('#IZdWjCoFNPZaIaP').on('change', function ()
 function dWVTVhqEBjJCURf(t)
 {
     $('#xBuYErAxrbdvwoP').children().show();
-    generateCalendar();
+    //generateCalendar();
+    generateNewTable();
 };
 
 
@@ -671,7 +902,8 @@ $('#JTgCvImoJEyzGux').on('click', function ()
 
 $('#iHCBwRzOLpgGYQG').on('change', function ()
 {
-    generateCalendar();
+    //generateCalendar();
+    generateNewTable();
 
     let year = this.options[this.selectedIndex].value;
     sessionStorage.setItem('MnqHzqBiryXOWYP', year)
@@ -1175,7 +1407,8 @@ $(document).ready(function ()
     }
     //
 
-    generateCalendar();
+    //generateCalendar();
+    generateNewTable();
 
     //scroll - po załadowaniu generateCalendar
     if (sessionStorage.getItem('mcctFxsWDAvvPfs') != null)

@@ -55,8 +55,7 @@
 
     </select>
 
-    <select class="HQTuaisxjrtQHPq" id="IZdWjCoFNPZaIaP">
-        <!--Miesiąc-->
+    @*<select class="HQTuaisxjrtQHPq" id="IZdWjCoFNPZaIaP">
         @for (int i = 0; i < 12; i++)
         {
             string s = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[i];
@@ -72,11 +71,11 @@
                 <option value="@i.ToString()">@c</option>
             }
         }
-    </select>
+    </select>*@
 
-    <span class="settings_span">Urlopy dla działu:</span>
+    <span class="settings_span">Dział:</span>
     <div style="height: 5px;"></div>
-    <select class="HQTuaisxjrtQHPq" id="aFoQOFiXPQobjPX">
+    <select class="HQTuaisxjrtQHPq" id="aFoQOFiXPQobjPX" onchange="FFkdMqNnTDbWkXb()">
         <!--FFkdMqNnTDbWkXb -->
         @foreach (var item in ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name))
         {
@@ -84,16 +83,19 @@
         }
     </select>
 
-    <span style="display: none;" class="settings_span">Pracownik:</span>
-    <div style="height: 5px; display: none;"></div>
-    <select style="display: none;" class="HQTuaisxjrtQHPq" id="oUfnFiNPmXnNjzu" onchange="dWVTVhqEBjJCURf(this)">
-        @*@foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).OrderBy(x => x.Surname))
+    <span class="settings_span">Pracownik:</span>
+    <div style="height: 5px;"></div>
+    <select class="HQTuaisxjrtQHPq" id="oUfnFiNPmXnNjzu" onchange="dWVTVhqEBjJCURf(this)">
+        @foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).OrderBy(x => x.Surname))
         {
             <option value="@item.Id" id="@item.DepartmentID">@item.Surname @item.Name</option>
         }
-        <option value="everyone">Wszyscy w wybranym dziale</option>*@
+        <option value="everyone">Wszyscy w wybranym dziale</option>
     </select>
 
+    <div style="height: 8px;"></div>
+    <span class="settings_span">Dodaj urlopy:</span>
+    <div style="height: 5px;"></div>
     <div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw" id="KhUYdWBbOzZAJwi">
         <span>Dodaj</span>
     </div>

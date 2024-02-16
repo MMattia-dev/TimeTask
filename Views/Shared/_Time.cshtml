@@ -33,8 +33,7 @@
         }
     </select>
 
-    <select class="HQTuaisxjrtQHPq" id="DvSHNpXssZqqqtk" onchange="ZJRABLNnRtfPJYl()" style="display: none;">
-        <!--Miesiąc-->
+    @*<select class="HQTuaisxjrtQHPq" id="DvSHNpXssZqqqtk" onchange="ZJRABLNnRtfPJYl()">
         @for (int i = 0; i < 12; i++)
         {
             string s = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[i];
@@ -50,7 +49,7 @@
                 <option value="@i.ToString()">@c</option>
             }
         }
-    </select>
+    </select>*@
 
     <span class="settings_span">Dział:</span>
     <div style="height: 5px;"></div>
@@ -118,9 +117,9 @@
     <div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw" id="BEUBKWapUSakQZq">
         <span>Dodaj godziny</span>
     </div>
-    <div id="nhklYOXterdPTwH" class="pyyxmssXgPCWuUc" style="display: none;">
+    @*<div id="nhklYOXterdPTwH" class="pyyxmssXgPCWuUc">
         <span>Usuń zaznaczone</span>
-    </div>
+    </div>*@
 
 </div>
 

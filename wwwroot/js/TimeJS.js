@@ -134,19 +134,8 @@ function generateNewTable()
                 let leaveDate = new Date(model_t[l].LeaveDate).toLocaleDateString();
 
                 if (leaveDate == TDdate) {
-                    //for (let j = 0; j < model_l.length; j++) {
-                    //    if (model_t[l].LeaveID == model_l[j].Id) {
-                    //        TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat" title="` + model_l[j].Name + `">` +
-                    //                                `<span>` + model_l[j].Name + `</span>` +
-                    //                            `</div>`;
-
-                    //        $(TDs[i]).addClass('IdBgKIHybgYpxXJ');
-                    //    }
-                    //}
-
-                    TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat FUPZhBNEXqjiqdk">` +
-                                            `<span>Urlop</span>` +
-                                        `</div>`;
+                    //TDs[i].innerHTML = `<span>Urlopy</span>`;
+                    $(TDs[i]).addClass('disabled');
                 }
             }
         }
@@ -201,8 +190,6 @@ function BHuhsNtfdNbyAVV(t)
     let year = document.getElementById('IsBAUOIAAHcAfcz').value;
     let newDate = day + ' ' + month_capitalize + ' ' + year;
 
-    sessionStorage.setItem('jnCsicsQykceNRr', date);
-
 
     let godzinaOD = $(t).children().children('input').eq(0).val();
     let godzinaDO = $(t).children().children('input').eq(1).val();
@@ -255,7 +242,6 @@ function HIJPFbwutXHZxGn(t)
     let year = document.getElementById('IsBAUOIAAHcAfcz').value;
     let newDate = day + ' ' + month_capitalize + ' ' + year;
 
-    sessionStorage.setItem('EDoQJqNDPEApXNE', date);
 
     let form = `<div id="vjaHMXanUmPdVZF" class="pGKcZvErUB" style="display: none;">` +
         `<form class="form_3">` +
