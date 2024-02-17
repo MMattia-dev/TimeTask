@@ -66,14 +66,28 @@ function isMonday(date = new Date())
 {
     return date.getDay() === 1;
 }
+
+function isDateValid(year, month, day) 
+{
+    var dateObj = new Date(year, month, day);
+
+    if (dateObj.getFullYear() == year && dateObj.getMonth() == month && dateObj.getDate() == day) 
+    {
+        return true;
+    }
+    else {
+        return false;
+    }
+};
+
 function generateNewTable() 
 {
     //year
     let year = document.getElementById('IsBAUOIAAHcAfcz').value;
     //department
-    let SLmdcavhxFjdwWi = document.getElementById('SLmdcavhxFjdwWi').value;
+    let department = document.getElementById('SLmdcavhxFjdwWi').value;
     //worker
-    let QcLYVFuvuONgCrh = document.getElementById('QcLYVFuvuONgCrh').value;
+    let worker = document.getElementById('QcLYVFuvuONgCrh').value;
 
 
 
@@ -109,38 +123,62 @@ function generateNewTable()
     for (let i = 0; i < TDs.length; i++) {
         let TDdate = new Date(TDs[i].id).toLocaleDateString();
         for (let l = 0; l < model_t.length; l++) {
-            if (model_t[l].Enter != null && model_t[l].Exit != null)
+            if (worker == model_t[l].WorkerID) 
             {
-                let enterDate = new Date(model_t[l].Enter).toLocaleDateString();
-                let exitDate = new Date(model_t[l].Exit).toLocaleDateString();
+                if (model_t[l].Enter != null && model_t[l].Exit != null)
+                {
+                    let enterDate = new Date(model_t[l].Enter).toLocaleDateString();
+                    let exitDate = new Date(model_t[l].Exit).toLocaleDateString();
 
-                let enterTime = new Date(model_t[l].Enter).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                let exitTime = new Date(model_t[l].Exit).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    let enterTime = new Date(model_t[l].Enter).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    let exitTime = new Date(model_t[l].Exit).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-                if (enterDate == TDdate && exitDate == TDdate) {
-                    TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat">` +
-                                            `<input type="time" value="` + enterTime + `" />` +
-                                            `<span>-</span>` +
-                                            `<input type="time" value="` + exitTime + `" />` +
-                                        `</div>`;
+                    if (enterDate == TDdate && exitDate == TDdate)
+                    {
+                        TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat">` +
+                            `<input type="time" value="` + enterTime + `" />` +
+                            `<span>-</span>` +
+                            `<input type="time" value="` + exitTime + `" />` +
+                            `</div>`;
 
-                    $(TDs[i]).addClass('IdBgKIHybgYpxXJ');
-                    TDs[i].setAttribute('onclick', 'BHuhsNtfdNbyAVV(this)');
-                    TDs[i].setAttribute('title', 'Edytuj godziny');
+                        $(TDs[i]).addClass('IdBgKIHybgYpxXJ');
+                        TDs[i].setAttribute('onclick', 'BHuhsNtfdNbyAVV(this)');
+                        TDs[i].setAttribute('title', 'Edytuj godziny');
+                    }
                 }
-            }
-            else 
-            {
-                let leaveDate = new Date(model_t[l].LeaveDate).toLocaleDateString();
+                else 
+                {
+                    let leaveDate = new Date(model_t[l].LeaveDate).toLocaleDateString();
 
-                if (leaveDate == TDdate) {
-                    //TDs[i].innerHTML = `<span>Urlopy</span>`;
-                    $(TDs[i]).addClass('disabled');
+                    if (leaveDate == TDdate)
+                    {
+                        $(TDs[i]).addClass('disabled');
+                        $(TDs[i]).html('');
+                        $(TDs[i]).removeAttr('onmouseover');
+                        $(TDs[i]).removeAttr('onmouseout');
+                        $(TDs[i]).removeAttr('onclick');
+                        $(TDs[i]).removeAttr('title');
+                        $(TDs[i]).removeAttr('id');
+                    }
                 }
             }
         }
+
+
+        let dayToCheck = parseInt(TDs[i].id.split('-')[2]);
+        let monthToCheck = parseInt(TDs[i].id.split('-')[1]) - 1;
+        let yearToCheck = parseInt(TDs[i].id.split('-')[0]);
+        if (!isDateValid(yearToCheck, monthToCheck, dayToCheck)) {
+            $(TDs[i]).addClass('disabled');
+            $(TDs[i]).html('');
+            $(TDs[i]).removeAttr('onmouseover');
+            $(TDs[i]).removeAttr('onmouseout');
+            $(TDs[i]).removeAttr('onclick');
+            $(TDs[i]).removeAttr('title');
+            $(TDs[i]).removeAttr('id');
+        }
     }
-    
+
 
 };
 
