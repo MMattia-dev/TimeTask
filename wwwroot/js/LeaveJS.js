@@ -111,13 +111,14 @@ function generateNewTable()
                         {
                             if (model_t[l].LeaveID == model_l[j].Id)
                             {
-                                TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat" id="` + model_t[l].Id + `">` + //title="` + model_l[j].Name + `"
+                                TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat" id="` + model_l[j].Id + `">` + //title="` + model_l[j].Name + `"
                                     `<span>` + model_l[j].Name + `</span>` +
                                     `</div>`;
 
                                 $(TDs[i]).addClass('IdBgKIHybgYpxXJ');
                                 TDs[i].setAttribute('onclick', 'BHuhsNtfdNbyAVV(this)');
                                 TDs[i].setAttribute('title', 'Edytuj urlop');
+                                TDs[i].setAttribute('id_', model_t[l].Id);
                             }
                         }
                     }
@@ -142,6 +143,89 @@ function generateNewTable()
     }
 
 
+};
+
+function MbcIEXgByuxsGWM_(t) 
+{
+    let workerID_ = document.getElementById('oUfnFiNPmXnNjzu').value;
+    let leaveID_ = $(t).parent().parent().children('.form-group-margin').children('select').val();
+    let leaveDate_ = $(t).parent().parent().children('#hRzavoWPiMExZUI').attr('date');
+
+    if (workerID_ != 0 || workerID_ != '0' || workerID_ != null || leaveID_ != 0 || leaveID_ != '0' || leaveID_ != null)
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/Times/AddLeave',
+            data: {
+                workerID: workerID_,
+                enter: null,
+                exit: null,
+                leaveID: leaveID_,
+                leaveDate: leaveDate_
+            },
+            success: function (response)
+            {
+                location.reload();
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error adding column value:', error);
+            }
+        });
+    }
+};
+
+function MbcIEXgByuxsGWM__(t) 
+{
+    let id_ = sessionStorage.getItem('lNxfWzXrKcHsdTi');
+    let workerID_ = document.getElementById('oUfnFiNPmXnNjzu').value;
+    let leaveID_ = $(t).parent().parent().children('.form-group-margin').children('select').val();
+    let leaveDate_ = $(t).parent().parent().children('#hRzavoWPiMExZUI_').attr('date');
+
+    if (workerID_ != 0 || workerID_ != '0' || workerID_ != null || leaveID_ != 0 || leaveID_ != '0' || leaveID_ != null)
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/Times/EditLeave',
+            data: {
+                id: id_,
+                workerID: workerID_,
+                enter: null,
+                exit: null,
+                leaveID: leaveID_,
+                leaveDate: leaveDate_
+            },
+            success: function (response)
+            {
+                location.reload();
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error adding column value:', error);
+            }
+        });
+    }
+};
+
+function erAjvPaJaDFYeWu_(t) 
+{
+    let id_ = sessionStorage.getItem('lNxfWzXrKcHsdTi');
+
+    $.ajax({
+        type: 'POST',
+        url: '/Times/RemoveLeave',
+        data: {
+            id: id_
+        },
+        success: function (response)
+        {
+            location.reload();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding column value:', error);
+        }
+    });
 };
 
 function bxLcBeaOvMopDll(e, t) 
@@ -195,45 +279,39 @@ function BHuhsNtfdNbyAVV(t)
     let newDate = day + ' ' + month_capitalize + ' ' + year;
 
 
-    //let godzinaOD = $(t).children().children('input').eq(0).val();
-    //let godzinaDO = $(t).children().children('input').eq(1).val();
 
 
-    //let form = `<div id="yflqRyBYjmsZJlN" class="pGKcZvErUB" style="display: none;">` +
-    //    `<form class="form_3">` +
-    //    `<div class="IvBtEDulLESDYxK">` +
-    //    `<span>` + worker + `</span>` +
-    //    `</div>` +
-    //    `<div class="IvBtEDulLESDYxK" id="` + date + `">` +
-    //    `<span>` + newDate + `</span>` +
-    //    `</div>` +
-    //    `<div class="form-group3 form-group-margin">` +
-    //    `<div class="form-group">` +
-    //    `<label>od godziny:</label>` +
-    //    `<input type="time" class="form-control sCnCesXdXjqdcnF" id="vYPsbsKQRUpHzhU" value="` + godzinaOD + `" />` +
-    //    `</div>` +
-    //    `<div class="form-group">` +
-    //    `<label>do godziny:</label>` +
-    //    `<input type="time" class="form-control sCnCesXdXjqdcnF" id="iNfGuPIzEcZmVWl" value="` + godzinaDO + `" />` +
-    //    `</div>` +
-    //    `</div>` +
-    //    `<div class="form-group">` +
-    //    `<input type="button" value="Edytuj" class="btn-custom" onclick="cUikqcCdqYXiOhb(this)" />` +
-    //    `</div>` +
-    //    `<div class="form-group btn-danger-div">` +
-    //    `<input type="button" value="Usuń" class="" onclick="erAjvPaJaDFYeWu(this)" />` +
-    //    `</div>` +
-    //    `<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk" onclick="xZlZPWWTfaNMpXj_(this)">` +
-    //    `<svg viewBox="0 0 470 470" height="15" width="15"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg>` +
-    //    `</div>` +
-    //    `</form>` +
-    //    `</div>`;
-
-    //$('body').append(form);
-
-    //$('#yflqRyBYjmsZJlN').fadeIn(200);
+    document.getElementById('RgqSDmbppdlqlIR_').innerHTML = ``;
+    for (let i = 0; i < model_l.length; i++) 
+    {
+        if (model_l[i].Name == $(t).children().children('span').html()) 
+        {
+            document.getElementById('uVPVZwEWSbHTwor_').value = $(t).children().children('span').html();
+            if (model_l[i].Description != null)
+            {
+                $('#RgqSDmbppdlqlIR_').removeClass('fdjtgOVkxlRqfDM');
+                document.getElementById('RgqSDmbppdlqlIR_').innerHTML += `<option value="` + model_l[i].Id + `">` + model_l[i].Description + `</option>`;
+            }
+            else 
+            {
+                $('#RgqSDmbppdlqlIR_').addClass('fdjtgOVkxlRqfDM');
+                document.getElementById('RgqSDmbppdlqlIR_').innerHTML += `<option value="` + model_l[i].Id + `">-</option>`;
+            }
+        }
+    }
+    //sortSelect(document.getElementById('RgqSDmbppdlqlIR_'));
+    document.getElementById('RgqSDmbppdlqlIR_').value = $(t).children('div').attr('id');
 
 
+
+
+    $('#GxNPMofsqpKLHDo_').html(`<span>` + worker + `</span>`);
+    $('#hRzavoWPiMExZUI_').html(`<span>` + newDate + `</span>`);
+    $('#hRzavoWPiMExZUI_').attr('date', date);
+
+    $('#YVxFsdwTneugCIb').fadeIn(200);
+
+    sessionStorage.setItem('lNxfWzXrKcHsdTi', $(t).attr('id_'));
 };
 
 function HIJPFbwutXHZxGn(t) 
@@ -249,38 +327,13 @@ function HIJPFbwutXHZxGn(t)
     let newDate = day + ' ' + month_capitalize + ' ' + year;
 
 
-    //let form = `<div id="vjaHMXanUmPdVZF" class="pGKcZvErUB" style="display: none;">` +
-    //    `<form class="form_3">` +
-    //    `<div class="IvBtEDulLESDYxK">` +
-    //    `<span>` + worker + `</span>` +
-    //    `</div>` +
-    //    `<div class="IvBtEDulLESDYxK" id="` + date + `">` +
-    //    `<span>` + newDate + `</span>` +
-    //    `</div>` +
-    //    `<div class="form-group3 form-group-margin">` +
-    //    `<div class="form-group">` +
-    //    `<label>od godziny:</label>` +
-    //    `<input type="time" class="form-control sCnCesXdXjqdcnF" id="ybBTKgXSwnWglwT" />` +
-    //    `</div>` +
-    //    `<div class="form-group">` +
-    //    `<label>do godziny:</label>` +
-    //    `<input type="time" class="form-control sCnCesXdXjqdcnF" id="knZWoMordRYeUfn" />` +
-    //    `</div>` +
-    //    `</div>` +
-    //    `<div class="form-group">` +
-    //    `<input type="button" value="Zapisz" class="btn-custom" onclick="MbcIEXgByuxsGWM_(this)" />` +
-    //    `</div>` +
-    //    `<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk" onclick="xZlZPWWTfaNMpXj_(this)">` +
-    //    `<svg viewBox="0 0 470 470" height="15" width="15"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg>` +
-    //    `</div>` +
-    //    `</form>` +
-    //    `</div>`;
 
 
-    //$('body').append(form);
+    $('#GxNPMofsqpKLHDo').html(`<span>` + worker + `</span>`);
+    $('#hRzavoWPiMExZUI').html(`<span>` + newDate + `</span>`);
+    $('#hRzavoWPiMExZUI').attr('date', date);
 
-    //$('#vjaHMXanUmPdVZF').fadeIn(200);
-
+    $('#vjaHMXanUmPdVZF').fadeIn(200);
 
 };
 
@@ -288,10 +341,10 @@ function xZlZPWWTfaNMpXj_(t)
 {
     $(t).parent().parent().fadeOut(200);
 
-    setTimeout(function ()
-    {
-        $(t).parent().parent().remove();
-    }, 300);
+    //setTimeout(function ()
+    //{
+    //    $(t).parent().parent().remove();
+    //}, 300);
 };
 
 function generateCalendar()
@@ -1509,8 +1562,35 @@ $('#uVPVZwEWSbHTwor').on('change', function ()
 
     //sortSelect(document.getElementById('RgqSDmbppdlqlIR'));
 });
-
 $('#uVPVZwEWSbHTwor').trigger('change');
+
+$('#uVPVZwEWSbHTwor_').on('change', function ()
+{
+    document.getElementById('RgqSDmbppdlqlIR_').innerHTML = ``;
+
+    for (let i = 0; i < model_l.length; i++)
+    {
+        if (model_l[i].Name == this.options[this.selectedIndex].text)
+        {
+            if (model_l[i].Description != null)
+            {
+                $('#RgqSDmbppdlqlIR_').removeClass('fdjtgOVkxlRqfDM');
+                document.getElementById('RgqSDmbppdlqlIR_').innerHTML += `<option value="` + model_l[i].Id + `">` + model_l[i].Description + `</option>`;
+            }
+            else
+            {
+                $('#RgqSDmbppdlqlIR_').addClass('fdjtgOVkxlRqfDM');
+                document.getElementById('RgqSDmbppdlqlIR_').innerHTML += `<option value="` + model_l[i].Id + `">-</option>`;
+            }
+        }
+    }
+
+    //sortSelect(document.getElementById('RgqSDmbppdlqlIR'));
+});
+$('#uVPVZwEWSbHTwor_').trigger('change');
+
+
+
 
 $('#UCOopmnzJXcuVwf').on('click', function ()
 {

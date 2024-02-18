@@ -135,7 +135,7 @@ function generateNewTable()
 
                     if (enterDate == TDdate && exitDate == TDdate)
                     {
-                        TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat" id="` + model_t[l].Id + `">` +
+                        TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat" id="` + model_l[j].Id + `">` +
                             `<input type="time" value="` + enterTime + `" />` +
                             `<span>-</span>` +
                             `<input type="time" value="` + exitTime + `" />` +
@@ -144,6 +144,7 @@ function generateNewTable()
                         $(TDs[i]).addClass('IdBgKIHybgYpxXJ');
                         TDs[i].setAttribute('onclick', 'BHuhsNtfdNbyAVV(this)');
                         TDs[i].setAttribute('title', 'Edytuj godziny');
+                        TDs[i].setAttribute('id_', model_t[l].Id);
                     }
                 }
                 else 
@@ -518,6 +519,11 @@ function PTPttVhoaMyUOyR()
         {
             document.getElementById('QcLYVFuvuONgCrh').innerHTML += `<option value="` + model_w[i].Id + `" id="` + model_w[i].DepartmentID + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
         }
+    }
+
+    for (let i = 0; i < model_hours.length; i++) 
+    {
+
     }
 
     //generateCalendar();
