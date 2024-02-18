@@ -204,37 +204,41 @@ form.form_3 {
         font-size: 14px;
     }
 
-.form-group select {
-    -moz-appearance: button-arrow-down;
-    -webkit-appearance: auto;
-    appearance: menulist;
-    cursor: pointer;
-}
+    .form-group select {
+        -moz-appearance: button-arrow-down;
+        -webkit-appearance: auto;
+        appearance: menulist;
+        cursor: pointer;
+    }
 
-.form-group input.SSwvVHQbXDMTOIM {
-    /*background-color: rgba(24, 26, 38, 1) !important;*/
-}
+    .form-group input.SSwvVHQbXDMTOIM {
+        /*background-color: rgba(24, 26, 38, 1) !important;*/
+    }
 
     .form-group input.SSwvVHQbXDMTOIM:read-only {
         background-color: rgba(24, 26, 38, 1) !important;
         /*background-color: rgba(14, 16, 28, 1) !important;*/
     }
 
-.form-group textarea {
-    /*background-color: rgba(34, 36, 48, 1) !important;*/
-    max-height: 200px;
-    height: 100px;
-}
+    .form-group textarea {
+        /*background-color: rgba(34, 36, 48, 1) !important;*/
+        max-height: 200px;
+        height: 100px;
+    }
 
     .form-group textarea:read-only {
         background-color: rgba(24, 26, 38, 1) !important;
         /*background-color: rgba(14, 16, 28, 1) !important;*/
     }
 
-    /*.form-group #mmoyAbgbxQKYSoj {
-        height: 200px;
-        max-height: 200px;
-    }*/
+    .form-group.bKQpZIoPOmwNvbh {
+        transform: translateY(25px);
+    }
+
+        .form-group.bKQpZIoPOmwNvbh span.vfxLVmwjkBogmPm {
+            color: white;
+            font-size: 16px;
+        }
 
 .form-group-margin {
     margin-bottom: 10px;

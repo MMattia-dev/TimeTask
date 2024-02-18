@@ -135,7 +135,7 @@ function generateNewTable()
 
                     if (enterDate == TDdate && exitDate == TDdate)
                     {
-                        TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat">` +
+                        TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat" id="` + model_t[l].Id + `">` +
                             `<input type="time" value="` + enterTime + `" />` +
                             `<span>-</span>` +
                             `<input type="time" value="` + exitTime + `" />` +

@@ -111,7 +111,7 @@ function generateNewTable()
                         {
                             if (model_t[l].LeaveID == model_l[j].Id)
                             {
-                                TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat" id="` + model_l[j].Id + `">` + //title="` + model_l[j].Name + `"
+                                TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat" id="` + model_t[l].Id + `">` + //title="` + model_l[j].Name + `"
                                     `<span>` + model_l[j].Name + `</span>` +
                                     `</div>`;
 
@@ -725,6 +725,8 @@ $('#tyONXYuOELdPoLh').on('change', function ()
 
 $('#JTgCvImoJEyzGux').on('click', function ()
 {
+    var seconds = 0;
+
     //let e = document.getElementById('TrbvupCIcixxNsx');
     //let id = e.options[e.selectedIndex].value;
     let e = document.getElementById('TrbvupCIcixxNsx');
@@ -877,8 +879,45 @@ $('#JTgCvImoJEyzGux').on('click', function ()
                             console.log('Error adding column value:', error);
                         }
                     });
+
+                    seconds++;
                 }
             }
+
+            //
+            $('#cYgceuOTNRyhtgw').hide();
+
+            let htmlLoader = `<div class="pGKcZvErUB">` +
+                `<form class="form_3">` +
+                `<div class="loader_div BkvylzxsLMTrGpQ">` +
+                `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>` +
+                `</div>` +
+                `<div class="form-group bKQpZIoPOmwNvbh">` +
+                `<span class="vfxLVmwjkBogmPm" id="dTfLGgGbUYkYoyw"></span>` +
+                `</div>` +
+                `</form>` +
+                `</div>`;
+
+            $('body').append(htmlLoader);
+
+            let f = 0;
+            $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f + `/` + seconds + `)`);
+            var interval = setInterval(function ()
+            {
+                $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f++ + `/` + seconds + `)`);
+
+                if (f - 1 == seconds)
+                {
+                    clearInterval(interval);
+
+                    setTimeout(function ()
+                    {
+                        location.reload();
+                    }, 100);
+                }
+            }, 50);
+            //
+
         }
     }
     else if (department_chosen == 'wszyscy') {
@@ -948,9 +987,46 @@ $('#JTgCvImoJEyzGux').on('click', function ()
                                 console.log('Error adding column value:', error);
                             }
                         });
+
+                        seconds++;
                     }
                 }
             }
+
+            //
+            $('#cYgceuOTNRyhtgw').hide();
+
+            let htmlLoader = `<div class="pGKcZvErUB">` +
+                `<form class="form_3">` +
+                `<div class="loader_div BkvylzxsLMTrGpQ">` +
+                `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>` +
+                `</div>` +
+                `<div class="form-group bKQpZIoPOmwNvbh">` +
+                `<span class="vfxLVmwjkBogmPm" id="dTfLGgGbUYkYoyw"></span>` +
+                `</div>` +
+                `</form>` +
+                `</div>`;
+
+            $('body').append(htmlLoader);
+
+            let f = 0;
+            $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f + `/` + seconds + `)`);
+            var interval = setInterval(function ()
+            {
+                $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f++ + `/` + seconds + `)`);
+
+                if (f - 1 == seconds)
+                {
+                    clearInterval(interval);
+
+                    setTimeout(function ()
+                    {
+                        location.reload();
+                    }, 100);
+                }
+            }, 50);
+            //
+
         }
     }
 });
@@ -1214,11 +1290,9 @@ $('#jAHsTUaWMwBubwN').on('click', function ()
 
 });
 
-$('#jJoxUyzeqPSCQvB').on('click', function ()
+$('#jJoxUyzeqPSCQvB').on('click', function (e)
 {
     var seconds = 0;
-    var multiplier = 100;
-    var loadingTime = 0;
 
     var days = [];
 
@@ -1237,48 +1311,104 @@ $('#jJoxUyzeqPSCQvB').on('click', function ()
         days = getDatesInRange(new Date(od_), new Date(do_));
     }
 
-    if (days != null)
+    if (days.length > 0)
     {
         for (let i = 0; i < days.length; i++)
         {
-            for (let j = 0; j < model_t.length; j++)
+            //for (let j = 0; j < model_t.length; j++)
+            //{
+            //    if (model_t[j].Enter == null && model_t[j].Exit == null && model_t[j].WorkerID == workerID_)
+            //    {
+            //        if (model_t[j].LeaveDate.split('T')[0] == days[i].toISOString().split('T')[0])
+            //        {
+            //            $.ajax({
+            //                type: 'POST',
+            //                url: '/Times/RemoveLeave',
+            //                data: {
+            //                    id: model_t[j].Id,
+            //                },
+            //                success: function (response)
+            //                {
+            //                    //location.reload();
+            //                },
+            //                error: function (xhr, status, error)
+            //                {
+            //                    console.log('Error removing column value:', error);
+            //                }
+            //            });
+
+            //            seconds++;
+            //        }
+            //    }
+            //}
+
+            let day = new Date(days[i]).toLocaleDateString();
+
+            let IpLJVyLZIbPJsat = document.querySelectorAll('.IpLJVyLZIbPJsat');
+            for (let j = 0; j < IpLJVyLZIbPJsat.length; j++)
             {
-                if (model_t[j].Enter == null && model_t[j].Exit == null && model_t[j].WorkerID == workerID_)
+                let id_ = IpLJVyLZIbPJsat[j].id;
+                let date_ = new Date($(IpLJVyLZIbPJsat[j]).parent().attr('id')).toLocaleDateString();
+
+                if (day == date_) 
                 {
-                    if (model_t[j].LeaveDate.split('T')[0] == days[i].toISOString().split('T')[0])
-                    {
-                        $.ajax({
-                            type: 'POST',
-                            url: '/Times/RemoveLeave',
-                            data: {
-                                id: model_t[j].Id,
-                            },
-                            success: function (response)
-                            {
-                                //location.reload();
-                            },
-                            error: function (xhr, status, error)
-                            {
-                                console.log('Error removing column value:', error);
-                            }
-                        });
-                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/RemoveLeave',
+                        data: {
+                            id: id_,
+                        },
+                        success: function (response)
+                        {
+                            //location.reload();
+                            //console.log(j);
+                        },
+                        error: function (xhr, status, error) 
+                        {
+                            console.log('Error removing column value:', error);
+                        }
+                    });
+
+                    seconds++;
                 }
             }
 
-            seconds++;
+
         }
 
         //
-        $('.loader_div').fadeIn(200);
-        $('#cYgceuOTNRyhtgw').fadeOut(200);
-        loadingTime = seconds * multiplier;
-        let htmlLoader = ``;
-        setTimeout(function () 
-        { 
-            location.reload();
-        }, loadingTime);
+        $('#cYgceuOTNRyhtgw').hide();
+
+        let htmlLoader = `<div class="pGKcZvErUB">` +
+            `<form class="form_3">` +
+            `<div class="loader_div BkvylzxsLMTrGpQ">` +
+            `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>` +
+            `</div>` +
+            `<div class="form-group bKQpZIoPOmwNvbh">` +
+            `<span class="vfxLVmwjkBogmPm" id="dTfLGgGbUYkYoyw"></span>` +
+            `</div>` +
+            `</form>` +
+            `</div>`;
+
+        $('body').append(htmlLoader);
+        
+        let f = 0;
+        $('#dTfLGgGbUYkYoyw').html(`Usuwanie... ` + `(` + f + `/` + seconds + `)`);
+        var interval = setInterval(function ()
+        {
+            $('#dTfLGgGbUYkYoyw').html(`Usuwanie... ` + `(` + f++ + `/` + seconds + `)`);
+
+            if (f - 1 == seconds) {
+                clearInterval(interval);
+
+                setTimeout(function ()
+                {
+                    location.reload();
+                }, 100);
+            }
+        }, 50);
         //
+
     }
 });
 
