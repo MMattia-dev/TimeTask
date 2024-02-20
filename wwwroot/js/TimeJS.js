@@ -523,7 +523,9 @@ function PTPttVhoaMyUOyR()
 
     for (let i = 0; i < model_hours.length; i++) 
     {
+        if (departmentID_ == model_hours[i].DepartmentID) {
 
+        }
     }
 
     //generateCalendar();
