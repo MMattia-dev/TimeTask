@@ -90,17 +90,6 @@ function generateNewTable()
     let worker = document.getElementById('QcLYVFuvuONgCrh').value;
 
 
-    //"Pokaż dni wolne od pracy"
-    //document.getElementById('MxLHxritEhBvupe').checked = false;
-    //sessionStorage.removeItem('XLsdAGmRfSDLmVh');
-    if (sessionStorage.getItem('XLsdAGmRfSDLmVh') != null) {
-        //$('#MxLHxritEhBvupe').trigger('onchange');
-
-    }
-
-    //
-
-
     document.getElementById('xhXEyORRmmYlQgG').innerHTML = '';
 
     document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th><th>Styczeń</th><th>Luty</th><th>Marzec</th><th>Kwiecień</th><th>Maj</th><th>Czerwiec</th><th>Lipiec</th><th>Sierpień</th><th>Wrzesień</th><th>Październik</th><th>Listopad</th><th>Grudzień</th></tr></thead>`;
@@ -151,6 +140,8 @@ function generateNewTable()
                             `<input type="time" value="` + exitTime + `" />` +
                             `</div>`;
 
+                        
+
                         $(TDs[i]).addClass('IdBgKIHybgYpxXJ');
                         TDs[i].setAttribute('onclick', 'BHuhsNtfdNbyAVV(this)');
                         TDs[i].setAttribute('title', 'Edytuj godziny');
@@ -191,6 +182,17 @@ function generateNewTable()
     }
 
 
+
+
+
+
+    //"Pokaż dni wolne od pracy"
+    if (sessionStorage.getItem('XLsdAGmRfSDLmVh') != null)
+    {
+        document.getElementById('MxLHxritEhBvupe').checked = true;
+        MxLHxritEhBvupe_();
+    }
+    //
 };
 
 function bxLcBeaOvMopDll(e, t) 
@@ -1402,8 +1404,9 @@ function erAjvPaJaDFYeWu(t)
     });
 };
 
-function MxLHxritEhBvupe_(t) 
+function MxLHxritEhBvupe_() 
 {
+    let t = document.getElementById('MxLHxritEhBvupe');
     let TDs = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr td:not(:first-child)');
 
     for (let i = 0; i < TDs.length; i++) 
@@ -1422,43 +1425,45 @@ function MxLHxritEhBvupe_(t)
                     if (dateString == model_h_Date) 
                     {
                         $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>` + model_h[j].Name + `</span></div>`);
+                        $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
                     }
                 }
 
                 if ($(TDs[i]).find('.PGvvQnRjsnaGvPW').length == 0) 
                 {
-                    if (date.getDay() === 6) 
+                    if (date.getDay() === 6)
                     {
                         $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>Sobota</span></div>`);
+                        $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
                     }
 
-                    if (date.getDay() === 0) 
+                    if (date.getDay() === 0)
                     {
                         $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>Niedziela</span></div>`);
+                        $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
                     }
                 }
+
+                
+                if ($(TDs[i]).find('.IpLJVyLZIbPJsat').length != 0) 
+                {
+                    $(TDs[i]).children('.PGvvQnRjsnaGvPW').remove();
+                }
+
+                $(t).parent().children('span').html(`Ukryj dni wolne od pracy`);
+
+                $(t).parent().addClass('rVbmBkiLFEBlabZ');
 
                 sessionStorage.setItem('XLsdAGmRfSDLmVh', 'true');
             }
             else 
             {
                 $('.PGvvQnRjsnaGvPW').remove();
+                $(TDs[i]).children().removeClass('UjOQjNzjdVJpBtu');
+                $(t).parent().children('span').html(`Pokaż dni wolne od pracy`);
+                $(t).parent().removeClass('rVbmBkiLFEBlabZ');
 
                 sessionStorage.removeItem('XLsdAGmRfSDLmVh');
-            }
-        }
-
-        if ($(TDs[i]).hasClass('IdBgKIHybgYpxXJ')) 
-        {
-            $('.PGvvQnRjsnaGvPW').remove();
-
-            if (t.checked) 
-            {
-                $(TDs[i]).addClass('KoWBmfaDnVIKHVi');
-            }
-            else 
-            {
-                $(TDs[i]).removeClass('KoWBmfaDnVIKHVi');
             }
         }
     }

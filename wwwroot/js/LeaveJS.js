@@ -143,6 +143,20 @@ function generateNewTable()
     }
 
 
+
+
+
+
+
+
+
+    //"Pokaż dni wolne od pracy"
+    if (sessionStorage.getItem('XLsdAGmRfSDLmVh') != null)
+    {
+        document.getElementById('MxLHxritEhBvupe').checked = true;
+        MxLHxritEhBvupe_();
+    }
+    //
 };
 
 function MbcIEXgByuxsGWM_(t) 
@@ -1658,7 +1672,70 @@ $('#TDsKypeMijSzhDc').on('click', function ()
     });
 });
 
+function MxLHxritEhBvupe_() 
+{
+    let t = document.getElementById('MxLHxritEhBvupe');
+    let TDs = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr td:not(:first-child)');
 
+    for (let i = 0; i < TDs.length; i++) 
+    {
+        if (!$(TDs[i]).hasClass('disabled')) 
+        {
+            let date = new Date(TDs[i].id);
+
+            if (t.checked)
+            {
+                for (let j = 0; j < model_h.length; j++) 
+                {
+                    let dateString = new Date(TDs[i].id).toLocaleDateString();
+                    let model_h_Date = new Date(model_h[j].Date).toLocaleDateString();
+
+                    if (dateString == model_h_Date) 
+                    {
+                        $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>` + model_h[j].Name + `</span></div>`);
+                        $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
+                    }
+                }
+
+                if ($(TDs[i]).find('.PGvvQnRjsnaGvPW').length == 0) 
+                {
+                    if (date.getDay() === 6)
+                    {
+                        $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>Sobota</span></div>`);
+                        $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
+                    }
+
+                    if (date.getDay() === 0)
+                    {
+                        $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>Niedziela</span></div>`);
+                        $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
+                    }
+                }
+
+
+                if ($(TDs[i]).find('.IpLJVyLZIbPJsat').length != 0) 
+                {
+                    $(TDs[i]).children('.PGvvQnRjsnaGvPW').remove();
+                }
+
+                $(t).parent().children('span').html(`Ukryj dni wolne od pracy`);
+
+                $(t).parent().addClass('rVbmBkiLFEBlabZ');
+
+                sessionStorage.setItem('XLsdAGmRfSDLmVh', 'true');
+            }
+            else 
+            {
+                $('.PGvvQnRjsnaGvPW').remove();
+                $(TDs[i]).children().removeClass('UjOQjNzjdVJpBtu');
+                $(t).parent().children('span').html(`Pokaż dni wolne od pracy`);
+                $(t).parent().removeClass('rVbmBkiLFEBlabZ');
+
+                sessionStorage.removeItem('XLsdAGmRfSDLmVh');
+            }
+        }
+    }
+};
 
 function AxniBufKgDcaYFA(t) { 
     sessionStorage.setItem('mcctFxsWDAvvPfs', t.scrollTop)
