@@ -90,6 +90,16 @@ function generateNewTable()
     let worker = document.getElementById('QcLYVFuvuONgCrh').value;
 
 
+    //"Pokaż dni wolne od pracy"
+    //document.getElementById('MxLHxritEhBvupe').checked = false;
+    //sessionStorage.removeItem('XLsdAGmRfSDLmVh');
+    if (sessionStorage.getItem('XLsdAGmRfSDLmVh') != null) {
+        //$('#MxLHxritEhBvupe').trigger('onchange');
+
+    }
+
+    //
+
 
     document.getElementById('xhXEyORRmmYlQgG').innerHTML = '';
 
@@ -1392,67 +1402,69 @@ function erAjvPaJaDFYeWu(t)
     });
 };
 
-$('#MxLHxritEhBvupe').on('change', function ()
+function MxLHxritEhBvupe_(t) 
 {
     let TDs = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr td:not(:first-child)');
-
-    //isWeekend
 
     for (let i = 0; i < TDs.length; i++) 
     {
         if (!$(TDs[i]).hasClass('disabled')) 
         {
             let date = new Date(TDs[i].id);
-            if (isWeekend(date)) 
+
+            if (t.checked)
             {
-                $(TDs[i]).toggleClass('mMFBCoxFhScHPSY');
+                for (let j = 0; j < model_h.length; j++) 
+                {
+                    let dateString = new Date(TDs[i].id).toLocaleDateString();
+                    let model_h_Date = new Date(model_h[j].Date).toLocaleDateString();
+
+                    if (dateString == model_h_Date) 
+                    {
+                        $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>` + model_h[j].Name + `</span></div>`);
+                    }
+                }
+
+                if ($(TDs[i]).find('.PGvvQnRjsnaGvPW').length == 0) 
+                {
+                    if (date.getDay() === 6) 
+                    {
+                        $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>Sobota</span></div>`);
+                    }
+
+                    if (date.getDay() === 0) 
+                    {
+                        $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>Niedziela</span></div>`);
+                    }
+                }
+
+                sessionStorage.setItem('XLsdAGmRfSDLmVh', 'true');
             }
+            else 
+            {
+                $('.PGvvQnRjsnaGvPW').remove();
 
-            //if (date.getDay() === 6) 
-            //{
-            //    let div = document.createElement('div');
-            //    $(div).css({
-            //        'position': 'absolute',
-            //        'height': '100%',
-            //        'width': '100%',
-            //        'top': '0',
-            //        'left': '0',
-            //        'display': 'flex',
-            //        'align-items': 'center',
-            //        'justify-content': 'center',
-            //        'color': 'white',
-            //        'pointer-events': 'none'
-            //    });
-            //    div.innerHTML = `Sobota`;
-            //    TDs[i].appendChild(div);
-            //}
+                sessionStorage.removeItem('XLsdAGmRfSDLmVh');
+            }
+        }
 
-            //if (date.getDay() === 0) 
-            //{
-            //    let div = document.createElement('div');
-            //    $(div).css({
-            //        'position': 'absolute',
-            //        'height': '100%',
-            //        'width': '100%',
-            //        'top': '0',
-            //        'left': '0',
-            //        'display': 'flex',
-            //        'align-items': 'center',
-            //        'justify-content': 'center',
-            //        'color': 'orangered',
-            //        'pointer-events': 'none',
-            //        'text-overflow': 'ellipsis',
-            //        'white-space': 'nowrap',
-            //        'overflow': 'hidden',
-            //        //'max-width': '95px',
-            //    });
-            //    div.innerHTML = `Niedziela_asdasdsadsaddsa`;
-            //    TDs[i].appendChild(div);
-            //}
+        if ($(TDs[i]).hasClass('IdBgKIHybgYpxXJ')) 
+        {
+            $('.PGvvQnRjsnaGvPW').remove();
+
+            if (t.checked) 
+            {
+                $(TDs[i]).addClass('KoWBmfaDnVIKHVi');
+            }
+            else 
+            {
+                $(TDs[i]).removeClass('KoWBmfaDnVIKHVi');
+            }
         }
     }
+};
 
-});
+
 
 
 $(document).ready(function ()
