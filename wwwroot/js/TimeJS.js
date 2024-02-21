@@ -135,7 +135,7 @@ function generateNewTable()
 
                     if (enterDate == TDdate && exitDate == TDdate)
                     {
-                        TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat" id="` + model_l[j].Id + `">` +
+                        TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat" id="` + model_t[l].Id + `">` +
                             `<input type="time" value="` + enterTime + `" />` +
                             `<span>-</span>` +
                             `<input type="time" value="` + exitTime + `" />` +
@@ -144,7 +144,7 @@ function generateNewTable()
                         $(TDs[i]).addClass('IdBgKIHybgYpxXJ');
                         TDs[i].setAttribute('onclick', 'BHuhsNtfdNbyAVV(this)');
                         TDs[i].setAttribute('title', 'Edytuj godziny');
-                        TDs[i].setAttribute('id_', model_t[l].Id);
+                        //TDs[i].setAttribute('id_', model_t[l].Id);
                     }
                 }
                 else 
@@ -267,6 +267,8 @@ function BHuhsNtfdNbyAVV(t)
     $('body').append(form);
 
     $('#yflqRyBYjmsZJlN').fadeIn(200);
+
+    sessionStorage.setItem('FkHOovyRCxcvxwh', $(t).children().attr('id'));
 };
 
 function HIJPFbwutXHZxGn(t) 
@@ -521,12 +523,22 @@ function PTPttVhoaMyUOyR()
         }
     }
 
-    for (let i = 0; i < model_hours.length; i++) 
-    {
-        if (departmentID_ == model_hours[i].DepartmentID) {
 
+    //hide hours based on chosen department
+    let ywHjDljWKvvCdNr = document.querySelectorAll('#ywHjDljWKvvCdNr');
+    for (let i = 0; i < ywHjDljWKvvCdNr.length; i++)
+    {
+        if (departmentID_ == ywHjDljWKvvCdNr[i].getAttribute('husseznikbzvyea') || ywHjDljWKvvCdNr[i].getAttribute('husseznikbzvyea') == '0')
+        {
+            $(ywHjDljWKvvCdNr[i]).show();
+        }
+        else
+        {
+            $(ywHjDljWKvvCdNr[i]).hide();
         }
     }
+    //
+
 
     //generateCalendar();
     generateNewTable();
@@ -937,6 +949,8 @@ $('#JiEZMNdUHgcYMIC').on('change', function ()
 
 $('#QvXboIjjKTrEMMB').on('click', function ()
 {
+    let seconds = 0;
+
     let array = [];
 
     let IzAjfDukSqEvnTJ = document.getElementById('IzAjfDukSqEvnTJ');
@@ -967,28 +981,73 @@ $('#QvXboIjjKTrEMMB').on('click', function ()
         }
     }
 
-    for (let i = 0; i < array.length; i++) 
+    if (array.length > 0) 
     {
-        $.ajax({
-            type: 'POST',
-            url: '/Times/RemoveTime',
-            data: {
-                id: array[i]
-            },
-            success: function (response)
+        for (let i = 0; i < array.length; i++) 
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Times/RemoveTime',
+                data: {
+                    id: array[i]
+                },
+                success: function (response)
+                {
+                    //location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error removing value:', error);
+                }
+            });
+
+            seconds++;
+        }
+
+
+        //
+        $('#UVrUwxmwuexyrPA').hide();
+
+        let htmlLoader = `<div class="pGKcZvErUB">` +
+            `<form class="form_3">` +
+            `<div class="loader_div BkvylzxsLMTrGpQ">` +
+            `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>` +
+            `</div>` +
+            `<div class="form-group bKQpZIoPOmwNvbh">` +
+            `<span class="vfxLVmwjkBogmPm" id="dTfLGgGbUYkYoyw"></span>` +
+            `</div>` +
+            `</form>` +
+            `</div>`;
+
+        $('body').append(htmlLoader);
+
+        let f = 0;
+        $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f + `/` + seconds + `)`);
+        var interval = setInterval(function ()
+        {
+            $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f++ + `/` + seconds + `)`);
+
+            if (f - 1 == seconds)
             {
-                location.reload();
-            },
-            error: function (xhr, status, error)
-            {
-                console.log('Error removing value:', error);
+                clearInterval(interval);
+
+                setTimeout(function ()
+                {
+                    location.reload();
+                }, 100);
             }
-        });
+        }, 50);
+        //
+
+
     }
+    
 });
 
 $('#gPyHcTBhSRhkIHB').on('click', function ()
 {
+    let seconds = 0;
+
     let QcLYVFuvuONgCrh = document.getElementById('QcLYVFuvuONgCrh');
     let workerID_ = QcLYVFuvuONgCrh.options[QcLYVFuvuONgCrh.selectedIndex].value;
 
@@ -996,34 +1055,10 @@ $('#gPyHcTBhSRhkIHB').on('click', function ()
     let godzinaDO = document.getElementById('aOWPsQLgDIjpTqI').value;
 
     if (godzinaOD && godzinaDO) {
-        //let days = document.querySelectorAll('.fNFlwKQaZMgErcF');
-        //if (days.length > 0) {
-        //    for (let i = 0; i < days.length; i++) {
-        //        let date = days[i].id;
-                
-        //        $.ajax({
-        //            type: 'POST',
-        //            url: '/Times/AddTime',
-        //            data: {
-        //                workerID: workerID_,
-        //                enter: date + ' ' + godzinaOD,
-        //                exit: date + ' ' + godzinaDO,
-        //                leaveID: null,
-        //                leaveDate: null
-        //            },
-        //            success: function (response)
-        //            {
-        //                location.reload();
-        //            },
-        //            error: function (xhr, status, error)
-        //            {
-        //                console.log('Error adding column value:', error);
-        //            }
-        //        });
-        //    }
-        //}
 
-        let days = document.querySelectorAll('.fNFlwKQaZMgErcF');
+        //let days = document.querySelectorAll('.fNFlwKQaZMgErcF');
+        let days = document.querySelectorAll('.VSEIRMVnLrwIkVf');
+
 
         let array = [];
         for (let i = 0; i < days.length; i++)
@@ -1046,14 +1081,17 @@ $('#gPyHcTBhSRhkIHB').on('click', function ()
         var toRemove_new = [...new Set(toRemove)];
         toRemove_new.sort();
         array = array.filter((el) => !toRemove_new.includes(el)); //usun wszystkie powtarzajace sie daty
+        array.sort();
         //
 
-        if (array.length > 0) {
-            for (let i = 0; i < array.length; i++) {
-
+        if (array.length > 0) 
+        {
+            for (let i = 0; i < array.length; i++) 
+            {
                 let date = array[i];
 
-                if (workerID_ != 0 || workerID_ != '0' || workerID_ != null) {
+                if (workerID_ != 0 || workerID_ != '0' || workerID_ != null) 
+                {
                     $.ajax({
                         type: 'POST',
                         url: '/Times/AddTime',
@@ -1066,18 +1104,53 @@ $('#gPyHcTBhSRhkIHB').on('click', function ()
                         },
                         success: function (response)
                         {
-                            location.reload();
+                            //location.reload();
                         },
                         error: function (xhr, status, error)
                         {
                             console.log('Error adding column value:', error);
                         }
                     });
+
+                    seconds++;
                 }
             }
+
+
+            //
+            let htmlLoader = `<div class="pGKcZvErUB">` +
+                `<form class="form_3">` +
+                `<div class="loader_div BkvylzxsLMTrGpQ">` +
+                `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>` +
+                `</div>` +
+                `<div class="form-group bKQpZIoPOmwNvbh">` +
+                `<span class="vfxLVmwjkBogmPm" id="dTfLGgGbUYkYoyw"></span>` +
+                `</div>` +
+                `</form>` +
+                `</div>`;
+
+            $('body').append(htmlLoader);
+
+            let f = 0;
+            $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f + `/` + seconds + `)`);
+            var interval = setInterval(function ()
+            {
+                $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f++ + `/` + seconds + `)`);
+
+                if (f - 1 == seconds)
+                {
+                    clearInterval(interval);
+
+                    setTimeout(function ()
+                    {
+                        location.reload();
+                    }, 100);
+                }
+            }, 50);
+            //
+
+
         }
-
-
     }
 });
 
@@ -1116,41 +1189,19 @@ $('#nhklYOXterdPTwH').on('click', function ()
     }
 });
 
-function pQuWaMlNxUyZxiq(t) {
+function pQuWaMlNxUyZxiq(t) 
+{
+    let seconds = 0;
+
     let QcLYVFuvuONgCrh = document.getElementById('QcLYVFuvuONgCrh');
     let workerID_ = QcLYVFuvuONgCrh.options[QcLYVFuvuONgCrh.selectedIndex].value;
 
     let godzinaOD = t.innerText.split(' - ')[0];
     let godzinaDO = t.innerText.split(' - ')[1];
 
-    let days = document.querySelectorAll('.fNFlwKQaZMgErcF');
-    //if (days.length > 0)
-    //{
-    //    for (let i = 0; i < days.length; i++)
-    //    {
-    //        let date = days[i].id;
+    //let days = document.querySelectorAll('.fNFlwKQaZMgErcF');
+    let days = document.querySelectorAll('.VSEIRMVnLrwIkVf');
 
-    //        $.ajax({
-    //            type: 'POST',
-    //            url: '/Times/AddTime',
-    //            data: {
-    //                workerID: workerID_,
-    //                enter: date + ' ' + godzinaOD,
-    //                exit: date + ' ' + godzinaDO,
-    //                leaveID: null,
-    //                leaveDate: null
-    //            },
-    //            success: function (response)
-    //            {
-    //                location.reload();
-    //            },
-    //            error: function (xhr, status, error)
-    //            {
-    //                console.log('Error adding column value:', error);
-    //            }
-    //        });
-    //    }
-    //}
 
     let array = [];
     for (let i = 0; i < days.length; i++) {
@@ -1172,12 +1223,13 @@ function pQuWaMlNxUyZxiq(t) {
     var toRemove_new = [...new Set(toRemove)];
     toRemove_new.sort();
     array = array.filter((el) => !toRemove_new.includes(el)); //usun wszystkie powtarzajace sie daty
+    array.sort();
     //
 
-    if (array.length > 0) {
-        for (let i = 0; i < array.length; i++) {
-            //console.log(array[i]);
-
+    if (array.length > 0) 
+    {
+        for (let i = 0; i < array.length; i++) 
+        {
             let date = array[i];
 
             if (workerID_ != 0 || workerID_ != '0' || workerID_ != null) {
@@ -1193,22 +1245,214 @@ function pQuWaMlNxUyZxiq(t) {
                     },
                     success: function (response)
                     {
-                        location.reload();
+                        //location.reload();
                     },
                     error: function (xhr, status, error)
                     {
                         console.log('Error adding column value:', error);
                     }
                 });
+
+                seconds++;
             }
+        }
+
+
+        //
+        let htmlLoader = `<div class="pGKcZvErUB">` +
+            `<form class="form_3">` +
+            `<div class="loader_div BkvylzxsLMTrGpQ">` +
+            `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>` +
+            `</div>` +
+            `<div class="form-group bKQpZIoPOmwNvbh">` +
+            `<span class="vfxLVmwjkBogmPm" id="dTfLGgGbUYkYoyw"></span>` +
+            `</div>` +
+            `</form>` +
+            `</div>`;
+
+        $('body').append(htmlLoader);
+
+        let f = 0;
+        $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f + `/` + seconds + `)`);
+        var interval = setInterval(function ()
+        {
+            $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f++ + `/` + seconds + `)`);
+
+            if (f - 1 == seconds)
+            {
+                clearInterval(interval);
+
+                setTimeout(function ()
+                {
+                    location.reload();
+                }, 100);
+            }
+        }, 50);
+        //
+
+
+    }
+};
+
+function MbcIEXgByuxsGWM_(t)
+{
+    let QcLYVFuvuONgCrh = document.getElementById('QcLYVFuvuONgCrh');
+    let workerID_ = QcLYVFuvuONgCrh.options[QcLYVFuvuONgCrh.selectedIndex].value;
+
+    let date = $(t).parent().parent().children().eq(1).attr('id');
+
+    let godzinaOD = $('#ybBTKgXSwnWglwT').val();
+    let godzinaDO = $('#knZWoMordRYeUfn').val();
+
+    if (workerID_ != 0 || workerID_ != '0' || workerID_ != null)
+    {
+        if (godzinaOD.length > 0 && godzinaDO.length > 0) 
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Times/AddTime',
+                data: {
+                    workerID: workerID_,
+                    enter: date + ' ' + godzinaOD,
+                    exit: date + ' ' + godzinaDO,
+                    leaveID: null,
+                    leaveDate: null
+                },
+                success: function (response)
+                {
+                    location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error:', error);
+                }
+            });
         }
     }
 };
 
+function cUikqcCdqYXiOhb(t) 
+{
+    let id_ = sessionStorage.getItem('FkHOovyRCxcvxwh');
 
+    let QcLYVFuvuONgCrh = document.getElementById('QcLYVFuvuONgCrh');
+    let workerID_ = QcLYVFuvuONgCrh.options[QcLYVFuvuONgCrh.selectedIndex].value;
 
+    let date = $(t).parent().parent().children().eq(1).attr('id');
 
+    let godzinaOD = $('#vYPsbsKQRUpHzhU').val();
+    let godzinaDO = $('#iNfGuPIzEcZmVWl').val();
 
+    if (workerID_ != 0 || workerID_ != '0' || workerID_ != null)
+    {
+        if (godzinaOD.length > 0 && godzinaDO.length > 0) 
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Times/EditTime',
+                data: {
+                    id: id_,
+                    workerID: workerID_,
+                    enter: date + ' ' + godzinaOD,
+                    exit: date + ' ' + godzinaDO,
+                    leaveID: null,
+                    leaveDate: null
+                },
+                success: function (response)
+                {
+                    location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error:', error);
+                }
+            });
+        }
+    }
+};
+
+function erAjvPaJaDFYeWu(t) 
+{
+    let id_ = sessionStorage.getItem('FkHOovyRCxcvxwh');
+
+    $.ajax({
+        type: 'POST',
+        url: '/Times/EditTime',
+        data: {
+            id: id_
+        },
+        success: function (response)
+        {
+            location.reload();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+$('#MxLHxritEhBvupe').on('change', function ()
+{
+    let TDs = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr td:not(:first-child)');
+
+    //isWeekend
+
+    for (let i = 0; i < TDs.length; i++) 
+    {
+        if (!$(TDs[i]).hasClass('disabled')) 
+        {
+            let date = new Date(TDs[i].id);
+            if (isWeekend(date)) 
+            {
+                $(TDs[i]).toggleClass('mMFBCoxFhScHPSY');
+            }
+
+            //if (date.getDay() === 6) 
+            //{
+            //    let div = document.createElement('div');
+            //    $(div).css({
+            //        'position': 'absolute',
+            //        'height': '100%',
+            //        'width': '100%',
+            //        'top': '0',
+            //        'left': '0',
+            //        'display': 'flex',
+            //        'align-items': 'center',
+            //        'justify-content': 'center',
+            //        'color': 'white',
+            //        'pointer-events': 'none'
+            //    });
+            //    div.innerHTML = `Sobota`;
+            //    TDs[i].appendChild(div);
+            //}
+
+            //if (date.getDay() === 0) 
+            //{
+            //    let div = document.createElement('div');
+            //    $(div).css({
+            //        'position': 'absolute',
+            //        'height': '100%',
+            //        'width': '100%',
+            //        'top': '0',
+            //        'left': '0',
+            //        'display': 'flex',
+            //        'align-items': 'center',
+            //        'justify-content': 'center',
+            //        'color': 'orangered',
+            //        'pointer-events': 'none',
+            //        'text-overflow': 'ellipsis',
+            //        'white-space': 'nowrap',
+            //        'overflow': 'hidden',
+            //        //'max-width': '95px',
+            //    });
+            //    div.innerHTML = `Niedziela_asdasdsadsaddsa`;
+            //    TDs[i].appendChild(div);
+            //}
+        }
+    }
+
+});
 
 
 $(document).ready(function ()
