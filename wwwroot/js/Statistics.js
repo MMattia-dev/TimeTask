@@ -1151,7 +1151,10 @@ function generateStatistics2()
                 {
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(normalneGodziny[i].wejscie).toLocaleDateString()) 
                     {
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;"></div>`);
+                        let czas_ = new Date(normalneGodziny[i].wejscie).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ` - ` + new Date(normalneGodziny[i].wyjscie).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        let godziny_ = normalneGodziny[i].ile;
+
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: 100%;"><span>` + czas_ + `</span><span>Godziny pracy: ` + godziny_ + `</span></div>`);
                     }
                 }
             }
@@ -1165,8 +1168,11 @@ function generateStatistics2()
                 {
                     if (new Date(slupkiDivs[j].id).toLocaleDateString() == new Date(niedogodziny[i].wejscie).toLocaleDateString()) 
                     {
+                        let czas_ = new Date(niedogodziny[i].wejscie).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ` - ` + new Date(niedogodziny[i].wyjscie).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        let godziny_ = niedogodziny[i].ile;
+
                         let percentHeight = (niedogodziny[i].ile * 100) / (parseFloat(niedogodziny[i].ile) + parseFloat(niedogodziny[i].roznica));
-                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__ KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: ${percentHeight}%;"></div>`);
+                        $(slupkiDivs[j]).children('.godziny').html(`<div class="XxmPCNwZkVSMeOm__ KoHHmbXxPkfkekb" id="hJlQWYRcMNblPBg" style="width: ${percentHeight}%;"><span>` + czas_ + `</span><span>Godziny pracy: ` + godziny_ + `</span></div>`);
                     }
                 }
             }
