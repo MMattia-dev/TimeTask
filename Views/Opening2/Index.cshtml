@@ -1,0 +1,78 @@
+﻿@model IEnumerable<TimeTask.Models.Opening2>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@*<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DaysVacation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DaysOpening)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OvertimeOpening)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkerID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DaysVacation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DaysOpening)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OvertimeOpening)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>*@
+
+<div class="parent">
+    <section class="left-nav">
+        @Html.Partial("_Settings");
+    </section>
+    <section class="right-nav">
+        <!---->
+    </section>
+</div>
+
+<script type="text/javascript" src="~/js/site.js"></script>
+
+<script type="text/javascript">
+    //let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[2];
+    //selected.classList.add('settings_a_selected');
+
+    let selected = document.getElementById('settings_openings_id');
+    selected.classList.add('settings_a_selected');
+</script>

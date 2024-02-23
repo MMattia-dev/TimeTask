@@ -1,0 +1,73 @@
+﻿@model TimeTask.Models.MainSettings2
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>MainSettings2</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PoraNocna_Poczatek" class="control-label"></label>
+                <input asp-for="PoraNocna_Poczatek" class="form-control" />
+                <span asp-validation-for="PoraNocna_Poczatek" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PoraNocna_Koniec" class="control-label"></label>
+                <input asp-for="PoraNocna_Koniec" class="form-control" />
+                <span asp-validation-for="PoraNocna_Koniec" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="WolnyPoniedzialek" /> @Html.DisplayNameFor(model => model.WolnyPoniedzialek)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="WolnyWtorek" /> @Html.DisplayNameFor(model => model.WolnyWtorek)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="WolnaSroda" /> @Html.DisplayNameFor(model => model.WolnaSroda)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="WolnyCzwartek" /> @Html.DisplayNameFor(model => model.WolnyCzwartek)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="WolnyPiatek" /> @Html.DisplayNameFor(model => model.WolnyPiatek)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="WolnaSobota" /> @Html.DisplayNameFor(model => model.WolnaSobota)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="WolnaNiedziela" /> @Html.DisplayNameFor(model => model.WolnaNiedziela)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

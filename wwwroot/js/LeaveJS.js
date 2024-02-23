@@ -38,6 +38,60 @@ function isDateValid(year, month, day)
     }
 };
 
+function MEPHaojoIWKCapY() 
+{
+    let worker = document.getElementById('oUfnFiNPmXnNjzu').value;
+
+    let okresRozliczeniowy;
+    let czasPracyMax;
+    let maksymalnaLiczbaNadgodzin;
+    let maksymalnaLiczbaNadgodzinTydzien;
+    let nieprzerwanyOdpoczynek;
+
+    for (let i = 0; i < model_ts.length; i++)
+    {
+        if (model_ts[i].WorkerId != null && model_ts[i].WorkerId == worker)
+        {
+            okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            czasPracyMax = model_ts[i].CzasPracy;
+            maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
+            maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
+            nieprzerwanyOdpoczynek = model_ts[i].NieprzerwanyOdpoczynek;
+        }
+        if (model_ts[i].WorkerId == null)
+        {
+            okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            czasPracyMax = model_ts[i].CzasPracy;
+            maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
+            maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
+            nieprzerwanyOdpoczynek = model_ts[i].NieprzerwanyOdpoczynek;
+        }
+    }
+
+    let ileMiesiecy = okresRozliczeniowy;
+    let ileOkresow = 12 / ileMiesiecy;
+
+
+    //okres
+    let okres = document.getElementById('wplXQqsdEZEYbIm');
+    $('#wplXQqsdEZEYbIm').html(``);
+    //$('#wplXQqsdEZEYbIm').show();
+    $('#wplXQqsdEZEYbIm').removeClass('hkyYYlXJPLaqBDt');
+    //dodaj okresy
+    for (let i = 1; i <= ileOkresow; i++)
+    {
+        okres.innerHTML += `<option value="` + i + `">` + i + ` okres</option>`;
+    }
+
+    generateNewTable();
+};
+MEPHaojoIWKCapY();
+
+function eFALkhlnQQySpCg() 
+{
+    generateNewTable();
+}
+
 function generateNewTable() 
 {
     //year
@@ -46,28 +100,155 @@ function generateNewTable()
     let department = document.getElementById('aFoQOFiXPQobjPX').value;
     //worker
     let worker = document.getElementById('oUfnFiNPmXnNjzu').value;
+    //widok
+    let widok = document.getElementById('uLxtDsOksiWVnDI').value;
+    
+
+
+
+
+    let okresRozliczeniowy;
+    let czasPracyMax;
+    let maksymalnaLiczbaNadgodzin;
+    let maksymalnaLiczbaNadgodzinTydzien;
+    let nieprzerwanyOdpoczynek;
+
+    for (let i = 0; i < model_ts.length; i++)
+    {
+        if (model_ts[i].WorkerId != null && model_ts[i].WorkerId == worker)
+        {
+            okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            czasPracyMax = model_ts[i].CzasPracy;
+            maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
+            maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
+            nieprzerwanyOdpoczynek = model_ts[i].NieprzerwanyOdpoczynek;
+        }
+        if (model_ts[i].WorkerId == null)
+        {
+            okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            czasPracyMax = model_ts[i].CzasPracy;
+            maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
+            maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
+            nieprzerwanyOdpoczynek = model_ts[i].NieprzerwanyOdpoczynek;
+        }
+    }
+
+
 
 
 
     document.getElementById('xhXEyORRmmYlQgG').innerHTML = '';
 
-    document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th><th>Styczeń</th><th>Luty</th><th>Marzec</th><th>Kwiecień</th><th>Maj</th><th>Czerwiec</th><th>Lipiec</th><th>Sierpień</th><th>Wrzesień</th><th>Październik</th><th>Listopad</th><th>Grudzień</th></tr></thead>`;
+    //document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th><th>Styczeń</th><th>Luty</th><th>Marzec</th><th>Kwiecień</th><th>Maj</th><th>Czerwiec</th><th>Lipiec</th><th>Sierpień</th><th>Wrzesień</th><th>Październik</th><th>Listopad</th><th>Grudzień</th></tr></thead>`;
 
-    for (let i = 1; i <= 31; i++) 
+    //for (let i = 1; i <= 31; i++) 
+    //{
+    //    document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td id="` + year + `-1-` + i + `"></td><td id="` + year + `-2-` + i + `"></td><td id="` + year + `-3-` + i + `"></td><td id="` + year + `-4-` + i + `"></td><td id="` + year + `-5-` + i + `"></td><td id="` + year + `-6-` + i + `"></td><td id="` + year + `-7-` + i + `"></td><td id="` + year + `-8-` + i + `"></td><td id="` + year + `-9-` + i + `"></td><td id="` + year + `-10-` + i + `"></td><td id="` + year + `-11-` + i + `"></td><td id="` + year + `-12-` + i + `"></td></tr></tbody>`;
+    //}
+    if (widok == 'okres') 
     {
-        document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td id="` + year + `-1-` + i + `"></td><td id="` + year + `-2-` + i + `"></td><td id="` + year + `-3-` + i + `"></td><td id="` + year + `-4-` + i + `"></td><td id="` + year + `-5-` + i + `"></td><td id="` + year + `-6-` + i + `"></td><td id="` + year + `-7-` + i + `"></td><td id="` + year + `-8-` + i + `"></td><td id="` + year + `-9-` + i + `"></td><td id="` + year + `-10-` + i + `"></td><td id="` + year + `-11-` + i + `"></td><td id="` + year + `-12-` + i + `"></td></tr></tbody>`;
+        let ileMiesiecy = okresRozliczeniowy;
+        let ileOkresow = 12 / ileMiesiecy;
+        //let todayDate = new Date();
+
+        //okres
+        let okres = document.getElementById('wplXQqsdEZEYbIm');
+        //$('#wplXQqsdEZEYbIm').html(``);
+        //$('#wplXQqsdEZEYbIm').show();
+        //$('#wplXQqsdEZEYbIm').removeClass('hkyYYlXJPLaqBDt');
+        ////dodaj okresy
+        //for (let i = 1; i <= ileOkresow; i++) {
+        //    okres.innerHTML += `<option value="` + i + `">` + i + ` okres</option>`;
+        //}
+
+
+        let pierwszyMiesiac = null;
+        let ostatniMiesiac = null;
+        if (ileOkresow == 3) {
+            if (okres.value == 1) { pierwszyMiesiac = 1; ostatniMiesiac = 4; }
+            if (okres.value == 2) { pierwszyMiesiac = 5; ostatniMiesiac = 8; }
+            if (okres.value == 3) { pierwszyMiesiac = 9; ostatniMiesiac = 12; }
+        }
+        if (ileOkresow == 4) {
+            if (okres.value == 1) { pierwszyMiesiac = 1; ostatniMiesiac = 3; }
+            if (okres.value == 2) { pierwszyMiesiac = 4; ostatniMiesiac = 6; }
+            if (okres.value == 3) { pierwszyMiesiac = 7; ostatniMiesiac = 9; }
+            if (okres.value == 4) { pierwszyMiesiac = 10; ostatniMiesiac = 12; }
+        }
+        if (ileOkresow == 6) {
+            if (okres.value == 1) { pierwszyMiesiac = 1; ostatniMiesiac = 2; }
+            if (okres.value == 2) { pierwszyMiesiac = 3; ostatniMiesiac = 4; }
+            if (okres.value == 3) { pierwszyMiesiac = 5; ostatniMiesiac = 6; }
+            if (okres.value == 4) { pierwszyMiesiac = 7; ostatniMiesiac = 8; }
+            if (okres.value == 5) { pierwszyMiesiac = 9; ostatniMiesiac = 10; }
+            if (okres.value == 6) { pierwszyMiesiac = 11; ostatniMiesiac = 12; }
+        }
+        //if (ileOkresow == 12) {
+        //    if (okres.value == 1) { pierwszyMiesiac == 1; ostatniMiesiac = 1; }
+        //    if (okres.value == 2) { pierwszyMiesiac == 2; ostatniMiesiac = 2; }
+        //    if (okres.value == 3) { pierwszyMiesiac == 3; ostatniMiesiac = 3; }
+        //    if (okres.value == 4) { pierwszyMiesiac == 4; ostatniMiesiac = 4; }
+        //    if (okres.value == 5) { pierwszyMiesiac == 5; ostatniMiesiac = 5; }
+        //    if (okres.value == 6) { pierwszyMiesiac == 6; ostatniMiesiac = 6; }
+        //    if (okres.value == 7) { pierwszyMiesiac == 7; ostatniMiesiac = 7; }
+        //    if (okres.value == 8) { pierwszyMiesiac == 8; ostatniMiesiac = 8; }
+        //    if (okres.value == 9) { pierwszyMiesiac == 9; ostatniMiesiac = 9; }
+        //    if (okres.value == 10) { pierwszyMiesiac == 10; ostatniMiesiac = 10; }
+        //    if (okres.value == 11) { pierwszyMiesiac == 11; ostatniMiesiac = 11; }
+        //    if (okres.value == 12) { pierwszyMiesiac == 12; ostatniMiesiac = 12; }
+        //}
+        
+        document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th></tr></thead>`;
+        if (pierwszyMiesiac != null && ostatniMiesiac != null && pierwszyMiesiac != ostatniMiesiac) 
+        {
+            for (let i = pierwszyMiesiac; i <= ostatniMiesiac; i++)
+            {
+                let month = new Date(year, i, 0).toLocaleDateString('pl-PL', { month: 'long' });
+                let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
+
+                document.querySelector('#xhXEyORRmmYlQgG thead tr').innerHTML += `<th>` + month_capitalize + `</th>`;
+            }
+        }
+        if (pierwszyMiesiac == null && ostatniMiesiac == null && pierwszyMiesiac == ostatniMiesiac) 
+        {
+            let month = new Date(year, parseInt(okres.value), 0).toLocaleDateString('pl-PL', { month: 'long' });
+            let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
+
+            document.querySelector('#xhXEyORRmmYlQgG thead tr').innerHTML += `<th>` + month_capitalize + `</th>`;
+
+            for (let i = 1; i <= 31; i++) 
+            {
+                document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td id="` + year + `-` + parseInt(okres.value) + `-` + i + `"></td></tr></tbody>`;
+            }
+        }
+
+        
+        //let TH = document.querySelector('#xhXEyORRmmYlQgG thead tr th:first-child');
+        //$(TH).css({ 'width': '40px', 'max-width': '40px', 'display': 'block' });
+
+
     }
+    if (widok == 'year') 
+    {
+        $('#wplXQqsdEZEYbIm').html(``);
+        //$('#wplXQqsdEZEYbIm').hide();
+        $('#wplXQqsdEZEYbIm').addClass('hkyYYlXJPLaqBDt');
+
+        document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th><th>Styczeń</th><th>Luty</th><th>Marzec</th><th>Kwiecień</th><th>Maj</th><th>Czerwiec</th><th>Lipiec</th><th>Sierpień</th><th>Wrzesień</th><th>Październik</th><th>Listopad</th><th>Grudzień</th></tr></thead>`;
+
+        for (let i = 1; i <= 31; i++) 
+        {
+            document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td id="` + year + `-1-` + i + `"></td><td id="` + year + `-2-` + i + `"></td><td id="` + year + `-3-` + i + `"></td><td id="` + year + `-4-` + i + `"></td><td id="` + year + `-5-` + i + `"></td><td id="` + year + `-6-` + i + `"></td><td id="` + year + `-7-` + i + `"></td><td id="` + year + `-8-` + i + `"></td><td id="` + year + `-9-` + i + `"></td><td id="` + year + `-10-` + i + `"></td><td id="` + year + `-11-` + i + `"></td><td id="` + year + `-12-` + i + `"></td></tr></tbody>`;
+        }
+    }
+
+
+
 
     let TDs = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr td:not(:first-child)');
     for (let i = 0; i < TDs.length; i++) 
     {
-        TDs[i].innerHTML += `<div id="NGWhvCmkPUIWclY">` + //onmouseout="xGCnnFtbrNPSNPm(this)" onmouseover="bxLcBeaOvMopDll(this)"
-                //`<div title="Zaznacz dzień" onclick="OdAaYwlLkdNUOjt(this)" style="display: none;">` +
-                //    `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path></svg>` +
-                //`</div>` +
-                //`<div title="Odznacz dzień" onclick="efBsSMDrIHdzcWF(this)" style="display: none;">` +
-                //    `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path></svg>` +
-                //`</div>` +
+        TDs[i].innerHTML += `<div id="NGWhvCmkPUIWclY">` +
                 `<div title="Wpisz urlop" onclick="HIJPFbwutXHZxGn(this)" style="display: none;">` +
                     `<svg viewBox="0 0 24 24" width="20" height="20" class="HRcyzPKclmUXnPb"><path d="M8.4 12H2.8L1 15H0V5h1l1.8 3h5.6L6 0h2l4.8 8H18a2 2 0 1 1 0 4h-5.2L8 20H6l2.4-8z"></path></svg>` +
                 `</div>` +
@@ -1766,7 +1947,7 @@ $(document).ready(function ()
     //
 
     //generateCalendar();
-    generateNewTable();
+    //generateNewTable();
 
     //scroll - po załadowaniu generateCalendar
     if (sessionStorage.getItem('mcctFxsWDAvvPfs') != null)

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeTask.Data;
 
@@ -11,13 +12,15 @@ using TimeTask.Data;
 namespace TimeTask.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240223095849_asdnajksdnkasjn")]
+    partial class asdnajksdnkasjn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.16")
+                .HasAnnotation("ProductVersion", "7.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -407,46 +410,6 @@ namespace TimeTask.Data.Migrations
                     b.ToTable("MainSettings");
                 });
 
-            modelBuilder.Entity("TimeTask.Models.MainSettings2", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("PoraNocna_Koniec")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("PoraNocna_Poczatek")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("WolnaNiedziela")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("WolnaSobota")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("WolnaSroda")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("WolnyCzwartek")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("WolnyPiatek")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("WolnyPoniedzialek")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("WolnyWtorek")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MainSettings2");
-                });
-
             modelBuilder.Entity("TimeTask.Models.Opening", b =>
                 {
                     b.Property<int>("Id")
@@ -470,34 +433,6 @@ namespace TimeTask.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Opening");
-                });
-
-            modelBuilder.Entity("TimeTask.Models.Opening2", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("DaysOpening")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DaysVacation")
-                        .HasColumnType("int");
-
-                    b.Property<float>("OvertimeOpening")
-                        .HasColumnType("real");
-
-                    b.Property<int>("WorkerID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Opening2");
                 });
 
             modelBuilder.Entity("TimeTask.Models.Period", b =>

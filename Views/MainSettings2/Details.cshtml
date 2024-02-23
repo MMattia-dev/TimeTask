@@ -1,0 +1,72 @@
+﻿@model TimeTask.Models.MainSettings2
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>MainSettings2</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PoraNocna_Poczatek)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PoraNocna_Poczatek)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PoraNocna_Koniec)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PoraNocna_Koniec)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WolnyPoniedzialek)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WolnyPoniedzialek)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WolnyWtorek)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WolnyWtorek)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WolnaSroda)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WolnaSroda)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WolnyCzwartek)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WolnyCzwartek)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WolnyPiatek)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WolnyPiatek)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WolnaSobota)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WolnaSobota)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WolnaNiedziela)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WolnaNiedziela)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
