@@ -1676,6 +1676,7 @@ function JseGUINRHEBAnvv(e, t)
 
 function godziny_click3(e, t) 
 {
+    let workerID = document.getElementById('AOZzvXnLtNqUPwN').value;
     let lifDKbCfNCuDQMs_inner = '';
 
     //
@@ -1707,7 +1708,7 @@ function godziny_click3(e, t)
     //
 
     //
-    let workerID = document.getElementById('AOZzvXnLtNqUPwN').value;
+    
     let id_date = new Date($(t).parent().parent().attr('id')).toLocaleDateString();
     for (let i = 0; i < model_t.length; i++) 
     {

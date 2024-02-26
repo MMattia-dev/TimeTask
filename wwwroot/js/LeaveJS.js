@@ -219,35 +219,33 @@ function generateNewTable()
             }
 
 
-
             for (let i = 1; i <= 31; i++) 
             {
                 document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td></tr></tbody>`;
             }
 
+
+            // jakim cudem to działa???
             let tr_ = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr');
-            //let i = pierwszyMiesiac;
-            for (let j = 0; j < tr_.length; j++) 
+            for (let n = 1; n <= tr_.length; n++) 
             {
-                if (tr_[j] != undefined) 
+                for (let i = pierwszyMiesiac; i <= ostatniMiesiac; i++) 
                 {
-                    ////console.log($(tr_[j]).children('td').html());
-                    //let n = parseInt($(tr_[j]).children('td').html());
-                    //for (let i = pierwszyMiesiac; i <= ostatniMiesiac; i++) 
-                    //{
-                    //    if (j+1 == n) 
-                    //    {
-                    //        tr_[j].innerHTML += `<td id="` + year + `-` + i + `-` + j + `"></td>`;
-                            
-                    //    }
-
-                    //}
-
-
-                    
+                    $(tr_[n - 2]).append('<td id="' + year + '-' + i + '-' + (n-1) + '"></td>');
                 }
-
             }
+
+            for (let n = 1; n <= tr_.length; n++) 
+            {
+                if (n == 31) 
+                {
+                    for (let i = pierwszyMiesiac; i <= ostatniMiesiac; i++) 
+                    {
+                        $(tr_[n - 1]).append('<td id="' + year + '-' + i + '-' + n + '"></td>');
+                    }
+                }
+            }
+            //
         }
         else if (pierwszyMiesiac == null && ostatniMiesiac == null && pierwszyMiesiac == ostatniMiesiac) 
         {
@@ -867,8 +865,12 @@ $('#aFoQOFiXPQobjPX').on('change', function ()
     generateNewTable();
 
 
-    let department = this.options[this.selectedIndex].value;
-    sessionStorage.setItem('lIglBkqRjlDZnab', department);
+    //let department = this.options[this.selectedIndex].value;
+    //sessionStorage.setItem('lIglBkqRjlDZnab', department);
+
+    //let workerSelect = document.getElementById('oUfnFiNPmXnNjzu');
+    //let worker = workerSelect.options[workerSelect.selectedIndex].value;
+    //sessionStorage.setItem('qSAmVfvuBMTlcKB', worker);
 });
 //$('#aFoQOFiXPQobjPX').trigger('change');
 
@@ -891,6 +893,9 @@ function dWVTVhqEBjJCURf(t)
 {
     $('#xBuYErAxrbdvwoP').children().show();
     //generateCalendar();
+
+    //let worker = t.options[t.selectedIndex].value;
+    //sessionStorage.setItem('qSAmVfvuBMTlcKB', worker);
 
     MEPHaojoIWKCapY();
 
@@ -1968,14 +1973,16 @@ function AxniBufKgDcaYFA(t) {
 $(document).ready(function ()
 {
     //year select
-    if (sessionStorage.getItem('MnqHzqBiryXOWYP') != null) {
+    if (sessionStorage.getItem('MnqHzqBiryXOWYP') != null) 
+    {
         let yearSelect = document.getElementById('iHCBwRzOLpgGYQG');
         yearSelect.value = sessionStorage.getItem('MnqHzqBiryXOWYP');
     }
     //
 
     // month select
-    if (sessionStorage.getItem('wSGVyznxxQsFpjg') != null) {
+    if (sessionStorage.getItem('wSGVyznxxQsFpjg') != null) 
+    {
         let monthSelect = document.getElementById('IZdWjCoFNPZaIaP');
         monthSelect.value = sessionStorage.getItem('wSGVyznxxQsFpjg');
     }
@@ -1985,8 +1992,17 @@ $(document).ready(function ()
     if (sessionStorage.getItem('lIglBkqRjlDZnab') != null)
     {
         let departmentSelect = document.getElementById('aFoQOFiXPQobjPX');
-        departmentSelect.value = sessionStorage.getItem('lIglBkqRjlDZnab');
-        FFkdMqNnTDbWkXb();
+        //departmentSelect.value = sessionStorage.getItem('lIglBkqRjlDZnab');
+
+        //FFkdMqNnTDbWkXb();
+    }
+    //
+
+    // worker select
+    if (sessionStorage.getItem('qSAmVfvuBMTlcKB') != null) 
+    {
+        let workerSelect = document.getElementById('oUfnFiNPmXnNjzu');
+        //workerSelect.value = sessionStorage.getItem('qSAmVfvuBMTlcKB');
     }
     //
 
