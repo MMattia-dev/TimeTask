@@ -71,11 +71,9 @@ function MEPHaojoIWKCapY()
     let ileMiesiecy = okresRozliczeniowy;
     let ileOkresow = 12 / ileMiesiecy;
 
-
     //okres
     let okres = document.getElementById('wplXQqsdEZEYbIm');
     $('#wplXQqsdEZEYbIm').html(``);
-    //$('#wplXQqsdEZEYbIm').show();
     $('#wplXQqsdEZEYbIm').removeClass('hkyYYlXJPLaqBDt');
     //dodaj okresy
     for (let i = 1; i <= ileOkresow; i++)
@@ -162,6 +160,17 @@ function generateNewTable()
         //}
 
 
+
+
+
+
+
+
+
+
+
+
+
         let pierwszyMiesiac = null;
         let ostatniMiesiac = null;
         if (ileOkresow == 3) {
@@ -208,8 +217,39 @@ function generateNewTable()
 
                 document.querySelector('#xhXEyORRmmYlQgG thead tr').innerHTML += `<th>` + month_capitalize + `</th>`;
             }
+
+
+
+            for (let i = 1; i <= 31; i++) 
+            {
+                document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td></tr></tbody>`;
+            }
+
+            let tr_ = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr');
+            //let i = pierwszyMiesiac;
+            for (let j = 0; j < tr_.length; j++) 
+            {
+                if (tr_[j] != undefined) 
+                {
+                    ////console.log($(tr_[j]).children('td').html());
+                    //let n = parseInt($(tr_[j]).children('td').html());
+                    //for (let i = pierwszyMiesiac; i <= ostatniMiesiac; i++) 
+                    //{
+                    //    if (j+1 == n) 
+                    //    {
+                    //        tr_[j].innerHTML += `<td id="` + year + `-` + i + `-` + j + `"></td>`;
+                            
+                    //    }
+
+                    //}
+
+
+                    
+                }
+
+            }
         }
-        if (pierwszyMiesiac == null && ostatniMiesiac == null && pierwszyMiesiac == ostatniMiesiac) 
+        else if (pierwszyMiesiac == null && ostatniMiesiac == null && pierwszyMiesiac == ostatniMiesiac) 
         {
             let month = new Date(year, parseInt(okres.value), 0).toLocaleDateString('pl-PL', { month: 'long' });
             let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
@@ -224,14 +264,13 @@ function generateNewTable()
 
         
         //let TH = document.querySelector('#xhXEyORRmmYlQgG thead tr th:first-child');
-        //$(TH).css({ 'width': '40px', 'max-width': '40px', 'display': 'block' });
+        //$(TH).css({ 'width': '5%', 'max-width': '40px', 'display': 'block' });
 
 
     }
     if (widok == 'year') 
     {
         $('#wplXQqsdEZEYbIm').html(``);
-        //$('#wplXQqsdEZEYbIm').hide();
         $('#wplXQqsdEZEYbIm').addClass('hkyYYlXJPLaqBDt');
 
         document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th><th>Styczeń</th><th>Luty</th><th>Marzec</th><th>Kwiecień</th><th>Maj</th><th>Czerwiec</th><th>Lipiec</th><th>Sierpień</th><th>Wrzesień</th><th>Październik</th><th>Listopad</th><th>Grudzień</th></tr></thead>`;
@@ -811,6 +850,7 @@ FFkdMqNnTDbWkXb();
 
 $('#aFoQOFiXPQobjPX').on('change', function ()
 {
+    //document.getElementById('aFoQOFiXPQobjPX').innerHTML = '';
     document.getElementById('oUfnFiNPmXnNjzu').innerHTML = '';
 
     let aFoQOFiXPQobjPX = document.getElementById('aFoQOFiXPQobjPX');
@@ -851,7 +891,10 @@ function dWVTVhqEBjJCURf(t)
 {
     $('#xBuYErAxrbdvwoP').children().show();
     //generateCalendar();
-    generateNewTable();
+
+    MEPHaojoIWKCapY();
+
+    //generateNewTable();
 };
 
 
@@ -1943,6 +1986,7 @@ $(document).ready(function ()
     {
         let departmentSelect = document.getElementById('aFoQOFiXPQobjPX');
         departmentSelect.value = sessionStorage.getItem('lIglBkqRjlDZnab');
+        FFkdMqNnTDbWkXb();
     }
     //
 

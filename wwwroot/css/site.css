@@ -5090,8 +5090,10 @@ input:checked + .HsRFJWiSLmrJcoG:before {
             .ciPwrXhCJKttlZY thead tr th:first-child {
                 max-width: 40px;
                 min-width: 40px;
-                height: 40px;
+                width: 40px;
                 border-left: none;
+                /**/
+                
             }
 
             .ciPwrXhCJKttlZY thead tr th:last-child {
@@ -5119,9 +5121,10 @@ input:checked + .HsRFJWiSLmrJcoG:before {
                 font-weight: bold;
                 user-select: none;
                 /**/
-                max-width: 40px;
+                /*max-width: 40px;
                 min-width: 40px;
-                height: 40px;
+                width: 40px;*/
+                
             }
 
             .ciPwrXhCJKttlZY tbody tr td:last-child {
