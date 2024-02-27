@@ -38,6 +38,19 @@ function isDateValid(year, month, day)
     }
 };
 
+function isInViewport(element)
+{
+    //var el = document.getElementById(element);
+    var bounding = element.getBoundingClientRect();
+
+    if (bounding.right > (window.innerWidth || document.documentElement.clientWidth))
+    {
+        // Right side is out of viewport
+        return false;
+    }
+    return true;
+}
+
 function MEPHaojoIWKCapY() 
 {
     let worker = document.getElementById('oUfnFiNPmXnNjzu').value;
@@ -161,16 +174,6 @@ function generateNewTable()
 
 
 
-
-
-
-
-
-
-
-
-
-
         let pierwszyMiesiac = null;
         let ostatniMiesiac = null;
         if (ileOkresow == 3) {
@@ -285,11 +288,14 @@ function generateNewTable()
     let TDs = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr td:not(:first-child)');
     for (let i = 0; i < TDs.length; i++) 
     {
-        TDs[i].innerHTML += `<div id="NGWhvCmkPUIWclY">` +
-                `<div title="Wpisz urlop" onclick="HIJPFbwutXHZxGn(this)" style="display: none;">` +
-                    `<svg viewBox="0 0 24 24" width="20" height="20" class="HRcyzPKclmUXnPb"><path d="M8.4 12H2.8L1 15H0V5h1l1.8 3h5.6L6 0h2l4.8 8H18a2 2 0 1 1 0 4h-5.2L8 20H6l2.4-8z"></path></svg>` +
-                `</div>` +
-            `</div>`;
+        //TDs[i].innerHTML += `<div id="NGWhvCmkPUIWclY">` +
+        //        `<div title="Wpisz urlop" onclick="HIJPFbwutXHZxGn(this)" style="display: none;">` +
+        //            `<svg viewBox="0 0 24 24" width="20" height="20" class="HRcyzPKclmUXnPb"><path d="M8.4 12H2.8L1 15H0V5h1l1.8 3h5.6L6 0h2l4.8 8H18a2 2 0 1 1 0 4h-5.2L8 20H6l2.4-8z"></path></svg>` +
+        //        `</div>` +
+        //    `</div>`;
+
+        TDs[i].setAttribute('onclick', 'yivqiMDvWUjTTZh(event, this)');
+
 
         TDs[i].setAttribute('onmouseover', 'bxLcBeaOvMopDll(event, this)');
         TDs[i].setAttribute('onmouseout', 'xGCnnFtbrNPSNPm(event, this)');
@@ -1949,7 +1955,7 @@ function MxLHxritEhBvupe_()
 
                 $(t).parent().children('span').html(`Ukryj dni wolne od pracy`);
 
-                $(t).parent().addClass('rVbmBkiLFEBlabZ');
+                //$(t).parent().addClass('rVbmBkiLFEBlabZ');
 
                 sessionStorage.setItem('XLsdAGmRfSDLmVh', 'true');
             }
@@ -1958,7 +1964,7 @@ function MxLHxritEhBvupe_()
                 $('.PGvvQnRjsnaGvPW').remove();
                 $(TDs[i]).children().removeClass('UjOQjNzjdVJpBtu');
                 $(t).parent().children('span').html(`Pokaż dni wolne od pracy`);
-                $(t).parent().removeClass('rVbmBkiLFEBlabZ');
+                //$(t).parent().removeClass('rVbmBkiLFEBlabZ');
 
                 sessionStorage.removeItem('XLsdAGmRfSDLmVh');
             }
@@ -1966,8 +1972,65 @@ function MxLHxritEhBvupe_()
     }
 };
 
-function AxniBufKgDcaYFA(t) { 
+function AxniBufKgDcaYFA(t) 
+{ 
     sessionStorage.setItem('mcctFxsWDAvvPfs', t.scrollTop)
+};
+
+//function jEnfgoqtoqKTNQg() 
+//{
+//    $('#JvxTrZXjcxLMDbG').toggle();
+//    $('#cZaynzjxaZoafFt').toggleClass('xCllvKXyhCppmHe');
+//};
+
+//function icNbHhENhGwrlow_() 
+//{
+//    let check = document.getElementById('icNbHhENhGwrlow');
+//    let check2 = document.getElementById('YgfOlptFhqmUHqw');
+
+//    if (check2.checked)
+//    {
+//        check.checked = true;
+//        check2.checked = false;
+//    }
+//};
+
+//function YgfOlptFhqmUHqw_() 
+//{
+//    let check = document.getElementById('YgfOlptFhqmUHqw');
+//    let check2 = document.getElementById('icNbHhENhGwrlow');
+
+//    if (check2.checked) 
+//    {
+//        check.checked = true;
+//        check2.checked = false;
+//    }
+//};
+
+//function NXwmsCpBYAsPAql_() 
+//{
+//    let check = document.getElementById('NXwmsCpBYAsPAql');
+//    check.checked ^= 1;
+
+//    MxLHxritEhBvupe_(check);
+//}
+
+function yivqiMDvWUjTTZh(e, t) 
+{
+    //leave_ContextMenu_id
+    var left = e.clientX + "px";
+    var top = e.clientY + "px";
+
+    var div = document.getElementById('leave_ContextMenu_id');
+
+    div.style.left = left;
+    div.style.top = top;
+
+    //$("#" + divid).toggle();
+    //$(div).toggle();
+    $('#TIdPfZKHfALBRyj').html(`<span>` + t.id + `</span>`);
+    console.log(isInViewport(div));
+    $(div).toggle();
 };
 
 $(document).ready(function ()
@@ -2007,7 +2070,7 @@ $(document).ready(function ()
     //
 
     //generateCalendar();
-    //generateNewTable();
+    generateNewTable();
 
     //scroll - po załadowaniu generateCalendar
     if (sessionStorage.getItem('mcctFxsWDAvvPfs') != null)

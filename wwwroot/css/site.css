@@ -5106,6 +5106,8 @@ input:checked + .HsRFJWiSLmrJcoG:before {
             color: rgba(255, 255, 255, 0.8);
             font-size: 14px;
             position: relative;
+            /**/
+            cursor: pointer;
         }
 
             .ciPwrXhCJKttlZY tbody tr td.VSEIRMVnLrwIkVf {
@@ -5246,10 +5248,142 @@ input:checked + .HsRFJWiSLmrJcoG:before {
             border: 1px solid orangered;
         }
 
+.leave_ContextMenu {
+    position: fixed;
+    /*top: 0;
+    left: 0;*/
+    z-index: 1;
+    height: auto;
+    width: 200px;
+    background-color: rgb(52, 54, 66);
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    -webkit-box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 1);
+    box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 1);
+    /*margin-right: 5px;*/
+    display: none;
+}
 
+    .leave_ContextMenu .UJLUEHCoZQTufCP {
+        width: 100%;
+        height: 35px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 4px;
+        padding: 8px;
+    }
 
+        .leave_ContextMenu .UJLUEHCoZQTufCP:first-child {
+            border-start-start-radius: 5px;
+            border-start-end-radius: 5px;
+        }
 
+        .leave_ContextMenu .UJLUEHCoZQTufCP:last-child {
+            border-bottom: none;
+            border-end-start-radius: 5px;
+            border-end-end-radius: 5px;
+        }
 
+        .leave_ContextMenu .UJLUEHCoZQTufCP:hover {
+            background-color: rgb(72, 74, 86);
+            cursor: pointer;
+        }
+
+        .leave_ContextMenu .UJLUEHCoZQTufCP input {
+            transform: translateX(-2px);
+            /*cursor: pointer;*/
+            pointer-events: none;
+        }
+
+        .leave_ContextMenu .UJLUEHCoZQTufCP svg {
+            fill: rgba(255, 255, 255, 0.8);
+        }
+
+        .leave_ContextMenu .UJLUEHCoZQTufCP svg.OQPkVJzrmUCKxDA {
+            transform: translateX(1px);
+        }
+
+        .leave_ContextMenu .UJLUEHCoZQTufCP svg.RtezhFPRJXDfZlf {
+            fill: black;
+        }
+
+        .leave_ContextMenu .UJLUEHCoZQTufCP span {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .leave_ContextMenu .UJLUEHCoZQTufCP.VIBbHlSjuWbLNfz {
+            background-color: orangered;
+            border-end-start-radius: 5px;
+            border-end-end-radius: 5px;
+        }
+
+            .leave_ContextMenu .UJLUEHCoZQTufCP.VIBbHlSjuWbLNfz:hover {
+                filter: brightness(90%);
+            }
+
+            .leave_ContextMenu .UJLUEHCoZQTufCP.VIBbHlSjuWbLNfz span {
+                color: black;
+                font-weight: bold;
+            }
+
+        .leave_ContextMenu .UJLUEHCoZQTufCP.bZUWYYApprOsmIv {
+            height: 30px;
+            pointer-events: none;            
+        }
+
+            .leave_ContextMenu .UJLUEHCoZQTufCP.bZUWYYApprOsmIv span {
+                font-size: 11px;
+                color: rgba(255, 255, 255, 0.7);
+            }
+
+        .leave_ContextMenu .UJLUEHCoZQTufCP.oPpaGGylRsfHRtF {
+            /*cursor: default;*/
+        }
+            .leave_ContextMenu .UJLUEHCoZQTufCP.oPpaGGylRsfHRtF div {
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                gap: 4px;
+                transform: translateX(-2px);
+            }
+
+            .leave_ContextMenu .UJLUEHCoZQTufCP.oPpaGGylRsfHRtF.xCllvKXyhCppmHe {
+                background-color: rgb(72, 74, 86);
+            }
+
+                .leave_ContextMenu .UJLUEHCoZQTufCP.oPpaGGylRsfHRtF.xCllvKXyhCppmHe svg:last-child {
+                    transform: rotate(180deg);
+                }
+
+        .leave_ContextMenu .UJLUEHCoZQTufCP.FfuCvPFejJcZUPm {
+            /*disable*/
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .leave_ContextMenu .UJLUEHCoZQTufCP.fykBnAJhWjkNLWb {
+            pointer-events: none;
+            justify-content: end;
+            backdrop-filter: contrast(120%);
+        }
+
+            .leave_ContextMenu .UJLUEHCoZQTufCP.fykBnAJhWjkNLWb span {
+                font-weight: bold;
+            }
+
+    .leave_ContextMenu.leave_ContextMenu_short {
+        width: 150px;
+        transform: translateX(200px) translateY(205px);
+        -webkit-box-shadow: 8px 8px 24px 0px rgba(0, 0, 0, 1);
+        -moz-box-shadow: 8px 8px 24px 0px rgba(0, 0, 0, 1);
+        box-shadow: 8px 8px 24px 0px rgba(0, 0, 0, 1);
+        display: none;
+    }
 
 
 

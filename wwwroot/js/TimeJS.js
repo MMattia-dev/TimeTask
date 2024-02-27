@@ -80,6 +80,19 @@ function isDateValid(year, month, day)
     }
 };
 
+function isInViewport(element)
+{
+    //var el = document.getElementById(element);
+    var bounding = element.getBoundingClientRect();
+
+    if (bounding.right > (window.innerWidth || document.documentElement.clientWidth))
+    {
+        // Right side is out of viewport
+        return false;
+    }
+    return true;
+}
+
 function generateNewTable() 
 {
     //year
