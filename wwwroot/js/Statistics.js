@@ -170,7 +170,7 @@ function xgNCiYYvDQOyAsg(e, t)
 function godziny_click(e, t) 
 {
     let lifDKbCfNCuDQMs_inner = '';
-
+    let workerID = document.getElementById('AOZzvXnLtNqUPwN').value;
 
     //
     let okresRozliczeniowy;
@@ -204,7 +204,7 @@ function godziny_click(e, t)
 
 
     //
-    let workerID = document.getElementById('AOZzvXnLtNqUPwN').value;
+    
     let id_date = new Date($(t).parent().parent().attr('id')).toLocaleDateString();
     for (let i = 0; i < model_t.length; i++) 
     {

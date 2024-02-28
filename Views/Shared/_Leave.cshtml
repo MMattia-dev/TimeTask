@@ -13,9 +13,10 @@
 
 
     <span class="settings_span">Widok:</span>
-    @*<div style="height: 5px;"></div>*@
+    <div style="height: 2px;"></div>
     <select class="HQTuaisxjrtQHPq" id="uLxtDsOksiWVnDI" onchange="MEPHaojoIWKCapY()">
         <option value="year">Cały rok</option>
+        <option value="month">Miesiąc</option>
         <option value="okres">Okres rozliczeniowy</option>
     </select>
     <select class="HQTuaisxjrtQHPq" id="wplXQqsdEZEYbIm" onchange="eFALkhlnQQySpCg()">
@@ -24,7 +25,7 @@
 
 
     <span class="settings_span">Rok:</span>
-    @*<div style="height: 5px;"></div>*@
+    <div style="height: 2px;"></div>
     <select class="HQTuaisxjrtQHPq" id="iHCBwRzOLpgGYQG">
         <!--Rok-->
         @{
@@ -91,7 +92,7 @@
     </select>*@
 
     <span class="settings_span">Dział:</span>
-    @*<div style="height: 5px;"></div>*@
+    <div style="height: 2px;"></div>
     <select class="HQTuaisxjrtQHPq" id="aFoQOFiXPQobjPX" onchange="FFkdMqNnTDbWkXb()">
         <!--FFkdMqNnTDbWkXb -->
         @foreach (var item in ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name))
@@ -101,7 +102,7 @@
     </select>
 
     <span class="settings_span">Pracownik:</span>
-    @*<div style="height: 5px;"></div>*@
+    <div style="height: 2px;"></div>
     <select class="HQTuaisxjrtQHPq" id="oUfnFiNPmXnNjzu" onchange="dWVTVhqEBjJCURf(this)">
         @foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).OrderBy(x => x.Surname))
         {
@@ -118,7 +119,7 @@
 
     <div style="height: 8px;"></div>
     <span class="settings_span">Dodaj urlopy (od-do):</span>
-    @*<div style="height: 5px;"></div>*@
+    <div style="height: 2px;"></div>
     <div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw" id="KhUYdWBbOzZAJwi">
         <span>Dodaj</span>
     </div>
@@ -133,7 +134,7 @@
 
     <div style="height: 8px;"></div>
     <span class="settings_span" id="settings_span3">Dodatkowe opcje:</span>
-    @*<div style="height: 5px;"></div>*@
+    <div style="height: 2px;"></div>
     <label class="pyyxmssXgPCWuUc ABDfbhcrgjZYGbz">
         <input type="checkbox" id="MxLHxritEhBvupe" onchange="MxLHxritEhBvupe_(this)" /> <!--id="MxLHxritEhBvupe" -->
         <span>Pokaż dni wolne od pracy</span>

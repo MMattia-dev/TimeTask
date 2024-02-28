@@ -53,7 +53,9 @@ function isInViewport(element)
 
 function MEPHaojoIWKCapY() 
 {
+    let year = document.getElementById('iHCBwRzOLpgGYQG').value;
     let worker = document.getElementById('oUfnFiNPmXnNjzu').value;
+    let uLxtDsOksiWVnDI = document.getElementById('uLxtDsOksiWVnDI');
 
     let okresRozliczeniowy;
     let czasPracyMax;
@@ -84,15 +86,36 @@ function MEPHaojoIWKCapY()
     let ileMiesiecy = okresRozliczeniowy;
     let ileOkresow = 12 / ileMiesiecy;
 
+
     //okres
-    let okres = document.getElementById('wplXQqsdEZEYbIm');
-    $('#wplXQqsdEZEYbIm').html(``);
-    $('#wplXQqsdEZEYbIm').removeClass('hkyYYlXJPLaqBDt');
-    //dodaj okresy
-    for (let i = 1; i <= ileOkresow; i++)
+    if (uLxtDsOksiWVnDI.value == 'okres') 
     {
-        okres.innerHTML += `<option value="` + i + `">` + i + ` okres</option>`;
+        let wplXQqsdEZEYbIm = document.getElementById('wplXQqsdEZEYbIm');
+        $('#wplXQqsdEZEYbIm').html(``);
+        $('#wplXQqsdEZEYbIm').removeClass('hkyYYlXJPLaqBDt');
+        //dodaj okresy
+        for (let i = 1; i <= ileOkresow; i++)
+        {
+            wplXQqsdEZEYbIm.innerHTML += `<option value="` + i + `">` + i + ` okres</option>`;
+        }
     }
+
+    if (uLxtDsOksiWVnDI.value == 'month') 
+    {
+        let wplXQqsdEZEYbIm = document.getElementById('wplXQqsdEZEYbIm');
+        $('#wplXQqsdEZEYbIm').html(``);
+        $('#wplXQqsdEZEYbIm').removeClass('hkyYYlXJPLaqBDt');
+        //dodaj miesiace
+        for (let i = 1; i <= 12; i++) 
+        {
+            let month = new Date(year, i, 0).toLocaleDateString('pl-PL', { month: 'long' });
+            let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
+
+            wplXQqsdEZEYbIm.innerHTML += `<option value="` + i + `">` + month_capitalize + `</option>`;
+        }
+    }
+    
+
 
     generateNewTable();
 };
@@ -156,38 +179,54 @@ function generateNewTable()
     //{
     //    document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td id="` + year + `-1-` + i + `"></td><td id="` + year + `-2-` + i + `"></td><td id="` + year + `-3-` + i + `"></td><td id="` + year + `-4-` + i + `"></td><td id="` + year + `-5-` + i + `"></td><td id="` + year + `-6-` + i + `"></td><td id="` + year + `-7-` + i + `"></td><td id="` + year + `-8-` + i + `"></td><td id="` + year + `-9-` + i + `"></td><td id="` + year + `-10-` + i + `"></td><td id="` + year + `-11-` + i + `"></td><td id="` + year + `-12-` + i + `"></td></tr></tbody>`;
     //}
+    if (widok == 'month') 
+    {
+        $('#xhXEyORRmmYlQgG').addClass('wHJdQTeGtaPLEfX');
+
+        let okres = document.getElementById('wplXQqsdEZEYbIm');
+
+        let month = new Date(year, parseInt(okres.value), 0).toLocaleDateString('pl-PL', { month: 'long' });
+        let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
+
+        document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th></tr></thead>`;
+        document.querySelector('#xhXEyORRmmYlQgG thead tr').innerHTML += `<th>` + month_capitalize + `</th>`;
+
+        for (let i = 1; i <= 31; i++) 
+        {
+            document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td id="` + year + `-` + parseInt(okres.value) + `-` + i + `"></td></tr></tbody>`;
+        }
+    }
     if (widok == 'okres') 
     {
+        $('#xhXEyORRmmYlQgG').removeClass('wHJdQTeGtaPLEfX');
+        $('#xhXEyORRmmYlQgG').addClass('mKzzcPQqeZIcPIP');
+
+
         let ileMiesiecy = okresRozliczeniowy;
         let ileOkresow = 12 / ileMiesiecy;
-        //let todayDate = new Date();
+        let divide = 100 / ileMiesiecy;
+        let minus = 40 / ileMiesiecy;
 
-        //okres
         let okres = document.getElementById('wplXQqsdEZEYbIm');
-        //$('#wplXQqsdEZEYbIm').html(``);
-        //$('#wplXQqsdEZEYbIm').show();
-        //$('#wplXQqsdEZEYbIm').removeClass('hkyYYlXJPLaqBDt');
-        ////dodaj okresy
-        //for (let i = 1; i <= ileOkresow; i++) {
-        //    okres.innerHTML += `<option value="` + i + `">` + i + ` okres</option>`;
-        //}
-
 
 
         let pierwszyMiesiac = null;
         let ostatniMiesiac = null;
-        if (ileOkresow == 3) {
+        if (ileOkresow == 3) 
+        {
             if (okres.value == 1) { pierwszyMiesiac = 1; ostatniMiesiac = 4; }
             if (okres.value == 2) { pierwszyMiesiac = 5; ostatniMiesiac = 8; }
             if (okres.value == 3) { pierwszyMiesiac = 9; ostatniMiesiac = 12; }
         }
-        if (ileOkresow == 4) {
+        if (ileOkresow == 4) 
+        {
             if (okres.value == 1) { pierwszyMiesiac = 1; ostatniMiesiac = 3; }
             if (okres.value == 2) { pierwszyMiesiac = 4; ostatniMiesiac = 6; }
             if (okres.value == 3) { pierwszyMiesiac = 7; ostatniMiesiac = 9; }
             if (okres.value == 4) { pierwszyMiesiac = 10; ostatniMiesiac = 12; }
         }
-        if (ileOkresow == 6) {
+        if (ileOkresow == 6) 
+        {
             if (okres.value == 1) { pierwszyMiesiac = 1; ostatniMiesiac = 2; }
             if (okres.value == 2) { pierwszyMiesiac = 3; ostatniMiesiac = 4; }
             if (okres.value == 3) { pierwszyMiesiac = 5; ostatniMiesiac = 6; }
@@ -195,7 +234,8 @@ function generateNewTable()
             if (okres.value == 5) { pierwszyMiesiac = 9; ostatniMiesiac = 10; }
             if (okres.value == 6) { pierwszyMiesiac = 11; ostatniMiesiac = 12; }
         }
-        //if (ileOkresow == 12) {
+        //if (ileOkresow == 12) 
+        //{
         //    if (okres.value == 1) { pierwszyMiesiac == 1; ostatniMiesiac = 1; }
         //    if (okres.value == 2) { pierwszyMiesiac == 2; ostatniMiesiac = 2; }
         //    if (okres.value == 3) { pierwszyMiesiac == 3; ostatniMiesiac = 3; }
@@ -218,7 +258,7 @@ function generateNewTable()
                 let month = new Date(year, i, 0).toLocaleDateString('pl-PL', { month: 'long' });
                 let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
 
-                document.querySelector('#xhXEyORRmmYlQgG thead tr').innerHTML += `<th>` + month_capitalize + `</th>`;
+                document.querySelector('#xhXEyORRmmYlQgG thead tr').innerHTML += `<th style="width: ` + divide + `%;">` + month_capitalize + `</th>`; //style="width: calc(` + divide + `% - ` + minus + `px);"
             }
 
 
@@ -262,15 +302,12 @@ function generateNewTable()
                 document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td id="` + year + `-` + parseInt(okres.value) + `-` + i + `"></td></tr></tbody>`;
             }
         }
-
-        
-        //let TH = document.querySelector('#xhXEyORRmmYlQgG thead tr th:first-child');
-        //$(TH).css({ 'width': '5%', 'max-width': '40px', 'display': 'block' });
-
-
     }
     if (widok == 'year') 
     {
+        $('#xhXEyORRmmYlQgG').removeClass('wHJdQTeGtaPLEfX');
+        $('#xhXEyORRmmYlQgG').removeClass('mKzzcPQqeZIcPIP');
+
         $('#wplXQqsdEZEYbIm').html(``);
         $('#wplXQqsdEZEYbIm').addClass('hkyYYlXJPLaqBDt');
 
@@ -294,7 +331,8 @@ function generateNewTable()
         //        `</div>` +
         //    `</div>`;
 
-        TDs[i].setAttribute('onclick', 'yivqiMDvWUjTTZh(event, this)');
+
+        TDs[i].setAttribute('onclick', 'HIJPFbwutXHZxGn(this)');
 
 
         TDs[i].setAttribute('onmouseover', 'bxLcBeaOvMopDll(event, this)');
@@ -557,7 +595,8 @@ function HIJPFbwutXHZxGn(t)
     let QcLYVFuvuONgCrh = document.getElementById('oUfnFiNPmXnNjzu');
     let worker = QcLYVFuvuONgCrh.options[QcLYVFuvuONgCrh.selectedIndex].text;
 
-    let date = $(t).parent().parent().attr('id');
+    //let date = $(t).parent().parent().attr('id');
+    let date = t.id;
     let day = date.split('-')[2];
     let month = new Date(date).toLocaleDateString('pl-PL', { month: 'long' });
     let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
@@ -897,7 +936,7 @@ $('#IZdWjCoFNPZaIaP').on('change', function ()
 
 function dWVTVhqEBjJCURf(t)
 {
-    $('#xBuYErAxrbdvwoP').children().show();
+    //$('#xBuYErAxrbdvwoP').children().show();
     //generateCalendar();
 
     //let worker = t.options[t.selectedIndex].value;
@@ -1955,7 +1994,7 @@ function MxLHxritEhBvupe_()
 
                 $(t).parent().children('span').html(`Ukryj dni wolne od pracy`);
 
-                //$(t).parent().addClass('rVbmBkiLFEBlabZ');
+                $(t).parent().addClass('rVbmBkiLFEBlabZ');
 
                 sessionStorage.setItem('XLsdAGmRfSDLmVh', 'true');
             }
@@ -1964,7 +2003,7 @@ function MxLHxritEhBvupe_()
                 $('.PGvvQnRjsnaGvPW').remove();
                 $(TDs[i]).children().removeClass('UjOQjNzjdVJpBtu');
                 $(t).parent().children('span').html(`Pokaż dni wolne od pracy`);
-                //$(t).parent().removeClass('rVbmBkiLFEBlabZ');
+                $(t).parent().removeClass('rVbmBkiLFEBlabZ');
 
                 sessionStorage.removeItem('XLsdAGmRfSDLmVh');
             }
@@ -1975,62 +2014,6 @@ function MxLHxritEhBvupe_()
 function AxniBufKgDcaYFA(t) 
 { 
     sessionStorage.setItem('mcctFxsWDAvvPfs', t.scrollTop)
-};
-
-//function jEnfgoqtoqKTNQg() 
-//{
-//    $('#JvxTrZXjcxLMDbG').toggle();
-//    $('#cZaynzjxaZoafFt').toggleClass('xCllvKXyhCppmHe');
-//};
-
-//function icNbHhENhGwrlow_() 
-//{
-//    let check = document.getElementById('icNbHhENhGwrlow');
-//    let check2 = document.getElementById('YgfOlptFhqmUHqw');
-
-//    if (check2.checked)
-//    {
-//        check.checked = true;
-//        check2.checked = false;
-//    }
-//};
-
-//function YgfOlptFhqmUHqw_() 
-//{
-//    let check = document.getElementById('YgfOlptFhqmUHqw');
-//    let check2 = document.getElementById('icNbHhENhGwrlow');
-
-//    if (check2.checked) 
-//    {
-//        check.checked = true;
-//        check2.checked = false;
-//    }
-//};
-
-//function NXwmsCpBYAsPAql_() 
-//{
-//    let check = document.getElementById('NXwmsCpBYAsPAql');
-//    check.checked ^= 1;
-
-//    MxLHxritEhBvupe_(check);
-//}
-
-function yivqiMDvWUjTTZh(e, t) 
-{
-    //leave_ContextMenu_id
-    var left = e.clientX + "px";
-    var top = e.clientY + "px";
-
-    var div = document.getElementById('leave_ContextMenu_id');
-
-    div.style.left = left;
-    div.style.top = top;
-
-    //$("#" + divid).toggle();
-    //$(div).toggle();
-    $('#TIdPfZKHfALBRyj').html(`<span>` + t.id + `</span>`);
-    console.log(isInViewport(div));
-    $(div).toggle();
 };
 
 $(document).ready(function ()

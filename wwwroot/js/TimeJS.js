@@ -93,6 +93,81 @@ function isInViewport(element)
     return true;
 }
 
+function MEPHaojoIWKCapY() 
+{
+    let year = document.getElementById('IsBAUOIAAHcAfcz').value;
+    let worker = document.getElementById('QcLYVFuvuONgCrh').value;
+    let uLxtDsOksiWVnDI = document.getElementById('uLxtDsOksiWVnDI');
+
+    let okresRozliczeniowy;
+    let czasPracyMax;
+    let maksymalnaLiczbaNadgodzin;
+    let maksymalnaLiczbaNadgodzinTydzien;
+    let nieprzerwanyOdpoczynek;
+
+    for (let i = 0; i < model_ts.length; i++)
+    {
+        if (model_ts[i].WorkerId != null && model_ts[i].WorkerId == worker)
+        {
+            okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            czasPracyMax = model_ts[i].CzasPracy;
+            maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
+            maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
+            nieprzerwanyOdpoczynek = model_ts[i].NieprzerwanyOdpoczynek;
+        }
+        if (model_ts[i].WorkerId == null)
+        {
+            okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            czasPracyMax = model_ts[i].CzasPracy;
+            maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
+            maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
+            nieprzerwanyOdpoczynek = model_ts[i].NieprzerwanyOdpoczynek;
+        }
+    }
+
+    let ileMiesiecy = okresRozliczeniowy;
+    let ileOkresow = 12 / ileMiesiecy;
+
+
+    //okres
+    if (uLxtDsOksiWVnDI.value == 'okres') 
+    {
+        let wplXQqsdEZEYbIm = document.getElementById('wplXQqsdEZEYbIm');
+        $('#wplXQqsdEZEYbIm').html(``);
+        $('#wplXQqsdEZEYbIm').removeClass('hkyYYlXJPLaqBDt');
+        //dodaj okresy
+        for (let i = 1; i <= ileOkresow; i++)
+        {
+            wplXQqsdEZEYbIm.innerHTML += `<option value="` + i + `">` + i + ` okres</option>`;
+        }
+    }
+
+    if (uLxtDsOksiWVnDI.value == 'month') 
+    {
+        let wplXQqsdEZEYbIm = document.getElementById('wplXQqsdEZEYbIm');
+        $('#wplXQqsdEZEYbIm').html(``);
+        $('#wplXQqsdEZEYbIm').removeClass('hkyYYlXJPLaqBDt');
+        //dodaj miesiace
+        for (let i = 1; i <= 12; i++) 
+        {
+            let month = new Date(year, i, 0).toLocaleDateString('pl-PL', { month: 'long' });
+            let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
+
+            wplXQqsdEZEYbIm.innerHTML += `<option value="` + i + `">` + month_capitalize + `</option>`;
+        }
+    }
+
+
+
+    generateNewTable();
+};
+MEPHaojoIWKCapY();
+
+function eFALkhlnQQySpCg() 
+{
+    generateNewTable();
+}
+
 function generateNewTable() 
 {
     //year
@@ -101,29 +176,206 @@ function generateNewTable()
     let department = document.getElementById('SLmdcavhxFjdwWi').value;
     //worker
     let worker = document.getElementById('QcLYVFuvuONgCrh').value;
+    //widok
+    let widok = document.getElementById('uLxtDsOksiWVnDI').value;
+
+
+
+
+
+    let okresRozliczeniowy;
+    let czasPracyMax;
+    let maksymalnaLiczbaNadgodzin;
+    let maksymalnaLiczbaNadgodzinTydzien;
+    let nieprzerwanyOdpoczynek;
+
+    for (let i = 0; i < model_ts.length; i++)
+    {
+        if (model_ts[i].WorkerId != null && model_ts[i].WorkerId == worker)
+        {
+            okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            czasPracyMax = model_ts[i].CzasPracy;
+            maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
+            maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
+            nieprzerwanyOdpoczynek = model_ts[i].NieprzerwanyOdpoczynek;
+        }
+        if (model_ts[i].WorkerId == null)
+        {
+            okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            czasPracyMax = model_ts[i].CzasPracy;
+            maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
+            maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
+            nieprzerwanyOdpoczynek = model_ts[i].NieprzerwanyOdpoczynek;
+        }
+    }
+
+
+
 
 
     document.getElementById('xhXEyORRmmYlQgG').innerHTML = '';
 
-    document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th><th>Styczeń</th><th>Luty</th><th>Marzec</th><th>Kwiecień</th><th>Maj</th><th>Czerwiec</th><th>Lipiec</th><th>Sierpień</th><th>Wrzesień</th><th>Październik</th><th>Listopad</th><th>Grudzień</th></tr></thead>`;
+    //document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th><th>Styczeń</th><th>Luty</th><th>Marzec</th><th>Kwiecień</th><th>Maj</th><th>Czerwiec</th><th>Lipiec</th><th>Sierpień</th><th>Wrzesień</th><th>Październik</th><th>Listopad</th><th>Grudzień</th></tr></thead>`;
 
-    for (let i = 1; i <= 31; i++) 
+    //for (let i = 1; i <= 31; i++) 
+    //{
+    //    document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td id="` + year + `-1-` + i + `"></td><td id="` + year + `-2-` + i + `"></td><td id="` + year + `-3-` + i + `"></td><td id="` + year + `-4-` + i + `"></td><td id="` + year + `-5-` + i + `"></td><td id="` + year + `-6-` + i + `"></td><td id="` + year + `-7-` + i + `"></td><td id="` + year + `-8-` + i + `"></td><td id="` + year + `-9-` + i + `"></td><td id="` + year + `-10-` + i + `"></td><td id="` + year + `-11-` + i + `"></td><td id="` + year + `-12-` + i + `"></td></tr></tbody>`;
+    //}
+    if (widok == 'month') 
     {
-        document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td id="` + year + `-1-` + i + `"></td><td id="` + year + `-2-` + i + `"></td><td id="` + year + `-3-` + i + `"></td><td id="` + year + `-4-` + i + `"></td><td id="` + year + `-5-` + i + `"></td><td id="` + year + `-6-` + i + `"></td><td id="` + year + `-7-` + i + `"></td><td id="` + year + `-8-` + i + `"></td><td id="` + year + `-9-` + i + `"></td><td id="` + year + `-10-` + i + `"></td><td id="` + year + `-11-` + i + `"></td><td id="` + year + `-12-` + i + `"></td></tr></tbody>`;
+        $('#xhXEyORRmmYlQgG').addClass('wHJdQTeGtaPLEfX');
+
+        let okres = document.getElementById('wplXQqsdEZEYbIm');
+
+        let month = new Date(year, parseInt(okres.value), 0).toLocaleDateString('pl-PL', { month: 'long' });
+        let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
+
+        document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th></tr></thead>`;
+        document.querySelector('#xhXEyORRmmYlQgG thead tr').innerHTML += `<th>` + month_capitalize + `</th>`;
+
+        for (let i = 1; i <= 31; i++) 
+        {
+            document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td id="` + year + `-` + parseInt(okres.value) + `-` + i + `"></td></tr></tbody>`;
+        }
     }
+    if (widok == 'okres') 
+    {
+        $('#xhXEyORRmmYlQgG').removeClass('wHJdQTeGtaPLEfX');
+        $('#xhXEyORRmmYlQgG').addClass('mKzzcPQqeZIcPIP');
+
+
+        let ileMiesiecy = okresRozliczeniowy;
+        let ileOkresow = 12 / ileMiesiecy;
+        let divide = 100 / ileMiesiecy;
+        let minus = 40 / ileMiesiecy;
+
+        let okres = document.getElementById('wplXQqsdEZEYbIm');
+
+
+        let pierwszyMiesiac = null;
+        let ostatniMiesiac = null;
+        if (ileOkresow == 3) 
+        {
+            if (okres.value == 1) { pierwszyMiesiac = 1; ostatniMiesiac = 4; }
+            if (okres.value == 2) { pierwszyMiesiac = 5; ostatniMiesiac = 8; }
+            if (okres.value == 3) { pierwszyMiesiac = 9; ostatniMiesiac = 12; }
+        }
+        if (ileOkresow == 4) 
+        {
+            if (okres.value == 1) { pierwszyMiesiac = 1; ostatniMiesiac = 3; }
+            if (okres.value == 2) { pierwszyMiesiac = 4; ostatniMiesiac = 6; }
+            if (okres.value == 3) { pierwszyMiesiac = 7; ostatniMiesiac = 9; }
+            if (okres.value == 4) { pierwszyMiesiac = 10; ostatniMiesiac = 12; }
+        }
+        if (ileOkresow == 6) 
+        {
+            if (okres.value == 1) { pierwszyMiesiac = 1; ostatniMiesiac = 2; }
+            if (okres.value == 2) { pierwszyMiesiac = 3; ostatniMiesiac = 4; }
+            if (okres.value == 3) { pierwszyMiesiac = 5; ostatniMiesiac = 6; }
+            if (okres.value == 4) { pierwszyMiesiac = 7; ostatniMiesiac = 8; }
+            if (okres.value == 5) { pierwszyMiesiac = 9; ostatniMiesiac = 10; }
+            if (okres.value == 6) { pierwszyMiesiac = 11; ostatniMiesiac = 12; }
+        }
+        //if (ileOkresow == 12) 
+        //{
+        //    if (okres.value == 1) { pierwszyMiesiac == 1; ostatniMiesiac = 1; }
+        //    if (okres.value == 2) { pierwszyMiesiac == 2; ostatniMiesiac = 2; }
+        //    if (okres.value == 3) { pierwszyMiesiac == 3; ostatniMiesiac = 3; }
+        //    if (okres.value == 4) { pierwszyMiesiac == 4; ostatniMiesiac = 4; }
+        //    if (okres.value == 5) { pierwszyMiesiac == 5; ostatniMiesiac = 5; }
+        //    if (okres.value == 6) { pierwszyMiesiac == 6; ostatniMiesiac = 6; }
+        //    if (okres.value == 7) { pierwszyMiesiac == 7; ostatniMiesiac = 7; }
+        //    if (okres.value == 8) { pierwszyMiesiac == 8; ostatniMiesiac = 8; }
+        //    if (okres.value == 9) { pierwszyMiesiac == 9; ostatniMiesiac = 9; }
+        //    if (okres.value == 10) { pierwszyMiesiac == 10; ostatniMiesiac = 10; }
+        //    if (okres.value == 11) { pierwszyMiesiac == 11; ostatniMiesiac = 11; }
+        //    if (okres.value == 12) { pierwszyMiesiac == 12; ostatniMiesiac = 12; }
+        //}
+
+        document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th></tr></thead>`;
+        if (pierwszyMiesiac != null && ostatniMiesiac != null && pierwszyMiesiac != ostatniMiesiac) 
+        {
+            for (let i = pierwszyMiesiac; i <= ostatniMiesiac; i++)
+            {
+                let month = new Date(year, i, 0).toLocaleDateString('pl-PL', { month: 'long' });
+                let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
+
+                document.querySelector('#xhXEyORRmmYlQgG thead tr').innerHTML += `<th style="width: ` + divide + `%;">` + month_capitalize + `</th>`; //style="width: calc(` + divide + `% - ` + minus + `px);"
+            }
+
+
+            for (let i = 1; i <= 31; i++) 
+            {
+                document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td></tr></tbody>`;
+            }
+
+
+            // jakim cudem to działa???
+            let tr_ = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr');
+            for (let n = 1; n <= tr_.length; n++) 
+            {
+                for (let i = pierwszyMiesiac; i <= ostatniMiesiac; i++) 
+                {
+                    $(tr_[n - 2]).append('<td id="' + year + '-' + i + '-' + (n - 1) + '"></td>');
+                }
+            }
+
+            for (let n = 1; n <= tr_.length; n++) 
+            {
+                if (n == 31) 
+                {
+                    for (let i = pierwszyMiesiac; i <= ostatniMiesiac; i++) 
+                    {
+                        $(tr_[n - 1]).append('<td id="' + year + '-' + i + '-' + n + '"></td>');
+                    }
+                }
+            }
+            //
+        }
+        else if (pierwszyMiesiac == null && ostatniMiesiac == null && pierwszyMiesiac == ostatniMiesiac) 
+        {
+            let month = new Date(year, parseInt(okres.value), 0).toLocaleDateString('pl-PL', { month: 'long' });
+            let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
+
+            document.querySelector('#xhXEyORRmmYlQgG thead tr').innerHTML += `<th>` + month_capitalize + `</th>`;
+
+            for (let i = 1; i <= 31; i++) 
+            {
+                document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td id="` + year + `-` + parseInt(okres.value) + `-` + i + `"></td></tr></tbody>`;
+            }
+        }
+    }
+    if (widok == 'year') 
+    {
+        $('#xhXEyORRmmYlQgG').removeClass('wHJdQTeGtaPLEfX');
+        $('#xhXEyORRmmYlQgG').removeClass('mKzzcPQqeZIcPIP');
+
+        $('#wplXQqsdEZEYbIm').html(``);
+        $('#wplXQqsdEZEYbIm').addClass('hkyYYlXJPLaqBDt');
+
+        document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th><th>Styczeń</th><th>Luty</th><th>Marzec</th><th>Kwiecień</th><th>Maj</th><th>Czerwiec</th><th>Lipiec</th><th>Sierpień</th><th>Wrzesień</th><th>Październik</th><th>Listopad</th><th>Grudzień</th></tr></thead>`;
+
+        for (let i = 1; i <= 31; i++) 
+        {
+            document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td id="` + year + `-1-` + i + `"></td><td id="` + year + `-2-` + i + `"></td><td id="` + year + `-3-` + i + `"></td><td id="` + year + `-4-` + i + `"></td><td id="` + year + `-5-` + i + `"></td><td id="` + year + `-6-` + i + `"></td><td id="` + year + `-7-` + i + `"></td><td id="` + year + `-8-` + i + `"></td><td id="` + year + `-9-` + i + `"></td><td id="` + year + `-10-` + i + `"></td><td id="` + year + `-11-` + i + `"></td><td id="` + year + `-12-` + i + `"></td></tr></tbody>`;
+        }
+    }
+
+
+
 
     let TDs = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr td:not(:first-child)');
     for (let i = 0; i < TDs.length; i++) 
     {
         TDs[i].innerHTML += `<div id="NGWhvCmkPUIWclY">` + //onmouseout="xGCnnFtbrNPSNPm(this)" onmouseover="bxLcBeaOvMopDll(this)"
             `<div title="Zaznacz dzień" onclick="OdAaYwlLkdNUOjt(this)" style="display: none;">` +
-                `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path></svg>` +
+                `<svg viewBox="0 0 24 24" width="24" height="24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path></svg>` +
             `</div>` +
             `<div title="Odznacz dzień" onclick="efBsSMDrIHdzcWF(this)" style="display: none;">` +
-                `<svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path></svg>` +
+                `<svg viewBox="0 0 24 24" width="24" height="24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path></svg>` +
             `</div>` +
             `<div title="Wpisz godziny" onclick="HIJPFbwutXHZxGn(this)" style="display: none;">` +
-                `<svg viewBox="0 0 512 512" width="20" height="20"><path d="M256,0C114.6,0,0,114.6,0,256s114.6,256,256,256c141.4,0,256-114.6,256-256S397.4,0,256,0z M256,469.3c-117.8,0-213.3-95.5-213.3-213.3c0-117.8,95.5-213.3,213.3-213.3c117.8,0,213.3,95.5,213.3,213.3C469.3,373.8,373.8,469.3,256,469.3z M234.7,234.7L149.3,320l32,32l96-96V85.3h-42.7V234.7z"></path></svg>` +
+                `<svg viewBox="0 0 512 512" width="24" height="24"><path d="M256,0C114.6,0,0,114.6,0,256s114.6,256,256,256c141.4,0,256-114.6,256-256S397.4,0,256,0z M256,469.3c-117.8,0-213.3-95.5-213.3-213.3c0-117.8,95.5-213.3,213.3-213.3c117.8,0,213.3,95.5,213.3,213.3C469.3,373.8,373.8,469.3,256,469.3z M234.7,234.7L149.3,320l32,32l96-96V85.3h-42.7V234.7z"></path></svg>` +
             `</div>` +
         `</div>`;
 
@@ -228,6 +480,9 @@ function xGCnnFtbrNPSNPm(e, t)
 
 function OdAaYwlLkdNUOjt(t) 
 {
+    //$(t).addClass('BaSioQaoEhHgKyv');
+    $(t).parent().children(':not("input"):not("span")').eq(1).addClass('BaSioQaoEhHgKyv');
+
     $(t).parent().children(':not("input"):not("span")').eq(1).show();
     $(t).parent().children(':not("input"):not("span")').eq(0).hide();
 
@@ -513,7 +768,9 @@ function generateCalendar()
 $('#QcLYVFuvuONgCrh').on('change', function ()
 {
     //generateCalendar();
-    generateNewTable();
+    //generateNewTable();
+
+    MEPHaojoIWKCapY();
 });
 
 function fYOxqwVQjemgdRd(t) 
