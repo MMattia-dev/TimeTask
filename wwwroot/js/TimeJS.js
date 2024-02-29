@@ -144,6 +144,8 @@ function MEPHaojoIWKCapY()
 
     if (uLxtDsOksiWVnDI.value == 'month') 
     {
+        let currentMonth = new Date().getMonth() + 1;
+
         let wplXQqsdEZEYbIm = document.getElementById('wplXQqsdEZEYbIm');
         $('#wplXQqsdEZEYbIm').html(``);
         $('#wplXQqsdEZEYbIm').removeClass('hkyYYlXJPLaqBDt');
@@ -153,8 +155,16 @@ function MEPHaojoIWKCapY()
             let month = new Date(year, i, 0).toLocaleDateString('pl-PL', { month: 'long' });
             let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
 
-            wplXQqsdEZEYbIm.innerHTML += `<option value="` + i + `">` + month_capitalize + `</option>`;
+            //wplXQqsdEZEYbIm.innerHTML += `<option value="` + i + `">` + month_capitalize + `</option>`;
+
+            if (i == currentMonth) 
+                wplXQqsdEZEYbIm.innerHTML += `<option selected value="` + i + `">` + month_capitalize + `</option>`;
+            else 
+                wplXQqsdEZEYbIm.innerHTML += `<option value="` + i + `">` + month_capitalize + `</option>`;
+            
         }
+
+        console.log(currentMonth);
     }
 
 
@@ -367,7 +377,7 @@ function generateNewTable()
     let TDs = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr td:not(:first-child)');
     for (let i = 0; i < TDs.length; i++) 
     {
-        TDs[i].innerHTML += `<div id="NGWhvCmkPUIWclY">` + //onmouseout="xGCnnFtbrNPSNPm(this)" onmouseover="bxLcBeaOvMopDll(this)"
+        TDs[i].innerHTML += `<div id="NGWhvCmkPUIWclY" title="`+ TDs[i].id +`">` + //onmouseout="xGCnnFtbrNPSNPm(this)" onmouseover="bxLcBeaOvMopDll(this)"
             `<div title="Zaznacz dzień" onclick="OdAaYwlLkdNUOjt(this)" style="display: none;">` +
                 `<svg viewBox="0 0 24 24" width="24" height="24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path></svg>` +
             `</div>` +

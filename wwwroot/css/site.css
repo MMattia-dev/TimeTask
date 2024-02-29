@@ -5111,7 +5111,6 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 
             .ciPwrXhCJKttlZY tbody tr td.VSEIRMVnLrwIkVf {
                 background-color: rgba(255, 255, 255, 0.15);
-                /*background-color: rgb(107, 197, 108);*/
             }
 
             .ciPwrXhCJKttlZY tbody tr td.IdBgKIHybgYpxXJ {
@@ -5187,8 +5186,17 @@ input:checked + .HsRFJWiSLmrJcoG:before {
                     }
 
                 .ciPwrXhCJKttlZY tbody tr td div div.BaSioQaoEhHgKyv {
-                    padding: 3px 27px 3px 27px;
+                    /*padding: 3px 27px 3px 27px;*/
+                    width: 105px;
+                    display: flex;
+                    height: 32px;
+                    display: flex;
+                    background-color: rgb(107, 197, 108);
                 }
+
+                    .ciPwrXhCJKttlZY tbody tr td div div.BaSioQaoEhHgKyv svg {
+                        fill: black;
+                    }
 
                 .ciPwrXhCJKttlZY tbody tr td div.IpLJVyLZIbPJsat {
                     justify-content: center;

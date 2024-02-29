@@ -333,6 +333,7 @@ function generateNewTable()
 
 
         TDs[i].setAttribute('onclick', 'HIJPFbwutXHZxGn(this)');
+        TDs[i].setAttribute('title', TDs[i].id);
 
 
         TDs[i].setAttribute('onmouseover', 'bxLcBeaOvMopDll(event, this)');
