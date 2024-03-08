@@ -394,35 +394,31 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
-        //[HttpPost]
-        //public ActionResult DeleteReminder(int id)
-        //{
-        //    var row = _context.Reminders3.FirstOrDefault(e => e.Id == id);
-        //    if (row != null)
-        //    {
-        //        _context.Reminders3.Remove(row);
-        //        _context.SaveChanges();
-
-        //        return Json(new { success = true });
-        //    }
-
-        //    return Json(new { success = false });
-        //}
-
         [HttpPost]
-        public ActionResult AddOkres(int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        public ActionResult AddOkres(int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
         {
-            var newData = new TimeSettings2()
+            var newData = new TimeSettings3()
             {
                 WorkerId = null,
                 OkresRozliczeniowy = okresRozliczeniowy,
+                jezeliTydzien = jezeliTydzien,
+                jezeliMiesiac = jezeliMiesiac,
                 CzasPracy = null,
                 MaksymalnaLiczbaNadgodzin = null,
                 MaksymalnaLiczbaNadgodzinTydzien = null,
-                NieprzerwanyOdpoczynek = null
+                NieprzerwanyOdpoczynek = null,
+                PoraNocnaStart = null,
+                PoraNocnaKoniec = null,
+                CzyPoniedzialekWolny = null,
+                CzyWtorekWolny = null,
+                CzySrodaWolny = null,
+                CzyCzwartekWolny = null,
+                CzyPiatekWolny = null,
+                CzySobotaWolny = null,
+                CzyNiedzielaWolny = null
             };
 
-            _context.TimeSettings2.Add(newData);
+            _context.TimeSettings3.Add(newData);
             _context.SaveChanges();
             return Json(new { success = true });
         }

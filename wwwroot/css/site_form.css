@@ -12,11 +12,13 @@
     background-color: rgba(34, 36, 48, 1);
     border-color: rgba(255, 255, 255, 0.4);
     color: rgba(255, 255, 255, 0.8) !important;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     transition: 0s;
     -moz-appearance: button-arrow-down;
     -webkit-appearance: auto;
     appearance: menulist;
+    /**/
+    
     
 }
 
@@ -322,7 +324,7 @@ form.form_3 {
         font-size: 13px;
         height: 35px;
         color: rgba(255, 255, 255, 0.8);
-        border-radius: 5px;
+        /*border-radius: 5px;*/
     }
 
         .btn-danger-div input:first-child {
@@ -356,7 +358,7 @@ form.form_3 {
     border: none;
     height: 35px;
     color: rgba(255, 255, 255, 0.8);
-    border-radius: 3px;
+    /*border-radius: 3px;*/
 }
 
     .btn-danger-custom:hover {
