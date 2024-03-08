@@ -1689,7 +1689,8 @@ $('#jJoxUyzeqPSCQvB').on('click', function (e)
             let IpLJVyLZIbPJsat = document.querySelectorAll('.IpLJVyLZIbPJsat');
             for (let j = 0; j < IpLJVyLZIbPJsat.length; j++)
             {
-                let id_ = IpLJVyLZIbPJsat[j].id;
+                //let id_ = IpLJVyLZIbPJsat[j].id;
+                let id_ = $(IpLJVyLZIbPJsat[j]).parent().attr('id_');
                 let date_ = new Date($(IpLJVyLZIbPJsat[j]).parent().attr('id')).toLocaleDateString();
 
                 if (day == date_) 

@@ -1,5 +1,4 @@
-﻿
-function isWeekend(date = new Date())
+﻿function isWeekend(date = new Date())
 {
     return date.getDay() === 6 || date.getDay() === 0;
 }
@@ -163,8 +162,6 @@ function MEPHaojoIWKCapY()
                 wplXQqsdEZEYbIm.innerHTML += `<option value="` + i + `">` + month_capitalize + `</option>`;
             
         }
-
-        console.log(currentMonth);
     }
 
 

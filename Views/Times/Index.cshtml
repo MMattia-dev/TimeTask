@@ -32,11 +32,11 @@
 
             <div id="cJsHHcdodjVadhY">
                 <div class="kfVQjJnCTNjZlgW ozZkrSfXdfbxJPO">
-                    <div class="TOBgPdZDnrCaJEf">Ilość godzin roboczych w @DateTime.Now.Year:</div>
+                    <div class="TOBgPdZDnrCaJEf">Domyślna ilość godzin roboczych w @DateTime.Now.Year:</div>
                     <div class="TOBgPdZDnrCaJEf HaNiODyyZAMDvgK" id="cJKKxespUKquUPA"></div>
                 </div>
                 <div class="kfVQjJnCTNjZlgW ozZkrSfXdfbxJPO">
-                    <div class="TOBgPdZDnrCaJEf">Ilość dni roboczych w @DateTime.Now.Year:</div>
+                    <div class="TOBgPdZDnrCaJEf">Domyślna ilość dni roboczych w @DateTime.Now.Year:</div>
                     <div class="TOBgPdZDnrCaJEf HaNiODyyZAMDvgK" id="cJKKxespUKquUPA_"></div>
                 </div>
 
@@ -49,8 +49,11 @@
                         <input class="form-control DnSGyEINFwTACsK" type="time" id="SiNSMVtTKxOjnem" />
                     </div>
                     <!--dni wolne od pracy-->
-                    <div class="msdgExEZCpefgcL">
+                    <div class="msdgExEZCpefgcL FKefKMBcjulzAaY">
                         <span class="hFzZLqJdsEqdlrx">Dni wolne od pracy:</span>
+                    </div>
+                    <div class="msdgExEZCpefgcL">
+                        @* <span class="hFzZLqJdsEqdlrx">Dni wolne od pracy:</span> *@
                         <div class="tfxOCYXhVXTswof" onclick="fEbEkJNnjAjGBhZ(this)" id="monday">
                             <label>
                                 <input type="checkbox" />
@@ -108,7 +111,12 @@
                     <div class="msdgExEZCpefgcL">
                         <span class="hFzZLqJdsEqdlrx">Okres rozliczeniowy -</span>
                         <input class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="IkruzJFAfehduep" onkeypress="return isNumberKey(event);" onblur="YaohyXTjGdIPVHK(this)" />
-                        <span class="hFzZLqJdsEqdlrx"> miesiąc/miesiące/miesięcy. (Max 4 miesiące. W przypadku pracowników z niepełnosprawnością obowiązuje ich sztywna norma tygodniowa. W praktyce oznacza, że okres rozliczeniowy ich czasu pracy wynosi zawsze tydzień i w żadnym przypadku nie może być dłuższy)</span>
+                        @* <span class="hFzZLqJdsEqdlrx"> miesiąc/miesiące/miesięcy. (Max 4 miesiące. W przypadku pracowników z niepełnosprawnością obowiązuje ich sztywna norma tygodniowa. W praktyce oznacza, że okres rozliczeniowy ich czasu pracy wynosi zawsze tydzień i w żadnym przypadku nie może być dłuższy)</span> *@
+                        <select class="form-control BdeTMrFhVdXURgF" id="dOAFhxfwDtzoHav">
+                            <option disabled selected>-</option>
+                            <option>tydzień/tygodnie/tygodni</option>
+                            <option>miesiąc/miesiące/miesięcy</option>
+                        </select>
                     </div>
                     <!--max nadgodzin w tygodniu-->
                     <div class="msdgExEZCpefgcL">
@@ -131,10 +139,10 @@
                 </div>
 
 
-                @if (((IEnumerable<TimeSettings2>)ViewBag.TimeSetting).Count() > 0 && ((IEnumerable<TimeSettings2>)ViewBag.TimeSetting).Any(x => x.WorkerId != null))
+                @if (((IEnumerable<TimeSettings3>)ViewBag.TimeSetting).Count() > 0 && ((IEnumerable<TimeSettings3>)ViewBag.TimeSetting).Any(x => x.WorkerId != null))
                 {
                     <div class="CCxGJQIVpEXAKot"></div>
-                    @foreach (var item in (IEnumerable<TimeSettings2>)ViewBag.TimeSetting)
+                    @foreach (var item in (IEnumerable<TimeSettings3>)ViewBag.TimeSetting)
                     {
                         if (item.WorkerId != null)
                         {
@@ -168,7 +176,16 @@
                                         <div class="msdgExEZCpefgcL">
                                             <span class="hFzZLqJdsEqdlrx">Okres rozliczeniowy -</span>
                                             <input class="form-control DnSGyEINFwTACsK" type="text" id="IkruzJFAfehduep_" value="@item.OkresRozliczeniowy" disabled />
-                                            <span class="hFzZLqJdsEqdlrx"> miesiąc/miesiące/miesięcy.</span>
+                                            <select class="form-control BdeTMrFhVdXURgF BdeTMrFhVdXURgF_" id="xAprUkvEKUETwRe" disabled>
+                                                @if (item.jezeliTydzien == true)
+                                                {
+                                                    <option>tydzień/tygodnie/tygodni</option>
+                                                }
+                                                @if (item.jezeliMiesiac == true)
+                                                {
+                                                    <option>miesiąc/miesiące/miesięcy</option>
+                                                }
+                                            </select>
                                         </div>
                                     }
                                     @if (item.MaksymalnaLiczbaNadgodzinTydzien != null)
@@ -314,7 +331,7 @@
 </div>
 
 <div id="ftcuESUFJMUetmm" class="pGKcZvErUB" style="display: none;">
-    <form class="form_">
+    <form class="form_ form___">
         <div class="form-group">
             <label>Wybierz dział:</label>
             <select class="form-control bYwPpsleuVCBkPv" id="dQIPREqlxghevrV">
@@ -335,8 +352,14 @@
             <input class="form-control" type="text" maxlength="2" id="zVbJqIMfPhbOnum" onkeypress="return isNumberKey(event)" />
         </div>
         <div class="form-group">
-            <label>Okres rozliczeniowy (miesiące)</label>
+            <label>Okres rozliczeniowy</label>
             <input class="form-control" type="text" maxlength="2" id="ehgSlSwjIFIEMWH" onkeypress="return isNumberKey(event)" />
+            <div style="height: 5px;"></div>
+            <select class="form-control" id="kEYeEJKlcJcQFdL">
+                <option disabled selected>-</option>
+                <option>tydzień/tygodnie/tygodni</option>
+                <option>miesiąc/miesiące/miesięcy</option>
+            </select>
         </div>
         <div class="form-group">
             <label>Maks. nadgodzin w tygodniu (godz.)</label>
@@ -360,7 +383,7 @@
 </div>
 
 <div id="bouHwUSUJAULmxy" class="pGKcZvErUB" style="display: none;">
-    <form class="form_">
+    <form class="form_ form__">
         <div class="form-group">
             <input class="form-control" type="text" id="oGwNKChRERGiLSG" disabled />
         </div>
@@ -373,8 +396,14 @@
             <input class="form-control" type="text" maxlength="2" id="qeavlfguoZjzrJJ" onkeypress="return isNumberKey(event)" />
         </div>
         <div class="form-group">
-            <label>Okres rozliczeniowy (miesiące)</label>
+            <label>Okres rozliczeniowy</label>
             <input class="form-control" type="text" maxlength="2" id="qSFTqMAjJYMmIrO" onkeypress="return isNumberKey(event)" />
+            <div style="height: 5px;"></div>
+            <select class="form-control" id="QzUmEAmLsPWlpfK">
+                <option>-</option>
+                <option>tydzień/tygodnie/tygodni</option>
+                <option>miesiąc/miesiące/miesięcy</option>
+            </select>
         </div>
         <div class="form-group">
             <label>Maks. nadgodzin w tygodniu (godz.)</label>

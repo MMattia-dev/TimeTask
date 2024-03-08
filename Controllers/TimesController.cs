@@ -27,7 +27,7 @@ namespace TimeTask.Controllers
             ViewBag.Departments = _context.Department;
             ViewBag.Workers = _context.Workers2;
             ViewBag.Leave = _context.Leave4;
-            ViewBag.TimeSetting = _context.TimeSettings2;
+            ViewBag.TimeSetting = _context.TimeSettings3;
             ViewBag.Holiday = _context.Holiday;
 
             return _context.Time != null ?
@@ -174,7 +174,7 @@ namespace TimeTask.Controllers
             ViewBag.Workers = _context.Workers2;
             ViewBag.Holiday = _context.Holiday;
             ViewBag.Leave = _context.Leave4;
-            ViewBag.TimeSetting = _context.TimeSettings2;
+            ViewBag.TimeSetting = _context.TimeSettings3;
 
             return _context.Time != null ?
                           View(await _context.Time.ToListAsync()) :
@@ -187,7 +187,7 @@ namespace TimeTask.Controllers
             ViewBag.Workers = _context.Workers2;
             ViewBag.Holiday = _context.Holiday;
             ViewBag.Leave = _context.Leave4;
-            ViewBag.TimeSetting = _context.TimeSettings2;
+            ViewBag.TimeSetting = _context.TimeSettings3;
 
             ViewBag.Hours = _context.Hours;
 
@@ -300,36 +300,77 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
+        //[HttpPost]
+        //public ActionResult AddWorkerException(int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        //{
+        //    var newData = new TimeSettings2()
+        //    {
+        //        WorkerId = workerID,
+        //        OkresRozliczeniowy = okresRozliczeniowy,
+        //        CzasPracy = czasPracy,
+        //        MaksymalnaLiczbaNadgodzin = maksymalnaLiczbaNadgodzin,
+        //        MaksymalnaLiczbaNadgodzinTydzien = maksymalnaLiczbaNadgodzinTydzien,
+        //        NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek
+        //    };
+
+        //    _context.TimeSettings2.Add(newData);
+        //    _context.SaveChanges();
+        //    return Json(new { success = true });
+        //}
+
         [HttpPost]
-        public ActionResult AddWorkerException(int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        public ActionResult AddWorkerException(int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
         {
-            var newData = new TimeSettings2()
+            var newData = new TimeSettings3()
             {
                 WorkerId = workerID,
                 OkresRozliczeniowy = okresRozliczeniowy,
+                jezeliTydzien = jezeliTydzien,
+                jezeliMiesiac = jezeliMiesiac,
                 CzasPracy = czasPracy,
                 MaksymalnaLiczbaNadgodzin = maksymalnaLiczbaNadgodzin,
                 MaksymalnaLiczbaNadgodzinTydzien = maksymalnaLiczbaNadgodzinTydzien,
-                NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek
+                NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek,
+                PoraNocnaStart = poraNocnaStart,
+                PoraNocnaKoniec = poraNocnaKoniec,
+                CzyPoniedzialekWolny = czyPoniedzialekWolny,
+                CzyWtorekWolny = czyWtorekWolny,
+                CzySrodaWolny = czySrodaWolny,
+                CzyCzwartekWolny = czyCzwartekWolny,
+                CzyPiatekWolny = czyPiatekWolny,
+                CzySobotaWolny = czySobotaWolny,
+                CzyNiedzielaWolny = czyNiedzielaWolny
             };
 
-            _context.TimeSettings2.Add(newData);
+            _context.TimeSettings3.Add(newData);
             _context.SaveChanges();
+
             return Json(new { success = true });
         }
 
         [HttpPost]
-        public ActionResult EditWorkerException(int id, int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        public ActionResult EditWorkerException(int id, int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
         {
-            var row = _context.TimeSettings2.FirstOrDefault(e => e.Id == id);
+            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
             if (row != null)
             {
                 row.WorkerId = workerID;
                 row.OkresRozliczeniowy = okresRozliczeniowy;
+                row.jezeliTydzien = jezeliTydzien;
+                row.jezeliMiesiac = jezeliMiesiac;
                 row.CzasPracy = czasPracy;
                 row.MaksymalnaLiczbaNadgodzin = maksymalnaLiczbaNadgodzin;
                 row.MaksymalnaLiczbaNadgodzinTydzien = maksymalnaLiczbaNadgodzinTydzien;
                 row.NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek;
+                row.PoraNocnaStart = poraNocnaStart;
+                row.PoraNocnaKoniec = poraNocnaKoniec;
+                row.CzyPoniedzialekWolny = czyPoniedzialekWolny;
+                row.CzyWtorekWolny = czyWtorekWolny;
+                row.CzySrodaWolny = czySrodaWolny;
+                row.CzyCzwartekWolny = czyCzwartekWolny;
+                row.CzyPiatekWolny = czyPiatekWolny;
+                row.CzySobotaWolny = czySobotaWolny;
+                row.CzyNiedzielaWolny = czyNiedzielaWolny;
                 _context.SaveChanges();
 
                 return Json(new { success = true });
@@ -341,10 +382,10 @@ namespace TimeTask.Controllers
         [HttpPost]
         public ActionResult RemoveWorkerException(int id)
         {
-            var row = _context.TimeSettings2.FirstOrDefault(e => e.Id == id);
+            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
             if (row != null)
             {
-                _context.TimeSettings2.Remove(row);
+                _context.TimeSettings3.Remove(row);
                 _context.SaveChanges();
 
                 return Json(new { success = true });

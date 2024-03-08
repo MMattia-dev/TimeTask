@@ -797,38 +797,7 @@ $('#dQIPREqlxghevrV').on('change', function (e)
 });
 $('#dQIPREqlxghevrV').trigger('change');
 
-$('#cDoWdsoylXsqbSk').on('click', function ()
-{
-    let wID = document.getElementById('issyAJUIywIPgIQ').value;
-    let okres = document.getElementById('ehgSlSwjIFIEMWH').value;
-    let wymiar = document.getElementById('zVbJqIMfPhbOnum').value;
-    let nadgodzin_tyg = document.getElementById('klyMbuAvknxCxgo').value;
-    let nadgodzin_rok = document.getElementById('KZzKslyEOOrVYOF').value;
-    let odpoczynek = document.getElementById('WdWDgtaDQwkuFxr').value;
 
-    if (wymiar.length > 0 || okres.length > 0 || nadgodzin_tyg.length > 0 || nadgodzin_rok.length > 0 || odpoczynek.length > 0) {
-        $.ajax({
-            type: 'POST',
-            url: '/Times/AddWorkerException',
-            data: {
-                workerID: wID,
-                okresRozliczeniowy: okres,
-                czasPracy: wymiar,
-                maksymalnaLiczbaNadgodzin: nadgodzin_rok,
-                maksymalnaLiczbaNadgodzinTydzien: nadgodzin_tyg,
-                nieprzerwanyOdpoczynek: odpoczynek
-            },
-            success: function (response)
-            {
-                location.reload();
-            },
-            error: function (xhr, status, error)
-            {
-                console.log('Error adding data:', error);
-            }
-        });
-    }
-});
 
 $('#LRKPgUoIPlhVTMS').on('click', function ()
 {
@@ -1242,11 +1211,20 @@ function pEIhAaljnrXIAfq(t) {
 
             //qeavlfguoZjzrJJ - Dobowy wymiar czasu pracy (godz.)
             //qSFTqMAjJYMmIrO - Okres rozliczeniowy (miesiące)
+            //QzUmEAmLsPWlpfK - Okres rozliczeniowy: tydzien/miesiac
             //gATdSghHoiZijAN - Maks. nadgodzin w tygodniu (godz.)
             //SEcPtfWbLyUxlmL - Maks. nadgodzin w roku (godz.)
             //DrwWFscldmvtHOW - Nieprzerwany odpoczynek (godz.)
             $('#qeavlfguoZjzrJJ').val(model_ts[i].CzasPracy);
             $('#qSFTqMAjJYMmIrO').val(model_ts[i].OkresRozliczeniowy);
+            if (model_ts[i].jezeliTydzien == true) 
+            {
+                document.getElementById('QzUmEAmLsPWlpfK').selectedIndex = 1;
+            }
+            if (model_ts[i].jezeliMiesiac == true) 
+            {
+                document.getElementById('QzUmEAmLsPWlpfK').selectedIndex = 2;
+            }
             $('#gATdSghHoiZijAN').val(model_ts[i].MaksymalnaLiczbaNadgodzinTydzien);
             $('#SEcPtfWbLyUxlmL').val(model_ts[i].MaksymalnaLiczbaNadgodzin);
             $('#DrwWFscldmvtHOW').val(model_ts[i].NieprzerwanyOdpoczynek);
@@ -1258,38 +1236,117 @@ function pEIhAaljnrXIAfq(t) {
     $('#bouHwUSUJAULmxy').fadeIn(200);
 };
 
-$('#THAxAvslRnLsHel').on('click', function ()
+$('#cDoWdsoylXsqbSk').on('click', function ()
 {
-    let id_ = sessionStorage.getItem('KiLsESLXdficmJJ');
-    let wID = sessionStorage.getItem('wWlSezYqPzZxuQZ');
-    let okres = document.getElementById('qSFTqMAjJYMmIrO').value;
-    let wymiar = document.getElementById('qeavlfguoZjzrJJ').value;
-    let nadgodzin_tyg = document.getElementById('gATdSghHoiZijAN').value;
-    let nadgodzin_rok = document.getElementById('SEcPtfWbLyUxlmL').value;
-    let odpoczynek = document.getElementById('DrwWFscldmvtHOW').value;
+    let wID = document.getElementById('issyAJUIywIPgIQ').value;
+    let okres = document.getElementById('ehgSlSwjIFIEMWH').value;
+    let okres_options = document.getElementById('kEYeEJKlcJcQFdL');
+    let wymiar = document.getElementById('zVbJqIMfPhbOnum').value;
+    let nadgodzin_tyg = document.getElementById('klyMbuAvknxCxgo').value;
+    let nadgodzin_rok = document.getElementById('KZzKslyEOOrVYOF').value;
+    let odpoczynek = document.getElementById('WdWDgtaDQwkuFxr').value;
 
-    if (wymiar.length > 0 || okres.length > 0 || nadgodzin_tyg.length > 0 || nadgodzin_rok.length > 0 || odpoczynek.length > 0) {
+    if (wymiar.length > 0 || okres.length > 0 && okres_options.selectedIndex > 0 || nadgodzin_tyg.length > 0 || nadgodzin_rok.length > 0 || odpoczynek.length > 0) 
+    {
+        var okres_tydzien = false;
+        var okres_miesiac = false;
+        if (okres_options.selectedIndex == 1) 
+        {
+            okres_tydzien = true;
+        }
+        else if (okres_options.selectedIndex == 2) 
+        {
+            okres_miesiac = true;
+        }
+        else 
+        {
+            okres_tydzien = null;
+            okres_miesiac = null;
+        }
+
         $.ajax({
             type: 'POST',
-            url: '/Times/EditWorkerException',
-             data: {
-                 id: id_,
-                 workerID: wID,
-                 okresRozliczeniowy: okres,
-                 czasPracy: wymiar,
-                 maksymalnaLiczbaNadgodzin: nadgodzin_rok,
-                 maksymalnaLiczbaNadgodzinTydzien: nadgodzin_tyg,
-                 nieprzerwanyOdpoczynek: odpoczynek
+            url: '/Times/AddWorkerException',
+            data: {
+                workerID: wID,
+                okresRozliczeniowy: okres,
+                jezeliTydzien: okres_tydzien,
+                jezeliMiesiac: okres_miesiac,
+                czasPracy: wymiar,
+                maksymalnaLiczbaNadgodzin: nadgodzin_rok,
+                maksymalnaLiczbaNadgodzinTydzien: nadgodzin_tyg,
+                nieprzerwanyOdpoczynek: odpoczynek
             },
-            success: function (response) {
+            success: function (response)
+            {
                 location.reload();
             },
-            error: function (xhr, status, error) {
+            error: function (xhr, status, error)
+            {
                 console.log('Error adding data:', error);
             }
         });
     }
 });
+
+$('#THAxAvslRnLsHel').on('click', function ()
+{
+    let id_ = sessionStorage.getItem('KiLsESLXdficmJJ');
+    let wID = sessionStorage.getItem('wWlSezYqPzZxuQZ');
+    let okres = document.getElementById('qSFTqMAjJYMmIrO').value;
+    let okres_options = document.getElementById('QzUmEAmLsPWlpfK');
+    let wymiar = document.getElementById('qeavlfguoZjzrJJ').value;
+    let nadgodzin_tyg = document.getElementById('gATdSghHoiZijAN').value;
+    let nadgodzin_rok = document.getElementById('SEcPtfWbLyUxlmL').value;
+    let odpoczynek = document.getElementById('DrwWFscldmvtHOW').value;
+
+
+
+    //if (wymiar.length > 0 || okres.length > 0 || nadgodzin_tyg.length > 0 || nadgodzin_rok.length > 0 || odpoczynek.length > 0)
+    //{
+    //    var okres_tydzien = false;
+    //    var okres_miesiac = false;
+    //    if (okres_options.selectedIndex == 1) 
+    //    {
+    //        okres_tydzien = true;
+    //    }
+    //    else if (okres_options.selectedIndex == 2) 
+    //    {
+    //        okres_miesiac = true;
+    //    }
+    //    else 
+    //    {
+    //        okres_tydzien = null;
+    //        okres_miesiac = null;
+    //        okres = '';
+    //    }
+
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: '/Times/EditWorkerException',
+    //        data: {
+    //            id: id_,
+    //            workerID: wID,
+    //            okresRozliczeniowy: okres,
+    //            jezeliTydzien: okres_tydzien,
+    //            jezeliMiesiac: okres_miesiac,
+    //            czasPracy: wymiar,
+    //            maksymalnaLiczbaNadgodzin: nadgodzin_rok,
+    //            maksymalnaLiczbaNadgodzinTydzien: nadgodzin_tyg,
+    //            nieprzerwanyOdpoczynek: odpoczynek
+    //        },
+    //        success: function (response)
+    //        {
+    //            location.reload();
+    //        },
+    //        error: function (xhr, status, error)
+    //        {
+    //            console.log('Error adding data:', error);
+    //        }
+    //    });
+    //}
+});
+
 function BPrZxQsyhDUoPdi(t) {
     let id_ = t.getAttribute('uHtqZrPMvAndRri');
 

@@ -1,0 +1,114 @@
+﻿@model TimeTask.Models.TimeSettings3
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>TimeSettings3</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="WorkerId" class="control-label"></label>
+                <input asp-for="WorkerId" class="form-control" />
+                <span asp-validation-for="WorkerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OkresRozliczeniowy" class="control-label"></label>
+                <input asp-for="OkresRozliczeniowy" class="form-control" />
+                <span asp-validation-for="OkresRozliczeniowy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="jezeliTydzien" class="control-label"></label>
+                <input asp-for="jezeliTydzien" class="form-control" />
+                <span asp-validation-for="jezeliTydzien" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="jezeliMiesiac" class="control-label"></label>
+                <input asp-for="jezeliMiesiac" class="form-control" />
+                <span asp-validation-for="jezeliMiesiac" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CzasPracy" class="control-label"></label>
+                <input asp-for="CzasPracy" class="form-control" />
+                <span asp-validation-for="CzasPracy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaksymalnaLiczbaNadgodzin" class="control-label"></label>
+                <input asp-for="MaksymalnaLiczbaNadgodzin" class="form-control" />
+                <span asp-validation-for="MaksymalnaLiczbaNadgodzin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaksymalnaLiczbaNadgodzinTydzien" class="control-label"></label>
+                <input asp-for="MaksymalnaLiczbaNadgodzinTydzien" class="form-control" />
+                <span asp-validation-for="MaksymalnaLiczbaNadgodzinTydzien" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NieprzerwanyOdpoczynek" class="control-label"></label>
+                <input asp-for="NieprzerwanyOdpoczynek" class="form-control" />
+                <span asp-validation-for="NieprzerwanyOdpoczynek" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PoraNocnaStart" class="control-label"></label>
+                <input asp-for="PoraNocnaStart" class="form-control" />
+                <span asp-validation-for="PoraNocnaStart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PoraNocnaKoniec" class="control-label"></label>
+                <input asp-for="PoraNocnaKoniec" class="form-control" />
+                <span asp-validation-for="PoraNocnaKoniec" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CzyPoniedzialekWolny" class="control-label"></label>
+                <input asp-for="CzyPoniedzialekWolny" class="form-control" />
+                <span asp-validation-for="CzyPoniedzialekWolny" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CzyWtorekWolny" class="control-label"></label>
+                <input asp-for="CzyWtorekWolny" class="form-control" />
+                <span asp-validation-for="CzyWtorekWolny" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CzySrodaWolny" class="control-label"></label>
+                <input asp-for="CzySrodaWolny" class="form-control" />
+                <span asp-validation-for="CzySrodaWolny" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CzyCzwartekWolny" class="control-label"></label>
+                <input asp-for="CzyCzwartekWolny" class="form-control" />
+                <span asp-validation-for="CzyCzwartekWolny" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CzyPiatekWolny" class="control-label"></label>
+                <input asp-for="CzyPiatekWolny" class="form-control" />
+                <span asp-validation-for="CzyPiatekWolny" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CzySobotaWolny" class="control-label"></label>
+                <input asp-for="CzySobotaWolny" class="form-control" />
+                <span asp-validation-for="CzySobotaWolny" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CzyNiedzielaWolny" class="control-label"></label>
+                <input asp-for="CzyNiedzielaWolny" class="form-control" />
+                <span asp-validation-for="CzyNiedzielaWolny" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

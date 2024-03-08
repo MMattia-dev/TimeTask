@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeTask.Data;
 
@@ -11,9 +12,11 @@ using TimeTask.Data;
 namespace TimeTask.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240307164917_opsdfbhjdfgh")]
+    partial class opsdfbhjdfgh
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -803,70 +806,6 @@ namespace TimeTask.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TimeSettings2");
-                });
-
-            modelBuilder.Entity("TimeTask.Models.TimeSettings3", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("CzasPracy")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("CzyCzwartekWolny")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CzyNiedzielaWolny")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CzyPiatekWolny")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CzyPoniedzialekWolny")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CzySobotaWolny")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CzySrodaWolny")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("CzyWtorekWolny")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("MaksymalnaLiczbaNadgodzin")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MaksymalnaLiczbaNadgodzinTydzien")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("NieprzerwanyOdpoczynek")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("OkresRozliczeniowy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("PoraNocnaKoniec")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("PoraNocnaStart")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("WorkerId")
-                        .HasColumnType("int");
-
-                    b.Property<bool?>("jezeliMiesiac")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("jezeliTydzien")
-                        .HasColumnType("bit");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TimeSettings3");
                 });
 
             modelBuilder.Entity("TimeTask.Models.Wallpaper", b =>

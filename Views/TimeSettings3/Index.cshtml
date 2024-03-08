@@ -1,0 +1,131 @@
+﻿@model IEnumerable<TimeTask.Models.TimeSettings3>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkerId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OkresRozliczeniowy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.jezeliTydzien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.jezeliMiesiac)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CzasPracy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaksymalnaLiczbaNadgodzin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaksymalnaLiczbaNadgodzinTydzien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NieprzerwanyOdpoczynek)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PoraNocnaStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PoraNocnaKoniec)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CzyPoniedzialekWolny)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CzyWtorekWolny)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CzySrodaWolny)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CzyCzwartekWolny)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CzyPiatekWolny)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CzySobotaWolny)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CzyNiedzielaWolny)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OkresRozliczeniowy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.jezeliTydzien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.jezeliMiesiac)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CzasPracy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaksymalnaLiczbaNadgodzin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaksymalnaLiczbaNadgodzinTydzien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NieprzerwanyOdpoczynek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PoraNocnaStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PoraNocnaKoniec)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CzyPoniedzialekWolny)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CzyWtorekWolny)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CzySrodaWolny)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CzyCzwartekWolny)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CzyPiatekWolny)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CzySobotaWolny)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CzyNiedzielaWolny)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

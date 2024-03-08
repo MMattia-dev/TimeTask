@@ -14,6 +14,10 @@
     color: rgba(255, 255, 255, 0.8) !important;
     border-radius: 3px;
     transition: 0s;
+    -moz-appearance: button-arrow-down;
+    -webkit-appearance: auto;
+    appearance: menulist;
+    
 }
 
     .form-control:focus {
@@ -45,6 +49,16 @@
         width: 70px;
         text-align: right;
     }
+
+    .form-control.BdeTMrFhVdXURgF {
+        height: 35px;
+        width: 200px;
+        cursor: pointer;
+    }
+
+        .form-control.BdeTMrFhVdXURgF.BdeTMrFhVdXURgF_ {
+            cursor: default;
+        }
 
 .form-floating.CvFOfCxRqEKEFvM {
     width: 100%;
@@ -132,9 +146,9 @@ form:not(.logOut) {
     backdrop-filter: blur(5px);
     width: 370px;
     min-height: 278px;
-    border-radius: 8px;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    /*border-radius: 8px;*/
+    padding-top: 50px;
+    padding-bottom: 50px;
     /*border: 1px solid rgba(255, 255, 255, 0.1);*/
     -webkit-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.6);
     -moz-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.6);
@@ -175,6 +189,22 @@ form:not(.logOut) {
 form.form_ {
     /*height: 320px;*/
 }
+
+    form.form_.form__ {
+        /*max-height: 577px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
+        scrollbar-width: thin;*/
+    }
+
+    form.form_.form___ {
+        /*max-height: 605px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
+        scrollbar-width: thin;*/
+    }
 
 form.form_2 {
     /*height: 340px;*/

@@ -813,11 +813,11 @@ button {
     margin-bottom: 10px;
     height: 46px;
     /**/
-    background-color: rgba(255, 255, 255, 0.035);
-    /*-webkit-box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);
-    -moz-box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);
-    box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);*/
-    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.045);
+    /*border-radius: 3px;*/
+    -webkit-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.2);
 }
 
     .settings_a .DnnTeTYpszZXNnO {
@@ -864,11 +864,11 @@ button {
     }
 
     .settings_a.settings_a_ {
-        background-color: rgba(255, 255, 255, 0.035);
+        background-color: rgba(255, 255, 255, 0.045);
         border: none;
-        /*-webkit-box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);
-        -moz-box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);
-        box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);*/
+        -webkit-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.2);
     }
 
     .settings_a.QaanmEfEyWmpiPl {
@@ -1409,7 +1409,7 @@ button {
     align-items: center;
     justify-content: space-between;
     padding: 12px;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
 }
 
     .IVnxgCORpPYL:hover {
@@ -3340,6 +3340,10 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         opacity: 0.5;
     }
 
+    .msdgExEZCpefgcL.FKefKMBcjulzAaY {
+        margin-bottom: -16px;
+    }
+
     .msdgExEZCpefgcL .tfxOCYXhVXTswof {
         display: flex;
         flex-direction: row;
@@ -3419,7 +3423,10 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 .YavvRCMQscelhIs {
     background-color: rgba(34, 36, 48, 0.3);
     width: 100%;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
+    -webkit-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.2);
 }
 
     .YavvRCMQscelhIs.riqhWBvtFoKacNt {
@@ -5469,7 +5476,7 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
-@media (max-width:900px) {
+@media (max-width:1000px) {
     .left-nav {
         display: none;
     }
