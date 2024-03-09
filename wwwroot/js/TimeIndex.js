@@ -2,11 +2,15 @@
     if (model_ts.length > 0) {
         for (let i = 0; i < model_ts.length; i++) {
             //IkruzJFAfehduep - Okres rozliczeniowy
+            //dOAFhxfwDtzoHav - Okres rozliczeniowy: tydzien albo miesiąc
             //mNLCvwMfyDsHDRo - czas pracy
             //rShbhZqNInnuIPw - max nadgodzin w tygodniu
             //qFciKrITNFzxtSL - max nadgodzin w roku
             //FqvhrnXefCjthHG - Nieprzerwany odpoczynek między dniami roboczymi
-            if (model_ts[i].WorkerId == null) {
+            //gsWnPInTEluayCy - Pora nocna - start
+            //SiNSMVtTKxOjnem - Pora nocna - koniec
+            if (model_ts[i].WorkerId == null) 
+            {
                 $('#IkruzJFAfehduep').val(model_ts[i].OkresRozliczeniowy);
                 if (model_ts[i].jezeliTydzien)
                     $('#dOAFhxfwDtzoHav').prop('selectedIndex', 1);
@@ -16,6 +20,8 @@
                 $('#rShbhZqNInnuIPw').val(model_ts[i].MaksymalnaLiczbaNadgodzinTydzien);
                 $('#qFciKrITNFzxtSL').val(model_ts[i].MaksymalnaLiczbaNadgodzin);
                 $('#FqvhrnXefCjthHG').val(model_ts[i].NieprzerwanyOdpoczynek);
+                $('#gsWnPInTEluayCy').val(new Date(model_ts[i].PoraNocnaStart).toLocaleTimeString());
+                $('#SiNSMVtTKxOjnem').val(new Date(model_ts[i].PoraNocnaKoniec).toLocaleTimeString());
             } 
         }
     }
@@ -129,6 +135,212 @@ function zgEcbvlXdHwxDcW() {
     //console.log(dniRobocze);
 };
 zgEcbvlXdHwxDcW();
+
+
+//dodaj porę nocną
+function gsWnPInTEluayCy_(t) 
+{
+    //
+    let pora_nocna_start = t.value;
+    let pora_nocna_koniec = document.getElementById('SiNSMVtTKxOjnem').value;
+    //
+
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    $('#SiNSMVtTKxOjnem').parent().append(lds);
+    $(lds).hide();
+
+
+    if (model_ts.length == 0) 
+    {
+        if (pora_nocna_start.length > 0 && pora_nocna_koniec.length > 0) 
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Times/AddPoraNocna',
+                data: {
+                    poraNocnaStart: '0001-01-01' + ' ' + pora_nocna_start,
+                    poraNocnaKoniec: '0001-01-01' + ' ' + pora_nocna_koniec
+                },
+                success: function (response) 
+                {
+                    $(lds).show();
+                    setTimeout(function ()
+                    {
+                        location.reload();
+                    }, 300);
+                },
+                error: function (xhr, status, error) 
+                {
+                    console.log('Error:', error);
+                }
+            })
+        }
+    }
+    else 
+    {
+        for (let i = 0; i < model_ts.length; i++) 
+        {
+            if (model_ts[i].WorkerId == null) 
+            {
+                let id_ = model_ts[i].Id;
+                //
+
+                if (model_ts[i].PoraNocnaStart != pora_nocna_start && pora_nocna_koniec.length != 0) 
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditPoraNocna',
+                        data: {
+                            id: id_,
+                            poraNocnaStart: '0001-01-01' + ' ' + pora_nocna_start,
+                            poraNocnaKoniec: '0001-01-01' + ' ' + pora_nocna_koniec
+                        },
+                        success: function (response) 
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error) 
+                        {
+                            console.log('Error:', error);
+                        }
+                    });
+                }
+                else if (model_ts[i].PoraNocnaStart != null && pora_nocna_koniec.length != 0) 
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditPoraNocna',
+                        data: {
+                            id: id_,
+                            poraNocnaStart: '0001-01-01' + ' ' + pora_nocna_start,
+                            poraNocnaKoniec: '0001-01-01' + ' ' + pora_nocna_koniec
+                        },
+                        success: function (response) 
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error) 
+                        {
+                            console.log('Error:', error);
+                        }
+                    });
+                }
+            }
+        }
+    }
+};
+
+function SiNSMVtTKxOjnem_(t) 
+{
+    //
+    let pora_nocna_start = document.getElementById('gsWnPInTEluayCy').value;
+    let pora_nocna_koniec = t.value;
+    //
+
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    $('#SiNSMVtTKxOjnem').parent().append(lds);
+    $(lds).hide();
+
+
+    if (model_ts.length == 0) 
+    {
+        if (pora_nocna_start.length > 0 && pora_nocna_koniec.length > 0) 
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Times/AddPoraNocna',
+                data: {
+                    poraNocnaStart: '0001-01-01' + ' ' + pora_nocna_start,
+                    poraNocnaKoniec: '0001-01-01' + ' ' + pora_nocna_koniec
+                },
+                success: function (response) 
+                {
+                    $(lds).show();
+                    setTimeout(function ()
+                    {
+                        location.reload();
+                    }, 300);
+                },
+                error: function (xhr, status, error) 
+                {
+                    console.log('Error:', error);
+                }
+            });
+        }
+    }
+    else 
+    {
+        for (let i = 0; i < model_ts.length; i++) 
+        {
+            if (model_ts[i].WorkerId == null) 
+            {
+                let id_ = model_ts[i].Id;
+                //
+
+                if (model_ts[i].PoraNocnaKoniec != pora_nocna_koniec && pora_nocna_start.length != 0) 
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditPoraNocna',
+                        data: {
+                            id: id_,
+                            poraNocnaStart: '0001-01-01' + ' ' + pora_nocna_start,
+                            poraNocnaKoniec: '0001-01-01' + ' ' + pora_nocna_koniec
+                        },
+                        success: function (response) 
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error) 
+                        {
+                            console.log('Error:', error);
+                        }
+                    });
+                }
+                else if (model_ts[i].PoraNocnaKoniec != null && pora_nocna_start.length != 0) 
+                {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditPoraNocna',
+                        data: {
+                            id: id_,
+                            poraNocnaStart: '0001-01-01' + ' ' + pora_nocna_start,
+                            poraNocnaKoniec: '0001-01-01' + ' ' + pora_nocna_koniec
+                        },
+                        success: function (response) 
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error) 
+                        {
+                            console.log('Error:', error);
+                        }
+                    });
+                }
+            }
+        }
+    }
+};
 
 
 //dodaj okres rozliczeniowy

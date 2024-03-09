@@ -616,14 +616,56 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
-        
+        [HttpPost]
+        public ActionResult AddPoraNocna(int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
+        {
+            var newData = new TimeSettings3()
+            {
+                WorkerId = null,
+                OkresRozliczeniowy = null,
+                jezeliTydzien = null,
+                jezeliMiesiac = null,
+                CzasPracy = null,
+                MaksymalnaLiczbaNadgodzin = null,
+                MaksymalnaLiczbaNadgodzinTydzien = null,
+                NieprzerwanyOdpoczynek = null,
+                PoraNocnaStart = poraNocnaStart,
+                PoraNocnaKoniec = poraNocnaKoniec,
+                CzyPoniedzialekWolny = null,
+                CzyWtorekWolny = null,
+                CzySrodaWolny = null,
+                CzyCzwartekWolny = null,
+                CzyPiatekWolny = null,
+                CzySobotaWolny = null,
+                CzyNiedzielaWolny = null
+            };
+
+            _context.TimeSettings3.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public ActionResult EditPoraNocna(int id, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec)
+        {
+            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.PoraNocnaStart = poraNocnaStart;
+                row.PoraNocnaKoniec = poraNocnaKoniec;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
 
 
 
 
 
 
-        
 
 
 

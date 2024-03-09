@@ -44,9 +44,9 @@
                     <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Ustawienia ogólne</span>
                     <div class="msdgExEZCpefgcL">
                         <span class="hFzZLqJdsEqdlrx">Pora nocna trwa od godziny</span>
-                        <input class="form-control DnSGyEINFwTACsK" type="time" id="gsWnPInTEluayCy"  />
+                        <input class="form-control DnSGyEINFwTACsK" type="time" id="gsWnPInTEluayCy" onblur="gsWnPInTEluayCy_(this)" />
                         <span class="hFzZLqJdsEqdlrx">do godziny</span>
-                        <input class="form-control DnSGyEINFwTACsK" type="time" id="SiNSMVtTKxOjnem" />
+                        <input class="form-control DnSGyEINFwTACsK" type="time" id="SiNSMVtTKxOjnem" onblur="SiNSMVtTKxOjnem_(this)" />
                     </div>
                     <!--dni wolne od pracy-->
                     <div class="msdgExEZCpefgcL FKefKMBcjulzAaY">
@@ -54,43 +54,43 @@
                     </div>
                     <div class="msdgExEZCpefgcL">
                         @* <span class="hFzZLqJdsEqdlrx">Dni wolne od pracy:</span> *@
-                        <div class="tfxOCYXhVXTswof" onclick="fEbEkJNnjAjGBhZ(this)" id="monday">
+                        <div class="tfxOCYXhVXTswof" onclick="fEbEkJNnjAjGBhZ(this)" id="1">
                             <label>
                                 <input type="checkbox" />
                                 <span>Poniedziałek</span>
                             </label>
                         </div>
-                        <div class="tfxOCYXhVXTswof" onclick="fEbEkJNnjAjGBhZ(this)" id="tuesday">
+                        <div class="tfxOCYXhVXTswof" onclick="fEbEkJNnjAjGBhZ(this)" id="2">
                             <label>
                                 <input type="checkbox" />
                                 <span>Wtorek</span>
                             </label>
                         </div>
-                        <div class="tfxOCYXhVXTswof" onclick="fEbEkJNnjAjGBhZ(this)" id="wednesday">
+                        <div class="tfxOCYXhVXTswof" onclick="fEbEkJNnjAjGBhZ(this)" id="3">
                             <label>
                                 <input type="checkbox" />
                                 <span>Środa</span>
                             </label>
                         </div>
-                        <div class="tfxOCYXhVXTswof" onclick="fEbEkJNnjAjGBhZ(this)" id="thursday">
+                        <div class="tfxOCYXhVXTswof" onclick="fEbEkJNnjAjGBhZ(this)" id="4">
                             <label>
                                 <input type="checkbox" />
                                 <span>Czwartek</span>
                             </label>
                         </div>
-                        <div class="tfxOCYXhVXTswof" onclick="fEbEkJNnjAjGBhZ(this)" id="friday">
+                        <div class="tfxOCYXhVXTswof" onclick="fEbEkJNnjAjGBhZ(this)" id="5">
                             <label>
                                 <input type="checkbox" />
                                 <span>Piątek</span>
                             </label>
                         </div>
-                        <div class="tfxOCYXhVXTswof" onclick="fEbEkJNnjAjGBhZ(this)" id="saturday">
+                        <div class="tfxOCYXhVXTswof" onclick="fEbEkJNnjAjGBhZ(this)" id="6">
                             <label>
                                 <input type="checkbox" />
                                 <span>Sobota</span>
                             </label>
                         </div>
-                        <div class="tfxOCYXhVXTswof" onclick="fEbEkJNnjAjGBhZ(this)" id="sunday">
+                        <div class="tfxOCYXhVXTswof" onclick="fEbEkJNnjAjGBhZ(this)" id="0">
                             <label>
                                 <input type="checkbox" />
                                 <span>Niedziela</span>
@@ -101,12 +101,6 @@
 
                 <div class="YavvRCMQscelhIs riqhWBvtFoKacNt KJiwNsHiMAVNLKL">
                     <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Ustawienia pracowników</span>
-                    <!--czas pracy-->
-                    <div class="msdgExEZCpefgcL">
-                        <span class="hFzZLqJdsEqdlrx">Dobowy wymiar czasu pracy -</span>
-                        <input class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="mNLCvwMfyDsHDRo" onkeypress="return isNumberKey(event)" onblur="IIjDrhHnsJwmqtN(this)" />
-                        <span class="hFzZLqJdsEqdlrx"> godz.</span>
-                    </div>
                     <!--Okres rozliczeniowy-->
                     <div class="msdgExEZCpefgcL">
                         <span class="hFzZLqJdsEqdlrx">Okres rozliczeniowy -</span>
@@ -117,6 +111,12 @@
                             <option>tydzień/tygodnie/tygodni</option>
                             <option>miesiąc/miesiące/miesięcy</option>
                         </select>
+                    </div>
+                    <!--czas pracy-->
+                    <div class="msdgExEZCpefgcL">
+                        <span class="hFzZLqJdsEqdlrx">Dobowy wymiar czasu pracy -</span>
+                        <input class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="mNLCvwMfyDsHDRo" onkeypress="return isNumberKey(event)" onblur="IIjDrhHnsJwmqtN(this)" />
+                        <span class="hFzZLqJdsEqdlrx"> godz.</span>
                     </div>
                     <!--max nadgodzin w tygodniu-->
                     <div class="msdgExEZCpefgcL">
