@@ -135,11 +135,9 @@ function YaohyXTjGdIPVHK(t)
     let okres_options = document.getElementById('dOAFhxfwDtzoHav');
     //
 
-
     var lds = document.createElement('div');
     lds.className = 'lds-ring-small';
     lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
-    //$(t).parent().append(lds);
     $(okres_options).parent().append(lds);
     $(lds).hide();
 
@@ -148,36 +146,34 @@ function YaohyXTjGdIPVHK(t)
     {
         if (okres.length > 0 && okres_options.selectedIndex > 0) 
         {
-            var okres_tydzien = false;
-            var okres_miesiac = false;
+            let okres_tydzien = false;
+            let okres_miesiac = false;
             if (okres_options.selectedIndex == 1)
                 okres_tydzien = true;
             if (okres_options.selectedIndex == 2)
                 okres_miesiac = true;
 
-            $(lds).show();
-
-            //$.ajax({
-            //    type: 'POST',
-            //    url: '/Times/AddOkres',
-            //    data: {
-            //        okresRozliczeniowy: okres,
-            //        jezeliTydzien: okres_tydzien,
-            //        jezeliMiesiac: okres_miesiac
-            //    },
-            //    success: function (response)
-            //    {
-            //        $(lds).show();
-            //        setTimeout(function ()
-            //        {
-            //            location.reload();
-            //        }, 300);
-            //    },
-            //    error: function (xhr, status, error)
-            //    {
-            //        console.log('Error adding data:', error);
-            //    }
-            //});
+            $.ajax({
+                type: 'POST',
+                url: '/Times/AddOkres',
+                data: {
+                    okresRozliczeniowy: okres,
+                    jezeliTydzien: okres_tydzien,
+                    jezeliMiesiac: okres_miesiac
+                },
+                success: function (response)
+                {
+                    $(lds).show();
+                    setTimeout(function ()
+                    {
+                        location.reload();
+                    }, 300);
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding data:', error);
+                }
+            });
         }
     }
     else
@@ -190,57 +186,199 @@ function YaohyXTjGdIPVHK(t)
                 //
                 if (model_ts[i].OkresRozliczeniowy != okres && okres.length != 0)
                 {
-                    //$.ajax({
-                    //    type: 'POST',
-                    //    url: '/Times/EditOkres',
-                    //    data: {
-                    //        id: id_,
-                    //        okresRozliczeniowy: okres
-                    //    },
-                    //    success: function (response)
-                    //    {
-                    //        $(lds).show();
-                    //        setTimeout(function ()
-                    //        {
-                    //            location.reload();
-                    //        }, 300);
-                    //    },
-                    //    error: function (xhr, status, error)
-                    //    {
-                    //        console.log('Error adding data:', error);
-                    //    }
-                    //});
+                    let okres_tydzien = false;
+                    let okres_miesiac = false;
+                    if (okres_options.selectedIndex == 1)
+                        okres_tydzien = true;
+                    if (okres_options.selectedIndex == 2)
+                        okres_miesiac = true;
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditOkres',
+                        data: {
+                            id: id_,
+                            okresRozliczeniowy: okres,
+                            jezeliTydzien: okres_tydzien,
+                            jezeliMiesiac: okres_miesiac
+                        },
+                        success: function (response)
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding data:', error);
+                        }
+                    });
                 }
                 else if (model_ts[i].OkresRozliczeniowy != null && okres.length == 0) 
                 {
-                    //$.ajax({
-                    //    type: 'POST',
-                    //    url: '/Times/EditOkres',
-                    //    data: {
-                    //        id: id_,
-                    //        okresRozliczeniowy: okres
-                    //    },
-                    //    success: function (response)
-                    //    {
-                    //        $(lds).show();
-                    //        setTimeout(function ()
-                    //        {
-                    //            location.reload();
-                    //        }, 300);
-                    //    },
-                    //    error: function (xhr, status, error)
-                    //    {
-                    //        console.log('Error adding data:', error);
-                    //    }
-                    //});
+                    let okres_tydzien = false;
+                    let okres_miesiac = false;
+                    if (okres_options.selectedIndex == 1)
+                        okres_tydzien = true;
+                    if (okres_options.selectedIndex == 2)
+                        okres_miesiac = true;
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditOkres',
+                        data: {
+                            id: id_,
+                            okresRozliczeniowy: okres,
+                            jezeliTydzien: okres_tydzien,
+                            jezeliMiesiac: okres_miesiac
+                        },
+                        success: function (response)
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding data:', error);
+                        }
+                    });
                 }
             }
         }
     }
 };
 
-function dOAFhxfwDtzoHav_(t) {
+function dOAFhxfwDtzoHav_(t) 
+{
+    
 
+    //
+    let okres = document.getElementById('IkruzJFAfehduep'); 
+    let okres_options = t;
+    //
+
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    $(okres_options).parent().append(lds);
+    $(lds).hide();
+
+    if (model_ts.length > 0) 
+    {
+        if (okres.length > 0 && okres_options.selectedIndex > 0) 
+        {
+            let okres_tydzien = false;
+            let okres_miesiac = false;
+            if (okres_options.selectedIndex == 1)
+                okres_tydzien = true;
+            if (okres_options.selectedIndex == 2)
+                okres_miesiac = true;
+
+            $.ajax({
+                type: 'POST',
+                url: '/Times/AddOkres',
+                data: {
+                    okresRozliczeniowy: okres,
+                    jezeliTydzien: okres_tydzien,
+                    jezeliMiesiac: okres_miesiac
+                },
+                success: function (response)
+                {
+                    $(lds).show();
+                    setTimeout(function ()
+                    {
+                        location.reload();
+                    }, 300);
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding data:', error);
+                }
+            });
+        }
+    }
+    else 
+    {
+        console.log('asd');
+        for (let i = 0; i < model_ts.length; i++)
+        {
+            if (model_ts[i].WorkerId == null)
+            {
+
+                let id_ = model_ts[i].Id;
+                //
+                if (model_ts[i].OkresRozliczeniowy != okres && okres.length != 0)
+                {
+                    let okres_tydzien = false;
+                    let okres_miesiac = false;
+                    if (okres_options.selectedIndex == 1)
+                        okres_tydzien = true;
+                    if (okres_options.selectedIndex == 2)
+                        okres_miesiac = true;
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditOkres',
+                        data: {
+                            id: id_,
+                            okresRozliczeniowy: okres,
+                            jezeliTydzien: okres_tydzien,
+                            jezeliMiesiac: okres_miesiac
+                        },
+                        success: function (response)
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding data:', error);
+                        }
+                    });
+                }
+                else if (model_ts[i].OkresRozliczeniowy != null && okres.length == 0) 
+                {
+                    let okres_tydzien = false;
+                    let okres_miesiac = false;
+                    if (okres_options.selectedIndex == 1)
+                        okres_tydzien = true;
+                    if (okres_options.selectedIndex == 2)
+                        okres_miesiac = true;
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Times/EditOkres',
+                        data: {
+                            id: id_,
+                            okresRozliczeniowy: okres,
+                            jezeliTydzien: okres_tydzien,
+                            jezeliMiesiac: okres_miesiac
+                        },
+                        success: function (response)
+                        {
+                            $(lds).show();
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding data:', error);
+                        }
+                    });
+                }
+            }
+        }
+    }
 };
 
 //dodaj czas pracy

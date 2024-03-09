@@ -424,9 +424,9 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditOkres(int id, int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        public ActionResult EditOkres(int id, int? okresRozliczeniowy)
         {
-            var row = _context.TimeSettings2.FirstOrDefault(e => e.Id == id);
+            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
             if (row != null)
             {
                 row.OkresRozliczeniowy = okresRozliczeniowy;
