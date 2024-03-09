@@ -424,12 +424,14 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditOkres(int id, int? okresRozliczeniowy)
+        public ActionResult EditOkres(int id, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac)
         {
             var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
             if (row != null)
             {
                 row.OkresRozliczeniowy = okresRozliczeniowy;
+                row.jezeliTydzien = jezeliTydzien;
+                row.jezeliMiesiac = jezeliMiesiac;
                 _context.SaveChanges();
 
                 return Json(new { success = true });
@@ -439,27 +441,38 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddCzasPracy(int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        public ActionResult AddCzasPracy(int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
         {
-            var newData = new TimeSettings2()
+            var newData = new TimeSettings3()
             {
                 WorkerId = null,
                 OkresRozliczeniowy = null,
+                jezeliTydzien = null,
+                jezeliMiesiac = null,
                 CzasPracy = czasPracy,
                 MaksymalnaLiczbaNadgodzin = null,
                 MaksymalnaLiczbaNadgodzinTydzien = null,
-                NieprzerwanyOdpoczynek = null
+                NieprzerwanyOdpoczynek = null,
+                PoraNocnaStart = null,
+                PoraNocnaKoniec = null,
+                CzyPoniedzialekWolny = null,
+                CzyWtorekWolny = null,
+                CzySrodaWolny = null,
+                CzyCzwartekWolny = null,
+                CzyPiatekWolny = null,
+                CzySobotaWolny = null,
+                CzyNiedzielaWolny = null
             };
 
-            _context.TimeSettings2.Add(newData);
+            _context.TimeSettings3.Add(newData);
             _context.SaveChanges();
             return Json(new { success = true });
         }
 
         [HttpPost]
-        public ActionResult EditCzasPracy(int id, int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        public ActionResult EditCzasPracy(int id, int? czasPracy)
         {
-            var row = _context.TimeSettings2.FirstOrDefault(e => e.Id == id);
+            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
             if (row != null)
             {
                 row.CzasPracy = czasPracy;
@@ -472,27 +485,38 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddMaksymalnaLiczbaNadgodzinTydzien(int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        public ActionResult AddMaksymalnaLiczbaNadgodzinTydzien(int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
         {
-            var newData = new TimeSettings2()
+            var newData = new TimeSettings3()
             {
                 WorkerId = null,
                 OkresRozliczeniowy = null,
+                jezeliTydzien = null,
+                jezeliMiesiac = null,
                 CzasPracy = null,
                 MaksymalnaLiczbaNadgodzin = null,
                 MaksymalnaLiczbaNadgodzinTydzien = maksymalnaLiczbaNadgodzinTydzien,
-                NieprzerwanyOdpoczynek = null
+                NieprzerwanyOdpoczynek = null,
+                PoraNocnaStart = null,
+                PoraNocnaKoniec = null,
+                CzyPoniedzialekWolny = null,
+                CzyWtorekWolny = null,
+                CzySrodaWolny = null,
+                CzyCzwartekWolny = null,
+                CzyPiatekWolny = null,
+                CzySobotaWolny = null,
+                CzyNiedzielaWolny = null
             };
 
-            _context.TimeSettings2.Add(newData);
+            _context.TimeSettings3.Add(newData);
             _context.SaveChanges();
             return Json(new { success = true });
         }
 
         [HttpPost]
-        public ActionResult EditMaksymalnaLiczbaNadgodzinTydzien(int id, int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        public ActionResult EditMaksymalnaLiczbaNadgodzinTydzien(int id, int? maksymalnaLiczbaNadgodzinTydzien)
         {
-            var row = _context.TimeSettings2.FirstOrDefault(e => e.Id == id);
+            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
             if (row != null)
             {
                 row.MaksymalnaLiczbaNadgodzinTydzien = maksymalnaLiczbaNadgodzinTydzien;
@@ -505,27 +529,38 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddMaksymalnaLiczbaNadgodzin(int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        public ActionResult AddMaksymalnaLiczbaNadgodzin(int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
         {
-            var newData = new TimeSettings2()
+            var newData = new TimeSettings3()
             {
                 WorkerId = null,
                 OkresRozliczeniowy = null,
+                jezeliTydzien = null,
+                jezeliMiesiac = null,
                 CzasPracy = null,
                 MaksymalnaLiczbaNadgodzin = maksymalnaLiczbaNadgodzin,
                 MaksymalnaLiczbaNadgodzinTydzien = null,
-                NieprzerwanyOdpoczynek = null
+                NieprzerwanyOdpoczynek = null,
+                PoraNocnaStart = null,
+                PoraNocnaKoniec = null,
+                CzyPoniedzialekWolny = null,
+                CzyWtorekWolny = null,
+                CzySrodaWolny = null,
+                CzyCzwartekWolny = null,
+                CzyPiatekWolny = null,
+                CzySobotaWolny = null,
+                CzyNiedzielaWolny = null
             };
 
-            _context.TimeSettings2.Add(newData);
+            _context.TimeSettings3.Add(newData);
             _context.SaveChanges();
             return Json(new { success = true });
         }
 
         [HttpPost]
-        public ActionResult EditMaksymalnaLiczbaNadgodzin(int id, int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        public ActionResult EditMaksymalnaLiczbaNadgodzin(int id, int? maksymalnaLiczbaNadgodzin)
         {
-            var row = _context.TimeSettings2.FirstOrDefault(e => e.Id == id);
+            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
             if (row != null)
             {
                 row.MaksymalnaLiczbaNadgodzin = maksymalnaLiczbaNadgodzin;
@@ -538,27 +573,38 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddNieprzerwanyOdpoczynek(int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        public ActionResult AddNieprzerwanyOdpoczynek(int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
         {
-            var newData = new TimeSettings2()
+            var newData = new TimeSettings3()
             {
                 WorkerId = null,
                 OkresRozliczeniowy = null,
+                jezeliTydzien = null,
+                jezeliMiesiac = null,
                 CzasPracy = null,
                 MaksymalnaLiczbaNadgodzin = null,
                 MaksymalnaLiczbaNadgodzinTydzien = null,
-                NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek
+                NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek,
+                PoraNocnaStart = null,
+                PoraNocnaKoniec = null,
+                CzyPoniedzialekWolny = null,
+                CzyWtorekWolny = null,
+                CzySrodaWolny = null,
+                CzyCzwartekWolny = null,
+                CzyPiatekWolny = null,
+                CzySobotaWolny = null,
+                CzyNiedzielaWolny = null
             };
 
-            _context.TimeSettings2.Add(newData);
+            _context.TimeSettings3.Add(newData);
             _context.SaveChanges();
             return Json(new { success = true });
         }
 
         [HttpPost]
-        public ActionResult EditNieprzerwanyOdpoczynek(int id, int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
+        public ActionResult EditNieprzerwanyOdpoczynek(int id, int? nieprzerwanyOdpoczynek)
         {
-            var row = _context.TimeSettings2.FirstOrDefault(e => e.Id == id);
+            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
             if (row != null)
             {
                 row.NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek;
@@ -577,24 +623,7 @@ namespace TimeTask.Controllers
 
 
 
-        //[HttpPost]
-        //public ActionResult DeleteReminder(int id)
-        //{
-        //    var row = _context.Reminders3.FirstOrDefault(e => e.Id == id);
-        //    if (row != null)
-        //    {
-        //        _context.Reminders3.Remove(row);
-        //        _context.SaveChanges();
-
-        //        return Json(new { success = true });
-        //    }
-
-        //    return Json(new { success = false });
-        //}
-
-
-
-
+        
 
 
 

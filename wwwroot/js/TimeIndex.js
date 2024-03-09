@@ -8,6 +8,10 @@
             //FqvhrnXefCjthHG - Nieprzerwany odpoczynek między dniami roboczymi
             if (model_ts[i].WorkerId == null) {
                 $('#IkruzJFAfehduep').val(model_ts[i].OkresRozliczeniowy);
+                if (model_ts[i].jezeliTydzien)
+                    $('#dOAFhxfwDtzoHav').prop('selectedIndex', 1);
+                if (model_ts[i].jezeliMiesiac)
+                    $('#dOAFhxfwDtzoHav').prop('selectedIndex', 2);
                 $('#mNLCvwMfyDsHDRo').val(model_ts[i].CzasPracy);
                 $('#rShbhZqNInnuIPw').val(model_ts[i].MaksymalnaLiczbaNadgodzinTydzien);
                 $('#qFciKrITNFzxtSL').val(model_ts[i].MaksymalnaLiczbaNadgodzin);
@@ -171,7 +175,7 @@ function YaohyXTjGdIPVHK(t)
                 },
                 error: function (xhr, status, error)
                 {
-                    console.log('Error adding data:', error);
+                    console.log('Error:', error);
                 }
             });
         }
@@ -184,7 +188,8 @@ function YaohyXTjGdIPVHK(t)
             {
                 let id_ = model_ts[i].Id;
                 //
-                if (model_ts[i].OkresRozliczeniowy != okres && okres.length != 0)
+
+                if (model_ts[i].OkresRozliczeniowy != okres && okres.length != 0 && okres != 0 && okres_options.selectedIndex > 0)
                 {
                     let okres_tydzien = false;
                     let okres_miesiac = false;
@@ -212,11 +217,11 @@ function YaohyXTjGdIPVHK(t)
                         },
                         error: function (xhr, status, error)
                         {
-                            console.log('Error adding data:', error);
+                            console.log('Error:', error);
                         }
                     });
                 }
-                else if (model_ts[i].OkresRozliczeniowy != null && okres.length == 0) 
+                else if (model_ts[i].OkresRozliczeniowy != null && okres.length == 0 && okres != 0 && okres_options.selectedIndex > 0) 
                 {
                     let okres_tydzien = false;
                     let okres_miesiac = false;
@@ -244,7 +249,7 @@ function YaohyXTjGdIPVHK(t)
                         },
                         error: function (xhr, status, error)
                         {
-                            console.log('Error adding data:', error);
+                            console.log('Error:', error);
                         }
                     });
                 }
@@ -255,10 +260,8 @@ function YaohyXTjGdIPVHK(t)
 
 function dOAFhxfwDtzoHav_(t) 
 {
-    
-
     //
-    let okres = document.getElementById('IkruzJFAfehduep'); 
+    let okres = document.getElementById('IkruzJFAfehduep').value; 
     let okres_options = t;
     //
 
@@ -268,7 +271,7 @@ function dOAFhxfwDtzoHav_(t)
     $(okres_options).parent().append(lds);
     $(lds).hide();
 
-    if (model_ts.length > 0) 
+    if (model_ts.length == 0) 
     {
         if (okres.length > 0 && okres_options.selectedIndex > 0) 
         {
@@ -297,22 +300,21 @@ function dOAFhxfwDtzoHav_(t)
                 },
                 error: function (xhr, status, error)
                 {
-                    console.log('Error adding data:', error);
+                    console.log('Error:', error);
                 }
             });
         }
     }
-    else 
-    {
-        console.log('asd');
+    else
+    {     
         for (let i = 0; i < model_ts.length; i++)
         {
             if (model_ts[i].WorkerId == null)
             {
-
                 let id_ = model_ts[i].Id;
                 //
-                if (model_ts[i].OkresRozliczeniowy != okres && okres.length != 0)
+
+                if (okres.length != 0 && okres != 0) 
                 {
                     let okres_tydzien = false;
                     let okres_miesiac = false;
@@ -338,41 +340,9 @@ function dOAFhxfwDtzoHav_(t)
                                 location.reload();
                             }, 300);
                         },
-                        error: function (xhr, status, error)
+                        error: function (xhr, status, error) 
                         {
-                            console.log('Error adding data:', error);
-                        }
-                    });
-                }
-                else if (model_ts[i].OkresRozliczeniowy != null && okres.length == 0) 
-                {
-                    let okres_tydzien = false;
-                    let okres_miesiac = false;
-                    if (okres_options.selectedIndex == 1)
-                        okres_tydzien = true;
-                    if (okres_options.selectedIndex == 2)
-                        okres_miesiac = true;
-
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Times/EditOkres',
-                        data: {
-                            id: id_,
-                            okresRozliczeniowy: okres,
-                            jezeliTydzien: okres_tydzien,
-                            jezeliMiesiac: okres_miesiac
-                        },
-                        success: function (response)
-                        {
-                            $(lds).show();
-                            setTimeout(function ()
-                            {
-                                location.reload();
-                            }, 300);
-                        },
-                        error: function (xhr, status, error)
-                        {
-                            console.log('Error adding data:', error);
+                            console.log('Error:', error);
                         }
                     });
                 }
