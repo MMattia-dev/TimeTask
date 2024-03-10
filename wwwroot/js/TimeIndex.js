@@ -1,6 +1,10 @@
 ﻿function hivknQXjTsiqtUI() {
-    if (model_ts.length > 0) {
-        for (let i = 0; i < model_ts.length; i++) {
+    if (model_ts.length > 0) 
+    {
+        $('#LRKPgUoIPlhVTMS').show();
+
+        for (let i = 0; i < model_ts.length; i++) 
+        {
             //IkruzJFAfehduep - Okres rozliczeniowy
             //dOAFhxfwDtzoHav - Okres rozliczeniowy: tydzien albo miesiąc
             //mNLCvwMfyDsHDRo - czas pracy
@@ -20,10 +24,24 @@
                 $('#rShbhZqNInnuIPw').val(model_ts[i].MaksymalnaLiczbaNadgodzinTydzien);
                 $('#qFciKrITNFzxtSL').val(model_ts[i].MaksymalnaLiczbaNadgodzin);
                 $('#FqvhrnXefCjthHG').val(model_ts[i].NieprzerwanyOdpoczynek);
-                $('#gsWnPInTEluayCy').val(new Date(model_ts[i].PoraNocnaStart).toLocaleTimeString());
-                $('#SiNSMVtTKxOjnem').val(new Date(model_ts[i].PoraNocnaKoniec).toLocaleTimeString());
-            } 
+                if (model_ts[i].PoraNocnaStart != null && model_ts[i].PoraNocnaKoniec != null) 
+                {
+                    $('#gsWnPInTEluayCy').val(new Date(model_ts[i].PoraNocnaStart).toLocaleTimeString());
+                    $('#SiNSMVtTKxOjnem').val(new Date(model_ts[i].PoraNocnaKoniec).toLocaleTimeString());
+                }
+                document.getElementById('baAmFvRLsPdjFPK').checked = model_ts[i].CzyNiedzielaWolny;
+                document.getElementById('QPebGULGyufDEHz').checked = model_ts[i].CzyPoniedzialekWolny;
+                document.getElementById('kJGnDDkbrZWXYuR').checked = model_ts[i].CzyWtorekWolny;
+                document.getElementById('CKMBUUZmdZmwRBI').checked = model_ts[i].CzySrodaWolny;
+                document.getElementById('CYUzYwwDMVXUmke').checked = model_ts[i].CzyCzwartekWolny;
+                document.getElementById('NtmebQZRHqjmpmB').checked = model_ts[i].CzyPiatekWolny;
+                document.getElementById('RSUOGpjPUOmRtSA').checked = model_ts[i].CzySobotaWolny;
+            }
         }
+    }
+    else 
+    {
+        $('#LRKPgUoIPlhVTMS').hide();
     }
 };
 hivknQXjTsiqtUI();
@@ -341,6 +359,477 @@ function SiNSMVtTKxOjnem_(t)
         }
     }
 };
+
+//zaznacz dni wolne od pracy - Niedziela
+function baAmFvRLsPdjFPK_(t) 
+{
+    let checkboxStatus = t.checked;
+    
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    $(t).parent().parent().parent().append(lds);
+    $(lds).hide();
+
+
+    if (model_ts.length == 0) 
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/Times/AddNiedziela',
+            data: {
+                czyNiedzielaWolny: checkboxStatus
+            },
+            success: function (response)
+            {
+                $(lds).show();
+                setTimeout(function ()
+                {
+                    location.reload();
+                }, 300);
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
+    else 
+    {
+        for (let i = 0; i < model_ts.length; i++)
+        {
+            if (model_ts[i].WorkerId == null)
+            {
+                let id_ = model_ts[i].Id;
+                //
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Times/EditNiedziela',
+                    data: {
+                        id: id_,
+                        czyNiedzielaWolny: checkboxStatus
+                    },
+                    success: function (response)
+                    {
+                        $(lds).show();
+                        setTimeout(function ()
+                        {
+                            location.reload();
+                        }, 300);
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error:', error);
+                    }
+                });
+            }
+        }
+    }
+};
+
+function RSUOGpjPUOmRtSA_(t) 
+{
+    let checkboxStatus = t.checked;
+
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    $(t).parent().parent().parent().append(lds);
+    $(lds).hide();
+
+
+    if (model_ts.length == 0) 
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/Times/AddSobota',
+            data: {
+                czySobotaWolny: checkboxStatus
+            },
+            success: function (response)
+            {
+                $(lds).show();
+                setTimeout(function ()
+                {
+                    location.reload();
+                }, 300);
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
+    else 
+    {
+        for (let i = 0; i < model_ts.length; i++)
+        {
+            if (model_ts[i].WorkerId == null)
+            {
+                let id_ = model_ts[i].Id;
+                //
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Times/EditSobota',
+                    data: {
+                        id: id_,
+                        czySobotaWolny: checkboxStatus
+                    },
+                    success: function (response)
+                    {
+                        $(lds).show();
+                        setTimeout(function ()
+                        {
+                            location.reload();
+                        }, 300);
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error:', error);
+                    }
+                });
+            }
+        }
+    }
+};
+
+function NtmebQZRHqjmpmB_(t) 
+{
+    let checkboxStatus = t.checked;
+
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    $(t).parent().parent().parent().append(lds);
+    $(lds).hide();
+
+
+    if (model_ts.length == 0) 
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/Times/AddPiatek',
+            data: {
+                czyPiatekWolny: checkboxStatus
+            },
+            success: function (response)
+            {
+                $(lds).show();
+                setTimeout(function ()
+                {
+                    location.reload();
+                }, 300);
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
+    else 
+    {
+        for (let i = 0; i < model_ts.length; i++)
+        {
+            if (model_ts[i].WorkerId == null)
+            {
+                let id_ = model_ts[i].Id;
+                //
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Times/EditPiatek',
+                    data: {
+                        id: id_,
+                        czyPiatekWolny: checkboxStatus
+                    },
+                    success: function (response)
+                    {
+                        $(lds).show();
+                        setTimeout(function ()
+                        {
+                            location.reload();
+                        }, 300);
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error:', error);
+                    }
+                });
+            }
+        }
+    }
+};
+
+function CYUzYwwDMVXUmke_(t) 
+{
+    let checkboxStatus = t.checked;
+
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    $(t).parent().parent().parent().append(lds);
+    $(lds).hide();
+
+
+    if (model_ts.length == 0) 
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/Times/AddCzwartek',
+            data: {
+                czyCzwartekWolny: checkboxStatus
+            },
+            success: function (response)
+            {
+                $(lds).show();
+                setTimeout(function ()
+                {
+                    location.reload();
+                }, 300);
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
+    else 
+    {
+        for (let i = 0; i < model_ts.length; i++)
+        {
+            if (model_ts[i].WorkerId == null)
+            {
+                let id_ = model_ts[i].Id;
+                //
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Times/EditCzwartek',
+                    data: {
+                        id: id_,
+                        czyCzwartekWolny: checkboxStatus
+                    },
+                    success: function (response)
+                    {
+                        $(lds).show();
+                        setTimeout(function ()
+                        {
+                            location.reload();
+                        }, 300);
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error:', error);
+                    }
+                });
+            }
+        }
+    }
+};
+
+function CKMBUUZmdZmwRBI_(t) 
+{
+    let checkboxStatus = t.checked;
+
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    $(t).parent().parent().parent().append(lds);
+    $(lds).hide();
+
+
+    if (model_ts.length == 0) 
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/Times/AddSroda',
+            data: {
+                czySrodaWolny: checkboxStatus
+            },
+            success: function (response)
+            {
+                $(lds).show();
+                setTimeout(function ()
+                {
+                    location.reload();
+                }, 300);
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
+    else 
+    {
+        for (let i = 0; i < model_ts.length; i++)
+        {
+            if (model_ts[i].WorkerId == null)
+            {
+                let id_ = model_ts[i].Id;
+                //
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Times/EditSroda',
+                    data: {
+                        id: id_,
+                        czySrodaWolny: checkboxStatus
+                    },
+                    success: function (response)
+                    {
+                        $(lds).show();
+                        setTimeout(function ()
+                        {
+                            location.reload();
+                        }, 300);
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error:', error);
+                    }
+                });
+            }
+        }
+    }
+};
+
+function kJGnDDkbrZWXYuR_(t) 
+{
+    let checkboxStatus = t.checked;
+
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    $(t).parent().parent().parent().append(lds);
+    $(lds).hide();
+
+
+    if (model_ts.length == 0) 
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/Times/AddWtorek',
+            data: {
+                czyWtorekWolny: checkboxStatus
+            },
+            success: function (response)
+            {
+                $(lds).show();
+                setTimeout(function ()
+                {
+                    location.reload();
+                }, 300);
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
+    else 
+    {
+        for (let i = 0; i < model_ts.length; i++)
+        {
+            if (model_ts[i].WorkerId == null)
+            {
+                let id_ = model_ts[i].Id;
+                //
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Times/EditWtorek',
+                    data: {
+                        id: id_,
+                        czyWtorekWolny: checkboxStatus
+                    },
+                    success: function (response)
+                    {
+                        $(lds).show();
+                        setTimeout(function ()
+                        {
+                            location.reload();
+                        }, 300);
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error:', error);
+                    }
+                });
+            }
+        }
+    }
+};
+
+function QPebGULGyufDEHz_(t) 
+{
+    let checkboxStatus = t.checked;
+
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    $(t).parent().parent().parent().append(lds);
+    $(lds).hide();
+
+
+    if (model_ts.length == 0) 
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/Times/AddPoniedzialek',
+            data: {
+                czyPoniedzialekWolny: checkboxStatus
+            },
+            success: function (response)
+            {
+                $(lds).show();
+                setTimeout(function ()
+                {
+                    location.reload();
+                }, 300);
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
+    else 
+    {
+        for (let i = 0; i < model_ts.length; i++)
+        {
+            if (model_ts[i].WorkerId == null)
+            {
+                let id_ = model_ts[i].Id;
+                //
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/Times/EditPoniedzialek',
+                    data: {
+                        id: id_,
+                        czyPoniedzialekWolny: checkboxStatus
+                    },
+                    success: function (response)
+                    {
+                        $(lds).show();
+                        setTimeout(function ()
+                        {
+                            location.reload();
+                        }, 300);
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error:', error);
+                    }
+                });
+            }
+        }
+    }
+};
+
 
 
 //dodaj okres rozliczeniowy

@@ -331,15 +331,15 @@ namespace TimeTask.Controllers
                 MaksymalnaLiczbaNadgodzin = maksymalnaLiczbaNadgodzin,
                 MaksymalnaLiczbaNadgodzinTydzien = maksymalnaLiczbaNadgodzinTydzien,
                 NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek,
-                PoraNocnaStart = poraNocnaStart,
-                PoraNocnaKoniec = poraNocnaKoniec,
-                CzyPoniedzialekWolny = czyPoniedzialekWolny,
-                CzyWtorekWolny = czyWtorekWolny,
-                CzySrodaWolny = czySrodaWolny,
-                CzyCzwartekWolny = czyCzwartekWolny,
-                CzyPiatekWolny = czyPiatekWolny,
-                CzySobotaWolny = czySobotaWolny,
-                CzyNiedzielaWolny = czyNiedzielaWolny
+                PoraNocnaStart = null,
+                PoraNocnaKoniec = null,
+                CzyPoniedzialekWolny = null,
+                CzyWtorekWolny = null,
+                CzySrodaWolny = null,
+                CzyCzwartekWolny = null,
+                CzyPiatekWolny = null,
+                CzySobotaWolny = null,
+                CzyNiedzielaWolny = null
             };
 
             _context.TimeSettings3.Add(newData);
@@ -362,15 +362,15 @@ namespace TimeTask.Controllers
                 row.MaksymalnaLiczbaNadgodzin = maksymalnaLiczbaNadgodzin;
                 row.MaksymalnaLiczbaNadgodzinTydzien = maksymalnaLiczbaNadgodzinTydzien;
                 row.NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek;
-                row.PoraNocnaStart = poraNocnaStart;
-                row.PoraNocnaKoniec = poraNocnaKoniec;
-                row.CzyPoniedzialekWolny = czyPoniedzialekWolny;
-                row.CzyWtorekWolny = czyWtorekWolny;
-                row.CzySrodaWolny = czySrodaWolny;
-                row.CzyCzwartekWolny = czyCzwartekWolny;
-                row.CzyPiatekWolny = czyPiatekWolny;
-                row.CzySobotaWolny = czySobotaWolny;
-                row.CzyNiedzielaWolny = czyNiedzielaWolny;
+                row.PoraNocnaStart = null;
+                row.PoraNocnaKoniec = null;
+                row.CzyPoniedzialekWolny = null;
+                row.CzyWtorekWolny = null;
+                row.CzySrodaWolny = null;
+                row.CzyCzwartekWolny = null;
+                row.CzyPiatekWolny = null;
+                row.CzySobotaWolny = null;
+                row.CzyNiedzielaWolny = null;
                 _context.SaveChanges();
 
                 return Json(new { success = true });
@@ -409,13 +409,13 @@ namespace TimeTask.Controllers
                 NieprzerwanyOdpoczynek = null,
                 PoraNocnaStart = null,
                 PoraNocnaKoniec = null,
-                CzyPoniedzialekWolny = null,
-                CzyWtorekWolny = null,
-                CzySrodaWolny = null,
-                CzyCzwartekWolny = null,
-                CzyPiatekWolny = null,
-                CzySobotaWolny = null,
-                CzyNiedzielaWolny = null
+                CzyPoniedzialekWolny = false,
+                CzyWtorekWolny = false,
+                CzySrodaWolny = false,
+                CzyCzwartekWolny = false,
+                CzyPiatekWolny = false,
+                CzySobotaWolny = false,
+                CzyNiedzielaWolny = false
             };
 
             _context.TimeSettings3.Add(newData);
@@ -455,13 +455,13 @@ namespace TimeTask.Controllers
                 NieprzerwanyOdpoczynek = null,
                 PoraNocnaStart = null,
                 PoraNocnaKoniec = null,
-                CzyPoniedzialekWolny = null,
-                CzyWtorekWolny = null,
-                CzySrodaWolny = null,
-                CzyCzwartekWolny = null,
-                CzyPiatekWolny = null,
-                CzySobotaWolny = null,
-                CzyNiedzielaWolny = null
+                CzyPoniedzialekWolny = false,
+                CzyWtorekWolny = false,
+                CzySrodaWolny = false,
+                CzyCzwartekWolny = false,
+                CzyPiatekWolny = false,
+                CzySobotaWolny = false,
+                CzyNiedzielaWolny = false
             };
 
             _context.TimeSettings3.Add(newData);
@@ -499,13 +499,13 @@ namespace TimeTask.Controllers
                 NieprzerwanyOdpoczynek = null,
                 PoraNocnaStart = null,
                 PoraNocnaKoniec = null,
-                CzyPoniedzialekWolny = null,
-                CzyWtorekWolny = null,
-                CzySrodaWolny = null,
-                CzyCzwartekWolny = null,
-                CzyPiatekWolny = null,
-                CzySobotaWolny = null,
-                CzyNiedzielaWolny = null
+                CzyPoniedzialekWolny = false,
+                CzyWtorekWolny = false,
+                CzySrodaWolny = false,
+                CzyCzwartekWolny = false,
+                CzyPiatekWolny = false,
+                CzySobotaWolny = false,
+                CzyNiedzielaWolny = false
             };
 
             _context.TimeSettings3.Add(newData);
@@ -543,13 +543,13 @@ namespace TimeTask.Controllers
                 NieprzerwanyOdpoczynek = null,
                 PoraNocnaStart = null,
                 PoraNocnaKoniec = null,
-                CzyPoniedzialekWolny = null,
-                CzyWtorekWolny = null,
-                CzySrodaWolny = null,
-                CzyCzwartekWolny = null,
-                CzyPiatekWolny = null,
-                CzySobotaWolny = null,
-                CzyNiedzielaWolny = null
+                CzyPoniedzialekWolny = false,
+                CzyWtorekWolny = false,
+                CzySrodaWolny = false,
+                CzyCzwartekWolny = false,
+                CzyPiatekWolny = false,
+                CzySobotaWolny = false,
+                CzyNiedzielaWolny = false
             };
 
             _context.TimeSettings3.Add(newData);
@@ -587,13 +587,13 @@ namespace TimeTask.Controllers
                 NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek,
                 PoraNocnaStart = null,
                 PoraNocnaKoniec = null,
-                CzyPoniedzialekWolny = null,
-                CzyWtorekWolny = null,
-                CzySrodaWolny = null,
-                CzyCzwartekWolny = null,
-                CzyPiatekWolny = null,
-                CzySobotaWolny = null,
-                CzyNiedzielaWolny = null
+                CzyPoniedzialekWolny = false,
+                CzyWtorekWolny = false,
+                CzySrodaWolny = false,
+                CzyCzwartekWolny = false,
+                CzyPiatekWolny = false,
+                CzySobotaWolny = false,
+                CzyNiedzielaWolny = false
             };
 
             _context.TimeSettings3.Add(newData);
@@ -631,13 +631,13 @@ namespace TimeTask.Controllers
                 NieprzerwanyOdpoczynek = null,
                 PoraNocnaStart = poraNocnaStart,
                 PoraNocnaKoniec = poraNocnaKoniec,
-                CzyPoniedzialekWolny = null,
-                CzyWtorekWolny = null,
-                CzySrodaWolny = null,
-                CzyCzwartekWolny = null,
-                CzyPiatekWolny = null,
-                CzySobotaWolny = null,
-                CzyNiedzielaWolny = null
+                CzyPoniedzialekWolny = false,
+                CzyWtorekWolny = false,
+                CzySrodaWolny = false,
+                CzyCzwartekWolny = false,
+                CzyPiatekWolny = false,
+                CzySobotaWolny = false,
+                CzyNiedzielaWolny = false
             };
 
             _context.TimeSettings3.Add(newData);
@@ -661,15 +661,313 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
+        [HttpPost]
+        public ActionResult AddNiedziela (int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
+        {
+            var newData = new TimeSettings3()
+            {
+                WorkerId = null,
+                OkresRozliczeniowy = null,
+                jezeliTydzien = null,
+                jezeliMiesiac = null,
+                CzasPracy = null,
+                MaksymalnaLiczbaNadgodzin = null,
+                MaksymalnaLiczbaNadgodzinTydzien = null,
+                NieprzerwanyOdpoczynek = null,
+                PoraNocnaStart = null,
+                PoraNocnaKoniec = null,
+                CzyPoniedzialekWolny = false,
+                CzyWtorekWolny = false,
+                CzySrodaWolny = false,
+                CzyCzwartekWolny = false,
+                CzyPiatekWolny = false,
+                CzySobotaWolny = false,
+                CzyNiedzielaWolny = czyNiedzielaWolny
+            };
 
+            _context.TimeSettings3.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
 
+        [HttpPost]
+        public ActionResult EditNiedziela(int id, bool? czyNiedzielaWolny)
+        {
+            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.CzyNiedzielaWolny = czyNiedzielaWolny;
+                _context.SaveChanges();
 
+                return Json(new { success = true });
+            }
 
+            return Json(new { success = false });
+        }
 
+        [HttpPost]
+        public ActionResult AddSobota(int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
+        {
+            var newData = new TimeSettings3()
+            {
+                WorkerId = null,
+                OkresRozliczeniowy = null,
+                jezeliTydzien = null,
+                jezeliMiesiac = null,
+                CzasPracy = null,
+                MaksymalnaLiczbaNadgodzin = null,
+                MaksymalnaLiczbaNadgodzinTydzien = null,
+                NieprzerwanyOdpoczynek = null,
+                PoraNocnaStart = null,
+                PoraNocnaKoniec = null,
+                CzyPoniedzialekWolny = false,
+                CzyWtorekWolny = false,
+                CzySrodaWolny = false,
+                CzyCzwartekWolny = false,
+                CzyPiatekWolny = false,
+                CzySobotaWolny = czySobotaWolny,
+                CzyNiedzielaWolny = false
+            };
 
+            _context.TimeSettings3.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
 
+        [HttpPost]
+        public ActionResult EditSobota(int id, bool? czySobotaWolny)
+        {
+            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.CzySobotaWolny = czySobotaWolny;
+                _context.SaveChanges();
 
+                return Json(new { success = true });
+            }
 
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult AddPiatek(int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
+        {
+            var newData = new TimeSettings3()
+            {
+                WorkerId = null,
+                OkresRozliczeniowy = null,
+                jezeliTydzien = null,
+                jezeliMiesiac = null,
+                CzasPracy = null,
+                MaksymalnaLiczbaNadgodzin = null,
+                MaksymalnaLiczbaNadgodzinTydzien = null,
+                NieprzerwanyOdpoczynek = null,
+                PoraNocnaStart = null,
+                PoraNocnaKoniec = null,
+                CzyPoniedzialekWolny = false,
+                CzyWtorekWolny = false,
+                CzySrodaWolny = false,
+                CzyCzwartekWolny = false,
+                CzyPiatekWolny = czyPiatekWolny,
+                CzySobotaWolny = false,
+                CzyNiedzielaWolny = false
+            };
+
+            _context.TimeSettings3.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public ActionResult EditPiatek(int id, bool? czyPiatekWolny)
+        {
+            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.CzyPiatekWolny = czyPiatekWolny;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult AddCzwartek(int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
+        {
+            var newData = new TimeSettings3()
+            {
+                WorkerId = null,
+                OkresRozliczeniowy = null,
+                jezeliTydzien = null,
+                jezeliMiesiac = null,
+                CzasPracy = null,
+                MaksymalnaLiczbaNadgodzin = null,
+                MaksymalnaLiczbaNadgodzinTydzien = null,
+                NieprzerwanyOdpoczynek = null,
+                PoraNocnaStart = null,
+                PoraNocnaKoniec = null,
+                CzyPoniedzialekWolny = false,
+                CzyWtorekWolny = false,
+                CzySrodaWolny = false,
+                CzyCzwartekWolny = czyCzwartekWolny,
+                CzyPiatekWolny = false,
+                CzySobotaWolny = false,
+                CzyNiedzielaWolny = false
+            };
+
+            _context.TimeSettings3.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public ActionResult EditCzwartek(int id, bool? czyCzwartekWolny)
+        {
+            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.CzyCzwartekWolny = czyCzwartekWolny;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult AddSroda(int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
+        {
+            var newData = new TimeSettings3()
+            {
+                WorkerId = null,
+                OkresRozliczeniowy = null,
+                jezeliTydzien = null,
+                jezeliMiesiac = null,
+                CzasPracy = null,
+                MaksymalnaLiczbaNadgodzin = null,
+                MaksymalnaLiczbaNadgodzinTydzien = null,
+                NieprzerwanyOdpoczynek = null,
+                PoraNocnaStart = null,
+                PoraNocnaKoniec = null,
+                CzyPoniedzialekWolny = false,
+                CzyWtorekWolny = false,
+                CzySrodaWolny = czySrodaWolny,
+                CzyCzwartekWolny = false,
+                CzyPiatekWolny = false,
+                CzySobotaWolny = false,
+                CzyNiedzielaWolny = false
+            };
+
+            _context.TimeSettings3.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public ActionResult EditSroda(int id, bool? czySrodaWolny)
+        {
+            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.CzySrodaWolny = czySrodaWolny;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult AddWtorek(int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
+        {
+            var newData = new TimeSettings3()
+            {
+                WorkerId = null,
+                OkresRozliczeniowy = null,
+                jezeliTydzien = null,
+                jezeliMiesiac = null,
+                CzasPracy = null,
+                MaksymalnaLiczbaNadgodzin = null,
+                MaksymalnaLiczbaNadgodzinTydzien = null,
+                NieprzerwanyOdpoczynek = null,
+                PoraNocnaStart = null,
+                PoraNocnaKoniec = null,
+                CzyPoniedzialekWolny = false,
+                CzyWtorekWolny = czyWtorekWolny,
+                CzySrodaWolny = false,
+                CzyCzwartekWolny = false,
+                CzyPiatekWolny = false,
+                CzySobotaWolny = false,
+                CzyNiedzielaWolny = false
+            };
+
+            _context.TimeSettings3.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public ActionResult EditWtorek(int id, bool? czyWtorekWolny)
+        {
+            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.CzyWtorekWolny = czyWtorekWolny;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult AddPoniedzialek(int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
+        {
+            var newData = new TimeSettings3()
+            {
+                WorkerId = null,
+                OkresRozliczeniowy = null,
+                jezeliTydzien = null,
+                jezeliMiesiac = null,
+                CzasPracy = null,
+                MaksymalnaLiczbaNadgodzin = null,
+                MaksymalnaLiczbaNadgodzinTydzien = null,
+                NieprzerwanyOdpoczynek = null,
+                PoraNocnaStart = null,
+                PoraNocnaKoniec = null,
+                CzyPoniedzialekWolny = czyPoniedzialekWolny,
+                CzyWtorekWolny = false,
+                CzySrodaWolny = false,
+                CzyCzwartekWolny = false,
+                CzyPiatekWolny = false,
+                CzySobotaWolny = false,
+                CzyNiedzielaWolny = false
+            };
+
+            _context.TimeSettings3.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public ActionResult EditPoniedzialek(int id, bool? czyPoniedzialekWolny)
+        {
+            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.CzyPoniedzialekWolny = czyPoniedzialekWolny;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
 
 
 
