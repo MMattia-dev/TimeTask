@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -196,7 +197,89 @@ namespace TimeTask.Controllers
                           Problem("Entity set 'ApplicationDbContext.Time'  is null.");
         }
 
-        [HttpPost]
+		public int GetWeeksInYear(int year)
+		{
+			DateTimeFormatInfo dfi = DateTimeFormatInfo.InvariantInfo;
+			DateTime date1 = new DateTime(year, 12, 31);
+			Calendar cal = dfi.Calendar;
+			return cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+		}
+
+		public int GetCurrentWeek(int year, int month, int day)
+		{
+			DateTimeFormatInfo dfi = DateTimeFormatInfo.InvariantInfo;
+			DateTime date1 = new DateTime(year, month, day);
+			Calendar cal = dfi.Calendar;
+			return cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+		}
+
+		public ActionResult WeeksInYear(int year, int month, int day)
+		{
+			var result = new { weeks = GetWeeksInYear(year), currentWeek = GetCurrentWeek(year, month, day) };
+			return Json(result);
+		}
+
+		public DateTime FirstDateOfWeekISO8601(int year, int weekOfYear)
+		{
+			DateTime jan1 = new DateTime(year, 1, 1);
+			int daysOffset = DayOfWeek.Thursday - jan1.DayOfWeek;
+			DateTime firstThursday = jan1.AddDays(daysOffset);
+			var cal = CultureInfo.CurrentCulture.Calendar;
+			int firstWeek = cal.GetWeekOfYear(firstThursday, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+			var weekNum = weekOfYear;
+			if (firstWeek == 1)
+			{
+				weekNum -= 1;
+			}
+			var result = firstThursday.AddDays(weekNum * 7);
+
+			return result.AddDays(-3);
+		}
+
+		public DateTime LastDateOfWeekISO8601(int year, int weekOfYear)
+		{
+			DateTime jan1 = new DateTime(year, 1, 1);
+			int daysOffset = DayOfWeek.Thursday - jan1.DayOfWeek;
+			DateTime firstThursday = jan1.AddDays(daysOffset);
+			var cal = CultureInfo.CurrentCulture.Calendar;
+			int firstWeek = cal.GetWeekOfYear(firstThursday, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+			var weekNum = weekOfYear;
+			if (firstWeek == 1)
+			{
+				weekNum -= 1;
+			}
+			var result = firstThursday.AddDays(weekNum * 7);
+
+			return result.AddDays(3);
+		}
+
+		public ActionResult DatesInChosenWeek(int year, int weekOfYear)
+		{
+			var result = Enumerable.Range(0, 1 + LastDateOfWeekISO8601(year, weekOfYear).Subtract(FirstDateOfWeekISO8601(year, weekOfYear)).Days).Select(x => FirstDateOfWeekISO8601(year, weekOfYear).AddDays(x)).ToArray();
+
+			var result_ = new List<string>();
+			foreach (var day in result)
+			{
+				foreach (var holiday in _context.Holiday)
+				{
+					if (day.ToShortDateString() == holiday.Date.ToShortDateString())
+					{
+						result_.Add(day.ToShortDateString());
+					}
+				}
+			}
+
+
+
+			//return Json(result);
+			return Json(new
+			{
+				result,
+				result_
+			});
+		}
+
+		[HttpPost]
         public ActionResult AddLeave(int workerID, DateTime? enter, DateTime? exit, int leaveID, DateTime leaveDate)
         {
             var newData = new Time()

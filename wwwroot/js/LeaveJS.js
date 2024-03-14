@@ -58,6 +58,8 @@ function MEPHaojoIWKCapY()
     let uLxtDsOksiWVnDI = document.getElementById('uLxtDsOksiWVnDI');
 
     let okresRozliczeniowy;
+    let okresRozliczeniowyTydzien = false;
+    let okresRozliczeniowyMiesiac = false;
     let czasPracyMax;
     let maksymalnaLiczbaNadgodzin;
     let maksymalnaLiczbaNadgodzinTydzien;
@@ -68,6 +70,9 @@ function MEPHaojoIWKCapY()
         if (model_ts[i].WorkerId != null && model_ts[i].WorkerId == worker)
         {
             okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            okresRozliczeniowyTydzien = model_ts[i].jezeliTydzien;
+            okresRozliczeniowyMiesiac = model_ts[i].jezeliMiesiac;
+
             czasPracyMax = model_ts[i].CzasPracy;
             maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
             maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
@@ -76,6 +81,9 @@ function MEPHaojoIWKCapY()
         if (model_ts[i].WorkerId == null)
         {
             okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            okresRozliczeniowyTydzien = model_ts[i].jezeliTydzien;
+            okresRozliczeniowyMiesiac = model_ts[i].jezeliMiesiac;
+
             czasPracyMax = model_ts[i].CzasPracy;
             maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
             maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
@@ -93,15 +101,61 @@ function MEPHaojoIWKCapY()
         let wplXQqsdEZEYbIm = document.getElementById('wplXQqsdEZEYbIm');
         $('#wplXQqsdEZEYbIm').html(``);
         $('#wplXQqsdEZEYbIm').removeClass('hkyYYlXJPLaqBDt');
+
         //dodaj okresy
-        for (let i = 1; i <= ileOkresow; i++)
+        if (okresRozliczeniowyTydzien) 
         {
-            wplXQqsdEZEYbIm.innerHTML += `<option value="` + i + `">` + i + ` okres</option>`;
+            let date = new Date();
+            let year_ = date.getFullYear();
+            let month_ = date.getMonth() + 1;
+            let day_ = date.getDate();
+
+            $.ajax({
+                type: 'GET',
+                url: '/Times/WeeksInYear',
+                data: {
+                    year: year_,
+                    month: month_,
+                    day: day_
+                },
+                success: function (response) {
+                    let weeks = response.weeks;
+                    let currentWeek = response.currentWeek;
+
+                    for (let i = 1; i <= weeks; i++) 
+                    {
+                        if (i == currentWeek)
+                        {
+                            wplXQqsdEZEYbIm.innerHTML += `<option value="` + i + `" selected>` + i + ` tydzień</option>`;
+                        }
+                        else 
+                        {
+                            wplXQqsdEZEYbIm.innerHTML += `<option value="` + i + `">` + i + ` tydzień</option>`;
+                        }
+                        //wplXQqsdEZEYbIm.innerHTML += `<option value="` + i + `">` + i + ` tydzień</option>`;
+                    }
+
+                    sessionStorage.setItem('LbypIFdPQyYqJNC', currentWeek);
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error:' + error);
+                }
+            });
+        }
+
+        if (okresRozliczeniowyMiesiac) 
+        {
+            for (let i = 1; i <= ileOkresow; i++)
+            {
+                wplXQqsdEZEYbIm.innerHTML += `<option value="` + i + `">` + i + ` okres</option>`;
+            }
         }
     }
 
     if (uLxtDsOksiWVnDI.value == 'month') 
     {
+        let currentMonth = new Date().getMonth() + 1;
+
         let wplXQqsdEZEYbIm = document.getElementById('wplXQqsdEZEYbIm');
         $('#wplXQqsdEZEYbIm').html(``);
         $('#wplXQqsdEZEYbIm').removeClass('hkyYYlXJPLaqBDt');
@@ -111,7 +165,12 @@ function MEPHaojoIWKCapY()
             let month = new Date(year, i, 0).toLocaleDateString('pl-PL', { month: 'long' });
             let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
 
-            wplXQqsdEZEYbIm.innerHTML += `<option value="` + i + `">` + month_capitalize + `</option>`;
+            //wplXQqsdEZEYbIm.innerHTML += `<option value="` + i + `">` + month_capitalize + `</option>`;
+
+            if (i == currentMonth)
+                wplXQqsdEZEYbIm.innerHTML += `<option selected value="` + i + `">` + month_capitalize + `</option>`;
+            else
+                wplXQqsdEZEYbIm.innerHTML += `<option value="` + i + `">` + month_capitalize + `</option>`;
         }
     }
     
@@ -125,6 +184,25 @@ function eFALkhlnQQySpCg()
 {
     generateNewTable();
 }
+
+async function DatesInChosenWeek(y, w) 
+{
+    var r = $.ajax({
+        type: 'GET',
+        url: '/Times/DatesInChosenWeek',
+        dataType: 'JSON',
+        data: {
+            year: y,
+            weekOfYear: w
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:' + error);
+        }
+    });
+
+    return r;
+};
 
 function generateNewTable() 
 {
@@ -142,6 +220,8 @@ function generateNewTable()
 
 
     let okresRozliczeniowy;
+    let okresRozliczeniowyTydzien = false;
+    let okresRozliczeniowyMiesiac = false;
     let czasPracyMax;
     let maksymalnaLiczbaNadgodzin;
     let maksymalnaLiczbaNadgodzinTydzien;
@@ -152,6 +232,9 @@ function generateNewTable()
         if (model_ts[i].WorkerId != null && model_ts[i].WorkerId == worker)
         {
             okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            okresRozliczeniowyTydzien = model_ts[i].jezeliTydzien;
+            okresRozliczeniowyMiesiac = model_ts[i].jezeliMiesiac;
+
             czasPracyMax = model_ts[i].CzasPracy;
             maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
             maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
@@ -160,6 +243,9 @@ function generateNewTable()
         if (model_ts[i].WorkerId == null)
         {
             okresRozliczeniowy = model_ts[i].OkresRozliczeniowy;
+            okresRozliczeniowyTydzien = model_ts[i].jezeliTydzien;
+            okresRozliczeniowyMiesiac = model_ts[i].jezeliMiesiac;
+
             czasPracyMax = model_ts[i].CzasPracy;
             maksymalnaLiczbaNadgodzin = model_ts[i].MaksymalnaLiczbaNadgodzin;
             maksymalnaLiczbaNadgodzinTydzien = model_ts[i].MaksymalnaLiczbaNadgodzinTydzien;
@@ -201,105 +287,212 @@ function generateNewTable()
         $('#xhXEyORRmmYlQgG').removeClass('wHJdQTeGtaPLEfX');
         $('#xhXEyORRmmYlQgG').addClass('mKzzcPQqeZIcPIP');
 
-
-        let ileMiesiecy = okresRozliczeniowy;
-        let ileOkresow = 12 / ileMiesiecy;
-        let divide = 100 / ileMiesiecy;
-        let minus = 40 / ileMiesiecy;
-
-        let okres = document.getElementById('wplXQqsdEZEYbIm');
-
-
-        let pierwszyMiesiac = null;
-        let ostatniMiesiac = null;
-        if (ileOkresow == 3) 
+        if (okresRozliczeniowyTydzien) 
         {
-            if (okres.value == 1) { pierwszyMiesiac = 1; ostatniMiesiac = 4; }
-            if (okres.value == 2) { pierwszyMiesiac = 5; ostatniMiesiac = 8; }
-            if (okres.value == 3) { pierwszyMiesiac = 9; ostatniMiesiac = 12; }
-        }
-        if (ileOkresow == 4) 
-        {
-            if (okres.value == 1) { pierwszyMiesiac = 1; ostatniMiesiac = 3; }
-            if (okres.value == 2) { pierwszyMiesiac = 4; ostatniMiesiac = 6; }
-            if (okres.value == 3) { pierwszyMiesiac = 7; ostatniMiesiac = 9; }
-            if (okres.value == 4) { pierwszyMiesiac = 10; ostatniMiesiac = 12; }
-        }
-        if (ileOkresow == 6) 
-        {
-            if (okres.value == 1) { pierwszyMiesiac = 1; ostatniMiesiac = 2; }
-            if (okres.value == 2) { pierwszyMiesiac = 3; ostatniMiesiac = 4; }
-            if (okres.value == 3) { pierwszyMiesiac = 5; ostatniMiesiac = 6; }
-            if (okres.value == 4) { pierwszyMiesiac = 7; ostatniMiesiac = 8; }
-            if (okres.value == 5) { pierwszyMiesiac = 9; ostatniMiesiac = 10; }
-            if (okres.value == 6) { pierwszyMiesiac = 11; ostatniMiesiac = 12; }
-        }
-        //if (ileOkresow == 12) 
-        //{
-        //    if (okres.value == 1) { pierwszyMiesiac == 1; ostatniMiesiac = 1; }
-        //    if (okres.value == 2) { pierwszyMiesiac == 2; ostatniMiesiac = 2; }
-        //    if (okres.value == 3) { pierwszyMiesiac == 3; ostatniMiesiac = 3; }
-        //    if (okres.value == 4) { pierwszyMiesiac == 4; ostatniMiesiac = 4; }
-        //    if (okres.value == 5) { pierwszyMiesiac == 5; ostatniMiesiac = 5; }
-        //    if (okres.value == 6) { pierwszyMiesiac == 6; ostatniMiesiac = 6; }
-        //    if (okres.value == 7) { pierwszyMiesiac == 7; ostatniMiesiac = 7; }
-        //    if (okres.value == 8) { pierwszyMiesiac == 8; ostatniMiesiac = 8; }
-        //    if (okres.value == 9) { pierwszyMiesiac == 9; ostatniMiesiac = 9; }
-        //    if (okres.value == 10) { pierwszyMiesiac == 10; ostatniMiesiac = 10; }
-        //    if (okres.value == 11) { pierwszyMiesiac == 11; ostatniMiesiac = 11; }
-        //    if (okres.value == 12) { pierwszyMiesiac == 12; ostatniMiesiac = 12; }
-        //}
-        
-        document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th></tr></thead>`;
-        if (pierwszyMiesiac != null && ostatniMiesiac != null && pierwszyMiesiac != ostatniMiesiac) 
-        {
-            for (let i = pierwszyMiesiac; i <= ostatniMiesiac; i++)
+            $('#xhXEyORRmmYlQgG').addClass('GdZLnnkZEhjNeVS');
+
+            let tydzien = document.getElementById('wplXQqsdEZEYbIm');
+            let currentWeek = sessionStorage.getItem('LbypIFdPQyYqJNC');
+            let weekFix = null;
+
+
+            if (tydzien.value == '')
+                weekFix = currentWeek;
+            else 
+                weekFix = tydzien.value;
+            
+
+
+            //document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th><th>` + weekFix + ` tydzień</th></tr></thead>`; 
+            var promise = DatesInChosenWeek(year, weekFix).then(function (r) 
             {
-                let month = new Date(year, i, 0).toLocaleDateString('pl-PL', { month: 'long' });
-                let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
+                let divideHeight = 90 / r.length;
 
-                document.querySelector('#xhXEyORRmmYlQgG thead tr').innerHTML += `<th style="width: ` + divide + `%;">` + month_capitalize + `</th>`; //style="width: calc(` + divide + `% - ` + minus + `px);"
-            }
-
-
-            for (let i = 1; i <= 31; i++) 
-            {
-                document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td></tr></tbody>`;
-            }
-
-
-            // jakim cudem to działa???
-            let tr_ = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr');
-            for (let n = 1; n <= tr_.length; n++) 
-            {
-                for (let i = pierwszyMiesiac; i <= ostatniMiesiac; i++) 
+                r.result.forEach(function (e)
                 {
-                    $(tr_[n - 2]).append('<td id="' + year + '-' + i + '-' + (n-1) + '"></td>');
+                    let newDate = new Date(e).toISOString().split('T')[0];
+
+                    let y = new Date(e).getFullYear();
+                    let m = padWithLeadingZeros(new Date(e).getMonth() + 1, 2);
+                    let d = padWithLeadingZeros(new Date(e).getDate(), 2);
+                    let wholeDate = y + '-' + m + '-' + d;
+
+                    //document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr style="height: ` + divideHeight + `%;"><td>` + wholeDate + `</td><td id="` + newDate + `"></td></tr></tbody>`;
+                    document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr style="height: ` + divideHeight + `%;"><td style="width: 105px;">` + wholeDate + `</td><td style="width: calc(100% - 105px);" id="` + wholeDate + `"></td></tr></tbody>`;
+                });
+
+                var TDs = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr td:not(:first-child)');
+                for (let i = 0; i < TDs.length; i++) 
+                {
+                    TDs[i].setAttribute('onclick', 'HIJPFbwutXHZxGn(this)');
+                    TDs[i].setAttribute('title', TDs[i].id);
+
+
+                    TDs[i].setAttribute('onmouseover', 'bxLcBeaOvMopDll(event, this)');
+                    TDs[i].setAttribute('onmouseout', 'xGCnnFtbrNPSNPm(event, this)');
                 }
+
+                //czas
+                for (let i = 0; i < TDs.length; i++)
+                {
+                    let TDdate = new Date(TDs[i].id).toLocaleDateString();
+                    for (let l = 0; l < model_t.length; l++)
+                    {
+                        if (worker == model_t[l].WorkerID) 
+                        {
+                            if (model_t[l].Enter != null && model_t[l].Exit != null)
+                            {
+                                let enterDate = new Date(model_t[l].Enter).toLocaleDateString();
+                                let exitDate = new Date(model_t[l].Exit).toLocaleDateString();
+
+                                if (enterDate == TDdate && exitDate == TDdate)
+                                {
+                                    $(TDs[i]).addClass('disabled');
+                                    $(TDs[i]).html('');
+                                    $(TDs[i]).removeAttr('onmouseover');
+                                    $(TDs[i]).removeAttr('onmouseout');
+                                    $(TDs[i]).removeAttr('onclick');
+                                    $(TDs[i]).removeAttr('title');
+                                    $(TDs[i]).removeAttr('id');
+                                }
+                            }
+                            else 
+                            {
+                                let leaveDate = new Date(model_t[l].LeaveDate).toLocaleDateString();
+
+                                if (leaveDate == TDdate)
+                                {
+                                    for (let j = 0; j < model_l.length; j++)
+                                    {
+                                        if (model_t[l].LeaveID == model_l[j].Id)
+                                        {
+                                            TDs[i].innerHTML = `<div class="IpLJVyLZIbPJsat" id="` + model_l[j].Id + `">` + //title="` + model_l[j].Name + `"
+                                                `<span>` + model_l[j].Name + `</span>` +
+                                                `</div>`;
+
+                                            $(TDs[i]).addClass('IdBgKIHybgYpxXJ');
+                                            TDs[i].setAttribute('onclick', 'BHuhsNtfdNbyAVV(this)');
+                                            TDs[i].setAttribute('title', 'Edytuj urlop');
+                                            TDs[i].setAttribute('id_', model_t[l].Id);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+
+                    let dayToCheck = parseInt(TDs[i].id.split('-')[2]);
+                    let monthToCheck = parseInt(TDs[i].id.split('-')[1]) - 1;
+                    let yearToCheck = parseInt(TDs[i].id.split('-')[0]);
+                    if (!isDateValid(yearToCheck, monthToCheck, dayToCheck))
+                    {
+                        $(TDs[i]).addClass('disabled');
+                        $(TDs[i]).html('');
+                        $(TDs[i]).removeAttr('onmouseover');
+                        $(TDs[i]).removeAttr('onmouseout');
+                        $(TDs[i]).removeAttr('onclick');
+                        $(TDs[i]).removeAttr('title');
+                        $(TDs[i]).removeAttr('id');
+                    }
+                }
+                //
+
+                //"Pokaż dni wolne od pracy"
+                if (sessionStorage.getItem('XLsdAGmRfSDLmVh') != null)
+                {
+                    document.getElementById('MxLHxritEhBvupe').checked = true;
+                    MxLHxritEhBvupe_();
+                }
+                //
+            });
+        }
+
+        if (okresRozliczeniowyMiesiac) 
+        {
+            let ileMiesiecy = okresRozliczeniowy;
+            let ileOkresow = 12 / ileMiesiecy;
+            let divide = 100 / ileMiesiecy;
+            let minus = 40 / ileMiesiecy;
+
+            let okres = document.getElementById('wplXQqsdEZEYbIm');
+
+            let pierwszyMiesiac = null;
+            let ostatniMiesiac = null;
+            if (ileOkresow == 3) 
+            {
+                if (okres.value == 1) { pierwszyMiesiac = 1; ostatniMiesiac = 4; }
+                if (okres.value == 2) { pierwszyMiesiac = 5; ostatniMiesiac = 8; }
+                if (okres.value == 3) { pierwszyMiesiac = 9; ostatniMiesiac = 12; }
+            }
+            if (ileOkresow == 4) 
+            {
+                if (okres.value == 1) { pierwszyMiesiac = 1; ostatniMiesiac = 3; }
+                if (okres.value == 2) { pierwszyMiesiac = 4; ostatniMiesiac = 6; }
+                if (okres.value == 3) { pierwszyMiesiac = 7; ostatniMiesiac = 9; }
+                if (okres.value == 4) { pierwszyMiesiac = 10; ostatniMiesiac = 12; }
+            }
+            if (ileOkresow == 6) 
+            {
+                if (okres.value == 1) { pierwszyMiesiac = 1; ostatniMiesiac = 2; }
+                if (okres.value == 2) { pierwszyMiesiac = 3; ostatniMiesiac = 4; }
+                if (okres.value == 3) { pierwszyMiesiac = 5; ostatniMiesiac = 6; }
+                if (okres.value == 4) { pierwszyMiesiac = 7; ostatniMiesiac = 8; }
+                if (okres.value == 5) { pierwszyMiesiac = 9; ostatniMiesiac = 10; }
+                if (okres.value == 6) { pierwszyMiesiac = 11; ostatniMiesiac = 12; }
             }
 
-            for (let n = 1; n <= tr_.length; n++) 
+            document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th></tr></thead>`;
+            if (pierwszyMiesiac != null && ostatniMiesiac != null && pierwszyMiesiac != ostatniMiesiac) 
             {
-                if (n == 31) 
+                for (let i = pierwszyMiesiac; i <= ostatniMiesiac; i++)
+                {
+                    let month = new Date(year, i, 0).toLocaleDateString('pl-PL', { month: 'long' });
+                    let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
+
+                    document.querySelector('#xhXEyORRmmYlQgG thead tr').innerHTML += `<th style="width: ` + divide + `%;">` + month_capitalize + `</th>`; //style="width: calc(` + divide + `% - ` + minus + `px);"
+                }
+
+
+                for (let i = 1; i <= 31; i++) 
+                {
+                    document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td></tr></tbody>`;
+                }
+
+
+                // jakim cudem to działa???
+                let tr_ = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr');
+                for (let n = 1; n <= tr_.length; n++) 
                 {
                     for (let i = pierwszyMiesiac; i <= ostatniMiesiac; i++) 
                     {
-                        $(tr_[n - 1]).append('<td id="' + year + '-' + i + '-' + n + '"></td>');
+                        $(tr_[n - 2]).append('<td id="' + year + '-' + i + '-' + (n - 1) + '"></td>');
                     }
                 }
+
+                for (let n = 1; n <= tr_.length; n++) 
+                {
+                    if (n == 31) 
+                    {
+                        for (let i = pierwszyMiesiac; i <= ostatniMiesiac; i++) 
+                        {
+                            $(tr_[n - 1]).append('<td id="' + year + '-' + i + '-' + n + '"></td>');
+                        }
+                    }
+                }
+                //
             }
-            //
-        }
-        else if (pierwszyMiesiac == null && ostatniMiesiac == null && pierwszyMiesiac == ostatniMiesiac) 
-        {
-            let month = new Date(year, parseInt(okres.value), 0).toLocaleDateString('pl-PL', { month: 'long' });
-            let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
-
-            document.querySelector('#xhXEyORRmmYlQgG thead tr').innerHTML += `<th>` + month_capitalize + `</th>`;
-
-            for (let i = 1; i <= 31; i++) 
+            else if (pierwszyMiesiac == null && ostatniMiesiac == null && pierwszyMiesiac == ostatniMiesiac) 
             {
-                document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td id="` + year + `-` + parseInt(okres.value) + `-` + i + `"></td></tr></tbody>`;
+                let month = new Date(year, parseInt(okres.value), 0).toLocaleDateString('pl-PL', { month: 'long' });
+                let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
+
+                document.querySelector('#xhXEyORRmmYlQgG thead tr').innerHTML += `<th>` + month_capitalize + `</th>`;
+
+                for (let i = 1; i <= 31; i++) 
+                {
+                    document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td><td id="` + year + `-` + parseInt(okres.value) + `-` + i + `"></td></tr></tbody>`;
+                }
             }
         }
     }
@@ -322,7 +515,7 @@ function generateNewTable()
 
 
 
-    let TDs = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr td:not(:first-child)');
+    var TDs = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr td:not(:first-child)');
     for (let i = 0; i < TDs.length; i++) 
     {
         //TDs[i].innerHTML += `<div id="NGWhvCmkPUIWclY">` +
@@ -882,7 +1075,7 @@ function FFkdMqNnTDbWkXb()
             document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="` + model_w[i].Id + `" id="` + model_w[i].DepartmentID + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
         }
     }
-    document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="everyone">Wszyscy z działu</option>`;
+    //document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="everyone">Wszyscy z działu</option>`;
     
     //generateCalendar();
     generateNewTable();
@@ -905,7 +1098,7 @@ $('#aFoQOFiXPQobjPX').on('change', function ()
             document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="` + model_w[i].Id + `" id="` + model_w[i].DepartmentID + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
         }
     }
-    document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="everyone">Wszyscy z działu</option>`;
+    //document.getElementById('oUfnFiNPmXnNjzu').innerHTML += `<option value="everyone">Wszyscy z działu</option>`;
 
     //generateCalendar();
     generateNewTable();
@@ -2024,7 +2217,7 @@ $(document).ready(function ()
     if (sessionStorage.getItem('MnqHzqBiryXOWYP') != null) 
     {
         let yearSelect = document.getElementById('iHCBwRzOLpgGYQG');
-        yearSelect.value = sessionStorage.getItem('MnqHzqBiryXOWYP');
+        //yearSelect.value = sessionStorage.getItem('MnqHzqBiryXOWYP');
     }
     //
 
@@ -2032,7 +2225,7 @@ $(document).ready(function ()
     if (sessionStorage.getItem('wSGVyznxxQsFpjg') != null) 
     {
         let monthSelect = document.getElementById('IZdWjCoFNPZaIaP');
-        monthSelect.value = sessionStorage.getItem('wSGVyznxxQsFpjg');
+        //monthSelect.value = sessionStorage.getItem('wSGVyznxxQsFpjg');
     }
     //
 

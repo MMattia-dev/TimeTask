@@ -4,33 +4,99 @@
     <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
 </div>
 
-<div class="koblSjvDsfoQbAD">
+<div class="IdRKPExyAQSewBL">
+    <!--koblSjvDsfoQbAD-->
     <a class="settings_a" href="@Url.Action("Index", "Home")">
-        <svg viewBox="-8.5 0 32 32" width="32" height="32"><path d="M15.281 7.188v17.594l-15.281-8.781z"></path></svg>
+        <ion-icon name="home-outline"></ion-icon>
         <span>Strona główna</span>
+    </a>
+    <a class="settings_a">
+        <ion-icon name="filter-outline"></ion-icon>
+        <div class="settings_a_select">
+            <span>Widok</span>
+            <span>Cały rok</span>
+            <ion-icon name="chevron-down-outline"></ion-icon>
+        </div>
+    </a>
+    <a class="settings_a">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <div class="settings_a_select">
+            <span>Rok</span>
+            <span>2024</span>
+            <ion-icon name="chevron-down-outline"></ion-icon>
+        </div>
+    </a>
+    <a class="settings_a">
+        <ion-icon name="briefcase-outline"></ion-icon>
+        <div class="settings_a_select">
+            <span>Dział</span>
+            <span>Dział IT</span>
+            <ion-icon name="chevron-down-outline"></ion-icon>
+        </div>
+    </a>
+    <a class="settings_a">
+        <ion-icon name="person-outline"></ion-icon>
+        <div class="settings_a_select">
+            <span>Pracownik</span>
+            <span>Kowalski Tadeusz</span>
+            <ion-icon name="chevron-down-outline"></ion-icon>
+        </div>
+    </a>
+    <a class="settings_a">
+        <ion-icon name="time-outline"></ion-icon>
+        <div class="settings_a_select">
+            <span>Godzina od do</span>
+            <span>Zapisz button</span>
+            @* <ion-icon name="chevron-down-outline"></ion-icon> *@
+        </div>
+    </a>
+    <a class="settings_a">
+        <ion-icon name="close-circle-outline"></ion-icon>
+        <div class="settings_a_select">
+            <span></span>
+            <span>Usuń wiele pozycji</span>
+        </div>
+    </a>
+    <a class="settings_a">
+        <ion-icon name="eye-outline"></ion-icon>
+        <div class="settings_a_select DttiWwFOUZxPakg">
+            <span></span>
+            <span>Dni wolne od pracy</span>
+            <ion-icon name="square-outline"></ion-icon>
+        </div>
     </a>
 
 
 
-    <span class="settings_span">Widok:</span>
-    <div style="height: 2px;"></div>
-    <select class="HQTuaisxjrtQHPq" id="uLxtDsOksiWVnDI" onchange="MEPHaojoIWKCapY()">
+
+
+
+
+
+
+
+
+
+    @* <a class="settings_a" href="@Url.Action("Index", "Home")">
+        <svg viewBox="-8.5 0 32 32" width="32" height="32"><path d="M15.281 7.188v17.594l-15.281-8.781z"></path></svg>
+        <span>Strona główna</span>
+    </a> *@
+
+    @* <span class="settings_span">Widok:</span>
+    <div style="height: 2px;"></div> *@
+    <select class="HQTuaisxjrtQHPq" id="uLxtDsOksiWVnDI" onchange="MEPHaojoIWKCapY()" style="display: none;">
         <option value="year">Cały rok</option>
         <option value="month">Miesiąc</option>
         <option value="okres">Okres rozliczeniowy</option>
     </select>
-    <select class="HQTuaisxjrtQHPq" id="wplXQqsdEZEYbIm" onchange="eFALkhlnQQySpCg()">
-    </select>
+    <select class="HQTuaisxjrtQHPq" id="wplXQqsdEZEYbIm" onchange="eFALkhlnQQySpCg()" style="display: none;"></select>
 
-
-
-    <span class="settings_span">Rok:</span>
-    <div style="height: 2px;"></div>
-    <select class="HQTuaisxjrtQHPq" id="IsBAUOIAAHcAfcz">
+    @* <span class="settings_span">Rok:</span>
+    <div style="height: 2px;"></div> *@
+    <select class="HQTuaisxjrtQHPq" id="IsBAUOIAAHcAfcz" style="display: none;">
         @{
             int year = DateTime.Now.Year;
             int prevYear = year - 5;
-            //int nextYear = year + 3;
             int nextYear = year + 1;
             int pn = nextYear - prevYear;
         }
@@ -49,27 +115,9 @@
         }
     </select>
 
-    @*<select class="HQTuaisxjrtQHPq" id="DvSHNpXssZqqqtk" onchange="ZJRABLNnRtfPJYl()">
-        @for (int i = 0; i < 12; i++)
-        {
-            string s = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames[i];
-            string c = char.ToUpper(s[0]) + s.Substring(1);
-
-            int month = DateTime.Now.Month - 1;
-            if (i == month)
-            {
-                <option selected value="@i.ToString()">@c</option>
-            }
-            else
-            {
-                <option value="@i.ToString()">@c</option>
-            }
-        }
-    </select>*@
-
-    <span class="settings_span">Dział:</span>
-    <div style="height: 2px;"></div>
-    <select class="HQTuaisxjrtQHPq" id="SLmdcavhxFjdwWi" onchange="PTPttVhoaMyUOyR(this)">
+    @* <span class="settings_span">Dział:</span>
+    <div style="height: 2px;"></div> *@
+    <select class="HQTuaisxjrtQHPq" id="SLmdcavhxFjdwWi" onchange="PTPttVhoaMyUOyR(this)" style="display: none;">
         @foreach (var item in ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name))
         {
             <option value="@item.Id">@item.Name</option>
@@ -77,17 +125,15 @@
     </select>
 
 
-    <span class="settings_span">Pracownik:</span>
-    <div style="height: 2px;"></div>
-    <select class="HQTuaisxjrtQHPq" id="QcLYVFuvuONgCrh">
-        <!---->
-    </select>
+    @* <span class="settings_span">Pracownik:</span>
+    <div style="height: 2px;"></div> *@
+    <select class="HQTuaisxjrtQHPq" id="QcLYVFuvuONgCrh" style="display: none;"></select>
 
 
-    <div style="height: 8px;"></div>
+    @* <div style="height: 8px;"></div>
     <span class="settings_span" id="settings_span2">Zaznacz dni i zapisz:</span>
-    <div style="height: 2px;"></div>
-    <div class="YwUsdkNGJEgRlqf">
+    <div style="height: 2px;"></div> *@
+    <div class="YwUsdkNGJEgRlqf" style="display: none;">
         <div class="DrKlxZckkrJfUGS">
             <label>godzina od:</label>
             <input id="YYooSdVQmSBFOBy" class="FljccBHSbigulpd" type="time" />
@@ -97,7 +143,7 @@
             <input id="aOWPsQLgDIjpTqI" class="FljccBHSbigulpd" type="time" />
         </div>
     </div>
-    <div id="gPyHcTBhSRhkIHB" class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw">
+    <div id="gPyHcTBhSRhkIHB" class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw" style="display: none;">
         <span>Zapisz</span>
     </div>
 
@@ -124,21 +170,21 @@
         <span>Usuń zaznaczone</span>
     </div>*@
 
-    <div style="height: 8px;"></div>
+    @* <div style="height: 8px;"></div>
     <span class="settings_span" id="settings_span3">Dodatkowe opcje:</span>
-    <div style="height: 2px;"></div>
-    <div class="pyyxmssXgPCWuUc" id="ojfoDQUNdsorzcr">
+    <div style="height: 2px;"></div> *@
+    <div class="pyyxmssXgPCWuUc" id="ojfoDQUNdsorzcr" style="display: none;">
         <span>Usuń wiele pozycji</span>
     </div>
-    <div style="height: 8px;"></div>
-    <label class="pyyxmssXgPCWuUc ABDfbhcrgjZYGbz">
+    @* <div style="height: 8px;"></div> *@
+    <label class="pyyxmssXgPCWuUc ABDfbhcrgjZYGbz" style="display: none;">
         <input type="checkbox" id="MxLHxritEhBvupe" onchange="MxLHxritEhBvupe_()" /> <!--id="MxLHxritEhBvupe" -->
         <span>Pokaż dni wolne od pracy</span>
     </label>
 
 </div>
 
-<div class="user">
+@* <div class="user">
     <a asp-area="Identity" asp-page="/Account/Manage/Index" class="userFirstA">
         <svg viewBox="0 0 512 512" width="48" height="48">
             <path d="M213.333333,3.55271368e-14 C269.912851,3.55271368e-14 324.175019,22.4761259 364.18278,62.4838867 C404.190541,102.491647 426.666667,156.753816 426.666667,213.333333 C426.666667,331.15408 331.15408,426.666667 213.333333,426.666667 C95.5125867,426.666667 2.84217094e-14,331.15408 2.84217094e-14,213.333333 C2.84217094e-14,95.5125867 95.5125867,3.55271368e-14 213.333333,3.55271368e-14 Z M234.666667,234.666667 L192,234.666667 C139.18529,234.666667 93.8415802,266.653822 74.285337,312.314895 C105.229171,355.70638 155.977088,384 213.333333,384 C270.689579,384 321.437496,355.70638 352.381644,312.31198 C332.825087,266.653822 287.481377,234.666667 234.666667,234.666667 L234.666667,234.666667 Z M213.333333,64 C177.987109,64 149.333333,92.653776 149.333333,128 C149.333333,163.346224 177.987109,192 213.333333,192 C248.679557,192 277.333333,163.346224 277.333333,128 C277.333333,92.653776 248.679557,64 213.333333,64 Z"></path>
@@ -146,7 +192,6 @@
     </a>
     <div class="userDiv">
         <a>@User.Identity?.Name?.Split('@')[0]</a>
-        @*<a asp-area="Identity" asp-page="/Account/Manage/Index">Ustawienia konta</a>*@
     </div>
     <form class="logOut" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
         <input type="submit" value="" id="logOutClick" />
@@ -156,7 +201,7 @@
             </svg>
         </button>
     </form>
-</div>
+</div> *@
 
 
 

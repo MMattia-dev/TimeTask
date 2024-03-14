@@ -21,8 +21,45 @@
 </div>
 
 <div class="IdRKPExyAQSewBL" onscroll="DKE3PlNoUnmS(this)">
+    <a class="settings_a" href="@Url.Action("Settings", "Home")">
+        @* <ion-icon name="hammer-outline"></ion-icon> *@
+        @* <ion-icon name="settings-outline"></ion-icon> *@
+        <ion-icon name="build-outline"></ion-icon>
+        <span>Ustawienia</span>
+    </a>
+    <a class="settings_a" href="@Url.Action("Index", "Tasks")" id="gboJArEdzlzejok">
+        <ion-icon name="briefcase-outline"></ion-icon>
+        <span>@Resource.WorkSchedule</span>
+    </a>
+    <a class="settings_a" href="@Url.Action("Leave", "Times")" id="gboJArEdzlzejoka">
+        <ion-icon name="airplane-outline"></ion-icon>
+        <span>@Resource.Vacation</span>
+    </a>
+    <a class="settings_a" href="@Url.Action("Time", "Times")" id="QmuOemShxoUQdcY">
+        <ion-icon name="time-outline"></ion-icon>
+        <span>@Resource.WorkTime</span>
+    </a>
+    <a class="settings_a" href="@Url.Action("Index", "Statistics")" id="fsVHqJkeTuNFHHU">
+        <ion-icon name="analytics-outline"></ion-icon>
+        @* <ion-icon name="bar-chart-outline"></ion-icon> *@
+        <span>Dane</span>
+    </a>
+    <a class="settings_a" href="@Url.Action("Index", "Reports")" id="RllixFQLPxpfYsn">
+        <ion-icon name="file-tray-full-outline"></ion-icon>
+        <span>Raporty</span>
+    </a>
+    <a class="settings_a" href="#" id="">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <span>Przypomienia</span>
+    </a>
+    <a class="settings_a" href="#" id="">
+        <ion-icon name="book-outline"></ion-icon>
+        <span>Notatki</span>
+    </a>
 
-    <a class="settings_a settings_a_ QaanmEfEyWmpiPl" href="@Url.Action("Settings", "Home")" title="Ustawienia">
+
+
+    @* <a class="settings_a settings_a_ QaanmEfEyWmpiPl" href="@Url.Action("Settings", "Home")" title="Ustawienia">
         <svg class="OYtYGBIiZuSYGkl" viewBox="0 0 1920 1920" width="30" height="30"><path d="M1703.534 960c0-41.788-3.84-84.48-11.633-127.172l210.184-182.174-199.454-340.856-265.186 88.433c-66.974-55.567-143.323-99.389-223.85-128.415L1158.932 0h-397.78L706.49 269.704c-81.43 29.138-156.423 72.282-223.962 128.414l-265.073-88.32L18 650.654l210.184 182.174C220.39 875.52 216.55 918.212 216.55 960s3.84 84.48 11.633 127.172L18 1269.346l199.454 340.856 265.186-88.433c66.974 55.567 143.322 99.389 223.85 128.415L761.152 1920h397.779l54.663-269.704c81.318-29.138 156.424-72.282 223.963-128.414l265.073 88.433 199.454-340.856-210.184-182.174c7.793-42.805 11.633-85.497 11.633-127.285m-743.492 395.294c-217.976 0-395.294-177.318-395.294-395.294 0-217.976 177.318-395.294 395.294-395.294 217.977 0 395.294 177.318 395.294 395.294 0 217.976-177.317 395.294-395.294 395.294"></path></svg>
         <span>Ustawienia</span>
     </a>
@@ -60,10 +97,14 @@
             <path d="M-37.4,95.7h28.5v34.1h-28.5V95.7z M2.4,95.7h22.8v5.7H2.4V95.7z M2.4,124.2h22.8v5.7H2.4V124.2z M2.4,109.9h22.8v5.7H2.4V109.9z M-37.4,138.6h62.5v5.7h-62.5V138.6z M-37.4,166.4h62.5v5.7h-62.5V166.4z M-37.4,152.1h62.5v5.7h-62.5V152.1z M-39,66.6v10.9h-12.6v114.2h92.6v-10.9h12.6V66.6H-39z M35.3,186.1H-46V83.1h7h5.7h68.6v91.9v5.7V186.1z M48,175.1h-7V77.4h-74.3v-5.1H48V175.1z"></path>
         </svg>
         <span>Raporty</span>
-    </a>
+    </a> *@
+
 
 
     
+
+    
+
 
     @*<div class="search">
         <a href="@Url.Action("Settings", "Home")">
@@ -196,15 +237,22 @@
 </div>
 
 <div class="user">
-    <a asp-area="Identity" asp-page="/Account/Manage/Index" class="userFirstA">
+
+    <a class="settings_a" asp-area="Identity" asp-page="/Account/Manage/Index">
+        <ion-icon name="person-outline"></ion-icon>
+        <div class="OxavFctgPAvYCMk">
+            <span>@User.Identity?.Name?.Split('@')[0]</span>
+            <span>Ustawienia konta</span>
+        </div>
+    </a>
+
+    @* <a asp-area="Identity" asp-page="/Account/Manage/Index" class="userFirstA">
         <svg viewBox="0 0 512 512" width="48" height="48">
             <path d="M213.333333,3.55271368e-14 C269.912851,3.55271368e-14 324.175019,22.4761259 364.18278,62.4838867 C404.190541,102.491647 426.666667,156.753816 426.666667,213.333333 C426.666667,331.15408 331.15408,426.666667 213.333333,426.666667 C95.5125867,426.666667 2.84217094e-14,331.15408 2.84217094e-14,213.333333 C2.84217094e-14,95.5125867 95.5125867,3.55271368e-14 213.333333,3.55271368e-14 Z M234.666667,234.666667 L192,234.666667 C139.18529,234.666667 93.8415802,266.653822 74.285337,312.314895 C105.229171,355.70638 155.977088,384 213.333333,384 C270.689579,384 321.437496,355.70638 352.381644,312.31198 C332.825087,266.653822 287.481377,234.666667 234.666667,234.666667 L234.666667,234.666667 Z M213.333333,64 C177.987109,64 149.333333,92.653776 149.333333,128 C149.333333,163.346224 177.987109,192 213.333333,192 C248.679557,192 277.333333,163.346224 277.333333,128 C277.333333,92.653776 248.679557,64 213.333333,64 Z"></path>
         </svg>
     </a>
     <div class="userDiv">
         <a>@User.Identity?.Name?.Split('@')[0]</a>
-        @*<a>username</a>*@
-        @*<a asp-area="Identity" asp-page="/Account/Manage/Index">Ustawienia konta</a>*@
     </div>
     <form class="logOut" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
         <input type="submit" value="" id="logOutClick" />
@@ -213,24 +261,24 @@
                 <path d="M7.498 17.1a7.128 7.128 0 0 1-.98-.068 7.455 7.455 0 0 1-1.795-.483 7.26 7.26 0 0 1-3.028-2.332A7.188 7.188 0 0 1 .73 12.52a7.304 7.304 0 0 1 .972-7.128 7.221 7.221 0 0 1 1.387-1.385 1.03 1.03 0 0 1 1.247 1.638 5.176 5.176 0 0 0-.993.989 5.313 5.313 0 0 0-.678 1.181 5.23 5.23 0 0 0-.348 1.292 5.22 5.22 0 0 0 .326 2.653 5.139 5.139 0 0 0 .69 1.212 5.205 5.205 0 0 0 .992.996 5.257 5.257 0 0 0 1.178.677 5.37 5.37 0 0 0 1.297.35 5.075 5.075 0 0 0 1.332.008 5.406 5.406 0 0 0 1.32-.343 5.289 5.289 0 0 0 2.211-1.682 5.18 5.18 0 0 0 1.02-2.465 5.2 5.2 0 0 0 .01-1.336 5.315 5.315 0 0 0-.343-1.318 5.195 5.195 0 0 0-.695-1.222 5.134 5.134 0 0 0-.987-.989 1.03 1.03 0 1 1 1.24-1.643 7.186 7.186 0 0 1 1.384 1.386 7.259 7.259 0 0 1 .97 1.706 7.413 7.413 0 0 1 .473 1.827 7.296 7.296 0 0 1-4.522 7.65 7.476 7.476 0 0 1-1.825.471 7.203 7.203 0 0 1-.89.056zM7.5 9.613a1.03 1.03 0 0 1-1.03-1.029V2.522a1.03 1.03 0 0 1 2.06 0v6.062a1.03 1.03 0 0 1-1.03 1.03z"></path>
             </svg>
         </button>
-    </form>
+    </form> *@
 </div>
 
 <script type="text/javascript">
-    let a = document.querySelector('.IdRKPExyAQSewBL');
-    let b = document.querySelector('.user');
+    // let a = document.querySelector('.IdRKPExyAQSewBL');
+    // let b = document.querySelector('.user');
 
-    a.style.display = 'none';
-    b.style.display = 'none';
+    // a.style.display = 'none';
+    // b.style.display = 'none';
 
-    if(localStorage.getItem('logged') != null){
-        $(a).fadeIn();
-        $(b).fadeIn();
-    }
-    else {
-        a.style.display = '';
-        b.style.display = '';
-    }
+    // if(localStorage.getItem('logged') != null){
+    //     $(a).fadeIn();
+    //     $(b).fadeIn();
+    // }
+    // else {
+    //     a.style.display = '';
+    //     b.style.display = '';
+    // }
 
     $('#gboJArEdzlzejok').on('click', function(e){
         let IdRKPExyAQSewBL = document.querySelector('.IdRKPExyAQSewBL').getElementsByTagName('div');
