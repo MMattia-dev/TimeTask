@@ -874,6 +874,28 @@ ion-icon {
         max-width: 150px;
     }
 
+/*.RIetEFYaDrtaaAk {
+    width: 265px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+}
+
+    .RIetEFYaDrtaaAk div {
+        height: 42px;
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+        .RIetEFYaDrtaaAk div span {
+            font-weight: bold;
+            transform: translateX(53px);
+        }*/
+
 .settings_a_select {
     display: flex;
     /*gap: -15px;*/
@@ -921,7 +943,20 @@ ion-icon {
     align-items: center;
     overflow: hidden;
     cursor: pointer;
+    position: relative;
 }
+
+    .settings_a.ugiECcrnKwaoVsb {
+        height: 42px;
+        justify-content: end;
+        background-color: rgb(42, 46, 60);
+        box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+        .settings_a.ugiECcrnKwaoVsb.QbNQbKEvEMUpWaH {
+            background-color: rgb(63, 69, 90);
+            
+        }
 
     .settings_a.logout {
         cursor: pointer;

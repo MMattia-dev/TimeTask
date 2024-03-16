@@ -4,10 +4,16 @@ function loadOnLoad()
 {
     let date = new Date();
 
-    let uKdvKAhOhYwppOO = document.getElementById('uKdvKAhOhYwppOO');// rok
+    //let uKdvKAhOhYwppOO = document.getElementById('uKdvKAhOhYwppOO');// rok
 
     let JFUPeUjXoygHiiK = document.getElementById('JFUPeUjXoygHiiK');// tydzien
-    let year_ = date.getFullYear();
+    //let tydzien = $('#IQJirPyjNXJylXV').children('.settings_a_select').children('span').eq(1).html();
+    //let year_ = date.getFullYear();
+    let year_ = $('#XwjCSZYUDnjguBb').children('.settings_a_select').children('span').eq(1).html();
+    if (sessionStorage.getItem('LTRXohWjonyFAsg') != null)
+    {
+        year_ = sessionStorage.getItem('LTRXohWjonyFAsg');
+    }
     let month_ = date.getMonth() + 1;
     let day_ = date.getDate();
 
@@ -27,7 +33,7 @@ function loadOnLoad()
                 {
                     for (let i = 1; i <= value; i++)
                     {
-                        JFUPeUjXoygHiiK.innerHTML += `<option value="` + i + `">` + i + ` tydzień</option>`;
+                        //JFUPeUjXoygHiiK.innerHTML += `<option value="` + i + `">` + i + ` tydzień</option>`;
                     }
                 }
                 if (key == 'currentWeek')
@@ -36,13 +42,18 @@ function loadOnLoad()
                     {
                         let hQxHXfkxHkfALTJ = sessionStorage.getItem('hQxHXfkxHkfALTJ');
 
-                        let e = document.getElementById('JFUPeUjXoygHiiK');
-                        e.value = hQxHXfkxHkfALTJ;
+                        //let e = document.getElementById('JFUPeUjXoygHiiK');
+                        //e.value = hQxHXfkxHkfALTJ;
+
+                        $('#IQJirPyjNXJylXV').children('.settings_a_select').children('span').eq(1).html(hQxHXfkxHkfALTJ);
                     }
                     else
                     {
                         let newValue = value + 1;
-                        JFUPeUjXoygHiiK.value = newValue;
+                        //JFUPeUjXoygHiiK.value = newValue;
+
+                        $('#IQJirPyjNXJylXV').children('.settings_a_select').children('span').eq(1).html(newValue);
+                        console.log(newValue);
                     }
                 }
             }
@@ -123,11 +134,21 @@ function drmZhscxvPoxiya()
         LwxRoYhfmyzTlGm[j].getElementsByTagName('input')[1].value = '';
     }
 
-    let uKdvKAhOhYwppOO = document.getElementById('uKdvKAhOhYwppOO');
-    let year_ = uKdvKAhOhYwppOO.options[uKdvKAhOhYwppOO.selectedIndex].value;
+    //let uKdvKAhOhYwppOO = document.getElementById('uKdvKAhOhYwppOO');
+    //let year_ = uKdvKAhOhYwppOO.options[uKdvKAhOhYwppOO.selectedIndex].value;
+    let year_ = $('#XwjCSZYUDnjguBb').children('.settings_a_select').children('span').eq(1).html();
+    if (sessionStorage.getItem('LTRXohWjonyFAsg') != null)
+    {
+        year_ = sessionStorage.getItem('LTRXohWjonyFAsg');
+    }
 
-    let e = document.getElementById('JFUPeUjXoygHiiK');
-    let week_ = e.options[e.selectedIndex].value;
+    //let e = document.getElementById('JFUPeUjXoygHiiK');
+    //let week_ = e.options[e.selectedIndex].value;
+    let week_ = $('#IQJirPyjNXJylXV').children('.settings_a_select').children('span').eq(1).html();
+    if (sessionStorage.getItem('hQxHXfkxHkfALTJ') != null) 
+    {
+        week_ = sessionStorage.getItem('hQxHXfkxHkfALTJ');
+    }
 
     let array = [];
     $.ajax({
@@ -314,8 +335,9 @@ function arKOctcZVJhWuhL()
 
     // get workers hours
     let workerModelArray = [];
-    let chosenYearInput = document.getElementById('uKdvKAhOhYwppOO');
-    let chosenYear = chosenYearInput.options[chosenYearInput.selectedIndex].value;
+    //let chosenYearInput = document.getElementById('uKdvKAhOhYwppOO');
+    //let chosenYear = chosenYearInput.options[chosenYearInput.selectedIndex].value;
+    let chosenYear = $('#XwjCSZYUDnjguBb').children('.settings_a_select').children('span').eq(1).html();
     for (let i = 0; i < workerID_array.length; i++)
     {
         let workerID = workerID_array[i];
@@ -1314,5 +1336,233 @@ function BgMujOvGVhgxcrK()
 
 function FvEKesXHjbxXQEL()
 {
+    drmZhscxvPoxiya();
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function lhkKNaastOkkmMh(t)
+{
+    ////let index = $(t).index() + 1;
+    ////let settings_aS = document.querySelectorAll('.settings_a');
+    ////for (index; index < settings_aS.length; index++) 
+    ////{
+    ////    //$(settings_aS[index]).hide();
+    ////}
+    ////<ion-icon name="chevron-up-outline"></ion-icon>
+    ////<ion-icon name="chevron-down-outline"></ion-icon>
+
+
+    //let settings_a = document.querySelectorAll('.settings_a');
+    //for (let i = 0; i < settings_a.length; i++) 
+    //{
+    //    $(settings_a[i]).children('.settings_a_select').children('ion-icon').attr('name', 'chevron-down-outline');
+    //    $(settings_a[i]).removeClass('pAPTryUdWHeiZZa');
+    //}
+    //let ugiECcrnKwaoVsb = document.querySelectorAll('.ugiECcrnKwaoVsb');
+    //for (let i = 0; i < ugiECcrnKwaoVsb.length; i++) 
+    //{
+    //    $(ugiECcrnKwaoVsb[i]).remove();
+    //}
+
+    $(t).children('.settings_a_select').children('ion-icon').attr('name', 'chevron-up-outline');
+
+
+};
+
+function MkoKdHskxQLfcuP()
+{
+    if (!$('#XwjCSZYUDnjguBb').hasClass('pAPTryUdWHeiZZa')) 
+    {
+        let html = '';
+        let date = new Date();
+        let prevYears = date.getFullYear() - 2;
+        for (prevYears; prevYears <= date.getFullYear(); prevYears++) 
+        {
+            html += `<div onclick="CanjEZFvPetVidb(this)" class="settings_a ugiECcrnKwaoVsb" id="XBkKResfdrgWZva">` +
+                `<div class="settings_a_select">` +
+                `<span></span><span style="opacity: 1; margin-right: 20px;">` + prevYears + `</span>` +
+                `</div>` +
+                `</div>`;
+        }
+        $('#XwjCSZYUDnjguBb').after(html);
+
+
+
+        let XBkKResfdrgWZva = document.querySelectorAll('#XBkKResfdrgWZva');
+        for (let i = 0; i < XBkKResfdrgWZva.length; i++) 
+        {
+            if (sessionStorage.getItem('LTRXohWjonyFAsg') != null)
+            {
+                if ($(XBkKResfdrgWZva[i]).children('.settings_a_select').children('span').eq(1).html() == sessionStorage.getItem('LTRXohWjonyFAsg')) 
+                {
+                    $(XBkKResfdrgWZva[i]).addClass('QbNQbKEvEMUpWaH');
+                }
+            }
+            else 
+            {
+                if ($(XBkKResfdrgWZva[i]).children('.settings_a_select').children('span').eq(1).html() == date.getFullYear()) 
+                {
+                    $(XBkKResfdrgWZva[i]).addClass('QbNQbKEvEMUpWaH');
+                }
+            }
+        }
+
+        $('#XwjCSZYUDnjguBb').addClass('pAPTryUdWHeiZZa');
+    }
+    else 
+    {
+        //$('#XBkKResfdrgWZva').remove();
+        let XBkKResfdrgWZva = document.querySelectorAll('#XBkKResfdrgWZva');
+        for (let i = 0; i < XBkKResfdrgWZva.length; i++) {
+            $(XBkKResfdrgWZva[i]).remove();
+        }
+
+        $('#XwjCSZYUDnjguBb').children('.settings_a_select').children('ion-icon').attr('name', 'chevron-down-outline');
+
+        $('#XwjCSZYUDnjguBb').removeClass('pAPTryUdWHeiZZa');
+    }
+};
+
+function CanjEZFvPetVidb(t) 
+{
+    let year = $(t).children('.settings_a_select').children('span').eq(1).html();
+    $('#XwjCSZYUDnjguBb').children('.settings_a_select').children('span').eq(1).html(year);
+
+    //$('.settings_a').removeClass('QbNQbKEvEMUpWaH');
+    let XBkKResfdrgWZva = document.querySelectorAll('#XBkKResfdrgWZva');
+    for (let i = 0; i < XBkKResfdrgWZva.length; i++) {
+        $(XBkKResfdrgWZva[i]).removeClass('QbNQbKEvEMUpWaH');
+    }
+    $(t).addClass('QbNQbKEvEMUpWaH');
+
+    sessionStorage.setItem('LTRXohWjonyFAsg', $('#XwjCSZYUDnjguBb').children('.settings_a_select').children('span').eq(1).html());
+
+    drmZhscxvPoxiya();
+};
+
+function fssIiZoJOhPhaRO() 
+{
+    if (!$('#IQJirPyjNXJylXV').hasClass('pAPTryUdWHeiZZa'))
+    {
+        let html = '';
+        let date = new Date();
+        let year_ = $('#XwjCSZYUDnjguBb').children('.settings_a_select').children('span').eq(1).html();
+        if (sessionStorage.getItem('LTRXohWjonyFAsg') != null)
+        {
+            year_ = sessionStorage.getItem('LTRXohWjonyFAsg');
+        }
+        let month_ = date.getMonth() + 1;
+        let day_ = date.getDate();
+
+        $.ajax({
+            type: 'GET',
+            url: '/Tasks/WeeksInYear',
+            data: {
+                year: year_,
+                month: month_,
+                day: day_
+            },
+            success: function (response) 
+            {
+                for (const [key, value] of Object.entries(response)) 
+                {
+                    if (key == 'weeks') 
+                    {
+                        for (let i = 1; i <= value; i++)
+                        {
+                            html += `<div onclick="XyLurmdtOTQYvZU(this)" class="settings_a ugiECcrnKwaoVsb" id="ioGUmFurhrTDnbz">` +
+                                `<div class="settings_a_select">` +
+                                `<span></span><span style="opacity: 1; margin-right: 20px;">` + i + ` tydzień</span>` +
+                                `</div>` +
+                                `</div>`;
+                        }
+                        $('#IQJirPyjNXJylXV').after(html);
+
+                    }
+                    if (key == 'currentWeek') 
+                    {
+                        //
+                        let ioGUmFurhrTDnbz = document.querySelectorAll('#ioGUmFurhrTDnbz');
+                        for (let i = 0; i < ioGUmFurhrTDnbz.length; i++) 
+                        {
+                            let span = $(ioGUmFurhrTDnbz[i]).children('.settings_a_select').children('span').eq(1).html().split(' ')[0];
+                            if (span == value + 1) {
+                                $(ioGUmFurhrTDnbz[i]).addClass('QbNQbKEvEMUpWaH');
+                                
+                            }
+                        }
+                    }
+                }
+
+                let ioGUmFurhrTDnbz = document.querySelectorAll('#ioGUmFurhrTDnbz');
+                for (let i = 0; i < ioGUmFurhrTDnbz.length; i++) 
+                {
+                    if (sessionStorage.getItem('hQxHXfkxHkfALTJ') != null)
+                    {
+                        if ($(ioGUmFurhrTDnbz[i]).children('.settings_a_select').children('span').eq(1).html() == sessionStorage.getItem('hQxHXfkxHkfALTJ')) 
+                        {
+                            $(ioGUmFurhrTDnbz[i]).addClass('QbNQbKEvEMUpWaH');
+                        }
+                    }
+                    else 
+                    {
+                        if ($(ioGUmFurhrTDnbz[i]).children('.settings_a_select').children('span').eq(1).html() == date.getFullYear()) 
+                        {
+                            $(ioGUmFurhrTDnbz[i]).addClass('QbNQbKEvEMUpWaH');
+                        }
+                    }
+                }
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error getting data:', error);
+            }
+        });
+
+        $('#IQJirPyjNXJylXV').addClass('pAPTryUdWHeiZZa');
+    }
+    else 
+    {
+        //$('#ioGUmFurhrTDnbz').remove();
+        let ioGUmFurhrTDnbz = document.querySelectorAll('#ioGUmFurhrTDnbz');
+        for (let i = 0; i < ioGUmFurhrTDnbz.length; i++)
+        {
+            $(ioGUmFurhrTDnbz[i]).remove();
+        }
+
+        $('#IQJirPyjNXJylXV').children('.settings_a_select').children('ion-icon').attr('name', 'chevron-down-outline');
+
+        $('#IQJirPyjNXJylXV').removeClass('pAPTryUdWHeiZZa');
+    }
+};
+
+function XyLurmdtOTQYvZU(t) 
+{
+    let week = $(t).children('.settings_a_select').children('span').eq(1).html();
+    $('#IQJirPyjNXJylXV').children('.settings_a_select').children('span').eq(1).html(week);
+
+    let ioGUmFurhrTDnbz = document.querySelectorAll('#ioGUmFurhrTDnbz');
+    for (let i = 0; i < ioGUmFurhrTDnbz.length; i++)
+    {
+        $(ioGUmFurhrTDnbz[i]).removeClass('QbNQbKEvEMUpWaH');
+    }
+    $(t).addClass('QbNQbKEvEMUpWaH');
+
+    sessionStorage.setItem('hQxHXfkxHkfALTJ', $('#IQJirPyjNXJylXV').children('.settings_a_select').children('span').eq(1).html());
+
     drmZhscxvPoxiya();
 };
