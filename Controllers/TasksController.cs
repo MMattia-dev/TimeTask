@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using TimeTask.Models;
 
 namespace TimeTask.Controllers
 {
+    [Authorize]
     public class TasksController : Controller
     {
         private readonly ApplicationDbContext _context;

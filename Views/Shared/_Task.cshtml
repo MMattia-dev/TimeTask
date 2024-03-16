@@ -1,6 +1,10 @@
 ﻿@model IEnumerable<TimeTask.Models.Task>
 @using Newtonsoft.Json
 
+@{
+    var department = ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name).FirstOrDefault();
+}
+
 <div class="loader_div iXYXpnpgGMALUNG">
     <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
 </div>
@@ -20,7 +24,7 @@
             <span>Zapisz zmiany</span>
         </div>
     </a>
-    <a class="settings_a" onclick="lhkKNaastOkkmMh(this); MkoKdHskxQLfcuP()" id="XwjCSZYUDnjguBb">
+    <a class="settings_a" onclick="lhkKNaastOkkmMh(this); MkoKdHskxQLfcuP()" id="MkoKdHskxQLfcuP_">
         <ion-icon name="calendar-outline"></ion-icon>
         <div class="settings_a_select">
             <span>Rok</span>
@@ -28,7 +32,7 @@
             <ion-icon name="chevron-down-outline"></ion-icon>
         </div>
     </a>
-    <a class="settings_a" onclick="lhkKNaastOkkmMh(this); fssIiZoJOhPhaRO()" id="IQJirPyjNXJylXV">
+    <a class="settings_a" onclick="lhkKNaastOkkmMh(this); fssIiZoJOhPhaRO()" id="fssIiZoJOhPhaRO_">
         <ion-icon name="calendar-number-outline"></ion-icon>
         <div class="settings_a_select">
             <span>Tydzień</span>
@@ -36,15 +40,24 @@
             <ion-icon name="chevron-down-outline"></ion-icon>
         </div>
     </a>
-    <a class="settings_a" onclick="lhkKNaastOkkmMh(this)">
+    <a class="settings_a" onclick="lhkKNaastOkkmMh(this); jxcqHOZgFmYHYkI()" id="jxcqHOZgFmYHYkI_" dep="@department?.Id">
         <ion-icon name="briefcase-outline"></ion-icon>
         <div class="settings_a_select">
             <span>Dział</span>
-            <span>Dział IT</span>
+            <span>
+                @if (department?.Name == null)
+                {
+                    @:Brak działów
+                }
+                else
+                {
+                    @department.Name
+                }
+            </span>
             <ion-icon name="chevron-down-outline"></ion-icon>
         </div>
     </a>
-    <a class="settings_a" onclick="lhkKNaastOkkmMh(this)">
+    <a class="settings_a" onclick="lhkKNaastOkkmMh(this); ekzMacYlAMvOgoy()" id="ekzMacYlAMvOgoy_">
         <ion-icon name="file-tray-full-outline"></ion-icon>
         <div class="settings_a_select DttiWwFOUZxPakg">
             <span></span>
@@ -52,13 +65,14 @@
             <ion-icon name="chevron-down-outline"></ion-icon>
         </div>
     </a>
-    <a class="settings_a">
+    <!-- Zadania powinno sie dodawac z poziomu ustawien -->
+    @* <a class="settings_a">
         <ion-icon name="medkit-outline"></ion-icon>
         <div class="settings_a_select">
             <span></span>
             <span>Dodaj nowe zadanie</span>
         </div>
-    </a>
+    </a> *@
     <a class="settings_a" onclick="BgMujOvGVhgxcrK()">
         <ion-icon name="download-outline"></ion-icon>
         <div class="settings_a_select">

@@ -641,7 +641,21 @@ $('.left-nav').mouseenter(function ()
 
     if (sessionStorage.getItem('LTRXohWjonyFAsg') != null) 
     {
-        $('#XwjCSZYUDnjguBb').children('.settings_a_select').children('span').eq(1).html(sessionStorage.getItem('LTRXohWjonyFAsg'));
+        $('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('span').eq(1).html(sessionStorage.getItem('LTRXohWjonyFAsg'));
+    }
+    if (sessionStorage.getItem('hQxHXfkxHkfALTJ') != null) 
+    {
+        $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(sessionStorage.getItem('hQxHXfkxHkfALTJ'));
+    }
+    if (sessionStorage.getItem('JcvzYoovBpGECWh') != null) 
+    {
+        //$('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1).html(sessionStorage.getItem('JcvzYoovBpGECWh'));
+        for (let i = 0; i < model_d.length; i++) {
+            if (model_d[i].Id == sessionStorage.getItem('JcvzYoovBpGECWh')) {
+                let depName = model_d[i].Name;
+                $('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1).html(depName);
+            }
+        }
     }
 
 });
