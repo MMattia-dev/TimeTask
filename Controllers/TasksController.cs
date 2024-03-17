@@ -38,6 +38,15 @@ namespace TimeTask.Controllers
                           Problem("Entity set 'ApplicationDbContext.Task'  is null.");
         }
 
+        public IActionResult Settings()
+        {
+            ViewBag.Departments = _context.Department;
+            ViewBag.TaskNames = _context.TaskName2;
+            ViewBag.Workers = _context.Workers2;
+
+            return View();
+        }
+
         // GET: Tasks/Details/5
         public async Task<IActionResult> Details(int? id)
         {

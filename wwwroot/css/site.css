@@ -1654,6 +1654,11 @@ ion-icon {
         fill: rgba(255, 255, 255, 0.8);
     }
 
+    /*.ECTosDyufuTqvBV.ExxxUbaNOjvdvvf {
+        -webkit-mask: unset;
+        mask: unset;
+    }*/
+
 
 .oZBtnmiLrunDFMC {
     cursor: pointer;
@@ -2066,9 +2071,8 @@ ion-icon {
 }
 
 .YgYDRNgkzyxgztO {
-    height: 35px;
+    /*height: 35px;
     width: 100%;
-    /*background-color: rgba(34, 36, 48, 1);*/
     background-color: rgba(34, 36, 48, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-left: 4px solid rgb(36, 110, 142);
@@ -2080,37 +2084,64 @@ ion-icon {
     align-items: center;
     justify-content: space-between;
     transform: translateX(-5px);
-    border-radius: 3px;
+    border-radius: 3px;*/
+    /**/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 100%;
+    height: 42px;
+    background-color: rgb(42, 46, 60);
+    box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.1);
 }
-
-    .YgYDRNgkzyxgztO span {
-        /*color: rgba(255, 255, 255, 0.8);*/
-        color: rgba(255, 255, 255, 1);
-        font-size: 13px;
-        font-family: Arial;
-    }
 
     .YgYDRNgkzyxgztO svg {
         fill: rgba(255, 255, 255, 0.8);
         cursor: grab;
     }
 
+    .YgYDRNgkzyxgztO div span {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 13px;
+    }
+
+    .YgYDRNgkzyxgztO span {
+        /*color: rgba(255, 255, 255, 0.8);
+        font-size: 13px;
+        font-family: Arial;*/
+    }
+
+    .YgYDRNgkzyxgztO svg {
+        /*fill: rgba(255, 255, 255, 0.8);
+        cursor: grab;*/
+    }
+
     .YgYDRNgkzyxgztO.pTBYGYxynGajyIy {
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        /*border: 1px solid rgba(255, 255, 255, 0.1);
         margin-bottom: 5px;
         z-index: 0;
         justify-content: space-between;
-        /*padding-right: 20px;*/
         padding: 8px;
-        transform: translateX(0px);
-        /*pointer-events: none;*/
+        transform: translateX(0px);*/
     }
 
     .YgYDRNgkzyxgztO.pTBYGYxynGajyIy svg {
-        transform: translateY(-1px) translateX(1px);
+        /*transform: translateY(-1px) translateX(1px);*/
     }
 
+    .YgYDRNgkzyxgztO.LCYJrgwdknhxCtK {
+        /*border: none;
+        border-radius: unset;*/
+    }
+
+.YgYDRNgkzyxgztO_ {
+
+}
+
 .ZslufbFdcfCIeaW {
+    /*height: 35px;*/
     height: 35px;
     width: 100%;
     /*min-width: 260px;*/
@@ -2181,49 +2212,47 @@ ion-icon {
 }
 
 .uESYaZNLlshNOzd {
-    display: inherit;
+    /*display: inherit;
     align-items: center;
-    gap: 8px;
+    gap: 8px;*/
 }
 
     .uESYaZNLlshNOzd a {
-        /*padding: 7px;*/
+        
     }
 
     .uESYaZNLlshNOzd a:hover {
-        /*background-color: rgba(255, 255, 255, 0.1);*/
+        
     }
 
     .uESYaZNLlshNOzd a svg {
-        cursor: pointer;
+        /*cursor: pointer;*/
     }
 
     .uESYaZNLlshNOzd span {
-        margin-right: 5px;
+        /*margin-right: 5px;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        max-width: 160px;
+        max-width: 160px;*/
     }
 
     .uESYaZNLlshNOzd.jqYeXudTAkiaMyC {
-        width: 25%;
+        /*width: 25%;
         height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        /*gap: 10px;*/
-        gap: 2px;
+        gap: 2px;*/
     }
 
     .uESYaZNLlshNOzd.jqYeXudTAkiaMyC a {
-        transform: translateX(0px);
-        /*background-color: dimgrey;*/
+        /*transform: translateX(0px);
         height: 25px;
         width: 25px;
         display: inherit;
         justify-content: center;
-        align-items: center;
+        align-items: center;*/
     }
 
 .grZWUijDhGWKyHd {

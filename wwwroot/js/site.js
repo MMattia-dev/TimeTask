@@ -674,10 +674,9 @@ $('.left-nav').mouseleave(function ()
 
     $('.ugiECcrnKwaoVsb').remove();
     $('.settings_a').removeClass('pAPTryUdWHeiZZa');
+    $('.YgYDRNgkzyxgztO').remove();
 
 });
-
-
 
 
 
