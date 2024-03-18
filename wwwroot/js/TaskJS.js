@@ -498,7 +498,6 @@ function testtt()
         let id_ = EpPTURkmdIzOSnq[i].getAttribute('id2');
         EpPTURkmdIzOSnq[i].addEventListener('mousedown', function ()
         {
-            console.log('asd');
             let user = document.querySelector('.user');
             let YgYDRNgkzyxgztO = document.querySelectorAll('.YgYDRNgkzyxgztO');
 
@@ -513,68 +512,86 @@ function testtt()
                         handle: EpPTURkmdIzOSnq[i],
                         snap: '.AQzCKqmlrQJmxzn',
                         snapMode: 'inner',
-                        appendTo: 'body',
-                        //scroll: false,
-                        helper: 'clone',
-                        start: function (event, ui)
+                        //appendTo: 'body',
+                        //helper: 'clone',
+                        zIndex: 1,
+                        start: function (event, ui) 
                         {
-                            //$(ui.helper).css('width', `${$(event.target).width()}px`);
-                            $(ui.helper).css({ 'width': '260px', 'transform': 'translateX(0px)', 'background-color': 'rgba(34, 36, 48, 1)' });
-                            $($(ui.helper).children('div').find('a')[0]).css('display', 'none');
-                            $($(ui.helper).children('div').find('a')[1]).css('display', 'none');
+                            //$(ui.helper).css({ 'width': '260px', 'transform': 'translateX(0px)', 'background-color': 'rgba(34, 36, 48, 1)' });
+                            //$($(ui.helper).children('div').find('a')[0]).css('display', 'none');
+                            //$($(ui.helper).children('div').find('a')[1]).css('display', 'none');
                             $('.AQzCKqmlrQJmxzn').css({ 'background-color': 'rgba(255, 255, 255, 0.05)' });
                         }
                     });
 
-                    $('.AQzCKqmlrQJmxzn').droppable({
-                        drop: function (event, ui)
-                        {
-                            //$(this).append($(ui.helper).clone());
-                            var item = ui.draggable;
-                            var newItem = item.clone();
-                            newItem.appendTo($(this))
-                                .draggable({
-                                    handle: $(this).not(".ui-resizable-handle"),
-                                    containment: $(".droppable")
-                                });
-                            newItem.resizable({
-                                ghost: false
-                            });
-
-                            $($(newItem).children('div').find('a')).remove();
-                            for (let x = 0; x < 3; x++)
-                            {
-                                $($(newItem).children('div')[1]).remove();
-                            }
-
-                            $(newItem).children('svg').remove();
-                            $(newItem).addClass('pTBYGYxynGajyIy');
-                            $(newItem).css('border-left', '4px solid rgb(36, 110, 142)');
-                            $(newItem).append(`<a onclick="fuhYEhklpyusggn(this)" title="Usuń zadanie"><svg viewBox="0 0 469.404 469.404" height="12" width="12"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>`);
 
 
+                    
+
+                    //EpPTURkmdIzOSnq[i].style.cursor = 'grabbing';
+
+                    //$(YgYDRNgkzyxgztO[j]).draggable({
+                    //    handle: EpPTURkmdIzOSnq[i],
+                    //    snap: '.AQzCKqmlrQJmxzn',
+                    //    snapMode: 'inner',
+                    //    appendTo: 'body',
+                    //    //scroll: false,
+                    //    helper: 'clone',
+                    //    start: function (event, ui)
+                    //    {
+                    //        //$(ui.helper).css('width', `${$(event.target).width()}px`);
+                    //        $(ui.helper).css({ 'width': '260px', 'transform': 'translateX(0px)', 'background-color': 'rgba(34, 36, 48, 1)' });
+                    //        $($(ui.helper).children('div').find('a')[0]).css('display', 'none');
+                    //        $($(ui.helper).children('div').find('a')[1]).css('display', 'none');
+                    //        $('.AQzCKqmlrQJmxzn').css({ 'background-color': 'rgba(255, 255, 255, 0.05)' });
+                    //    }
+                    //});
+
+                    //$('.AQzCKqmlrQJmxzn').droppable({
+                    //    drop: function (event, ui)
+                    //    {
+                    //        //$(this).append($(ui.helper).clone());
+                    //        var item = ui.draggable;
+                    //        var newItem = item.clone();
+                    //        newItem.appendTo($(this))
+                    //            .draggable({
+                    //                handle: $(this).not(".ui-resizable-handle"),
+                    //                containment: $(".droppable")
+                    //            });
+                    //        newItem.resizable({
+                    //            ghost: false
+                    //        });
+
+                    //        $($(newItem).children('div').find('a')).remove();
+                    //        for (let x = 0; x < 3; x++)
+                    //        {
+                    //            $($(newItem).children('div')[1]).remove();
+                    //        }
+
+                    //        $(newItem).children('svg').remove();
+                    //        $(newItem).addClass('pTBYGYxynGajyIy');
+                    //        $(newItem).css('border-left', '4px solid rgb(36, 110, 142)');
+                    //        $(newItem).append(`<a onclick="fuhYEhklpyusggn(this)" title="Usuń zadanie"><svg viewBox="0 0 469.404 469.404" height="12" width="12"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>`);
 
 
-                            //wyłącz zmianę tygodnia
-                            document.getElementById('uKdvKAhOhYwppOO').classList.add('hkyYYlXJPLaqBDt');
-                            document.getElementById('JFUPeUjXoygHiiK').classList.add('hkyYYlXJPLaqBDt');
-                            //
-                            if ($(newItem).parent().parent().children().eq(0).children().eq(0).val() && $(newItem).parent().parent().children().eq(0).children().eq(2).val())
-                            {
 
-                                //włącz 'Zapisz zmiany' button
-                                document.getElementById('PeAfgVTiQsbFhjt').classList.remove('fNPXdDDFqqbVOkt');
-                                //
-                                //window.location.hash = '?';
-                            }
-                        },
-                        drag: function ()
-                        {
-                            var offset = $(this).offset();
-                            var xPos = offset.left;
-                            var yPos = offset.top;
-                        },
-                    });
+                    //        //wyłącz zmianę tygodnia
+                    //        document.getElementById('uKdvKAhOhYwppOO').classList.add('hkyYYlXJPLaqBDt');
+                    //        document.getElementById('JFUPeUjXoygHiiK').classList.add('hkyYYlXJPLaqBDt');
+                            
+                    //        if ($(newItem).parent().parent().children().eq(0).children().eq(0).val() && $(newItem).parent().parent().children().eq(0).children().eq(2).val())
+                    //        {
+                    //            //włącz 'Zapisz zmiany' button
+                    //            document.getElementById('PeAfgVTiQsbFhjt').classList.remove('fNPXdDDFqqbVOkt');
+                    //        }
+                    //    },
+                    //    drag: function ()
+                    //    {
+                    //        var offset = $(this).offset();
+                    //        var xPos = offset.left;
+                    //        var yPos = offset.top;
+                    //    },
+                    //});
                 }
 
 
