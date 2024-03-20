@@ -660,8 +660,11 @@ $('.left-nav').mouseenter(function ()
 
 });
 
-$('.left-nav').mouseleave(function ()
+$('.left-nav').mouseleave(function (e)
 {
+    //this.onmousedown = function () {
+    //    e.preventDefault();
+    //}
     $('.left-nav').removeAttr('style');
     $('.settings_a span').removeAttr('style');
     $('.settings_a').removeAttr('style');
@@ -674,7 +677,9 @@ $('.left-nav').mouseleave(function ()
 
     $('.ugiECcrnKwaoVsb').remove();
     $('.settings_a').removeClass('pAPTryUdWHeiZZa');
-    $('.YgYDRNgkzyxgztO').remove();
+    //$('.YgYDRNgkzyxgztO:not(.pTBYGYxynGajyIy)').remove();
+    //$('.YgYDRNgkzyxgztO').remove();
+    $('.YgYDRNgkzyxgztO:not(.temp)').remove();
 
 });
 
