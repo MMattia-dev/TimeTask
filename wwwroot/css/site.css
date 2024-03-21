@@ -2195,7 +2195,7 @@ ion-icon {
     background-color: rgb(42, 46, 60);
     box-shadow: none;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-left: 4px solid rgb(36, 110, 142);
+    /*border-left: 4px solid rgb(36, 110, 142);*/
     margin-bottom: 5px;
     z-index: 0;
     /*justify-content: space-between;*/

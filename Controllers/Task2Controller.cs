@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,29 +13,26 @@ using TimeTask.Models;
 namespace TimeTask.Controllers
 {
     [Authorize]
-    public class TasksController : Controller
+    public class Task2Controller : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public TasksController(ApplicationDbContext context)
+        public Task2Controller(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Tasks
+        // GET: Task2
         public async Task<IActionResult> Index()
         {
             ViewBag.Departments = _context.Department;
             ViewBag.TaskNames = _context.TaskName2;
             ViewBag.Workers = _context.Workers2;
             ViewBag.Holiday = _context.Holiday;
-            ViewBag.Model1 = _context.Task2;
-            
-            //ViewBag.WeeksInYear = GetWeeksInYear(DateTime.Now.Year);
 
             return _context.Task2 != null ? 
                           View(await _context.Task2.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Task'  is null.");
+                          Problem("Entity set 'ApplicationDbContext.Task2'  is null.");
         }
 
         public IActionResult Settings()
@@ -48,70 +44,70 @@ namespace TimeTask.Controllers
             return View();
         }
 
-        // GET: Tasks/Details/5
+        // GET: Task2/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Task == null)
+            if (id == null || _context.Task2 == null)
             {
                 return NotFound();
             }
 
-            var task = await _context.Task
+            var task2 = await _context.Task2
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (task == null)
+            if (task2 == null)
             {
                 return NotFound();
             }
 
-            return View(task);
+            return View(task2);
         }
 
-        // GET: Tasks/Create
+        // GET: Task2/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Tasks/Create
+        // POST: Task2/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,WorkerID,TaskNameID,Date,JobStart,JobEnd")] Models.Task task)
+        public async Task<IActionResult> Create([Bind("Id,WorkerID,TaskNameID,Date,JobStart,JobEnd")] Task2 task2)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(task);
+                _context.Add(task2);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(task);
+            return View(task2);
         }
 
-        // GET: Tasks/Edit/5
+        // GET: Task2/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Task == null)
+            if (id == null || _context.Task2 == null)
             {
                 return NotFound();
             }
 
-            var task = await _context.Task.FindAsync(id);
-            if (task == null)
+            var task2 = await _context.Task2.FindAsync(id);
+            if (task2 == null)
             {
                 return NotFound();
             }
-            return View(task);
+            return View(task2);
         }
 
-        // POST: Tasks/Edit/5
+        // POST: Task2/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,WorkerID,TaskNameID,Date,JobStart,JobEnd")] Models.Task task)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,WorkerID,TaskNameID,Date,JobStart,JobEnd")] Task2 task2)
         {
-            if (id != task.Id)
+            if (id != task2.Id)
             {
                 return NotFound();
             }
@@ -120,12 +116,12 @@ namespace TimeTask.Controllers
             {
                 try
                 {
-                    _context.Update(task);
+                    _context.Update(task2);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TaskExists(task.Id))
+                    if (!Task2Exists(task2.Id))
                     {
                         return NotFound();
                     }
@@ -136,49 +132,49 @@ namespace TimeTask.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(task);
+            return View(task2);
         }
 
-        // GET: Tasks/Delete/5
+        // GET: Task2/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Task == null)
+            if (id == null || _context.Task2 == null)
             {
                 return NotFound();
             }
 
-            var task = await _context.Task
+            var task2 = await _context.Task2
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (task == null)
+            if (task2 == null)
             {
                 return NotFound();
             }
 
-            return View(task);
+            return View(task2);
         }
 
-        // POST: Tasks/Delete/5
+        // POST: Task2/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Task == null)
+            if (_context.Task2 == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Task'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Task2'  is null.");
             }
-            var task = await _context.Task.FindAsync(id);
-            if (task != null)
+            var task2 = await _context.Task2.FindAsync(id);
+            if (task2 != null)
             {
-                _context.Task.Remove(task);
+                _context.Task2.Remove(task2);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TaskExists(int id)
+        private bool Task2Exists(int id)
         {
-          return (_context.Task?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Task2?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
         public int GetWeeksInYear(int year)
@@ -246,7 +242,7 @@ namespace TimeTask.Controllers
             var result_ = new List<string>();
             foreach (var day in result)
             {
-                foreach(var holiday in _context.Holiday)
+                foreach (var holiday in _context.Holiday)
                 {
                     if (day.ToShortDateString() == holiday.Date.ToShortDateString())
                     {
@@ -260,14 +256,15 @@ namespace TimeTask.Controllers
             //return Json(result);
             return Json(new
             {
-                result, result_
+                result,
+                result_
             });
         }
 
         [HttpPost]
-        public ActionResult AddTasks(int workerID, int taskNameID, DateTime date, DateTime jobStart, DateTime jobEnd)
+        public ActionResult AddTasks(int workerID, int? taskNameID, DateTime? date, DateTime? jobStart, DateTime? jobEnd)
         {
-            var newData = new Models.Task2()
+            var newData = new Task2()
             {
                 WorkerID = workerID,
                 TaskNameID = taskNameID,
@@ -312,16 +309,6 @@ namespace TimeTask.Controllers
 
             return Json(new { success = false });
         }
-
-
-
-
-
-        //[HttpPost]
-        //public ActionResult GetNewTaskID()
-        //{
-
-        //}
 
 
 
