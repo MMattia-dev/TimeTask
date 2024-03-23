@@ -1,4 +1,34 @@
-﻿
+﻿$(document).ready(function ()
+{
+    //var uri = window.location.toString();
+    //if (uri.indexOf("#") > 0)
+    //{
+    //    var clean_uri = uri.substring(0,
+    //        uri.indexOf("#"));
+
+    //    window.history.replaceState({},
+    //        document.title, clean_uri);
+
+    //    sessionStorage.removeItem('url');
+    //}
+    //else{
+    //    sessionStorage.setItem('url' , uri);
+    //}
+
+
+    setTimeout(function ()
+    {
+        let koblSjvDsfoQbAD = document.querySelector('.koblSjvDsfoQbAD');
+        $(koblSjvDsfoQbAD).css({ 'opacity': '1' });
+        let grZWUijDhGWKyHd = document.querySelector('.grZWUijDhGWKyHd');
+        $(grZWUijDhGWKyHd).css({ 'opacity': '1' });
+        let loader_div = document.querySelector('.loader_div');
+        $(loader_div).fadeOut('fast');
+    }, 500);
+
+
+});
+
 function loadOnLoad()
 {
     let date = new Date();
@@ -310,10 +340,10 @@ function drmZhscxvPoxiya()
                     let model_start = new Date(model_t[i].JobStart);
                     let model_end = new Date(model_t[i].JobEnd);
 
-                    console.log(model_t[i].JobStart);
-
-                    jobStart.value = padTo2Digits(model_start.getHours()) + ':' + padTo2Digits(model_start.getMinutes());
-                    jobEnd.value = padTo2Digits(model_end.getHours()) + ':' + padTo2Digits(model_end.getMinutes());
+                    if (model_t[i].JobStart != null && model_t[i].JobEnd != null) {
+                        jobStart.value = padTo2Digits(model_start.getHours()) + ':' + padTo2Digits(model_start.getMinutes());
+                        jobEnd.value = padTo2Digits(model_end.getHours()) + ':' + padTo2Digits(model_end.getMinutes());
+                    }              
                 }
             }
         }
@@ -385,10 +415,14 @@ function arKOctcZVJhWuhL()
             {
                 let date1 = new Date(model_t[j].JobStart);
                 let date2 = new Date(model_t[j].JobEnd);
-                let hours1 = padTo2Digits(date1.getHours()) + ':' + padTo2Digits(date1.getMinutes());
-                let hours2 = padTo2Digits(date2.getHours()) + ':' + padTo2Digits(date2.getMinutes());
 
-                workerModelArray.push(hours1 + ' - ' + hours2);
+                let hours1 = null;
+                let hours2 = null;
+                if (model_t[j].JobStart != null && model_t[j].JobEnd != null) {
+                    hours1 = padTo2Digits(date1.getHours()) + ':' + padTo2Digits(date1.getMinutes());
+                    hours2 = padTo2Digits(date2.getHours()) + ':' + padTo2Digits(date2.getMinutes());
+                    workerModelArray.push(hours1 + ' - ' + hours2);
+                }
             }
         }
     }
@@ -962,6 +996,7 @@ function mhzWFFdkOFYMLsP(t)
         success: function (response)
         {
             $(t).parent().remove();
+            location.reload();
         },
         error: function (xhr, status, error)
         {
@@ -1148,213 +1183,10 @@ function szWBomtrGKAViBb(t, e)
     }
 };
 
-function HSuokUFEKzccQCK(t)
-{
-    let value1 = t.value;
-    let value2 = $(t).parent().children().eq(2).val();
-
-    if (value2 != '')
-    {
-        if ($(t).parent().parent().children().eq(1).children(':visible').length > 0) //
-        {
-
-            //wyłącz zmianę tygodnia
-            document.getElementById('uKdvKAhOhYwppOO').classList.add('hkyYYlXJPLaqBDt');
-            document.getElementById('JFUPeUjXoygHiiK').classList.add('hkyYYlXJPLaqBDt');
-            //
-
-            //włącz 'Zapisz zmiany' button
-            document.getElementById('PeAfgVTiQsbFhjt').classList.remove('fNPXdDDFqqbVOkt');
-            //
-            //window.location.hash = '?';
-        }
-    }
-
-};
-
-function UrLQumgARjxLfGF(t)
-{
-    let value1 = $(t).parent().children().eq(0).val(); //input1
-    let value2 = t.value; //input2
-
-    if (value1 != '')
-    {
-        if ($(t).parent().parent().children().eq(1).children(':visible').length > 0) //
-        {
-
-
-            //wyłącz zmianę tygodnia
-            document.getElementById('uKdvKAhOhYwppOO').classList.add('hkyYYlXJPLaqBDt');
-            document.getElementById('JFUPeUjXoygHiiK').classList.add('hkyYYlXJPLaqBDt');
-            //
-
-            //włącz 'Zapisz zmiany' button
-            document.getElementById('PeAfgVTiQsbFhjt').classList.remove('fNPXdDDFqqbVOkt');
-            //
-            //window.location.hash = '?';
-        }
-    }
 
 
 
 
-    let arrayEdit = [];
-    let div = null;
-    let loader = null;
-
-    if (value2 != '') 
-    {
-        if (value1)
-        {
-            //console.log('OK');
-            if ($(t).parent().parent().children().eq(1).children().length > 0)
-            {
-
-                let lzfFwBKdGEtuYUv = $(t).parent().parent().parent().children(':even').not(':first'); //lzfFwBKdGEtuYUv - loading div
-                let date_ = $(t).parent().attr('date'); //LwxRoYhfmyzTlGm - date
-
-
-                let abc = $(t).parent().parent().children().eq(1).children();
-                for (let c = 0; c < abc.length; c++)
-                {
-                    if ($(abc[c]).hasClass('ZslufbFdcfCIeaW'))//dla tych co juz istnieją w bazie i potrzebna jest aktualizacja
-                    {
-                        for (let i = 0; i < lzfFwBKdGEtuYUv.length; i++)
-                        {
-                            if (date_ == $(lzfFwBKdGEtuYUv[i]).attr('date'))
-                            {
-                                div = $(t).parent().parent();
-                                loader = $(lzfFwBKdGEtuYUv[i]);
-
-                                //MAQLaRkPpbPPjIH();
-                                //dpxpJkwLFcKTpet();
-
-                                setTimeout(function ()
-                                {
-                                    let wghrtajuyftswfc = $(abc[c]).children().eq(1).attr('wghrtajuyftswfc'); //id
-                                    let jS = date_ + ' ' + value1; //jobStart
-                                    let jE = date_ + ' ' + value2; //jobEnd
-
-                                    arrayEdit.push({ id_: wghrtajuyftswfc, jobStart_: jS, jobEnd: jE });
-                                }, 1500);
-
-
-                            }
-                        }
-                    }
-                    else //nowe wpisy
-                    {
-                        for (let i = 0; i < lzfFwBKdGEtuYUv.length; i++)
-                        {
-                            if (date_ == $(lzfFwBKdGEtuYUv[i]).attr('date'))
-                            {
-                                //$.ajax({
-                                //    type: 'POST',
-                                //    url: '/Tasks/AddTasks',
-                                //    data: {
-                                //        workerID: workerID_,
-                                //        taskNameID: taskNameID_,
-                                //        date: date_,
-                                //        jobStart: dateJobStart,
-                                //        jobEnd: dateJobEnd
-                                //    },
-                                //    success: function (response)
-                                //    {
-
-                                //    },
-                                //    error: function (xhr, status, error)
-                                //    {
-                                //        console.log('Error adding data:', error);
-                                //    }
-                                //});
-
-
-
-
-
-
-
-                            }
-                        }
-                    }
-                }
-
-
-
-            }
-        }
-    }
-
-
-    if (arrayEdit != null)
-    {
-        setTimeout(function ()
-        {
-            //$(div).hide();
-            //$(loader).show();
-
-            //console.log(arrayEdit);
-
-            for (let i = 0; i < arrayEdit.length; i++)
-            {
-
-
-                //$.ajax({
-                //    type: 'POST',
-                //    url: '/Tasks/EditTask',
-                //    data: {
-                //        id: arrayEdit[i].id_,
-                //        jobStart: arrayEdit[i].jobStart_,
-                //        jobEnd: arrayEdit[i].jobEnd_
-                //    },
-                //    success: function (response)
-                //    {
-                //        $(div).show();
-                //        $(loader).hide();
-                //    },
-                //    error: function (xhr, status, error)
-                //    {
-                //        //console.log('Error updating data:', error);
-                //        alert('Error updating data:', error);
-                //    }
-                //});
-            }
-        }, 2000);
-    }
-
-};
-
-
-$(document).ready(function ()
-{
-    //var uri = window.location.toString();
-    //if (uri.indexOf("#") > 0)
-    //{
-    //    var clean_uri = uri.substring(0,
-    //        uri.indexOf("#"));
-
-    //    window.history.replaceState({},
-    //        document.title, clean_uri);
-
-    //    sessionStorage.removeItem('url');
-    //}
-    //else{
-    //    sessionStorage.setItem('url' , uri);
-    //}
-
-
-    setTimeout(function ()
-    {
-        let koblSjvDsfoQbAD = document.querySelector('.koblSjvDsfoQbAD');
-        $(koblSjvDsfoQbAD).css({ 'opacity': '1' });
-        let grZWUijDhGWKyHd = document.querySelector('.grZWUijDhGWKyHd');
-        $(grZWUijDhGWKyHd).css({ 'opacity': '1' });
-        let loader_div = document.querySelector('.loader_div');
-        $(loader_div).fadeOut('fast');
-    }, 500);
-
-
-});
 
 //window.addEventListener('popstate', funkcja);
 
@@ -1817,12 +1649,12 @@ function uXPtoAMyTPOkWCV(t)
             $('.left-nav').removeClass('HFhDvVpHKOUBBMS');
 
 
-
-            let workerID = $(newItem).parent().parent().parent('.wcHMgjWjXaRMPKy').attr('worker');
-            let taskNameID = $(newItem).attr('id2');
-            let date = $(newItem).parent().parent('.SBVWNWOJZnTplXL').attr('date');
-            let jobStart = $(newItem).parent().parent('.SBVWNWOJZnTplXL').children('.LwxRoYhfmyzTlGm').children('input').eq(0).val();
-            let jobEnd = $(newItem).parent().parent('.SBVWNWOJZnTplXL').children('.LwxRoYhfmyzTlGm').children('input').eq(1).val();
+            //
+            let workerID = $(newItem).parent().parent().parent('.wcHMgjWjXaRMPKy').attr('worker'); //nie może być równe null
+            let taskNameID = $(newItem).attr('id2'); //nie będzie równe null
+            let date = $(newItem).parent().parent('.SBVWNWOJZnTplXL').attr('date'); //nigdy nie będzie równe null
+            let jobStart = $(newItem).parent().parent('.SBVWNWOJZnTplXL').children('.LwxRoYhfmyzTlGm').children('input').eq(0).val(); //może być równe null
+            let jobEnd = $(newItem).parent().parent('.SBVWNWOJZnTplXL').children('.LwxRoYhfmyzTlGm').children('input').eq(1).val(); //może być równe null
             saveAfterDrop(newItem, workerID, taskNameID, date, jobStart, jobEnd);
         },
         drag: function ()
@@ -1845,33 +1677,535 @@ function vhKnmbRGiUsyfyh(t)
 
 function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd) 
 {
-    //loader
+    //trzeba sprawdzić czy istnieje wiersz który zawiera TaskNameID=null, tzn. taki w którym już jest zapisana tylko godzina wejścia i wyjścia. Powinien być tylko jeden taki wiersz w bazie (dla konkretnej daty).
+    let checkBool = false;
+    for (let i = 0; i < model_t.length; i++) 
+    {
+        if (model_t[i].WorkerID == workerID && new Date(model_t[i].Date).toLocaleDateString() == new Date(date).toLocaleDateString()) 
+        {
+            if (jobStart == '' && jobEnd == '') 
+            {
+                if (model_t[i].TaskNameID != null)
+                {
+                    checkBool = true;
+
+                    $(element).append(createSmallLoader2());
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Tasks/AddTasks',
+                        data: {
+                            workerID: workerID,
+                            taskNameID: taskNameID,
+                            date: date,
+                            jobStart: null,
+                            jobEnd: null
+                        },
+                        success: function (response)
+                        {
+                            location.reload();
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding data:', error);
+                        }
+                    });
+                }
+                if (model_t[i].TaskNameID == null)
+                {
+                    //nic do zrobienia
+                    //checkBool = false;
+                }
+            }
+            else 
+            {
+                if (model_t[i].TaskNameID != null)
+                {
+                    checkBool = true;
+
+                    $(element).append(createSmallLoader2());
+                    let dateJobStart = date + ' ' + jobStart;
+                    let dateJobEnd = date + ' ' + jobEnd;
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Tasks/AddTasks',
+                        data: {
+                            workerID: workerID,
+                            taskNameID: taskNameID,
+                            date: date,
+                            jobStart: dateJobStart,
+                            jobEnd: dateJobEnd
+                        },
+                        success: function (response)
+                        {
+                            location.reload();
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding data:', error);
+                        }
+                    });
+                }
+                if (model_t[i].TaskNameID == null)
+                {
+                    //trzeba sprawdzić czy istnieje wiersz który zawiera TaskNameID=null, tzn. taki w którym już jest zapisana tylko godzina wejścia i wyjścia. Powinien być tylko jeden taki wiersz w bazie (dla konkretnej daty).
+                    checkBool = true;
+
+                    $(element).append(createSmallLoader2());
+                    let dateJobStart = date + ' ' + jobStart;
+                    let dateJobEnd = date + ' ' + jobEnd;
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Tasks/EditTask',
+                        data: {
+                            id: model_t[i].Id,
+                            taskNameID: taskNameID,
+                            jobStart: dateJobStart,
+                            jobEnd: dateJobEnd
+                        },
+                        success: function (response)
+                        {
+                            location.reload();
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error adding data:', error);
+                        }
+                    });
+                }
+            }          
+        }
+    }
+
+    if (!checkBool) 
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/Tasks/AddTasks',
+            data: {
+                workerID: workerID,
+                taskNameID: taskNameID,
+                date: date,
+                jobStart: null,
+                jobEnd: null
+            },
+            success: function (response)
+            {
+                location.reload();
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error adding data:', error);
+            }
+        });
+    }
+};
+
+function wgddAsHIsXNWQkl(t) 
+{
+    let workerID = $(t).parent().parent().parent('.wcHMgjWjXaRMPKy').attr('worker');
+    let jobStart = t.value;
+    let jobEnd = $(t).parent().children('input').eq(1).val();
+    let date = $(t).parent().attr('date');
+
+    if (jobStart.length > 0 && jobEnd.length > 0) 
+    {
+        let dateJobStart = date + ' ' + jobStart;
+        let dateJobEnd = date + ' ' + jobEnd;
+
+        let array = [];//jezeli pusta to nie ma nic wpisane w bazie
+
+        //sprawdz czy jest coś do zedytowania
+        for (let i = 0; i < model_t.length; i++) 
+        {
+            if (model_t[i].WorkerID == workerID && new Date(model_t[i].Date).toLocaleDateString() == new Date(date).toLocaleDateString()) //=id
+            {
+                if (model_t[i].JobStart != null && model_t[i].JobEnd != null) 
+                {
+                    //jezeli sa godziny wpisane i taskId
+                    if (model_t[i].TaskNameID != null) 
+                    {
+                        array.push({ id: model_t[i].Id, taskId: model_t[i].TaskNameID, start: dateJobStart, end: dateJobEnd });
+                    }
+                    //jezeli sa godziny wpisane ale nie ma taskId
+                    if (model_t[i].TaskNameID == null) 
+                    {
+                        array.push({ id: model_t[i].Id, taskId: null, start: dateJobStart, end: dateJobEnd });
+                    }
+                }
+                if (model_t[i].JobStart == null && model_t[i].JobEnd == null) 
+                {
+                    //jezeli nie ma godzin ale jest wpisany taskId
+                    if (model_t[i].TaskNameID != null) 
+                    {
+                        array.push({ id: model_t[i].Id, taskId: model_t[i].TaskNameID, start: dateJobStart, end: dateJobEnd });
+                    }
+                    //jezeli nie ma niczego wpisanego
+                    if (model_t[i].TaskNameID == null) 
+                    {
+                        //nic do zrobienia
+                    }
+                }
+            }
+        }
+
+        if (array.length > 0)
+        {
+            //edytuj
+            //sprawdz czy godziny istnieja juz bazie
+            for (let i = 0; i < model_t.length; i++) 
+            {
+                for (let j = 0; j < array.length; j++) 
+                {
+                    if (model_t[i].Id == array[j].id) 
+                    {
+                        if (new Date(model_t[i].JobStart).toLocaleTimeString() != new Date(array[j].start).toLocaleTimeString() || new Date(model_t[i].JobEnd).toLocaleTimeString() != new Date(array[j].end).toLocaleTimeString()) 
+                        {
+                            $(t).parent().append(createSmallLoader());
+                            $.ajax({
+                                type: 'POST',
+                                url: '/Tasks/EditTask',
+                                data: {
+                                    id: array[j].id,
+                                    taskNameID: array[j].taskId,
+                                    jobStart: array[j].start,
+                                    jobEnd: array[j].end
+                                },
+                                success: function (response)
+                                {
+                                    location.reload();
+                                },
+                                error: function (xhr, status, error)
+                                {
+                                    console.log('Error adding data:', error);
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        }
+        else 
+        {
+            //dodaj do bazy
+            $(t).parent().append(createSmallLoader());
+            $.ajax({
+                type: 'POST',
+                url: '/Tasks/AddTasks',
+                data: {
+                    workerID: workerID,
+                    taskNameID: null,
+                    date: date,
+                    jobStart: dateJobStart,
+                    jobEnd: dateJobEnd
+                },
+                success: function (response)
+                {
+                    location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding data:', error);
+                }
+            });
+        }
+    }
+};
+
+function YNXxUwIhBTDduDG(t)
+{
+    let workerID = $(t).parent().parent().parent('.wcHMgjWjXaRMPKy').attr('worker');
+    let jobStart = $(t).parent().children('input').eq(0).val();
+    let jobEnd = t.value;
+    let date = $(t).parent().attr('date');
+
+    if (jobStart.length > 0 && jobEnd.length > 0) 
+    {
+        let dateJobStart = date + ' ' + jobStart;
+        let dateJobEnd = date + ' ' + jobEnd;
+
+        let array = [];//jezeli pusta to nie ma nic wpisane w bazie
+
+        //sprawdz czy jest coś do zedytowania
+        for (let i = 0; i < model_t.length; i++) 
+        {
+            if (model_t[i].WorkerID == workerID && new Date(model_t[i].Date).toLocaleDateString() == new Date(date).toLocaleDateString()) //=id
+            {
+                if (model_t[i].JobStart != null && model_t[i].JobEnd != null) 
+                {
+                    //jezeli sa godziny wpisane i taskId
+                    if (model_t[i].TaskNameID != null) 
+                    {
+                        array.push({ id: model_t[i].Id, taskId: model_t[i].TaskNameID, start: dateJobStart, end: dateJobEnd });
+                    }
+                    //jezeli sa godziny wpisane ale nie ma taskId
+                    if (model_t[i].TaskNameID == null) 
+                    {
+                        array.push({ id: model_t[i].Id, taskId: null, start: dateJobStart, end: dateJobEnd });
+                    }
+                }
+                if (model_t[i].JobStart == null && model_t[i].JobEnd == null) 
+                {
+                    //jezeli nie ma godzin ale jest wpisany taskId
+                    if (model_t[i].TaskNameID != null) 
+                    {
+                        array.push({ id: model_t[i].Id, taskId: model_t[i].TaskNameID, start: dateJobStart, end: dateJobEnd });
+                    }
+                    //jezeli nie ma niczego wpisanego
+                    if (model_t[i].TaskNameID == null) 
+                    {
+                        //nic do zrobienia
+                    }
+                }
+            }
+        }
+
+        if (array.length > 0)
+        {
+            //edytuj
+            //sprawdz czy godziny istnieja juz bazie
+            for (let i = 0; i < model_t.length; i++) 
+            {
+                for (let j = 0; j < array.length; j++) 
+                {
+                    if (model_t[i].Id == array[j].id) 
+                    {
+                        if (new Date(model_t[i].JobStart).toLocaleTimeString() != new Date(array[j].start).toLocaleTimeString() || new Date(model_t[i].JobEnd).toLocaleTimeString() != new Date(array[j].end).toLocaleTimeString()) 
+                        {
+                            $(t).parent().append(createSmallLoader());
+                            $.ajax({
+                                type: 'POST',
+                                url: '/Tasks/EditTask',
+                                data: {
+                                    id: array[j].id,
+                                    taskNameID: array[j].taskId,
+                                    jobStart: array[j].start,
+                                    jobEnd: array[j].end
+                                },
+                                success: function (response)
+                                {
+                                    location.reload();
+                                },
+                                error: function (xhr, status, error)
+                                {
+                                    console.log('Error adding data:', error);
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        }
+        else 
+        {
+            //dodaj do bazy
+            $(t).parent().append(createSmallLoader());
+            $.ajax({
+                type: 'POST',
+                url: '/Tasks/AddTasks',
+                data: {
+                    workerID: workerID,
+                    taskNameID: null,
+                    date: date,
+                    jobStart: dateJobStart,
+                    jobEnd: dateJobEnd
+                },
+                success: function (response)
+                {
+                    location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error adding data:', error);
+                }
+            });
+        }
+    }
+};
+
+function createSmallLoader() 
+{
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.style.cssText = 'position: absolute; top: 7px; right: 7px;';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    
+    return lds;
+};
+
+function createSmallLoader2() 
+{
     var lds = document.createElement('div');
     lds.className = 'lds-ring-small';
     lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
-    $(element).append(lds);
-    //
+    
+    return lds;
+};
 
-    $.ajax({
-        type: 'POST',
-        url: '/Tasks/AddTasks',
-        data: {
-            workerID: workerID,
-            taskNameID: taskNameID,
-            date: date,
-            jobStart: jobStart,
-            jobEnd: jobEnd
-        },
-        success: function (response)
-        {
-            location.reload();
-        },
-        error: function (xhr, status, error)
-        {
-            console.log('Error adding data:', error);
-        }
-    });
+function HSuokUFEKzccQCK(t)
+{
+    //if (value2 != '')
+    //{
+    //    if ($(t).parent().parent().children().eq(1).children(':visible').length > 0) //
+    //    {
+
+    //        //wyłącz zmianę tygodnia
+    //        document.getElementById('uKdvKAhOhYwppOO').classList.add('hkyYYlXJPLaqBDt');
+    //        document.getElementById('JFUPeUjXoygHiiK').classList.add('hkyYYlXJPLaqBDt');
+    //        //
+
+    //        //włącz 'Zapisz zmiany' button
+    //        document.getElementById('PeAfgVTiQsbFhjt').classList.remove('fNPXdDDFqqbVOkt');
+    //        //
+    //        //window.location.hash = '?';
+    //    }
+    //}
+};
+
+function UrLQumgARjxLfGF(t)
+{
+    //if (value1 != '')
+    //{
+    //    if ($(t).parent().parent().children().eq(1).children(':visible').length > 0) //
+    //    {
 
 
+    //        //wyłącz zmianę tygodnia
+    //        document.getElementById('uKdvKAhOhYwppOO').classList.add('hkyYYlXJPLaqBDt');
+    //        document.getElementById('JFUPeUjXoygHiiK').classList.add('hkyYYlXJPLaqBDt');
+    //        //
+
+    //        //włącz 'Zapisz zmiany' button
+    //        document.getElementById('PeAfgVTiQsbFhjt').classList.remove('fNPXdDDFqqbVOkt');
+    //        //
+    //        //window.location.hash = '?';
+    //    }
+    //}
+
+
+
+
+    //let arrayEdit = [];
+    //let div = null;
+    //let loader = null;
+
+    //if (value2 != '') 
+    //{
+    //    if (value1)
+    //    {
+    //        //console.log('OK');
+    //        if ($(t).parent().parent().children().eq(1).children().length > 0)
+    //        {
+
+    //            let lzfFwBKdGEtuYUv = $(t).parent().parent().parent().children(':even').not(':first'); //lzfFwBKdGEtuYUv - loading div
+    //            let date_ = $(t).parent().attr('date'); //LwxRoYhfmyzTlGm - date
+
+
+    //            let abc = $(t).parent().parent().children().eq(1).children();
+    //            for (let c = 0; c < abc.length; c++)
+    //            {
+    //                if ($(abc[c]).hasClass('ZslufbFdcfCIeaW'))//dla tych co juz istnieją w bazie i potrzebna jest aktualizacja
+    //                {
+    //                    for (let i = 0; i < lzfFwBKdGEtuYUv.length; i++)
+    //                    {
+    //                        if (date_ == $(lzfFwBKdGEtuYUv[i]).attr('date'))
+    //                        {
+    //                            div = $(t).parent().parent();
+    //                            loader = $(lzfFwBKdGEtuYUv[i]);
+
+    //                            //MAQLaRkPpbPPjIH();
+    //                            //dpxpJkwLFcKTpet();
+
+    //                            setTimeout(function ()
+    //                            {
+    //                                let wghrtajuyftswfc = $(abc[c]).children().eq(1).attr('wghrtajuyftswfc'); //id
+    //                                let jS = date_ + ' ' + value1; //jobStart
+    //                                let jE = date_ + ' ' + value2; //jobEnd
+
+    //                                arrayEdit.push({ id_: wghrtajuyftswfc, jobStart_: jS, jobEnd: jE });
+    //                            }, 1500);
+
+
+    //                        }
+    //                    }
+    //                }
+    //                else //nowe wpisy
+    //                {
+    //                    for (let i = 0; i < lzfFwBKdGEtuYUv.length; i++)
+    //                    {
+    //                        if (date_ == $(lzfFwBKdGEtuYUv[i]).attr('date'))
+    //                        {
+    //                            //$.ajax({
+    //                            //    type: 'POST',
+    //                            //    url: '/Tasks/AddTasks',
+    //                            //    data: {
+    //                            //        workerID: workerID_,
+    //                            //        taskNameID: taskNameID_,
+    //                            //        date: date_,
+    //                            //        jobStart: dateJobStart,
+    //                            //        jobEnd: dateJobEnd
+    //                            //    },
+    //                            //    success: function (response)
+    //                            //    {
+
+    //                            //    },
+    //                            //    error: function (xhr, status, error)
+    //                            //    {
+    //                            //        console.log('Error adding data:', error);
+    //                            //    }
+    //                            //});
+
+
+
+
+
+
+
+    //                        }
+    //                    }
+    //                }
+    //            }
+
+
+
+    //        }
+    //    }
+    //}
+
+
+    //if (arrayEdit != null)
+    //{
+    //    setTimeout(function ()
+    //    {
+    //        //$(div).hide();
+    //        //$(loader).show();
+
+    //        //console.log(arrayEdit);
+
+    //        for (let i = 0; i < arrayEdit.length; i++)
+    //        {
+
+
+    //            //$.ajax({
+    //            //    type: 'POST',
+    //            //    url: '/Tasks/EditTask',
+    //            //    data: {
+    //            //        id: arrayEdit[i].id_,
+    //            //        jobStart: arrayEdit[i].jobStart_,
+    //            //        jobEnd: arrayEdit[i].jobEnd_
+    //            //    },
+    //            //    success: function (response)
+    //            //    {
+    //            //        $(div).show();
+    //            //        $(loader).hide();
+    //            //    },
+    //            //    error: function (xhr, status, error)
+    //            //    {
+    //            //        //console.log('Error updating data:', error);
+    //            //        alert('Error updating data:', error);
+    //            //    }
+    //            //});
+    //        }
+    //    }, 2000);
+    //}
 
 };

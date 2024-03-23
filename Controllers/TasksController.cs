@@ -30,7 +30,6 @@ namespace TimeTask.Controllers
             ViewBag.TaskNames = _context.TaskName2;
             ViewBag.Workers = _context.Workers2;
             ViewBag.Holiday = _context.Holiday;
-            ViewBag.Model1 = _context.Task2;
             
             //ViewBag.WeeksInYear = GetWeeksInYear(DateTime.Now.Year);
 
@@ -265,9 +264,9 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddTasks(int workerID, int taskNameID, DateTime date, DateTime jobStart, DateTime jobEnd)
+        public ActionResult AddTasks(int workerID, int? taskNameID, DateTime? date, DateTime? jobStart, DateTime? jobEnd)
         {
-            var newData = new Models.Task2()
+            var newData = new Task2()
             {
                 WorkerID = workerID,
                 TaskNameID = taskNameID,
@@ -298,11 +297,12 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditTask(int id, DateTime jobStart, DateTime jobEnd)
+        public ActionResult EditTask(int id, int? taskNameID, DateTime? jobStart, DateTime? jobEnd)
         {
             var row = _context.Task2.FirstOrDefault(e => e.Id == id);
             if (row != null)
             {
+                row.TaskNameID = taskNameID;
                 row.JobStart = jobStart;
                 row.JobEnd = jobEnd;
                 _context.SaveChanges();

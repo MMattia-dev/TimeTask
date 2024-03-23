@@ -36,10 +36,10 @@
                         @for(int i = 1; i <= 7; i++){
                             <div class="SBVWNWOJZnTplXL" onmouseover="szWBomtrGKAViBb(this, event)">
                                 <div class="LwxRoYhfmyzTlGm" worker="@item.Id">
-                                    <input type="time" onchange="HSuokUFEKzccQCK(this)" />
+                                    <input type="time" onchange="HSuokUFEKzccQCK(this)" onblur="wgddAsHIsXNWQkl(this)" id="wgddAsHIsXNWQkl_" />
                                     <span>-</span>
-                                    <input type="time" onchange="UrLQumgARjxLfGF(this)" />
-                                    <div onclick="SnVgWOTEsLEUbKu(this)" class="kqOeanWDDXEYTBz" worker="@item.Id" title="Wybierz godziny"><svg viewBox="0 0 10 6" width="10" height="6"><path d="M0 0h10L5 6z"></path></svg></div>
+                                    <input type="time" onchange="UrLQumgARjxLfGF(this)" onblur="YNXxUwIhBTDduDG(this)" id="YNXxUwIhBTDduDG_" />
+      <!--wyłączone (nie usuwać)--> @* <div onclick="SnVgWOTEsLEUbKu(this)" class="kqOeanWDDXEYTBz" worker="@item.Id" title="Wybierz godziny"><svg viewBox="0 0 10 6" width="10" height="6"><path d="M0 0h10L5 6z"></path></svg></div> *@
                                     <div class="avnythFRVEkXnim" worker="@item.Id" style="display: none;"></div>
                                 </div>
                                 <div class="AQzCKqmlrQJmxzn">  
@@ -47,7 +47,7 @@
                                     {
                                         foreach (var item2 in Model)
                                         {
-                                            if (item.Id == item2.WorkerID)
+                                            if (item.Id == item2.WorkerID && item2.TaskNameID != null)
                                             {
                                                 <div class="ZslufbFdcfCIeaW" id2="@item2.TaskNameID" id="@item2.Date?.ToString("yyyy-MM-dd")" style="display: none;">
                                                     @{
