@@ -44,16 +44,14 @@
         <ion-icon name="briefcase-outline"></ion-icon>
         <div class="settings_a_select">
             <span>Dział</span>
-            <span>
-                @if (department?.Name == null)
-                {
-                    @:Brak działów
-                }
-                else
-                {
-                    @department.Name
-                }
-            </span>
+            @if (department?.Name == null)
+            {
+                <span>Brak działów</span>
+            }
+            else
+            {
+                <span>@department.Name</span>
+            }
             <ion-icon name="chevron-down-outline"></ion-icon>
         </div>
     </a>

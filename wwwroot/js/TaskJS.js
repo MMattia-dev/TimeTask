@@ -316,11 +316,17 @@ function drmZhscxvPoxiya()
                 if (AQzCKqmlrQJmxzn[i].getAttribute('date') == ZslufbFdcfCIeaW[j].id)
                 {
                     $(ZslufbFdcfCIeaW[j]).show();
+
+                    $(AQzCKqmlrQJmxzn[i]).parent().children('.LwxRoYhfmyzTlGm').children('.MNewKOhqZkqNDeJ').show();
                 }
                 else
                 {
                     //$(ZslufbFdcfCIeaW[j]).remove();
                     $(ZslufbFdcfCIeaW[j]).hide();
+
+                    //$(AQzCKqmlrQJmxzn[i]).parent().children('.LwxRoYhfmyzTlGm').children('.MNewKOhqZkqNDeJ').hide();
+
+                    //przyciski usun sie pojawiaja przy zmianie tygodnia i roku
                 }
             }
         }
@@ -340,10 +346,17 @@ function drmZhscxvPoxiya()
                     let model_start = new Date(model_t[i].JobStart);
                     let model_end = new Date(model_t[i].JobEnd);
 
-                    if (model_t[i].JobStart != null && model_t[i].JobEnd != null) {
+                    if (model_t[i].JobStart != null && model_t[i].JobEnd != null)
+                    {
                         jobStart.value = padTo2Digits(model_start.getHours()) + ':' + padTo2Digits(model_start.getMinutes());
                         jobEnd.value = padTo2Digits(model_end.getHours()) + ':' + padTo2Digits(model_end.getMinutes());
-                    }              
+
+                        //LwxRoYhfmyzTlGm[j].innerHTML += `<a class="MNewKOhqZkqNDeJ" onclick="jzOfWppePYfqVYf(this)" id="` + model_t[i].Id + `"><ion-icon name="close"></ion-icon></a>`;
+                        $(LwxRoYhfmyzTlGm[j]).children('.MNewKOhqZkqNDeJ').show();
+                    }
+                    //else {
+                    //    $(LwxRoYhfmyzTlGm[j]).children('.MNewKOhqZkqNDeJ').hide();
+                    //}
                 }
             }
         }
@@ -368,6 +381,8 @@ function arKOctcZVJhWuhL()
     else 
     {
         e2 = $('#jxcqHOZgFmYHYkI_').attr('dep');
+        //$('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1)
+
     }
     
     sessionStorage.setItem('qweznPAaXCMlTFi', e2);
@@ -491,6 +506,7 @@ function kJYIwPwacgrxdrX()
     else 
     {
         e2 = $('#jxcqHOZgFmYHYkI_').attr('dep');
+        //console.log('asd');
     }
 
     let f = document.getElementById('hdfoDuUOBPpvhSl');
@@ -1709,6 +1725,7 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd)
                             console.log('Error adding data:', error);
                         }
                     });
+                    break;
                 }
                 if (model_t[i].TaskNameID == null)
                 {
@@ -1744,6 +1761,7 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd)
                             console.log('Error adding data:', error);
                         }
                     });
+                    break;
                 }
                 if (model_t[i].TaskNameID == null)
                 {
@@ -1771,6 +1789,7 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd)
                             console.log('Error adding data:', error);
                         }
                     });
+                    break;
                 }
             }          
         }
@@ -1778,6 +1797,7 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd)
 
     if (!checkBool) 
     {
+        $(element).append(createSmallLoader2());
         $.ajax({
             type: 'POST',
             url: '/Tasks/AddTasks',
@@ -2026,7 +2046,7 @@ function createSmallLoader()
 {
     var lds = document.createElement('div');
     lds.className = 'lds-ring-small';
-    lds.style.cssText = 'position: absolute; top: 7px; right: 7px;';
+    lds.style.cssText = 'position: absolute; top: 7px; left: 7px;';
     lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
     
     return lds;
@@ -2039,6 +2059,136 @@ function createSmallLoader2()
     lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
     
     return lds;
+};
+
+function jzOfWppePYfqVYf(t) 
+{
+    let workerID = $(t).parent().parent().parent().attr('worker');
+    let date = $(t).parent().parent().attr('date');
+
+    let a = $(t).parent().parent().children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW:visible');
+
+    //usun caly wiersz(jedno zadanie) albo kilka zadan
+
+    if (a.length > 0) 
+    {
+        for (let j = 0; j < a.length; j++) 
+        {
+            let id_ = $(a[j]).attr('pHXkWraiQguiibO');
+            $.ajax({
+                type: 'POST',
+                url: '/Tasks/RemoveTask',
+                data: {
+                    id: id_,
+                },
+                success: function (response)
+                {
+                    location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error:', error);
+                }
+            });
+        }
+    }
+    else 
+    {
+        for (let i = 0; i < model_t.length; i++) 
+        {
+            if (model_t[i].WorkerID == workerID && new Date(model_t[i].Date).toLocaleDateString() == new Date(date).toLocaleDateString()) 
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Tasks/RemoveTask',
+                    data: {
+                        id: model_t[i].Id,
+                    },
+                    success: function (response)
+                    {
+                        location.reload();
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error:', error);
+                    }
+                });
+            }
+        }
+    }
+
+
+
+
+    //if (a.length > 0) 
+    //{
+    //    for (let i = 0; i < a.length; i++)
+    //    {
+    //        let id_ = $(a).attr('wghrtajuyftswfc');
+
+    //        for (let j = 0; j < model_t.length; j++) 
+    //        {
+    //            if (model_t[j].Id == id_) 
+    //            {
+    //                $.ajax({
+    //                    type: 'POST',
+    //                    url: '/Tasks/EditTask',
+    //                    data: {
+    //                        id: model_t[j].Id,
+    //                        taskNameID: model_t[j].TaskNameID,
+    //                        jobStart: null,
+    //                        jobEnd: null
+    //                    },
+    //                    success: function (response)
+    //                    {
+    //                        $(loader_div).fadeIn('fast');
+    //                        location.reload();
+    //                    },
+    //                    error: function (xhr, status, error)
+    //                    {
+    //                        console.log('Error adding data:', error);
+    //                    }
+    //                });
+    //            }
+    //        }
+    //    }
+    //}
+    //else 
+    //{
+    //    for (let i = 0; i < model_t.length; i++) 
+    //    {
+    //        if (model_t[i].WorkerID == workerID && new Date(model_t[i].Date).toLocaleDateString() == new Date(date).toLocaleDateString()) 
+    //        {
+    //            let id_ = model_t[i].Id;
+    //            if (model_t[i].TaskNameID == null) 
+    //            {
+    //                //usuń wszystko
+    //                $.ajax({
+    //                    type: 'POST',
+    //                    url: '/Tasks/RemoveTask',
+    //                    data: {
+    //                        id: id_,
+    //                    },
+    //                    success: function (response)
+    //                    {
+    //                        $(loader_div).fadeIn('fast');
+    //                        location.reload();
+    //                    },
+    //                    error: function (xhr, status, error)
+    //                    {
+    //                        alert('Error:', error);
+    //                    }
+    //                });
+    //            }
+    //            if (model_t[i].TaskNameID != null) 
+    //            {
+    //                //nic do zrobienia
+    //            }
+    //        }
+    //    }
+    //}
+
+
 };
 
 function HSuokUFEKzccQCK(t)

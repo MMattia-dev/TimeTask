@@ -2266,6 +2266,37 @@ ion-icon {
             fill: rgba(255, 255, 255, 1);
         }
 
+    .ZslufbFdcfCIeaW a ion-icon {
+        height: 25px;
+        min-height: 25px;
+        width: 25px;
+        min-width: 25px;
+        transform: translateY(4px) translateX(4px);
+    }
+
+        .ZslufbFdcfCIeaW a ion-icon:hover {
+            cursor: pointer;
+            color: white;
+        }
+
+.MNewKOhqZkqNDeJ {
+    position: absolute;
+    top: 7px;
+    right: 10px;
+}
+
+    .MNewKOhqZkqNDeJ ion-icon {
+        height: 25px;
+        min-height: 25px;
+        width: 25px;
+        min-width: 25px;
+    }
+
+        .MNewKOhqZkqNDeJ ion-icon:hover {
+            cursor: pointer;
+            color: white;
+        }
+
 .qESnDVuCWxdAyXr {
     cursor: pointer;
     height: 35px;
