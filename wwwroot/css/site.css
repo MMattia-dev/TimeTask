@@ -2297,6 +2297,12 @@ ion-icon {
             color: white;
         }
 
+    .MNewKOhqZkqNDeJ.disabled {
+        transition: opacity 0.2s ease-in-out;
+        pointer-events: none;
+        opacity: 0.7;
+    }
+
 .qESnDVuCWxdAyXr {
     cursor: pointer;
     height: 35px;
@@ -2645,6 +2651,12 @@ ion-icon {
         font-family: Arial;
     }
 
+        .LwxRoYhfmyzTlGm input.disabled {
+            transition: opacity 0.2s ease-in-out;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
     .LwxRoYhfmyzTlGm.LwxRoYhfmyzTlGm_ {
         border-bottom: 1px solid rgba(0, 0, 0, 1);
         border-right: 1px solid rgba(0, 0, 0, 1);
@@ -2668,6 +2680,12 @@ ion-icon {
         border-right: 1px solid rgba(0, 0, 0, 1);
         border-bottom: 1px solid rgba(0, 0, 0, 1);
         transition: background-color 0.2s, border 0.2s;
+    }
+
+    .AQzCKqmlrQJmxzn.disabled {
+        transition: opacity 0.2s ease-in-out;
+        pointer-events: none;
+        opacity: 0.7;
     }
 
 .kqOeanWDDXEYTBz {

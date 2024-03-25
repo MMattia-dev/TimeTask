@@ -253,8 +253,7 @@ function drmZhscxvPoxiya()
         }
     }).then(function ()
     {
-
-        let wcHMgjWjXaRMPKy = document.querySelectorAll('.wcHMgjWjXaRMPKy ');
+        let wcHMgjWjXaRMPKy = document.querySelectorAll('.wcHMgjWjXaRMPKy');
         for (let i = 0; i < wcHMgjWjXaRMPKy.length; i++)
         {
             let SBVWNWOJZnTplXL = wcHMgjWjXaRMPKy[i].querySelectorAll('.SBVWNWOJZnTplXL');
@@ -267,17 +266,6 @@ function drmZhscxvPoxiya()
             for (let j = 0; j < AQzCKqmlrQJmxzn.length; j++)
             {
                 AQzCKqmlrQJmxzn[j].setAttribute('date', array[j]);
-
-                //AQzCKqmlrQJmxzn[j].innerHTML += `<div class="qESnDVuCWxdAyXr">` +
-                //    `<span>Dodaj zadanie</span>` +
-                //    `<svg width="12px" height="12px" viewBox="0 0 469.404 469.404"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z" /></svg>` +
-                //    `</div>`;
-                //let children = $(AQzCKqmlrQJmxzn[j]).children('.ZslufbFdcfCIeaW');
-                
-                //if ($(AQzCKqmlrQJmxzn[j]).children('.ZslufbFdcfCIeaW').attr('style') != 'display: none;') 
-                //{
-                //    console.log(children);
-                //}
             }
 
             let LwxRoYhfmyzTlGm = wcHMgjWjXaRMPKy[i].querySelectorAll('.LwxRoYhfmyzTlGm');
@@ -317,16 +305,12 @@ function drmZhscxvPoxiya()
                 {
                     $(ZslufbFdcfCIeaW[j]).show();
 
-                    $(AQzCKqmlrQJmxzn[i]).parent().children('.LwxRoYhfmyzTlGm').children('.MNewKOhqZkqNDeJ').show();
+                    //$(AQzCKqmlrQJmxzn[i]).parent().children('.LwxRoYhfmyzTlGm').children('.MNewKOhqZkqNDeJ').show();
                 }
                 else
                 {
                     //$(ZslufbFdcfCIeaW[j]).remove();
                     $(ZslufbFdcfCIeaW[j]).hide();
-
-                    //$(AQzCKqmlrQJmxzn[i]).parent().children('.LwxRoYhfmyzTlGm').children('.MNewKOhqZkqNDeJ').hide();
-
-                    //przyciski usun sie pojawiaja przy zmianie tygodnia i roku
                 }
             }
         }
@@ -351,17 +335,32 @@ function drmZhscxvPoxiya()
                         jobStart.value = padTo2Digits(model_start.getHours()) + ':' + padTo2Digits(model_start.getMinutes());
                         jobEnd.value = padTo2Digits(model_end.getHours()) + ':' + padTo2Digits(model_end.getMinutes());
 
-                        //LwxRoYhfmyzTlGm[j].innerHTML += `<a class="MNewKOhqZkqNDeJ" onclick="jzOfWppePYfqVYf(this)" id="` + model_t[i].Id + `"><ion-icon name="close"></ion-icon></a>`;
-                        $(LwxRoYhfmyzTlGm[j]).children('.MNewKOhqZkqNDeJ').show();
+                        //
+                        //$(LwxRoYhfmyzTlGm[j]).children('.MNewKOhqZkqNDeJ').show();
                     }
-                    //else {
-                    //    $(LwxRoYhfmyzTlGm[j]).children('.MNewKOhqZkqNDeJ').hide();
-                    //}
                 }
             }
         }
     }).then(function ()
     {
+        let SBVWNWOJZnTplXL = document.querySelectorAll('.SBVWNWOJZnTplXL');
+        for (let i = 0; i < SBVWNWOJZnTplXL.length; i++) 
+        {
+            let MNewKOhqZkqNDeJ = $(SBVWNWOJZnTplXL[i]).children('.LwxRoYhfmyzTlGm').children('.MNewKOhqZkqNDeJ');
+            let a1 = $(SBVWNWOJZnTplXL[i]).children('.LwxRoYhfmyzTlGm').children('input').eq(0).val();
+            let a2 = $(SBVWNWOJZnTplXL[i]).children('.LwxRoYhfmyzTlGm').children('input').eq(1).val();
+            let b = $(SBVWNWOJZnTplXL[i]).children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW:visible').length;
+            if (a1 == '' && a2 == '' && b == 0) 
+            {
+                $(MNewKOhqZkqNDeJ).hide();
+            }
+            else 
+            {
+                $(MNewKOhqZkqNDeJ).show();
+            }
+        }
+    }).then(function () 
+    { 
         sessionStorage.setItem('hQxHXfkxHkfALTJ', week_);
     });
 };
@@ -2061,134 +2060,135 @@ function createSmallLoader2()
     return lds;
 };
 
+function disable() 
+{
+    $('.LwxRoYhfmyzTlGm').children('input').addClass('disabled');
+    $('.LwxRoYhfmyzTlGm').children('.MNewKOhqZkqNDeJ').addClass('disabled');
+    $('.AQzCKqmlrQJmxzn').addClass('disabled');
+    $('.left-nav').addClass('HFhDvVpHKOUBBMS');
+};
+
+function enable() 
+{
+    $('.LwxRoYhfmyzTlGm').children('input').removeClass('disabled');
+    $('.LwxRoYhfmyzTlGm').children('.MNewKOhqZkqNDeJ').removeClass('disabled');
+    $('.AQzCKqmlrQJmxzn').removeClass('disabled');
+    $('.left-nav').removeClass('HFhDvVpHKOUBBMS');
+
+    $('.lds-ring-small').remove();
+};
+
 function jzOfWppePYfqVYf(t) 
 {
     let workerID = $(t).parent().parent().parent().attr('worker');
     let date = $(t).parent().parent().attr('date');
 
     let a = $(t).parent().parent().children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW:visible');
-
-    //usun caly wiersz(jedno zadanie) albo kilka zadan
+    
+    //let index = 0;
+    //let interval = setInterval(() =>
+    //{
+    //    if (index === a.length - 1)
+    //    {
+    //        clearInterval(interval);
+    //        setTimeout(function ()
+    //        {
+    //            $(t).parent().children('input').val('');
+    //            $(t).hide();
+    //            enable();
+    //        }, 100);
+           
+    //    }
+    //    $(a[index++]).hide();
+    //}, 100);
 
     if (a.length > 0) 
     {
-        for (let j = 0; j < a.length; j++) 
+        $(t).parent().append(createSmallLoader());
+        disable();
+
+
+        let index = 0;
+        let interval = setInterval(() =>
         {
-            let id_ = $(a[j]).attr('pHXkWraiQguiibO');
-            $.ajax({
-                type: 'POST',
-                url: '/Tasks/RemoveTask',
-                data: {
-                    id: id_,
-                },
-                success: function (response)
+            if (index === a.length - 1) {
+                clearInterval(interval);
+                setTimeout(function ()
                 {
-                    location.reload();
-                },
-                error: function (xhr, status, error)
-                {
-                    console.log('Error:', error);
-                }
-            });
-        }
+                    $(t).parent().children('input').val('');
+                    $(t).hide();
+                    enable();
+                }, 100);
+            }
+
+            index++;
+
+            let id_ = $(a[index]).attr('pHXkWraiQguiibO');
+            $(a[index]).remove();
+            //$.ajax({
+            //    type: 'POST',
+            //    url: '/Tasks/RemoveTask',
+            //    data: { id: id_ },
+            //    success: function (response)
+            //    {
+            //        $(a[index]).remove();
+            //    },
+            //    error: function (response) 
+            //    {
+            //        console.log('Error:', error);
+            //    }
+            //});
+
+        }, 100);
+        //for (let j = 0; j < a.length; j++) 
+        //{
+        //    let id_ = $(a[j]).attr('pHXkWraiQguiibO');
+        //    $.ajax({
+        //        type: 'POST',
+        //        url: '/Tasks/RemoveTask',
+        //        data: {
+        //            id: id_,
+        //        },
+        //        success: function (response)
+        //        {
+        //            //location.reload();
+
+        //        },
+        //        error: function (xhr, status, error)
+        //        {
+        //            console.log('Error:', error);
+        //        }
+        //    });
+        //}
     }
     else 
     {
+        $(t).parent().append(createSmallLoader());
+        disable();
+
         for (let i = 0; i < model_t.length; i++) 
         {
             if (model_t[i].WorkerID == workerID && new Date(model_t[i].Date).toLocaleDateString() == new Date(date).toLocaleDateString()) 
             {
-                $.ajax({
-                    type: 'POST',
-                    url: '/Tasks/RemoveTask',
-                    data: {
-                        id: model_t[i].Id,
-                    },
-                    success: function (response)
-                    {
-                        location.reload();
-                    },
-                    error: function (xhr, status, error)
-                    {
-                        console.log('Error:', error);
-                    }
-                });
+                //$.ajax({
+                //    type: 'POST',
+                //    url: '/Tasks/RemoveTask',
+                //    data: {
+                //        id: model_t[i].Id,
+                //    },
+                //    success: function (response)
+                //    {
+                //        //location.reload();
+
+                //    },
+                //    error: function (xhr, status, error)
+                //    {
+                //        console.log('Error:', error);
+                //    }
+                //});
             }
         }
     }
-
-
-
-
-    //if (a.length > 0) 
-    //{
-    //    for (let i = 0; i < a.length; i++)
-    //    {
-    //        let id_ = $(a).attr('wghrtajuyftswfc');
-
-    //        for (let j = 0; j < model_t.length; j++) 
-    //        {
-    //            if (model_t[j].Id == id_) 
-    //            {
-    //                $.ajax({
-    //                    type: 'POST',
-    //                    url: '/Tasks/EditTask',
-    //                    data: {
-    //                        id: model_t[j].Id,
-    //                        taskNameID: model_t[j].TaskNameID,
-    //                        jobStart: null,
-    //                        jobEnd: null
-    //                    },
-    //                    success: function (response)
-    //                    {
-    //                        $(loader_div).fadeIn('fast');
-    //                        location.reload();
-    //                    },
-    //                    error: function (xhr, status, error)
-    //                    {
-    //                        console.log('Error adding data:', error);
-    //                    }
-    //                });
-    //            }
-    //        }
-    //    }
-    //}
-    //else 
-    //{
-    //    for (let i = 0; i < model_t.length; i++) 
-    //    {
-    //        if (model_t[i].WorkerID == workerID && new Date(model_t[i].Date).toLocaleDateString() == new Date(date).toLocaleDateString()) 
-    //        {
-    //            let id_ = model_t[i].Id;
-    //            if (model_t[i].TaskNameID == null) 
-    //            {
-    //                //usuń wszystko
-    //                $.ajax({
-    //                    type: 'POST',
-    //                    url: '/Tasks/RemoveTask',
-    //                    data: {
-    //                        id: id_,
-    //                    },
-    //                    success: function (response)
-    //                    {
-    //                        $(loader_div).fadeIn('fast');
-    //                        location.reload();
-    //                    },
-    //                    error: function (xhr, status, error)
-    //                    {
-    //                        alert('Error:', error);
-    //                    }
-    //                });
-    //            }
-    //            if (model_t[i].TaskNameID != null) 
-    //            {
-    //                //nic do zrobienia
-    //            }
-    //        }
-    //    }
-    //}
-
-
 };
 
 function HSuokUFEKzccQCK(t)
