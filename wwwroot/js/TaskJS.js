@@ -2078,6 +2078,16 @@ function enable()
     $('.lds-ring-small').remove();
 };
 
+function removeTask() 
+{
+    let back = document.createElement('div');
+    back.style.cssText = 'position: fixed; top: 0; left: 0; z-index: 9999; height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.4); display: flex; justify-content: center; align-items: center;';
+    let in_ = `<div style="width: 260px; min-width: 260px; height: 200px; min-height: 200px; rgba(34, 36, 48, 0.6); z-index: 99999;"></div>`;
+    back.innerHTML += in_;
+
+    $('body').append(back);
+};
+
 function jzOfWppePYfqVYf(t) 
 {
     let workerID = $(t).parent().parent().parent().attr('worker');
@@ -2085,28 +2095,11 @@ function jzOfWppePYfqVYf(t)
 
     let a = $(t).parent().parent().children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW:visible');
     
-    //let index = 0;
-    //let interval = setInterval(() =>
-    //{
-    //    if (index === a.length - 1)
-    //    {
-    //        clearInterval(interval);
-    //        setTimeout(function ()
-    //        {
-    //            $(t).parent().children('input').val('');
-    //            $(t).hide();
-    //            enable();
-    //        }, 100);
-           
-    //    }
-    //    $(a[index++]).hide();
-    //}, 100);
-
     if (a.length > 0) 
     {
-        $(t).parent().append(createSmallLoader());
-        disable();
-
+        //$(t).parent().append(createSmallLoader());
+        //disable();
+        removeTask();
 
         let index = 0;
         let interval = setInterval(() =>
@@ -2115,16 +2108,14 @@ function jzOfWppePYfqVYf(t)
                 clearInterval(interval);
                 setTimeout(function ()
                 {
-                    $(t).parent().children('input').val('');
-                    $(t).hide();
-                    enable();
+                    //$(t).parent().children('input').val('');
+                    //$(t).hide();
+                    //enable();
                 }, 100);
             }
 
-            index++;
-
             let id_ = $(a[index]).attr('pHXkWraiQguiibO');
-            $(a[index]).remove();
+            
             //$.ajax({
             //    type: 'POST',
             //    url: '/Tasks/RemoveTask',
@@ -2132,13 +2123,13 @@ function jzOfWppePYfqVYf(t)
             //    success: function (response)
             //    {
             //        $(a[index]).remove();
+            //        index++;
             //    },
             //    error: function (response) 
             //    {
             //        console.log('Error:', error);
             //    }
             //});
-
         }, 100);
         //for (let j = 0; j < a.length; j++) 
         //{
