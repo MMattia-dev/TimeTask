@@ -277,8 +277,8 @@ namespace TimeTask.Controllers
 
             _context.Task2.Add(newData);
             _context.SaveChanges();
-            return Json(new { success = true });
-            //return Json(newData.Id);
+            //return Json(new { success = true });
+            return Json(newData.Id);
         }
 
         [HttpPost]
