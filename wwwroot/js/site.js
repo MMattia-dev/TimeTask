@@ -620,7 +620,7 @@ function TBqDUdImvLXbXJU()
     let settings_aS = document.querySelectorAll('.settings_a');
     for (let i = 0; i < settings_aS.length; i++) 
     {
-        $(settings_aS[i]).children('.settings_a_select').children('ion-icon').attr('name', 'chevron-down-outline');
+        $(settings_aS[i]).children('.settings_a_select:not(.DttiWwFOUZxPakg)').children('ion-icon').attr('name', 'chevron-down-outline');
     }
 };
 

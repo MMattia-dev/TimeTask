@@ -1705,6 +1705,7 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd)
                     checkBool = true;
 
                     $(element).append(createSmallLoader2());
+                    disable();
                     $.ajax({
                         type: 'POST',
                         url: '/Tasks/AddTasks',
@@ -1717,7 +1718,18 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd)
                         },
                         success: function (response)
                         {
-                            location.reload();
+                            //location.reload();
+                            model_t.push({ Id: response, WorkerID: workerID, TaskNameID: taskNameID, Date: date, JobStart: null, JobEnd: null });
+                            //$(element).parent().parent().children('.LwxRoYhfmyzTlGm').children('.MNewKOhqZkqNDeJ').fadeIn(100);
+                            
+                            let span = $(element).children('div').children('span').html();
+                            $(element).append(`<span>` + span + `</span>`);
+                            $(element).children('div').remove();
+                            $(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW');
+                            $(element).attr('phxkwraiqguiibo', response).attr('id', date);
+                            
+
+                            enable();
                         },
                         error: function (xhr, status, error)
                         {
@@ -1739,6 +1751,7 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd)
                     checkBool = true;
 
                     $(element).append(createSmallLoader2());
+                    disable();
                     let dateJobStart = date + ' ' + jobStart;
                     let dateJobEnd = date + ' ' + jobEnd;
                     $.ajax({
@@ -1753,7 +1766,18 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd)
                         },
                         success: function (response)
                         {
-                            location.reload();
+                            //location.reload();
+                            model_t.push({ Id: response, WorkerID: workerID, TaskNameID: taskNameID, Date: date, JobStart: dateJobStart, JobEnd: dateJobEnd });
+                            //$(element).parent().parent().children('.LwxRoYhfmyzTlGm').children('.MNewKOhqZkqNDeJ').fadeIn(100);
+
+                            let span = $(element).children('div').children('span').html();
+                            $(element).append(`<span>` + span + `</span>`);
+                            $(element).children('div').remove();
+                            $(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW');
+                            $(element).attr('phxkwraiqguiibo', response).attr('id', date);
+
+
+                            enable();
                         },
                         error: function (xhr, status, error)
                         {
@@ -1768,6 +1792,7 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd)
                     checkBool = true;
 
                     $(element).append(createSmallLoader2());
+                    disable();
                     let dateJobStart = date + ' ' + jobStart;
                     let dateJobEnd = date + ' ' + jobEnd;
                     $.ajax({
@@ -1781,7 +1806,22 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd)
                         },
                         success: function (response)
                         {
-                            location.reload();
+                            //location.reload();
+                            //model_t.push({ Id: response, WorkerID: workerID, TaskNameID: taskNameID, Date: date, JobStart: null, JobEnd: null });
+                            //$(element).parent().parent().children('.LwxRoYhfmyzTlGm').children('.MNewKOhqZkqNDeJ').fadeIn(100);
+                            var indx = model_t.findIndex(obj => obj.Id == model_t[i].Id);
+                            model_t[indx].TaskNameID = taskNameID;
+                            model_t[indx].JobStart = dateJobStart;
+                            model_t[indx].JobEnd = dateJobEnd;
+
+
+                            let span = $(element).children('div').children('span').html();
+                            $(element).append(`<span>` + span + `</span>`);
+                            $(element).children('div').remove();
+                            $(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW');
+                            $(element).attr('phxkwraiqguiibo', model_t[i].Id).attr('id', date);
+
+                            enable();
                         },
                         error: function (xhr, status, error)
                         {
@@ -1797,6 +1837,7 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd)
     if (!checkBool) 
     {
         $(element).append(createSmallLoader2());
+        disable();
         $.ajax({
             type: 'POST',
             url: '/Tasks/AddTasks',
@@ -1809,7 +1850,17 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd)
             },
             success: function (response)
             {
-                location.reload();
+                //location.reload();
+                model_t.push({ Id: response, WorkerID: workerID, TaskNameID: taskNameID, Date: date, JobStart: null, JobEnd: null });
+                $(element).parent().parent().children('.LwxRoYhfmyzTlGm').children('.MNewKOhqZkqNDeJ').fadeIn(100);
+
+                let span = $(element).children('div').children('span').html();
+                $(element).append(`<span>` + span + `</span>`);
+                $(element).children('div').remove();
+                $(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW');
+                $(element).attr('phxkwraiqguiibo', response).attr('id', date);
+
+                enable();
             },
             error: function (xhr, status, error)
             {
@@ -2108,7 +2159,7 @@ function enable()
     $('.lds-ring-small').remove();
 };
 
-function jzOfWppePYfqVYf(t) 
+function jzOfWppePYfqVYf(t) //remove from database
 {
     let workerID = $(t).parent().parent().parent().attr('worker');
     let date = $(t).parent().parent().attr('date');
