@@ -1527,10 +1527,8 @@ function HMdMMtqNwVAguDt(t)
     }
     $(t).addClass('QbNQbKEvEMUpWaH');
 
-    //sessionStorage.setItem('JcvzYoovBpGECWh', $('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1).html());
     sessionStorage.setItem('JcvzYoovBpGECWh', t.getAttribute('dep'));
 
-    //drmZhscxvPoxiya();
     arKOctcZVJhWuhL();
 
 
