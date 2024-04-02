@@ -53,7 +53,13 @@ function isInViewport(element)
 
 function MEPHaojoIWKCapY() 
 {
-    let year = document.getElementById('iHCBwRzOLpgGYQG').value;
+    //let year = document.getElementById('iHCBwRzOLpgGYQG').value;
+    let year = $('#qQgDgqyovQyICUL_').children('.settings_a_select').children('span').eq(1).html();
+    if (sessionStorage.getItem('wSIspPdnliPlpLI') != null) 
+    {
+        year = sessionStorage.getItem('wSIspPdnliPlpLI');
+    }
+
     let worker = document.getElementById('oUfnFiNPmXnNjzu').value;
     let uLxtDsOksiWVnDI = document.getElementById('uLxtDsOksiWVnDI');
 
@@ -106,7 +112,12 @@ function MEPHaojoIWKCapY()
         if (okresRozliczeniowyTydzien) 
         {
             let date = new Date();
-            let year_ = date.getFullYear();
+            //let year_ = date.getFullYear();
+            let year_ = $('#qQgDgqyovQyICUL_').children('.settings_a_select').children('span').eq(1).html();
+            if (sessionStorage.getItem('wSIspPdnliPlpLI') != null) 
+            {
+                year_ = sessionStorage.getItem('wSIspPdnliPlpLI');
+            }
             let month_ = date.getMonth() + 1;
             let day_ = date.getDate();
 
@@ -207,7 +218,12 @@ async function DatesInChosenWeek(y, w)
 function generateNewTable() 
 {
     //year
-    let year = document.getElementById('iHCBwRzOLpgGYQG').value;
+    //let year = document.getElementById('iHCBwRzOLpgGYQG').value;
+    let year = $('#qQgDgqyovQyICUL_').children('.settings_a_select').children('span').eq(1).html();
+    if (sessionStorage.getItem('wSIspPdnliPlpLI') != null) 
+    {
+        year = sessionStorage.getItem('wSIspPdnliPlpLI');
+    }
     //department
     let department = document.getElementById('aFoQOFiXPQobjPX').value;
     //worker
@@ -745,7 +761,12 @@ function BHuhsNtfdNbyAVV(t)
     let day = date.split('-')[2];
     let month = new Date(date).toLocaleDateString('pl-PL', { month: 'long' });
     let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
-    let year = document.getElementById('iHCBwRzOLpgGYQG').value;
+    //let year = document.getElementById('iHCBwRzOLpgGYQG').value;
+    let year = $('#qQgDgqyovQyICUL_').children('.settings_a_select').children('span').eq(1).html();
+    if (sessionStorage.getItem('wSIspPdnliPlpLI') != null) 
+    {
+        year = sessionStorage.getItem('wSIspPdnliPlpLI');
+    }
     let newDate = day + ' ' + month_capitalize + ' ' + year;
 
 
@@ -794,7 +815,12 @@ function HIJPFbwutXHZxGn(t)
     let day = date.split('-')[2];
     let month = new Date(date).toLocaleDateString('pl-PL', { month: 'long' });
     let month_capitalize = month.charAt(0).toUpperCase() + month.slice(1);
-    let year = document.getElementById('iHCBwRzOLpgGYQG').value;
+    //let year = document.getElementById('iHCBwRzOLpgGYQG').value;
+    let year = $('#qQgDgqyovQyICUL_').children('.settings_a_select').children('span').eq(1).html();
+    if (sessionStorage.getItem('wSIspPdnliPlpLI') != null) 
+    {
+        year = sessionStorage.getItem('wSIspPdnliPlpLI');
+    }
     let newDate = day + ' ' + month_capitalize + ' ' + year;
 
 
@@ -846,8 +872,13 @@ function generateCalendar()
 
 
 
-    let yearSelect = document.getElementById('iHCBwRzOLpgGYQG');
-    let year = yearSelect.options[yearSelect.selectedIndex].value;
+    //let yearSelect = document.getElementById('iHCBwRzOLpgGYQG');
+    //let year = yearSelect.options[yearSelect.selectedIndex].value;
+    let year = $('#qQgDgqyovQyICUL_').children('.settings_a_select').children('span').eq(1).html();
+    if (sessionStorage.getItem('wSIspPdnliPlpLI') != null) 
+    {
+        year = sessionStorage.getItem('wSIspPdnliPlpLI');
+    }
     let monthSelect = document.getElementById('IZdWjCoFNPZaIaP');
     let month = monthSelect.options[monthSelect.selectedIndex].value;
     let currentMonth = parseInt(month) + 1;
@@ -2259,3 +2290,87 @@ $(document).ready(function ()
     //
     
 });
+
+function lhkKNaastOkkmMh(t)
+{
+    $(t).children('.settings_a_select').children('ion-icon').attr('name', 'chevron-up-outline');
+};
+
+function qQgDgqyovQyICUL() 
+{
+    if (!$('#qQgDgqyovQyICUL_').hasClass('pAPTryUdWHeiZZa')) 
+    {
+        let html = '';
+        let date = new Date();
+        let prevYears = date.getFullYear() - 2;
+        for (prevYears; prevYears <= date.getFullYear(); prevYears++) 
+        {
+            html += `<div onclick="CanjEZFvPetVidb(this)" class="settings_a ugiECcrnKwaoVsb" id="qQgDgqyovQyICUL__">` +
+                `<div class="settings_a_select">` +
+                `<span></span><span style="opacity: 1; margin-right: 20px;">` + prevYears + `</span>` +
+                `</div>` +
+                `</div>`;
+        }
+        $('#qQgDgqyovQyICUL_').after(html);
+
+
+
+        let qQgDgqyovQyICUL__ = document.querySelectorAll('#qQgDgqyovQyICUL__');
+        for (let i = 0; i < qQgDgqyovQyICUL__.length; i++) 
+        {
+            if (sessionStorage.getItem('wSIspPdnliPlpLI') != null) 
+            {
+                if ($(qQgDgqyovQyICUL__[i]).children('.settings_a_select').children('span').eq(1).html() == sessionStorage.getItem('wSIspPdnliPlpLI')) 
+                {
+                    $(qQgDgqyovQyICUL__[i]).addClass('QbNQbKEvEMUpWaH');
+                }
+            }
+            else 
+            {
+                if ($(qQgDgqyovQyICUL__[i]).children('.settings_a_select').children('span').eq(1).html() == date.getFullYear()) 
+                {
+                    $(qQgDgqyovQyICUL__[i]).addClass('QbNQbKEvEMUpWaH');
+                }
+            }
+        }
+
+        $('#qQgDgqyovQyICUL_').addClass('pAPTryUdWHeiZZa');
+    }
+    else 
+    {
+        let qQgDgqyovQyICUL__ = document.querySelectorAll('#qQgDgqyovQyICUL__');
+        for (let i = 0; i < qQgDgqyovQyICUL__.length; i++)
+        {
+            $(qQgDgqyovQyICUL__[i]).remove();
+        }
+
+        $('#qQgDgqyovQyICUL_').children('.settings_a_select').children('ion-icon').attr('name', 'chevron-down-outline');
+
+        $('#qQgDgqyovQyICUL_').removeClass('pAPTryUdWHeiZZa');
+    }
+};
+
+function CanjEZFvPetVidb(t) 
+{
+    let year = $(t).children('.settings_a_select').children('span').eq(1).html();
+    $('#qQgDgqyovQyICUL_').children('.settings_a_select').children('span').eq(1).html(year);
+
+    let qQgDgqyovQyICUL__ = document.querySelectorAll('#qQgDgqyovQyICUL__');
+    for (let i = 0; i < qQgDgqyovQyICUL__.length; i++)
+    {
+        $(qQgDgqyovQyICUL__[i]).removeClass('QbNQbKEvEMUpWaH');
+    }
+    $(t).addClass('QbNQbKEvEMUpWaH');
+
+    sessionStorage.setItem('wSIspPdnliPlpLI', $('#qQgDgqyovQyICUL_').children('.settings_a_select').children('span').eq(1).html());
+
+    generateNewTable();
+};
+
+function dOryXMJCOpmMFDw() 
+{
+    if () 
+    {
+
+    }
+};

@@ -1,4 +1,9 @@
-﻿@model IEnumerable<TimeTask.Models.Time>
+﻿@* @model IEnumerable<TimeTask.Models.Time> *@
+@using Newtonsoft.Json
+
+@{
+    var department = ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name).FirstOrDefault();
+}
 
 <div class="loader_div iXYXpnpgGMALUNG">
     <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
@@ -18,7 +23,7 @@
             <ion-icon name="chevron-down-outline"></ion-icon>
         </div>
     </a>
-    <a class="settings_a">
+    <a class="settings_a" onclick="lhkKNaastOkkmMh(this); qQgDgqyovQyICUL()" id="qQgDgqyovQyICUL_">
         <ion-icon name="calendar-outline"></ion-icon>
         <div class="settings_a_select">
             <span>Rok</span>
@@ -26,11 +31,18 @@
             <ion-icon name="chevron-down-outline"></ion-icon>
         </div>
     </a>
-    <a class="settings_a">
+    <a class="settings_a" onclick="lhkKNaastOkkmMh(this); dOryXMJCOpmMFDw()" id="dOryXMJCOpmMFDw_" dep="@department?.Id">
         <ion-icon name="briefcase-outline"></ion-icon>
         <div class="settings_a_select">
             <span>Dział</span>
-            <span>Dział IT</span>
+            @if (department?.Name == null)
+            {
+                <span>Brak działów</span>
+            }
+            else
+            {
+                <span>@department.Name</span>
+            }
             <ion-icon name="chevron-down-outline"></ion-icon>
         </div>
     </a>
