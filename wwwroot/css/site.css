@@ -921,6 +921,13 @@ ion-icon {
         max-width: 150px;
     }
 
+    .settings_a_select span:nth-child(2) {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: 150px;
+    }
+
     .settings_a_select ion-icon {
         position: absolute;
         transition: all 0.2s ease-in-out;
@@ -962,7 +969,13 @@ ion-icon {
 
         .settings_a.ugiECcrnKwaoVsb.QbNQbKEvEMUpWaH {
             background-color: rgb(63, 69, 90);
-            
+        }
+
+        .settings_a.ugiECcrnKwaoVsb .settings_a_select span {
+            /*text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;*/
+            max-width: 215px;
         }
 
     .settings_a.logout {

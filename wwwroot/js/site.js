@@ -98,6 +98,21 @@ function sortArray(array) {
     });
 };
 
+function sortArraySurname(array) {
+    array.sort(function (a, b)
+    {
+        if (a.Surname < b.Surname)
+        {
+            return -1;
+        }
+        if (a.Surname > b.Surname)
+        {
+            return 1;
+        }
+        return 0;
+    });
+};
+
 function logOut() {
     ////$('.right-nav').addClass('DCzdjhpRPQzOGHd');
     //ihJchOaMxWUD.style.transition = 'min-width 0.75s, max-width 0.75s, width 0.75s';
@@ -639,24 +654,56 @@ $('.left-nav').mouseenter(function ()
     }, 100);
 
 
-    if (sessionStorage.getItem('LTRXohWjonyFAsg') != null) 
+    //task
+    if (sessionStorage.getItem('LTRXohWjonyFAsg') != null) //year
     {
         $('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('span').eq(1).html(sessionStorage.getItem('LTRXohWjonyFAsg'));
     }
-    if (sessionStorage.getItem('hQxHXfkxHkfALTJ') != null) 
+    if (sessionStorage.getItem('hQxHXfkxHkfALTJ') != null) //week
     {
         $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(sessionStorage.getItem('hQxHXfkxHkfALTJ'));
     }
-    if (sessionStorage.getItem('JcvzYoovBpGECWh') != null) 
+    if (sessionStorage.getItem('JcvzYoovBpGECWh') != null) //department
     {
-        //$('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1).html(sessionStorage.getItem('JcvzYoovBpGECWh'));
         for (let i = 0; i < model_d.length; i++) {
-            if (model_d[i].Id == sessionStorage.getItem('JcvzYoovBpGECWh')) {
+            if (model_d[i].Id == sessionStorage.getItem('JcvzYoovBpGECWh')) 
+            {
                 let depName = model_d[i].Name;
                 $('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1).html(depName);
             }
         }
     }
+    //
+
+    //leave
+    if (sessionStorage.getItem('wSIspPdnliPlpLI') != null) //year
+    {
+        $('#qQgDgqyovQyICUL_').children('.settings_a_select').children('span').eq(1).html(sessionStorage.getItem('wSIspPdnliPlpLI'));
+    }
+    if (sessionStorage.getItem('gaukHwbLvIchVtA') != null) //department
+    {
+        for (let i = 0; i < model_d.length; i++) 
+        {
+            if (model_d[i].Id == sessionStorage.getItem('gaukHwbLvIchVtA')) 
+            {
+                let depName = model_d[i].Name;
+                $('#dOryXMJCOpmMFDw_').children('.settings_a_select').children('span').eq(1).html(depName);
+            }
+        }
+    }
+    if (sessionStorage.getItem('ZDCmGEJAljtfCfz') != null) //worker
+    {
+        for (let i = 0; i < model_w.length; i++) 
+        {
+            if (model_w[i].Id == sessionStorage.getItem('ZDCmGEJAljtfCfz')) 
+            {
+                let name = model_w[i].Surname + ' ' + model_w[i].Name;
+                $('#nrKYNmWitBwDNUj_').children('.settings_a_select').children('span').eq(1).html(name);
+                $('#nrKYNmWitBwDNUj_').children('.settings_a_select').children('span').eq(1).attr('title', name);
+            }
+        }
+    }
+    //
 
 });
 

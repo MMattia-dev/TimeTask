@@ -5,6 +5,10 @@
     var department = ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name).FirstOrDefault();
 }
 
+@{
+    var firstWorker = ((IEnumerable<Workers2>)ViewBag.Workers).OrderBy(x => x.Surname).FirstOrDefault(y => y.DepartmentID == department?.Id);
+}
+
 <div class="loader_div iXYXpnpgGMALUNG">
     <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
 </div>
@@ -19,7 +23,7 @@
         <ion-icon name="filter-outline"></ion-icon>
         <div class="settings_a_select">
             <span>Widok</span>
-            <span>W Settings</span>
+            <span>do wyboru w Settings</span>
             <ion-icon name="chevron-down-outline"></ion-icon>
         </div>
     </a>
@@ -35,7 +39,7 @@
         <ion-icon name="briefcase-outline"></ion-icon>
         <div class="settings_a_select">
             <span>Dział</span>
-            @if (department?.Name == null)
+            @if (department == null)
             {
                 <span>Brak działów</span>
             }
@@ -46,15 +50,22 @@
             <ion-icon name="chevron-down-outline"></ion-icon>
         </div>
     </a>
-    <a class="settings_a">
+    <a class="settings_a" onclick="lhkKNaastOkkmMh(this); nrKYNmWitBwDNUj()" id="nrKYNmWitBwDNUj_" worker="@firstWorker?.Id">
         <ion-icon name="person-outline"></ion-icon>
         <div class="settings_a_select">
             <span>Pracownik</span>
-            <span>Kowalski Tadeusz</span>
+            @if (firstWorker == null)
+            {
+                <span>Brak pracowników</span>
+            }
+            else
+            {
+                <span title="@firstWorker?.Surname @firstWorker?.Name">@firstWorker?.Surname @firstWorker?.Name</span>
+            }
             <ion-icon name="chevron-down-outline"></ion-icon>
         </div>
     </a>
-    <a class="settings_a">
+    <a class="settings_a" id="KhUYdWBbOzZAJwi">
         <ion-icon name="add-circle-outline"></ion-icon>
         <div class="settings_a_select">
             <span></span>
