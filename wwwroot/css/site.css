@@ -1001,8 +1001,6 @@ ion-icon {
         outline: none;
         color: rgba(255, 255, 255, 0.8);
         font-size: 14px;
-
-
     }
 
     .settings_a span {
@@ -1018,6 +1016,18 @@ ion-icon {
         color: rgba(255, 255, 255, 0.8);
         white-space: nowrap;
         overflow: hidden;
+    }
+
+    .settings_a#KhUYdWBbOzZAJwi ion-icon {
+        color: limegreen;
+    }
+
+    .settings_a#UxjkajUgJngZOkw ion-icon {
+        color: orangered;
+    }
+
+    .settings_a#yrVkwsnBhnYhdqa ion-icon {
+        color: deepskyblue;
     }
 
     .settings_a .DnnTeTYpszZXNnO {
@@ -3814,10 +3824,13 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     }
 
 .inputColor {
-    border: none;
+    /*border: none;*/
+    border-radius: 0px;
+    border: 2px solid white;
     padding: 0px;
     height: 28px;
     width: 28px;
+    
 }
 
 .YavvRCMQscelhIs {

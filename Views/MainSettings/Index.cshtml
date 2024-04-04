@@ -20,15 +20,33 @@
                     <input type="checkbox" checked id="nLzkASTGLjvGiSi" onchange="nLzkASTGLjvGiSi_(this)" />
                     <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                 </label>
-                <span class="hFzZLqJdsEqdlrx">Włącz tapetę aplikacji</span>
+                <span class="hFzZLqJdsEqdlrx">Włącz tapetę</span>
 
                 <label class="msdgExEZCpefgcL">
                     <a class="hFzZLqJdsEqdlrx_" href="@Url.Action("Index", "Wallpaper2")">Wybierz / Dodaj tapetę</a>
                 </label>
             </div>
 
-            <!--Mniejszy pasek nawigacyjny-->
+            <!--Kolor tła, jeżeli tapeta będzie wyłączona-->
             <div class="msdgExEZCpefgcL">
+                <label class="msdgExEZCpefgcL msdgExEZCpefgcL_disabled">
+                    <!--msdgExEZCpefgcL_disabled-->
+                    <input type="color" class="inputColor" />
+                    <a id="" class="hFzZLqJdsEqdlrx_">Wybierz kolor tła</a>
+                </label>
+                @* <span class="hFzZLqJdsEqdlrx">Kolor tła</span> *@
+            </div>
+
+            <!--Kolor czcionki od świąt w widoku urlopy i czas pracy-->
+            <div class="msdgExEZCpefgcL">
+                <label class="msdgExEZCpefgcL">
+                    <input type="color" class="inputColor" value="orangered" />
+                    <a id="" class="hFzZLqJdsEqdlrx_">Wybierz kolor czcionki świąt</a>
+                </label>
+            </div>
+
+            <!--Mniejszy pasek nawigacyjny-->
+            <div class="msdgExEZCpefgcL" style="display: none;">
                 <label class="FdcnMtAlziKwEep">
                     <input type="checkbox" id="hQJwclGLiNLiRrQ" onchange="hQJwclGLiNLiRrQ_(this)" />
                     <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>

@@ -699,11 +699,12 @@ $('.left-nav').mouseenter(function ()
             {
                 let name = model_w[i].Surname + ' ' + model_w[i].Name;
                 $('#nrKYNmWitBwDNUj_').children('.settings_a_select').children('span').eq(1).html(name);
-                $('#nrKYNmWitBwDNUj_').children('.settings_a_select').children('span').eq(1).attr('title', name);
             }
         }
     }
     //
+
+
 
 });
 

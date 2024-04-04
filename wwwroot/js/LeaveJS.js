@@ -425,11 +425,11 @@ function generateNewTable()
                 //
 
                 //"Pokaż dni wolne od pracy"
-                if (sessionStorage.getItem('XLsdAGmRfSDLmVh') != null)
-                {
-                    document.getElementById('MxLHxritEhBvupe').checked = true;
-                    MxLHxritEhBvupe_();
-                }
+                //if (sessionStorage.getItem('XLsdAGmRfSDLmVh') != null)
+                //{
+                //    document.getElementById('MxLHxritEhBvupe').checked = true;
+                //    MxLHxritEhBvupe_();
+                //}
                 //
             });
         }
@@ -633,10 +633,25 @@ function generateNewTable()
 
 
     //"Pokaż dni wolne od pracy"
-    if (sessionStorage.getItem('XLsdAGmRfSDLmVh') != null)
+    //if (sessionStorage.getItem('XLsdAGmRfSDLmVh') != null)
+    //{
+    //    document.getElementById('MxLHxritEhBvupe').checked = true;
+    //    MxLHxritEhBvupe_();
+    //}
+    if (sessionStorage.getItem('XtFaCWfKCtlUMUt') != null) //pokaz dni wolne od pracy
     {
-        document.getElementById('MxLHxritEhBvupe').checked = true;
-        MxLHxritEhBvupe_();
+        //pokazDniWolneOdPracy_change();
+        //$('#LXNBHVBFXwnnkkP').children('.settings_a_select').children('span').eq(0).html('Ukryj');
+        //$('#LXNBHVBFXwnnkkP').children('ion-icon').attr('name', 'eye-outline');
+        //$('#LXNBHVBFXwnnkkP').addClass('pAPTryUdWHeiZZa_');
+        //MxLHxritEhBvupe__show();
+
+
+        $('#LXNBHVBFXwnnkkP').addClass('pAPTryUdWHeiZZa_');
+        $('#LXNBHVBFXwnnkkP').children('.settings_a_select').children('span').eq(0).html('Ukryj');
+        $('#LXNBHVBFXwnnkkP').children('ion-icon').attr('name', 'eye-outline');
+        MxLHxritEhBvupe__show();
+        
     }
     //
 };
@@ -1680,19 +1695,41 @@ $('#XWRZMxZMLxBIsSg').on('click', function ()
 $('#UxjkajUgJngZOkw').on('click', function ()
 {
     let e = document.getElementById('NJFYeORUIiKTXrz');
-    let e_ = document.getElementById('aFoQOFiXPQobjPX');
-    let e2 = e_.options[e_.selectedIndex].value;
-    e.value = e2;
+    //let e_ = document.getElementById('aFoQOFiXPQobjPX');
+    let department = $('#dOryXMJCOpmMFDw_').attr('dep');
+    if (sessionStorage.getItem('gaukHwbLvIchVtA') != null) 
+    {
+        department = sessionStorage.getItem('gaukHwbLvIchVtA');
+    }
+    //let e2 = e_.options[e_.selectedIndex].value;
+    //e.value = e2;
+    e.value = department;
+
+
+    let worker = $('#nrKYNmWitBwDNUj_').attr('worker');
+    if (sessionStorage.getItem('ZDCmGEJAljtfCfz') != null) 
+    {
+        worker = sessionStorage.getItem('ZDCmGEJAljtfCfz');
+    }
 
 
     let id = e.options[e.selectedIndex].value;
     document.getElementById('AEHzpmyFkSNvUdo').innerHTML = '';
 
+    model_w.sort((a, b) => (a.Surname > b.Surname) ? 1 : ((b.Surname > a.Surname) ? -1 : 0)); //sortuj według nazwiska
     for (let i = 0; i < model_w.length; i++) 
     {
         if (model_w[i].DepartmentID == id) 
         {
-            document.getElementById('AEHzpmyFkSNvUdo').innerHTML += `<option value="` + model_w[i].Id + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
+            //document.getElementById('AEHzpmyFkSNvUdo').innerHTML += `<option value="` + model_w[i].Id + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
+            if (model_w[i].Id == worker) 
+            {
+                document.getElementById('AEHzpmyFkSNvUdo').innerHTML += `<option selected value="` + model_w[i].Id + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
+            }
+            else 
+            {
+                document.getElementById('AEHzpmyFkSNvUdo').innerHTML += `<option value="` + model_w[i].Id + `">` + model_w[i].Surname + ` ` + model_w[i].Name + `</option>`;
+            }
         }
     }
 
@@ -2278,6 +2315,159 @@ function MxLHxritEhBvupe_()
     }
 };
 
+function MxLHxritEhBvupe__show() 
+{
+    let TDs = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr td:not(:first-child)');
+    for (let i = 0; i < TDs.length; i++) 
+    {
+        if (!$(TDs[i]).hasClass('disabled')) 
+        {
+            let date = new Date(TDs[i].id);
+
+            for (let j = 0; j < model_h.length; j++) 
+            {
+                let dateString = new Date(TDs[i].id).toLocaleDateString();
+                let model_h_Date = new Date(model_h[j].Date).toLocaleDateString();
+
+                if (dateString == model_h_Date) 
+                {
+                    $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>` + model_h[j].Name + `</span></div>`);
+                    //$(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
+                }
+            }
+
+            if ($(TDs[i]).find('.PGvvQnRjsnaGvPW').length == 0) 
+            {
+                //let worker = $('#nrKYNmWitBwDNUj_').attr('worker');
+                //if (sessionStorage.getItem('ZDCmGEJAljtfCfz') != null) 
+                //{
+                //    worker = sessionStorage.getItem('ZDCmGEJAljtfCfz');
+                //}
+
+                for (let x = 0; x < model_ts.length; x++) 
+                {
+                    if (model_ts[x].WorkerId == null) // jedyna opcja
+                    {
+                        if (model_ts[x].CzyPoniedzialekWolny) 
+                        {
+                            if (date.getDay() === 1) 
+                            {
+                                $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>Poniedziałek</span></div>`);
+                                $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
+                            }
+                        }
+                        if (model_ts[x].CzyWtorekWolny) 
+                        {
+                            if (date.getDay() === 2) 
+                            {
+                                $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>Wtorek</span></div>`);
+                                $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
+                            }
+                        }
+                        if (model_ts[x].CzySrodaWolny)
+                        {
+                            if (date.getDay() === 3)
+                            {
+                                $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>Środa</span></div>`);
+                                $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
+                            }
+                        }
+                        if (model_ts[x].CzyCzwartekWolny)
+                        {
+                            if (date.getDay() === 4)
+                            {
+                                $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>Czwartek</span></div>`);
+                                $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
+                            }
+                        }
+                        if (model_ts[x].CzyPiatekWolny)
+                        {
+                            if (date.getDay() === 5)
+                            {
+                                $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>Piątek</span></div>`);
+                                $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
+                            }
+                        }
+                        if (model_ts[x].CzySobotaWolny)
+                        {
+                            if (date.getDay() === 6)
+                            {
+                                $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>Sobota</span></div>`);
+                                $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
+                            }
+                        }
+                        if (model_ts[x].CzyNiedzielaWolny)
+                        {
+                            if (date.getDay() === 0)
+                            {
+                                $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>Niedziela</span></div>`);
+                                $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
+                            }
+                        }
+                    }
+                }
+
+                //if (date.getDay() === 6)
+                //{
+                //    $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>Sobota</span></div>`);
+                //    $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
+                //}
+
+                //if (date.getDay() === 0)
+                //{
+                //    $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>Niedziela</span></div>`);
+                //    $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
+                //}
+            }
+
+
+            if ($(TDs[i]).find('.IpLJVyLZIbPJsat').length != 0) 
+            {
+                $(TDs[i]).children('.PGvvQnRjsnaGvPW').remove();
+            }
+        }
+    }
+};
+
+function MxLHxritEhBvupe__hide() 
+{
+    $('.PGvvQnRjsnaGvPW').remove();
+
+    let TDs = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr td:not(:first-child)');
+    for (let i = 0; i < TDs.length; i++) 
+    {
+        if (!$(TDs[i]).hasClass('disabled')) 
+        {
+            $(TDs[i]).children().removeClass('UjOQjNzjdVJpBtu');
+        }
+    }
+};
+
+function pokazDniWolneOdPracy_change() 
+{
+    if (!$('#LXNBHVBFXwnnkkP').hasClass('pAPTryUdWHeiZZa_'))
+    {       
+        MxLHxritEhBvupe__show();
+        $('#LXNBHVBFXwnnkkP').children('.settings_a_select').children('span').eq(0).html('Ukryj');
+        $('#LXNBHVBFXwnnkkP').children('ion-icon').attr('name', 'eye-outline');
+        sessionStorage.setItem('XtFaCWfKCtlUMUt', 'true');
+
+        console.log('1');
+        $('#LXNBHVBFXwnnkkP').addClass('pAPTryUdWHeiZZa_');
+    }
+    else 
+    {
+        
+        MxLHxritEhBvupe__hide();
+        $('#LXNBHVBFXwnnkkP').children('.settings_a_select').children('span').eq(0).html('Pokaż');
+        $('#LXNBHVBFXwnnkkP').children('ion-icon').attr('name', 'eye-off-outline');
+        sessionStorage.removeItem('XtFaCWfKCtlUMUt');
+
+        console.log('2');
+        $('#LXNBHVBFXwnnkkP').removeClass('pAPTryUdWHeiZZa_');  
+    }
+};
+
 function AxniBufKgDcaYFA(t) 
 { 
     sessionStorage.setItem('mcctFxsWDAvvPfs', t.scrollTop)
@@ -2341,7 +2531,6 @@ function changeFirstWorkerBasedOnDepartment(depID)
         {
             let name = model_w[i].Surname + ' ' + model_w[i].Name;
             $('#nrKYNmWitBwDNUj_').children('.settings_a_select').children('span').eq(1).html(name);
-            $('#nrKYNmWitBwDNUj_').children('.settings_a_select').children('span').eq(1).attr('title', name);
 
             sessionStorage.setItem('ZDCmGEJAljtfCfz', model_w[i].Id);
             $('#nrKYNmWitBwDNUj_').attr('worker', model_w[i].Id);
