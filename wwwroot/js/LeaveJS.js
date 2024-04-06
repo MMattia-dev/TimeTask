@@ -480,7 +480,7 @@ function generateNewTable()
                 }
 
 
-                for (let i = 1; i <= 31; i++) 
+                for (let i = 1; i <= 31; i++)
                 {
                     document.getElementById('xhXEyORRmmYlQgG').innerHTML += `<tbody><tr><td>` + i + `</td></tr></tbody>`;
                 }
@@ -530,7 +530,10 @@ function generateNewTable()
         $('#wplXQqsdEZEYbIm').html(``);
         $('#wplXQqsdEZEYbIm').addClass('hkyYYlXJPLaqBDt');
 
+        //
         document.getElementById('xhXEyORRmmYlQgG').innerHTML = `<thead><tr><th></th><th>Styczeń</th><th>Luty</th><th>Marzec</th><th>Kwiecień</th><th>Maj</th><th>Czerwiec</th><th>Lipiec</th><th>Sierpień</th><th>Wrzesień</th><th>Październik</th><th>Listopad</th><th>Grudzień</th></tr></thead>`;
+        $('#xhXEyORRmmYlQgG thead tr th:first-child').html('<ion-icon name="lock-open"></ion-icon><ion-icon name="lock-closed" style="display: none;"></ion-icon>').attr('onclick', 'lock_headers()').attr('id', 'PFeQAmgSYjvlhDP').attr('title', 'Zablokuj nagłówki');
+        //
 
         for (let i = 1; i <= 31; i++) 
         {
@@ -646,7 +649,6 @@ function generateNewTable()
         //$('#LXNBHVBFXwnnkkP').addClass('pAPTryUdWHeiZZa_');
         //MxLHxritEhBvupe__show();
 
-
         $('#LXNBHVBFXwnnkkP').addClass('pAPTryUdWHeiZZa_');
         $('#LXNBHVBFXwnnkkP').children('.settings_a_select').children('span').eq(0).html('Ukryj');
         $('#LXNBHVBFXwnnkkP').children('ion-icon').attr('name', 'eye-outline');
@@ -654,6 +656,33 @@ function generateNewTable()
         
     }
     //
+
+    //lock headers
+    if (sessionStorage.getItem('IzzsrzGAMyBbWxh') != null) {
+        lock_headers();
+    }
+    //
+};
+
+function lock_headers() 
+{
+    sessionStorage.setItem('IzzsrzGAMyBbWxh', 'true');
+    $('#PFeQAmgSYjvlhDP').children('ion-icon').eq(0).hide(); $('#PFeQAmgSYjvlhDP').children('ion-icon').eq(1).show();
+    $('#PFeQAmgSYjvlhDP').attr('onclick', 'unlock_headers()');
+
+    $('#xhXEyORRmmYlQgG thead tr th').addClass('LcMbnjwSLxaLuWa');
+    $('#xhXEyORRmmYlQgG tbody tr td:first-child').addClass('LcMbnjwSLxaLuWa');
+};
+
+function unlock_headers() 
+{
+    sessionStorage.removeItem('IzzsrzGAMyBbWxh');
+    $('#PFeQAmgSYjvlhDP').children('ion-icon').eq(0).show(); $('#PFeQAmgSYjvlhDP').children('ion-icon').eq(1).hide();
+    $('#PFeQAmgSYjvlhDP').attr('onclick', 'lock_headers()');
+
+    $('#xhXEyORRmmYlQgG thead tr th').removeClass('LcMbnjwSLxaLuWa');
+    $('#xhXEyORRmmYlQgG tbody tr td:first-child').removeClass('LcMbnjwSLxaLuWa');
+
 };
 
 function MbcIEXgByuxsGWM_(t) 
@@ -2332,7 +2361,15 @@ function MxLHxritEhBvupe__show()
                 if (dateString == model_h_Date) 
                 {
                     $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>` + model_h[j].Name + `</span></div>`);
-                    //$(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
+                    $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
+                    $(TDs[i]).attr('title', model_h[j].Name + ' (' + model_h_Date + ')');
+
+                    if (new Date(model_h[j].Date).getDay() === 6) 
+                    {
+                        //Święto w Sobotę
+                        $(TDs[i]).css({ 'box-shadow': 'inset 0px 0px 0px 1px orangered' });
+                        $(TDs[i]).attr('title', 'Święto w Sobotę! ' + model_h[j].Name + ' (' + model_h_Date + ')');
+                    }
                 }
             }
 
@@ -2452,7 +2489,7 @@ function pokazDniWolneOdPracy_change()
         $('#LXNBHVBFXwnnkkP').children('ion-icon').attr('name', 'eye-outline');
         sessionStorage.setItem('XtFaCWfKCtlUMUt', 'true');
 
-        console.log('1');
+        //console.log('1');
         $('#LXNBHVBFXwnnkkP').addClass('pAPTryUdWHeiZZa_');
     }
     else 
@@ -2463,7 +2500,7 @@ function pokazDniWolneOdPracy_change()
         $('#LXNBHVBFXwnnkkP').children('ion-icon').attr('name', 'eye-off-outline');
         sessionStorage.removeItem('XtFaCWfKCtlUMUt');
 
-        console.log('2');
+        //console.log('2');
         $('#LXNBHVBFXwnnkkP').removeClass('pAPTryUdWHeiZZa_');  
     }
 };

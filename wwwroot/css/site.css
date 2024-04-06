@@ -2643,7 +2643,7 @@ ion-icon {
 }
 
     .SBVWNWOJZnTplXL.SBVWNWOJZnTplXL_ {
-        background-color: rgba(34, 36, 48, 0.6);
+        /*background-color: rgba(34, 36, 48, 0.6);*/
         transition: background-color 0.2s, border 0.2s;
     }
 
@@ -5508,7 +5508,16 @@ input:checked + .HsRFJWiSLmrJcoG:before {
             font-size: 14px;
             border-top: none;
             user-select: none;
+            transition: background-color 0.2s;
         }
+
+            .ciPwrXhCJKttlZY thead tr th.LcMbnjwSLxaLuWa {
+                position: sticky;
+                top: 0;
+                background-color: rgb(34, 36, 48);
+                z-index: 2;
+                transition: background-color 0.2s;
+            }
 
             .ciPwrXhCJKttlZY thead tr th:first-child {
                 max-width: 40px;
@@ -5516,6 +5525,23 @@ input:checked + .HsRFJWiSLmrJcoG:before {
                 width: 40px;
                 border-left: none;                
             }
+
+                .ciPwrXhCJKttlZY thead tr th:first-child:hover {
+                    /*background-color: rgba(255, 255, 255, 0.15);*/
+                    cursor: pointer;
+                }
+
+                    .ciPwrXhCJKttlZY thead tr th:first-child:hover ion-icon {
+                        color: white;
+                    }
+
+                .ciPwrXhCJKttlZY thead tr th:first-child ion-icon {
+                    width: 26px;
+                    min-width: 26px;
+                    height: 26px;
+                    min-height: 26px;
+                    transform: translateY(3px);
+                }
 
             .ciPwrXhCJKttlZY thead tr th:last-child {
                 border-right: none;
@@ -5539,12 +5565,20 @@ input:checked + .HsRFJWiSLmrJcoG:before {
             }
 
             .ciPwrXhCJKttlZY tbody tr td:first-child {
-                /*font-size: 14px;*/
                 font-weight: bold;
                 user-select: none;
                 pointer-events: none;
                 border-left: none;
+                transition: background-color 0.2s;
             }
+
+                .ciPwrXhCJKttlZY tbody tr td:first-child.LcMbnjwSLxaLuWa {
+                    position: sticky;
+                    left: 0;
+                    background-color: rgb(34, 36, 48);
+                    z-index: 1;
+                    transition: background-color 0.2s;
+                }
 
             .ciPwrXhCJKttlZY tbody tr td:last-child {
                 border-right: none;
@@ -5559,7 +5593,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
             }
 
                 .ciPwrXhCJKttlZY tbody tr td:hover:not(:first-child) .PGvvQnRjsnaGvPW, .ciPwrXhCJKttlZY tbody tr td.VSEIRMVnLrwIkVf .PGvvQnRjsnaGvPW, .ciPwrXhCJKttlZY tbody tr td:hover:not(:first-child) .KoWBmfaDnVIKHVi, .ciPwrXhCJKttlZY tbody tr td.VSEIRMVnLrwIkVf .KoWBmfaDnVIKHVi {
-                    visibility: hidden;
+                    /*visibility: hidden;*/
                 }
 
             .ciPwrXhCJKttlZY tbody tr td div {
