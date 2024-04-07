@@ -643,17 +643,10 @@ function generateNewTable()
     //}
     if (sessionStorage.getItem('XtFaCWfKCtlUMUt') != null) //pokaz dni wolne od pracy
     {
-        //pokazDniWolneOdPracy_change();
-        //$('#LXNBHVBFXwnnkkP').children('.settings_a_select').children('span').eq(0).html('Ukryj');
-        //$('#LXNBHVBFXwnnkkP').children('ion-icon').attr('name', 'eye-outline');
-        //$('#LXNBHVBFXwnnkkP').addClass('pAPTryUdWHeiZZa_');
-        //MxLHxritEhBvupe__show();
-
         $('#LXNBHVBFXwnnkkP').addClass('pAPTryUdWHeiZZa_');
         $('#LXNBHVBFXwnnkkP').children('.settings_a_select').children('span').eq(0).html('Ukryj');
         $('#LXNBHVBFXwnnkkP').children('ion-icon').attr('name', 'eye-outline');
         MxLHxritEhBvupe__show();
-        
     }
     //
 
@@ -2443,20 +2436,7 @@ function MxLHxritEhBvupe__show()
                         }
                     }
                 }
-
-                //if (date.getDay() === 6)
-                //{
-                //    $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>Sobota</span></div>`);
-                //    $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
-                //}
-
-                //if (date.getDay() === 0)
-                //{
-                //    $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>Niedziela</span></div>`);
-                //    $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
-                //}
             }
-
 
             if ($(TDs[i]).find('.IpLJVyLZIbPJsat').length != 0) 
             {
@@ -2490,18 +2470,15 @@ function pokazDniWolneOdPracy_change()
         $('#LXNBHVBFXwnnkkP').children('ion-icon').attr('name', 'eye-outline');
         sessionStorage.setItem('XtFaCWfKCtlUMUt', 'true');
 
-        //console.log('1');
         $('#LXNBHVBFXwnnkkP').addClass('pAPTryUdWHeiZZa_');
     }
     else 
     {
-        
         MxLHxritEhBvupe__hide();
         $('#LXNBHVBFXwnnkkP').children('.settings_a_select').children('span').eq(0).html('Pokaż');
         $('#LXNBHVBFXwnnkkP').children('ion-icon').attr('name', 'eye-off-outline');
         sessionStorage.removeItem('XtFaCWfKCtlUMUt');
 
-        //console.log('2');
         $('#LXNBHVBFXwnnkkP').removeClass('pAPTryUdWHeiZZa_');  
     }
 };

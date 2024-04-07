@@ -33,6 +33,10 @@
         text-align: center;
     }
 
+    .form-control.BJImLBuxjZWNKEI {
+        width: auto;
+    }
+
     .form-control:disabled {
         background-color: rgba(34, 36, 48, 1);
         color: rgba(255, 255, 255, 0.5) !important;

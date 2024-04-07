@@ -943,6 +943,40 @@ ion-icon {
         transform: translateX(150px) translateY(0px);
     }
 
+    .settings_a_select.OhBDYvSwvYkAsjE {
+        gap: 8px;
+        transition: all 0.2s ease-in-out;
+        transform: translateX(-48px);
+    }
+
+        .settings_a_select.OhBDYvSwvYkAsjE .lNhHgAvbrNdaAip {
+            /*width: 172px;*/
+            width: 222px;
+            height: 35px;
+            background-color: rgba(34, 36, 48, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transition: all 0.2s ease-in-out, background-color 0s ease-in-out, border-color 0s ease-in-out;
+            transform: translateX(-2px);
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+            .settings_a_select.OhBDYvSwvYkAsjE .lNhHgAvbrNdaAip span {
+                color: rgba(255, 255, 255, 0.8);
+                font-size: 12px;
+                margin-left: 0 !important;
+            }
+
+            .settings_a_select.OhBDYvSwvYkAsjE .lNhHgAvbrNdaAip:hover {
+                cursor: pointer;
+                background-color: rgba(34, 36, 48, 1);
+                transition-duration: 0s;
+                border-color: rgba(255, 255, 255, 0.2);
+            }
+
 .settings_a {
     /*display: flex;
     align-items: center;
@@ -960,6 +994,48 @@ ion-icon {
     position: relative;
 }
 
+    .settings_a.gGYzjsTuUMWvEwI {
+        transition: height 0.2s ease-in-out;
+    }
+
+        .settings_a.gGYzjsTuUMWvEwI:hover {
+            /*background-color: unset;*/
+            cursor: default;
+        }
+
+        .settings_a.gGYzjsTuUMWvEwI ion-icon {
+            transition: all 0.2s ease-in-out;
+        }
+
+    .settings_a .EQCwcxEkFOGSEpo {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        gap: 8px;
+        width: 100%;
+        opacity: 0;
+        transition: all 0.2s ease-in-out;
+        transform: translateX(-2px);
+    }
+
+        .settings_a .EQCwcxEkFOGSEpo .DrKlxZckkrJfUGS {
+            width: auto;
+        }
+
+        .settings_a .EQCwcxEkFOGSEpo .DrKlxZckkrJfUGS label {
+            font-size: 12px;
+        }
+
+            .settings_a .EQCwcxEkFOGSEpo .DrKlxZckkrJfUGS .FljccBHSbigulpd {
+                /*width: 82px;*/
+                width: 107px;
+                font-size: 14px;
+            }
+
+                .settings_a .EQCwcxEkFOGSEpo .DrKlxZckkrJfUGS .FljccBHSbigulpd:hover {
+                    background-color: rgba(34, 36, 48, 1);
+                }
+            
     .settings_a.ugiECcrnKwaoVsb {
         height: 42px;
         justify-content: end;
@@ -1113,6 +1189,8 @@ ion-icon {
         z-index: 1;*/
         background-color: rgba(54, 56, 68, 1);
     }
+
+    
 
     .settings_a svg {
         /*transform: translateX(10px);*/
@@ -3560,7 +3638,7 @@ ion-icon {
     gap: 8px;
     transform: translateX(-5px);
     width: 100%;
-}
+}   
 
 .DrKlxZckkrJfUGS {
     width: 50%;
@@ -3790,6 +3868,16 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         height: 25px;
     }
 
+    .msdgExEZCpefgcL ion-icon {
+        width: 26px;
+        min-width: 26px;
+        height: 26px;
+        min-height: 26px;
+    }
+
+        .msdgExEZCpefgcL ion-icon:hover {
+            color: white;
+        }
 
 .hFzZLqJdsEqdlrx {
     font-size: 14px;
@@ -5593,7 +5681,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
             }
 
                 .ciPwrXhCJKttlZY tbody tr td:hover:not(:first-child) .PGvvQnRjsnaGvPW, .ciPwrXhCJKttlZY tbody tr td.VSEIRMVnLrwIkVf .PGvvQnRjsnaGvPW, .ciPwrXhCJKttlZY tbody tr td:hover:not(:first-child) .KoWBmfaDnVIKHVi, .ciPwrXhCJKttlZY tbody tr td.VSEIRMVnLrwIkVf .KoWBmfaDnVIKHVi {
-                    /*visibility: hidden;*/
+                    visibility: hidden;
                 }
 
             .ciPwrXhCJKttlZY tbody tr td div {
