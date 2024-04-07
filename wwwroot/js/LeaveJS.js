@@ -2476,6 +2476,7 @@ function MxLHxritEhBvupe__hide()
         if (!$(TDs[i]).hasClass('disabled')) 
         {
             $(TDs[i]).children().removeClass('UjOQjNzjdVJpBtu');
+            TDs[i].removeAttribute('style');
         }
     }
 };
