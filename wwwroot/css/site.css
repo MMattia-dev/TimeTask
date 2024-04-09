@@ -954,7 +954,9 @@ ion-icon {
             width: 222px;
             height: 35px;
             background-color: rgba(34, 36, 48, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            /*background-color: limegreen;*/
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            /*border: 1px solid rgba(50, 205, 50, 0.5);*/
             opacity: 0;
             transition: all 0.2s ease-in-out, background-color 0s ease-in-out, border-color 0s ease-in-out;
             transform: translateX(-2px);
@@ -965,7 +967,7 @@ ion-icon {
         }
 
             .settings_a_select.OhBDYvSwvYkAsjE .lNhHgAvbrNdaAip span {
-                color: rgba(255, 255, 255, 0.8);
+                color: white;
                 font-size: 12px;
                 margin-left: 0 !important;
             }
@@ -974,7 +976,7 @@ ion-icon {
                 cursor: pointer;
                 background-color: rgba(34, 36, 48, 1);
                 transition-duration: 0s;
-                border-color: rgba(255, 255, 255, 0.2);
+                /*border-color: rgba(255, 255, 255, 0.2);*/
             }
 
 .settings_a {
@@ -1030,10 +1032,12 @@ ion-icon {
                 /*width: 82px;*/
                 width: 107px;
                 font-size: 14px;
+                border-color: rgba(255, 255, 255, 0.2);
             }
 
                 .settings_a .EQCwcxEkFOGSEpo .DrKlxZckkrJfUGS .FljccBHSbigulpd:hover {
                     background-color: rgba(34, 36, 48, 1);
+                    /*border-color: rgba(255, 255, 255, 0.2);*/
                 }
             
     .settings_a.ugiECcrnKwaoVsb {
