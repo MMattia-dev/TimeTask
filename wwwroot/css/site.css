@@ -469,6 +469,21 @@ ion-icon {
         overflow: auto;
     }
 
+    .right-nav.SHNVXqYepsFyCsw {
+        display: flex;
+        /*justify-content: right;*/
+        align-items: end;
+        flex-direction: column;
+    }
+
+        .right-nav.SHNVXqYepsFyCsw .PeEkAugENvBHbuG {
+            font-size: 24px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: bold;
+            transform: translateY(-10px);
+        }
+
 #info {
     font-size: 14px;
     color: rgba(255, 255, 255, 0.7);
@@ -4841,7 +4856,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 .TOBgPdZDnrCaJEf {
     color: rgba(255, 255, 255, 0.8);
     font-weight: bold;
-    font-size: 21px;
+    font-size: 24px;
     user-select: none;
     text-transform: uppercase;
 }
@@ -4849,7 +4864,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 .nLnyXKLeDWgYvPh span {
     color: rgba(255, 255, 255, 0.8);
     font-weight: bold;
-    font-size: 21px;
+    font-size: 24px;
     user-select: none;
     text-transform: uppercase;
 }

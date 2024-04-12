@@ -197,7 +197,18 @@ namespace TimeTask.Controllers
                           Problem("Entity set 'ApplicationDbContext.Time'  is null.");
         }
 
-		public int GetWeeksInYear(int year)
+        public ActionResult RefreshModel(int workerID)
+        {
+            if (_context.Time.Any(x => x.WorkerID == workerID))
+            {
+                var newModel = _context.Time.Where(x => x.WorkerID == workerID);
+                return Json(newModel);
+            }
+
+            return Json(new { success = false });
+        }
+
+        public int GetWeeksInYear(int year)
 		{
 			DateTimeFormatInfo dfi = DateTimeFormatInfo.InvariantInfo;
 			DateTime date1 = new DateTime(year, 12, 31);

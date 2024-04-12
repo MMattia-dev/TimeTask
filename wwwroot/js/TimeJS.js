@@ -1,4 +1,35 @@
-﻿function isWeekend(date = new Date())
+﻿
+//function refreshModel(wID) 
+//{
+//    $.ajax({
+//        type: 'GET',
+//        url: '/Times/RefreshModel',
+//        dataType: 'JSON',
+//        data: {
+//            workerID: wID
+//        },
+//        success: function (response)
+//        {
+//            console.log(response);
+//        },
+//        error: function (xhr, status, error)
+//        {
+//            console.log('Error:' + error);
+//        }
+//    });
+//};
+
+//let worker_refreshModel_ = $('#nsEscimCsIoAKPp_').attr('worker');
+//if (sessionStorage.getItem('VtlTCzUbauSQVpL') != null) 
+//{
+//    worker_refreshModel_ = sessionStorage.getItem('VtlTCzUbauSQVpL');
+//}
+//var model_t = refreshModel(worker_refreshModel_);
+//
+
+
+
+function isWeekend(date = new Date())
 {
     return date.getDay() === 6 || date.getDay() === 0;
 }
@@ -279,6 +310,10 @@ function generateNewTable()
     let widok = document.getElementById('uLxtDsOksiWVnDI').value;
 
 
+
+    //
+    //refreshModel(worker); //model_t
+    //
 
 
 
