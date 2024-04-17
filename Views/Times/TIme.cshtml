@@ -192,33 +192,33 @@
 
 <script type="text/javascript">
 
-    function refreshModel(wID)
-    {
-        $.ajax({
-            type: 'GET',
-            url: '/Times/RefreshModel',
-            dataType: 'JSON',
-            data: {
-                workerID: wID
-            },
-            success: function (response)
-            {
-                // console.log(response);
-            },
-            error: function (xhr, status, error)
-            {
-                console.log('Error:' + error);
-            }
-        });
-    };
+    // function refreshModel(wID)
+    // {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '/Times/RefreshModel',
+    //         dataType: 'JSON',
+    //         data: {
+    //             workerID: wID
+    //         },
+    //         success: function (response)
+    //         {
+    //             // console.log(response);
+    //         },
+    //         error: function (xhr, status, error)
+    //         {
+    //             console.log('Error:' + error);
+    //         }
+    //     });
+    // };
 
-    let worker_refreshModel = $('#nsEscimCsIoAKPp_').attr('worker');
-    if (sessionStorage.getItem('VtlTCzUbauSQVpL') != null)
-    {
-        worker_refreshModel = sessionStorage.getItem('VtlTCzUbauSQVpL');
-    }
-    var model_t = refreshModel(worker_refreshModel);
-    console.log(refreshModel(worker_refreshModel));
+    // let worker_refreshModel = $('#nsEscimCsIoAKPp_').attr('worker');
+    // if (sessionStorage.getItem('VtlTCzUbauSQVpL') != null)
+    // {
+    //     worker_refreshModel = sessionStorage.getItem('VtlTCzUbauSQVpL');
+    // }
+    // var model_t = refreshModel(worker_refreshModel);
+    // console.log(model_t);
     // var model_t1 = @Html.Raw(JsonConvert.SerializeObject(Model));
     // console.log(model_t);
     // console.log(model_t1);
@@ -228,7 +228,7 @@
     var model_d = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Departments));
     var model_h = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Holiday));
     var model_l = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Leave));
-    // var model_t = @Html.Raw(JsonConvert.SerializeObject(Model));
+    var model_t = @Html.Raw(JsonConvert.SerializeObject(Model));
     var model_ts = @Html.Raw(JsonConvert.SerializeObject(ViewBag.TimeSetting));
     var model_hours = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Hours));
 

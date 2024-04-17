@@ -765,7 +765,7 @@ $('.left-nav').mouseleave(function (e)
 
 });
 
-
+//$('.left-nav').trigger('mouseleave');
 
 
 
