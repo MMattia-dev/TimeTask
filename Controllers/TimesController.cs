@@ -197,16 +197,16 @@ namespace TimeTask.Controllers
                           Problem("Entity set 'ApplicationDbContext.Time'  is null.");
         }
 
-        public ActionResult RefreshModel(int workerID)
-        {
-            if (_context.Time.Any(x => x.WorkerID == workerID))
-            {
-                var newModel = _context.Time.Where(x => x.WorkerID == workerID);
-                return Json(newModel);
-            }
+        //public ActionResult RefreshModel(int workerID)
+        //{
+        //    if (_context.Time.Any(x => x.WorkerID == workerID))
+        //    {
+        //        var newModel = _context.Time.Where(x => x.WorkerID == workerID);
+        //        return Json(newModel);
+        //    }
 
-            return Json(new { success = false });
-        }
+        //    return Json(new { success = false });
+        //}
 
         public int GetWeeksInYear(int year)
 		{
@@ -304,8 +304,8 @@ namespace TimeTask.Controllers
 
             _context.Time.Add(newData);
             _context.SaveChanges();
-            return Json(new { success = true });
-            //return Json(newData.Id);
+            //return Json(new { success = true });
+            return Json(newData.Id);
         }
 
         [HttpPost]
@@ -356,8 +356,8 @@ namespace TimeTask.Controllers
 
             _context.Time.Add(newData);
             _context.SaveChanges();
-            return Json(new { success = true });
-            //return Json(newData.Id);
+            //return Json(new { success = true });
+            return Json(newData.Id);
         }
 
         [HttpPost]

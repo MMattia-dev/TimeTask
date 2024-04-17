@@ -1931,25 +1931,42 @@ function MbcIEXgByuxsGWM_(t)
     {
         if (godzinaOD.length > 0 && godzinaDO.length > 0) 
         {
-            $.ajax({
-                type: 'POST',
-                url: '/Times/AddTime',
-                data: {
-                    workerID: workerID_,
-                    enter: date + ' ' + godzinaOD,
-                    exit: date + ' ' + godzinaDO,
-                    leaveID: null,
-                    leaveDate: null
-                },
-                success: function (response)
-                {
-                    location.reload();
-                },
-                error: function (xhr, status, error)
-                {
-                    console.log('Error:', error);
-                }
-            });
+            $('.BnDZmDEehCCybzG.LPbaczkZTGFbIBk').hide();
+            $(t).parent().parent().append(`<div id="jGVknVFSbKiIHxk" style="display: flex; justify-content: center; align-items: center; position: fixed; height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.5);"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>`);
+            
+            setTimeout(function ()
+            {
+                $('#vjaHMXanUmPdVZF').remove();
+            }, 1000);
+            let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id="' + date + '"]');
+            console.log(the_div.html());
+
+
+            //$.ajax({
+            //    type: 'POST',
+            //    url: '/Times/AddTime',
+            //    data: {
+            //        workerID: workerID_,
+            //        enter: date + ' ' + godzinaOD,
+            //        exit: date + ' ' + godzinaDO,
+            //        leaveID: null,
+            //        leaveDate: null
+            //    },
+            //    success: function (response)
+            //    {
+            //        //location.reload();
+            //        model_t.push({ Id: response, WorkerID: workerID_, Enter: date + ' ' + godzinaOD, Exit: date + ' ' + godzinaDO, LeaveID: null, LeaveDate: null });
+
+            //        setTimeout(function ()
+            //        {
+            //            $('#vjaHMXanUmPdVZF').remove();
+            //        }, 1000);
+            //    },
+            //    error: function (xhr, status, error)
+            //    {
+            //        console.log('Error:', error);
+            //    }
+            //});
         }
     }
 };
