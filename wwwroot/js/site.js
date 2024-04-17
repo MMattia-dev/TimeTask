@@ -643,10 +643,10 @@ $('.left-nav').mouseenter(function ()
 {
     $('.left-nav').css({ 'width': '265px', 'box-shadow': '12px 0px 16px -15px rgba(0, 0, 0, 1)',  });
     $('.settings_a span').css({ 'opacity': '1', 'margin-left': '20px', });
-    $('.settings_a .EQCwcxEkFOGSEpo').css({ 'opacity': '1', 'margin-left': '20px', });
-    $('.lNhHgAvbrNdaAip').css({ 'opacity': '1', 'margin-left': '20px', });
-    $('.settings_a.gGYzjsTuUMWvEwI').css({ 'height': '136px', });
-    $('.settings_a.gGYzjsTuUMWvEwI').children('ion-icon').css({ 'opacity': '0', });
+    //$('.settings_a .EQCwcxEkFOGSEpo').css({ 'opacity': '1', 'margin-left': '20px', });
+    //$('.lNhHgAvbrNdaAip').css({ 'opacity': '1', 'margin-left': '20px', });
+    //$('.settings_a.gGYzjsTuUMWvEwI').css({ 'height': '136px', });
+    //$('.settings_a.gGYzjsTuUMWvEwI').children('ion-icon').css({ 'opacity': '0', });
     $('.settings_a').css({ 'box-shadow': 'inset 0 -1px 0 rgba(255, 255, 255, 0.1)', });
     $('.IdRKPExyAQSewBL').css({ 'scrollbar-color': 'rgba(36, 110, 142, 0.7) transparent', 'scrollbar-width': 'thin' });
     
@@ -669,11 +669,15 @@ $('.left-nav').mouseenter(function ()
     }
     if (sessionStorage.getItem('JcvzYoovBpGECWh') != null) //department
     {
-        for (let i = 0; i < model_d.length; i++) {
-            if (model_d[i].Id == sessionStorage.getItem('JcvzYoovBpGECWh')) 
+        if (model_d.length > 0) 
+        {
+            for (let i = 0; i < model_d.length; i++)
             {
-                let depName = model_d[i].Name;
-                $('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1).html(depName);
+                if (model_d[i].Id == sessionStorage.getItem('JcvzYoovBpGECWh')) 
+                {
+                    let depName = model_d[i].Name;
+                    $('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1).html(depName);
+                }
             }
         }
     }
@@ -686,25 +690,31 @@ $('.left-nav').mouseenter(function ()
     }
     if (sessionStorage.getItem('gaukHwbLvIchVtA') != null) //department
     {
-        for (let i = 0; i < model_d.length; i++) 
+        if (model_d.length > 0)
         {
-            if (model_d[i].Id == sessionStorage.getItem('gaukHwbLvIchVtA')) 
+            for (let i = 0; i < model_d.length; i++) 
             {
-                let depName = model_d[i].Name;
-                $('#dOryXMJCOpmMFDw_').children('.settings_a_select').children('span').eq(1).html(depName);
+                if (model_d[i].Id == sessionStorage.getItem('gaukHwbLvIchVtA')) 
+                {
+                    let depName = model_d[i].Name;
+                    $('#dOryXMJCOpmMFDw_').children('.settings_a_select').children('span').eq(1).html(depName);
+                }
             }
         }
     }
     if (sessionStorage.getItem('ZDCmGEJAljtfCfz') != null) //worker
     {
-        for (let i = 0; i < model_w.length; i++) 
+        if (model_w.length > 0) 
         {
-            if (model_w[i].Id == sessionStorage.getItem('ZDCmGEJAljtfCfz')) 
+            for (let i = 0; i < model_w.length; i++) 
             {
-                let name = model_w[i].Surname + ' ' + model_w[i].Name;
-                $('#nrKYNmWitBwDNUj_').children('.settings_a_select').children('span').eq(1).html(name);
+                if (model_w[i].Id == sessionStorage.getItem('ZDCmGEJAljtfCfz')) 
+                {
+                    let name = model_w[i].Surname + ' ' + model_w[i].Name;
+                    $('#nrKYNmWitBwDNUj_').children('.settings_a_select').children('span').eq(1).html(name);
+                }
             }
-        }
+        } 
     }
     //
 
@@ -715,23 +725,29 @@ $('.left-nav').mouseenter(function ()
     }
     if (sessionStorage.getItem('KQZDntYVEGZzaMS') != null) //department
     {
-        for (let i = 0; i < model_d.length; i++) 
+        if (model_d.length > 0) 
         {
-            if (model_d[i].Id == sessionStorage.getItem('KQZDntYVEGZzaMS')) 
+            for (let i = 0; i < model_d.length; i++) 
             {
-                let depName = model_d[i].Name;
-                $('#snPNNsTxyDALgPl_').children('.settings_a_select').children('span').eq(1).html(depName);
+                if (model_d[i].Id == sessionStorage.getItem('KQZDntYVEGZzaMS')) 
+                {
+                    let depName = model_d[i].Name;
+                    $('#snPNNsTxyDALgPl_').children('.settings_a_select').children('span').eq(1).html(depName);
+                }
             }
         }
     }
     if (sessionStorage.getItem('VtlTCzUbauSQVpL') != null) //worker
     {
-        for (let i = 0; i < model_w.length; i++) 
+        if (model_w.length > 0) 
         {
-            if (model_w[i].Id == sessionStorage.getItem('VtlTCzUbauSQVpL')) 
+            for (let i = 0; i < model_w.length; i++) 
             {
-                let name = model_w[i].Surname + ' ' + model_w[i].Name;
-                $('#nsEscimCsIoAKPp_').children('.settings_a_select').children('span').eq(1).html(name);
+                if (model_w[i].Id == sessionStorage.getItem('VtlTCzUbauSQVpL')) 
+                {
+                    let name = model_w[i].Surname + ' ' + model_w[i].Name;
+                    $('#nsEscimCsIoAKPp_').children('.settings_a_select').children('span').eq(1).html(name);
+                }
             }
         }
     }
@@ -747,8 +763,8 @@ $('.left-nav').mouseleave(function (e)
     //}
     $('.left-nav').removeAttr('style');
     $('.settings_a span').removeAttr('style');
-    $('.settings_a .EQCwcxEkFOGSEpo').removeAttr('style');
-    $('.lNhHgAvbrNdaAip').removeAttr('style');
+    //$('.settings_a .EQCwcxEkFOGSEpo').removeAttr('style');
+    //$('.lNhHgAvbrNdaAip').removeAttr('style');
     $('.settings_a').removeAttr('style');
     $('.IdRKPExyAQSewBL').removeAttr('style');
 
@@ -762,7 +778,7 @@ $('.left-nav').mouseleave(function (e)
     //$('.YgYDRNgkzyxgztO:not(.pTBYGYxynGajyIy)').remove();
     //$('.YgYDRNgkzyxgztO').remove();
     $('.YgYDRNgkzyxgztO:not(.temp)').remove();
-
+    $('#KhUYdWBbOzZAJwi').remove();
 });
 
 //$('.left-nav').trigger('mouseleave');

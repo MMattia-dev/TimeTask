@@ -1197,9 +1197,14 @@ $('#ZjgbqxHhgxIGJgv').on('click', function ()
 $('#ojfoDQUNdsorzcr').on('click', function ()
 {
     let e = document.getElementById('vEWCfPdwZDQYZtg');
-    let e_ = document.getElementById('SLmdcavhxFjdwWi');
-    let e2 = e_.options[e_.selectedIndex].value;
-    e.value = e2;
+    //let e_ = document.getElementById('SLmdcavhxFjdwWi');
+    let department = $('#snPNNsTxyDALgPl_').attr('dep');
+    if (sessionStorage.getItem('KQZDntYVEGZzaMS') != null) 
+    {
+        department = sessionStorage.getItem('KQZDntYVEGZzaMS');
+    }
+    //let e2 = e_.options[e_.selectedIndex].value;
+    e.value = department;
 
 
     let id = e.options[e.selectedIndex].value;
@@ -1214,9 +1219,14 @@ $('#ojfoDQUNdsorzcr').on('click', function ()
     }
 
     let f = document.getElementById('IzAjfDukSqEvnTJ');
-    let f_ = document.getElementById('QcLYVFuvuONgCrh');
-    let f2 = f_.options[f_.selectedIndex].value;
-    f.value = f2;
+    //let f_ = document.getElementById('QcLYVFuvuONgCrh');
+    let worker = $('#nsEscimCsIoAKPp_').attr('worker');
+    if (sessionStorage.getItem('VtlTCzUbauSQVpL') != null) 
+    {
+        worker = sessionStorage.getItem('VtlTCzUbauSQVpL');
+    }
+    //let f2 = f_.options[f_.selectedIndex].value;
+    f.value = worker;
 
 
 
@@ -1645,8 +1655,7 @@ $('#QvXboIjjKTrEMMB').on('click', function ()
     
 });
 
-$('#gPyHcTBhSRhkIHB').on('click', function ()
-{
+function gPyHcTBhSRhkIHB() {
     let seconds = 0;
 
     let QcLYVFuvuONgCrh = document.getElementById('QcLYVFuvuONgCrh');
@@ -1660,7 +1669,8 @@ $('#gPyHcTBhSRhkIHB').on('click', function ()
     let godzinaOD = document.getElementById('YYooSdVQmSBFOBy').value;
     let godzinaDO = document.getElementById('aOWPsQLgDIjpTqI').value;
 
-    if (godzinaOD && godzinaDO) {
+    if (godzinaOD && godzinaDO)
+    {
 
         //let days = document.querySelectorAll('.fNFlwKQaZMgErcF');
         let days = document.querySelectorAll('.VSEIRMVnLrwIkVf');
@@ -1758,7 +1768,9 @@ $('#gPyHcTBhSRhkIHB').on('click', function ()
 
         }
     }
-});
+
+    console.log('asd');
+};
 
 $('#nhklYOXterdPTwH').on('click', function ()
 {
@@ -2474,3 +2486,36 @@ function GPgiCvhaVxDeAlN(t)
     generateNewTable();
 };
 
+function KhUYdWBbOzZAJwi() 
+{
+    if (!$('#KhUYdWBbOzZAJwi_').hasClass('pAPTryUdWHeiZZa'))
+    {
+        let html = `<a class="settings_a gGYzjsTuUMWvEwI" id="KhUYdWBbOzZAJwi">
+            <div class="settings_a_select OhBDYvSwvYkAsjE">
+                <div class="EQCwcxEkFOGSEpo">
+                    <div class="DrKlxZckkrJfUGS">
+                        <label>godzina od</label>
+                        <input id="YYooSdVQmSBFOBy" class="FljccBHSbigulpd" type="time" />
+                    </div>
+                    <div class="DrKlxZckkrJfUGS">
+                        <label>godzina do</label>
+                        <input id="aOWPsQLgDIjpTqI" class="FljccBHSbigulpd" type="time" />
+                    </div>
+                </div>
+                <div class="lNhHgAvbrNdaAip" onclick="gPyHcTBhSRhkIHB()"><span>Zapisz zaznaczone dni</span></div>
+            </div>
+        </a>`;
+
+        $('#KhUYdWBbOzZAJwi_').after(html);
+
+        $('#KhUYdWBbOzZAJwi_').addClass('pAPTryUdWHeiZZa');
+    }
+    else 
+    {
+        $('#KhUYdWBbOzZAJwi').remove();
+
+        $('#KhUYdWBbOzZAJwi_').children('.settings_a_select').children('ion-icon').attr('name', 'chevron-down-outline');
+
+        $('#KhUYdWBbOzZAJwi_').removeClass('pAPTryUdWHeiZZa');
+    }
+};
