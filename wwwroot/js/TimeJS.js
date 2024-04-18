@@ -1933,8 +1933,7 @@ function MbcIEXgByuxsGWM_(t)
         {
             $('.BnDZmDEehCCybzG.LPbaczkZTGFbIBk').hide();
             $(t).parent().parent().append(`<div id="jGVknVFSbKiIHxk" style="display: flex; justify-content: center; align-items: center; position: fixed; height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.5);"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>`);
-            
-            
+                  
 
             $.ajax({
                 type: 'POST',
@@ -1999,6 +1998,10 @@ function cUikqcCdqYXiOhb(t)
     {
         if (godzinaOD.length > 0 && godzinaDO.length > 0) 
         {
+            $('.BnDZmDEehCCybzG.LPbaczkZTGFbIBk').hide();
+            $(t).parent().parent().append(`<div id="jGVknVFSbKiIHxk" style="display: flex; justify-content: center; align-items: center; position: fixed; height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.5);"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>`);
+
+
             $.ajax({
                 type: 'POST',
                 url: '/Times/EditTime',
@@ -2012,7 +2015,22 @@ function cUikqcCdqYXiOhb(t)
                 },
                 success: function (response)
                 {
-                    location.reload();
+                    //location.reload();
+                    var indx = model_t.findIndex(obj => obj.Id == id_);
+                    model_t[indx].Enter = date + ' ' + godzinaOD;
+                    model_t[indx].Exit = date + ' ' + godzinaDO;
+
+                    let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id="' + date + '"]');
+                    let the_div_firstInput = $(the_div).children('.IpLJVyLZIbPJsat').children('input').eq(0);
+                    let the_div_secondInput = $(the_div).children('.IpLJVyLZIbPJsat').children('input').eq(1);
+                    
+
+                    setTimeout(function ()
+                    {
+                        $('#yflqRyBYjmsZJlN').remove();
+                        $(the_div_firstInput).val(godzinaOD);
+                        $(the_div_secondInput).val(godzinaDO);
+                    }, 1);
                 },
                 error: function (xhr, status, error)
                 {
