@@ -1934,39 +1934,46 @@ function MbcIEXgByuxsGWM_(t)
             $('.BnDZmDEehCCybzG.LPbaczkZTGFbIBk').hide();
             $(t).parent().parent().append(`<div id="jGVknVFSbKiIHxk" style="display: flex; justify-content: center; align-items: center; position: fixed; height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.5);"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>`);
             
-            setTimeout(function ()
-            {
-                $('#vjaHMXanUmPdVZF').remove();
-            }, 1000);
-            let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id="' + date + '"]');
-            console.log(the_div.html());
+            
 
+            $.ajax({
+                type: 'POST',
+                url: '/Times/AddTime',
+                data: {
+                    workerID: workerID_,
+                    enter: date + ' ' + godzinaOD,
+                    exit: date + ' ' + godzinaDO,
+                    leaveID: null,
+                    leaveDate: null
+                },
+                success: function (response)
+                {
+                    //location.reload();
+                    model_t.push({ Id: response, WorkerID: workerID_, Enter: date + ' ' + godzinaOD, Exit: date + ' ' + godzinaDO, LeaveID: null, LeaveDate: null });
 
-            //$.ajax({
-            //    type: 'POST',
-            //    url: '/Times/AddTime',
-            //    data: {
-            //        workerID: workerID_,
-            //        enter: date + ' ' + godzinaOD,
-            //        exit: date + ' ' + godzinaDO,
-            //        leaveID: null,
-            //        leaveDate: null
-            //    },
-            //    success: function (response)
-            //    {
-            //        //location.reload();
-            //        model_t.push({ Id: response, WorkerID: workerID_, Enter: date + ' ' + godzinaOD, Exit: date + ' ' + godzinaDO, LeaveID: null, LeaveDate: null });
+                    let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id="' + date + '"]');
+                    $(the_div).attr('title', 'Edytuj godziny').attr('onclick', 'BHuhsNtfdNbyAVV(this)');
+                    //$(the_div).children().remove();
+                    if ($(the_div).children().hasClass('UjOQjNzjdVJpBtu'))
+                    {
+                        $(the_div).html(`<div id="` + response + `" class="IpLJVyLZIbPJsat UjOQjNzjdVJpBtu"><input type="time" value="` + godzinaOD + `" /><span>-</span><input type="time" value="` + godzinaDO + `" /></div>`);
+                    }
+                    else 
+                    {
+                        $(the_div).html(`<div id="` + response + `" class="IpLJVyLZIbPJsat"><input type="time" value="` + godzinaOD + `" /><span>-</span><input type="time" value="` + godzinaDO + `" /></div>`);
+                    }
+                    
 
-            //        setTimeout(function ()
-            //        {
-            //            $('#vjaHMXanUmPdVZF').remove();
-            //        }, 1000);
-            //    },
-            //    error: function (xhr, status, error)
-            //    {
-            //        console.log('Error:', error);
-            //    }
-            //});
+                    setTimeout(function ()
+                    {
+                        $('#vjaHMXanUmPdVZF').remove();
+                    }, 1000);
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error:', error);
+                }
+            });
         }
     }
 };

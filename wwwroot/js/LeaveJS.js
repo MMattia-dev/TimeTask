@@ -1241,7 +1241,7 @@ $('#ttGSoqUHUjOErnf').on('click', function ()
     $('#CvFHVhLHjFBzNAz').removeClass('fdjtgOVkxlRqfDM');
 });
 
-$('#KhUYdWBbOzZAJwi').on('click', function ()
+$('#KhUYdWBbOzZAJwie').on('click', function ()
 {
     let e = document.getElementById('TrbvupCIcixxNsx');
     //let e_ = document.getElementById('aFoQOFiXPQobjPX');

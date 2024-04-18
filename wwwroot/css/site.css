@@ -1125,7 +1125,7 @@ ion-icon {
         overflow: hidden;
     }
 
-    .settings_a#KhUYdWBbOzZAJwi_ ion-icon:first-child {
+    .settings_a#KhUYdWBbOzZAJwi_ ion-icon:first-child, .settings_a#KhUYdWBbOzZAJwie ion-icon {
         color: limegreen;
     }
 
@@ -1133,7 +1133,7 @@ ion-icon {
         transform: translateX(150px) translateY(0px);
     }
 
-    .settings_a#ojfoDQUNdsorzcr ion-icon {
+    .settings_a#ojfoDQUNdsorzcr ion-icon, .settings_a#UxjkajUgJngZOkw ion-icon {
         color: orangered;
     }
 
