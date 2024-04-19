@@ -1690,6 +1690,7 @@ function gPyHcTBhSRhkIHB() {
         array.sort();
         //
 
+        let ids_array = [];
         if (array.length > 0) 
         {
             for (let i = 0; i < array.length; i++) 
@@ -1711,6 +1712,7 @@ function gPyHcTBhSRhkIHB() {
                         success: function (response)
                         {
                             //location.reload();
+                            ids_array.push({ array_ID: response, array_workerID: workerID_, array_date: date, array_godzinaOD: godzinaOD, array_godzinaDO: godzinaDO });
                         },
                         error: function (xhr, status, error)
                         {
@@ -1718,48 +1720,69 @@ function gPyHcTBhSRhkIHB() {
                         }
                     });
 
+
+
+                    //model_t.push({ Id: response, WorkerID: workerID_, Enter: date + ' ' + godzinaOD, Exit: date + ' ' + godzinaDO, LeaveID: null, LeaveDate: null });
+
+                    //let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id="' + date + '"]');
+                    //$(the_div).attr('title', 'Edytuj godziny').attr('onclick', 'BHuhsNtfdNbyAVV(this)');
+                    ////$(the_div).children().remove();
+                    //if ($(the_div).children().hasClass('UjOQjNzjdVJpBtu'))
+                    //{
+                    //    $(the_div).html(`<div id="` + response + `" class="IpLJVyLZIbPJsat UjOQjNzjdVJpBtu"><input type="time" value="` + godzinaOD + `" /><span>-</span><input type="time" value="` + godzinaDO + `" /></div>`);
+                    //}
+                    //else 
+                    //{
+                    //    $(the_div).html(`<div id="` + response + `" class="IpLJVyLZIbPJsat"><input type="time" value="` + godzinaOD + `" /><span>-</span><input type="time" value="` + godzinaDO + `" /></div>`);
+                    //}
+
                     seconds++;
                 }
             }
 
 
             //
-            let htmlLoader = `<div class="pGKcZvErUB">` +
-                `<form class="form_3">` +
-                `<div class="loader_div BkvylzxsLMTrGpQ">` +
-                `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>` +
-                `</div>` +
-                `<div class="form-group bKQpZIoPOmwNvbh">` +
-                `<span class="vfxLVmwjkBogmPm" id="dTfLGgGbUYkYoyw"></span>` +
-                `</div>` +
-                `</form>` +
-                `</div>`;
+            //let htmlLoader = `<div class="pGKcZvErUB">` +
+            //    `<form class="form_3">` +
+            //    `<div class="loader_div BkvylzxsLMTrGpQ">` +
+            //    `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>` +
+            //    `</div>` +
+            //    `<div class="form-group bKQpZIoPOmwNvbh">` +
+            //    `<span class="vfxLVmwjkBogmPm" id="dTfLGgGbUYkYoyw"></span>` +
+            //    `</div>` +
+            //    `</form>` +
+            //    `</div>`;
 
-            $('body').append(htmlLoader);
+            //$('body').append(htmlLoader);
 
-            let f = 0;
-            $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f + `/` + seconds + `)`);
-            var interval = setInterval(function ()
-            {
-                $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f++ + `/` + seconds + `)`);
+            //let f = 0;
+            //$('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f + `/` + seconds + `)`);
+            //var interval = setInterval(function ()
+            //{
+            //    $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f++ + `/` + seconds + `)`);
 
-                if (f - 1 == seconds)
-                {
-                    clearInterval(interval);
+            //    if (f - 1 == seconds)
+            //    {
+            //        clearInterval(interval);
 
-                    setTimeout(function ()
-                    {
-                        location.reload();
-                    }, 100);
-                }
-            }, 50);
+            //        setTimeout(function ()
+            //        {
+            //            //location.reload();
+            //            $('.pGKcZvErUB').remove();
+            //        }, 1000);
+            //    }
+            //}, 50);
             //
 
 
+            for (let i = 0; i < ids_array.length; i++) 
+            {
+                model_t.push({ Id: ids_array[i].array_ID, WorkerID: ids_array[i].array_workerID, Enter: ids_array[i].array_date + ' ' + ids_array[i].array_godzinaOD, Exit: ids_array[i].array_date + ' ' + ids_array[i].array_godzinaDO, LeaveID: null, LeaveDate: null });
+                
+            }
+
         }
     }
-
-    console.log('asd');
 };
 
 $('#nhklYOXterdPTwH').on('click', function ()
