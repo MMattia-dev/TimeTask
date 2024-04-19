@@ -629,17 +629,7 @@ function generateNewTable()
     let TDs = document.querySelectorAll('#xhXEyORRmmYlQgG tbody tr td:not(:first-child)');
     for (let i = 0; i < TDs.length; i++) 
     {
-        TDs[i].innerHTML += `<div id="NGWhvCmkPUIWclY" title="`+ TDs[i].id +`">` + //onmouseout="xGCnnFtbrNPSNPm(this)" onmouseover="bxLcBeaOvMopDll(this)"
-            `<div title="Zaznacz dzień" onclick="OdAaYwlLkdNUOjt(this)" style="display: none;">` +
-                `<svg viewBox="0 0 24 24" width="24" height="24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path></svg>` +
-            `</div>` +
-            `<div title="Odznacz dzień" onclick="efBsSMDrIHdzcWF(this)" style="display: none;">` +
-                `<svg viewBox="0 0 24 24" width="24" height="24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path></svg>` +
-            `</div>` +
-            `<div title="Wpisz godziny" onclick="HIJPFbwutXHZxGn(this)" style="display: none;">` +
-                `<svg viewBox="0 0 512 512" width="24" height="24"><path d="M256,0C114.6,0,0,114.6,0,256s114.6,256,256,256c141.4,0,256-114.6,256-256S397.4,0,256,0z M256,469.3c-117.8,0-213.3-95.5-213.3-213.3c0-117.8,95.5-213.3,213.3-213.3c117.8,0,213.3,95.5,213.3,213.3C469.3,373.8,373.8,469.3,256,469.3z M234.7,234.7L149.3,320l32,32l96-96V85.3h-42.7V234.7z"></path></svg>` +
-            `</div>` +
-        `</div>`;
+        $(TDs[i]).append(insideTD(TDs[i].id));
 
         TDs[i].setAttribute('onmouseover', 'bxLcBeaOvMopDll(event, this)');
         TDs[i].setAttribute('onmouseout', 'xGCnnFtbrNPSNPm(event, this)');
@@ -2025,12 +2015,9 @@ function cUikqcCdqYXiOhb(t)
                     let the_div_secondInput = $(the_div).children('.IpLJVyLZIbPJsat').children('input').eq(1);
                     
 
-                    setTimeout(function ()
-                    {
-                        $('#yflqRyBYjmsZJlN').remove();
-                        $(the_div_firstInput).val(godzinaOD);
-                        $(the_div_secondInput).val(godzinaDO);
-                    }, 1);
+                    $(the_div_firstInput).val(godzinaOD);
+                    $(the_div_secondInput).val(godzinaDO);
+                    $('#yflqRyBYjmsZJlN').remove();
                 },
                 error: function (xhr, status, error)
                 {
@@ -2041,19 +2028,52 @@ function cUikqcCdqYXiOhb(t)
     }
 };
 
+function insideTD(date) 
+{
+    let html = `<div id="NGWhvCmkPUIWclY" title="` + date + `">` +
+        `<div title="Zaznacz dzień" onclick="OdAaYwlLkdNUOjt(this)" style="display: none;">` +
+        `<svg viewBox="0 0 24 24" width="24" height="24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path></svg>` +
+        `</div>` +
+        `<div title="Odznacz dzień" onclick="efBsSMDrIHdzcWF(this)" style="display: none;">` +
+        `<svg viewBox="0 0 24 24" width="24" height="24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path></svg>` +
+        `</div>` +
+        `<div title="Wpisz godziny" onclick="HIJPFbwutXHZxGn(this)" style="display: none;">` +
+        `<svg viewBox="0 0 512 512" width="24" height="24"><path d="M256,0C114.6,0,0,114.6,0,256s114.6,256,256,256c141.4,0,256-114.6,256-256S397.4,0,256,0z M256,469.3c-117.8,0-213.3-95.5-213.3-213.3c0-117.8,95.5-213.3,213.3-213.3c117.8,0,213.3,95.5,213.3,213.3C469.3,373.8,373.8,469.3,256,469.3z M234.7,234.7L149.3,320l32,32l96-96V85.3h-42.7V234.7z"></path></svg>` +
+        `</div>` +
+        `</div>`;
+
+    return html;
+};
+
 function erAjvPaJaDFYeWu(t) 
 {
     let id_ = sessionStorage.getItem('FkHOovyRCxcvxwh');
 
+
+    $('.BnDZmDEehCCybzG.LPbaczkZTGFbIBk').hide();
+    $(t).parent().parent().append(`<div id="jGVknVFSbKiIHxk" style="display: flex; justify-content: center; align-items: center; position: fixed; height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.5);"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>`);
+
+
     $.ajax({
         type: 'POST',
-        url: '/Times/EditTime',
+        url: '/Times/RemoveTime',
         data: {
             id: id_
         },
         success: function (response)
         {
-            location.reload();
+            //location.reload();
+            let the_div = $('#xhXEyORRmmYlQgG tbody tr td div[id="' + id_ + '"]');
+            let date = $(the_div).parent().attr('id');
+            $(the_div).parent().removeAttr('class title onclick');           
+            $(the_div).parent().html(insideTD(date));
+
+            var indx = model_t.indexOf(id_);
+            model_t.splice(indx, 1);
+
+            $('#yflqRyBYjmsZJlN').remove();
+
+            sessionStorage.removeItem('FkHOovyRCxcvxwh');
         },
         error: function (xhr, status, error)
         {
