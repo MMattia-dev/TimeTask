@@ -2065,7 +2065,7 @@ function erAjvPaJaDFYeWu(t)
             //location.reload();
             let the_div = $('#xhXEyORRmmYlQgG tbody tr td div[id="' + id_ + '"]');
             let date = $(the_div).parent().attr('id');
-            $(the_div).parent().removeAttr('class title onclick');           
+            $(the_div).parent().removeAttr('class title onclick');
             $(the_div).parent().html(insideTD(date));
 
             var indx = model_t.indexOf(id_);
