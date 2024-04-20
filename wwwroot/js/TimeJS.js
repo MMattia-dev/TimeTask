@@ -1779,6 +1779,7 @@ function gPyHcTBhSRhkIHB() {
             {
                 model_t.push({ Id: ids_array[i].array_ID, WorkerID: ids_array[i].array_workerID, Enter: ids_array[i].array_date + ' ' + ids_array[i].array_godzinaOD, Exit: ids_array[i].array_date + ' ' + ids_array[i].array_godzinaDO, LeaveID: null, LeaveDate: null });
                 
+
             }
 
         }
