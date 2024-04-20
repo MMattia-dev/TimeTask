@@ -1184,8 +1184,7 @@ $('#ZjgbqxHhgxIGJgv').on('click', function ()
     $('#GMyOrJWVImvTfZX').fadeOut(200);
 });
 
-$('#ojfoDQUNdsorzcr').on('click', function ()
-{
+function ojfoDQUNdsorzcr_() { 
     let e = document.getElementById('vEWCfPdwZDQYZtg');
     //let e_ = document.getElementById('SLmdcavhxFjdwWi');
     let department = $('#snPNNsTxyDALgPl_').attr('dep');
@@ -1222,7 +1221,7 @@ $('#ojfoDQUNdsorzcr').on('click', function ()
 
 
     $('#UVrUwxmwuexyrPA').fadeIn(200);
-});
+};
 
 $('#YtRNzXKyHTWrYyd').on('click', function ()
 {
@@ -1550,6 +1549,8 @@ $('#JiEZMNdUHgcYMIC').on('change', function ()
 
 $('#QvXboIjjKTrEMMB').on('click', function ()
 {
+    //usuwanie wielu pozycji nie dziala gdy sie dodaje wiele  
+
     let seconds = 0;
 
     let array = [];
@@ -1609,7 +1610,7 @@ $('#QvXboIjjKTrEMMB').on('click', function ()
         //
         $('#UVrUwxmwuexyrPA').hide();
 
-        let htmlLoader = `<div class="pGKcZvErUB">` +
+        let htmlLoader = `<div class="pGKcZvErUB" id="pGKcZvErUB_">` +
             `<form class="form_3">` +
             `<div class="loader_div BkvylzxsLMTrGpQ">` +
             `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>` +
@@ -1634,20 +1635,31 @@ $('#QvXboIjjKTrEMMB').on('click', function ()
 
                 setTimeout(function ()
                 {
-                    location.reload();
+                    for (let i = 0; i < array.length; i++) 
+                    {
+                        let the_div = $('#xhXEyORRmmYlQgG tbody tr td div[id="' + array[i] + '"]');
+                        let date = $(the_div).parent().attr('id');
+                        $(the_div).parent().removeAttr('class title onclick');
+                        $(the_div).parent().html(insideTD(date));
+
+                        var indx = model_t.findIndex(obj => obj.Id == array[i]);
+                        model_t[indx].Enter = null;
+                        model_t[indx].Exit = null;
+                        model_t[indx].Id = null;
+                    }
+                    //location.reload();
+                    //$('#yflqRyBYjmsZJlN').remove();
+                    $('#pGKcZvErUB_').remove();
                 }, 100);
             }
         }, 50);
         //
-
 
     }
     
 });
 
 function gPyHcTBhSRhkIHB() {
-    let seconds = 0;
-
     let QcLYVFuvuONgCrh = document.getElementById('QcLYVFuvuONgCrh');
     //let workerID_ = QcLYVFuvuONgCrh.options[QcLYVFuvuONgCrh.selectedIndex].value;
     let workerID_ = $('#nsEscimCsIoAKPp_').attr('worker');
@@ -1690,10 +1702,9 @@ function gPyHcTBhSRhkIHB() {
         array.sort();
         //
 
-        //let ids_array = [];
         if (array.length > 0) 
         {
-            let htmlLoader = `<div class="pGKcZvErUB">` +
+            let htmlLoader = `<div class="pGKcZvErUB" id="pGKcZvErUB_">` +
                 `<form class="form_3">` +
                 `<div class="loader_div BkvylzxsLMTrGpQ">` +
                 `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>` +
@@ -1727,8 +1738,6 @@ function gPyHcTBhSRhkIHB() {
                         },
                         success: function (response)
                         {
-                            //location.reload();
-                            //ids_array.push({ array_ID: response, array_workerID: workerID_, array_date: date, array_godzinaOD: godzinaOD, array_godzinaDO: godzinaDO });
                             model_t.push({ Id: response, WorkerID: workerID_, Enter: date + ' ' + godzinaOD, Exit: date + ' ' + godzinaDO, LeaveID: null, LeaveDate: null });
 
                             addTimes(response, date, godzinaOD, godzinaDO, array.length);
@@ -1738,60 +1747,8 @@ function gPyHcTBhSRhkIHB() {
                             console.log('Error adding column value:', error);
                         }
                     });
-
-                    //let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id="' + date + '"]');
-                    //$(the_div).attr('title', 'Edytuj godziny').attr('onclick', 'BHuhsNtfdNbyAVV(this)');
-                    ////$(the_div).children().remove();
-                    //if ($(the_div).children().hasClass('UjOQjNzjdVJpBtu'))
-                    //{
-                    //    $(the_div).html(`<div id="` + response + `" class="IpLJVyLZIbPJsat UjOQjNzjdVJpBtu"><input type="time" value="` + godzinaOD + `" /><span>-</span><input type="time" value="` + godzinaDO + `" /></div>`);
-                    //}
-                    //else 
-                    //{
-                    //    $(the_div).html(`<div id="` + response + `" class="IpLJVyLZIbPJsat"><input type="time" value="` + godzinaOD + `" /><span>-</span><input type="time" value="` + godzinaDO + `" /></div>`);
-                    //}
-
-                    //seconds++;
                 }
             }
-
-
-            //
-            //let htmlLoader = `<div class="pGKcZvErUB">` +
-            //    `<form class="form_3">` +
-            //    `<div class="loader_div BkvylzxsLMTrGpQ">` +
-            //    `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>` +
-            //    `</div>` +
-            //    `<div class="form-group bKQpZIoPOmwNvbh">` +
-            //    `<span class="vfxLVmwjkBogmPm" id="dTfLGgGbUYkYoyw"></span>` +
-            //    `</div>` +
-            //    `</form>` +
-            //    `</div>`;
-
-            //$('body').append(htmlLoader);
-
-            //let f = 0;
-            //$('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f + `/` + seconds + `)`);
-            //var interval = setInterval(function ()
-            //{
-            //    $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f++ + `/` + seconds + `)`);
-
-            //    if (f - 1 == seconds)
-            //    {
-            //        clearInterval(interval);
-
-            //        setTimeout(function ()
-            //        {
-            //            //location.reload();
-            //            $('.pGKcZvErUB').remove();
-            //        }, 1000);
-            //    }
-            //}, 50);
-            //
-
-            
-
-
         }
     }
 };
@@ -1823,7 +1780,7 @@ function addTimes(id, date, enter, exit, arrayLenght)
                 }
                 //
 
-                $('.pGKcZvErUB').remove();
+                $('#pGKcZvErUB_').remove();
             }, 1000);
         }
     }, 50);
@@ -2140,6 +2097,7 @@ function erAjvPaJaDFYeWu(t)
             var indx = model_t.findIndex(obj => obj.Id == id_);
             model_t[indx].Enter = null;
             model_t[indx].Exit = null;
+            model_t[indx].Id = null;
             
 
             $('#yflqRyBYjmsZJlN').remove();
