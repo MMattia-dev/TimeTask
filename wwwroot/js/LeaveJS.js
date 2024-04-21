@@ -686,6 +686,7 @@ function MbcIEXgByuxsGWM_(t)
         workerID_ = sessionStorage.getItem('ZDCmGEJAljtfCfz');
     }
     let leaveID_ = $(t).parent().parent().children('.form-group-margin').children('select').val();
+    let leaveName = $(t).parent().parent().children('.form-group').children('#uVPVZwEWSbHTwor').val();
     let leaveDate_ = $(t).parent().parent().children('#hRzavoWPiMExZUI').attr('date');
 
     if (workerID_ != 0 && workerID_ != '0' && workerID_ != null && leaveID_ != 0 && leaveID_ != '0' && leaveID_ != null)
@@ -706,26 +707,27 @@ function MbcIEXgByuxsGWM_(t)
             },
             success: function (response)
             {
+                model_t.push({ Id: response, WorkerID: workerID_, Enter: null, Exit: null, LeaveID: leaveID_, LeaveDate: leaveDate_ });
+
+                let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id="' + leaveDate_ + '"]');
+                $(the_div).attr('title', 'Edytuj urlop').attr('onclick', 'BHuhsNtfdNbyAVV(this)').attr('id_', response);
+                if ($(the_div).children().hasClass('UjOQjNzjdVJpBtu'))
+                {
+                    $(the_div).html(`<div id="` + leaveID_ + `" class="IpLJVyLZIbPJsat UjOQjNzjdVJpBtu"><span>` + leaveName + `</span></div>`);
+                }
+                else 
+                {
+                    $(the_div).html(`<div id="` + leaveID_ + `" class="IpLJVyLZIbPJsat"><span>` + leaveName + `</span></div>`);
+                }
 
 
-                //model_t.push({ Id: response, WorkerID: workerID_, Enter: null, Exit: null, LeaveID: leaveID_, LeaveDate: leaveDate_ });
-
-                //let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id="' + leaveDate_ + '"]');
-                //$(the_div).attr('title', 'Edytuj urlop').attr('onclick', 'BHuhsNtfdNbyAVV(this)');
-                //if ($(the_div).children().hasClass('UjOQjNzjdVJpBtu'))
-                //{
-                //    $(the_div).html(`<div id="` + response + `" class="IpLJVyLZIbPJsat UjOQjNzjdVJpBtu"></div>`);
-                //}
-                //else 
-                //{
-                //    $(the_div).html(`<div id="` + response + `" class="IpLJVyLZIbPJsat"></div>`);
-                //}
-
-
-                //setTimeout(function ()
-                //{
-                //    $('#vjaHMXanUmPdVZF').remove();
-                //}, 1000);
+                setTimeout(function ()
+                {
+                    //$('#vjaHMXanUmPdVZF').remove();
+                    $('#vjaHMXanUmPdVZF').hide();
+                    $('.BnDZmDEehCCybzG.LPbaczkZTGFbIBk').show();
+                    $('#jGVknVFSbKiIHxk').remove();
+                }, 1000);
             },
             error: function (xhr, status, error)
             {

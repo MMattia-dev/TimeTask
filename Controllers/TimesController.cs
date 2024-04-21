@@ -306,6 +306,7 @@ namespace TimeTask.Controllers
             _context.SaveChanges();
             //return Json(new { success = true });
             return Json(newData.Id);
+            //return Json(new { newData.Id, newData.LeaveID  });
         }
 
         [HttpPost]
