@@ -1549,8 +1549,6 @@ $('#JiEZMNdUHgcYMIC').on('change', function ()
 
 $('#QvXboIjjKTrEMMB').on('click', function ()
 {
-    //usuwanie wielu pozycji nie dziala gdy sie dodaje wiele  
-
     let seconds = 0;
 
     let array = [];
@@ -1567,18 +1565,41 @@ $('#QvXboIjjKTrEMMB').on('click', function ()
     {
         let dates = getDatesInRange(new Date(BFdfdwwTBJroPRV), new Date(hxqNvUIYSzvpSnu));
 
-        for (let i = 0; i < model_t.length; i++) 
-        {
-            for (let j = 0; j < dates.length; j++) 
+        //for (let i = 0; i < model_t.length; i++) 
+        //{
+        //    for (let j = 0; j < dates.length; j++) 
+        //    {
+        //        //if (model_t[i].LeaveID == null && model_t[i].Enter != null && model_t[i].Enter.split('T')[0] == dates[j].toISOString().split('T')[0] && model_t[i].Exit.split('T')[0] == dates[j].toISOString().split('T')[0] && workerID_ == model_t[i].WorkerID || model_t[i].LeaveID == 0 && model_t[i].Enter.split('T')[0] == dates[j].toISOString().split('T')[0] && model_t[i].Exit.split('T')[0] == dates[j].toISOString().split('T')[0] && workerID_ == model_t[i].WorkerID)
+        //        //{
+        //        //    array.push(model_t[i].Id);
+        //        //}
+        //        //if (model_t[i].Enter != null && model_t[i].Enter.split('T')[0] == dates[j].toISOString().split('T')[0] && model_t[i].Exit.split('T')[0] == dates[j].toISOString().split('T')[0] && workerID_ == model_t[i].WorkerID)
+        //        //{
+        //        //    array.push(model_t[i].Id);
+        //        //}
+        //        if (new Date(model_t[i].Enter).toLocaleDateString() == new Date(dates[j]).toLocaleDateString()) 
+        //        {
+        //            if (model_t[i].LeaveID == null && model_t[i].LeaveDate == null || model_t[i].LeaveID == 0 && model_t[i].LeaveDate == null) 
+        //            {
+        //                console.log(new Date(model_t[i].Enter).toLocaleDateString());
+        //            }
+                    
+        //        }
+        //    }
+        //}
+
+        for (let i = 0; i < dates.length; i++) {
+            let date = new Date(dates[i]).toLocaleDateString();
+            let y = date.split('.')[2].toString();
+            let m = Number(date.split('.')[1]).toString(); //no leading zeros
+            let d = date.split('.')[0].toString();
+            let newDate = y + '-' + m + '-' + d;
+
+            let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id="' + newDate + '"]');
+            if ($(the_div).hasClass('IdBgKIHybgYpxXJ')) 
             {
-                //if (model_t[i].Enter.split('T')[0] == dates[j].toISOString().split('T')[0] && model_t[i].Exit.split('T')[0] == dates[j].toISOString().split('T')[0] && workerID_ == model_t[i].WorkerID)
-                //{
-                //    array.push(model_t[i].Id);
-                //}
-                if (model_t[i].Enter != null && model_t[i].Enter.split('T')[0] == dates[j].toISOString().split('T')[0] && model_t[i].Exit.split('T')[0] == dates[j].toISOString().split('T')[0] && workerID_ == model_t[i].WorkerID)
-                {
-                    array.push(model_t[i].Id);
-                }
+                let ids = $(the_div).children('.IpLJVyLZIbPJsat').attr('id');
+                array.push(ids);
             }
         }
     }
@@ -1596,6 +1617,7 @@ $('#QvXboIjjKTrEMMB').on('click', function ()
                 success: function (response)
                 {
                     //location.reload();
+                    model_holidays(array[i]);
                 },
                 error: function (xhr, status, error)
                 {
@@ -1658,6 +1680,18 @@ $('#QvXboIjjKTrEMMB').on('click', function ()
     }
     
 });
+
+function model_holidays(id) 
+{
+    let the_div = $('#xhXEyORRmmYlQgG tbody tr td div[id="' + id + '"]');
+    let the_td = $('#xhXEyORRmmYlQgG tbody tr td div[id="' + id + '"]').parent();
+    let date = $(the_td).attr('id');
+    
+    for (let i = 0; i < model_h.length; i++) {
+        
+    }
+
+};
 
 function gPyHcTBhSRhkIHB() {
     let QcLYVFuvuONgCrh = document.getElementById('QcLYVFuvuONgCrh');
@@ -2098,7 +2132,7 @@ function erAjvPaJaDFYeWu(t)
             model_t[indx].Enter = null;
             model_t[indx].Exit = null;
             model_t[indx].Id = null;
-            
+
 
             $('#yflqRyBYjmsZJlN').remove();
 
