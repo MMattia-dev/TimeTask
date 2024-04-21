@@ -680,7 +680,6 @@ function unlock_headers()
 
 function MbcIEXgByuxsGWM_(t) 
 {
-    //let workerID_ = document.getElementById('oUfnFiNPmXnNjzu').value;
     let workerID_ = $('#nrKYNmWitBwDNUj_').attr('worker');
     if (sessionStorage.getItem('ZDCmGEJAljtfCfz') != null) 
     {
@@ -689,8 +688,12 @@ function MbcIEXgByuxsGWM_(t)
     let leaveID_ = $(t).parent().parent().children('.form-group-margin').children('select').val();
     let leaveDate_ = $(t).parent().parent().children('#hRzavoWPiMExZUI').attr('date');
 
-    if (workerID_ != 0 || workerID_ != '0' || workerID_ != null || leaveID_ != 0 || leaveID_ != '0' || leaveID_ != null)
+    if (workerID_ != 0 && workerID_ != '0' && workerID_ != null && leaveID_ != 0 && leaveID_ != '0' && leaveID_ != null)
     {
+        $('.BnDZmDEehCCybzG.LPbaczkZTGFbIBk').hide();
+        $(t).parent().parent().append(`<div id="jGVknVFSbKiIHxk" style="display: flex; justify-content: center; align-items: center; position: fixed; height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.5);"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>`);
+
+
         $.ajax({
             type: 'POST',
             url: '/Times/AddLeave',
@@ -703,11 +706,30 @@ function MbcIEXgByuxsGWM_(t)
             },
             success: function (response)
             {
-                location.reload();
+
+
+                //model_t.push({ Id: response, WorkerID: workerID_, Enter: null, Exit: null, LeaveID: leaveID_, LeaveDate: leaveDate_ });
+
+                //let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id="' + leaveDate_ + '"]');
+                //$(the_div).attr('title', 'Edytuj urlop').attr('onclick', 'BHuhsNtfdNbyAVV(this)');
+                //if ($(the_div).children().hasClass('UjOQjNzjdVJpBtu'))
+                //{
+                //    $(the_div).html(`<div id="` + response + `" class="IpLJVyLZIbPJsat UjOQjNzjdVJpBtu"></div>`);
+                //}
+                //else 
+                //{
+                //    $(the_div).html(`<div id="` + response + `" class="IpLJVyLZIbPJsat"></div>`);
+                //}
+
+
+                //setTimeout(function ()
+                //{
+                //    $('#vjaHMXanUmPdVZF').remove();
+                //}, 1000);
             },
             error: function (xhr, status, error)
             {
-                console.log('Error adding column value:', error);
+                console.log('Error:', error);
             }
         });
     }

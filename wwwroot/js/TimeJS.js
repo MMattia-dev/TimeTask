@@ -27,7 +27,55 @@
 //var model_t = refreshModel(worker_refreshModel_);
 
 
+function insideTD(date) 
+{
+    let html = `<div id="NGWhvCmkPUIWclY" title="` + date + `">` +
+        `<div title="Zaznacz dzień" onclick="OdAaYwlLkdNUOjt(this)" style="display: none;">` +
+        `<svg viewBox="0 0 24 24" width="24" height="24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path></svg>` +
+        `</div>` +
+        `<div title="Odznacz dzień" onclick="efBsSMDrIHdzcWF(this)" style="display: none;">` +
+        `<svg viewBox="0 0 24 24" width="24" height="24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path></svg>` +
+        `</div>` +
+        `<div title="Wpisz godziny" onclick="HIJPFbwutXHZxGn(this)" style="display: none;">` +
+        `<svg viewBox="0 0 512 512" width="24" height="24"><path d="M256,0C114.6,0,0,114.6,0,256s114.6,256,256,256c141.4,0,256-114.6,256-256S397.4,0,256,0z M256,469.3c-117.8,0-213.3-95.5-213.3-213.3c0-117.8,95.5-213.3,213.3-213.3c117.8,0,213.3,95.5,213.3,213.3C469.3,373.8,373.8,469.3,256,469.3z M234.7,234.7L149.3,320l32,32l96-96V85.3h-42.7V234.7z"></path></svg>` +
+        `</div>` +
+        `</div>`;
 
+    return html;
+};
+
+function addTimes(id, date, enter, exit, arrayLenght) 
+{
+    let f = 0;
+    var interval = setInterval(function ()
+    {
+        $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f++ + `/` + arrayLenght + `)`);
+
+        if (f - 1 == arrayLenght)
+        {
+            clearInterval(interval);
+
+            setTimeout(function ()
+            {
+                //
+                let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id="' + date + '"]');
+                $(the_div).removeClass('VSEIRMVnLrwIkVf').addClass('IdBgKIHybgYpxXJ');
+                $(the_div).attr('title', 'Edytuj godziny').attr('onclick', 'BHuhsNtfdNbyAVV(this)');
+                if ($(the_div).children().hasClass('UjOQjNzjdVJpBtu'))
+                {
+                    $(the_div).html(`<div id="` + id + `" class="IpLJVyLZIbPJsat UjOQjNzjdVJpBtu"><input type="time" value="` + enter + `" /><span>-</span><input type="time" value="` + exit + `" /></div>`);
+                }
+                else
+                {
+                    $(the_div).html(`<div id="` + id + `" class="IpLJVyLZIbPJsat"><input type="time" value="` + enter + `" /><span>-</span><input type="time" value="` + exit + `" /></div>`);
+                }
+                //
+
+                $('#pGKcZvErUB_').remove();
+            }, 1000);
+        }
+    }, 50);
+};
 
 function isWeekend(date = new Date())
 {
@@ -1617,7 +1665,6 @@ $('#QvXboIjjKTrEMMB').on('click', function ()
                 success: function (response)
                 {
                     //location.reload();
-                    model_holidays(array[i]);
                 },
                 error: function (xhr, status, error)
                 {
@@ -1668,6 +1715,9 @@ $('#QvXboIjjKTrEMMB').on('click', function ()
                         model_t[indx].Enter = null;
                         model_t[indx].Exit = null;
                         model_t[indx].Id = null;
+
+                        if (sessionStorage.getItem('fkdSZGmFPmlGNAq') != null) 
+                            MxLHxritEhBvupe__show();
                     }
                     //location.reload();
                     //$('#yflqRyBYjmsZJlN').remove();
@@ -1680,18 +1730,6 @@ $('#QvXboIjjKTrEMMB').on('click', function ()
     }
     
 });
-
-function model_holidays(id) 
-{
-    let the_div = $('#xhXEyORRmmYlQgG tbody tr td div[id="' + id + '"]');
-    let the_td = $('#xhXEyORRmmYlQgG tbody tr td div[id="' + id + '"]').parent();
-    let date = $(the_td).attr('id');
-    
-    for (let i = 0; i < model_h.length; i++) {
-        
-    }
-
-};
 
 function gPyHcTBhSRhkIHB() {
     let QcLYVFuvuONgCrh = document.getElementById('QcLYVFuvuONgCrh');
@@ -1785,39 +1823,6 @@ function gPyHcTBhSRhkIHB() {
             }
         }
     }
-};
-
-function addTimes(id, date, enter, exit, arrayLenght) 
-{
-    let f = 0;
-    var interval = setInterval(function ()
-    {
-        $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f++ + `/` + arrayLenght + `)`);
-
-        if (f - 1 == arrayLenght)
-        {
-            clearInterval(interval);
-
-            setTimeout(function ()
-            {
-                //
-                let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id="' + date + '"]');
-                $(the_div).removeClass('VSEIRMVnLrwIkVf').addClass('IdBgKIHybgYpxXJ');
-                $(the_div).attr('title', 'Edytuj godziny').attr('onclick', 'BHuhsNtfdNbyAVV(this)');
-                if ($(the_div).children().hasClass('UjOQjNzjdVJpBtu'))
-                {
-                    $(the_div).html(`<div id="` + id + `" class="IpLJVyLZIbPJsat UjOQjNzjdVJpBtu"><input type="time" value="` + enter + `" /><span>-</span><input type="time" value="` + exit + `" /></div>`);
-                }
-                else
-                {
-                    $(the_div).html(`<div id="` + id + `" class="IpLJVyLZIbPJsat"><input type="time" value="` + enter + `" /><span>-</span><input type="time" value="` + exit + `" /></div>`);
-                }
-                //
-
-                $('#pGKcZvErUB_').remove();
-            }, 1000);
-        }
-    }, 50);
 };
 
 $('#nhklYOXterdPTwH').on('click', function ()
@@ -1962,8 +1967,6 @@ function pQuWaMlNxUyZxiq(t)
 
 function MbcIEXgByuxsGWM_(t)
 {
-    let QcLYVFuvuONgCrh = document.getElementById('QcLYVFuvuONgCrh');
-    //let workerID_ = QcLYVFuvuONgCrh.options[QcLYVFuvuONgCrh.selectedIndex].value;
     let workerID_ = $('#nsEscimCsIoAKPp_').attr('worker');
     if (sessionStorage.getItem('VtlTCzUbauSQVpL') != null) 
     {
@@ -1975,7 +1978,7 @@ function MbcIEXgByuxsGWM_(t)
     let godzinaOD = $('#ybBTKgXSwnWglwT').val();
     let godzinaDO = $('#knZWoMordRYeUfn').val();
 
-    if (workerID_ != 0 || workerID_ != '0' || workerID_ != null)
+    if (workerID_ != 0 && workerID_ != '0' && workerID_ != null)
     {
         if (godzinaOD.length > 0 && godzinaDO.length > 0) 
         {
@@ -1995,12 +1998,10 @@ function MbcIEXgByuxsGWM_(t)
                 },
                 success: function (response)
                 {
-                    //location.reload();
                     model_t.push({ Id: response, WorkerID: workerID_, Enter: date + ' ' + godzinaOD, Exit: date + ' ' + godzinaDO, LeaveID: null, LeaveDate: null });
 
                     let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id="' + date + '"]');
                     $(the_div).attr('title', 'Edytuj godziny').attr('onclick', 'BHuhsNtfdNbyAVV(this)');
-                    //$(the_div).children().remove();
                     if ($(the_div).children().hasClass('UjOQjNzjdVJpBtu'))
                     {
                         $(the_div).html(`<div id="` + response + `" class="IpLJVyLZIbPJsat UjOQjNzjdVJpBtu"><input type="time" value="` + godzinaOD + `" /><span>-</span><input type="time" value="` + godzinaDO + `" /></div>`);
@@ -2086,22 +2087,7 @@ function cUikqcCdqYXiOhb(t)
     }
 };
 
-function insideTD(date) 
-{
-    let html = `<div id="NGWhvCmkPUIWclY" title="` + date + `">` +
-        `<div title="Zaznacz dzień" onclick="OdAaYwlLkdNUOjt(this)" style="display: none;">` +
-        `<svg viewBox="0 0 24 24" width="24" height="24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path></svg>` +
-        `</div>` +
-        `<div title="Odznacz dzień" onclick="efBsSMDrIHdzcWF(this)" style="display: none;">` +
-        `<svg viewBox="0 0 24 24" width="24" height="24"><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path></svg>` +
-        `</div>` +
-        `<div title="Wpisz godziny" onclick="HIJPFbwutXHZxGn(this)" style="display: none;">` +
-        `<svg viewBox="0 0 512 512" width="24" height="24"><path d="M256,0C114.6,0,0,114.6,0,256s114.6,256,256,256c141.4,0,256-114.6,256-256S397.4,0,256,0z M256,469.3c-117.8,0-213.3-95.5-213.3-213.3c0-117.8,95.5-213.3,213.3-213.3c117.8,0,213.3,95.5,213.3,213.3C469.3,373.8,373.8,469.3,256,469.3z M234.7,234.7L149.3,320l32,32l96-96V85.3h-42.7V234.7z"></path></svg>` +
-        `</div>` +
-        `</div>`;
 
-    return html;
-};
 
 function erAjvPaJaDFYeWu(t) 
 {
@@ -2133,6 +2119,8 @@ function erAjvPaJaDFYeWu(t)
             model_t[indx].Exit = null;
             model_t[indx].Id = null;
 
+            if (sessionStorage.getItem('fkdSZGmFPmlGNAq') != null)
+                MxLHxritEhBvupe__show();
 
             $('#yflqRyBYjmsZJlN').remove();
 
@@ -2224,7 +2212,7 @@ function MxLHxritEhBvupe__show()
                 let dateString = new Date(TDs[i].id).toLocaleDateString();
                 let model_h_Date = new Date(model_h[j].Date).toLocaleDateString();
 
-                if (dateString == model_h_Date) 
+                if (dateString == model_h_Date && !$(TDs[i]).children().hasClass('UjOQjNzjdVJpBtu')) 
                 {
                     $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>` + model_h[j].Name + `</span></div>`);
                     $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
