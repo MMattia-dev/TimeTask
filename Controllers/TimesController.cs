@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using TimeTask.Data;
 using TimeTask.Models;
 
@@ -1064,8 +1066,32 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
+        [HttpGet]
+        public ActionResult AddExceptionForWorkerForm()
+        {
+            var departments = "";
+            foreach (var item in ((IEnumerable<Department>)_context.Department).OrderBy(x => x.Name))
+            {
+                departments += "<option value=" + item.Id + ">" + item.Name + "</option>";
+            }
 
+            string form = "<div id=\"ftcuESUFJMUetmm\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form class=\"form_ form___\">" +
+                        "<div class=\"form-group\">" +
+                            "<label>Wybierz dział:</label>" +
+                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"dQIPREqlxghevrV\">" +
+                                departments +
+                            "</select>" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<label>Wybierz pracownika:</label>" +
+                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"issyAJUIywIPgIQ\"></select>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
 
+            return Content(form);
+        }
 
     }
 }

@@ -22,10 +22,6 @@ namespace TimeTask.Controllers
         // GET: Holidays
         public async Task<IActionResult> Index()
         {          
-            //IList<DateTime> result = new PolandPublicHoliday().PublicHolidays(DateTime.Now.Year);
-            //ViewBag.Public_Holidays = result;
-
-
             return _context.Holiday != null ? 
                           View(await _context.Holiday.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Holiday'  is null.");
@@ -210,9 +206,72 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
+        [HttpGet]
+        public ActionResult AddForm()
+        {
+            string form = "<div id=\"GpoavnFwAOos\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form class=\"form_\">" +
+                        "<div class=\"form-group\">" +
+                            "<input class=\"form-control\" autocomplete=\"off\" placeholder=\"nazwa święta...\" id=\"oVxJeHhcExMV\" />" +
+                        "</div>" +
+                        "<div class=\"form-group form-group-margin\">" +
+                            "<input class=\"form-control\" type=\"date\" id=\"IyWRFThVHhEX\" />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"BmJPiKFdcncS()\" />" +
+                        "</div>" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"EjaqSVIBTCAu()\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
 
+            return Content(form);
+        }
 
+        [HttpGet]
+        public ActionResult EditForm()
+        {
+            string form = "<div id=\"HnwuRhmRcJCZacg\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form class=\"form_\">" +
+                        "<div class=\"form-group\">" +
+                            "<input class=\"form-control\" autocomplete=\"off\" placeholder=\"nazwa święta...\" id=\"WjuzdnDpZbVVtTO\" />" +
+                        "</div>" +
+                        "<div class=\"form-group form-group-margin\">" +
+                            "<input class=\"form-control\" type=\"date\" id=\"osABhxQjWaMpiQP\" />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input type=\"button\" value=\"Edytuj\" class=\"btn-custom\" onclick=\"lwuUErBiOwfxbau()\" />" +
+                        "</div>" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"EjaqSVIBTCAu()\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
 
+            return Content(form);
+        }
+
+        [HttpGet]
+        public ActionResult DeleteForm()
+        {
+            string form = "<div id=\"YiAVCpnVzhDnOsL\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form class=\"jbiihcodqinw\">" +
+                        "<div class=\"IvBtEDulLESDYxK\">" +
+                            "<span id=\"ewZOdyapfFtPtMi\"></span>" +
+                            "<span id=\"nZDLxLTZwFzAFCY\"></span>" +
+                        "</div>" +
+                        "<div class=\"btn-danger-div\" id=\"FamcDfiHIvhi\">" +
+                            "<input type=\"button\" value=\"Usuń\" id=\"XSkMvvmEXCee\" onclick=\"dDlRcSCJZAuO()\" />" +
+                        "</div>" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"EjaqSVIBTCAu()\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
+
+            return Content(form);
+        }
 
 
     }
