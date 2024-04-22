@@ -1715,12 +1715,11 @@ $('#QvXboIjjKTrEMMB').on('click', function ()
                         model_t[indx].Enter = null;
                         model_t[indx].Exit = null;
                         model_t[indx].Id = null;
-
-                        if (sessionStorage.getItem('fkdSZGmFPmlGNAq') != null) 
-                            MxLHxritEhBvupe__show();
                     }
-                    //location.reload();
-                    //$('#yflqRyBYjmsZJlN').remove();
+                    
+                    if (sessionStorage.getItem('fkdSZGmFPmlGNAq') != null)
+                        MxLHxritEhBvupe__show();
+
                     $('#pGKcZvErUB_').remove();
                 }, 100);
             }
@@ -1796,7 +1795,7 @@ function gPyHcTBhSRhkIHB() {
             {
                 let date = array[i];
 
-                if (workerID_ != 0 || workerID_ != '0' || workerID_ != null) 
+                if (workerID_ != 0 && workerID_ != '0' && workerID_ != null) 
                 {
                     $.ajax({
                         type: 'POST',
@@ -2106,14 +2105,11 @@ function erAjvPaJaDFYeWu(t)
         },
         success: function (response)
         {
-            //location.reload();
             let the_div = $('#xhXEyORRmmYlQgG tbody tr td div[id="' + id_ + '"]');
             let date = $(the_div).parent().attr('id');
             $(the_div).parent().removeAttr('class title onclick');
             $(the_div).parent().html(insideTD(date));
 
-            //var indx = model_t.indexOf(id_);
-            //model_t.splice(indx, 1);
             var indx = model_t.findIndex(obj => obj.Id == id_);
             model_t[indx].Enter = null;
             model_t[indx].Exit = null;

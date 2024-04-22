@@ -1,4 +1,38 @@
-﻿
+﻿function addLeaves(id, date, leaveID, leaveName, arrayLenght) 
+{
+    let f = 0;
+    var interval = setInterval(function ()
+    {
+        $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f++ + `/` + arrayLenght + `)`);
+
+        if (f - 1 == arrayLenght)
+        {
+            clearInterval(interval);
+
+            setTimeout(function ()
+            {
+                //
+                date = date.split('-')[0] + '-' + Number(date.split('-')[1]).toString() + '-' + Number(date.split('-')[2]).toString();
+
+                let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id="' + date + '"]');
+                $(the_div).attr('title', 'Edytuj urlop').attr('onclick', 'BHuhsNtfdNbyAVV(this)').addClass('IdBgKIHybgYpxXJ');
+                $(the_div).attr('id_', id);
+                if ($(the_div).children().hasClass('UjOQjNzjdVJpBtu'))
+                {
+                    $(the_div).html(`<div id="` + leaveID + `" class="IpLJVyLZIbPJsat UjOQjNzjdVJpBtu"><span>` + leaveName + `</span></div>`);
+                }
+                else
+                {
+                    $(the_div).html(`<div id="` + leaveID + `" class="IpLJVyLZIbPJsat"><span>` + leaveName + `</span></div>`);
+                }
+                //
+
+                $('#pGKcZvErUB_').remove();
+            }, 1000);
+        }
+    }, 50);
+};
+
 function daysInMonth(month, year)
 {
     return new Date(year, month, 0).getDate();
@@ -710,7 +744,7 @@ function MbcIEXgByuxsGWM_(t)
                 model_t.push({ Id: response, WorkerID: workerID_, Enter: null, Exit: null, LeaveID: leaveID_, LeaveDate: leaveDate_ });
 
                 let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id="' + leaveDate_ + '"]');
-                $(the_div).attr('title', 'Edytuj urlop').attr('onclick', 'BHuhsNtfdNbyAVV(this)').attr('id_', response);
+                $(the_div).attr('title', 'Edytuj urlop').attr('onclick', 'BHuhsNtfdNbyAVV(this)').attr('id_', response).addClass('IdBgKIHybgYpxXJ');
                 if ($(the_div).children().hasClass('UjOQjNzjdVJpBtu'))
                 {
                     $(the_div).html(`<div id="` + leaveID_ + `" class="IpLJVyLZIbPJsat UjOQjNzjdVJpBtu"><span>` + leaveName + `</span></div>`);
@@ -773,6 +807,11 @@ function erAjvPaJaDFYeWu_(t)
 {
     let id_ = sessionStorage.getItem('lNxfWzXrKcHsdTi');
 
+
+    $('.BnDZmDEehCCybzG.LPbaczkZTGFbIBk').hide();
+    $(t).parent().parent().append(`<div id="jGVknVFSbKiIHxk" style="display: flex; justify-content: center; align-items: center; position: fixed; height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.5);"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>`);
+
+
     $.ajax({
         type: 'POST',
         url: '/Times/RemoveLeave',
@@ -781,11 +820,28 @@ function erAjvPaJaDFYeWu_(t)
         },
         success: function (response)
         {
-            location.reload();
+            let the_td = $('#xhXEyORRmmYlQgG tbody tr td[id_="' + id_ + '"]');
+            let date = $(the_td).attr('id');
+            $(the_td).removeAttr('class title id_').attr('title', date).attr('onclick', 'HIJPFbwutXHZxGn(this)');
+            $(the_td).children('.IpLJVyLZIbPJsat').remove();
+
+            var indx = model_t.findIndex(obj => obj.Id == id_);
+            model_t[indx].LeaveID = null;
+            model_t[indx].LeaveDate = null;
+            model_t[indx].Id = null;
+
+            if (sessionStorage.getItem('XtFaCWfKCtlUMUt') != null)
+                MxLHxritEhBvupe__show();
+
+            $('.BnDZmDEehCCybzG.LPbaczkZTGFbIBk').show();
+            $('#jGVknVFSbKiIHxk').remove();
+            $('#YVxFsdwTneugCIb').hide();
+
+            sessionStorage.removeItem('lNxfWzXrKcHsdTi');
         },
         error: function (xhr, status, error)
         {
-            console.log('Error adding column value:', error);
+            console.log('Error:', error);
         }
     });
 };
@@ -1393,8 +1449,6 @@ $('#tyONXYuOELdPoLh').on('change', function ()
 
 $('#JTgCvImoJEyzGux').on('click', function ()
 {
-    var seconds = 0;
-
     //let e = document.getElementById('TrbvupCIcixxNsx');
     //let id = e.options[e.selectedIndex].value;
     let e = document.getElementById('TrbvupCIcixxNsx');
@@ -1470,27 +1524,10 @@ $('#JTgCvImoJEyzGux').on('click', function ()
 
     var arrayOfDays = [];
     var toRemove2 = [];
-    //var ifUrlopIstnieje = [];
     for (let i = 0; i < leaveDays.length; i++)
     {
         let date = leaveDays[i].toISOString().split('T')[0];
         arrayOfDays.push(date);
-
-        //for (let j = 0; j < model_t.length; j++) 
-        //{
-        //    if (model_t[j].LeaveDate.split('T')[0] == date && workerID_ == model_t[j].WorkerID)
-        //    {
-        //        toRemove2.push(date);
-        //        //Uncaught TypeError: model_t[j].LeaveDate is null
-        //    }
-        //    //toRemove2.push(date);
-        //}
-
-        //for (let j = 0; j < model_t.length; j++) {
-        //    if (workerID_ == model_t[j].WorkerID && model_t[j].LeaveDate.split('T')[0] == date && model_t[j].Enter == null && model_t[j].Exit == null && model_t[j].LeaveDate != null) {
-        //        toRemove2.push(date);
-        //    }
-        //}
 
         for (let j = 0; j < model_t.length; j++) {
             //toRemove2.push(date);
@@ -1524,9 +1561,26 @@ $('#JTgCvImoJEyzGux').on('click', function ()
     {
         if (arrayOfDays.length > 0) 
         {
+            $('#KYZGriDIsqNJRxr').hide();
+
+            let htmlLoader = `<div class="pGKcZvErUB" id="pGKcZvErUB_">` +
+                `<form class="form_3">` +
+                `<div class="loader_div BkvylzxsLMTrGpQ">` +
+                `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>` +
+                `</div>` +
+                `<div class="form-group bKQpZIoPOmwNvbh">` +
+                `<span class="vfxLVmwjkBogmPm" id="dTfLGgGbUYkYoyw"></span>` +
+                `</div>` +
+                `</form>` +
+                `</div>`;
+
+            $('body').append(htmlLoader);
+            $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + 0 + `/` + arrayOfDays.length + `)`);
+
+
             for (let i = 0; i < arrayOfDays.length; i++) 
             {
-                if (workerID_ != 0 || workerID_ != '0' || workerID_ != null || leaveID_ != 0 || leaveID_ != '0' || leaveID_ != null)
+                if (workerID_ != 0 && workerID_ != '0' && workerID_ != null && leaveID_ != 0 && leaveID_ != '0' && leaveID_ != null)
                 {
                     $.ajax({
                         type: 'POST',
@@ -1539,53 +1593,18 @@ $('#JTgCvImoJEyzGux').on('click', function ()
                             leaveDate: arrayOfDays[i]
                         },
                         success: function (response)
-                        {
-                            //location.reload();
+                        {                          
+                            model_t.push({ Id: response, WorkerID: workerID_, Enter: null, Exit: null, LeaveID: leaveID_, LeaveDate: arrayOfDays[i] });
+
+                            addLeaves(response, arrayOfDays[i], $('#dFiioMzmTCjjcWp').val(), $('#HvZxXypLRxeRXCo').val(), arrayOfDays.length);
                         },
                         error: function (xhr, status, error)
                         {
                             console.log('Error adding column value:', error);
                         }
                     });
-
-                    seconds++;
                 }
             }
-
-            //
-            $('#cYgceuOTNRyhtgw').hide();
-
-            let htmlLoader = `<div class="pGKcZvErUB">` +
-                `<form class="form_3">` +
-                `<div class="loader_div BkvylzxsLMTrGpQ">` +
-                `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>` +
-                `</div>` +
-                `<div class="form-group bKQpZIoPOmwNvbh">` +
-                `<span class="vfxLVmwjkBogmPm" id="dTfLGgGbUYkYoyw"></span>` +
-                `</div>` +
-                `</form>` +
-                `</div>`;
-
-            $('body').append(htmlLoader);
-
-            let f = 0;
-            $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f + `/` + seconds + `)`);
-            var interval = setInterval(function ()
-            {
-                $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f++ + `/` + seconds + `)`);
-
-                if (f - 1 == seconds)
-                {
-                    clearInterval(interval);
-
-                    setTimeout(function ()
-                    {
-                        location.reload();
-                    }, 100);
-                }
-            }, 50);
-            //
-
         }
     }
     else if (department_chosen == 'wszyscy') {
@@ -1633,9 +1652,26 @@ $('#JTgCvImoJEyzGux').on('click', function ()
         allWorkersIDs = allWorkersIDs.filter((el) => !ids.includes(el));
 
         if (arrayOfDays.length > 0) {
+
+            $('#KYZGriDIsqNJRxr').hide();
+
+            let htmlLoader = `<div class="pGKcZvErUB" id="pGKcZvErUB_">` +
+                `<form class="form_3">` +
+                `<div class="loader_div BkvylzxsLMTrGpQ">` +
+                `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>` +
+                `</div>` +
+                `<div class="form-group bKQpZIoPOmwNvbh">` +
+                `<span class="vfxLVmwjkBogmPm" id="dTfLGgGbUYkYoyw"></span>` +
+                `</div>` +
+                `</form>` +
+                `</div>`;
+
+            $('body').append(htmlLoader);
+            $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + 0 + `/` + allWorkersIDs.length + `)`);
+
             for (let i = 0; i < allWorkersIDs.length; i++) {
                 for (let j = 0; j < arrayOfDays.length; j++) {
-                    if (allWorkersIDs[i] != 0 || allWorkersIDs[i] != '0' || allWorkersIDs[i] != null || leaveID_ != 0 || leaveID_ != '0' || leaveID_ != null) {
+                    if (allWorkersIDs[i] != 0 && allWorkersIDs[i] != '0' && allWorkersIDs[i] != null && leaveID_ != 0 && leaveID_ != '0' && leaveID_ != null) {
                         $.ajax({
                             type: 'POST',
                             url: '/Times/AddLeave',
@@ -1648,53 +1684,18 @@ $('#JTgCvImoJEyzGux').on('click', function ()
                             },
                             success: function (response)
                             {
-                                //location.reload();
+                                model_t.push({ Id: response, WorkerID: allWorkersIDs[i], Enter: null, Exit: null, LeaveID: leaveID_, LeaveDate: arrayOfDays[j] });
+
+                                addLeaves(response, arrayOfDays[j], $('#dFiioMzmTCjjcWp').val(), $('#HvZxXypLRxeRXCo').val(), allWorkersIDs.length);
                             },
                             error: function (xhr, status, error)
                             {
                                 console.log('Error adding column value:', error);
                             }
                         });
-
-                        seconds++;
                     }
                 }
             }
-
-            //
-            $('#cYgceuOTNRyhtgw').hide();
-
-            let htmlLoader = `<div class="pGKcZvErUB">` +
-                `<form class="form_3">` +
-                `<div class="loader_div BkvylzxsLMTrGpQ">` +
-                `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>` +
-                `</div>` +
-                `<div class="form-group bKQpZIoPOmwNvbh">` +
-                `<span class="vfxLVmwjkBogmPm" id="dTfLGgGbUYkYoyw"></span>` +
-                `</div>` +
-                `</form>` +
-                `</div>`;
-
-            $('body').append(htmlLoader);
-
-            let f = 0;
-            $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f + `/` + seconds + `)`);
-            var interval = setInterval(function ()
-            {
-                $('#dTfLGgGbUYkYoyw').html(`Dodawanie... ` + `(` + f++ + `/` + seconds + `)`);
-
-                if (f - 1 == seconds)
-                {
-                    clearInterval(interval);
-
-                    setTimeout(function ()
-                    {
-                        location.reload();
-                    }, 100);
-                }
-            }, 50);
-            //
-
         }
     }
 });
@@ -1985,6 +1986,7 @@ $('#jJoxUyzeqPSCQvB').on('click', function (e)
     var seconds = 0;
 
     var days = [];
+    var array = [];
 
     let oUfnFiNPmXnNjzu = document.getElementById('AEHzpmyFkSNvUdo');
     let workerID_ = oUfnFiNPmXnNjzu.options[oUfnFiNPmXnNjzu.selectedIndex].value;
@@ -2003,74 +2005,106 @@ $('#jJoxUyzeqPSCQvB').on('click', function (e)
 
     if (days.length > 0)
     {
-        for (let i = 0; i < days.length; i++)
+        //for (let i = 0; i < days.length; i++)
+        //{
+        //    //for (let j = 0; j < model_t.length; j++)
+        //    //{
+        //    //    if (model_t[j].Enter == null && model_t[j].Exit == null && model_t[j].WorkerID == workerID_)
+        //    //    {
+        //    //        if (model_t[j].LeaveDate.split('T')[0] == days[i].toISOString().split('T')[0])
+        //    //        {
+        //    //            $.ajax({
+        //    //                type: 'POST',
+        //    //                url: '/Times/RemoveLeave',
+        //    //                data: {
+        //    //                    id: model_t[j].Id,
+        //    //                },
+        //    //                success: function (response)
+        //    //                {
+        //    //                    //location.reload();
+        //    //                },
+        //    //                error: function (xhr, status, error)
+        //    //                {
+        //    //                    console.log('Error removing column value:', error);
+        //    //                }
+        //    //            });
+
+        //    //            seconds++;
+        //    //        }
+        //    //    }
+        //    //}
+
+        //    let day = new Date(days[i]).toLocaleDateString();
+
+        //    let IpLJVyLZIbPJsat = document.querySelectorAll('.IpLJVyLZIbPJsat');
+        //    for (let j = 0; j < IpLJVyLZIbPJsat.length; j++)
+        //    {
+        //        //let id_ = IpLJVyLZIbPJsat[j].id;
+        //        let id_ = $(IpLJVyLZIbPJsat[j]).parent().attr('id_');
+        //        let date_ = new Date($(IpLJVyLZIbPJsat[j]).parent().attr('id')).toLocaleDateString();
+
+        //        if (day == date_) 
+        //        {
+        //            $.ajax({
+        //                type: 'POST',
+        //                url: '/Times/RemoveLeave',
+        //                data: {
+        //                    id: id_,
+        //                },
+        //                success: function (response)
+        //                {
+        //                    //location.reload();
+        //                    //console.log(j);
+        //                },
+        //                error: function (xhr, status, error) 
+        //                {
+        //                    console.log('Error removing column value:', error);
+        //                }
+        //            });
+
+        //            seconds++;
+        //        }
+        //    }
+        //}
+
+        for (let i = 0; i < days.length; i++) 
         {
-            //for (let j = 0; j < model_t.length; j++)
-            //{
-            //    if (model_t[j].Enter == null && model_t[j].Exit == null && model_t[j].WorkerID == workerID_)
-            //    {
-            //        if (model_t[j].LeaveDate.split('T')[0] == days[i].toISOString().split('T')[0])
-            //        {
-            //            $.ajax({
-            //                type: 'POST',
-            //                url: '/Times/RemoveLeave',
-            //                data: {
-            //                    id: model_t[j].Id,
-            //                },
-            //                success: function (response)
-            //                {
-            //                    //location.reload();
-            //                },
-            //                error: function (xhr, status, error)
-            //                {
-            //                    console.log('Error removing column value:', error);
-            //                }
-            //            });
+            let date = new Date(days[i]).toLocaleDateString();
+            let y = date.split('.')[2].toString();
+            let m = Number(date.split('.')[1]).toString(); //no leading zeros
+            let d = date.split('.')[0].toString();
+            let newDate = y + '-' + m + '-' + d;
 
-            //            seconds++;
-            //        }
-            //    }
-            //}
-
-            let day = new Date(days[i]).toLocaleDateString();
-
-            let IpLJVyLZIbPJsat = document.querySelectorAll('.IpLJVyLZIbPJsat');
-            for (let j = 0; j < IpLJVyLZIbPJsat.length; j++)
+            let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id="' + newDate + '"]');
+            if ($(the_div).hasClass('IdBgKIHybgYpxXJ')) 
             {
-                //let id_ = IpLJVyLZIbPJsat[j].id;
-                let id_ = $(IpLJVyLZIbPJsat[j]).parent().attr('id_');
-                let date_ = new Date($(IpLJVyLZIbPJsat[j]).parent().attr('id')).toLocaleDateString();
+                let ids = $(the_div).attr('id_');
+                //array.push(ids);
+                $.ajax({
+                    type: 'POST',
+                    url: '/Times/RemoveLeave',
+                    data: {
+                        id: ids,
+                    },
+                    success: function (response)
+                    {
+                        
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error removing column value:', error);
+                    }
+                });
 
-                if (day == date_) 
-                {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Times/RemoveLeave',
-                        data: {
-                            id: id_,
-                        },
-                        success: function (response)
-                        {
-                            //location.reload();
-                            //console.log(j);
-                        },
-                        error: function (xhr, status, error) 
-                        {
-                            console.log('Error removing column value:', error);
-                        }
-                    });
-
-                    seconds++;
-                }
+                array.push(ids);
             }
-
-
         }
+
 
         //
         $('#cYgceuOTNRyhtgw').hide();
 
-        let htmlLoader = `<div class="pGKcZvErUB">` +
+        let htmlLoader = `<div class="pGKcZvErUB" id="pGKcZvErUB_">` +
             `<form class="form_3">` +
             `<div class="loader_div BkvylzxsLMTrGpQ">` +
             `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>` +
@@ -2084,17 +2118,34 @@ $('#jJoxUyzeqPSCQvB').on('click', function (e)
         $('body').append(htmlLoader);
         
         let f = 0;
-        $('#dTfLGgGbUYkYoyw').html(`Usuwanie... ` + `(` + f + `/` + seconds + `)`);
+        $('#dTfLGgGbUYkYoyw').html(`Usuwanie... ` + `(` + f + `/` + array.length + `)`);
         var interval = setInterval(function ()
         {
-            $('#dTfLGgGbUYkYoyw').html(`Usuwanie... ` + `(` + f++ + `/` + seconds + `)`);
+            $('#dTfLGgGbUYkYoyw').html(`Usuwanie... ` + `(` + f++ + `/` + array.length + `)`);
 
-            if (f - 1 == seconds) {
+            if (f - 1 == array.length) {
                 clearInterval(interval);
 
                 setTimeout(function ()
                 {
-                    location.reload();
+                    //location.reload();
+                    for (let i = 0; i < array.length; i++) 
+                    {
+                        let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id_="' + array[i] + '"]');
+                        let date = $(the_div).attr('id');
+                        $(the_div).removeAttr('class title id_').attr('title', date).attr('onclick', 'HIJPFbwutXHZxGn(this)');
+                        $(the_div).children('.IpLJVyLZIbPJsat').remove();
+
+                        var indx = model_t.findIndex(obj => obj.Id == array[i]);
+                        model_t[indx].LeaveID = null;
+                        model_t[indx].LeaveDate = null;
+                        model_t[indx].Id = null;
+                    }
+
+                    if (sessionStorage.getItem('XtFaCWfKCtlUMUt') != null)
+                        MxLHxritEhBvupe__show();
+
+                    $('#pGKcZvErUB_').remove();
                 }, 100);
             }
         }, 50);
@@ -2375,7 +2426,7 @@ function MxLHxritEhBvupe__show()
                 let dateString = new Date(TDs[i].id).toLocaleDateString();
                 let model_h_Date = new Date(model_h[j].Date).toLocaleDateString();
 
-                if (dateString == model_h_Date) 
+                if (dateString == model_h_Date && !$(TDs[i]).children().hasClass('UjOQjNzjdVJpBtu')) 
                 {
                     $(TDs[i]).append(`<div class="PGvvQnRjsnaGvPW"><span>` + model_h[j].Name + `</span></div>`);
                     $(TDs[i]).children().addClass('UjOQjNzjdVJpBtu');
