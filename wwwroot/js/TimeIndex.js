@@ -1586,22 +1586,50 @@ $('#yYNizTMVTEhbkFD').on('click', function ()
     $('#GpoavnFwAOos').fadeIn(200);
 });
 
-$('#dQIPREqlxghevrV').on('change', function (e)
+//$('#dQIPREqlxghevrV').on('change', function (e)
+//{
+//    //document.getElementById('issyAJUIywIPgIQ').innerHTML = '';
+//    //for (let i = 0; i < model_w.length; i++) {
+//    //    if (e.target.value == model_w[i].DepartmentID) {
+//    //        document.getElementById('issyAJUIywIPgIQ').innerHTML += '<option value=' + model_w[i].Id + '>' + model_w[i].Surname + ' ' + model_w[i].Name + '</option>';
+//    //    }
+//    //}
+
+//    $.ajax({
+//        type: 'GET',
+//        url: '/Times/AddExceptionForWorkerForm_ChangeWorkersBasedOnDepartment',
+//        data: {
+//            departmentID: $('#dQIPREqlxghevrV').val()
+//        },
+//        success: function (response) 
+//        {
+//            console.log(response);
+//        },
+//        error: function (xhr, status, error) 
+//        {
+//            console.log('Error:', error);
+//        }
+//    });
+//});
+//$('#dQIPREqlxghevrV').trigger('change');
+function dQIPREqlxghevrV_() 
 {
-    //document.getElementById('issyAJUIywIPgIQ').innerHTML = '';
-    //for (let i = 0; i < model_w.length; i++) {
-    //    if (e.target.value == model_w[i].DepartmentID) {
-    //        document.getElementById('issyAJUIywIPgIQ').innerHTML += '<option value=' + model_w[i].Id + '>' + model_w[i].Surname + ' ' + model_w[i].Name + '</option>';
-    //    }
-    //}
     $.ajax({
         type: 'GET',
-        url: '/Times/',
-
+        url: '/Times/ChangeWorkersBasedOnDepartment',
+        data: {
+            departmentID: $('#dQIPREqlxghevrV').val()
+        },
+        success: function (response)
+        {
+            $('#issyAJUIywIPgIQ').html(response);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
     });
-});
-//$('#dQIPREqlxghevrV').trigger('change');
-
+};
 
 
 $('#LRKPgUoIPlhVTMS').on('click', function ()
@@ -2054,8 +2082,7 @@ function pEIhAaljnrXIAfq(t) {
     $('#bouHwUSUJAULmxy').fadeIn(200);
 };
 
-$('#cDoWdsoylXsqbSk').on('click', function ()
-{
+function cDoWdsoylXsqbSk_() {
     let wID = document.getElementById('issyAJUIywIPgIQ').value;
     let okres = document.getElementById('ehgSlSwjIFIEMWH').value;
     let okres_options = document.getElementById('kEYeEJKlcJcQFdL');
@@ -2083,7 +2110,8 @@ $('#cDoWdsoylXsqbSk').on('click', function ()
             okres_miesiac = null;
         }
 
-        for (let i = 0; i < model_ts.length; i++) {
+        for (let i = 0; i < model_ts.length; i++)
+        {
             if (model_ts[i].WorkerId == wID)
             {
                 return false;
@@ -2117,7 +2145,7 @@ $('#cDoWdsoylXsqbSk').on('click', function ()
             }
         }
     }
-});
+};
 
 $('#THAxAvslRnLsHel').on('click', function ()
 {
