@@ -1082,6 +1082,8 @@ namespace TimeTask.Controllers
                 workersFirstDepartmentOrderByName += "<option value=" + item.Id + ">" + item.Surname + " " + item.Name + "</option>";
             }
 
+            string removeForm = "$('#ftcuESUFJMUetmm').remove()";
+
             string form = "<div id=\"ftcuESUFJMUetmm\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
                     "<form class=\"form_ form___\">" +
                         "<div class=\"form-group\">" +
@@ -1121,11 +1123,19 @@ namespace TimeTask.Controllers
                         "<div class=\"form-group\">" +
                             "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" id=\"cDoWdsoylXsqbSk\" />" +
                         "</div>" +
-                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"EjaqSVIBTCAu()\">" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
                             "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
                         "</div>" +
                     "</form>" +
                 "</div>";
+
+            return Content(form);
+        }
+
+        [HttpGet]
+        public ActionResult AddExceptionForWorkerForm_ChangeWorkersBasedOnDepartment()
+        {
+            string form = "";
 
             return Content(form);
         }

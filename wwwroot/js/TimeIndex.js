@@ -1,14 +1,4 @@
 ﻿
-function EjaqSVIBTCAu()
-{
-    $('.pGKcZvErUB').fadeOut(200);
-
-    setTimeout(function ()
-    {
-        $('.pGKcZvErUB').remove();
-    }, 200);
-};
-
 function hivknQXjTsiqtUI() {
     if (model_ts.length > 0) 
     {
@@ -1604,7 +1594,11 @@ $('#dQIPREqlxghevrV').on('change', function (e)
     //        document.getElementById('issyAJUIywIPgIQ').innerHTML += '<option value=' + model_w[i].Id + '>' + model_w[i].Surname + ' ' + model_w[i].Name + '</option>';
     //    }
     //}
+    $.ajax({
+        type: 'GET',
+        url: '/Times/',
 
+    });
 });
 //$('#dQIPREqlxghevrV').trigger('change');
 
@@ -1620,7 +1614,6 @@ $('#LRKPgUoIPlhVTMS').on('click', function ()
         {
             $('body').append(response);
             $('#ftcuESUFJMUetmm').fadeIn(200);
-            //$('#dQIPREqlxghevrV').trigger('change');
         },
         error: function (xhr, status, error) 
         {

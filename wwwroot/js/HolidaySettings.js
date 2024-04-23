@@ -170,16 +170,6 @@ function bxDzoLwDZzickPI(t)
     }
 };
 
-function EjaqSVIBTCAu()
-{
-    $('.pGKcZvErUB').fadeOut(200);
-
-    setTimeout(function ()
-    {
-        $('.pGKcZvErUB').remove();
-    }, 200);
-};
-
 function fwsxYepQKkCq()
 {
     $.ajax({
