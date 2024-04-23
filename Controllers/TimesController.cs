@@ -1075,17 +1075,54 @@ namespace TimeTask.Controllers
                 departments += "<option value=" + item.Id + ">" + item.Name + "</option>";
             }
 
+            var firstDepartmentIDOrderByName = ((IEnumerable<Department>)_context.Department).OrderBy(x => x.Name).FirstOrDefault()?.Id;
+            var workersFirstDepartmentOrderByName = "";
+            foreach (var item in ((IEnumerable<Workers2>)_context.Workers2).OrderBy(x => x.Surname).Where(y => y.DepartmentID == firstDepartmentIDOrderByName))
+            {
+                workersFirstDepartmentOrderByName += "<option value=" + item.Id + ">" + item.Surname + " " + item.Name + "</option>";
+            }
+
             string form = "<div id=\"ftcuESUFJMUetmm\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
                     "<form class=\"form_ form___\">" +
                         "<div class=\"form-group\">" +
                             "<label>Wybierz dział:</label>" +
-                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"dQIPREqlxghevrV\">" +
-                                departments +
-                            "</select>" +
+                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"dQIPREqlxghevrV\">" + departments + "</select>" +
                         "</div>" +
                         "<div class=\"form-group\">" +
                             "<label>Wybierz pracownika:</label>" +
-                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"issyAJUIywIPgIQ\"></select>" +
+                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"issyAJUIywIPgIQ\">" + workersFirstDepartmentOrderByName + "</select>" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<label>Dobowy wymiar czasu pracy (godz.)</label>" +
+                            "<input class=\"form-control\" type=\"text\" maxlength=\"2\" id=\"zVbJqIMfPhbOnum\" onkeypress=\"return isNumberKey(event)\" />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<label>Okres rozliczeniowy</label>" +
+                            "<input class=\"form-control\" type=\"text\" maxlength=\"2\" id=\"ehgSlSwjIFIEMWH\" onkeypress=\"return isNumberKey(event)\" />" +
+                            "<div style=\"height: 5px;\"></div>" +
+                            "<select class=\"form-control\" id=\"kEYeEJKlcJcQFdL\">" +
+                                "<option selected>-</option>" +
+                                "<option>tydzień/tygodnie/tygodni</option>" +
+                                "<option>miesiąc/miesiące/miesięcy</option>" +
+                            "</select>" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<label>Maks. nadgodzin w tygodniu (godz.)</label>" +
+                            "<input class=\"form-control\" type=\"text\" maxlength=\"2\" id=\"klyMbuAvknxCxgo\" onkeypress=\"return isNumberKey(event)\" />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<label>Maks. nadgodzin w roku (godz.)</label>" +
+                            "<input class=\"form-control\" type=\"text\" maxlength=\"3\" id=\"KZzKslyEOOrVYOF\" onkeypress=\"return isNumberKey(event)\" />" +
+                        "</div>" +
+                        "<div class=\"form-group form-group-margin\">" +
+                            "<label>Nieprzerwany odpoczynek (godz.)</label>" +
+                            "<input class=\"form-control\" type=\"text\" maxlength=\"2\" id=\"WdWDgtaDQwkuFxr\" onkeypress=\"return isNumberKey(event)\" />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" id=\"cDoWdsoylXsqbSk\" />" +
+                        "</div>" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"EjaqSVIBTCAu()\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
                         "</div>" +
                     "</form>" +
                 "</div>";

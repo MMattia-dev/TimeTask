@@ -1,4 +1,15 @@
-﻿function hivknQXjTsiqtUI() {
+﻿
+function EjaqSVIBTCAu()
+{
+    $('.pGKcZvErUB').fadeOut(200);
+
+    setTimeout(function ()
+    {
+        $('.pGKcZvErUB').remove();
+    }, 200);
+};
+
+function hivknQXjTsiqtUI() {
     if (model_ts.length > 0) 
     {
         $('#LRKPgUoIPlhVTMS').show();
@@ -1585,21 +1596,17 @@ $('#yYNizTMVTEhbkFD').on('click', function ()
     $('#GpoavnFwAOos').fadeIn(200);
 });
 
-$('#eNILXHlgCbgJCln').on('click', function ()
-{
-    $('#ftcuESUFJMUetmm').fadeOut(200);
-});
-
 $('#dQIPREqlxghevrV').on('change', function (e)
 {
-    document.getElementById('issyAJUIywIPgIQ').innerHTML = '';
-    for (let i = 0; i < model_w.length; i++) {
-        if (e.target.value == model_w[i].DepartmentID) {
-            document.getElementById('issyAJUIywIPgIQ').innerHTML += '<option value=' + model_w[i].Id + '>' + model_w[i].Surname + ' ' + model_w[i].Name + '</option>';
-        }
-    }
+    //document.getElementById('issyAJUIywIPgIQ').innerHTML = '';
+    //for (let i = 0; i < model_w.length; i++) {
+    //    if (e.target.value == model_w[i].DepartmentID) {
+    //        document.getElementById('issyAJUIywIPgIQ').innerHTML += '<option value=' + model_w[i].Id + '>' + model_w[i].Surname + ' ' + model_w[i].Name + '</option>';
+    //    }
+    //}
+
 });
-$('#dQIPREqlxghevrV').trigger('change');
+//$('#dQIPREqlxghevrV').trigger('change');
 
 
 
@@ -1613,6 +1620,7 @@ $('#LRKPgUoIPlhVTMS').on('click', function ()
         {
             $('body').append(response);
             $('#ftcuESUFJMUetmm').fadeIn(200);
+            //$('#dQIPREqlxghevrV').trigger('change');
         },
         error: function (xhr, status, error) 
         {
