@@ -290,58 +290,7 @@ namespace TimeTask.Controllers
 			});
 		}
 
-		[HttpPost]
-        public ActionResult AddLeave(int workerID, DateTime? enter, DateTime? exit, int leaveID, DateTime leaveDate)
-        {
-            var newData = new Time()
-            {
-                WorkerID = workerID,
-                Enter = enter,
-                Exit = exit,
-                LeaveID = leaveID,
-                LeaveDate = leaveDate
-            };
-
-            _context.Time.Add(newData);
-            _context.SaveChanges();
-            //return Json(new { success = true });
-            return Json(newData.Id);
-            //return Json(new { newData.Id, newData.LeaveID  });
-        }
-
-        [HttpPost]
-        public ActionResult EditLeave(int id, int workerID, DateTime? enter, DateTime? exit, int leaveID, DateTime leaveDate)
-        {
-            var row = _context.Time.FirstOrDefault(e => e.Id == id);
-            if (row != null)
-            {
-                row.WorkerID = workerID;
-                row.Enter = enter;
-                row.Exit = exit;
-                row.LeaveID = leaveID;
-                row.LeaveDate = leaveDate;
-                _context.SaveChanges();
-
-                return Json(new { success = true });
-            }
-
-            return Json(new { success = false });
-        }
-
-        [HttpPost]
-        public ActionResult RemoveLeave(int id)
-        {
-            var row = _context.Time.FirstOrDefault(e => e.Id == id);
-            if (row != null)
-            {
-                _context.Time.Remove(row);
-                _context.SaveChanges();
-
-                return Json(new { success = true });
-            }
-
-            return Json(new { success = false });
-        }
+		
 
         [HttpPost]
         public ActionResult AddTime(int workerID, DateTime enter, DateTime exit, int? leaveID, DateTime? leaveDate)
@@ -1293,6 +1242,149 @@ namespace TimeTask.Controllers
 
             return Json(new { success = false });
         }
+
+        [HttpGet]
+        public ActionResult AddLeaveSettingForm()
+        {
+            string removeForm = "$('#GpoavnFwAOos').remove()";
+
+            string form = "<div id=\"GpoavnFwAOos\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form class=\"form_\">" +
+                        "<div class=\"form-group\">" +
+                            "<input class=\"form-control\" autocomplete=\"off\" placeholder=\"nazwa urlopu...\" id=\"oVxJeHhcExMV\" />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input class=\"form-control\" autocomplete=\"off\" placeholder=\"komentarz (opcjonalnie)...\" id=\"kwYypucEEAnX\" />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input class=\"form-control dGNCykvGtQxbazH\" type=\"number\" onkeypress=\"validate(this, event)\" placeholder=\"maks. długość urlopu (opcjonalnie)...\" id=\"IyWRFThVHhEX\" />" +
+                            "<div class=\"eshTOvdrdlbtIkg\" id=\"radiocb\">" +
+                                "<label><input id=\"cb1\" type=\"radio\" name=\"if\" />Dni</label>" +
+                                "<label><input id=\"cb2\" type=\"radio\" name=\"if\" />Tygodnie</label>" +
+                                "<label><input id=\"cb3\" type=\"radio\" name=\"if\" />Miesiące</label>" +
+                                "<label><input id=\"cb4\" type=\"radio\" name=\"if\" />Lata</label>" +
+                            "</div>" +
+                        "</div>" +
+                        "<div class=\"form-group form-group-margin\">" +
+                            "<div class=\"jwvLslukUqESfdP\">" +
+                                "<span>Uwzględnij:</span>" +
+                            "</div>" +
+                            "<div class=\"eshTOvdrdlbtIkg\">" +
+                                "<label><input id=\"cb5\" type=\"checkbox\" />Soboty i Niedzielę</label>" +
+                                "<label><input id=\"cb6\" type=\"checkbox\" />Święta</label>" +
+                            "</div>" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"BmJPiKFdcncS()\" />" +
+                        "</div>" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
+
+            return Content(form);
+        }
+
+        [HttpPost]
+        public ActionResult AddLeave(int workerID, DateTime? enter, DateTime? exit, int leaveID, DateTime leaveDate)
+        {
+            var newData = new Time()
+            {
+                WorkerID = workerID,
+                Enter = enter,
+                Exit = exit,
+                LeaveID = leaveID,
+                LeaveDate = leaveDate
+            };
+
+            _context.Time.Add(newData);
+            _context.SaveChanges();
+            //return Json(new { success = true });
+            return Json(newData.Id);
+        }
+
+        [HttpGet]
+        public ActionResult EditLeaveSettingForm(int id) 
+        {
+            var leaveName = ((IEnumerable<Leave4>)_context.Leave4).FirstOrDefault(x => x.Id == id)?.Name;
+
+            string removeForm = "$('#nGWLQDZPlPSDQaC').remove()";
+
+            string form = "<div id=\"nGWLQDZPlPSDQaC\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form class=\"form_\">" +
+                        "<div class=\"form-group\">" +
+                            "<input class=\"form-control\" autocomplete=\"off\" placeholder=\"nazwa urlopu...\" id=\"AazUHXhkXIbdKWH\" />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input class=\"form-control\" autocomplete=\"off\" placeholder=\"komentarz (opcjonalnie)...\" id=\"TDGIADzVjJqefsV\" />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input class=\"form-control dGNCykvGtQxbazH\" type=\"number\" onkeypress=\"validate(this, event)\" placeholder=\"maks. długość urlopu (opcjonalnie)...\" id=\"VumSHUqECwbXZcK\" />" +
+                            "<div class=\"eshTOvdrdlbtIkg\" id=\"radiocb\">" +
+                                "<label><input id=\"cb1_\" type=\"radio\" name=\"if\" />Dni</label>" +
+                                "<label><input id=\"cb2_\" type=\"radio\" name=\"if\" />Tygodnie</label>" +
+                                "<label><input id=\"cb3_\" type=\"radio\" name=\"if\" />Miesiące</label>" +
+                                "<label><input id=\"cb4_\" type=\"radio\" name=\"if\" />Lata</label>" +
+                            "</div>" +
+                        "</div>" +
+                        "<div class=\"form-group form-group-margin\">" +
+                            "<div class=\"jwvLslukUqESfdP\">" +
+                                "<span>Uwzględnij:</span>" +
+                            "</div>" +
+                            "<div class=\"eshTOvdrdlbtIkg\">" +
+                                "<label><input id=\"cb5_\" type=\"checkbox\" />Soboty i Niedzielę</label>" +
+                                "<label><input id=\"cb6_\" type=\"checkbox\" />Święta</label>" +
+                            "</div>" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"LkHTSbDyYLLvJeC()\" />" +
+                        "</div>" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
+
+            return Content(form);
+        }
+
+        [HttpPost]
+        public ActionResult EditLeave(int id, int workerID, DateTime? enter, DateTime? exit, int leaveID, DateTime leaveDate)
+        {
+            var row = _context.Time.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.WorkerID = workerID;
+                row.Enter = enter;
+                row.Exit = exit;
+                row.LeaveID = leaveID;
+                row.LeaveDate = leaveDate;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult RemoveLeave(int id)
+        {
+            var row = _context.Time.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.Time.Remove(row);
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+
+
 
 
 

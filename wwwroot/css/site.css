@@ -472,7 +472,7 @@ ion-icon {
     .right-nav.SHNVXqYepsFyCsw {
         display: flex;
         /*justify-content: right;*/
-        align-items: end;
+        align-items: start;
         flex-direction: column;
     }
 

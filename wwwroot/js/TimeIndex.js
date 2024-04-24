@@ -1580,38 +1580,6 @@ let selected = document.getElementById('settings_times_id');
 selected.classList.add('settings_a_selected');
 
 
-
-$('#yYNizTMVTEhbkFD').on('click', function ()
-{
-    $('#GpoavnFwAOos').fadeIn(200);
-});
-
-//$('#dQIPREqlxghevrV').on('change', function (e)
-//{
-//    //document.getElementById('issyAJUIywIPgIQ').innerHTML = '';
-//    //for (let i = 0; i < model_w.length; i++) {
-//    //    if (e.target.value == model_w[i].DepartmentID) {
-//    //        document.getElementById('issyAJUIywIPgIQ').innerHTML += '<option value=' + model_w[i].Id + '>' + model_w[i].Surname + ' ' + model_w[i].Name + '</option>';
-//    //    }
-//    //}
-
-//    $.ajax({
-//        type: 'GET',
-//        url: '/Times/AddExceptionForWorkerForm_ChangeWorkersBasedOnDepartment',
-//        data: {
-//            departmentID: $('#dQIPREqlxghevrV').val()
-//        },
-//        success: function (response) 
-//        {
-//            console.log(response);
-//        },
-//        error: function (xhr, status, error) 
-//        {
-//            console.log('Error:', error);
-//        }
-//    });
-//});
-//$('#dQIPREqlxghevrV').trigger('change');
 function dQIPREqlxghevrV_() 
 {
     $.ajax({
@@ -1686,52 +1654,21 @@ function validate(t, evt)
 
 };
 
-function UXOaovmCsnlURsn(t, evt)
-{
-    //if (t.value.length > -1)
-    //{
-    //    let children = $(t).parent().children().eq(1).children();
-    //    for (let i = 0; i < children.length; i++)
-    //    {
-    //        $(children[i]).removeClass('flYuCaWkWLvKDYr');
-    //        $(children[i]).children().removeAttr('disabled');
-    //    }
-    //}
-    //else 
-    //{
-    //    let children = $(t).parent().children().eq(1).children();
-    //    for (let i = 0; i < children.length; i++)
-    //    {
-    //        $(children[i]).addClass('flYuCaWkWLvKDYr');
-    //        $(children[i]).children().attr('disabled');
-    //    }
-    //}
-
-    //if (t.value.length > -1)
-    //{
-    //    let children = $(t).parent().children().eq(1).children();
-    //    for (let i = 0; i < children.length; i++)
-    //    {
-    //        $(children[i]).removeClass('flYuCaWkWLvKDYr');
-    //        $(children[i]).children().removeAttr('disabled');
-    //    }
-    //}
-    //else 
-    //{
-
-    //}
-
-    //var key = evt.keyCode || evt.charCode;
-    //if (key == 8 || key == 46)
-    //{            
-    //        let children = $(t).parent().children().eq(1).children();
-    //        for (let i = 0; i < children.length; i++)
-    //        {
-    //            $(children[i]).addClass('flYuCaWkWLvKDYr');
-    //            $(children[i]).children().attr('disabled', '');
-    //        }
-    //}
-};
+function yYNizTMVTEhbkFD_() {
+    $.ajax({
+        type: 'GET',
+        url: '/Times/AddLeaveSettingForm',
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#GpoavnFwAOos').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+}
 
 function BmJPiKFdcncS()
 {
@@ -1840,27 +1777,6 @@ function BmJPiKFdcncS()
     }
 };
 
-
-function cbclick(e)
-{
-    e = e || event;
-    var cb = e.srcElement || e.target;
-    if (cb.type !== 'checkbox') { return true; }
-    var cbxs = document.getElementById('radiocb').getElementsByTagName('input'), i = cbxs.length;
-    while (i--)
-    {
-        if (cbxs[i].type && cbxs[i].type == 'checkbox' && cbxs[i].id !== cb.id)
-        {
-            cbxs[i].checked = false;
-        }
-    }
-    // if the click should always result in a checked checkbox
-    // unconmment this:
-    // cb.checked = true;
-}
-
-
-
 function GTUwirLRmPXoIuh(t)
 {
     sessionStorage.setItem('hCiEUYaJyBZCWTU', t.id);
@@ -1899,23 +1815,38 @@ function dDlRcSCJZAuO()
     });
 };
 
-function klhLiQVRwGfWrSp(t)
+function klhLiQVRwGfWrSp(id)
 {
-    sessionStorage.setItem('MRZrhugkTpKvhtm', t.id);
-    document.getElementById('AazUHXhkXIbdKWH').value = $(t).parent().parent().children().eq(0).html();
-    document.getElementById('TDGIADzVjJqefsV').value = $(t).parent().parent().children().eq(1).html();
-    document.getElementById('VumSHUqECwbXZcK').value = $(t).parent().parent().children().eq(2).html().split(' ')[0];
-    document.getElementById('cb1_').checked = $(t).parent().parent().children().eq(2).attr('checked1');
-    document.getElementById('cb2_').checked = $(t).parent().parent().children().eq(2).attr('checked2');
-    document.getElementById('cb3_').checked = $(t).parent().parent().children().eq(2).attr('checked3');
-    document.getElementById('cb4_').checked = $(t).parent().parent().children().eq(2).attr('checked4');
-    document.getElementById('cb5_').checked = $(t).parent().parent().children().eq(3).children().eq(0).attr('checked');
-    document.getElementById('cb6_').checked = $(t).parent().parent().children().eq(4).children().eq(0).attr('checked');
+    $.ajax({
+        type: 'GET',
+        url: '/Times/EditLeaveSettingForm',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#nGWLQDZPlPSDQaC').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error deleting data:', error);
+        }
+    });
 
+    //sessionStorage.setItem('MRZrhugkTpKvhtm', t.id);
+    //document.getElementById('AazUHXhkXIbdKWH').value = $(t).parent().parent().children().eq(0).html();
+    //document.getElementById('TDGIADzVjJqefsV').value = $(t).parent().parent().children().eq(1).html();
+    //document.getElementById('VumSHUqECwbXZcK').value = $(t).parent().parent().children().eq(2).html().split(' ')[0];
+    //document.getElementById('cb1_').checked = $(t).parent().parent().children().eq(2).attr('checked1');
+    //document.getElementById('cb2_').checked = $(t).parent().parent().children().eq(2).attr('checked2');
+    //document.getElementById('cb3_').checked = $(t).parent().parent().children().eq(2).attr('checked3');
+    //document.getElementById('cb4_').checked = $(t).parent().parent().children().eq(2).attr('checked4');
+    //document.getElementById('cb5_').checked = $(t).parent().parent().children().eq(3).children().eq(0).attr('checked');
+    //document.getElementById('cb6_').checked = $(t).parent().parent().children().eq(4).children().eq(0).attr('checked');
 
-
-    let nGWLQDZPlPSDQaC = document.getElementById('nGWLQDZPlPSDQaC');
-    $(nGWLQDZPlPSDQaC).fadeIn(200);
+    //let nGWLQDZPlPSDQaC = document.getElementById('nGWLQDZPlPSDQaC');
+    //$(nGWLQDZPlPSDQaC).fadeIn(200);
 };
 
 function LkHTSbDyYLLvJeC()

@@ -20,7 +20,7 @@
                 <input class="kzQkCNWOiUhJxRl" type="radio" id="urlop" name="radio" onchange="ZucUMOWKGdlqgYv()" hidden />
                 <label class="oZBtnmiLrunDFMC" for="urlop">Urlopy</label>
             </div>
-            <div class="IVnxgCORpPYL" id="yYNizTMVTEhbkFD">
+            <div class="IVnxgCORpPYL" id="yYNizTMVTEhbkFD" onclick="yYNizTMVTEhbkFD_()">
                 <span>Nowy urlop</span>
             </div>
             <div class="IVnxgCORpPYL" id="LRKPgUoIPlhVTMS">
@@ -129,7 +129,7 @@
                 @if (((IEnumerable<TimeSettings3>)ViewBag.TimeSetting).Count() > 0 && ((IEnumerable<TimeSettings3>)ViewBag.TimeSetting).Any(x => x.WorkerId != null))
                 {
                     <div class="MslTtblACOgbHhY">
-                        <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Wyjątki pracowników</span>
+                        <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Wyjątki dla pracowników</span>
                     </div>
                     @foreach (var item in (IEnumerable<TimeSettings3>)ViewBag.TimeSetting)
                     {
@@ -306,7 +306,7 @@
                         </td>
 
                         <td>
-                            <a onclick="klhLiQVRwGfWrSp(this)" id="@item.Id" title="Edytuj">
+                            <a onclick="klhLiQVRwGfWrSp(@item.Id)" title="Edytuj">
                                 <ion-icon class="edit urlop" name="create-outline"></ion-icon>
                             </a>
                             <a onclick="GTUwirLRmPXoIuh(this)" id="@item.Id" title="Usuń">
@@ -323,7 +323,7 @@
 </div>
 
 
-<div id="GpoavnFwAOos" class="pGKcZvErUB" style="display: none;">
+@* <div id="GpoavnFwAOos" class="pGKcZvErUB" style="display: none;">
     <form class="form_">
         <div class="form-group">
             <input class="form-control" autocomplete="off" placeholder="nazwa urlopu..." id="oVxJeHhcExMV" />
@@ -356,7 +356,7 @@
             <input type="button" value="Wróć" class="btn-custom_" onclick="EjaqSVIBTCAu()" />
         </div>
     </form>
-</div>
+</div> *@
 
 <div id="YiAVCpnVzhDnOsL" class="pGKcZvErUB" style="display: none;">
     <form class="jbiihcodqinw">
