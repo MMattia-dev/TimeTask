@@ -187,19 +187,18 @@ function fwsxYepQKkCq()
     });
 };
 
-function EYwnRBQDFEHjzsN(t)
+function EYwnRBQDFEHjzsN(id)
 {
     $.ajax({
         type: 'GET',
         url: '/Holidays/EditForm',
+        data: {
+            id: id
+        },
         success: function (response)
         {
             $('body').append(response);
             $('#HnwuRhmRcJCZacg').fadeIn(200);
-
-            sessionStorage.setItem('gFiXwoYVuxBrQrm', t.id);
-            $('#WjuzdnDpZbVVtTO').val($(t).attr('name'));
-            $('#osABhxQjWaMpiQP').val($(t).attr('date'));
         },
         error: function (xhr, status, error)
         {
@@ -208,19 +207,18 @@ function EYwnRBQDFEHjzsN(t)
     });
 };
 
-function hFUdwiFlMmxASVH(t)
+function hFUdwiFlMmxASVH(id)
 {
     $.ajax({
         type: 'GET',
         url: '/Holidays/DeleteForm',
+        data: {
+            id: id
+        },
         success: function (response)
         {
             $('body').append(response);
             $('#YiAVCpnVzhDnOsL').fadeIn(200);
-
-            sessionStorage.setItem('VBDsuugVdfnalOZ', t.id);
-            $('#ewZOdyapfFtPtMi').html($(t).attr('name'));
-            $('#nZDLxLTZwFzAFCY').html($(t).attr('date'));
         },
         error: function (xhr, status, error)
         {
@@ -231,31 +229,34 @@ function hFUdwiFlMmxASVH(t)
 
 function BmJPiKFdcncS()
 {
-    $.ajax({
-        type: 'POST',
-        url: '/Holidays/AddHoliday',
-        data: {
-            name: $('#oVxJeHhcExMV').val(),
-            date: $('#IyWRFThVHhEX').val()
-        },
-        success: function (response)
-        {
-            location.reload();
-        },
-        error: function (xhr, status, error)
-        {
-            console.log('Error:', error);
-        }
-    });
+    if ($('#oVxJeHhcExMV').val() != "" && $('#IyWRFThVHhEX').val() != "")
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/Holidays/AddHoliday',
+            data: {
+                name: $('#oVxJeHhcExMV').val(),
+                date: $('#IyWRFThVHhEX').val()
+            },
+            success: function (response)
+            {
+                location.reload();
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
 };
 
-function lwuUErBiOwfxbau()
+function lwuUErBiOwfxbau(id)
 {
     $.ajax({
         type: 'POST',
         url: '/Holidays/EditHoliday',
         data: {
-            id: sessionStorage.getItem('gFiXwoYVuxBrQrm'),
+            id: id,
             name: $('#WjuzdnDpZbVVtTO').val(),
             date: $('#osABhxQjWaMpiQP').val()
         },
@@ -270,15 +271,13 @@ function lwuUErBiOwfxbau()
     });
 };
 
-function dDlRcSCJZAuO()
+function dDlRcSCJZAuO(id)
 {
-    let id_ = sessionStorage.getItem('VBDsuugVdfnalOZ');
-
     $.ajax({
         type: 'POST',
         url: '/Holidays/RemoveHoliday',
         data: {
-            id: id_
+            id: id
         },
         success: function (response)
         {

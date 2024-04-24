@@ -47,10 +47,10 @@
                             <td id="@item.Date.Year">@item.Date.ToString("yyyy-MM-dd") (@culture.DateTimeFormat.GetDayName(item.Date.DayOfWeek))</td>
                             <td>@item.Name</td>
                             <td>
-                                <a onclick="EYwnRBQDFEHjzsN(this)" id="@item.Id" name="@item.Name" date="@item.Date.ToString("yyyy-MM-dd")" title="Edytuj">
+                                <a onclick="EYwnRBQDFEHjzsN(@item.Id)" title="Edytuj">
                                     <ion-icon class="edit urlop" name="create-outline"></ion-icon>
                                 </a>
-                                <a onclick="hFUdwiFlMmxASVH(this)" id="@item.Id" name="@item.Name" date="@item.Date.ToString("yyyy-MM-dd")" title="Usuń">
+                                <a onclick="hFUdwiFlMmxASVH(@item.Id)" title="Usuń">
                                     <ion-icon class="delete urlop" name="trash-outline"></ion-icon>
                                 </a>
                             </td>

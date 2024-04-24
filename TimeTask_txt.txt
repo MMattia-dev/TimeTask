@@ -8,3 +8,7 @@
 
 zmien wszystkie localstorage na sessionstorage
 zmien wszystkie id i class na has³a
+
+
+
+

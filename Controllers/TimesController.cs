@@ -282,8 +282,6 @@ namespace TimeTask.Controllers
 				}
 			}
 
-
-
 			//return Json(result);
 			return Json(new
 			{
@@ -389,100 +387,6 @@ namespace TimeTask.Controllers
             if (row != null)
             {
                 _context.Time.Remove(row);
-                _context.SaveChanges();
-
-                return Json(new { success = true });
-            }
-
-            return Json(new { success = false });
-        }
-
-        //[HttpPost]
-        //public ActionResult AddWorkerException(int? workerID, int? okresRozliczeniowy, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek)
-        //{
-        //    var newData = new TimeSettings2()
-        //    {
-        //        WorkerId = workerID,
-        //        OkresRozliczeniowy = okresRozliczeniowy,
-        //        CzasPracy = czasPracy,
-        //        MaksymalnaLiczbaNadgodzin = maksymalnaLiczbaNadgodzin,
-        //        MaksymalnaLiczbaNadgodzinTydzien = maksymalnaLiczbaNadgodzinTydzien,
-        //        NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek
-        //    };
-
-        //    _context.TimeSettings2.Add(newData);
-        //    _context.SaveChanges();
-        //    return Json(new { success = true });
-        //}
-
-        [HttpPost]
-        public ActionResult AddWorkerException(int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
-        {
-            var newData = new TimeSettings3()
-            {
-                WorkerId = workerID,
-                OkresRozliczeniowy = okresRozliczeniowy,
-                jezeliTydzien = jezeliTydzien,
-                jezeliMiesiac = jezeliMiesiac,
-                CzasPracy = czasPracy,
-                MaksymalnaLiczbaNadgodzin = maksymalnaLiczbaNadgodzin,
-                MaksymalnaLiczbaNadgodzinTydzien = maksymalnaLiczbaNadgodzinTydzien,
-                NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek,
-                PoraNocnaStart = null,
-                PoraNocnaKoniec = null,
-                CzyPoniedzialekWolny = null,
-                CzyWtorekWolny = null,
-                CzySrodaWolny = null,
-                CzyCzwartekWolny = null,
-                CzyPiatekWolny = null,
-                CzySobotaWolny = null,
-                CzyNiedzielaWolny = null
-            };
-
-            _context.TimeSettings3.Add(newData);
-            _context.SaveChanges();
-
-            return Json(new { success = true });
-        }
-
-        [HttpPost]
-        public ActionResult EditWorkerException(int id, int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
-        {
-            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
-            if (row != null)
-            {
-                row.WorkerId = workerID;
-                row.OkresRozliczeniowy = okresRozliczeniowy;
-                row.jezeliTydzien = jezeliTydzien;
-                row.jezeliMiesiac = jezeliMiesiac;
-                row.CzasPracy = czasPracy;
-                row.MaksymalnaLiczbaNadgodzin = maksymalnaLiczbaNadgodzin;
-                row.MaksymalnaLiczbaNadgodzinTydzien = maksymalnaLiczbaNadgodzinTydzien;
-                row.NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek;
-                row.PoraNocnaStart = null;
-                row.PoraNocnaKoniec = null;
-                row.CzyPoniedzialekWolny = null;
-                row.CzyWtorekWolny = null;
-                row.CzySrodaWolny = null;
-                row.CzyCzwartekWolny = null;
-                row.CzyPiatekWolny = null;
-                row.CzySobotaWolny = null;
-                row.CzyNiedzielaWolny = null;
-                _context.SaveChanges();
-
-                return Json(new { success = true });
-            }
-
-            return Json(new { success = false });
-        }
-
-        [HttpPost]
-        public ActionResult RemoveWorkerException(int id)
-        {
-            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
-            if (row != null)
-            {
-                _context.TimeSettings3.Remove(row);
                 _context.SaveChanges();
 
                 return Json(new { success = true });
@@ -1144,7 +1048,253 @@ namespace TimeTask.Controllers
             return Content(form);
         }
 
-        
+        [HttpPost]
+        public ActionResult AddWorkerException(int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
+        {
+            int ifWorkerAlreadyInDatabase = ((IEnumerable<TimeSettings3>)_context.TimeSettings3).Count(x => x.WorkerId == workerID);
+            if (ifWorkerAlreadyInDatabase == 0)
+            {
+                var newData = new TimeSettings3()
+                {
+                    WorkerId = workerID,
+                    OkresRozliczeniowy = okresRozliczeniowy,
+                    jezeliTydzien = jezeliTydzien,
+                    jezeliMiesiac = jezeliMiesiac,
+                    CzasPracy = czasPracy,
+                    MaksymalnaLiczbaNadgodzin = maksymalnaLiczbaNadgodzin,
+                    MaksymalnaLiczbaNadgodzinTydzien = maksymalnaLiczbaNadgodzinTydzien,
+                    NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek,
+                    PoraNocnaStart = null,
+                    PoraNocnaKoniec = null,
+                    CzyPoniedzialekWolny = null,
+                    CzyWtorekWolny = null,
+                    CzySrodaWolny = null,
+                    CzyCzwartekWolny = null,
+                    CzyPiatekWolny = null,
+                    CzySobotaWolny = null,
+                    CzyNiedzielaWolny = null
+                };
+
+                _context.TimeSettings3.Add(newData);
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(false);
+        }
+
+        [HttpGet]
+        public ActionResult EditExceptionForWorkerForm(int id)
+        {
+            var timeSettings = (IEnumerable<TimeSettings3>)_context.TimeSettings3;
+            var workerID = (timeSettings).FirstOrDefault(x => x.Id == id)?.WorkerId;
+
+            var workerSurname = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == workerID)?.Surname;
+            var workerName = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == workerID)?.Name;
+            var workerDepartmentID = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == workerID)?.DepartmentID;
+            var workerDepartmentName = ((IEnumerable<Department>)_context.Department).FirstOrDefault(x => x.Id == workerDepartmentID)?.Name;           
+            var dobowyWymiarCzasuPracy = (timeSettings).FirstOrDefault(x => x.WorkerId == workerID)?.CzasPracy;
+            var okresRozliczeniowy = (timeSettings).FirstOrDefault(x => x.WorkerId == workerID)?.OkresRozliczeniowy;
+
+            string jakiOkresRozliczeniowy = "";
+            var okresRozliczeniowy_jezeliTydzien = (timeSettings).FirstOrDefault(x => x.WorkerId == workerID)?.jezeliTydzien;
+            var okresRozliczeniowy_jezeliMiesiac = (timeSettings).FirstOrDefault(x => x.WorkerId == workerID)?.jezeliMiesiac;
+            if (okresRozliczeniowy_jezeliTydzien == true && okresRozliczeniowy_jezeliMiesiac == false)
+            {
+                jakiOkresRozliczeniowy = "<option>-</option>" +
+                    "<option selected>tydzień/tygodnie/tygodni</option>" +
+                    "<option>miesiąc/miesiące/miesięcy</option>";
+            }
+            else if (okresRozliczeniowy_jezeliTydzien == false && okresRozliczeniowy_jezeliMiesiac == true)
+            {
+                jakiOkresRozliczeniowy = "<option>-</option>" +
+                    "<option>tydzień/tygodnie/tygodni</option>" +
+                    "<option selected>miesiąc/miesiące/miesięcy</option>";
+            }
+            else if (okresRozliczeniowy_jezeliTydzien == null && okresRozliczeniowy_jezeliMiesiac == null)
+            {
+                jakiOkresRozliczeniowy = "<option selected>-</option>" +
+                    "<option>tydzień/tygodnie/tygodni</option>" +
+                    "<option>miesiąc/miesiące/miesięcy</option>";
+            }
+
+            var maksymalnaLiczbaNadgodzinTydzien = (timeSettings).FirstOrDefault(x => x.WorkerId == workerID)?.MaksymalnaLiczbaNadgodzinTydzien;
+            var maksymalnaLiczbaNadgodzinRok = (timeSettings).FirstOrDefault(x => x.WorkerId == workerID)?.MaksymalnaLiczbaNadgodzin;
+            var nieprzerwanyOdpoczynek = (timeSettings).FirstOrDefault(x => x.WorkerId == workerID)?.NieprzerwanyOdpoczynek;
+
+
+            string removeForm = "$('#bouHwUSUJAULmxy').remove()";
+
+            string form = "<div id=\"bouHwUSUJAULmxy\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form class=\"form_ form__\">" +
+                        "<div class=\"form-group\">" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + workerDepartmentName + "\" disabled />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + workerSurname + " " + workerName + "\" disabled />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<label>Dobowy wymiar czasu pracy (godz.)</label>" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + dobowyWymiarCzasuPracy + "\" maxlength=\"2\" id=\"qeavlfguoZjzrJJ\" onkeypress=\"return isNumberKey(event)\" />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<label>Okres rozliczeniowy</label>" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + okresRozliczeniowy + "\" maxlength=\"2\" id=\"qSFTqMAjJYMmIrO\" onkeypress=\"return isNumberKey(event)\" />" +
+                            "<div style=\"height: 5px;\"></div>" +
+                            "<select class=\"form-control\" id=\"QzUmEAmLsPWlpfK\">" +
+                                jakiOkresRozliczeniowy +
+                            "</select>" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<label>Maks. nadgodzin w tygodniu (godz.)</label>" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + maksymalnaLiczbaNadgodzinTydzien + "\" maxlength=\"2\" id=\"gATdSghHoiZijAN\" onkeypress=\"return isNumberKey(event)\" />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<label>Maks. nadgodzin w roku (godz.)</label>" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + maksymalnaLiczbaNadgodzinRok + "\" maxlength=\"3\" id=\"SEcPtfWbLyUxlmL\" onkeypress=\"return isNumberKey(event)\" />" +
+                        "</div>" +
+                        "<div class=\"form-group form-group-margin\">" +
+                            "<label>Nieprzerwany odpoczynek (godz.)</label>" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + nieprzerwanyOdpoczynek + "\" maxlength=\"2\" id=\"DrwWFscldmvtHOW\" onkeypress=\"return isNumberKey(event)\" />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input type=\"button\" value=\"Edytuj\" class=\"btn-custom\" id=\"THAxAvslRnLsHel\" onclick=\"THAxAvslRnLsHel_(" + id + ", " + workerID + ")\" />" + 
+                        "</div>" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
+
+            return Content(form);
+        }
+
+        [HttpPost]
+        public ActionResult EditWorkerException(int id, int? workerID, int? okresRozliczeniowy, bool? jezeliTydzien, bool? jezeliMiesiac, int? czasPracy, int? maksymalnaLiczbaNadgodzin, int? maksymalnaLiczbaNadgodzinTydzien, int? nieprzerwanyOdpoczynek, DateTime? poraNocnaStart, DateTime? poraNocnaKoniec, bool? czyPoniedzialekWolny, bool? czyWtorekWolny, bool? czySrodaWolny, bool? czyCzwartekWolny, bool? czyPiatekWolny, bool? czySobotaWolny, bool? czyNiedzielaWolny)
+        {
+            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.WorkerId = workerID;
+                row.OkresRozliczeniowy = okresRozliczeniowy;
+                row.jezeliTydzien = jezeliTydzien;
+                row.jezeliMiesiac = jezeliMiesiac;
+                row.CzasPracy = czasPracy;
+                row.MaksymalnaLiczbaNadgodzin = maksymalnaLiczbaNadgodzin;
+                row.MaksymalnaLiczbaNadgodzinTydzien = maksymalnaLiczbaNadgodzinTydzien;
+                row.NieprzerwanyOdpoczynek = nieprzerwanyOdpoczynek;
+                row.PoraNocnaStart = null;
+                row.PoraNocnaKoniec = null;
+                row.CzyPoniedzialekWolny = null;
+                row.CzyWtorekWolny = null;
+                row.CzySrodaWolny = null;
+                row.CzyCzwartekWolny = null;
+                row.CzyPiatekWolny = null;
+                row.CzySobotaWolny = null;
+                row.CzyNiedzielaWolny = null;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpGet]
+        public ActionResult DeleteExceptionForWorkerForm(int id)
+        {
+            var timeSettings = (IEnumerable<TimeSettings3>)_context.TimeSettings3;
+            var workerID = (timeSettings).FirstOrDefault(x => x.Id == id)?.WorkerId;
+
+            var workerSurname = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == workerID)?.Surname;
+            var workerName = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == workerID)?.Name;
+            var workerDepartmentID = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == workerID)?.DepartmentID;
+            var workerDepartmentName = ((IEnumerable<Department>)_context.Department).FirstOrDefault(x => x.Id == workerDepartmentID)?.Name;
+            var dobowyWymiarCzasuPracy = (timeSettings).FirstOrDefault(x => x.WorkerId == workerID)?.CzasPracy;
+            var okresRozliczeniowy = (timeSettings).FirstOrDefault(x => x.WorkerId == workerID)?.OkresRozliczeniowy;
+
+            string jakiOkresRozliczeniowy = "";
+            var okresRozliczeniowy_jezeliTydzien = (timeSettings).FirstOrDefault(x => x.WorkerId == workerID)?.jezeliTydzien;
+            var okresRozliczeniowy_jezeliMiesiac = (timeSettings).FirstOrDefault(x => x.WorkerId == workerID)?.jezeliMiesiac;
+            if (okresRozliczeniowy_jezeliTydzien == true && okresRozliczeniowy_jezeliMiesiac == false)
+            {
+                jakiOkresRozliczeniowy = "tydzień/tygodnie/tygodni";
+            }
+            else if (okresRozliczeniowy_jezeliTydzien == false && okresRozliczeniowy_jezeliMiesiac == true)
+            {
+                jakiOkresRozliczeniowy = "miesiąc/miesiące/miesięcy";
+            }
+            else if (okresRozliczeniowy_jezeliTydzien == null && okresRozliczeniowy_jezeliMiesiac == null)
+            {
+                jakiOkresRozliczeniowy = "-";
+            }
+
+            var maksymalnaLiczbaNadgodzinTydzien = (timeSettings).FirstOrDefault(x => x.WorkerId == workerID)?.MaksymalnaLiczbaNadgodzinTydzien;
+            var maksymalnaLiczbaNadgodzinRok = (timeSettings).FirstOrDefault(x => x.WorkerId == workerID)?.MaksymalnaLiczbaNadgodzin;
+            var nieprzerwanyOdpoczynek = (timeSettings).FirstOrDefault(x => x.WorkerId == workerID)?.NieprzerwanyOdpoczynek;
+
+
+            string removeForm = "$('#aekPvskkEgnnMQf').remove()";
+
+            string form = "<div id=\"aekPvskkEgnnMQf\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form class=\"form_ form__\">" +
+                        "<div class=\"form-group\">" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + workerDepartmentName + "\" disabled />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + workerSurname + " " + workerName + "\" disabled />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<label>Dobowy wymiar czasu pracy (godz.)</label>" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + dobowyWymiarCzasuPracy +"\" disabled />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<label>Okres rozliczeniowy</label>" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + okresRozliczeniowy + "\" disabled />" +
+                            "<div style=\"height: 5px;\"></div>" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + jakiOkresRozliczeniowy + "\" disabled />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<label>Maks. nadgodzin w tygodniu (godz.)</label>" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + maksymalnaLiczbaNadgodzinTydzien + "\" disabled />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<label>Maks. nadgodzin w roku (godz.)</label>" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + maksymalnaLiczbaNadgodzinRok + "\" disabled />" +
+                        "</div>" +
+                        "<div class=\"form-group form-group-margin\">" +
+                            "<label>Nieprzerwany odpoczynek (godz.)</label>" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + nieprzerwanyOdpoczynek + "\" disabled />" +
+                        "</div>" +
+                        "<div class=\"btn-danger-div\">" +
+                            "<input type=\"button\" value=\"Usuń\" id=\"TGdaSoYPTTTHTtr\" onclick=\"TGdaSoYPTTTHTtr_(" + id + ")\" />" +
+                        "</div>" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
+
+            return Content(form);
+        }
+
+        [HttpPost]
+        public ActionResult RemoveWorkerException(int id)
+        {
+            var row = _context.TimeSettings3.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.TimeSettings3.Remove(row);
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+
 
     }
 }

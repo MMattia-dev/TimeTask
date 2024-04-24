@@ -2030,59 +2030,8 @@ function LkHTSbDyYLLvJeC()
     }
 };
 
-$('#HamaCLjyVSpUlPh').on('click', function ()
+function cDoWdsoylXsqbSk_()
 {
-    $('#bouHwUSUJAULmxy').fadeOut(200);
-});
-
-function pEIhAaljnrXIAfq(t) {
-    let id_ = t.getAttribute('uHtqZrPMvAndRri');
-    let workerID_ = t.getAttribute('CRxhxVVduqEVHZl');
-    
-    let name = $(t).parent().parent().children().eq(0).html();
-    $('#mtjAVQlKEdZLfWP').val(name);
-
-    for (let i = 0; i < model_ts.length; i++) {
-        if (model_ts[i].Id == id_) {
-            let workerID_ = model_ts[i].WorkerId;
-            for (let j = 0; j < model_w.length; j++) {
-                if (model_w[j].Id == workerID_) {
-                    for (let k = 0; k < model_d.length; k++) {
-                        if (model_w[j].DepartmentID == model_d[k].Id) {
-                            $('#oGwNKChRERGiLSG').val(model_d[k].Name);
-                        }
-                    }
-                }
-            }
-
-            //qeavlfguoZjzrJJ - Dobowy wymiar czasu pracy (godz.)
-            //qSFTqMAjJYMmIrO - Okres rozliczeniowy (miesiące)
-            //QzUmEAmLsPWlpfK - Okres rozliczeniowy: tydzien/miesiac
-            //gATdSghHoiZijAN - Maks. nadgodzin w tygodniu (godz.)
-            //SEcPtfWbLyUxlmL - Maks. nadgodzin w roku (godz.)
-            //DrwWFscldmvtHOW - Nieprzerwany odpoczynek (godz.)
-            $('#qeavlfguoZjzrJJ').val(model_ts[i].CzasPracy);
-            $('#qSFTqMAjJYMmIrO').val(model_ts[i].OkresRozliczeniowy);
-            if (model_ts[i].jezeliTydzien == true) 
-            {
-                document.getElementById('QzUmEAmLsPWlpfK').selectedIndex = 1;
-            }
-            if (model_ts[i].jezeliMiesiac == true) 
-            {
-                document.getElementById('QzUmEAmLsPWlpfK').selectedIndex = 2;
-            }
-            $('#gATdSghHoiZijAN').val(model_ts[i].MaksymalnaLiczbaNadgodzinTydzien);
-            $('#SEcPtfWbLyUxlmL').val(model_ts[i].MaksymalnaLiczbaNadgodzin);
-            $('#DrwWFscldmvtHOW').val(model_ts[i].NieprzerwanyOdpoczynek);
-        }
-    }
-
-    sessionStorage.setItem('KiLsESLXdficmJJ', id_);
-    sessionStorage.setItem('wWlSezYqPzZxuQZ', workerID_);
-    $('#bouHwUSUJAULmxy').fadeIn(200);
-};
-
-function cDoWdsoylXsqbSk_() {
     let wID = document.getElementById('issyAJUIywIPgIQ').value;
     let okres = document.getElementById('ehgSlSwjIFIEMWH').value;
     let okres_options = document.getElementById('kEYeEJKlcJcQFdL');
@@ -2091,66 +2040,102 @@ function cDoWdsoylXsqbSk_() {
     let nadgodzin_rok = document.getElementById('KZzKslyEOOrVYOF').value;
     let odpoczynek = document.getElementById('WdWDgtaDQwkuFxr').value;
 
-
-    if (wymiar.length > 0 || okres.length > 0 && okres_options.selectedIndex > 0 || nadgodzin_tyg.length > 0 || nadgodzin_rok.length > 0 || odpoczynek.length > 0) 
+    var okres_tydzien = null;
+    var okres_miesiac = null;
+    if (okres_options.selectedIndex == 1 && okres.length > 0) 
     {
-        var okres_tydzien = false;
-        var okres_miesiac = false;
-        if (okres_options.selectedIndex == 1) 
-        {
-            okres_tydzien = true;
-        }
-        else if (okres_options.selectedIndex == 2) 
-        {
-            okres_miesiac = true;
-        }
-        else 
-        {
-            okres_tydzien = null;
-            okres_miesiac = null;
-        }
+        okres_tydzien = true;
+        okres_miesiac = false;
+    }
+    if (okres_options.selectedIndex == 2 && okres.length > 0) 
+    {
+        okres_tydzien = false;
+        okres_miesiac = true;
+    }
 
-        for (let i = 0; i < model_ts.length; i++)
+    if (wymiar.length > 0 || okres.length > 0 || nadgodzin_tyg.length > 0 || nadgodzin_rok.length > 0 || odpoczynek.length > 0)
+    {
+        if (okres_tydzien == null && okres.length == 0 || okres_tydzien != null && okres.length > 0 || okres_miesiac == null && okres.length == 0 || okres_miesiac != null && okres.length > 0) 
         {
-            if (model_ts[i].WorkerId == wID)
-            {
-                return false;
-            }
-            else 
-            {
-                $.ajax({
-                    type: 'POST',
-                    url: '/Times/AddWorkerException',
-                    data: {
-                        workerID: wID,
-                        okresRozliczeniowy: okres,
-                        jezeliTydzien: okres_tydzien,
-                        jezeliMiesiac: okres_miesiac,
-                        czasPracy: wymiar,
-                        maksymalnaLiczbaNadgodzin: nadgodzin_rok,
-                        maksymalnaLiczbaNadgodzinTydzien: nadgodzin_tyg,
-                        nieprzerwanyOdpoczynek: odpoczynek
-                    },
-                    success: function (response)
+            $.ajax({
+                type: 'POST',
+                url: '/Times/AddWorkerException',
+                data: {
+                    workerID: wID,
+                    okresRozliczeniowy: okres,
+                    jezeliTydzien: okres_tydzien,
+                    jezeliMiesiac: okres_miesiac,
+                    czasPracy: wymiar,
+                    maksymalnaLiczbaNadgodzin: nadgodzin_rok,
+                    maksymalnaLiczbaNadgodzinTydzien: nadgodzin_tyg,
+                    nieprzerwanyOdpoczynek: odpoczynek
+                },
+                success: function (response)
+                {
+                    if (response == false)
+                    {
+                        let html = `<div id="luPdsIeDncpbPAe" class="pGKcZvErUB pGKcZvErUB_" style="backdrop-filter: blur(5px); z-index: 999;">` +
+                            `<form class="jbiihcodqinw">` +
+                            `<span style="color: white;">Pracownik już istnieje w bazie.</span>` +
+                            `<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk" onclick="xtKQetqkJXANhci(` + wID + `)">` + //$('#luPdsIeDncpbPAe').remove()
+                            `<svg viewBox="0 0 470 470" height="15" width="15"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg>` +
+                            `</div>` +
+                            `</form>` +
+                            `</div>`;
+
+                        $('body').append(html);
+                    }
+                    else 
                     {
                         location.reload();
-                    },
-                    error: function (xhr, status, error)
-                    {
-                        console.log('Error:', error);
                     }
-                });
-
-                break;
-            }
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error:', error);
+                }
+            });
         }
     }
 };
 
-$('#THAxAvslRnLsHel').on('click', function ()
+function xtKQetqkJXANhci(id) 
 {
-    let id_ = sessionStorage.getItem('KiLsESLXdficmJJ');
-    let wID = sessionStorage.getItem('wWlSezYqPzZxuQZ');
+    $('#luPdsIeDncpbPAe').remove();
+    $('#ftcuESUFJMUetmm').remove();
+    $('.KJiwNsHiMAVNLKL[id="' + id + '"]')[0].scrollIntoView({ behavior: "smooth", block: "center" });
+    $('.KJiwNsHiMAVNLKL[id="' + id + '"]').css({ 'animation': 'blink 3s linear 1' });
+
+    setTimeout(function ()
+    {
+        $('.KJiwNsHiMAVNLKL[id="' + id + '"]').removeAttr('style');
+    }, 3000);
+};
+
+function pEIhAaljnrXIAfq(id) 
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Times/EditExceptionForWorkerForm',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#bouHwUSUJAULmxy').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function THAxAvslRnLsHel_(id, workerID) 
+{
+    let id_ = id;
+    let wID = workerID;
     let okres = document.getElementById('qSFTqMAjJYMmIrO').value;
     let okres_options = document.getElementById('QzUmEAmLsPWlpfK');
     let wymiar = document.getElementById('qeavlfguoZjzrJJ').value;
@@ -2158,78 +2143,77 @@ $('#THAxAvslRnLsHel').on('click', function ()
     let nadgodzin_rok = document.getElementById('SEcPtfWbLyUxlmL').value;
     let odpoczynek = document.getElementById('DrwWFscldmvtHOW').value;
 
-    //if (wymiar.length > 0 || nadgodzin_tyg.length > 0 || nadgodzin_rok.length > 0 || odpoczynek.length > 0) 
-    //{
-        
-    //}
-
-    if (okres.length > 0 && okres_options.selectedIndex == 0) 
+    var okres_tydzien = null;
+    var okres_miesiac = null;
+    if (okres_options.selectedIndex == 1 && okres.length > 0) 
     {
-        return false;
+        okres_tydzien = true;
+        okres_miesiac = false;
     }
-    else if (okres.length == 0 && okres_options.selectedIndex > 0) 
+    if (okres_options.selectedIndex == 2 && okres.length > 0) 
     {
-        return false;
+        okres_tydzien = false;
+        okres_miesiac = true;
     }
-    else 
+
+    if (wymiar.length > 0 || okres.length > 0 || nadgodzin_tyg.length > 0 || nadgodzin_rok.length > 0 || odpoczynek.length > 0)
     {
-        var okres_tydzien = false;
-        var okres_miesiac = false;
-        if (okres_options.selectedIndex == 1)
-            okres_tydzien = true;
-        if (okres_options.selectedIndex == 2)
-            okres_miesiac = true;
-
-
-        $.ajax({
-            type: 'POST',
-            url: '/Times/EditWorkerException',
-            data: {
-                id: id_,
-                workerID: wID,
-                okresRozliczeniowy: okres,
-                jezeliTydzien: okres_tydzien,
-                jezeliMiesiac: okres_miesiac,
-                czasPracy: wymiar,
-                maksymalnaLiczbaNadgodzin: nadgodzin_rok,
-                maksymalnaLiczbaNadgodzinTydzien: nadgodzin_tyg,
-                nieprzerwanyOdpoczynek: odpoczynek
-            },
-            success: function (response)
-            {
-                location.reload();
-            },
-            error: function (xhr, status, error)
-            {
-                console.log('Error:', error);
-            }
-        });
+        if (okres_tydzien == null && okres.length == 0 || okres_tydzien != null && okres.length > 0 || okres_miesiac == null && okres.length == 0 || okres_miesiac != null && okres.length > 0) 
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Times/EditWorkerException',
+                data: {
+                    id: id_,
+                    workerID: wID,
+                    okresRozliczeniowy: okres,
+                    jezeliTydzien: okres_tydzien,
+                    jezeliMiesiac: okres_miesiac,
+                    czasPracy: wymiar,
+                    maksymalnaLiczbaNadgodzin: nadgodzin_rok,
+                    maksymalnaLiczbaNadgodzinTydzien: nadgodzin_tyg,
+                    nieprzerwanyOdpoczynek: odpoczynek
+                },
+                success: function (response)
+                {
+                    location.reload();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error:', error);
+                }
+            });
+        }
     }
-});
-
-function BPrZxQsyhDUoPdi(t) {
-    let id_ = t.getAttribute('uHtqZrPMvAndRri');
-
-    $('#YsefcRpBdJWtpIK').html($(t).parent().parent().children('span').html());
-
-    sessionStorage.setItem('rfSHguaRDcUoDDt', id_);
-    $('#aekPvskkEgnnMQf').fadeIn(200);
 };
 
-$('#wHZuCVkfasotfqq').on('click', function ()
+function BPrZxQsyhDUoPdi(id) 
 {
-    $('#aekPvskkEgnnMQf').fadeOut(200);
-});
+    $.ajax({
+        type: 'GET',
+        url: '/Times/DeleteExceptionForWorkerForm',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#aekPvskkEgnnMQf').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
 
-$('#TGdaSoYPTTTHTtr').on('click', function ()
+function TGdaSoYPTTTHTtr_(id) 
 {
-    let id_ = sessionStorage.getItem('rfSHguaRDcUoDDt');
-
     $.ajax({
         type: 'POST',
         url: '/Times/RemoveWorkerException',
         data: {
-            id: id_
+            id: id
         },
         success: function (response)
         {
@@ -2237,15 +2221,7 @@ $('#TGdaSoYPTTTHTtr').on('click', function ()
         },
         error: function (xhr, status, error)
         {
-            console.log('Error removing data:', error);
+            console.log('Error:', error);
         }
     });
-});
-
-
-
-
-
-
-
-
+};

@@ -29,9 +29,7 @@
         </div>
 
         <div class="YUPrikbkYzkc">
-
             <div id="cJsHHcdodjVadhY">
-
                 <div class="YavvRCMQscelhIs riqhWBvtFoKacNt KJiwNsHiMAVNLKL">
                     <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Ustawienia ogólne</span>
                     <div class="msdgExEZCpefgcL">
@@ -40,12 +38,10 @@
                         <span class="hFzZLqJdsEqdlrx">do godziny</span>
                         <input class="form-control DnSGyEINFwTACsK" type="time" id="SiNSMVtTKxOjnem" onblur="SiNSMVtTKxOjnem_(this)" />
                     </div>
-                    <!--dni wolne od pracy-->
                     <div class="msdgExEZCpefgcL FKefKMBcjulzAaY">
                         <span class="hFzZLqJdsEqdlrx">Dni wolne od pracy:</span>
                     </div>
                     <div class="msdgExEZCpefgcL AhPaTGevmeuEsrA">
-                        @* <span class="hFzZLqJdsEqdlrx">Dni wolne od pracy:</span> *@
                         <div class="tfxOCYXhVXTswof">
                             <label>
                                 <input type="checkbox" id="QPebGULGyufDEHz" onchange="QPebGULGyufDEHz_(this)" />
@@ -97,7 +93,6 @@
                     <div class="msdgExEZCpefgcL">
                         <span class="hFzZLqJdsEqdlrx">Okres rozliczeniowy -</span>
                         <input class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="IkruzJFAfehduep" onkeypress="return isNumberKey(event);" onblur="YaohyXTjGdIPVHK(this)" />
-                        @* <span class="hFzZLqJdsEqdlrx"> miesiąc/miesiące/miesięcy. (Max 4 miesiące. W przypadku pracowników z niepełnosprawnością obowiązuje ich sztywna norma tygodniowa. W praktyce oznacza, że okres rozliczeniowy ich czasu pracy wynosi zawsze tydzień i w żadnym przypadku nie może być dłuższy)</span> *@
                         <select class="form-control BdeTMrFhVdXURgF" id="dOAFhxfwDtzoHav" onchange="dOAFhxfwDtzoHav_(this)">
                             <option disabled selected>-</option>
                             <option>tydzień/tygodnie/tygodni</option>
@@ -133,7 +128,6 @@
 
                 @if (((IEnumerable<TimeSettings3>)ViewBag.TimeSetting).Count() > 0 && ((IEnumerable<TimeSettings3>)ViewBag.TimeSetting).Any(x => x.WorkerId != null))
                 {
-                    @* <div class="CCxGJQIVpEXAKot"></div> *@
                     <div class="MslTtblACOgbHhY">
                         <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Wyjątki pracowników</span>
                     </div>
@@ -148,17 +142,15 @@
 
                             if (workerSurname != null && workerName != null && workerDepartmentName != null)
                             {
-                                <div class="YavvRCMQscelhIs riqhWBvtFoKacNt KJiwNsHiMAVNLKL">
+                                <div class="YavvRCMQscelhIs riqhWBvtFoKacNt KJiwNsHiMAVNLKL" id="@item.WorkerId">
 
                                     <div class="erOCIbdJwtotRUa">
                                         <span>@workerSurname @workerName (@workerDepartmentName)</span>
                                         <div class="JtovNmsBONthQte">
-                                            <a onclick="pEIhAaljnrXIAfq(this)" CRxhxVVduqEVHZl="@item.WorkerId" uHtqZrPMvAndRri="@item.Id" title="Edytuj">
-                                                @* <svg fill="rgba(255, 255, 255, 0.8)" viewBox="0 0 512 512" height="20" width="20"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg> *@
+                                            <a onclick="pEIhAaljnrXIAfq(@item.Id)" title="Edytuj">
                                                 <ion-icon class="edit" name="create-outline"></ion-icon>
                                             </a>
-                                            <a onclick="BPrZxQsyhDUoPdi(this)" uHtqZrPMvAndRri="@item.Id" title="Usuń">
-                                                @* <svg fill="rgba(255, 60, 60, 1)" viewBox="0 0 469.404 469.404" height="20" width="20"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg> *@
+                                            <a onclick="BPrZxQsyhDUoPdi(@item.Id)" title="Usuń">
                                                 <ion-icon class="delete" name="trash-outline" style="color: rgba(255, 60, 60, 1);"></ion-icon>
                                             </a>
                                         </div>
@@ -220,9 +212,7 @@
                     }
                 }
             </div>
-            
-            
-
+           
             <table class="VUXahzbNUTWtiZa sortable" id="tableId">
                 <thead>
                     <tr>
@@ -280,8 +270,6 @@
                         {
                             <td></td>
                         }
-                        @*<td><input type="checkbox" checked="@item.IfWeekends" disabled /></td>
-                        <td><input type="checkbox" checked="@item.IfHolidays" disabled /></td>*@
                         <td>
                             <input type="checkbox" checked="@item.IfWeekends" disabled style="display: none;" />
                             @if (item.IfWeekends == true)
@@ -319,15 +307,12 @@
 
                         <td>
                             <a onclick="klhLiQVRwGfWrSp(this)" id="@item.Id" title="Edytuj">
-                                @* <svg viewBox="0 0 512 512" height="20" width="20"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563		l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	"></polygon></svg> *@
                                 <ion-icon class="edit urlop" name="create-outline"></ion-icon>
                             </a>
                             <a onclick="GTUwirLRmPXoIuh(this)" id="@item.Id" title="Usuń">
-                                @* <svg viewBox="0 0 469.404 469.404" height="20" width="20"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg> *@
                                 <ion-icon class="delete urlop" name="trash-outline"></ion-icon>
                             </a>
                         </td>
-                        <!--text-align: right; padding-right: 20px; width: 100px;-->
                     </tr>
                 }
             </table>
@@ -337,101 +322,6 @@
     </section>
 </div>
 
-@* <div id="ftcuESUFJMUetmm" class="pGKcZvErUB" style="display: none;">
-    <form class="form_ form___">
-        <div class="form-group">
-            <label>Wybierz dział:</label>
-            <select class="form-control bYwPpsleuVCBkPv" id="dQIPREqlxghevrV">
-                @foreach (var item in ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name))
-                {
-                    <option value="@item.Id">@item.Name</option>
-                }
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Wybierz pracownika:</label>
-            <select class="form-control bYwPpsleuVCBkPv" id="issyAJUIywIPgIQ">
-                <!---->
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Dobowy wymiar czasu pracy (godz.)</label>
-            <input class="form-control" type="text" maxlength="2" id="zVbJqIMfPhbOnum" onkeypress="return isNumberKey(event)" />
-        </div>
-        <div class="form-group">
-            <label>Okres rozliczeniowy</label>
-            <input class="form-control" type="text" maxlength="2" id="ehgSlSwjIFIEMWH" onkeypress="return isNumberKey(event)" />
-            <div style="height: 5px;"></div>
-            <select class="form-control" id="kEYeEJKlcJcQFdL">
-                <option selected>-</option>
-                <option>tydzień/tygodnie/tygodni</option>
-                <option>miesiąc/miesiące/miesięcy</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Maks. nadgodzin w tygodniu (godz.)</label>
-            <input class="form-control" type="text" maxlength="2" id="klyMbuAvknxCxgo" onkeypress="return isNumberKey(event)" />
-        </div>
-        <div class="form-group">
-            <label>Maks. nadgodzin w roku (godz.)</label>
-            <input class="form-control" type="text" maxlength="3" id="KZzKslyEOOrVYOF" onkeypress="return isNumberKey(event)" />
-        </div>
-        <div class="form-group form-group-margin">
-            <label>Nieprzerwany odpoczynek (godz.)</label>
-            <input class="form-control" type="text" maxlength="2" id="WdWDgtaDQwkuFxr" onkeypress="return isNumberKey(event)" />
-        </div>
-        <div class="form-group">
-            <input type="button" value="Zapisz" class="btn-custom" id="cDoWdsoylXsqbSk" />
-        </div>
-        <div class="form-group">
-            <input type="button" value="Wróć" class="btn-custom_" id="eNILXHlgCbgJCln" />
-        </div>
-    </form>
-</div> *@
-
-<div id="bouHwUSUJAULmxy" class="pGKcZvErUB" style="display: none;">
-    <form class="form_ form__">
-        <div class="form-group">
-            <input class="form-control" type="text" id="oGwNKChRERGiLSG" disabled />
-        </div>
-        <div class="form-group">
-            <input class="form-control" type="text" id="mtjAVQlKEdZLfWP" disabled />
-        </div>
-        <span id="nYrtYosbQKOQbxZ"></span>
-        <div class="form-group">
-            <label>Dobowy wymiar czasu pracy (godz.)</label>
-            <input class="form-control" type="text" maxlength="2" id="qeavlfguoZjzrJJ" onkeypress="return isNumberKey(event)" />
-        </div>
-        <div class="form-group">
-            <label>Okres rozliczeniowy</label>
-            <input class="form-control" type="text" maxlength="2" id="qSFTqMAjJYMmIrO" onkeypress="return isNumberKey(event)" />
-            <div style="height: 5px;"></div>
-            <select class="form-control" id="QzUmEAmLsPWlpfK">
-                <option>-</option>
-                <option>tydzień/tygodnie/tygodni</option>
-                <option>miesiąc/miesiące/miesięcy</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Maks. nadgodzin w tygodniu (godz.)</label>
-            <input class="form-control" type="text" maxlength="2" id="gATdSghHoiZijAN" onkeypress="return isNumberKey(event)" />
-        </div>
-        <div class="form-group">
-            <label>Maks. nadgodzin w roku (godz.)</label>
-            <input class="form-control" type="text" maxlength="3" id="SEcPtfWbLyUxlmL" onkeypress="return isNumberKey(event)" />
-        </div>
-        <div class="form-group form-group-margin">
-            <label>Nieprzerwany odpoczynek (godz.)</label>
-            <input class="form-control" type="text" maxlength="2" id="DrwWFscldmvtHOW" onkeypress="return isNumberKey(event)" />
-        </div>
-        <div class="form-group">
-            <input type="button" value="Zapisz" class="btn-custom" id="THAxAvslRnLsHel" />
-        </div>
-        <div class="form-group">
-            <input type="button" value="Wróć" class="btn-custom_" id="HamaCLjyVSpUlPh" />
-        </div>
-    </form>
-</div>
 
 <div id="GpoavnFwAOos" class="pGKcZvErUB" style="display: none;">
     <form class="form_">
@@ -483,7 +373,7 @@
     </form>
 </div>
 
-<div id="aekPvskkEgnnMQf" class="pGKcZvErUB" style="display: none;">
+@* <div id="aekPvskkEgnnMQf" class="pGKcZvErUB" style="display: none;">
     <form class="jbiihcodqinw">
         <div class="IvBtEDulLESDYxK">
             <span id="YsefcRpBdJWtpIK"></span>
@@ -495,7 +385,7 @@
             <input type="button" value="Wróć" class="btn-custom_" id="wHZuCVkfasotfqq" />
         </div>
     </form>
-</div>
+</div> *@
 
 <div id="nGWLQDZPlPSDQaC" class="pGKcZvErUB" style="display: none;">
     <form class="form_">

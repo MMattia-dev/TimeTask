@@ -787,46 +787,45 @@ $('.left-nav').mouseleave(function (e)
 
 
 
-//let poi = `<video autoplay controls id="myVideo"><source src="" type="video/mp4"></video>`;
-//$('.parent').append(poi);
+//let poi = `<video autoplay controls loop id="myVideo"><source src="" type="video/mp4"></video>`;
+//$('body').append(poi);
 //let poi2 = `<label style="position: absolute; top: 10px; left: 10px; z-index: 1;"><input type="checkbox" id="asdfgh" /></label>`;
 //$('body').append(poi2);
 
 //var video = document.getElementById("myVideo");
-//video.currentTime = 500;
+//video.currentTime = 550;
 
 //video.pause();
-//video.volume = 0.1;
 //$(video).hide();
 
 //$('#asdfgh').on('change', function ()
 //{
 //    if (this.checked)
 //    {
-//        video.play();
-//        $('.right-nav').fadeOut();
-//        $('.left-nav').fadeOut();
+//        //$('.right-nav').fadeOut();
+//        //$('.left-nav').fadeOut();
 
 //        setTimeout(function ()
 //        {
-//            $('.parent').css({ 'position': 'relative', 'height': '80vh', 'width': '80vw', 'transition': 'width 0.2s, height 0.2s', });
+//            //$('.parent').css({ 'position': 'relative', 'height': '80vh', 'width': '80vw', 'transition': 'width 0.2s, height 0.2s', });
+//            //$('.parent').fadeOut();
 //            $(video).fadeIn();
+//            video.play();
+//            video.volume = 0.4;
             
 //        }, 400);
-      
 //    }
 //    else {
 //        $(video).fadeOut();
 
 //        setTimeout(function ()
 //        {
-//            $('.parent').css({ 'position': '', 'height': '', 'width': '', 'transition': 'width 0.2s, height 0.2s', });
-//            $('.right-nav').fadeIn();
-//            $('.left-nav').fadeIn();
+//            //$('.parent').css({ 'position': '', 'height': '', 'width': '', 'transition': 'width 0.2s, height 0.2s', });
+//            //$('.parent').fadeIn();
+//            //$('.right-nav').fadeIn();
+//            //$('.left-nav').fadeIn();
 //            video.pause();
+//            video.volume = 0;
 //        }, 400);
-        
-
-        
 //    }
 //});

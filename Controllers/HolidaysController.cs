@@ -160,52 +160,6 @@ namespace TimeTask.Controllers
           return (_context.Holiday?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-
-        [HttpPost]
-        public ActionResult AddHoliday(string name, DateTime date)
-        {
-            var newData = new Models.Holiday()
-            {
-                Name = name,
-                Date = date,
-            };
-
-            _context.Holiday.Add(newData);
-            _context.SaveChanges();
-            return Json(new { success = true });
-        }
-
-        [HttpPost]
-        public ActionResult EditHoliday(int id, string name, DateTime date)
-        {
-            var row = _context.Holiday.FirstOrDefault(e => e.Id == id);
-            if (row != null)
-            {
-                row.Name = name;
-                row.Date = date;
-                _context.SaveChanges();
-
-                return Json(new { success = true });
-            }
-
-            return Json(new { success = false });
-        }
-
-        [HttpPost]
-        public ActionResult RemoveHoliday(int id)
-        {
-            var row = _context.Holiday.FirstOrDefault(e => e.Id == id);
-            if (row != null)
-            {
-                _context.Holiday.Remove(row);
-                _context.SaveChanges();
-
-                return Json(new { success = true });
-            }
-
-            return Json(new { success = false });
-        }
-
         [HttpGet]
         public ActionResult AddForm()
         {
@@ -231,21 +185,38 @@ namespace TimeTask.Controllers
             return Content(form);
         }
 
-        [HttpGet]
-        public ActionResult EditForm()
+        [HttpPost]
+        public ActionResult AddHoliday(string name, DateTime date)
         {
+            var newData = new Holiday()
+            {
+                Name = name,
+                Date = date,
+            };
+
+            _context.Holiday.Add(newData);
+            _context.SaveChanges();
+            return Json(new { success = true });
+        }
+
+        [HttpGet]
+        public ActionResult EditForm(int id)
+        {
+            var holidayName = ((IEnumerable<Holiday>)_context.Holiday).FirstOrDefault(x => x.Id == id)?.Name;
+            var holidayDate = ((IEnumerable<Holiday>)_context.Holiday).FirstOrDefault(x => x.Id == id)?.Date.ToString("yyyy-MM-dd");
+
             string removeForm = "$('#HnwuRhmRcJCZacg').remove()";
 
             string form = "<div id=\"HnwuRhmRcJCZacg\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
                     "<form class=\"form_\">" +
                         "<div class=\"form-group\">" +
-                            "<input class=\"form-control\" autocomplete=\"off\" placeholder=\"nazwa święta...\" id=\"WjuzdnDpZbVVtTO\" />" +
+                            "<input class=\"form-control\" value=\"" + holidayName + "\" autocomplete=\"off\" placeholder=\"nazwa święta...\" id=\"WjuzdnDpZbVVtTO\" />" +
                         "</div>" +
                         "<div class=\"form-group form-group-margin\">" +
-                            "<input class=\"form-control\" type=\"date\" id=\"osABhxQjWaMpiQP\" />" +
+                            "<input class=\"form-control\" value=\"" + holidayDate + "\" type=\"date\" id=\"osABhxQjWaMpiQP\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<input type=\"button\" value=\"Edytuj\" class=\"btn-custom\" onclick=\"lwuUErBiOwfxbau()\" />" +
+                            "<input type=\"button\" value=\"Edytuj\" class=\"btn-custom\" onclick=\"lwuUErBiOwfxbau(" + id + ")\" />" +
                         "</div>" +
                         "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
                             "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
@@ -254,21 +225,42 @@ namespace TimeTask.Controllers
                 "</div>";
 
             return Content(form);
+        }
+
+        [HttpPost]
+        public ActionResult EditHoliday(int id, string name, DateTime date)
+        {
+            var row = _context.Holiday.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.Name = name;
+                row.Date = date;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
         }
 
         [HttpGet]
-        public ActionResult DeleteForm()
+        public ActionResult DeleteForm(int id)
         {
+            var holidayName = ((IEnumerable<Holiday>)_context.Holiday).FirstOrDefault(x => x.Id == id)?.Name;
+            var holidayDate = ((IEnumerable<Holiday>)_context.Holiday).FirstOrDefault(x => x.Id == id)?.Date.ToString("yyyy-MM-dd");
+
             string removeForm = "$('#YiAVCpnVzhDnOsL').remove()";
 
             string form = "<div id=\"YiAVCpnVzhDnOsL\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
-                    "<form class=\"jbiihcodqinw\">" +
-                        "<div class=\"IvBtEDulLESDYxK\">" +
-                            "<span id=\"ewZOdyapfFtPtMi\"></span>" +
-                            "<span id=\"nZDLxLTZwFzAFCY\"></span>" +
+                    "<form class=\"form_\">" +
+                        "<div class=\"form-group\">" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + holidayName + "\" disabled />" +
                         "</div>" +
-                        "<div class=\"btn-danger-div\" id=\"FamcDfiHIvhi\">" +
-                            "<input type=\"button\" value=\"Usuń\" id=\"XSkMvvmEXCee\" onclick=\"dDlRcSCJZAuO()\" />" +
+                        "<div class=\"form-group form-group-margin\">" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + holidayDate + "\" disabled />" +
+                        "</div>" +
+                        "<div class=\"btn-danger-div\">" +
+                            "<input type=\"button\" value=\"Usuń\" class=\"btn-custom\" onclick=\"dDlRcSCJZAuO(" + id + ")\" />" +
                         "</div>" +
                         "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
                             "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
@@ -279,6 +271,19 @@ namespace TimeTask.Controllers
             return Content(form);
         }
 
+        [HttpPost]
+        public ActionResult RemoveHoliday(int id)
+        {
+            var row = _context.Holiday.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.Holiday.Remove(row);
+                _context.SaveChanges();
 
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
     }
 }
