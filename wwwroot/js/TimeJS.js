@@ -2000,6 +2000,7 @@ function MbcIEXgByuxsGWM_(t)
                     model_t.push({ Id: response, WorkerID: workerID_, Enter: date + ' ' + godzinaOD, Exit: date + ' ' + godzinaDO, LeaveID: null, LeaveDate: null });
 
                     let the_div = $('#xhXEyORRmmYlQgG tbody tr td[id="' + date + '"]');
+                    $(the_div).removeClass('VSEIRMVnLrwIkVf').addClass('IdBgKIHybgYpxXJ');
                     $(the_div).attr('title', 'Edytuj godziny').attr('onclick', 'BHuhsNtfdNbyAVV(this)');
                     if ($(the_div).children().hasClass('UjOQjNzjdVJpBtu'))
                     {

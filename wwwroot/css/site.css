@@ -6102,6 +6102,7 @@ input:checked + .HsRFJWiSLmrJcoG:before {
    position: absolute;
    object-fit: cover;
    z-index: -1;
+   filter: brightness(80%) blur(0px);
 }
 
 

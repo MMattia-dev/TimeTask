@@ -1,5 +1,4 @@
-﻿
-function hivknQXjTsiqtUI() {
+﻿function hivknQXjTsiqtUI() {
     if (model_ts.length > 0) 
     {
         $('#LRKPgUoIPlhVTMS').show();
@@ -1317,7 +1316,8 @@ function XzSwltkFnFZxgQl(t) {
 };
 
 //dodaj Nieprzerwany odpoczynek między dniami roboczymi
-function bnjRnAOHPyGsOAT(t) {
+function bnjRnAOHPyGsOAT(t) 
+{
     var lds = document.createElement('div');
     lds.className = 'lds-ring-small';
     lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
@@ -1411,8 +1411,6 @@ function bnjRnAOHPyGsOAT(t) {
         }
     }
 };
-
-
 
 function isNumberKey(event)
 {
@@ -1529,8 +1527,6 @@ function resizableGrid(table)
         return div;
     }
 
-
-
     function paddingDiff(col)
     {
 
@@ -1550,8 +1546,6 @@ function resizableGrid(table)
         return (window.getComputedStyle(elm, null).getPropertyValue(css));
     }
 };
-
-
 
 function kEDVBzpHnAzOqpp(t, e)
 {
@@ -1573,7 +1567,6 @@ function pNxCxvPIUtCbSHM(t)
         $(t).parent().removeClass('qDIGovQQrGkMAIm');
     }
 }
-
 
 
 let selected = document.getElementById('settings_times_id');
@@ -1599,7 +1592,6 @@ function dQIPREqlxghevrV_()
     });
 };
 
-
 $('#LRKPgUoIPlhVTMS').on('click', function ()
 {
     //$('#ftcuESUFJMUetmm').fadeIn(200);
@@ -1617,18 +1609,6 @@ $('#LRKPgUoIPlhVTMS').on('click', function ()
         }
     });
 });
-
-function EjaqSVIBTCAu()
-{
-    let a = document.getElementById('GpoavnFwAOos');
-    $(a).fadeOut(200);
-};
-
-function vscNmCABakSwTKc()
-{
-    let a = document.getElementById('nGWLQDZPlPSDQaC');
-    $(a).fadeOut(200);
-};
 
 function validate(t, evt)
 {
@@ -1650,8 +1630,6 @@ function validate(t, evt)
         theEvent.returnValue = false;
         if (theEvent.preventDefault) theEvent.preventDefault();
     }
-
-
 };
 
 function yYNizTMVTEhbkFD_() {
@@ -1777,32 +1755,33 @@ function BmJPiKFdcncS()
     }
 };
 
-function GTUwirLRmPXoIuh(t)
+function GTUwirLRmPXoIuh(id)
 {
-    sessionStorage.setItem('hCiEUYaJyBZCWTU', t.id);
-    //document.getElementById('ewZOdyapfFtPtMi').innerHTML = t.getAttribute('name');
-    document.getElementById('ewZOdyapfFtPtMi').innerHTML = $(t).parent().parent().children().eq(0).html();
-    document.getElementById('nZDLxLTZwFzAFCY').innerHTML = $(t).parent().parent().children().eq(1).html();
-
-    let a = document.getElementById('YiAVCpnVzhDnOsL');
-    $(a).fadeIn(200);
+    $.ajax({
+        type: 'GET',
+        url: '/Times/DeleteLeaveSettingForm',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#YiAVCpnVzhDnOsL').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
 };
 
-function UOspQSjpbVdS()
+function dDlRcSCJZAuO(id)
 {
-    let a = document.getElementById('YiAVCpnVzhDnOsL');
-    $(a).fadeOut(200);
-};
-
-function dDlRcSCJZAuO()
-{
-    let id_ = sessionStorage.getItem('hCiEUYaJyBZCWTU');
-
     $.ajax({
         type: 'POST',
         url: '/Leave4/RemoveLeave',
         data: {
-            id: id_
+            id: id
         },
         success: function (response)
         {
@@ -1810,7 +1789,7 @@ function dDlRcSCJZAuO()
         },
         error: function (xhr, status, error)
         {
-            console.log('Error deleting data:', error);
+            console.log('Error:', error);
         }
     });
 };
@@ -1833,26 +1812,11 @@ function klhLiQVRwGfWrSp(id)
             console.log('Error deleting data:', error);
         }
     });
-
-    //sessionStorage.setItem('MRZrhugkTpKvhtm', t.id);
-    //document.getElementById('AazUHXhkXIbdKWH').value = $(t).parent().parent().children().eq(0).html();
-    //document.getElementById('TDGIADzVjJqefsV').value = $(t).parent().parent().children().eq(1).html();
-    //document.getElementById('VumSHUqECwbXZcK').value = $(t).parent().parent().children().eq(2).html().split(' ')[0];
-    //document.getElementById('cb1_').checked = $(t).parent().parent().children().eq(2).attr('checked1');
-    //document.getElementById('cb2_').checked = $(t).parent().parent().children().eq(2).attr('checked2');
-    //document.getElementById('cb3_').checked = $(t).parent().parent().children().eq(2).attr('checked3');
-    //document.getElementById('cb4_').checked = $(t).parent().parent().children().eq(2).attr('checked4');
-    //document.getElementById('cb5_').checked = $(t).parent().parent().children().eq(3).children().eq(0).attr('checked');
-    //document.getElementById('cb6_').checked = $(t).parent().parent().children().eq(4).children().eq(0).attr('checked');
-
-    //let nGWLQDZPlPSDQaC = document.getElementById('nGWLQDZPlPSDQaC');
-    //$(nGWLQDZPlPSDQaC).fadeIn(200);
 };
 
-function LkHTSbDyYLLvJeC()
+function LkHTSbDyYLLvJeC(id)
 {
-    let id_ = sessionStorage.getItem('MRZrhugkTpKvhtm');
-
+    let id_ = id;
     let name_ = document.getElementById('AazUHXhkXIbdKWH').value;
     let description_ = document.getElementById('TDGIADzVjJqefsV').value;
     let max_ = document.getElementById('VumSHUqECwbXZcK').value;

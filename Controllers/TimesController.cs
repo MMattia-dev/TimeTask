@@ -1307,25 +1307,81 @@ namespace TimeTask.Controllers
         [HttpGet]
         public ActionResult EditLeaveSettingForm(int id) 
         {
-            var leaveName = ((IEnumerable<Leave4>)_context.Leave4).FirstOrDefault(x => x.Id == id)?.Name;
+            var leave = (IEnumerable<Leave4>)_context.Leave4;
+
+            var leaveName = (leave).FirstOrDefault(x => x.Id == id)?.Name;
+            var leaveComment = (leave).FirstOrDefault(x => x.Id == id)?.Description;
+            var leaveMax = (leave).FirstOrDefault(x => x.Id == id)?.Max;
+            
+            var radios = "";
+            var IfDays = (leave).FirstOrDefault(x => x.Id == id)?.IfDays;
+            var IfWeeks = (leave).FirstOrDefault(x => x.Id == id)?.IfWeeks;
+            var IfMonths = (leave).FirstOrDefault(x => x.Id == id)?.IfMonths;
+            var IfYears = (leave).FirstOrDefault(x => x.Id == id)?.IfYears;
+            if (IfDays == true)
+            {
+                radios = "<label><input id=\"cb1_\" type=\"radio\" name=\"if\" checked />Dni</label>" +
+                         "<label><input id=\"cb2_\" type=\"radio\" name=\"if\" />Tygodnie</label>" +
+                         "<label><input id=\"cb3_\" type=\"radio\" name=\"if\" />Miesiące</label>" +
+                         "<label><input id=\"cb4_\" type=\"radio\" name=\"if\" />Lata</label>";
+            }
+            if (IfWeeks == true)
+            {
+                radios = "<label><input id=\"cb1_\" type=\"radio\" name=\"if\" />Dni</label>" +
+                         "<label><input id=\"cb2_\" type=\"radio\" name=\"if\" checked />Tygodnie</label>" +
+                         "<label><input id=\"cb3_\" type=\"radio\" name=\"if\" />Miesiące</label>" +
+                         "<label><input id=\"cb4_\" type=\"radio\" name=\"if\" />Lata</label>";
+            }
+            if (IfMonths == true)
+            {
+                radios = "<label><input id=\"cb1_\" type=\"radio\" name=\"if\" />Dni</label>" +
+                         "<label><input id=\"cb2_\" type=\"radio\" name=\"if\" />Tygodnie</label>" +
+                         "<label><input id=\"cb3_\" type=\"radio\" name=\"if\" checked />Miesiące</label>" +
+                         "<label><input id=\"cb4_\" type=\"radio\" name=\"if\" />Lata</label>";
+            }
+            if (IfYears == true)
+            {
+                radios = "<label><input id=\"cb1_\" type=\"radio\" name=\"if\" />Dni</label>" +
+                         "<label><input id=\"cb2_\" type=\"radio\" name=\"if\" />Tygodnie</label>" +
+                         "<label><input id=\"cb3_\" type=\"radio\" name=\"if\" />Miesiące</label>" +
+                         "<label><input id=\"cb4_\" type=\"radio\" name=\"if\" checked />Lata</label>";
+            }
+            if (IfDays == false && IfWeeks == false && IfMonths == false && IfYears == false)
+            {
+                radios = "<label><input id=\"cb1_\" type=\"radio\" name=\"if\" />Dni</label>" +
+                         "<label><input id=\"cb2_\" type=\"radio\" name=\"if\" />Tygodnie</label>" +
+                         "<label><input id=\"cb3_\" type=\"radio\" name=\"if\" />Miesiące</label>" +
+                         "<label><input id=\"cb4_\" type=\"radio\" name=\"if\" />Lata</label>";
+            }
+
+            var checkbox1 = "";
+            var checkbox2 = "";
+            var IfWeekends = (leave).FirstOrDefault(x => x.Id == id)?.IfWeekends;
+            var IfHolidays = (leave).FirstOrDefault(x => x.Id == id)?.IfHolidays;
+            if (IfWeekends == true)
+                checkbox1 = "<label><input id=\"cb5_\" type=\"checkbox\" checked />Soboty i Niedzielę</label>";
+            else
+                checkbox1 = "<label><input id=\"cb5_\" type=\"checkbox\" />Soboty i Niedzielę</label>";
+            if (IfHolidays == true)
+                checkbox2 = "<label><input id=\"cb6_\" type=\"checkbox\" checked />Święta</label>";
+            else
+                checkbox2 = "<label><input id=\"cb6_\" type=\"checkbox\" />Święta</label>";
+
 
             string removeForm = "$('#nGWLQDZPlPSDQaC').remove()";
 
             string form = "<div id=\"nGWLQDZPlPSDQaC\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
                     "<form class=\"form_\">" +
                         "<div class=\"form-group\">" +
-                            "<input class=\"form-control\" autocomplete=\"off\" placeholder=\"nazwa urlopu...\" id=\"AazUHXhkXIbdKWH\" />" +
+                            "<input class=\"form-control\" value=\"" + leaveName + "\" autocomplete=\"off\" placeholder=\"nazwa urlopu...\" id=\"AazUHXhkXIbdKWH\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<input class=\"form-control\" autocomplete=\"off\" placeholder=\"komentarz (opcjonalnie)...\" id=\"TDGIADzVjJqefsV\" />" +
+                            "<input class=\"form-control\" value=\"" + leaveComment + "\" autocomplete=\"off\" placeholder=\"komentarz (opcjonalnie)...\" id=\"TDGIADzVjJqefsV\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<input class=\"form-control dGNCykvGtQxbazH\" type=\"number\" onkeypress=\"validate(this, event)\" placeholder=\"maks. długość urlopu (opcjonalnie)...\" id=\"VumSHUqECwbXZcK\" />" +
+                            "<input class=\"form-control dGNCykvGtQxbazH\" value=\"" + leaveMax + "\" type=\"number\" onkeypress=\"validate(this, event)\" placeholder=\"maks. długość urlopu (opcjonalnie)...\" id=\"VumSHUqECwbXZcK\" />" +
                             "<div class=\"eshTOvdrdlbtIkg\" id=\"radiocb\">" +
-                                "<label><input id=\"cb1_\" type=\"radio\" name=\"if\" />Dni</label>" +
-                                "<label><input id=\"cb2_\" type=\"radio\" name=\"if\" />Tygodnie</label>" +
-                                "<label><input id=\"cb3_\" type=\"radio\" name=\"if\" />Miesiące</label>" +
-                                "<label><input id=\"cb4_\" type=\"radio\" name=\"if\" />Lata</label>" +
+                                radios +
                             "</div>" +
                         "</div>" +
                         "<div class=\"form-group form-group-margin\">" +
@@ -1333,12 +1389,12 @@ namespace TimeTask.Controllers
                                 "<span>Uwzględnij:</span>" +
                             "</div>" +
                             "<div class=\"eshTOvdrdlbtIkg\">" +
-                                "<label><input id=\"cb5_\" type=\"checkbox\" />Soboty i Niedzielę</label>" +
-                                "<label><input id=\"cb6_\" type=\"checkbox\" />Święta</label>" +
+                                checkbox1 +
+                                checkbox2 +
                             "</div>" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"LkHTSbDyYLLvJeC()\" />" +
+                            "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"LkHTSbDyYLLvJeC(" + id + ")\" />" +
                         "</div>" +
                         "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
                             "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
@@ -1366,6 +1422,107 @@ namespace TimeTask.Controllers
             }
 
             return Json(new { success = false });
+        }
+
+        [HttpGet]
+        public ActionResult DeleteLeaveSettingForm(int id)
+        {
+            var leave = (IEnumerable<Leave4>)_context.Leave4;
+
+            var leaveName = (leave).FirstOrDefault(x => x.Id == id)?.Name;
+            var leaveComment = (leave).FirstOrDefault(x => x.Id == id)?.Description;
+            var leaveMax = (leave).FirstOrDefault(x => x.Id == id)?.Max;
+
+            var radios = "";
+            var IfDays = (leave).FirstOrDefault(x => x.Id == id)?.IfDays;
+            var IfWeeks = (leave).FirstOrDefault(x => x.Id == id)?.IfWeeks;
+            var IfMonths = (leave).FirstOrDefault(x => x.Id == id)?.IfMonths;
+            var IfYears = (leave).FirstOrDefault(x => x.Id == id)?.IfYears;
+            if (IfDays == true)
+            {
+                radios = "<label><input id=\"cb1_\" type=\"radio\" disabled checked />Dni</label>" +
+                         "<label><input id=\"cb2_\" type=\"radio\" disabled />Tygodnie</label>" +
+                         "<label><input id=\"cb3_\" type=\"radio\" disabled />Miesiące</label>" +
+                         "<label><input id=\"cb4_\" type=\"radio\" disabled />Lata</label>";
+            }
+            if (IfWeeks == true)
+            {
+                radios = "<label><input id=\"cb1_\" type=\"radio\" disabled />Dni</label>" +
+                         "<label><input id=\"cb2_\" type=\"radio\" disabled checked />Tygodnie</label>" +
+                         "<label><input id=\"cb3_\" type=\"radio\" disabled />Miesiące</label>" +
+                         "<label><input id=\"cb4_\" type=\"radio\" disabled />Lata</label>";
+            }
+            if (IfMonths == true)
+            {
+                radios = "<label><input id=\"cb1_\" type=\"radio\" disabled />Dni</label>" +
+                         "<label><input id=\"cb2_\" type=\"radio\" disabled />Tygodnie</label>" +
+                         "<label><input id=\"cb3_\" type=\"radio\" disabled checked />Miesiące</label>" +
+                         "<label><input id=\"cb4_\" type=\"radio\" disabled />Lata</label>";
+            }
+            if (IfYears == true)
+            {
+                radios = "<label><input id=\"cb1_\" type=\"radio\" disabled />Dni</label>" +
+                         "<label><input id=\"cb2_\" type=\"radio\" disabled />Tygodnie</label>" +
+                         "<label><input id=\"cb3_\" type=\"radio\" disabled />Miesiące</label>" +
+                         "<label><input id=\"cb4_\" type=\"radio\" disabled checked />Lata</label>";
+            }
+            if (IfDays == false && IfWeeks == false && IfMonths == false && IfYears == false)
+            {
+                radios = "<label><input id=\"cb1_\" type=\"radio\" disabled />Dni</label>" +
+                         "<label><input id=\"cb2_\" type=\"radio\" disabled />Tygodnie</label>" +
+                         "<label><input id=\"cb3_\" type=\"radio\" disabled />Miesiące</label>" +
+                         "<label><input id=\"cb4_\" type=\"radio\" disabled />Lata</label>";
+            }
+
+            var checkbox1 = "";
+            var checkbox2 = "";
+            var IfWeekends = (leave).FirstOrDefault(x => x.Id == id)?.IfWeekends;
+            var IfHolidays = (leave).FirstOrDefault(x => x.Id == id)?.IfHolidays;
+            if (IfWeekends == true)
+                checkbox1 = "<label><input id=\"cb5_\" type=\"checkbox\" disabled checked />Soboty i Niedzielę</label>";
+            else
+                checkbox1 = "<label><input id=\"cb5_\" type=\"checkbox\" disabled />Soboty i Niedzielę</label>";
+            if (IfHolidays == true)
+                checkbox2 = "<label><input id=\"cb6_\" type=\"checkbox\" disabled checked />Święta</label>";
+            else
+                checkbox2 = "<label><input id=\"cb6_\" type=\"checkbox\" disabled />Święta</label>";
+
+
+            string removeForm = "$('#YiAVCpnVzhDnOsL').remove()";
+
+            string form = "<div id=\"YiAVCpnVzhDnOsL\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form class=\"form_\">" +
+                        "<div class=\"form-group\">" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + leaveName + "\" disabled />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input class=\"form-control\" type=\"text\" value=\"" + leaveComment + "\" disabled />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input class=\"form-control dGNCykvGtQxbazH\" type=\"text\" value=\"" + leaveMax + "\" disabled />" +
+                            "<div class=\"eshTOvdrdlbtIkg\" id=\"radiocb\">" +
+                                radios +
+                            "</div>" +
+                        "</div>" +
+                        "<div class=\"form-group form-group-margin\">" +
+                            "<div class=\"jwvLslukUqESfdP\">" +
+                                "<span>Uwzględnij:</span>" +
+                            "</div>" +
+                            "<div class=\"eshTOvdrdlbtIkg\">" +
+                                checkbox1 +
+                                checkbox2 +
+                            "</div>" +
+                        "</div>" +
+                        "<div class=\"btn-danger-div\">" +
+                            "<input type=\"button\" value=\"Usuń\" id=\"XSkMvvmEXCee\" onclick=\"dDlRcSCJZAuO(" + id + ")\" />" +
+                        "</div>" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
+
+            return Content(form);
         }
 
         [HttpPost]

@@ -786,17 +786,26 @@ $('.left-nav').mouseleave(function (e)
 
 
 
-
-//let poi = `<video autoplay controls loop id="myVideo"><source src="" type="video/mp4"></video>`;
-//$('body').append(poi);
-//let poi2 = `<label style="position: absolute; top: 10px; left: 10px; z-index: 1;"><input type="checkbox" id="asdfgh" /></label>`;
-//$('body').append(poi2);
+//let source = "";
+//let poi = `<video autoplay loop id="myVideo"><source src="` + source + `" type="video/mp4"></video>`;
+//$('.parent').append(poi);
+////let poi2 = `<label style="position: absolute; top: 10px; left: 10px; z-index: 1;"><input type="checkbox" id="asdfgh" /></label>`;
+////$('body').append(poi2);
 
 //var video = document.getElementById("myVideo");
-//video.currentTime = 550;
-
-//video.pause();
-//$(video).hide();
+////video.currentTime = 550;
+//$(window).on("beforeunload", function ()
+//{
+//    var vid = document.getElementById("myVideo");
+//    var currentTime = vid.currentTime;
+//    localStorage.setItem('video_', currentTime);
+//    return;
+//});
+//video.currentTime = localStorage.getItem('video_');
+//video.playbackRate = 1;
+////video.pause();
+////$(video).hide();
+//video.volume = 0.3;
 
 //$('#asdfgh').on('change', function ()
 //{
@@ -811,7 +820,6 @@ $('.left-nav').mouseleave(function (e)
 //            //$('.parent').fadeOut();
 //            $(video).fadeIn();
 //            video.play();
-//            video.volume = 0.4;
             
 //        }, 400);
 //    }
