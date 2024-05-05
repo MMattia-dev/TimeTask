@@ -78,14 +78,30 @@
                         @{ int i = 1; }
                         @foreach (var item in Model.OrderBy(x => x.Id))
                         {
-                            <label>
-                                <input type="radio" name="same" id="customWallpaper_@i" onchange="changeWallpaper(this)">
-                                <span>#@i</span>
-                                <img src="@item.Link" class="uPITXoaTMJUxLzR" />
-                                <a onclick="MVyuHPTvDFWSLCA(this, event)" id="sbkudnsgkdEqpwD" omdBELCmLLFmdFy="@item.Id">
-                                    <span>Delete</span>
-                                </a>
-                            </label>
+                            if (item.Link.Contains("jpg"))
+                            {
+                                <label>
+                                    <input type="radio" name="same" id="customWallpaper_@i" onchange="changeWallpaper(this)">
+                                    <span>#@i</span>
+                                    <img src="@item.Link" class="uPITXoaTMJUxLzR" />
+                                    <a onclick="MVyuHPTvDFWSLCA(this, event)" id="sbkudnsgkdEqpwD" omdBELCmLLFmdFy="@item.Id">
+                                        <span>Delete</span>
+                                    </a>
+                                </label>
+                            }
+                            else
+                            {
+                                <label>
+                                    <input type="radio" name="same" id="customWallpaper_@i" onchange="changeWallpaper(this)">
+                                    <span>#@i</span>
+                                    @* <img src="@item.Link" class="uPITXoaTMJUxLzR" /> *@
+                                    <video class="uPITXoaTMJUxLzR" autoplay loop muted src="@item.Link"></video>
+                                    <a onclick="MVyuHPTvDFWSLCA(this, event)" id="sbkudnsgkdEqpwD" omdBELCmLLFmdFy="@item.Id">
+                                        <span>Delete</span>
+                                    </a>
+                                </label>
+                            }
+
 
                             i++;
                         }
@@ -174,7 +190,7 @@
         $('#defaultWallpaper').parent().children().eq(2).addClass('cOAjaWuJVPBGngI');
     }
 
-    function changeWallpaper(t) {
+    function changeWallpaper(t, link) {
         let w = document.querySelectorAll('.uPITXoaTMJUxLzR');
         for(let i = 0; i < w.length; i++){
             $(w[i]).removeClass('cOAjaWuJVPBGngI');
@@ -184,11 +200,22 @@
 
 
         localStorage.setItem('wallpaper', $(t).parent().children().eq(2).attr('src'));
-        $('html').css({
-            'background': 'url(' + $(t).parent().children().eq(2).attr('src') + ')',
-            'background-size': 'cover',
-            'background-position': 'center'
-        });
+        // $('html').css({
+        //     'background': 'url(' + $(t).parent().children().eq(2).attr('src') + ')',
+        //     'background-size': 'cover',
+        //     'background-position': 'center'
+        // });
+        if ($(t).parent().children().eq(2).attr('src').indexOf("jpg") >= 0)
+        {
+            $('html').css({
+                'background': 'url(' + $(t).parent().children().eq(2).attr('src') + ')',
+                'background-size': 'cover',
+                'background-position': 'center'
+            });
+        }
+        else {
+            $('.parent').append('<video autoplay loop muted id="myVideo"><source src="' + $(t).parent().children().eq(2).attr('src') + '" type="video/mp4"></video>');
+        }
     };
 
 
@@ -230,6 +257,7 @@
                 },
                 success: function (response)
                 {
+                    $('#xoMTaiKaxAoinee').val("");
                     location.reload();
                 },
                 error: function (xhr, status, error)
@@ -238,20 +266,20 @@
                 }
             });
         }
-        else if (document.getElementById('xoMTaiKaxAoinee').value.length > 0 && !isValidHttpUrl(document.getElementById('xoMTaiKaxAoinee').value))
-        {
-            $('#xoMTaiKaxAoinee').addClass('SHnDWPzuoAGGIwU');
-            $('#jcCdkRVXykGrbBe').show();
-        }
-        else if (document.getElementById('xoMTaiKaxAoinee').value.length == 0)
-        {
-            $('#xoMTaiKaxAoinee').addClass('SHnDWPzuoAGGIwU');
-            $('#jcCdkRVXykGrbBe').show();
-        }
-        else {
-            $('#xoMTaiKaxAoinee').addClass('SHnDWPzuoAGGIwU');
-            $('#jcCdkRVXykGrbBe').show();
-        }
+        // else if (document.getElementById('xoMTaiKaxAoinee').value.length > 0 && !isValidHttpUrl(document.getElementById('xoMTaiKaxAoinee').value))
+        // {
+        //     $('#xoMTaiKaxAoinee').addClass('SHnDWPzuoAGGIwU');
+        //     $('#jcCdkRVXykGrbBe').show();
+        // }
+        // else if (document.getElementById('xoMTaiKaxAoinee').value.length == 0)
+        // {
+        //     $('#xoMTaiKaxAoinee').addClass('SHnDWPzuoAGGIwU');
+        //     $('#jcCdkRVXykGrbBe').show();
+        // }
+        // else {
+        //     $('#xoMTaiKaxAoinee').addClass('SHnDWPzuoAGGIwU');
+        //     $('#jcCdkRVXykGrbBe').show();
+        // }
     });
 
     $('#xoMTaiKaxAoinee').on('keyup', function ()

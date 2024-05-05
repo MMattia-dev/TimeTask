@@ -65,11 +65,23 @@ main.appendChild(loader);
 var defaultWallpaper_ = localStorage.getItem('wallpaper');
 if (defaultWallpaper_ != null)
 {
-    $('html').css({
-        'background': 'url(' + defaultWallpaper_ + ')',
-        'background-size': 'cover',
-        'background-position': 'center'
-    });
+    //$('html').css({
+    //    'background': 'url(' + defaultWallpaper_ + ')',
+    //    'background-size': 'cover',
+    //    'background-position': 'center'
+    //});
+    if (defaultWallpaper_.indexOf("jpg") >= 0)
+    {
+        $('html').css({
+            'background': 'url(' + defaultWallpaper_ + ')',
+            'background-size': 'cover',
+            'background-position': 'center'
+        });
+    }
+    else
+    {
+        $('.parent').append('<video autoplay loop muted id="myVideo"><source src="' + defaultWallpaper_ + '" type="video/mp4"></video>');
+    }
 }
 else {
     $('html').css({
@@ -300,46 +312,6 @@ function filterWorkersInDepartment(a, b, c)
     }
 };
 
-function blKTigJUXVdB(id_) {
-    $.ajax({
-        type: 'POST',
-        url: '/Workers2/DeleteWorker',
-        data: {
-            id: id_
-        },
-        success: function (response)
-        {
-            location.reload();
-        },
-        error: function (xhr, status, error)
-        {
-            console.log('Error removing row:', error);
-        }
-    });
-};
-
-function kMCAxKgSATqh(id_, name_, surname_, dep_) {
-    $.ajax({
-        type: 'POST',
-        url: '/Workers2/EditWorker',
-        data: {
-            id: id_,
-            name: name_,
-            surname: surname_,
-            departmentID: dep_
-        },
-        success: function (response)
-        {
-            location.reload();
-        },
-        error: function (xhr, status, error)
-        {
-            console.log('Error adding data:', error);
-        }
-    });
-    
-};
-
 function ertVmpwgdwWK(id_) {
     $.ajax({
         type: 'POST',
@@ -374,26 +346,6 @@ function VYhhVLCczCoE(id_, name_) {
         error: function (xhr, status, error)
         {
             console.log('Error updating column value:', error);
-        }
-    });
-};
-
-function opvqVIGDmNiz(name_) {
-    $.ajax({
-        type: 'POST',
-        url: '/Departments/AddNewDepartment',
-        data: {
-            name: name_,
-        },
-        success: function (response)
-        {
-            sessionStorage.setItem('qbMvtjjezfxSFsv', response);
-            //console.log(response);
-            location.reload();
-        },
-        error: function (xhr, status, error)
-        {
-            console.log('Error adding data:', error);
         }
     });
 };
@@ -805,7 +757,7 @@ $('.left-nav').mouseleave(function (e)
 //video.playbackRate = 1;
 ////video.pause();
 ////$(video).hide();
-//video.volume = 0.3;
+//video.volume = 0.0;
 
 //$('#asdfgh').on('change', function ()
 //{

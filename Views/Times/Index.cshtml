@@ -22,9 +22,19 @@
             <div class="IVnxgCORpPYL" id="yYNizTMVTEhbkFD" onclick="yYNizTMVTEhbkFD_()">
                 <span>Nowy urlop</span>
             </div>
-            <div class="IVnxgCORpPYL" id="LRKPgUoIPlhVTMS">
-                <span>Wyjątek dla pracownika</span>
-            </div>
+            @if (((IEnumerable<Workers2>)ViewBag.Workers).Count() > 0)
+            {
+                <div class="IVnxgCORpPYL" id="LRKPgUoIPlhVTMS" onclick="LRKPgUoIPlhVTMS_()">
+                    <span>Wyjątek dla pracownika</span>
+                </div>
+            }
+            else
+            {
+                <div class="IVnxgCORpPYL GcatEFOlNEfZNtE" id="LRKPgUoIPlhVTMS">
+                    <span>Wyjątek dla pracownika</span>
+                    <div class="tooltiptext">Nie ma dodanych żadnych pracowników!</div>
+                </div>
+            }           
         </div>
 
         <div class="YUPrikbkYzkc">
@@ -129,6 +139,25 @@
                 {
                     <div class="MslTtblACOgbHhY">
                         <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Wyjątki dla pracowników</span>
+                        @* <select class="form-control BdeTMrFhVdXURgF raZYoDOYNwjFDKk" id="" onchange="">
+                            <option selected>Wszystkie działy</option>
+                            @foreach (var item in (IEnumerable<TimeSettings3>)ViewBag.TimeSetting)
+                            {
+                                foreach (var item2 in (IEnumerable<Workers2>)ViewBag.Workers)
+                                {
+                                    if (item.WorkerId == item2.Id)
+                                    {
+                                        var depsName = ((IEnumerable<Department>)ViewBag.Departments).Where(x => x.Id == item2.DepartmentID);
+                                        var temp = depsName.GroupBy(x => x.Id).Select(x => x.First()).ToList<Department>();
+                                        temp.Distinct();
+                                        foreach (var item3 in temp)
+                                        {
+                                            <option>@item3.Name</option>                                           
+                                        }
+                                    }
+                                }
+                            }
+                        </select> *@
                     </div>
                     @foreach (var item in (IEnumerable<TimeSettings3>)ViewBag.TimeSetting)
                     {

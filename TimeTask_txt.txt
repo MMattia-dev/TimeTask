@@ -2,7 +2,9 @@
 2) Kolumna 'Employed' w tabeli 'Workers2' jest niepotrzebna
 3) w czasie dodawania 'AddTime', 'AddTask', 'AddLeave', wykonaj zadanie w wyznaczonym czasie (timeout), i przeka¿ informacje (true, false) je¿eli któraœ z informacji nie przesz³a i przeka¿ o tym u¿ytkownikowi w okienku loadingu dodawania, usuwania
 4) przepisz formularze w Controllers
-
+5) usuñ WorkerException, urlopy, czas pracy podczas usuwania Worker
+6) usuñ zadania dla dzia³u podczas usuwania dzia³u
+7) gdy strona np. Urlopy -> gdy dodaje sie urlopy to odœwie¿ wszystkie podstrony TimeTask -> to samo z Czasem i Grafikiem i wszytkimi innymi
 
 
 

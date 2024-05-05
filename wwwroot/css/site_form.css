@@ -59,11 +59,15 @@
     .form-control.BdeTMrFhVdXURgF {
         height: 35px;
         width: 200px;
-        cursor: pointer;
+        /*cursor: pointer;*/
     }
 
         .form-control.BdeTMrFhVdXURgF.BdeTMrFhVdXURgF_ {
             cursor: default;
+        }
+
+        .form-control.BdeTMrFhVdXURgF.raZYoDOYNwjFDKk {
+            border-color: transparent;
         }
 
 .form-floating.CvFOfCxRqEKEFvM {

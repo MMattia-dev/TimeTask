@@ -477,7 +477,8 @@ ion-icon {
     }
 
         .right-nav.SHNVXqYepsFyCsw .PeEkAugENvBHbuG {
-            font-size: 24px;
+            /*font-size: 24px;*/
+            font-size: 32px;
             text-transform: uppercase;
             color: rgba(255, 255, 255, 0.8);
             font-weight: bold;
@@ -1123,6 +1124,9 @@ ion-icon {
         color: rgba(255, 255, 255, 0.8);
         white-space: nowrap;
         overflow: hidden;
+        /*text-transform: uppercase;*/
+        /**/
+
     }
 
     .settings_a#KhUYdWBbOzZAJwi_ ion-icon:first-child, .settings_a#KhUYdWBbOzZAJwie ion-icon {
@@ -1723,7 +1727,7 @@ ion-icon {
     max-width: 233px;
     background-color: rgba(34, 36, 48, 0.4);
     border-left: 4px solid rgb(195, 107, 108);
-    transition: background-color 0.2s;
+    /*transition: background-color 0.2s;*/
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1731,22 +1735,70 @@ ion-icon {
     /*border-radius: 3px;*/
 }
 
-    .IVnxgCORpPYL:hover {
-        transition: background-color 0.2s;
-        /*background-color: rgb(52, 54, 66);*/
-        background-color: rgba(34, 36, 48, 0.8);
-        cursor: pointer;
-    }
-
     .IVnxgCORpPYL span {
         color: rgba(255, 255, 255, 0.8);
-        font-size: 15px;
-        
+        font-size: 15px;        
     }
+
+    .IVnxgCORpPYL.GcatEFOlNEfZNtE {
+        opacity: 0.7;
+        /*pointer-events: none;*/
+        border-left-color: grey;
+        position: relative;
+    }
+
+        .IVnxgCORpPYL.GcatEFOlNEfZNtE .tooltiptext {
+            height: 100%;
+            width: 180px;
+            padding: 3px 6px 3px 6px;
+            background-color: white;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translateX(-195px);
+            border-radius: 5px;
+            color: black;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            visibility: hidden;
+        }
+
+            .IVnxgCORpPYL.GcatEFOlNEfZNtE .tooltiptext::after {
+                content: "";
+                position: absolute;
+                top: 20px;
+                right: -7px;
+                width: 0;
+                height: 0;
+                border-top: 5px solid transparent;
+                border-left: 7px solid white;
+                border-bottom: 5px solid transparent;
+            }
+
+        .IVnxgCORpPYL.GcatEFOlNEfZNtE:hover .tooltiptext {
+            visibility: visible;
+        }
+
+        .IVnxgCORpPYL.GcatEFOlNEfZNtE:active {
+            pointer-events: none;
+        }
+
+        .IVnxgCORpPYL.GcatEFOlNEfZNtE:hover {
+            background-color: rgba(34, 36, 48, 0.4);
+            cursor: default;
+        }
 
     .IVnxgCORpPYL svg {
         fill: rgba(255, 255, 255, 0.8);
     }
+
+    .IVnxgCORpPYL:hover {
+        /*transition: background-color 0.2s;*/
+        /*background-color: rgb(52, 54, 66);*/
+        background-color: rgba(34, 36, 48, 0.8);
+        cursor: pointer;
+    } 
 
 .YUPrikbkYzkc {
     width: 100%;
@@ -4836,7 +4888,8 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     justify-content: space-between;
     align-items: flex-start;
     /*height: 55px;*/
-    height: 40px;
+    /*height: 40px;*/
+    height: auto;
     width: 100%;
     transform: translateY(-10px);
 }
@@ -4850,13 +4903,15 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     }
 
         .kfVQjJnCTNjZlgW.ozZkrSfXdfbxJPO .TOBgPdZDnrCaJEf {
-            font-size: 16px;
+            /*font-size: 16px;*/
+            font-size: 32px;
             text-transform: unset;
             font-weight: normal;
         }
 
             .kfVQjJnCTNjZlgW.ozZkrSfXdfbxJPO .TOBgPdZDnrCaJEf.HaNiODyyZAMDvgK {
-                font-size: 16px;
+                /*font-size: 16px;*/
+                font-size: 32px;
                 text-transform: unset;
                 font-weight: bold;
             }
@@ -4872,7 +4927,8 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 .TOBgPdZDnrCaJEf {
     color: rgba(255, 255, 255, 0.8);
     font-weight: bold;
-    font-size: 24px;
+    /*font-size: 24px;*/
+    font-size: 32px;
     user-select: none;
     text-transform: uppercase;
 }
@@ -4880,7 +4936,8 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 .nLnyXKLeDWgYvPh span {
     color: rgba(255, 255, 255, 0.8);
     font-weight: bold;
-    font-size: 24px;
+    /*font-size: 24px;*/
+    font-size: 32px;
     user-select: none;
     text-transform: uppercase;
 }
@@ -6053,12 +6110,14 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     }*/
 
 .MslTtblACOgbHhY {
-    height: 35px;
+    /*height: 35px;*/
+    height: 50px;
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
     padding-left: 10px;
-    transform: translateY(12px);
+    /*transform: translateY(12px);*/
+    transform: translateY(20px);
 }
 
 @keyframes blink {
