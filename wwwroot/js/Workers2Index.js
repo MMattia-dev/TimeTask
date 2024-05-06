@@ -660,77 +660,97 @@ function dDlRcSCJZAuO(id)
         {
             if (response.info > 1) 
             {
-                let desc = 'W bazie danych znaleziono ' + response.info + ' rekordów dla "' + response.workerSurname + ' ' + response.workerName + '".' +
-                    '\n' +
-                    'Klikając na "Tak", potwierdzasz usunięcie wszytkich danych związanych z tą osobą!';
+                let desc = 'Usunięcie "' + response.workerSurname + ' ' + response.workerName + '" wymaga usunięcia wszystkich danych związanych z tą osobą. Czy chcesz kontynuować?';
 
                 let form = '<div id="caKIyQnNIHrYWJo" class="pGKcZvErUB">' +
-                        '<form clas="jbiihcodqinw">' +
-                            '<div class="IvBtEDulLESDYxK">' +
-                                '<span>' + desc + '</span>' +
-                            '</div>' +
-                            '<div class="btn-danger-div">' +
-                                '<input type="button" value="Tak" onclick="OSwIvXdvLIKyXFE(' + id + ')" />' +
-                            '</div>' +
-                            '<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk" onclick="$(\'#caKIyQnNIHrYWJo\').remove(); $(\'#UwCmLRqIRSZM\').show()">' +
-                                '<svg viewBox="0 0 470 470" height="15" width="15"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg>' +
-                            '</div>' +
-                        '</form>' +
+                    '<form clas="jbiihcodqinw">' +
+                    '<div class="IvBtEDulLESDYxK">' +
+                    '<span>' + desc + '</span>' +
+                    '</div>' +
+                    '<div class="btn-danger-div">' +
+                    '<input type="button" value="Tak" onclick="OSwIvXdvLIKyXFE(' + id + ')" />' +
+                    '</div>' +
+                    '<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk" onclick="$(\'#caKIyQnNIHrYWJo\').remove()">' +
+                    '<svg viewBox="0 0 470 470" height="15" width="15"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg>' +
+                    '</div>' +
+                    '</form>' +
                     '</div>';
 
-                $('#UwCmLRqIRSZM').hide();
+                $('#UwCmLRqIRSZM').remove();
                 $('body').append(form);
-            }           
+            }
+            else {
+                OSwIvXdvLIKyXFE_(id);
+            }
         },
         error: function (xhr, status, error)
         {
             console.log('Error:', error);
         }
     });
+};
 
-    //$.ajax({
-    //    type: 'POST',
-    //    url: '/Workers2/DeleteWorker',
-    //    data: {
-    //        id: id
-    //    },
-    //    success: function (response)
-    //    {
-    //        //location.reload();
-    //        if (response != false)
-    //        {
-    //            if (response.timeSettingsID != null)
-    //            {
-    //                //removeWorkerExceptionWithWorker(response.timeSettingsID)
-    //                console.log(response.timeSettingsID);
-    //            }
-    //            if (response.taskID.length > 0) 
-    //            {
-    //                for (let i = 0; i < response.taskID.length; i++) 
-    //                {
+function OSwIvXdvLIKyXFE(id) 
+{
+    $.ajax({
+        type: 'POST',
+        url: '/Workers2/DeleteWorkerWithEverything',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            if (response.timeSettingsID != null)
+            {
+                removeWorkerExceptionWithWorker(response.timeSettingsID)
+            }
 
-    //                }
-    //                console.log(response.taskID);
-    //            }
-    //            if (response.timesID.length > 0) 
-    //            {
-    //                for (let i = 0; i < response.timesID.length; i++) 
-    //                {
+            if (response.taskID.length > 0)
+            {
+                for (let i = 0; i < response.taskID.length; i++)
+                {
+                    if (response.taskID[i] != null)
+                    {
 
-    //                }
-    //                console.log(response.timesID);
-    //            }
-    //            if (response.timeSettingsID == null && response.taskID.length == 0 && response.timesID.length == 0) 
-    //            {
-    //                location.reload();
-    //            }
-    //        }
-    //    },
-    //    error: function (xhr, status, error)
-    //    {
-    //        console.log('Error:', error);
-    //    }
-    //});
+                    }
+                }
+            }
+
+            if (response.timesID.length > 0)
+            {
+                for (let i = 0; i < response.timesID.length; i++)
+                {
+                    if (response.timesID[i] != null) 
+                    {
+
+                    }
+                }
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function OSwIvXdvLIKyXFE_(id) 
+{
+    $.ajax({
+        type: 'POST',
+        url: '/Workers2/DeleteWorker',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            location.reload();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
 };
 
 function removeWorkerExceptionWithWorker(id) 

@@ -202,7 +202,7 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteWorker(int id)
+        public ActionResult DeleteWorkerWithEverything(int id)
         {
             //usuń także wszystkie inne rowsy z workerID
             var timeSettingsID = ((IEnumerable<TimeSettings3>)_context.TimeSettings3).FirstOrDefault(x => x.WorkerId == id)?.Id;
@@ -216,6 +216,21 @@ namespace TimeTask.Controllers
                 //_context.SaveChanges();
 
                 return Json(new { timeSettingsID, taskID, timesID });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult DeleteWorker(int id)
+        {
+            var row = _context.Workers2.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.Workers2.Remove(row);
+                _context.SaveChanges();
+
+                return Json(new { success = true });
             }
 
             return Json(new { success = false });

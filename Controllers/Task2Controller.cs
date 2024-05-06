@@ -285,8 +285,8 @@ namespace TimeTask.Controllers
             var row = _context.Task2.FirstOrDefault(e => e.Id == id);
             if (row != null)
             {
-                _context.Task2.Remove(row);
-                _context.SaveChanges();
+                //_context.Task2.Remove(row);
+                //_context.SaveChanges();
 
                 return Json(new { success = true });
             }
