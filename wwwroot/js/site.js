@@ -745,19 +745,25 @@ $('.left-nav').mouseleave(function (e)
 ////$('body').append(poi2);
 
 //var video = document.getElementById("myVideo");
-////video.currentTime = 550;
-//$(window).on("beforeunload", function ()
-//{
-//    var vid = document.getElementById("myVideo");
-//    var currentTime = vid.currentTime;
-//    localStorage.setItem('video_', currentTime);
-//    return;
-//});
-//video.currentTime = localStorage.getItem('video_');
+////$(window).on("beforeunload", function ()
+////{
+////    var vid = document.getElementById("myVideo");
+////    var currentTime = vid.currentTime;
+////    localStorage.setItem('video_', currentTime);
+////    return;
+////});
+////if (localStorage.getItem('video_') != null)
+////{
+////    video.currentTime = localStorage.getItem('video_');
+////}
+////else {
+////    video.currentTime = 1000;
+////}
+//video.currentTime = 1350;
 //video.playbackRate = 1;
 ////video.pause();
 ////$(video).hide();
-//video.volume = 0.0;
+//video.volume = 0.07;
 
 //$('#asdfgh').on('change', function ()
 //{

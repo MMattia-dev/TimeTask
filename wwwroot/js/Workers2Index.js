@@ -157,12 +157,13 @@ function bxDzoLwDZzickPI(t, e)
 
 function sNYSYigDKYrjjtq(t, e)
 {
-    let uLTJNrstvNEQ = document.getElementById('uLTJNrstvNEQ');
-    $(uLTJNrstvNEQ).fadeIn(200);
+    //let uLTJNrstvNEQ = document.getElementById('uLTJNrstvNEQ');
+    //$(uLTJNrstvNEQ).fadeIn(200);
 
-    sessionStorage.setItem('oKVpUNCSlKRZWqW', $(t).parent().attr('for'));
+    //sessionStorage.setItem('oKVpUNCSlKRZWqW', $(t).parent().attr('for'));
 
-    document.getElementById('coVYuzZVCFxh').value = $(t).parent().children().eq(0).text();
+    //document.getElementById('coVYuzZVCFxh').value = $(t).parent().children().eq(0).text();
+
 };
 
 function NlckkxcEbWXv()
@@ -694,12 +695,29 @@ function OSwIvXdvLIKyXFE(id)
 {
     $.ajax({
         type: 'POST',
-        url: '/Workers2/DeleteWorkerWithEverything',
+        url: '/Workers2/DeleteWorkerWithEverythingElse',
         data: {
             id: id
         },
         success: function (response)
         {
+            //loading screen
+            $('#caKIyQnNIHrYWJo').remove(); //usun #caKIyQnNIHrYWJo
+            let htmlLoader = `<div class="pGKcZvErUB">` +
+                `<form class="form_3">` +
+                `<div class="loader_div BkvylzxsLMTrGpQ">` +
+                `<div class="lds-ring"><div></div><div></div><div></div><div></div></div>` +
+                `</div>` +
+                `<div class="form-group bKQpZIoPOmwNvbh">` +
+                `<span class="vfxLVmwjkBogmPm" id="dTfLGgGbUYkYoyw"></span>` +
+                `</div>` +
+                `</form>` +
+                `</div>`;
+
+            $('body').append(htmlLoader);
+            //
+            
+            //przeprowadz wszystkie operacje
             if (response.timeSettingsID != null)
             {
                 removeWorkerExceptionWithWorker(response.timeSettingsID)
@@ -711,7 +729,7 @@ function OSwIvXdvLIKyXFE(id)
                 {
                     if (response.taskID[i] != null)
                     {
-
+                        removeWorkerAllTasks(response.taskID[i]);
                     }
                 }
             }
@@ -722,10 +740,46 @@ function OSwIvXdvLIKyXFE(id)
                 {
                     if (response.timesID[i] != null) 
                     {
-
+                        removeWorkerAllTimes(response.timesID[i]);
                     }
                 }
             }
+            //
+
+            //loading screen cd.
+            let f = 0;
+            $('#dTfLGgGbUYkYoyw').html(`Usuwanie danych... ` + `(` + f + `/` + response.count + `)`);
+            var interval = setInterval(function ()
+            {
+                $('#dTfLGgGbUYkYoyw').html(`Usuwanie danych... ` + `(` + f++ + `/` + response.count + `)`);
+
+                if (f - 1 == response.count)
+                {
+                    clearInterval(interval);
+
+                    //usun pracownika
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Workers2/DeleteWorker',
+                        data: {
+                            id: id
+                        },
+                        success: function (response)
+                        {
+                            setTimeout(function ()
+                            {
+                                location.reload();
+                            }, 300);
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error:', error);
+                        }
+                    });
+                    //
+                }
+            }, 1000);
+            //
         },
         error: function (xhr, status, error)
         {
