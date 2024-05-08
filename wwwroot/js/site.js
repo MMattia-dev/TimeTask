@@ -312,44 +312,6 @@ function filterWorkersInDepartment(a, b, c)
     }
 };
 
-function ertVmpwgdwWK(id_) {
-    $.ajax({
-        type: 'POST',
-        url: '/Departments/RemoveDepartment',
-        data: {
-            id: id_
-        },
-        success: function (response)
-        {
-            sessionStorage.removeItem('qbMvtjjezfxSFsv');
-            location.reload();
-        },
-        error: function (xhr, status, error)
-        {
-            console.log('Error removing row:', error);
-        }
-    });
-};
-
-function VYhhVLCczCoE(id_, name_) {
-    $.ajax({
-        type: 'POST',
-        url: '/Departments/EditDepartment',
-        data: {
-            id: id_,
-            name: name_
-        },
-        success: function (response)
-        {
-            location.reload();
-        },
-        error: function (xhr, status, error)
-        {
-            console.log('Error updating column value:', error);
-        }
-    });
-};
-
 function KOxtvRcBmzeo(name_, surname_, dep_id_, employed_) {
     $.ajax({
         type: 'POST',
