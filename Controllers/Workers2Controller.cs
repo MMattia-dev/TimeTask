@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using TimeTask.Data;
@@ -536,10 +537,39 @@ namespace TimeTask.Controllers
         public ActionResult ChangeDepartment(int id)
         {
             var workers = ((IEnumerable<Workers2>)_context.Workers2).Where(x => x.DepartmentID == id);
+            var info = "";
 
-            string table = "";
+            if (workers.Count() > 0)
+            {
+                foreach (var item in workers)
+                {
+                    info += "<tr class=\"EmRSNqsShbDnTsE\">" +
+                            "<td>" + item.Id + "</td>" +
+                            "<td>" + item.Surname + "</td>" +
+                            "<td>" + item.Name + "</td>" +
+                            "<td>" +
+                                "<a onclick=\"IxsCvPIuWwZw(" + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>" +
+                                "<a onclick=\"deleteWorker(" + item.Id + ")\" title=\"Usuń\"><ion-icon class=\"delete urlop\" name=\"trash-outline\"></ion-icon></a>" +
+                            "</td>" +
+                        "</tr>";
+                }
 
-            return Content(table);
+                string table = "<table class=\"VUXahzbNUTWtiZa sortable\" id=\"tableId\">" +
+                        "<thead>" +
+                            "<tr>" +
+                                "<th style=\"width: 100px;\">ID</th>" +
+                                "<th style=\"width: 50%;\">Nazwisko</th>" +
+                                "<th>Imię</th>" +
+                                "<th>Opcje</th>" +
+                            "</tr>" +
+                        "</thead>" +
+                        info +
+                    "</table>";
+
+                return Content(table);
+            }
+
+            return Json(new { success = false });
             //return Json(workers);
         }
 

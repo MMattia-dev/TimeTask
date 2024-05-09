@@ -101,15 +101,7 @@ function bxDzoLwDZzickPI(t, id)
             //console.log(response);
 
             //YUPrikbkYzkc
-            //for (let i = 0; i < response.length; i++) 
-            //{
-            //    let id_ = response[i].id;
-            //    let surname = response[i].surname;
-            //    let name = response[i].name;
-
-
-            //}
-
+            $('.YUPrikbkYzkc').html(response);
         },
         error: function (xhr, status, error)
         {
