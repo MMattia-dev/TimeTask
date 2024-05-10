@@ -554,6 +554,7 @@ namespace TimeTask.Controllers
                         "</tr>";
                 }
 
+
                 string table = "<table class=\"VUXahzbNUTWtiZa sortable\" id=\"tableId\">" +
                         "<thead>" +
                             "<tr>" +
