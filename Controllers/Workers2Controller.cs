@@ -27,6 +27,7 @@ namespace TimeTask.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Department = _context.Department;
+            ViewBag.Workers = _context.Workers2;
 
             return _context.Workers2 != null ?
                           View(await _context.Workers2.ToListAsync()) :
@@ -340,12 +341,19 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddNewWorkerForm()
+        public ActionResult AddNewWorkerForm(int id)
         {
             var departments = "";
             foreach (var item in ((IEnumerable<Department>)_context.Department).OrderBy(x => x.Name))
             {
-                departments += "<option value=" + item.Id + ">" + item.Name + "</option>";
+                if (item.Id == id)
+                {
+                    departments += "<option selected value=" + item.Id + ">" + item.Name + "</option>";
+                }
+                else
+                {
+                    departments += "<option value=" + item.Id + ">" + item.Name + "</option>";
+                }
             }
 
             string removeForm = "$('#QmRrlOQPQW').remove()";
@@ -554,6 +562,58 @@ namespace TimeTask.Controllers
                         "</tr>";
                 }
 
+                string table = "<table class=\"VUXahzbNUTWtiZa sortable\" id=\"tableId\">" +
+                        "<thead>" +
+                            "<tr>" +
+                                "<th style=\"width: 100px;\">ID</th>" +
+                                "<th style=\"width: 50%;\">Nazwisko</th>" +
+                                "<th>Imię</th>" +
+                                "<th>Opcje</th>" +
+                            "</tr>" +
+                        "</thead>" +
+                        info +
+                    "</table>";
+
+                return Content(table);
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpGet]
+        public ActionResult WorkersWithoutDepartment()
+        {
+            var info = "";
+
+            var departments = ((IEnumerable<Department>)_context.Department).Select(x => x.Id);
+            List<int> workersWithNoDepartment = new List<int>();
+
+            foreach (var item in _context.Workers2)
+            {
+                if (!departments.Contains(item.DepartmentID))
+                {
+                    workersWithNoDepartment.Add(item.Id);
+                }
+            }
+
+            if (workersWithNoDepartment.Any())
+            {
+                foreach (var id_ in workersWithNoDepartment)
+                {
+                    var workers = ((IEnumerable<Workers2>)_context.Workers2).Where(x => x.Id == id_);
+                    foreach (var item in workers)
+                    {
+                        info += "<tr class=\"EmRSNqsShbDnTsE\">" +
+                            "<td>" + item.Id + "</td>" +
+                            "<td>" + item.Surname + "</td>" +
+                            "<td>" + item.Name + "</td>" +
+                            "<td>" +
+                                "<a onclick=\"IxsCvPIuWwZw(" + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>" +
+                                "<a onclick=\"deleteWorker(" + item.Id + ")\" title=\"Usuń\"><ion-icon class=\"delete urlop\" name=\"trash-outline\"></ion-icon></a>" +
+                            "</td>" +
+                        "</tr>";
+                    }
+                }
 
                 string table = "<table class=\"VUXahzbNUTWtiZa sortable\" id=\"tableId\">" +
                         "<thead>" +
@@ -571,8 +631,11 @@ namespace TimeTask.Controllers
             }
 
             return Json(new { success = false });
-            //return Json(workers);
         }
+
+
+
+
 
 
 

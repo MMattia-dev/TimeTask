@@ -1,79 +1,6 @@
 ﻿let selected = document.getElementById('settings_departs_workers_id');
 selected.classList.add('settings_a_selected');
 
-//if (model_d.length == 0)
-//{
-//    $('#tableId').hide();
-//    $('.IVnxgCORpPYL').hide();
-//}
-
-
-
-//let ECTosDyufuTqvBV = document.querySelector('.ECTosDyufuTqvBV');
-//ECTosDyufuTqvBV.innerHTML += `<input onclick="BqujyivUqK()" type="button" class="oZBtnmiLrunDFMC uyGcnHMadlagzhh" id="dWaFnMJPHpXnJhm" value="Nowy dział"/>`;
-//sortArray(model_d);
-//for (let i = 0; i < model_d.length; i++)
-//{
-//    ECTosDyufuTqvBV.innerHTML += `<input class="kzQkCNWOiUhJxRl" value="` + model_d[i].Name + `" type="radio" name="name" id="` + model_d[i].Id + `" onclick="bxDzoLwDZzickPI(this, event)" hidden />` +
-//        `<label class="oZBtnmiLrunDFMC" for="` + model_d[i].Id + `"><span>` + model_d[i].Name + `</span>` + // class + SqhCHzsNTMEsjQk
-//        `<i class="OxwaVAXXNsMtYHu JxeYECtwrfrUhgj" onclick="sNYSYigDKYrjjtq(` + model_d[i].Id + `)" style="display: none;">` +
-//        `<svg viewBox="0 0 512 512" width="16" height="16">` +
-//        `<path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path>` +
-//        `<polygon class="st0" points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751"/>` +
-//        `</svg>` +
-//        `</i>` +
-//        `<i class="OxwaVAXXNsMtYHu" onclick="bdoycBpPxFPywju(` + model_d[i].Id + `)" style="display: none;">` +
-//        `<svg viewBox="0 0 469.404 469.404" width="16" height="16">` +
-//        `<path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path>` +
-//        `</svg>` +
-//        `</i>` +
-//        `</label>`;
-
-//}
-////nieprzypisani
-//let depCheck = [];
-//var workersWithNoDepartment = [];
-//for (let i = 0; i < model_d.length; i++)
-//{
-//    depCheck.push(model_d[i].Id);
-//}
-//for (let i = 0; i < model_w.length; i++)
-//{
-//    if (!depCheck.includes(model_w[i].DepartmentID))
-//    {
-//        workersWithNoDepartment.push({ id: model_w[i].Id, name: model_w[i].Name, surname: model_w[i].Surname, department: model_w[i].DepartmentID, employed: model_w[i].Employed });
-//    }
-//}
-//for (let i = 0; i < model_w.length; i++)
-//{
-//    if (!depCheck.includes(model_w[i].DepartmentID))
-//    {
-//        ECTosDyufuTqvBV.innerHTML += `<input class="kzQkCNWOiUhJxRl" type="radio" name="name" id="no_department" onclick="bxDzoLwDZzickPI(this, event)" hidden />` +
-//            `<label class="oZBtnmiLrunDFMC lMliDWsRdSOjYmB" for="no_department"><span>Nieprzypisani pracownicy</span></label>`;
-//        break;
-//    }
-//}
-////
-
-//let kzQkCNWOiUhJxRl_array = document.querySelectorAll('.kzQkCNWOiUhJxRl');
-//if (sessionStorage.getItem('qbMvtjjezfxSFsv') != null && sessionStorage.getItem('qbMvtjjezfxSFsv') != 'no_department')
-//{
-//    for (let i = 0; i < kzQkCNWOiUhJxRl_array.length; i++)
-//    {
-//        if (kzQkCNWOiUhJxRl_array[i].id == sessionStorage.getItem('qbMvtjjezfxSFsv'))
-//        {
-//            $(kzQkCNWOiUhJxRl_array[i]).trigger('click');
-//        }
-//    }
-//}
-//else if (sessionStorage.getItem('qbMvtjjezfxSFsv') == 'no_department')
-//{
-//    $(kzQkCNWOiUhJxRl_array[0]).trigger('click');
-//}
-//else
-//{
-//    $(kzQkCNWOiUhJxRl_array[0]).trigger('click');
-//}
 
 if (sessionStorage.getItem('qbMvtjjezfxSFsv') != null)
 {
@@ -90,91 +17,52 @@ function bxDzoLwDZzickPI(t, id)
     $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + id + ')');
     sessionStorage.setItem('qbMvtjjezfxSFsv', id);
 
-    $.ajax({
-        type: 'GET',
-        url: '/Workers2/ChangeDepartment',
-        data: {
-            id: id
-        },
-        success: function (response)
-        {
-            //console.log(response);
+    $('.oZBtnmiLrunDFMC').parent().children('.oZBtnmiLrunDFMC').children('.OxwaVAXXNsMtYHu').hide();
+    $('.oZBtnmiLrunDFMC').parent().children('.oZBtnmiLrunDFMC[for="' + id + '"]').children('.OxwaVAXXNsMtYHu').show();
 
-            //YUPrikbkYzkc
-            $('.YUPrikbkYzkc').html(response);
-        },
-        error: function (xhr, status, error)
-        {
-            console.log('Error:', error);
-        }
-    });
-
-    //let arrayCheck = [];
-    //let id = t.id;
-    //let children = $(t).parent().children();
-    //let VUXahzbNUTWtiZa = document.querySelectorAll('.VUXahzbNUTWtiZa tbody tr');
-    //for (let i = 0; i < children.length; i++)
-    //{
-    //    let for_ = $(children[i]).attr('for');
-    //    if (id == for_ && children[i].tagName.toLowerCase() == 'label')
-    //    {
-    //        sessionStorage.setItem('qbMvtjjezfxSFsv', for_);
-
-    //        let ECTosDyufuTqvBV = document.querySelector('.ECTosDyufuTqvBV');
-    //        let element = children[i];
-    //        element.scrollIntoView({
-    //            behavior: 'smooth',
-    //            block: 'nearest'
-    //        });
-
-
-    //        $(children[i]).children().eq(1).show();
-    //        $(children[i]).children().eq(2).show();
-    //        $(children[i]).addClass('SqhCHzsNTMEsjQk');
-    //    }
-    //    else if (id != for_)
-    //    {
-    //        $(children[i]).children().eq(1).hide();
-    //        $(children[i]).children().eq(2).hide();
-    //        $(children[i]).removeClass('SqhCHzsNTMEsjQk');
-    //    }
-    //}
-
-    //for (let j = 0; j < VUXahzbNUTWtiZa.length; j++)
-    //{
-    //    let depID = VUXahzbNUTWtiZa[j].id;
-    //    if (depID == id)
-    //    {
-    //        $(VUXahzbNUTWtiZa[j]).show();
-    //        arrayCheck.push(depID);
-    //    }
-    //    else
-    //    {
-    //        $(VUXahzbNUTWtiZa[j]).hide();
-
-    //        let id__ = $(VUXahzbNUTWtiZa[j]).children().eq(0).html();
-    //        if (workersWithNoDepartment.length > 0)
-    //        {
-    //            for (let k = 0; k < workersWithNoDepartment.length; k++)
-    //            {
-    //                let w_id = workersWithNoDepartment[k].id;
-    //                if (w_id == id__ && t.id == 'no_department')
-    //                {
-    //                    $(VUXahzbNUTWtiZa[j]).show();
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
-
-    //if (arrayCheck.length > 0 || workersWithNoDepartment.length > 0 && t.id == 'no_department')
-    //{
-    //    $('#tableId').show();
-    //}
-    //else
-    //{
-    //    $('#tableId').hide();
-    //}
+    if (id != null) 
+    {
+        $.ajax({
+            type: 'GET',
+            url: '/Workers2/ChangeDepartment',
+            data: {
+                id: id
+            },
+            success: function (response)
+            {
+                $('.YUPrikbkYzkc').html(response);
+                var tables = document.getElementsByTagName('table');
+                for (var i = 0; i < tables.length; i++)
+                {
+                    resizableGrid(tables[i]);
+                }
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
+    else 
+    {
+        $.ajax({
+            type: 'GET',
+            url: '/Workers2/WorkersWithoutDepartment',
+            success: function (response)
+            {
+                $('.YUPrikbkYzkc').html(response);
+                var tables = document.getElementsByTagName('table');
+                for (var i = 0; i < tables.length; i++)
+                {
+                    resizableGrid(tables[i]);
+                }
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
 };
 
 function sNYSYigDKYrjjtq(id)
@@ -250,6 +138,7 @@ function adqwBJykaCzQ(id)
         },
         success: function (response)
         {
+            sessionStorage.removeItem('qbMvtjjezfxSFsv');
             location.reload();
         },
         error: function (xhr, status, error)
@@ -259,11 +148,11 @@ function adqwBJykaCzQ(id)
     });
 };
 
-var tables = document.getElementsByTagName('table');
-for (var i = 0; i < tables.length; i++)
-{
-    resizableGrid(tables[i]);
-}
+//var tables = document.getElementsByTagName('table');
+//for (var i = 0; i < tables.length; i++)
+//{
+//    resizableGrid(tables[i]);
+//}
 
 function resizableGrid(table)
 {
@@ -471,11 +360,14 @@ $('#svFbsOqCAR').on('keydown', function (e)
     }
 });
 
-function YENAVVQWwo()
+function YENAVVQWwo(id)
 {
     $.ajax({
         type: 'GET',
         url: '/Workers2/AddNewWorkerForm',
+        data: {
+            id: id
+        },
         success: function (response) 
         {
             $('body').append(response);
