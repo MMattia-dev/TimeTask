@@ -695,8 +695,21 @@ $('.left-nav').mouseleave(function (e)
     $('#KhUYdWBbOzZAJwi').remove();
 });
 
-//$('.left-nav').trigger('mouseleave');
+$(document).on('keydown', function (e)
+{
+    if ($('body').find('.pGKcZvErUB').length > 0) 
+    {
+        if (e.key === "Escape")
+        {
+            $('.pGKcZvErUB').remove();
+        }
 
+        if (e.key === "Enter")
+        {
+            $('.btn-custom').trigger('click');
+        }
+    }    
+});
 
 
 
