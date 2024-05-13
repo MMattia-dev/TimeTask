@@ -3,6 +3,28 @@
 
 @{
     ViewData["Title"] = "Index";
+
+    var timeSettings = ((IEnumerable<TimeSettings3>)ViewBag.TimeSetting).FirstOrDefault(x => x.WorkerId == null);
+    var poraNocnaStart = timeSettings?.PoraNocnaStart;
+    var poraNocnaKoniec = timeSettings?.PoraNocnaKoniec;
+
+    var czyPoniedzialek = timeSettings?.CzyPoniedzialekWolny;
+    var czyWtorek = timeSettings?.CzyWtorekWolny;
+    var czySroda = timeSettings?.CzySrodaWolny;
+    var czyCzwartek = timeSettings?.CzyCzwartekWolny;
+    var czyPiatek = timeSettings?.CzyPiatekWolny;
+    var czySobota = timeSettings?.CzySobotaWolny;
+    var czyNiedziela = timeSettings?.CzyNiedzielaWolny;
+
+    var dobowyWymiarCzasuPracy = timeSettings?.CzasPracy;
+    var okresRozliczeniowy = timeSettings?.OkresRozliczeniowy;
+
+    var okresRozliczeniowy_jezeliTydzien = timeSettings?.jezeliTydzien;
+    var okresRozliczeniowy_jezeliMiesiac = timeSettings?.jezeliMiesiac;
+    
+    var maksymalnaLiczbaNadgodzinTydzien = timeSettings?.MaksymalnaLiczbaNadgodzinTydzien;
+    var maksymalnaLiczbaNadgodzinRok = timeSettings?.MaksymalnaLiczbaNadgodzin;
+    var nieprzerwanyOdpoczynek = timeSettings?.NieprzerwanyOdpoczynek;
 }
 
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
@@ -43,9 +65,23 @@
                     <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Ustawienia ogólne</span>
                     <div class="msdgExEZCpefgcL">
                         <span class="hFzZLqJdsEqdlrx">Pora nocna trwa od godziny</span>
-                        <input class="form-control DnSGyEINFwTACsK" type="time" id="gsWnPInTEluayCy" onblur="gsWnPInTEluayCy_(this)" />
+                        @if (poraNocnaStart != null)
+                        {
+                            <input value="@poraNocnaStart.Value.ToString("HH:ss")" class="form-control DnSGyEINFwTACsK" type="time" id="gsWnPInTEluayCy" onblur="gsWnPInTEluayCy_(this)" />
+                        }
+                        else
+                        {
+                            <input class="form-control DnSGyEINFwTACsK" type="time" id="gsWnPInTEluayCy" onblur="gsWnPInTEluayCy_(this)" />
+                        }
                         <span class="hFzZLqJdsEqdlrx">do godziny</span>
-                        <input class="form-control DnSGyEINFwTACsK" type="time" id="SiNSMVtTKxOjnem" onblur="SiNSMVtTKxOjnem_(this)" />
+                        @if (poraNocnaKoniec != null)
+                        {
+                            <input value="@poraNocnaKoniec.Value.ToString("HH:ss")" class="form-control DnSGyEINFwTACsK" type="time" id="SiNSMVtTKxOjnem" onblur="SiNSMVtTKxOjnem_(this)" />
+                        }
+                        else
+                        {
+                            <input value="@poraNocnaKoniec" class="form-control DnSGyEINFwTACsK" type="time" id="SiNSMVtTKxOjnem" onblur="SiNSMVtTKxOjnem_(this)" />
+                        }
                     </div>
                     <div class="msdgExEZCpefgcL FKefKMBcjulzAaY">
                         <span class="hFzZLqJdsEqdlrx">Dni wolne od pracy:</span>
@@ -53,43 +89,43 @@
                     <div class="msdgExEZCpefgcL AhPaTGevmeuEsrA">
                         <div class="tfxOCYXhVXTswof">
                             <label>
-                                <input type="checkbox" id="QPebGULGyufDEHz" onchange="QPebGULGyufDEHz_(this)" />
+                                <input checked="@czyPoniedzialek" type="checkbox" id="QPebGULGyufDEHz" onchange="QPebGULGyufDEHz_(this)" />
                                 <span>Poniedziałek</span>
                             </label>
                         </div>
                         <div class="tfxOCYXhVXTswof">
                             <label>
-                                <input type="checkbox" id="kJGnDDkbrZWXYuR" onchange="kJGnDDkbrZWXYuR_(this)" />
+                                <input checked="@czyWtorek" type="checkbox" id="kJGnDDkbrZWXYuR" onchange="kJGnDDkbrZWXYuR_(this)" />
                                 <span>Wtorek</span>
                             </label>
                         </div>
                         <div class="tfxOCYXhVXTswof">
                             <label>
-                                <input type="checkbox" id="CKMBUUZmdZmwRBI" onchange="CKMBUUZmdZmwRBI_(this)" />
+                                <input checked="@czySroda" type="checkbox" id="CKMBUUZmdZmwRBI" onchange="CKMBUUZmdZmwRBI_(this)" />
                                 <span>Środa</span>
                             </label>
                         </div>
                         <div class="tfxOCYXhVXTswof">
                             <label>
-                                <input type="checkbox" id="CYUzYwwDMVXUmke" onchange="CYUzYwwDMVXUmke_(this)" />
+                                <input checked="@czyCzwartek" type="checkbox" id="CYUzYwwDMVXUmke" onchange="CYUzYwwDMVXUmke_(this)" />
                                 <span>Czwartek</span>
                             </label>
                         </div>
                         <div class="tfxOCYXhVXTswof">
                             <label>
-                                <input type="checkbox" id="NtmebQZRHqjmpmB" onchange="NtmebQZRHqjmpmB_(this)" />
+                                <input checked="@czyPiatek" type="checkbox" id="NtmebQZRHqjmpmB" onchange="NtmebQZRHqjmpmB_(this)" />
                                 <span>Piątek</span>
                             </label>
                         </div>
                         <div class="tfxOCYXhVXTswof">
                             <label>
-                                <input type="checkbox" id="RSUOGpjPUOmRtSA" onchange="RSUOGpjPUOmRtSA_(this)" />
+                                <input checked="@czySobota" type="checkbox" id="RSUOGpjPUOmRtSA" onchange="RSUOGpjPUOmRtSA_(this)" />
                                 <span>Sobota</span>
                             </label>
                         </div>
                         <div class="tfxOCYXhVXTswof">
                             <label>
-                                <input type="checkbox" id="baAmFvRLsPdjFPK" onchange="baAmFvRLsPdjFPK_(this)" />
+                                <input checked="@czyNiedziela" type="checkbox" id="baAmFvRLsPdjFPK" onchange="baAmFvRLsPdjFPK_(this)" />
                                 <span>Niedziela</span>
                             </label>
                         </div>
@@ -101,35 +137,58 @@
                     <!--Okres rozliczeniowy-->
                     <div class="msdgExEZCpefgcL">
                         <span class="hFzZLqJdsEqdlrx">Okres rozliczeniowy -</span>
-                        <input class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="IkruzJFAfehduep" onkeypress="return isNumberKey(event);" onblur="YaohyXTjGdIPVHK(this)" />
+                        <input value="@okresRozliczeniowy" class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="IkruzJFAfehduep" onkeypress="return isNumberKey(event);" onblur="YaohyXTjGdIPVHK(this)" />
                         <select class="form-control BdeTMrFhVdXURgF" id="dOAFhxfwDtzoHav" onchange="dOAFhxfwDtzoHav_(this)">
-                            <option disabled selected>-</option>
-                            <option>tydzień/tygodnie/tygodni</option>
-                            <option>miesiąc/miesiące/miesięcy</option>
+                            @if (okresRozliczeniowy_jezeliTydzien == null && okresRozliczeniowy_jezeliMiesiac == null)
+                            {
+                                <option disabled selected>-</option>
+                            }
+                            else
+                            {
+                                <option>-</option>
+                            }
+
+                            @if (okresRozliczeniowy_jezeliTydzien == true && okresRozliczeniowy_jezeliMiesiac == false)
+                            {
+                                <option selected>tydzień/tygodnie/tygodni</option>
+                            }
+                            else
+                            {
+                                <option>tydzień/tygodnie/tygodni</option>
+                            }
+
+                            @if (okresRozliczeniowy_jezeliTydzien == false && okresRozliczeniowy_jezeliMiesiac == true)
+                            {
+                                <option selected>miesiąc/miesiące/miesięcy</option>
+                            }
+                            else
+                            {
+                                <option>miesiąc/miesiące/miesięcy</option>
+                            }
                         </select>
                     </div>
                     <!--czas pracy-->
                     <div class="msdgExEZCpefgcL">
                         <span class="hFzZLqJdsEqdlrx">Dobowy wymiar czasu pracy -</span>
-                        <input class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="mNLCvwMfyDsHDRo" onkeypress="return isNumberKey(event)" onblur="IIjDrhHnsJwmqtN(this)" />
+                        <input value="@dobowyWymiarCzasuPracy" class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="mNLCvwMfyDsHDRo" onkeypress="return isNumberKey(event)" onblur="IIjDrhHnsJwmqtN(this)" />
                         <span class="hFzZLqJdsEqdlrx"> godz.</span>
                     </div>
                     <!--max nadgodzin w tygodniu-->
                     <div class="msdgExEZCpefgcL">
                         <span class="hFzZLqJdsEqdlrx">Maksymalna liczba nadgodzin w tygodniu -</span>
-                        <input class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="rShbhZqNInnuIPw" onkeypress="return isNumberKey(event)" onblur="jShPfjshHZwMBZw(this)"/>
+                        <input value="@maksymalnaLiczbaNadgodzinTydzien" class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="rShbhZqNInnuIPw" onkeypress="return isNumberKey(event)" onblur="jShPfjshHZwMBZw(this)"/>
                         <span class="hFzZLqJdsEqdlrx">godz.</span>
                     </div>
                     <!--max nadgodzin w roku-->
                     <div class="msdgExEZCpefgcL">
                         <span class="hFzZLqJdsEqdlrx">Maksymalna liczba nadgodzin w roku -</span>
-                        <input class="form-control DnSGyEINFwTACsK" type="text" maxlength="3" id="qFciKrITNFzxtSL" onkeypress="return isNumberKey(event)" onblur="XzSwltkFnFZxgQl(this)"/>
+                        <input value="@maksymalnaLiczbaNadgodzinRok" class="form-control DnSGyEINFwTACsK" type="text" maxlength="3" id="qFciKrITNFzxtSL" onkeypress="return isNumberKey(event)" onblur="XzSwltkFnFZxgQl(this)" />
                         <span class="hFzZLqJdsEqdlrx">godz.</span>
                     </div>
                     <!--Nieprzerwany odpoczynek między dniami roboczymi-->
                     <div class="msdgExEZCpefgcL">
                         <span class="hFzZLqJdsEqdlrx">Nieprzerwany odpoczynek między dniami roboczymi -</span>
-                        <input class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="FqvhrnXefCjthHG" onkeypress="return isNumberKey(event)" onblur="bnjRnAOHPyGsOAT(this)"/>
+                        <input value="@nieprzerwanyOdpoczynek" class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="FqvhrnXefCjthHG" onkeypress="return isNumberKey(event)" onblur="bnjRnAOHPyGsOAT(this)"/>
                         <span class="hFzZLqJdsEqdlrx">godz.</span>
                     </div>
                 </div>
@@ -158,6 +217,7 @@
                                 }
                             }
                         </select> *@
+
                     </div>
                     @foreach (var item in (IEnumerable<TimeSettings3>)ViewBag.TimeSetting)
                     {
@@ -243,8 +303,8 @@
             <table class="VUXahzbNUTWtiZa sortable" id="tableId">
                 <thead>
                     <tr>
-                        <th>Nazwa</th>
-                        <th>Komentarz</th>
+                        <th><span>Nazwa</span></th>
+                        <th><span>Komentarz</span></th>
                         <th>
                             @*Maks.*@
                             <span>Maks.</span>
@@ -349,9 +409,6 @@
 
 <script type="text/javascript">
     var model_ts = @Html.Raw(JsonConvert.SerializeObject(ViewBag.TimeSetting));
-    var model_h = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Holiday));
-    var model_w = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Workers));
-    var model_d = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Departments));
 </script>
 
 <script type="text/javascript" src="~/js/site.js"></script>

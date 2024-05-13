@@ -210,6 +210,21 @@ namespace TimeTask.Controllers
         //    return Json(new { success = false });
         //}
 
+        //[HttpGet]
+        //public ActionResult CheckIfTimeSettingsIsEmptyForWorkerNull ()
+        //{
+        //    var timeSettings = ((IEnumerable<TimeSettings3>)_context.TimeSettings3).Where(x => x.WorkerId == null);
+
+        //    if (timeSettings.Count() > 0 && timeSettings != null)
+        //    {
+        //        return Json(timeSettings);
+        //    }
+
+        //    return Json(null);
+        //}
+
+        
+
         public int GetWeeksInYear(int year)
 		{
 			DateTimeFormatInfo dfi = DateTimeFormatInfo.InvariantInfo;
@@ -562,6 +577,14 @@ namespace TimeTask.Controllers
 
                 return Json(new { success = true });
             }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult AddPoraNocna_Start_Koniec(DateTime poraNocnaStart, DateTime poraNocnaKoniec)
+        {
+
 
             return Json(new { success = false });
         }
@@ -1270,7 +1293,7 @@ namespace TimeTask.Controllers
                                 "<span>Uwzględnij:</span>" +
                             "</div>" +
                             "<div class=\"eshTOvdrdlbtIkg\">" +
-                                "<label><input id=\"cb5\" type=\"checkbox\" />Soboty i Niedzielę</label>" +
+                                "<label><input id=\"cb5\" type=\"checkbox\" />Soboty i Niedziele</label>" +
                                 "<label><input id=\"cb6\" type=\"checkbox\" />Święta</label>" +
                             "</div>" +
                         "</div>" +
@@ -1359,9 +1382,9 @@ namespace TimeTask.Controllers
             var IfWeekends = (leave).FirstOrDefault(x => x.Id == id)?.IfWeekends;
             var IfHolidays = (leave).FirstOrDefault(x => x.Id == id)?.IfHolidays;
             if (IfWeekends == true)
-                checkbox1 = "<label><input id=\"cb5_\" type=\"checkbox\" checked />Soboty i Niedzielę</label>";
+                checkbox1 = "<label><input id=\"cb5_\" type=\"checkbox\" checked />Soboty i Niedziele</label>";
             else
-                checkbox1 = "<label><input id=\"cb5_\" type=\"checkbox\" />Soboty i Niedzielę</label>";
+                checkbox1 = "<label><input id=\"cb5_\" type=\"checkbox\" />Soboty i Niedziele</label>";
             if (IfHolidays == true)
                 checkbox2 = "<label><input id=\"cb6_\" type=\"checkbox\" checked />Święta</label>";
             else
@@ -1479,9 +1502,9 @@ namespace TimeTask.Controllers
             var IfWeekends = (leave).FirstOrDefault(x => x.Id == id)?.IfWeekends;
             var IfHolidays = (leave).FirstOrDefault(x => x.Id == id)?.IfHolidays;
             if (IfWeekends == true)
-                checkbox1 = "<label><input id=\"cb5_\" type=\"checkbox\" disabled checked />Soboty i Niedzielę</label>";
+                checkbox1 = "<label><input id=\"cb5_\" type=\"checkbox\" disabled checked />Soboty i Niedziele</label>";
             else
-                checkbox1 = "<label><input id=\"cb5_\" type=\"checkbox\" disabled />Soboty i Niedzielę</label>";
+                checkbox1 = "<label><input id=\"cb5_\" type=\"checkbox\" disabled />Soboty i Niedziele</label>";
             if (IfHolidays == true)
                 checkbox2 = "<label><input id=\"cb6_\" type=\"checkbox\" disabled checked />Święta</label>";
             else

@@ -6119,6 +6119,11 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     transform: translateY(20px);
 }
 
+/*.mIowOhodxwoaSGk {
+    display: inline-block;
+    transform: translateY(1px);
+}*/
+
 @keyframes blink {
     0% {
         -webkit-box-shadow: inset 0px 0px 0px 1px transparent;

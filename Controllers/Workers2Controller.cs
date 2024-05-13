@@ -552,23 +552,23 @@ namespace TimeTask.Controllers
                 foreach (var item in workers)
                 {
                     info += "<tr class=\"EmRSNqsShbDnTsE\">" +
-                            "<td>" + item.Id + "</td>" +
-                            "<td>" + item.Surname + "</td>" +
-                            "<td>" + item.Name + "</td>" +
-                            "<td>" +
-                                "<a onclick=\"IxsCvPIuWwZw(" + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>" +
-                                "<a onclick=\"deleteWorker(" + item.Id + ")\" title=\"Usuń\"><ion-icon class=\"delete urlop\" name=\"trash-outline\"></ion-icon></a>" +
-                            "</td>" +
-                        "</tr>";
+                                    "<td>" + item.Id + "</td>" +
+                                    "<td>" + item.Surname + "</td>" +
+                                    "<td>" + item.Name + "</td>" +
+                                    "<td>" +
+                                        "<a onclick=\"IxsCvPIuWwZw(" + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>" +
+                                        "<a onclick=\"deleteWorker(" + item.Id + ")\" title=\"Usuń\"><ion-icon class=\"delete urlop\" name=\"trash-outline\"></ion-icon></a>" +
+                                    "</td>" +
+                                "</tr>";
                 }
 
                 string table = "<table class=\"VUXahzbNUTWtiZa sortable\" id=\"tableId\">" +
                         "<thead>" +
                             "<tr>" +
-                                "<th style=\"width: 100px;\">ID</th>" +
-                                "<th style=\"width: 50%;\">Nazwisko</th>" +
-                                "<th>Imię</th>" +
-                                "<th>Opcje</th>" +
+                                "<th style=\"width: 100px;\"><span>ID</span></th>" +
+                                "<th style=\"width: 50%;\"><span>Nazwisko</span></th>" +
+                                "<th><span>Imię</span></th>" +
+                                "<th><span>Opcje</span></th>" +
                             "</tr>" +
                         "</thead>" +
                         info +
@@ -618,10 +618,10 @@ namespace TimeTask.Controllers
                 string table = "<table class=\"VUXahzbNUTWtiZa sortable\" id=\"tableId\">" +
                         "<thead>" +
                             "<tr>" +
-                                "<th style=\"width: 100px;\">ID</th>" +
-                                "<th style=\"width: 50%;\">Nazwisko</th>" +
-                                "<th>Imię</th>" +
-                                "<th>Opcje</th>" +
+                                "<th style=\"width: 100px;\"><span>ID</span></th>" +
+                                "<th style=\"width: 50%;\"><span>Nazwisko</span></th>" +
+                                "<th><span>Imię</span></th>" +
+                                "<th><span>Opcje</span></th>" +
                             "</tr>" +
                         "</thead>" +
                         info +

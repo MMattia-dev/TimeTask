@@ -36,6 +36,12 @@ function bxDzoLwDZzickPI(t, id)
                 {
                     resizableGrid(tables[i]);
                 }
+
+                let THs = $('#tableId thead tr th:not(:last)');
+                for (let i = 0; i < THs.length; i++) 
+                {
+                    $(THs[i]).attr('onclick', 'sortTable(' + i + ')');
+                }
             },
             error: function (xhr, status, error)
             {
@@ -55,6 +61,12 @@ function bxDzoLwDZzickPI(t, id)
                 for (var i = 0; i < tables.length; i++)
                 {
                     resizableGrid(tables[i]);
+                }
+
+                let THs = $('#tableId thead tr th:not(:last)');
+                for (let i = 0; i < THs.length; i++) 
+                {
+                    $(THs[i]).attr('onclick', 'sortTable(' + i + ')');
                 }
             },
             error: function (xhr, status, error)
