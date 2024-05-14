@@ -24,7 +24,6 @@ function OnvqHvCoOiDaFEV()
 
     sessionStorage.removeItem('ZucUMOWKGdlqgYv');
 };
-//OnvqHvCoOiDaFEV();
 
 function ZucUMOWKGdlqgYv()
 {
@@ -38,11 +37,10 @@ function ZucUMOWKGdlqgYv()
     sessionStorage.setItem('ZucUMOWKGdlqgYv', 'true');
 };
 
-//dodaj porę nocną
-function gsWnPInTEluayCy_(t) 
+function gsWnPInTEluayCy_() 
 {
     //
-    let pora_nocna_start = t.value;
+    let pora_nocna_start = document.getElementById('gsWnPInTEluayCy').value;
     let pora_nocna_koniec = document.getElementById('SiNSMVtTKxOjnem').value;
     //
 
@@ -54,788 +52,69 @@ function gsWnPInTEluayCy_(t)
 
     $.ajax({
         type: 'POST',
-        url: '/Times/AddPoraNocna_Start_Koniec',
+        url: '/Times/AddOrEditPoraNocna_Start_Koniec',
         data: {
-            
+            poraNocnaStart: pora_nocna_start,
+            poraNocnaKoniec: pora_nocna_koniec
         },
         success: function (response)
         {
-            
+            if (response != false) 
+            {
+                $(lds).show();
+                setTimeout(function ()
+                {
+                    location.reload();
+                }, 300);
+            }
+        },        
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function MrQZggFcmaNphIg(t)
+{
+    let nazwaDnia = $(t).parent().children('span').html();
+    let checkboxStatus = t.checked;
+
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    $(t).parent().parent().parent().append(lds);
+    $(lds).hide();
+
+    $.ajax({
+        type: 'POST',
+        url: '/Times/AddOrEditDniWolneOdPracy',
+        data: {
+            dzien: nazwaDnia,
+            check: checkboxStatus
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                $(lds).show();
+                setTimeout(function ()
+                {
+                    location.reload();
+                }, 300);            
+            }
         },
         error: function (xhr, status, error)
         {
             console.log('Error:', error);
         }
     });
-
-
-    //$.ajax({
-    //    type: 'GET',
-    //    url: '/Times/CheckIfTimeSettingsIsEmptyForWorkerNull',
-    //    success: function (model_ts)
-    //    {
-    //        //if (model_ts == null) 
-    //        //{
-    //        //    if (pora_nocna_start.length > 0 && pora_nocna_koniec.length > 0) 
-    //        //    {
-    //        //        $.ajax({
-    //        //            type: 'POST',
-    //        //            url: '/Times/AddPoraNocna',
-    //        //            data: {
-    //        //                poraNocnaStart: '0001-01-01' + ' ' + pora_nocna_start,
-    //        //                poraNocnaKoniec: '0001-01-01' + ' ' + pora_nocna_koniec
-    //        //            },
-    //        //            success: function (response) 
-    //        //            {
-    //        //                $(lds).show();
-    //        //                setTimeout(function ()
-    //        //                {
-    //        //                    location.reload();
-    //        //                }, 300);
-    //        //            },
-    //        //            error: function (xhr, status, error) 
-    //        //            {
-    //        //                console.log('Error:', error);
-    //        //            }
-    //        //        })
-    //        //    }
-    //        //}
-    //        //else 
-    //        //{
-    //        //    for (let i = 0; i < model_ts.length; i++) 
-    //        //    {
-    //        //        if (model_ts[i].WorkerId == null) 
-    //        //        {
-    //        //            let id_ = model_ts[i].Id;
-    //        //            //
-
-    //        //            if (model_ts[i].PoraNocnaStart != pora_nocna_start && pora_nocna_koniec.length != 0) 
-    //        //            {
-    //        //                $.ajax({
-    //        //                    type: 'POST',
-    //        //                    url: '/Times/EditPoraNocna',
-    //        //                    data: {
-    //        //                        id: id_,
-    //        //                        poraNocnaStart: '0001-01-01' + ' ' + pora_nocna_start,
-    //        //                        poraNocnaKoniec: '0001-01-01' + ' ' + pora_nocna_koniec
-    //        //                    },
-    //        //                    success: function (response) 
-    //        //                    {
-    //        //                        $(lds).show();
-    //        //                        setTimeout(function ()
-    //        //                        {
-    //        //                            location.reload();
-    //        //                        }, 300);
-    //        //                    },
-    //        //                    error: function (xhr, status, error) 
-    //        //                    {
-    //        //                        console.log('Error:', error);
-    //        //                    }
-    //        //                });
-    //        //            }
-    //        //            else if (model_ts[i].PoraNocnaStart != null && pora_nocna_koniec.length != 0) 
-    //        //            {
-    //        //                $.ajax({
-    //        //                    type: 'POST',
-    //        //                    url: '/Times/EditPoraNocna',
-    //        //                    data: {
-    //        //                        id: id_,
-    //        //                        poraNocnaStart: '0001-01-01' + ' ' + pora_nocna_start,
-    //        //                        poraNocnaKoniec: '0001-01-01' + ' ' + pora_nocna_koniec
-    //        //                    },
-    //        //                    success: function (response) 
-    //        //                    {
-    //        //                        $(lds).show();
-    //        //                        setTimeout(function ()
-    //        //                        {
-    //        //                            location.reload();
-    //        //                        }, 300);
-    //        //                    },
-    //        //                    error: function (xhr, status, error) 
-    //        //                    {
-    //        //                        console.log('Error:', error);
-    //        //                    }
-    //        //                });
-    //        //            }
-    //        //        }
-    //        //    }
-    //        //}
-    //    },
-    //    error: function (xhr, status, error)
-    //    {
-    //        console.log('Error:', error);
-    //    }            
-    //});
-
-    
-
-    //if (model_ts.length == 0) 
-    //{
-    //    if (pora_nocna_start.length > 0 && pora_nocna_koniec.length > 0) 
-    //    {
-    //        $.ajax({
-    //            type: 'POST',
-    //            url: '/Times/AddPoraNocna',
-    //            data: {
-    //                poraNocnaStart: '0001-01-01' + ' ' + pora_nocna_start,
-    //                poraNocnaKoniec: '0001-01-01' + ' ' + pora_nocna_koniec
-    //            },
-    //            success: function (response) 
-    //            {
-    //                $(lds).show();
-    //                setTimeout(function ()
-    //                {
-    //                    location.reload();
-    //                }, 300);
-    //            },
-    //            error: function (xhr, status, error) 
-    //            {
-    //                console.log('Error:', error);
-    //            }
-    //        })
-    //    }
-    //}
-    //else 
-    //{
-    //    for (let i = 0; i < model_ts.length; i++) 
-    //    {
-    //        if (model_ts[i].WorkerId == null) 
-    //        {
-    //            let id_ = model_ts[i].Id;
-    //            //
-
-    //            if (model_ts[i].PoraNocnaStart != pora_nocna_start && pora_nocna_koniec.length != 0) 
-    //            {
-    //                $.ajax({
-    //                    type: 'POST',
-    //                    url: '/Times/EditPoraNocna',
-    //                    data: {
-    //                        id: id_,
-    //                        poraNocnaStart: '0001-01-01' + ' ' + pora_nocna_start,
-    //                        poraNocnaKoniec: '0001-01-01' + ' ' + pora_nocna_koniec
-    //                    },
-    //                    success: function (response) 
-    //                    {
-    //                        $(lds).show();
-    //                        setTimeout(function ()
-    //                        {
-    //                            location.reload();
-    //                        }, 300);
-    //                    },
-    //                    error: function (xhr, status, error) 
-    //                    {
-    //                        console.log('Error:', error);
-    //                    }
-    //                });
-    //            }
-    //            else if (model_ts[i].PoraNocnaStart != null && pora_nocna_koniec.length != 0) 
-    //            {
-    //                $.ajax({
-    //                    type: 'POST',
-    //                    url: '/Times/EditPoraNocna',
-    //                    data: {
-    //                        id: id_,
-    //                        poraNocnaStart: '0001-01-01' + ' ' + pora_nocna_start,
-    //                        poraNocnaKoniec: '0001-01-01' + ' ' + pora_nocna_koniec
-    //                    },
-    //                    success: function (response) 
-    //                    {
-    //                        $(lds).show();
-    //                        setTimeout(function ()
-    //                        {
-    //                            location.reload();
-    //                        }, 300);
-    //                    },
-    //                    error: function (xhr, status, error) 
-    //                    {
-    //                        console.log('Error:', error);
-    //                    }
-    //                });
-    //            }
-    //        }
-    //    }
-    //}
 };
 
-function SiNSMVtTKxOjnem_(t) 
+function YaohyXTjGdIPVHK()
 {
     //
-    let pora_nocna_start = document.getElementById('gsWnPInTEluayCy').value;
-    let pora_nocna_koniec = t.value;
-    //
-
-    var lds = document.createElement('div');
-    lds.className = 'lds-ring-small';
-    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
-    $('#SiNSMVtTKxOjnem').parent().append(lds);
-    $(lds).hide();
-
-
-    //if (model_ts.length == 0) 
-    //{
-    //    if (pora_nocna_start.length > 0 && pora_nocna_koniec.length > 0) 
-    //    {
-    //        $.ajax({
-    //            type: 'POST',
-    //            url: '/Times/AddPoraNocna',
-    //            data: {
-    //                poraNocnaStart: '0001-01-01' + ' ' + pora_nocna_start,
-    //                poraNocnaKoniec: '0001-01-01' + ' ' + pora_nocna_koniec
-    //            },
-    //            success: function (response) 
-    //            {
-    //                $(lds).show();
-    //                setTimeout(function ()
-    //                {
-    //                    location.reload();
-    //                }, 300);
-    //            },
-    //            error: function (xhr, status, error) 
-    //            {
-    //                console.log('Error:', error);
-    //            }
-    //        });
-    //    }
-    //}
-    //else 
-    //{
-    //    for (let i = 0; i < model_ts.length; i++) 
-    //    {
-    //        if (model_ts[i].WorkerId == null) 
-    //        {
-    //            let id_ = model_ts[i].Id;
-    //            //
-
-    //            if (model_ts[i].PoraNocnaKoniec != pora_nocna_koniec && pora_nocna_start.length != 0) 
-    //            {
-    //                $.ajax({
-    //                    type: 'POST',
-    //                    url: '/Times/EditPoraNocna',
-    //                    data: {
-    //                        id: id_,
-    //                        poraNocnaStart: '0001-01-01' + ' ' + pora_nocna_start,
-    //                        poraNocnaKoniec: '0001-01-01' + ' ' + pora_nocna_koniec
-    //                    },
-    //                    success: function (response) 
-    //                    {
-    //                        $(lds).show();
-    //                        setTimeout(function ()
-    //                        {
-    //                            location.reload();
-    //                        }, 300);
-    //                    },
-    //                    error: function (xhr, status, error) 
-    //                    {
-    //                        console.log('Error:', error);
-    //                    }
-    //                });
-    //            }
-    //            else if (model_ts[i].PoraNocnaKoniec != null && pora_nocna_start.length != 0) 
-    //            {
-    //                $.ajax({
-    //                    type: 'POST',
-    //                    url: '/Times/EditPoraNocna',
-    //                    data: {
-    //                        id: id_,
-    //                        poraNocnaStart: '0001-01-01' + ' ' + pora_nocna_start,
-    //                        poraNocnaKoniec: '0001-01-01' + ' ' + pora_nocna_koniec
-    //                    },
-    //                    success: function (response) 
-    //                    {
-    //                        $(lds).show();
-    //                        setTimeout(function ()
-    //                        {
-    //                            location.reload();
-    //                        }, 300);
-    //                    },
-    //                    error: function (xhr, status, error) 
-    //                    {
-    //                        console.log('Error:', error);
-    //                    }
-    //                });
-    //            }
-    //        }
-    //    }
-    //}
-};
-
-//zaznacz dni wolne od pracy - Niedziela
-function baAmFvRLsPdjFPK_(t) 
-{
-    let checkboxStatus = t.checked;
-    
-    var lds = document.createElement('div');
-    lds.className = 'lds-ring-small';
-    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
-    $(t).parent().parent().parent().append(lds);
-    $(lds).hide();
-
-
-    //if (model_ts.length == 0) 
-    //{
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: '/Times/AddNiedziela',
-    //        data: {
-    //            czyNiedzielaWolny: checkboxStatus
-    //        },
-    //        success: function (response)
-    //        {
-    //            $(lds).show();
-    //            setTimeout(function ()
-    //            {
-    //                location.reload();
-    //            }, 300);
-    //        },
-    //        error: function (xhr, status, error)
-    //        {
-    //            console.log('Error:', error);
-    //        }
-    //    });
-    //}
-    //else 
-    //{
-    //    for (let i = 0; i < model_ts.length; i++)
-    //    {
-    //        if (model_ts[i].WorkerId == null)
-    //        {
-    //            let id_ = model_ts[i].Id;
-                
-
-    //            $.ajax({
-    //                type: 'POST',
-    //                url: '/Times/EditNiedziela',
-    //                data: {
-    //                    id: id_,
-    //                    czyNiedzielaWolny: checkboxStatus
-    //                },
-    //                success: function (response)
-    //                {
-    //                    $(lds).show();
-    //                    setTimeout(function ()
-    //                    {
-    //                        location.reload();
-    //                    }, 300);
-    //                },
-    //                error: function (xhr, status, error)
-    //                {
-    //                    console.log('Error:', error);
-    //                }
-    //            });
-    //        }
-    //    }
-    //}
-};
-
-function RSUOGpjPUOmRtSA_(t) 
-{
-    let checkboxStatus = t.checked;
-
-    var lds = document.createElement('div');
-    lds.className = 'lds-ring-small';
-    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
-    $(t).parent().parent().parent().append(lds);
-    $(lds).hide();
-
-
-    //if (model_ts.length == 0) 
-    //{
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: '/Times/AddSobota',
-    //        data: {
-    //            czySobotaWolny: checkboxStatus
-    //        },
-    //        success: function (response)
-    //        {
-    //            $(lds).show();
-    //            setTimeout(function ()
-    //            {
-    //                location.reload();
-    //            }, 300);
-    //        },
-    //        error: function (xhr, status, error)
-    //        {
-    //            console.log('Error:', error);
-    //        }
-    //    });
-    //}
-    //else 
-    //{
-    //    for (let i = 0; i < model_ts.length; i++)
-    //    {
-    //        if (model_ts[i].WorkerId == null)
-    //        {
-    //            let id_ = model_ts[i].Id;
-    //            //
-
-    //            $.ajax({
-    //                type: 'POST',
-    //                url: '/Times/EditSobota',
-    //                data: {
-    //                    id: id_,
-    //                    czySobotaWolny: checkboxStatus
-    //                },
-    //                success: function (response)
-    //                {
-    //                    $(lds).show();
-    //                    setTimeout(function ()
-    //                    {
-    //                        location.reload();
-    //                    }, 300);
-    //                },
-    //                error: function (xhr, status, error)
-    //                {
-    //                    console.log('Error:', error);
-    //                }
-    //            });
-    //        }
-    //    }
-    //}
-};
-
-function NtmebQZRHqjmpmB_(t) 
-{
-    let checkboxStatus = t.checked;
-
-    var lds = document.createElement('div');
-    lds.className = 'lds-ring-small';
-    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
-    $(t).parent().parent().parent().append(lds);
-    $(lds).hide();
-
-
-    //if (model_ts.length == 0) 
-    //{
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: '/Times/AddPiatek',
-    //        data: {
-    //            czyPiatekWolny: checkboxStatus
-    //        },
-    //        success: function (response)
-    //        {
-    //            $(lds).show();
-    //            setTimeout(function ()
-    //            {
-    //                location.reload();
-    //            }, 300);
-    //        },
-    //        error: function (xhr, status, error)
-    //        {
-    //            console.log('Error:', error);
-    //        }
-    //    });
-    //}
-    //else 
-    //{
-    //    for (let i = 0; i < model_ts.length; i++)
-    //    {
-    //        if (model_ts[i].WorkerId == null)
-    //        {
-    //            let id_ = model_ts[i].Id;
-    //            //
-
-    //            $.ajax({
-    //                type: 'POST',
-    //                url: '/Times/EditPiatek',
-    //                data: {
-    //                    id: id_,
-    //                    czyPiatekWolny: checkboxStatus
-    //                },
-    //                success: function (response)
-    //                {
-    //                    $(lds).show();
-    //                    setTimeout(function ()
-    //                    {
-    //                        location.reload();
-    //                    }, 300);
-    //                },
-    //                error: function (xhr, status, error)
-    //                {
-    //                    console.log('Error:', error);
-    //                }
-    //            });
-    //        }
-    //    }
-    //}
-};
-
-function CYUzYwwDMVXUmke_(t) 
-{
-    let checkboxStatus = t.checked;
-
-    var lds = document.createElement('div');
-    lds.className = 'lds-ring-small';
-    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
-    $(t).parent().parent().parent().append(lds);
-    $(lds).hide();
-
-
-    //if (model_ts.length == 0) 
-    //{
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: '/Times/AddCzwartek',
-    //        data: {
-    //            czyCzwartekWolny: checkboxStatus
-    //        },
-    //        success: function (response)
-    //        {
-    //            $(lds).show();
-    //            setTimeout(function ()
-    //            {
-    //                location.reload();
-    //            }, 300);
-    //        },
-    //        error: function (xhr, status, error)
-    //        {
-    //            console.log('Error:', error);
-    //        }
-    //    });
-    //}
-    //else 
-    //{
-    //    for (let i = 0; i < model_ts.length; i++)
-    //    {
-    //        if (model_ts[i].WorkerId == null)
-    //        {
-    //            let id_ = model_ts[i].Id;
-    //            //
-
-    //            $.ajax({
-    //                type: 'POST',
-    //                url: '/Times/EditCzwartek',
-    //                data: {
-    //                    id: id_,
-    //                    czyCzwartekWolny: checkboxStatus
-    //                },
-    //                success: function (response)
-    //                {
-    //                    $(lds).show();
-    //                    setTimeout(function ()
-    //                    {
-    //                        location.reload();
-    //                    }, 300);
-    //                },
-    //                error: function (xhr, status, error)
-    //                {
-    //                    console.log('Error:', error);
-    //                }
-    //            });
-    //        }
-    //    }
-    //}
-};
-
-function CKMBUUZmdZmwRBI_(t) 
-{
-    let checkboxStatus = t.checked;
-
-    var lds = document.createElement('div');
-    lds.className = 'lds-ring-small';
-    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
-    $(t).parent().parent().parent().append(lds);
-    $(lds).hide();
-
-
-    //if (model_ts.length == 0) 
-    //{
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: '/Times/AddSroda',
-    //        data: {
-    //            czySrodaWolny: checkboxStatus
-    //        },
-    //        success: function (response)
-    //        {
-    //            $(lds).show();
-    //            setTimeout(function ()
-    //            {
-    //                location.reload();
-    //            }, 300);
-    //        },
-    //        error: function (xhr, status, error)
-    //        {
-    //            console.log('Error:', error);
-    //        }
-    //    });
-    //}
-    //else 
-    //{
-    //    for (let i = 0; i < model_ts.length; i++)
-    //    {
-    //        if (model_ts[i].WorkerId == null)
-    //        {
-    //            let id_ = model_ts[i].Id;
-    //            //
-
-    //            $.ajax({
-    //                type: 'POST',
-    //                url: '/Times/EditSroda',
-    //                data: {
-    //                    id: id_,
-    //                    czySrodaWolny: checkboxStatus
-    //                },
-    //                success: function (response)
-    //                {
-    //                    $(lds).show();
-    //                    setTimeout(function ()
-    //                    {
-    //                        location.reload();
-    //                    }, 300);
-    //                },
-    //                error: function (xhr, status, error)
-    //                {
-    //                    console.log('Error:', error);
-    //                }
-    //            });
-    //        }
-    //    }
-    //}
-};
-
-function kJGnDDkbrZWXYuR_(t) 
-{
-    let checkboxStatus = t.checked;
-
-    var lds = document.createElement('div');
-    lds.className = 'lds-ring-small';
-    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
-    $(t).parent().parent().parent().append(lds);
-    $(lds).hide();
-
-
-    //if (model_ts.length == 0) 
-    //{
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: '/Times/AddWtorek',
-    //        data: {
-    //            czyWtorekWolny: checkboxStatus
-    //        },
-    //        success: function (response)
-    //        {
-    //            $(lds).show();
-    //            setTimeout(function ()
-    //            {
-    //                location.reload();
-    //            }, 300);
-    //        },
-    //        error: function (xhr, status, error)
-    //        {
-    //            console.log('Error:', error);
-    //        }
-    //    });
-    //}
-    //else 
-    //{
-    //    for (let i = 0; i < model_ts.length; i++)
-    //    {
-    //        if (model_ts[i].WorkerId == null)
-    //        {
-    //            let id_ = model_ts[i].Id;
-    //            //
-
-    //            $.ajax({
-    //                type: 'POST',
-    //                url: '/Times/EditWtorek',
-    //                data: {
-    //                    id: id_,
-    //                    czyWtorekWolny: checkboxStatus
-    //                },
-    //                success: function (response)
-    //                {
-    //                    $(lds).show();
-    //                    setTimeout(function ()
-    //                    {
-    //                        location.reload();
-    //                    }, 300);
-    //                },
-    //                error: function (xhr, status, error)
-    //                {
-    //                    console.log('Error:', error);
-    //                }
-    //            });
-    //        }
-    //    }
-    //}
-};
-
-function QPebGULGyufDEHz_(t) 
-{
-    let checkboxStatus = t.checked;
-
-    var lds = document.createElement('div');
-    lds.className = 'lds-ring-small';
-    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
-    $(t).parent().parent().parent().append(lds);
-    $(lds).hide();
-
-
-    //if (model_ts.length == 0) 
-    //{
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: '/Times/AddPoniedzialek',
-    //        data: {
-    //            czyPoniedzialekWolny: checkboxStatus
-    //        },
-    //        success: function (response)
-    //        {
-    //            $(lds).show();
-    //            setTimeout(function ()
-    //            {
-    //                location.reload();
-    //            }, 300);
-    //        },
-    //        error: function (xhr, status, error)
-    //        {
-    //            console.log('Error:', error);
-    //        }
-    //    });
-    //}
-    //else 
-    //{
-    //    for (let i = 0; i < model_ts.length; i++)
-    //    {
-    //        if (model_ts[i].WorkerId == null)
-    //        {
-    //            let id_ = model_ts[i].Id;
-    //            //
-
-    //            $.ajax({
-    //                type: 'POST',
-    //                url: '/Times/EditPoniedzialek',
-    //                data: {
-    //                    id: id_,
-    //                    czyPoniedzialekWolny: checkboxStatus
-    //                },
-    //                success: function (response)
-    //                {
-    //                    $(lds).show();
-    //                    setTimeout(function ()
-    //                    {
-    //                        location.reload();
-    //                    }, 300);
-    //                },
-    //                error: function (xhr, status, error)
-    //                {
-    //                    console.log('Error:', error);
-    //                }
-    //            });
-    //        }
-    //    }
-    //}
-};
-
-
-
-//dodaj okres rozliczeniowy
-function YaohyXTjGdIPVHK(t)
-{
-    //
-    let okres = t.value;
+    let okres = document.getElementById('IkruzJFAfehduep').value;
     let okres_options = document.getElementById('dOAFhxfwDtzoHav');
     //
 
@@ -846,213 +125,33 @@ function YaohyXTjGdIPVHK(t)
     $(lds).hide();
 
 
-    //if (model_ts.length == 0)
-    //{
-    //    if (okres.length > 0 && okres_options.selectedIndex > 0) 
-    //    {
-    //        let okres_tydzien = false;
-    //        let okres_miesiac = false;
-    //        if (okres_options.selectedIndex == 1)
-    //            okres_tydzien = true;
-    //        if (okres_options.selectedIndex == 2)
-    //            okres_miesiac = true;
-
-    //        $.ajax({
-    //            type: 'POST',
-    //            url: '/Times/AddOkres',
-    //            data: {
-    //                okresRozliczeniowy: okres,
-    //                jezeliTydzien: okres_tydzien,
-    //                jezeliMiesiac: okres_miesiac
-    //            },
-    //            success: function (response)
-    //            {
-    //                $(lds).show();
-    //                setTimeout(function ()
-    //                {
-    //                    location.reload();
-    //                }, 300);
-    //            },
-    //            error: function (xhr, status, error)
-    //            {
-    //                console.log('Error:', error);
-    //            }
-    //        });
-    //    }
-    //}
-    //else
-    //{
-    //    for (let i = 0; i < model_ts.length; i++)
-    //    {
-    //        if (model_ts[i].WorkerId == null)
-    //        {
-    //            let id_ = model_ts[i].Id;
-    //            //
-
-    //            if (model_ts[i].OkresRozliczeniowy != okres && okres.length != 0 && okres != 0 && okres_options.selectedIndex > 0)
-    //            {
-    //                let okres_tydzien = false;
-    //                let okres_miesiac = false;
-    //                if (okres_options.selectedIndex == 1)
-    //                    okres_tydzien = true;
-    //                if (okres_options.selectedIndex == 2)
-    //                    okres_miesiac = true;
-
-    //                $.ajax({
-    //                    type: 'POST',
-    //                    url: '/Times/EditOkres',
-    //                    data: {
-    //                        id: id_,
-    //                        okresRozliczeniowy: okres,
-    //                        jezeliTydzien: okres_tydzien,
-    //                        jezeliMiesiac: okres_miesiac
-    //                    },
-    //                    success: function (response)
-    //                    {
-    //                        $(lds).show();
-    //                        setTimeout(function ()
-    //                        {
-    //                            location.reload();
-    //                        }, 300);
-    //                    },
-    //                    error: function (xhr, status, error)
-    //                    {
-    //                        console.log('Error:', error);
-    //                    }
-    //                });
-    //            }
-    //            else if (model_ts[i].OkresRozliczeniowy != null && okres.length == 0 && okres != 0 && okres_options.selectedIndex > 0) 
-    //            {
-    //                let okres_tydzien = false;
-    //                let okres_miesiac = false;
-    //                if (okres_options.selectedIndex == 1)
-    //                    okres_tydzien = true;
-    //                if (okres_options.selectedIndex == 2)
-    //                    okres_miesiac = true;
-
-    //                $.ajax({
-    //                    type: 'POST',
-    //                    url: '/Times/EditOkres',
-    //                    data: {
-    //                        id: id_,
-    //                        okresRozliczeniowy: okres,
-    //                        jezeliTydzien: okres_tydzien,
-    //                        jezeliMiesiac: okres_miesiac
-    //                    },
-    //                    success: function (response)
-    //                    {
-    //                        $(lds).show();
-    //                        setTimeout(function ()
-    //                        {
-    //                            location.reload();
-    //                        }, 300);
-    //                    },
-    //                    error: function (xhr, status, error)
-    //                    {
-    //                        console.log('Error:', error);
-    //                    }
-    //                });
-    //            }
-    //        }
-    //    }
-    //}
+    $.ajax({
+        type: 'POST',
+        url: '/Times/AddOrEditOkres',
+        data: {
+            okres: okres,
+            selected: okres_options.value
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                $(lds).show();
+                setTimeout(function ()
+                {
+                    location.reload();
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
 };
 
-function dOAFhxfwDtzoHav_(t) 
+function IIjDrhHnsJwmqtN(t) 
 {
-    //
-    let okres = document.getElementById('IkruzJFAfehduep').value; 
-    let okres_options = t;
-    //
-
-    var lds = document.createElement('div');
-    lds.className = 'lds-ring-small';
-    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
-    $(okres_options).parent().append(lds);
-    $(lds).hide();
-
-    //if (model_ts.length == 0) 
-    //{
-    //    if (okres.length > 0 && okres_options.selectedIndex > 0) 
-    //    {
-    //        let okres_tydzien = false;
-    //        let okres_miesiac = false;
-    //        if (okres_options.selectedIndex == 1)
-    //            okres_tydzien = true;
-    //        if (okres_options.selectedIndex == 2)
-    //            okres_miesiac = true;
-
-    //        $.ajax({
-    //            type: 'POST',
-    //            url: '/Times/AddOkres',
-    //            data: {
-    //                okresRozliczeniowy: okres,
-    //                jezeliTydzien: okres_tydzien,
-    //                jezeliMiesiac: okres_miesiac
-    //            },
-    //            success: function (response)
-    //            {
-    //                $(lds).show();
-    //                setTimeout(function ()
-    //                {
-    //                    location.reload();
-    //                }, 300);
-    //            },
-    //            error: function (xhr, status, error)
-    //            {
-    //                console.log('Error:', error);
-    //            }
-    //        });
-    //    }
-    //}
-    //else
-    //{     
-    //    for (let i = 0; i < model_ts.length; i++)
-    //    {
-    //        if (model_ts[i].WorkerId == null)
-    //        {
-    //            let id_ = model_ts[i].Id;
-    //            //
-
-    //            if (okres.length != 0 && okres != 0) 
-    //            {
-    //                let okres_tydzien = false;
-    //                let okres_miesiac = false;
-    //                if (okres_options.selectedIndex == 1)
-    //                    okres_tydzien = true;
-    //                if (okres_options.selectedIndex == 2)
-    //                    okres_miesiac = true;
-
-    //                $.ajax({
-    //                    type: 'POST',
-    //                    url: '/Times/EditOkres',
-    //                    data: {
-    //                        id: id_,
-    //                        okresRozliczeniowy: okres,
-    //                        jezeliTydzien: okres_tydzien,
-    //                        jezeliMiesiac: okres_miesiac
-    //                    },
-    //                    success: function (response)
-    //                    {
-    //                        $(lds).show();
-    //                        setTimeout(function ()
-    //                        {
-    //                            location.reload();
-    //                        }, 300);
-    //                    },
-    //                    error: function (xhr, status, error) 
-    //                    {
-    //                        console.log('Error:', error);
-    //                    }
-    //                });
-    //            }
-    //        }
-    //    }
-    //}
-};
-
-//dodaj czas pracy
-function IIjDrhHnsJwmqtN(t) {
     var lds = document.createElement('div');
     lds.className = 'lds-ring-small';
     lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
@@ -1060,95 +159,35 @@ function IIjDrhHnsJwmqtN(t) {
     $(lds).hide();
 
     //
-    let okres = t.value;
+    let czas = t.value;
     //
 
-    //if (model_ts.length == 0)
-    //{
-    //    if (okres.length > 0)
-    //    {
-    //        $.ajax({
-    //            type: 'POST',
-    //            url: '/Times/AddCzasPracy',
-    //            data: {
-    //                czasPracy: okres
-    //            },
-    //            success: function (response)
-    //            {
-    //                $(lds).show();
-    //                setTimeout(function ()
-    //                {
-    //                    location.reload();
-    //                }, 300);
-    //            },
-    //            error: function (xhr, status, error)
-    //            {
-    //                console.log('Error adding data:', error);
-    //            }
-    //        });
-    //    }
-    //}
-    //else
-    //{
-    //    for (let i = 0; i < model_ts.length; i++)
-    //    {
-    //        if (model_ts[i].WorkerId == null)
-    //        {
-    //            let id_ = model_ts[i].Id;
-    //            //
-    //            if (model_ts[i].CzasPracy != okres && okres.length != 0)
-    //            {
-    //                $.ajax({
-    //                    type: 'POST',
-    //                    url: '/Times/EditCzasPracy',
-    //                    data: {
-    //                        id: id_,
-    //                        czasPracy: okres
-    //                    },
-    //                    success: function (response)
-    //                    {
-    //                        $(lds).show();
-    //                        setTimeout(function ()
-    //                        {
-    //                            location.reload();
-    //                        }, 300);
-    //                    },
-    //                    error: function (xhr, status, error)
-    //                    {
-    //                        console.log('Error adding data:', error);
-    //                    }
-    //                });
-    //            }
-    //            else if (model_ts[i].CzasPracy != null && okres.length == 0) 
-    //            {
-    //                $.ajax({
-    //                    type: 'POST',
-    //                    url: '/Times/EditCzasPracy',
-    //                    data: {
-    //                        id: id_,
-    //                        czasPracy: okres
-    //                    },
-    //                    success: function (response)
-    //                    {
-    //                        $(lds).show();
-    //                        setTimeout(function ()
-    //                        {
-    //                            location.reload();
-    //                        }, 300);
-    //                    },
-    //                    error: function (xhr, status, error)
-    //                    {
-    //                        console.log('Error adding data:', error);
-    //                    }
-    //                });
-    //            }
-    //        }
-    //    }
-    //}
+    $.ajax({
+        type: 'POST',
+        url: '/Times/AddOrEditCzasPracy',
+        data: {
+            czasPracy: czas
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                $(lds).show();
+                setTimeout(function ()
+                {
+                    location.reload();
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
 };
 
-//dodaj max godzin w tygodniu
-function jShPfjshHZwMBZw(t) {
+function jShPfjshHZwMBZw(t) 
+{
     var lds = document.createElement('div');
     lds.className = 'lds-ring-small';
     lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
@@ -1156,95 +195,35 @@ function jShPfjshHZwMBZw(t) {
     $(lds).hide();
 
     //
-    let okres = t.value;
+    let tydzien = t.value;
     //
 
-    //if (model_ts.length == 0)
-    //{
-    //    if (okres.length > 0)
-    //    {
-    //        $.ajax({
-    //            type: 'POST',
-    //            url: '/Times/AddMaksymalnaLiczbaNadgodzinTydzien',
-    //            data: {
-    //                maksymalnaLiczbaNadgodzinTydzien: okres
-    //            },
-    //            success: function (response)
-    //            {
-    //                $(lds).show();
-    //                setTimeout(function ()
-    //                {
-    //                    location.reload();
-    //                }, 300);
-    //            },
-    //            error: function (xhr, status, error)
-    //            {
-    //                console.log('Error adding data:', error);
-    //            }
-    //        });
-    //    }
-    //}
-    //else
-    //{
-    //    for (let i = 0; i < model_ts.length; i++)
-    //    {
-    //        if (model_ts[i].WorkerId == null)
-    //        {
-    //            let id_ = model_ts[i].Id;
-    //            //
-    //            if (model_ts[i].MaksymalnaLiczbaNadgodzinTydzien != okres && okres.length != 0)
-    //            {
-    //                $.ajax({
-    //                    type: 'POST',
-    //                    url: '/Times/EditMaksymalnaLiczbaNadgodzinTydzien',
-    //                    data: {
-    //                        id: id_,
-    //                        maksymalnaLiczbaNadgodzinTydzien: okres
-    //                    },
-    //                    success: function (response)
-    //                    {
-    //                        $(lds).show();
-    //                        setTimeout(function ()
-    //                        {
-    //                            location.reload();
-    //                        }, 300);
-    //                    },
-    //                    error: function (xhr, status, error)
-    //                    {
-    //                        console.log('Error adding data:', error);
-    //                    }
-    //                });
-    //            }
-    //            else if (model_ts[i].MaksymalnaLiczbaNadgodzinTydzien != null && okres.length == 0) 
-    //            {
-    //                $.ajax({
-    //                    type: 'POST',
-    //                    url: '/Times/EditMaksymalnaLiczbaNadgodzinTydzien',
-    //                    data: {
-    //                        id: id_,
-    //                        maksymalnaLiczbaNadgodzinTydzien: okres
-    //                    },
-    //                    success: function (response)
-    //                    {
-    //                        $(lds).show();
-    //                        setTimeout(function ()
-    //                        {
-    //                            location.reload();
-    //                        }, 300);
-    //                    },
-    //                    error: function (xhr, status, error)
-    //                    {
-    //                        console.log('Error adding data:', error);
-    //                    }
-    //                });
-    //            }
-    //        }
-    //    }
-    //}
+    $.ajax({
+        type: 'POST',
+        url: '/Times/AddOrEditMaksymalnaLiczbaNadgodzinTydzien',
+        data: {
+            maxTydzien: tydzien
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                $(lds).show();
+                setTimeout(function ()
+                {
+                    location.reload();
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
 };
 
-//dodaj max godzin w roku
-function XzSwltkFnFZxgQl(t) {
+function XzSwltkFnFZxgQl(t) 
+{
     var lds = document.createElement('div');
     lds.className = 'lds-ring-small';
     lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
@@ -1252,94 +231,33 @@ function XzSwltkFnFZxgQl(t) {
     $(lds).hide();
 
     //
-    let okres = t.value;
+    let rok = t.value;
     //
 
-    //if (model_ts.length == 0)
-    //{
-    //    if (okres.length > 0)
-    //    {
-    //        $.ajax({
-    //            type: 'POST',
-    //            url: '/Times/AddMaksymalnaLiczbaNadgodzin',
-    //            data: {
-    //                maksymalnaLiczbaNadgodzin: okres
-    //            },
-    //            success: function (response)
-    //            {
-    //                $(lds).show();
-    //                setTimeout(function ()
-    //                {
-    //                    location.reload();
-    //                }, 300);
-    //            },
-    //            error: function (xhr, status, error)
-    //            {
-    //                console.log('Error adding data:', error);
-    //            }
-    //        });
-    //    }
-    //}
-    //else
-    //{
-    //    for (let i = 0; i < model_ts.length; i++)
-    //    {
-    //        if (model_ts[i].WorkerId == null)
-    //        {
-    //            let id_ = model_ts[i].Id;
-    //            //
-    //            if (model_ts[i].MaksymalnaLiczbaNadgodzin != okres && okres.length != 0)
-    //            {
-    //                $.ajax({
-    //                    type: 'POST',
-    //                    url: '/Times/EditMaksymalnaLiczbaNadgodzin',
-    //                    data: {
-    //                        id: id_,
-    //                        maksymalnaLiczbaNadgodzin: okres
-    //                    },
-    //                    success: function (response)
-    //                    {
-    //                        $(lds).show();
-    //                        setTimeout(function ()
-    //                        {
-    //                            location.reload();
-    //                        }, 300);
-    //                    },
-    //                    error: function (xhr, status, error)
-    //                    {
-    //                        console.log('Error adding data:', error);
-    //                    }
-    //                });
-    //            }
-    //            else if (model_ts[i].MaksymalnaLiczbaNadgodzin != null && okres.length == 0) 
-    //            {
-    //                $.ajax({
-    //                    type: 'POST',
-    //                    url: '/Times/EditMaksymalnaLiczbaNadgodzin',
-    //                    data: {
-    //                        id: id_,
-    //                        maksymalnaLiczbaNadgodzin: okres
-    //                    },
-    //                    success: function (response)
-    //                    {
-    //                        $(lds).show();
-    //                        setTimeout(function ()
-    //                        {
-    //                            location.reload();
-    //                        }, 300);
-    //                    },
-    //                    error: function (xhr, status, error)
-    //                    {
-    //                        console.log('Error adding data:', error);
-    //                    }
-    //                });
-    //            }
-    //        }
-    //    }
-    //}
+    $.ajax({
+        type: 'POST',
+        url: '/Times/AddOrEditMaksymalnaLiczbaNadgodzinRok',
+        data: {
+            maxRok: rok
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                $(lds).show();
+                setTimeout(function ()
+                {
+                    location.reload();
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
 };
 
-//dodaj Nieprzerwany odpoczynek między dniami roboczymi
 function bnjRnAOHPyGsOAT(t) 
 {
     var lds = document.createElement('div');
@@ -1349,91 +267,31 @@ function bnjRnAOHPyGsOAT(t)
     $(lds).hide();
 
     //
-    let okres = t.value;
+    let odpoczynek = t.value;
     //
 
-    //if (model_ts.length == 0)
-    //{
-    //    if (okres.length > 0)
-    //    {
-    //        $.ajax({
-    //            type: 'POST',
-    //            url: '/Times/AddNieprzerwanyOdpoczynek',
-    //            data: {
-    //                nieprzerwanyOdpoczynek: okres
-    //            },
-    //            success: function (response)
-    //            {
-    //                $(lds).show();
-    //                setTimeout(function ()
-    //                {
-    //                    location.reload();
-    //                }, 300);
-    //            },
-    //            error: function (xhr, status, error)
-    //            {
-    //                console.log('Error adding data:', error);
-    //            }
-    //        });
-    //    }
-    //}
-    //else
-    //{
-    //    for (let i = 0; i < model_ts.length; i++)
-    //    {
-    //        if (model_ts[i].WorkerId == null)
-    //        {
-    //            let id_ = model_ts[i].Id;
-    //            //
-    //            if (model_ts[i].NieprzerwanyOdpoczynek != okres && okres.length != 0)
-    //            {
-    //                $.ajax({
-    //                    type: 'POST',
-    //                    url: '/Times/EditNieprzerwanyOdpoczynek',
-    //                    data: {
-    //                        id: id_,
-    //                        nieprzerwanyOdpoczynek: okres
-    //                    },
-    //                    success: function (response)
-    //                    {
-    //                        $(lds).show();
-    //                        setTimeout(function ()
-    //                        {
-    //                            location.reload();
-    //                        }, 300);
-    //                    },
-    //                    error: function (xhr, status, error)
-    //                    {
-    //                        console.log('Error adding data:', error);
-    //                    }
-    //                });
-    //            }
-    //            else if (model_ts[i].NieprzerwanyOdpoczynek != null && okres.length == 0) 
-    //            {
-    //                $.ajax({
-    //                    type: 'POST',
-    //                    url: '/Times/EditNieprzerwanyOdpoczynek',
-    //                    data: {
-    //                        id: id_,
-    //                        nieprzerwanyOdpoczynek: okres
-    //                    },
-    //                    success: function (response)
-    //                    {
-    //                        $(lds).show();
-    //                        setTimeout(function ()
-    //                        {
-    //                            location.reload();
-    //                        }, 300);
-    //                    },
-    //                    error: function (xhr, status, error)
-    //                    {
-    //                        console.log('Error adding data:', error);
-    //                    }
-    //                });
-    //            }
-    //        }
-    //    }
-    //}
+    $.ajax({
+        type: 'POST',
+        url: '/Times/AddOrEditNieprzerwanyOdpoczynek',
+        data: {
+            odpoczynek: odpoczynek
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                $(lds).show();
+                setTimeout(function ()
+                {
+                    location.reload();
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
 };
 
 function isNumberKey(event)
