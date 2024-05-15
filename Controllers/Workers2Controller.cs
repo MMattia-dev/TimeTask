@@ -176,10 +176,45 @@ namespace TimeTask.Controllers
             return (_context.Workers2?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
+        [HttpGet]
+        public ActionResult CreateDepartmentSelect()
+        {
+            //czy są pracownicy nieprzypisani
+            var departments = (_context.Department).Select(x => x.Id);
+            List<int> workersWithNoDepartment = new List<int>();
 
+            foreach (var item in _context.Workers2)
+            {
+                if (!departments.Contains(item.DepartmentID))
+                {
+                    workersWithNoDepartment.Add(item.Id);
+                }
+            }
 
+            string nieprzypisani = "";
+            if (workersWithNoDepartment.Any())
+            {
+                nieprzypisani = "<div class=\"oJeaEVIeaFrjGFz\" id=\"null\" onclick=\"WAknWoEDCgnvjyY(null)\"><span style=\"color: orangered;\">Nieprzypisani</span></div>";
+            }
 
+            string departments_string = "";
+            foreach (var item in (_context.Department).OrderBy(x => x.Name))
+            {
+                departments_string += "<div class=\"oJeaEVIeaFrjGFz\" id=\"" + item.Id + "\" onclick=\"WAknWoEDCgnvjyY(" + item.Id + ")\"><span>" + item.Name + "</span></div>";
+            }
 
+            string div = "<div class=\"IVnxgCORpPYL ijBuUPWrdXEngvb pKKeaPLlODAnOgN\" id=\"shwJrqmCKCOdpeV\">" +
+                    nieprzypisani +
+                    departments_string +
+                "</div>";
+
+            if (div != "")
+            {
+                return Content(div);
+            }
+
+            return Json(new { success = false });
+        }
 
         public ActionResult GetWorker(int id)
         {
@@ -544,6 +579,8 @@ namespace TimeTask.Controllers
         [HttpGet]
         public ActionResult ChangeDepartment(int id)
         {
+            var departmentName = (_context.Department).FirstOrDefault(x => x.Id == id)?.Name;
+
             var workers = ((IEnumerable<Workers2>)_context.Workers2).Where(x => x.DepartmentID == id);
             var info = "";
 
@@ -551,6 +588,8 @@ namespace TimeTask.Controllers
             {
                 foreach (var item in workers)
                 {
+                    var departmentNameForWorker = (_context.Department).FirstOrDefault(x => x.Id == item.DepartmentID)?.Name;
+
                     info += "<tr class=\"EmRSNqsShbDnTsE\">" +
                                     "<td>" + item.Id + "</td>" +
                                     "<td>" + item.Surname + "</td>" +
@@ -574,7 +613,8 @@ namespace TimeTask.Controllers
                         info +
                     "</table>";
 
-                return Content(table);
+                //return Content(table);
+                return Json(new { ContentResult = Content(table), DepartmentName = departmentName });
             }
 
             return Json(new { success = false });
@@ -627,7 +667,8 @@ namespace TimeTask.Controllers
                         info +
                     "</table>";
 
-                return Content(table);
+                //return Content(table);
+                return Json(new { ContentResult = Content(table), DepartmentName = "Nieprzypisani" });
             }
 
             return Json(new { success = false });

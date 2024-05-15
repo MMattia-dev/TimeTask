@@ -2,7 +2,7 @@
 @model IEnumerable<TimeTask.Models.Time>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 
     var timeSettings = ((IEnumerable<TimeSettings3>)ViewBag.TimeSetting).FirstOrDefault(x => x.WorkerId == null);
     var poraNocnaStart = timeSettings?.PoraNocnaStart;
@@ -21,7 +21,7 @@
 
     var okresRozliczeniowy_jezeliTydzien = timeSettings?.jezeliTydzien;
     var okresRozliczeniowy_jezeliMiesiac = timeSettings?.jezeliMiesiac;
-    
+
     var maksymalnaLiczbaNadgodzinTydzien = timeSettings?.MaksymalnaLiczbaNadgodzinTydzien;
     var maksymalnaLiczbaNadgodzinRok = timeSettings?.MaksymalnaLiczbaNadgodzin;
     var nieprzerwanyOdpoczynek = timeSettings?.NieprzerwanyOdpoczynek;
@@ -30,24 +30,20 @@
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
 
 <div class="parent">
-    <section class="left-nav">
-        @Html.Partial("_Settings")
-    </section>
-    <section class="right-nav">
+	<section class="left-nav">
+		@Html.Partial("_Settings")
+	</section>
+	<section class="right-nav">
         <div class="kxOMhDZFzkDb">
             <div class="ECTosDyufuTqvBV">
-                <input class="kzQkCNWOiUhJxRl" type="radio" id="czas" name="radio" onchange="OnvqHvCoOiDaFEV()" hidden />
-                <label class="oZBtnmiLrunDFMC" for="czas">Czas pracy</label>
-                <input class="kzQkCNWOiUhJxRl" type="radio" id="urlop" name="radio" onchange="ZucUMOWKGdlqgYv()" hidden />
-                <label class="oZBtnmiLrunDFMC" for="urlop">Urlopy</label>
-            </div>
-            <div class="IVnxgCORpPYL" id="yYNizTMVTEhbkFD" onclick="yYNizTMVTEhbkFD_()">
-                <span>Nowy urlop</span>
+                <a href="@Url.Action("TimeSettings", "Times")" class="oZBtnmiLrunDFMC ahGbQKRlkOtlhln MQihtEemnyVHxOa"><span>Czas Pracy</span></a>
+                <a href="@Url.Action("LeaveSettings", "Times")" class="oZBtnmiLrunDFMC ahGbQKRlkOtlhln"><span>Urlopy</span></a>
             </div>
             @if (((IEnumerable<Workers2>)ViewBag.Workers).Count() > 0)
             {
-                <div class="IVnxgCORpPYL" id="LRKPgUoIPlhVTMS" onclick="LRKPgUoIPlhVTMS_()">
-                    <span>Wyjątek dla pracownika</span>
+                <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" id="LRKPgUoIPlhVTMS" onclick="LRKPgUoIPlhVTMS_()">
+                    <ion-icon name="person-add-outline"></ion-icon>
+                    <span>Ustawienie indywidualne</span>
                 </div>
             }
             else
@@ -56,7 +52,7 @@
                     <span>Wyjątek dla pracownika</span>
                     <div class="tooltiptext">Nie ma dodanych żadnych pracowników!</div>
                 </div>
-            }           
+            }
         </div>
 
         <div class="YUPrikbkYzkc">
@@ -131,7 +127,7 @@
                         </div>
                     </div>
                 </div>
-                 
+
                 <div class="YavvRCMQscelhIs riqhWBvtFoKacNt KJiwNsHiMAVNLKL">
                     <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Ustawienia pracowników</span>
                     <!--Okres rozliczeniowy-->
@@ -176,7 +172,7 @@
                     <!--max nadgodzin w tygodniu-->
                     <div class="msdgExEZCpefgcL">
                         <span class="hFzZLqJdsEqdlrx">Maksymalna liczba nadgodzin w tygodniu -</span>
-                        <input value="@maksymalnaLiczbaNadgodzinTydzien" class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="rShbhZqNInnuIPw" onkeypress="return isNumberKey(event)" onblur="jShPfjshHZwMBZw(this)"/>
+                        <input value="@maksymalnaLiczbaNadgodzinTydzien" class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="rShbhZqNInnuIPw" onkeypress="return isNumberKey(event)" onblur="jShPfjshHZwMBZw(this)" />
                         <span class="hFzZLqJdsEqdlrx">godz.</span>
                     </div>
                     <!--max nadgodzin w roku-->
@@ -188,7 +184,7 @@
                     <!--Nieprzerwany odpoczynek między dniami roboczymi-->
                     <div class="msdgExEZCpefgcL">
                         <span class="hFzZLqJdsEqdlrx">Nieprzerwany odpoczynek między dniami roboczymi -</span>
-                        <input value="@nieprzerwanyOdpoczynek" class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="FqvhrnXefCjthHG" onkeypress="return isNumberKey(event)" onblur="bnjRnAOHPyGsOAT(this)"/>
+                        <input value="@nieprzerwanyOdpoczynek" class="form-control DnSGyEINFwTACsK" type="text" maxlength="2" id="FqvhrnXefCjthHG" onkeypress="return isNumberKey(event)" onblur="bnjRnAOHPyGsOAT(this)" />
                         <span class="hFzZLqJdsEqdlrx">godz.</span>
                     </div>
                 </div>
@@ -199,24 +195,24 @@
                     <div class="MslTtblACOgbHhY">
                         <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Wyjątki dla pracowników</span>
                         @* <select class="form-control BdeTMrFhVdXURgF raZYoDOYNwjFDKk" id="" onchange="">
-                            <option selected>Wszystkie działy</option>
-                            @foreach (var item in (IEnumerable<TimeSettings3>)ViewBag.TimeSetting)
-                            {
-                                foreach (var item2 in (IEnumerable<Workers2>)ViewBag.Workers)
-                                {
-                                    if (item.WorkerId == item2.Id)
-                                    {
-                                        var depsName = ((IEnumerable<Department>)ViewBag.Departments).Where(x => x.Id == item2.DepartmentID);
-                                        var temp = depsName.GroupBy(x => x.Id).Select(x => x.First()).ToList<Department>();
-                                        temp.Distinct();
-                                        foreach (var item3 in temp)
-                                        {
-                                            <option>@item3.Name</option>                                           
-                                        }
-                                    }
-                                }
-                            }
-                        </select> *@
+                    <option selected>Wszystkie działy</option>
+                    @foreach (var item in (IEnumerable<TimeSettings3>)ViewBag.TimeSetting)
+                    {
+                    foreach (var item2 in (IEnumerable<Workers2>)ViewBag.Workers)
+                    {
+                    if (item.WorkerId == item2.Id)
+                    {
+                    var depsName = ((IEnumerable<Department>)ViewBag.Departments).Where(x => x.Id == item2.DepartmentID);
+                    var temp = depsName.GroupBy(x => x.Id).Select(x => x.First()).ToList<Department>();
+                    temp.Distinct();
+                    foreach (var item3 in temp)
+                    {
+                    <option>@item3.Name</option>
+                    }
+                    }
+                    }
+                    }
+                    </select> *@
 
                     </div>
                     @foreach (var item in (IEnumerable<TimeSettings3>)ViewBag.TimeSetting)
@@ -299,114 +295,9 @@
                     }
                 }
             </div>
-            
-            <table class="VUXahzbNUTWtiZa sortable" id="tableId">
-                <thead>
-                    <tr>
-                        <th><span>Nazwa</span></th>
-                        <th><span>Komentarz</span></th>
-                        <th>
-                            @*Maks.*@
-                            <span>Maks.</span>
-                            <svg viewBox="0 0 12 12" width="15px" height="15px">
-                                <path d="M6,0C2.6862793,0,0,2.6862793,0,6s2.6862793,6,6,6s6-2.6862793,6-6S9.3137207,0,6,0z M6.5,9.5h-1v-1h1V9.5z   M7.2651367,6.1738281C6.7329102,6.5068359,6.5,6.6845703,6.5,7v0.5h-1V7c0-0.9023438,0.7138672-1.3486328,1.2348633-1.6738281  C7.2670898,4.9931641,7.5,4.8154297,7.5,4.5c0-0.5517578-0.4487305-1-1-1h-1c-0.5512695,0-1,0.4482422-1,1V5h-1V4.5  c0-1.1025391,0.8969727-2,2-2h1c1.1030273,0,2,0.8974609,2,2C8.5,5.4023438,7.7861328,5.8486328,7.2651367,6.1738281z"></path>
-                                <title>Maksymalna długość urlopu</title>
-                            </svg>
-                        </th>
-                        <th class="MSqNklVuATDPbHk">
-                            @*Weekendy*@
-                            <span class="FkyNgSytCCecyIP">Weekendy</span>
-                            <svg viewBox="0 0 12 12" width="15px" height="15px">
-                                <path d="M6,0C2.6862793,0,0,2.6862793,0,6s2.6862793,6,6,6s6-2.6862793,6-6S9.3137207,0,6,0z M6.5,9.5h-1v-1h1V9.5z   M7.2651367,6.1738281C6.7329102,6.5068359,6.5,6.6845703,6.5,7v0.5h-1V7c0-0.9023438,0.7138672-1.3486328,1.2348633-1.6738281  C7.2670898,4.9931641,7.5,4.8154297,7.5,4.5c0-0.5517578-0.4487305-1-1-1h-1c-0.5512695,0-1,0.4482422-1,1V5h-1V4.5  c0-1.1025391,0.8969727-2,2-2h1c1.1030273,0,2,0.8974609,2,2C8.5,5.4023438,7.7861328,5.8486328,7.2651367,6.1738281z"></path>
-                                <title>Czy do urlopu wliczają się soboty i niedziele</title>
-                            </svg>
-                        </th>
-                        <th class="MSqNklVuATDPbHk">
-                            @*Święta*@
-                            <span class="FkyNgSytCCecyIP">Święta</span>
-                            <svg viewBox="0 0 12 12" width="15px" height="15px">
-                                <path d="M6,0C2.6862793,0,0,2.6862793,0,6s2.6862793,6,6,6s6-2.6862793,6-6S9.3137207,0,6,0z M6.5,9.5h-1v-1h1V9.5z   M7.2651367,6.1738281C6.7329102,6.5068359,6.5,6.6845703,6.5,7v0.5h-1V7c0-0.9023438,0.7138672-1.3486328,1.2348633-1.6738281  C7.2670898,4.9931641,7.5,4.8154297,7.5,4.5c0-0.5517578-0.4487305-1-1-1h-1c-0.5512695,0-1,0.4482422-1,1V5h-1V4.5  c0-1.1025391,0.8969727-2,2-2h1c1.1030273,0,2,0.8974609,2,2C8.5,5.4023438,7.7861328,5.8486328,7.2651367,6.1738281z"></path>
-                                <title>Czy do urlopu wliczają się święta</title>
-                            </svg>
-                        </th>
-                        <th>Opcje</th>
-                    </tr>
-                </thead>
-                @foreach (var item in ((IEnumerable<Leave4>)ViewBag.Leave).OrderBy(x => x.Name))
-                {
-                    <tr class="EmRSNqsShbDnTsE">
-                        <td title="@item.Name">@item.Name</td>
-                        <td title="@item.Description">@item.Description</td>
-                        @if (item.IfDays == true)
-                        {
-                            <td checked1="true">@item.Max (dni)</td>
-                        }
-                        else if (item.IfWeeks == true)
-                        {
-                            <td checked2="true">@item.Max (tygodnie)</td>
-                        }
-                        else if (item.IfMonths == true)
-                        {
-                            <td checked3="true">@item.Max (miesiące)</td>
-                        }
-                        else if (item.IfYears == true)
-                        {
-                            <td checked4="true">@item.Max (lata)</td>
-                        }
-                        else
-                        {
-                            <td></td>
-                        }
-                        <td>
-                            <input type="checkbox" checked="@item.IfWeekends" disabled style="display: none;" />
-                            @if (item.IfWeekends == true)
-                            {
-                                <svg viewBox="0 0 24 24" height="22" width="22">
-                                    <path fill="none" d="M0 0h24v24H0z"></path>
-                                    <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path>
-                                </svg>
-                            }
-                            else
-                            {
-                                <svg viewBox="0 0 24 24" height="22" width="22">
-                                    <path fill="none" d="M0 0h24v24H0z"></path>
-                                    <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path>
-                                </svg>
-                            }
-                        </td>
-                        <td>
-                            <input type="checkbox" checked="@item.IfHolidays" disabled style="display: none;" />
-                            @if (item.IfHolidays == true)
-                            {
-                                <svg viewBox="0 0 24 24" height="22" width="22">
-                                    <path fill="none" d="M0 0h24v24H0z"></path>
-                                    <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path>
-                                </svg>
-                            }
-                            else
-                            {
-                                <svg viewBox="0 0 24 24" height="22" width="22">
-                                    <path fill="none" d="M0 0h24v24H0z"></path>
-                                    <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 "></path>
-                                </svg>
-                            }
-                        </td>
-
-                        <td>
-                            <a onclick="klhLiQVRwGfWrSp(@item.Id)" title="Edytuj">
-                                <ion-icon class="edit urlop" name="create-outline"></ion-icon>
-                            </a>
-                            <a onclick="GTUwirLRmPXoIuh(@item.Id)" title="Usuń">
-                                <ion-icon class="delete urlop" name="trash-outline"></ion-icon>
-                            </a>
-                        </td>
-                    </tr>
-                }
-            </table>           
         </div>
-    </section>
+	</section>
 </div>
 
 <script type="text/javascript" src="~/js/site.js"></script>
 <script type="text/javascript" src="~/js/TimeIndex.js"></script>
-<script type="text/javascript" src="~/js/sorttable.js"></script>

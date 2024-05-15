@@ -70,7 +70,7 @@ if (defaultWallpaper_ != null)
     //    'background-size': 'cover',
     //    'background-position': 'center'
     //});
-    if (defaultWallpaper_.indexOf("jpg") >= 0)
+    if (defaultWallpaper_.indexOf("jpg") >= 0 || defaultWallpaper_.indexOf("gif") >= 0)
     {
         $('html').css({
             'background': 'url(' + defaultWallpaper_ + ')',
@@ -80,7 +80,7 @@ if (defaultWallpaper_ != null)
     }
     else
     {
-        $('.parent').append('<video autoplay loop muted id="myVideo"><source src="' + defaultWallpaper_ + '" type="video/mp4"></video>');
+        $('body').append('<video autoplay loop muted id="myVideo"><source src="' + defaultWallpaper_ + '" type="video/mp4"></video>');
     }
 }
 else {
@@ -738,7 +738,7 @@ $(document).on('keydown', function (e)
 //video.playbackRate = 1;
 ////video.pause();
 ////$(video).hide();
-//video.volume = 0.07;
+//video.volume = 0.1;
 
 //$('#asdfgh').on('change', function ()
 //{

@@ -9,6 +9,15 @@
 
   <ItemGroup>
     <Content Remove="Views\Shared\_Reports - kopiować.cshtml" />
+    <Content Remove="Views\Times\Create.cshtml" />
+    <Content Remove="Views\Times\Delete.cshtml" />
+    <Content Remove="Views\Times\Details.cshtml" />
+    <Content Remove="Views\Times\Edit.cshtml" />
+    <Content Remove="Views\Times\Index.cshtml" />
+    <Content Remove="Views\Wallpaper2\Create.cshtml" />
+    <Content Remove="Views\Wallpaper2\Delete.cshtml" />
+    <Content Remove="Views\Wallpaper2\Details.cshtml" />
+    <Content Remove="Views\Wallpaper2\Edit.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

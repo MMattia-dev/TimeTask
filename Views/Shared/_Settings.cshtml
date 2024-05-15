@@ -2,14 +2,13 @@
 
 	<a class="settings_a" href="@Url.Action("Index", "Home")">
 		<ion-icon name="arrow-back-outline"></ion-icon>
-		@* <ion-icon name="home-outline"></ion-icon> *@
 		<span>Strona główna</span>
 	</a>
 	<a class="settings_a" href="@Url.Action("Index", "Workers2")" id="settings_departs_workers_id">
 		<ion-icon name="people-outline"></ion-icon>
 		<span>Działy i Pracownicy</span>
 	</a>
-	<a class="settings_a" href="@Url.Action("Index", "Times")" id="settings_times_id">
+	<a class="settings_a" href="@Url.Action("TimeSettings", "Times")" id="settings_times_id">
 		<ion-icon name="time-outline"></ion-icon>
 		<span>Czas pracy i Urlopy</span>
 	</a>
@@ -18,19 +17,13 @@
 		<span>Zadania do grafiku</span>
 	</a>
 	<a class="settings_a" href="@Url.Action("Index", "Opening2")" id="settings_openings_id">
-		@* <ion-icon name="git-pull-request-outline"></ion-icon> *@
 		<ion-icon name="id-card-outline"></ion-icon>
 		<span>Bilans otwarcia</span>
 	</a>
 	<a class="settings_a" href="@Url.Action("Index", "Holidays")" id="settings_holidays_id">
-		@* <ion-icon name="gift-outline"></ion-icon> *@
 		<ion-icon name="snow-outline"></ion-icon>
 		<span>Święta</span>
 	</a>
-	@* <a class="settings_a" href="#">
-		<ion-icon name="key-outline"></ion-icon>
-		<span>Uprawnienia</span>
-	</a> *@
 	<a class="settings_a" href="#">
 		<ion-icon name="person-add-outline"></ion-icon>
 		<span>Konta i uprawnienia</span>
@@ -39,7 +32,6 @@
 		<ion-icon name="options-outline"></ion-icon>
 		<span>Inne ustawienia</span>
 	</a>
-
 
 
 	@* <a class="settings_a" href="@Url.Action("Index", "Home")" title="Strona główna">
