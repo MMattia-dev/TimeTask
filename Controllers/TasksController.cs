@@ -31,8 +31,6 @@ namespace TimeTask.Controllers
             ViewBag.Workers = _context.Workers2;
             ViewBag.Holiday = _context.Holiday;
             
-            //ViewBag.WeeksInYear = GetWeeksInYear(DateTime.Now.Year);
-
             return _context.Task2 != null ? 
                           View(await _context.Task2.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Task'  is null.");

@@ -55,9 +55,19 @@
                     </label>
                 } *@
 
-                <div class="IVnxgCORpPYL ijBuUPWrdXEngvb RlREsSaJYGSFniA" onclick="BqujyivUqK()" title="Dodaj nowy dział">
-                    <ion-icon name="add-outline"></ion-icon>
-                </div>
+                @if (departmentsLength > 0)
+                {
+                    <div class="IVnxgCORpPYL ijBuUPWrdXEngvb RlREsSaJYGSFniA" onclick="BqujyivUqK()" title="Dodaj nowy dział">
+                        <ion-icon name="add-outline"></ion-icon>
+                    </div>
+                }
+                else
+                {
+                    <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" onclick="BqujyivUqK()">
+                        <ion-icon name="add-outline"></ion-icon>
+                        <span>Dodaj nowy dział</span>
+                    </div>
+                }
 
                 @if (departmentsLength > 0)
                 {

@@ -1,106 +1,110 @@
-﻿if (model_d.length == 0)
-{
-    $('#tableId').hide();
-}
+﻿//if (model_d.length == 0)
+//{
+//    $('#tableId').hide();
+//}
 
 
 
-let ECTosDyufuTqvBV = document.querySelector('.ECTosDyufuTqvBV');
-//ECTosDyufuTqvBV.innerHTML += `<input onclick="BqujyivUqK()" type="button" class="oZBtnmiLrunDFMC uyGcnHMadlagzhh" id="dWaFnMJPHpXnJhm" value="Nowy dział"/>`;
-sortArray(model_d);
-for (let i = 0; i < model_d.length; i++)
-{
-    ECTosDyufuTqvBV.innerHTML += `<input class="kzQkCNWOiUhJxRl" value="` + model_d[i].Name + `" type="radio" name="name" id="` + model_d[i].Id + `" onclick="bxDzoLwDZzickPI(this, event)" hidden />` +
-        `<label class="oZBtnmiLrunDFMC" for="` + model_d[i].Id + `"><span>` + model_d[i].Name + `</span>` + 
-        `</label>`;
+//let ECTosDyufuTqvBV = document.querySelector('.ECTosDyufuTqvBV');
+//sortArray(model_d);
+//for (let i = 0; i < model_d.length; i++)
+//{
+//    ECTosDyufuTqvBV.innerHTML += `<input class="kzQkCNWOiUhJxRl" value="` + model_d[i].Name + `" type="radio" name="name" id="` + model_d[i].Id + `" onclick="bxDzoLwDZzickPI(this, event)" hidden />` +
+//        `<label class="oZBtnmiLrunDFMC" for="` + model_d[i].Id + `"><span>` + model_d[i].Name + `</span>` + 
+//        `</label>`;
 
-}
+//}
+let selected = document.getElementById('settings_tasks_id');
+selected.classList.add('settings_a_selected');
 
-let kzQkCNWOiUhJxRl_array = document.querySelectorAll('.kzQkCNWOiUhJxRl');
-if (sessionStorage.getItem('CRaeWRyIxKoOrgp') != null && sessionStorage.getItem('CRaeWRyIxKoOrgp') != 'no_department')
-{
-    for (let i = 0; i < kzQkCNWOiUhJxRl_array.length; i++)
-    {
-        if (kzQkCNWOiUhJxRl_array[i].id == sessionStorage.getItem('CRaeWRyIxKoOrgp'))
-        {
-            $(kzQkCNWOiUhJxRl_array[i]).trigger('click');
-        }
-    }
-}
-else if (sessionStorage.getItem('CRaeWRyIxKoOrgp') == 'no_department')
-{
-    $(kzQkCNWOiUhJxRl_array[0]).trigger('click');
-}
-else
-{
-    $(kzQkCNWOiUhJxRl_array[0]).trigger('click');
-}
-//qbMvtjjezfxSFsv
 
-function bxDzoLwDZzickPI(t, e) 
-{
-    let arrayCheck = [];
-    let id = t.id;
-    let children = $(t).parent().children();
-    //let VUXahzbNUTWtiZa = document.querySelectorAll('.VUXahzbNUTWtiZa tbody tr');
-    for (let i = 0; i < children.length; i++)
-    {
-        let for_ = $(children[i]).attr('for');
-        if (id == for_ && children[i].tagName.toLowerCase() == 'label')
-        {
-            sessionStorage.setItem('CRaeWRyIxKoOrgp', for_);
-
-            let ECTosDyufuTqvBV = document.querySelector('.ECTosDyufuTqvBV');
-            let element = children[i];
-            element.scrollIntoView({
-                behavior: 'smooth',
-                //inline: 'start',
-                block: 'nearest'
-            });
+//let kzQkCNWOiUhJxRl_array = document.querySelectorAll('.kzQkCNWOiUhJxRl');
+//if (sessionStorage.getItem('CRaeWRyIxKoOrgp') != null && sessionStorage.getItem('CRaeWRyIxKoOrgp') != 'no_department')
+//{
+//    for (let i = 0; i < kzQkCNWOiUhJxRl_array.length; i++)
+//    {
+//        if (kzQkCNWOiUhJxRl_array[i].id == sessionStorage.getItem('CRaeWRyIxKoOrgp'))
+//        {
+//            $(kzQkCNWOiUhJxRl_array[i]).trigger('click');
+//        }
+//    }
+//}
+//else if (sessionStorage.getItem('CRaeWRyIxKoOrgp') == 'no_department')
+//{
+//    $(kzQkCNWOiUhJxRl_array[0]).trigger('click');
+//}
+//else
+//{
+//    $(kzQkCNWOiUhJxRl_array[0]).trigger('click');
+//}
 
 
 
-            //$(children[i]).children().eq(1).show();
-            //$(children[i]).children().eq(2).show();
-            //$(children[i]).addClass('SqhCHzsNTMEsjQk');
-        }
-        else if (id != for_)
-        {
-            //$(children[i]).children().eq(1).hide();
-            //$(children[i]).children().eq(2).hide();
-            //$(children[i]).removeClass('SqhCHzsNTMEsjQk');
-        }
-    }
 
-    let rows = document.querySelectorAll('#tableId tbody tr');
-    if (rows.length > 0)
-    {
-        for (let i = 0; i < rows.length; i++) 
-        {
-            if (rows[i].id == id) 
-            {
-                $(rows[i]).show();
-                arrayCheck.push(rows[i].id);
-            }
-            else
-            {
-                $(rows[i]).hide();
-            }
-        }
-    }
+//function bxDzoLwDZzickPI(t, e) 
+//{
+//    let arrayCheck = [];
+//    let id = t.id;
+//    let children = $(t).parent().children();
+//    //let VUXahzbNUTWtiZa = document.querySelectorAll('.VUXahzbNUTWtiZa tbody tr');
+//    for (let i = 0; i < children.length; i++)
+//    {
+//        let for_ = $(children[i]).attr('for');
+//        if (id == for_ && children[i].tagName.toLowerCase() == 'label')
+//        {
+//            sessionStorage.setItem('CRaeWRyIxKoOrgp', for_);
 
-    if (arrayCheck.length > 0)
-    {
-        $('#tableId').show();
-    }
-    else
-    {
-        $('#tableId').hide();
-    }
+//            let ECTosDyufuTqvBV = document.querySelector('.ECTosDyufuTqvBV');
+//            let element = children[i];
+//            element.scrollIntoView({
+//                behavior: 'smooth',
+//                //inline: 'start',
+//                block: 'nearest'
+//            });
+
+
+
+//            //$(children[i]).children().eq(1).show();
+//            //$(children[i]).children().eq(2).show();
+//            //$(children[i]).addClass('SqhCHzsNTMEsjQk');
+//        }
+//        else if (id != for_)
+//        {
+//            //$(children[i]).children().eq(1).hide();
+//            //$(children[i]).children().eq(2).hide();
+//            //$(children[i]).removeClass('SqhCHzsNTMEsjQk');
+//        }
+//    }
+
+//    let rows = document.querySelectorAll('#tableId tbody tr');
+//    if (rows.length > 0)
+//    {
+//        for (let i = 0; i < rows.length; i++) 
+//        {
+//            if (rows[i].id == id) 
+//            {
+//                $(rows[i]).show();
+//                arrayCheck.push(rows[i].id);
+//            }
+//            else
+//            {
+//                $(rows[i]).hide();
+//            }
+//        }
+//    }
+
+//    if (arrayCheck.length > 0)
+//    {
+//        $('#tableId').show();
+//    }
+//    else
+//    {
+//        $('#tableId').hide();
+//    }
 
     
 
-};
+//};
 
 function YENAVVQWwo() 
 {

@@ -583,41 +583,49 @@ namespace TimeTask.Controllers
 
             var workers = ((IEnumerable<Workers2>)_context.Workers2).Where(x => x.DepartmentID == id);
             var info = "";
+            var table = "";
+
+            foreach (var item in workers)
+            {
+                var departmentNameForWorker = (_context.Department).FirstOrDefault(x => x.Id == item.DepartmentID)?.Name;
+
+                info += "<tr class=\"EmRSNqsShbDnTsE\">" +
+                                "<td>" + item.Id + "</td>" +
+                                "<td>" + item.Surname + "</td>" +
+                                "<td>" + item.Name + "</td>" +
+                                "<td>" + departmentName + "</td>" +
+                                "<td>" +
+                                    "<a onclick=\"IxsCvPIuWwZw(" + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>" +
+                                    "<a onclick=\"deleteWorker(" + item.Id + ")\" title=\"Usuń\"><ion-icon class=\"delete urlop\" name=\"trash-outline\"></ion-icon></a>" +
+                                "</td>" +
+                            "</tr>";
+            }
 
             if (workers.Count() > 0)
             {
-                foreach (var item in workers)
-                {
-                    var departmentNameForWorker = (_context.Department).FirstOrDefault(x => x.Id == item.DepartmentID)?.Name;
-
-                    info += "<tr class=\"EmRSNqsShbDnTsE\">" +
-                                    "<td>" + item.Id + "</td>" +
-                                    "<td>" + item.Surname + "</td>" +
-                                    "<td>" + item.Name + "</td>" +
-                                    "<td>" +
-                                        "<a onclick=\"IxsCvPIuWwZw(" + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>" +
-                                        "<a onclick=\"deleteWorker(" + item.Id + ")\" title=\"Usuń\"><ion-icon class=\"delete urlop\" name=\"trash-outline\"></ion-icon></a>" +
-                                    "</td>" +
-                                "</tr>";
-                }
-
-                string table = "<table class=\"VUXahzbNUTWtiZa sortable\" id=\"tableId\">" +
-                        "<thead>" +
-                            "<tr>" +
-                                "<th style=\"width: 100px;\"><span>ID</span></th>" +
-                                "<th style=\"width: 50%;\"><span>Nazwisko</span></th>" +
-                                "<th><span>Imię</span></th>" +
-                                "<th><span>Opcje</span></th>" +
-                            "</tr>" +
-                        "</thead>" +
-                        info +
-                    "</table>";
-
-                //return Content(table);
-                return Json(new { ContentResult = Content(table), DepartmentName = departmentName });
+                table = "<table class=\"VUXahzbNUTWtiZa sortable\" id=\"tableId\">" +
+                    "<thead>" +
+                        "<tr>" +
+                            "<th style=\"width: 100px;\"><span>ID</span></th>" +
+                            "<th style=\"width: 30%;\"><span>Nazwisko</span></th>" +
+                            "<th><span>Imię</span></th>" +
+                            "<th><span>Dział</span></th>" +
+                            "<th><span>Opcje</span></th>" +
+                        "</tr>" +
+                    "</thead>" +
+                    info +
+                "</table>";
             }
 
-            return Json(new { success = false });
+            string editAndDeleteButtons = "<div class=\"IVnxgCORpPYL ijBuUPWrdXEngvb RlREsSaJYGSFniA\" onclick=\"sNYSYigDKYrjjtq(" + id + ")\" title=\"Edytuj\">" +
+                    "<ion-icon name=\"create-outline\"></ion-icon>" +
+                "</div>" +
+                "<div class=\"IVnxgCORpPYL ijBuUPWrdXEngvb RlREsSaJYGSFniA\" onclick=\"bdoycBpPxFPywju(" + id + ")\" title=\"Usuń\">" +
+                    "<ion-icon name=\"trash-outline\"></ion-icon>" +
+                "</div>";
+
+            return Json(new { ContentResult = Content(table), EditDeleteButton = Content(editAndDeleteButtons), DepartmentName = departmentName });
+            //return Json(new { success = false });
         }
 
         [HttpGet]
@@ -647,6 +655,7 @@ namespace TimeTask.Controllers
                             "<td>" + item.Id + "</td>" +
                             "<td>" + item.Surname + "</td>" +
                             "<td>" + item.Name + "</td>" +
+                            "<td style=\"color: orangered;\">Brak działu</td>" +
                             "<td>" +
                                 "<a onclick=\"IxsCvPIuWwZw(" + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>" +
                                 "<a onclick=\"deleteWorker(" + item.Id + ")\" title=\"Usuń\"><ion-icon class=\"delete urlop\" name=\"trash-outline\"></ion-icon></a>" +
@@ -659,8 +668,9 @@ namespace TimeTask.Controllers
                         "<thead>" +
                             "<tr>" +
                                 "<th style=\"width: 100px;\"><span>ID</span></th>" +
-                                "<th style=\"width: 50%;\"><span>Nazwisko</span></th>" +
+                                "<th style=\"width: 30%;\"><span>Nazwisko</span></th>" +
                                 "<th><span>Imię</span></th>" +
+                                "<th><span>Dział</span></th>" +
                                 "<th><span>Opcje</span></th>" +
                             "</tr>" +
                         "</thead>" +

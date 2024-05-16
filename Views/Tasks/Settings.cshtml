@@ -14,15 +14,19 @@
         
         <div class="kxOMhDZFzkDb">
             <div class="ECTosDyufuTqvBV">
-                <!---->
+                
             </div>
-            <div class="IVnxgCORpPYL" onclick="YENAVVQWwo()">
+            @* <div class="IVnxgCORpPYL" onclick="YENAVVQWwo()">
+                <span>Nowe zadanie</span>
+            </div> *@
+            <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" onclick="YENAVVQWwo()">
+                <ion-icon name="add-outline"></ion-icon>
                 <span>Nowe zadanie</span>
             </div>
         </div>
 
         <div class="YUPrikbkYzkc">
-            <table class="VUXahzbNUTWtiZa sortable" id="tableId">
+            @* <table class="VUXahzbNUTWtiZa sortable" id="tableId">
                 <thead>
                     <th style="width: 100px;">ID</th>
                     <th>Nazwa zadania</th>
@@ -45,7 +49,7 @@
                         </tr>
                     }
                 </tbody>
-            </table>
+            </table> *@
         </div>
 
     </section>
@@ -115,11 +119,11 @@
 <script type="text/javascript" src="~/js/sorttable.js"></script>
 
 <script type="text/javascript">
-    var model_d = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Departments));
-    var model_task = @Html.Raw(JsonConvert.SerializeObject(ViewBag.TaskNames));
+    // var model_d = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Departments));
+    // var model_task = @Html.Raw(JsonConvert.SerializeObject(ViewBag.TaskNames));
 
-    let selected = document.getElementById('settings_tasks_id');
-    selected.classList.add('settings_a_selected');
+    // let selected = document.getElementById('settings_tasks_id');
+    // selected.classList.add('settings_a_selected');
 </script>
 
 <script type="text/javascript" src="~/js/site.js"></script>

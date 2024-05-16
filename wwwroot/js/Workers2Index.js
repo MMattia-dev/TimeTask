@@ -92,6 +92,9 @@ function WAknWoEDCgnvjyY(id)
 
                 sessionStorage.setItem('RTqrydCjXBjinzd', id);
                 $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + id + ')');
+
+                $('#vTGalpVxnhKxENh').remove();
+                $('.ECTosDyufuTqvBV').append('<div id="vTGalpVxnhKxENh" class="MReEOONwmHpPyvX">' + response.editDeleteButton.content + '</div>');
             },
             error: function (xhr, status, error)
             {
@@ -106,7 +109,6 @@ function WAknWoEDCgnvjyY(id)
             url: '/Workers2/WorkersWithoutDepartment',
             success: function (response)
             {
-                //$('.YUPrikbkYzkc').html(response);
                 $('.YUPrikbkYzkc').html(response.contentResult.content);
                 var tables = document.getElementsByTagName('table');
                 for (var i = 0; i < tables.length; i++)
@@ -125,6 +127,8 @@ function WAknWoEDCgnvjyY(id)
 
                 sessionStorage.setItem('RTqrydCjXBjinzd', null);
                 $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(null)');
+
+                $('#vTGalpVxnhKxENh').remove();
             },
             error: function (xhr, status, error)
             {
