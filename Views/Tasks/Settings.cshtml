@@ -2,6 +2,12 @@
 
 @{
     ViewData["Title"] = "Index";
+
+    //pierwszy dział
+    var firstDepartment = ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name).FirstOrDefault()?.Name;
+
+    //czy są jakiekolwiek działy
+    var departmentsLength = ((IEnumerable<Department>)ViewBag.Departments).Count();
 }
 
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
@@ -15,14 +21,29 @@
         <div class="kxOMhDZFzkDb">
             <div class="ECTosDyufuTqvBV">
                 
+                @if (departmentsLength > 0)
+                {
+                    <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" id="rJsRgTkikJFkTVs" onclick="nGgUoVSOQmbYyoD()">
+                        <ion-icon name="briefcase-outline"></ion-icon>
+                        <div class="iNzvwDsTQXDyPIR">
+                            <span>@firstDepartment</span>
+                            <ion-icon name="chevron-down-outline"></ion-icon>
+                        </div>
+                    </div>
+                }
+
             </div>
             @* <div class="IVnxgCORpPYL" onclick="YENAVVQWwo()">
                 <span>Nowe zadanie</span>
             </div> *@
-            <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" onclick="YENAVVQWwo()">
-                <ion-icon name="add-outline"></ion-icon>
-                <span>Nowe zadanie</span>
-            </div>
+
+            @if (departmentsLength > 0)
+            {
+                <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" onclick="YENAVVQWwo()">
+                    <ion-icon name="add-outline"></ion-icon>
+                    <span>Nowe zadanie</span>
+                </div>
+            }            
         </div>
 
         <div class="YUPrikbkYzkc">
@@ -55,7 +76,7 @@
     </section>
 </div>
 
-<div id="hJQarhdVtvVBOnk" class="pGKcZvErUB" style="display: none;">
+@* <div id="hJQarhdVtvVBOnk" class="pGKcZvErUB" style="display: none;">
     <form class="form">
         <div class="form-group">
             <input class="form-control" autocomplete="off" placeholder="nazwa zadania..." id="IluduaIgOUVOGRf" />
@@ -66,7 +87,6 @@
                 {
                     <option value="@item.Id">@item.Name</option>
                 }
-                @* <option id="null">Wszyscy</option> *@
             </select>
         </div>
         <div class="form-group">
@@ -76,7 +96,7 @@
             <input type="button" value="Wróć" class="btn-custom_" onclick="rURQfWmsrmzXwCV()" />
         </div>
     </form>
-</div>
+</div> *@
 
 <div id="jwOsncySQjwD" class="pGKcZvErUB" style="display: none;">
     <form class="form_">

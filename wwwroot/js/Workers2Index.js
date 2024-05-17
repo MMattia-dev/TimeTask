@@ -18,7 +18,8 @@ function XmVztKczNCaTbJt()
         WAknWoEDCgnvjyY(sessionStorage.getItem('RTqrydCjXBjinzd'));
         $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + sessionStorage.getItem('RTqrydCjXBjinzd') + ')');
     }
-    else {
+    else 
+    {
         WAknWoEDCgnvjyY(null);
         $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(null)');
     }
@@ -34,8 +35,7 @@ function nGgUoVSOQmbYyoD()
         {
             $('.kxOMhDZFzkDb').append(response);
             $('#rJsRgTkikJFkTVs').attr('onclick', 'PHXgTRqEbNEfYsk()');
-            $('#rJsRgTkikJFkTVs .iNzvwDsTQXDyPIR ion-icon').remove();
-            $('#rJsRgTkikJFkTVs .iNzvwDsTQXDyPIR').append('<ion-icon name="chevron-up-outline"></ion-icon>');
+            $('.iNzvwDsTQXDyPIR ion-icon').addClass('zwyAWlfnleMVUJu');
 
             if (sessionStorage.getItem('RTqrydCjXBjinzd') != null) 
             {
@@ -53,8 +53,7 @@ function PHXgTRqEbNEfYsk()
 {
     $('#shwJrqmCKCOdpeV').remove();
     $('#rJsRgTkikJFkTVs').attr('onclick', 'nGgUoVSOQmbYyoD()');
-    $('#rJsRgTkikJFkTVs .iNzvwDsTQXDyPIR ion-icon').remove();
-    $('#rJsRgTkikJFkTVs .iNzvwDsTQXDyPIR').append('<ion-icon name="chevron-down-outline"></ion-icon>');
+    $('.iNzvwDsTQXDyPIR ion-icon').removeClass('zwyAWlfnleMVUJu');
 };
 
 $('body').on('click', function ()
@@ -87,8 +86,8 @@ function WAknWoEDCgnvjyY(id)
                     $(THs[i]).attr('onclick', 'sortTable(' + i + ')');
                 }
 
-                $('.iNzvwDsTQXDyPIR').html('<span>' + response.departmentName + '</span>');
-                $('.iNzvwDsTQXDyPIR').append('<ion-icon name="chevron-down-outline"></ion-icon>');
+                $('.iNzvwDsTQXDyPIR span').html(response.departmentName).removeAttr('style');
+                $('.iNzvwDsTQXDyPIR ion-icon').removeClass('zwyAWlfnleMVUJu');
 
                 sessionStorage.setItem('RTqrydCjXBjinzd', id);
                 $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + id + ')');
@@ -122,8 +121,8 @@ function WAknWoEDCgnvjyY(id)
                     $(THs[i]).attr('onclick', 'sortTable(' + i + ')');
                 }
 
-                $('.iNzvwDsTQXDyPIR').html('<span style=\"color: orangered;\">' + response.departmentName + '</span>');
-                $('.iNzvwDsTQXDyPIR').append('<ion-icon name="chevron-down-outline"></ion-icon>');
+                $('.iNzvwDsTQXDyPIR span').html(response.departmentName).css("color", "orangered");
+                $('.iNzvwDsTQXDyPIR ion-icon').removeClass('zwyAWlfnleMVUJu');
 
                 sessionStorage.setItem('RTqrydCjXBjinzd', null);
                 $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(null)');
@@ -276,7 +275,7 @@ function adqwBJykaCzQ(id)
         },
         success: function (response)
         {
-            sessionStorage.removeItem('qbMvtjjezfxSFsv');
+            sessionStorage.removeItem('RTqrydCjXBjinzd');
             location.reload();
         },
         error: function (xhr, status, error)
