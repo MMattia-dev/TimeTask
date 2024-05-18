@@ -19,10 +19,10 @@ selected.classList.add('settings_a_selected');
 
 function XmVztKczNCaTbJt() 
 {
-    if (sessionStorage.getItem('RTqrydCjXBjinzd') != null) 
+    if (sessionStorage.getItem('dzARvcmubKKEzdq') != null) 
     {
-        WAknWoEDCgnvjyY(sessionStorage.getItem('RTqrydCjXBjinzd'));
-        $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + sessionStorage.getItem('RTqrydCjXBjinzd') + ')');
+        WAknWoEDCgnvjyY(sessionStorage.getItem('dzARvcmubKKEzdq'));
+        $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + sessionStorage.getItem('dzARvcmubKKEzdq') + ')');
     }
     else 
     {
@@ -43,9 +43,9 @@ function nGgUoVSOQmbYyoD()
             $('#rJsRgTkikJFkTVs').attr('onclick', 'PHXgTRqEbNEfYsk()');
             $('.iNzvwDsTQXDyPIR ion-icon').addClass('zwyAWlfnleMVUJu');
 
-            if (sessionStorage.getItem('RTqrydCjXBjinzd') != null) 
+            if (sessionStorage.getItem('dzARvcmubKKEzdq') != null) 
             {
-                $('.oJeaEVIeaFrjGFz[id="' + sessionStorage.getItem('RTqrydCjXBjinzd') + '"]').addClass('iFbPgrXjzGigaCA');
+                $('.oJeaEVIeaFrjGFz[id="' + sessionStorage.getItem('dzARvcmubKKEzdq') + '"]').addClass('iFbPgrXjzGigaCA');
             }
         },
         error: function (xhr, status, error)
@@ -165,7 +165,7 @@ function YENAVVQWwo()
 {
     $.ajax({
         type: 'GET',
-        url: '/Tasks/AddNewTaskForm',
+        url: '/TaskName2/AddNewTaskForm',
         success: function (response)
         {
             $('body').append(response);
@@ -206,26 +206,41 @@ function zGWGBXreWGtGNcS()
     
 };
 
-function MUdkksPiwwBklvN(t) 
+function MUdkksPiwwBklvN(id) 
 {
-    let jwOsncySQjwD = document.getElementById('jwOsncySQjwD');
+    //let jwOsncySQjwD = document.getElementById('jwOsncySQjwD');
 
+    //let id_ = $(t).parent().parent().children().eq(0).html();
+    //let name_ = $(t).parent().parent().children().eq(1).html();
+    //let dep_ = $('.kzQkCNWOiUhJxRl:checked').attr('id');
 
-    let id_ = $(t).parent().parent().children().eq(0).html();
-    let name_ = $(t).parent().parent().children().eq(1).html();
-    let dep_ = $('.kzQkCNWOiUhJxRl:checked').attr('id');
+    //sessionStorage.setItem('bdZjeJaaDizFvUt', id_);
 
-    sessionStorage.setItem('bdZjeJaaDizFvUt', id_);
+    //document.getElementById('xEjLBIPqUXLK').value = name_;
+    //document.getElementById('ZRfCdgttdnOCfXF').value = dep_;
 
-    document.getElementById('xEjLBIPqUXLK').value = name_;
-    document.getElementById('ZRfCdgttdnOCfXF').value = dep_;
-
-    $(jwOsncySQjwD).fadeIn(200);
+    //$(jwOsncySQjwD).fadeIn(200);
+    $.ajax({
+        type: 'GET',
+        url: '/TaskName2/EditTaskForm',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#jwOsncySQjwD').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
 };
 
-function KfdhlqmDXEsR() 
+function KfdhlqmDXEsR(id) 
 {
-    let id_ = sessionStorage.getItem('bdZjeJaaDizFvUt');
+    //let id_ = sessionStorage.getItem('bdZjeJaaDizFvUt');
     let name_ = document.getElementById('xEjLBIPqUXLK').value;
     let departmentID_ = document.getElementById('ZRfCdgttdnOCfXF').value;
 
@@ -233,7 +248,7 @@ function KfdhlqmDXEsR()
         type: 'POST',
         url: '/TaskName2/EditTask',
         data: {
-            id: id_,
+            id: id,
             name: name_,
             departmentID: departmentID_
         },
@@ -248,27 +263,38 @@ function KfdhlqmDXEsR()
     });
 };
 
-function LXxUWyFdXJNnlvI(t) 
+function LXxUWyFdXJNnlvI(id) 
 {
-    let id_ = $(t).parent().parent().children().eq(0).html();
-    $('#YUkuEpVsBmYTtjN').fadeIn(200);
-    sessionStorage.setItem('rvnxtfceKCMlhUC', id_);
+    //let id_ = $(t).parent().parent().children().eq(0).html();
+    //$('#YUkuEpVsBmYTtjN').fadeIn(200);
+    //sessionStorage.setItem('rvnxtfceKCMlhUC', id_);
+    $.ajax({
+        type: 'GET',
+        url: '/TaskName2/DeleteTaskForm',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#YUkuEpVsBmYTtjN').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
 };
 
-function spDekwIzyQklvGF() 
+function aDkOgungYCvMbHN(id) 
 {
-    $('#YUkuEpVsBmYTtjN').fadeOut(200);
-};
-
-function aDkOgungYCvMbHN() 
-{
-    let id_ = sessionStorage.getItem('rvnxtfceKCMlhUC');
+    //let id_ = sessionStorage.getItem('rvnxtfceKCMlhUC');
 
     $.ajax({
         type: 'POST',
         url: '/TaskName2/RemoveTask',
         data: {
-            id: id_
+            id: id
         },
         success: function (response)
         {

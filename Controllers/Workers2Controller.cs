@@ -587,8 +587,6 @@ namespace TimeTask.Controllers
 
             foreach (var item in workers)
             {
-                var departmentNameForWorker = (_context.Department).FirstOrDefault(x => x.Id == item.DepartmentID)?.Name;
-
                 info += "<tr class=\"EmRSNqsShbDnTsE\">" +
                                 "<td>" + item.Id + "</td>" +
                                 "<td>" + item.Surname + "</td>" +
