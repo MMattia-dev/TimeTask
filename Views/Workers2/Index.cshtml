@@ -17,6 +17,7 @@
 
     //pierwszy dział
     var firstDepartment = ((IEnumerable<Department>)ViewBag.Department).OrderBy(x => x.Name).FirstOrDefault()?.Name;
+    var firstDepartmentID = ((IEnumerable<Department>)ViewBag.Department).OrderBy(x => x.Name).FirstOrDefault()?.Id;
 
     //czy są jakiekolwiek działy
     var departmentsLength = ((IEnumerable<Department>)ViewBag.Department).Count();
@@ -26,34 +27,11 @@
 
 <div class="parent">
     <section class="left-nav">
-        @Html.Partial("_Settings");
+        <partial name="_Settings" />
     </section>
     <section class="right-nav">
-
         <div class="kxOMhDZFzkDb">
             <div class="ECTosDyufuTqvBV">
-                @* <input onclick="BqujyivUqK()" type="button" class="oZBtnmiLrunDFMC uyGcnHMadlagzhh" value="Nowy dział" />
-
-                @if (workersWithNoDepartment.Any())
-                {
-                    <input class="kzQkCNWOiUhJxRl" type="radio" name="name" id="null" onclick="bxDzoLwDZzickPI(null)" hidden />
-                    <label class="oZBtnmiLrunDFMC lMliDWsRdSOjYmB" for="null"><span>Nieprzypisani pracownicy</span></label>
-                }
-
-                @foreach (var item in ((IEnumerable<Department>)ViewBag.Department).OrderBy(x => x.Name))
-                {
-                    <input class="kzQkCNWOiUhJxRl" value="@item.Name" type="radio" name="name" id="@item.Id" onclick="bxDzoLwDZzickPI(@item.Id)" hidden />
-                    <label class="oZBtnmiLrunDFMC" for="@item.Id">
-                        <span>@item.Name</span>
-                        <i class="OxwaVAXXNsMtYHu JxeYECtwrfrUhgj" onclick="sNYSYigDKYrjjtq(@item.Id)" title="Edytuj" style="display: none;">
-                            <svg viewBox="0 0 512 512" width="16" height="16"><path d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z"></path><polygon class="st0" points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751" /></svg>
-                        </i>
-                        <i class="OxwaVAXXNsMtYHu" onclick="bdoycBpPxFPywju(@item.Id)" title="Usuń" style="display: none;">
-                            <svg viewBox="0 0 469.404 469.404" width="16" height="16"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg>
-                        </i>
-                    </label>
-                } *@
-
                 @if (departmentsLength > 0)
                 {
                     <div class="IVnxgCORpPYL ijBuUPWrdXEngvb RlREsSaJYGSFniA" onclick="BqujyivUqK()" title="Dodaj nowy dział">
@@ -89,7 +67,7 @@
 
             @if (departmentsLength > 0)
             {
-                <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" id="MyRfivjxPqfhHQr" onclick="YENAVVQWwo()">
+                <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" id="MyRfivjxPqfhHQr" onclick="YENAVVQWwo(@firstDepartmentID)">
                     <ion-icon name="person-add-outline"></ion-icon>
                     <span>Nowy pracownik</span>
                 </div>
@@ -104,3 +82,17 @@
 <script type="text/javascript" src="~/js/site.js"></script>
 <script type="text/javascript" src="~/js/Workers2Index.js"></script>
 <script type="text/javascript" src="~/js/sorttable2.js"></script>
+
+<script>
+    var workersWithNoDepartment = @Json.Serialize(@workersWithNoDepartment);
+
+    if (sessionStorage.getItem('RTqrydCjXBjinzd') == null)
+    {
+        WAknWoEDCgnvjyY(@firstDepartmentID);
+
+        if (workersWithNoDepartment.length > 0)
+        {
+            WAknWoEDCgnvjyY(null);
+        }
+    }
+</script>

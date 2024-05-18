@@ -1,20 +1,4 @@
-﻿//if (model_d.length == 0)
-//{
-//    $('#tableId').hide();
-//}
-
-
-
-//let ECTosDyufuTqvBV = document.querySelector('.ECTosDyufuTqvBV');
-//sortArray(model_d);
-//for (let i = 0; i < model_d.length; i++)
-//{
-//    ECTosDyufuTqvBV.innerHTML += `<input class="kzQkCNWOiUhJxRl" value="` + model_d[i].Name + `" type="radio" name="name" id="` + model_d[i].Id + `" onclick="bxDzoLwDZzickPI(this, event)" hidden />` +
-//        `<label class="oZBtnmiLrunDFMC" for="` + model_d[i].Id + `"><span>` + model_d[i].Name + `</span>` + 
-//        `</label>`;
-
-//}
-let selected = document.getElementById('settings_tasks_id');
+﻿let selected = document.getElementById('settings_tasks_id');
 selected.classList.add('settings_a_selected');
 
 function XmVztKczNCaTbJt() 
@@ -24,11 +8,6 @@ function XmVztKczNCaTbJt()
         WAknWoEDCgnvjyY(sessionStorage.getItem('dzARvcmubKKEzdq'));
         $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + sessionStorage.getItem('dzARvcmubKKEzdq') + ')');
     }
-    else 
-    {
-        WAknWoEDCgnvjyY(null);
-        $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(null)');
-    }
 };
 XmVztKczNCaTbJt();
 
@@ -36,7 +15,7 @@ function nGgUoVSOQmbYyoD()
 {
     $.ajax({
         type: 'GET',
-        url: '/Tasks/CreateDepartmentSelect',
+        url: '/TaskName2/CreateDepartmentSelect',
         success: function (response)
         {
             $('.kxOMhDZFzkDb').append(response);
@@ -46,6 +25,7 @@ function nGgUoVSOQmbYyoD()
             if (sessionStorage.getItem('dzARvcmubKKEzdq') != null) 
             {
                 $('.oJeaEVIeaFrjGFz[id="' + sessionStorage.getItem('dzARvcmubKKEzdq') + '"]').addClass('iFbPgrXjzGigaCA');
+                $('.iFbPgrXjzGigaCA')[0].scrollIntoView();
             }
         },
         error: function (xhr, status, error)
@@ -69,103 +49,47 @@ $('body').on('click', function ()
 
 function WAknWoEDCgnvjyY(id) 
 {
-    
+    $.ajax({
+        type: 'GET',
+        url: '/TaskName2/ChangeDepartment',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            $('.YUPrikbkYzkc').html(response.contentResult.content);
+            var tables = document.getElementsByTagName('table');
+            for (var i = 0; i < tables.length; i++)
+            {
+                resizableGrid(tables[i]);
+            }
+
+            let THs = $('#tableId thead tr th:not(:last)');
+            for (let i = 0; i < THs.length; i++)
+            {
+                $(THs[i]).attr('onclick', 'sortTable(' + i + ')');
+            }
+
+            $('.iNzvwDsTQXDyPIR span').html(response.departmentName).removeAttr('style');
+            $('.iNzvwDsTQXDyPIR ion-icon').removeClass('zwyAWlfnleMVUJu');
+
+            sessionStorage.setItem('dzARvcmubKKEzdq', id);
+            $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + id + ')');
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
 };
-
-
-//let kzQkCNWOiUhJxRl_array = document.querySelectorAll('.kzQkCNWOiUhJxRl');
-//if (sessionStorage.getItem('CRaeWRyIxKoOrgp') != null && sessionStorage.getItem('CRaeWRyIxKoOrgp') != 'no_department')
-//{
-//    for (let i = 0; i < kzQkCNWOiUhJxRl_array.length; i++)
-//    {
-//        if (kzQkCNWOiUhJxRl_array[i].id == sessionStorage.getItem('CRaeWRyIxKoOrgp'))
-//        {
-//            $(kzQkCNWOiUhJxRl_array[i]).trigger('click');
-//        }
-//    }
-//}
-//else if (sessionStorage.getItem('CRaeWRyIxKoOrgp') == 'no_department')
-//{
-//    $(kzQkCNWOiUhJxRl_array[0]).trigger('click');
-//}
-//else
-//{
-//    $(kzQkCNWOiUhJxRl_array[0]).trigger('click');
-//}
-
-
-
-
-//function bxDzoLwDZzickPI(t, e) 
-//{
-//    let arrayCheck = [];
-//    let id = t.id;
-//    let children = $(t).parent().children();
-//    //let VUXahzbNUTWtiZa = document.querySelectorAll('.VUXahzbNUTWtiZa tbody tr');
-//    for (let i = 0; i < children.length; i++)
-//    {
-//        let for_ = $(children[i]).attr('for');
-//        if (id == for_ && children[i].tagName.toLowerCase() == 'label')
-//        {
-//            sessionStorage.setItem('CRaeWRyIxKoOrgp', for_);
-
-//            let ECTosDyufuTqvBV = document.querySelector('.ECTosDyufuTqvBV');
-//            let element = children[i];
-//            element.scrollIntoView({
-//                behavior: 'smooth',
-//                //inline: 'start',
-//                block: 'nearest'
-//            });
-
-
-
-//            //$(children[i]).children().eq(1).show();
-//            //$(children[i]).children().eq(2).show();
-//            //$(children[i]).addClass('SqhCHzsNTMEsjQk');
-//        }
-//        else if (id != for_)
-//        {
-//            //$(children[i]).children().eq(1).hide();
-//            //$(children[i]).children().eq(2).hide();
-//            //$(children[i]).removeClass('SqhCHzsNTMEsjQk');
-//        }
-//    }
-
-//    let rows = document.querySelectorAll('#tableId tbody tr');
-//    if (rows.length > 0)
-//    {
-//        for (let i = 0; i < rows.length; i++) 
-//        {
-//            if (rows[i].id == id) 
-//            {
-//                $(rows[i]).show();
-//                arrayCheck.push(rows[i].id);
-//            }
-//            else
-//            {
-//                $(rows[i]).hide();
-//            }
-//        }
-//    }
-
-//    if (arrayCheck.length > 0)
-//    {
-//        $('#tableId').show();
-//    }
-//    else
-//    {
-//        $('#tableId').hide();
-//    }
-
-    
-
-//};
-
-function YENAVVQWwo() 
+function YENAVVQWwo(id)
 {
     $.ajax({
         type: 'GET',
         url: '/TaskName2/AddNewTaskForm',
+        data: {
+            id: id
+        },
         success: function (response)
         {
             $('body').append(response);
@@ -208,18 +132,6 @@ function zGWGBXreWGtGNcS()
 
 function MUdkksPiwwBklvN(id) 
 {
-    //let jwOsncySQjwD = document.getElementById('jwOsncySQjwD');
-
-    //let id_ = $(t).parent().parent().children().eq(0).html();
-    //let name_ = $(t).parent().parent().children().eq(1).html();
-    //let dep_ = $('.kzQkCNWOiUhJxRl:checked').attr('id');
-
-    //sessionStorage.setItem('bdZjeJaaDizFvUt', id_);
-
-    //document.getElementById('xEjLBIPqUXLK').value = name_;
-    //document.getElementById('ZRfCdgttdnOCfXF').value = dep_;
-
-    //$(jwOsncySQjwD).fadeIn(200);
     $.ajax({
         type: 'GET',
         url: '/TaskName2/EditTaskForm',
@@ -240,7 +152,6 @@ function MUdkksPiwwBklvN(id)
 
 function KfdhlqmDXEsR(id) 
 {
-    //let id_ = sessionStorage.getItem('bdZjeJaaDizFvUt');
     let name_ = document.getElementById('xEjLBIPqUXLK').value;
     let departmentID_ = document.getElementById('ZRfCdgttdnOCfXF').value;
 
@@ -265,9 +176,6 @@ function KfdhlqmDXEsR(id)
 
 function LXxUWyFdXJNnlvI(id) 
 {
-    //let id_ = $(t).parent().parent().children().eq(0).html();
-    //$('#YUkuEpVsBmYTtjN').fadeIn(200);
-    //sessionStorage.setItem('rvnxtfceKCMlhUC', id_);
     $.ajax({
         type: 'GET',
         url: '/TaskName2/DeleteTaskForm',
@@ -288,8 +196,6 @@ function LXxUWyFdXJNnlvI(id)
 
 function aDkOgungYCvMbHN(id) 
 {
-    //let id_ = sessionStorage.getItem('rvnxtfceKCMlhUC');
-
     $.ajax({
         type: 'POST',
         url: '/TaskName2/RemoveTask',
@@ -388,17 +294,12 @@ function resizableGrid(table)
         var div = document.createElement('div');
         div.style.top = 0;
         div.style.right = 0;
-        //div.style.width = '5px';
         div.style.width = '23px';
-        //div.style.backgroundColor = 'rgba(255, 0, 0, 0.4)';
         div.style.zIndex = '1';
         div.style.position = 'absolute';
         div.style.cursor = 'col-resize';
         div.style.userSelect = 'none';
         div.style.height = '52px';
-        //div.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
-
-        //div.style.right = '-10px';
 
         div.style.transform = 'translatex(10px)';
         div.innerHTML += `<i class="arrow left"></i> <div class="lines line1"></div> <div class="lines line2"></div> <i class="arrow right"></i>`;//<div class="lines line1"></div> <div class="lines line2"></div>
@@ -409,8 +310,6 @@ function resizableGrid(table)
 
         return div;
     }
-
-
 
     function paddingDiff(col)
     {
@@ -423,7 +322,6 @@ function resizableGrid(table)
         var padLeft = getStyleVal(col, 'padding-left');
         var padRight = getStyleVal(col, 'padding-right');
         return (parseInt(padLeft) + parseInt(padRight));
-
     }
 
     function getStyleVal(elm, css)
@@ -452,4 +350,3 @@ function kEDVBzpHnAzOqpp(t, e)
 {
     e.stopPropagation();
 };
-

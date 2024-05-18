@@ -653,7 +653,7 @@ namespace TimeTask.Controllers
                             "<td>" + item.Id + "</td>" +
                             "<td>" + item.Surname + "</td>" +
                             "<td>" + item.Name + "</td>" +
-                            "<td style=\"color: orangered;\">Brak działu</td>" +
+                            "<td style=\"color: orangered;\">Brak</td>" +
                             "<td>" +
                                 "<a onclick=\"IxsCvPIuWwZw(" + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>" +
                                 "<a onclick=\"deleteWorker(" + item.Id + ")\" title=\"Usuń\"><ion-icon class=\"delete urlop\" name=\"trash-outline\"></ion-icon></a>" +

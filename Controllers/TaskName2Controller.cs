@@ -227,12 +227,24 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddNewTaskForm()
+        public ActionResult AddNewTaskForm(int id)
         {
+            //string departments = "";
+            //foreach (var item in (_context.Department).OrderBy(x => x.Name))
+            //{
+            //    departments += "<option value=\"" + item.Id + "\">" + item.Name + "</option>";
+            //}
             string departments = "";
             foreach (var item in (_context.Department).OrderBy(x => x.Name))
             {
-                departments += "<option value=\"" + item.Id + "\">" + item.Name + "</option>";
+                if (item.Id == id)
+                {
+                    departments += "<option selected value=\"" + item.Id + "\">" + item.Name + "</option>";
+                }
+                else
+                {
+                    departments += "<option value=\"" + item.Id + "\">" + item.Name + "</option>";
+                }
             }
 
             string removeForm = "$('#hJQarhdVtvVBOnk').remove()";
@@ -264,12 +276,14 @@ namespace TimeTask.Controllers
         [HttpGet]
         public ActionResult EditTaskForm(int id)
         {
+            var taskName = (_context.TaskName2).FirstOrDefault(x => x.Id == id)?.Name;
+            var taskDepartmentID = (_context.TaskName2).FirstOrDefault(x => x.Id == id)?.DepartmentID;
             var departmentName = (_context.Department).FirstOrDefault(x => x.Id == id)?.Name;
 
             string departments = "";
             foreach (var item in (_context.Department).OrderBy(x => x.Name))
             {
-                if (item.Id == id)
+                if (item.Id == taskDepartmentID)
                 {
                     departments += "<option selected value=\"" + item.Id + "\">" + item.Name + "</option>";
                 }
@@ -285,7 +299,7 @@ namespace TimeTask.Controllers
                     "<form class=\"form\">" +
                         "<div class=\"form-group\">" +
                             "<label>Nazwa zadania:</label>" +
-                            "<input class=\"form-control\" value=\"" + departmentName + "\" autocomplete=\"off\" id=\"xEjLBIPqUXLK\" />" +
+                            "<input class=\"form-control\" value=\"" + taskName + "\" autocomplete=\"off\" id=\"xEjLBIPqUXLK\" />" +
                         "</div>" +
                         "<div class=\"form-group form-group-margin\">" +
                             "<label>Dział:</label>" +
@@ -310,13 +324,18 @@ namespace TimeTask.Controllers
         {
             var taskName = (_context.TaskName2).FirstOrDefault(x => x.Id == id)?.Name;
 
+            var departmentID = (_context.TaskName2).FirstOrDefault(x => x.Id == id)?.DepartmentID;
+            var departmentName = (_context.Department).FirstOrDefault(x => x.Id == departmentID)?.Name;
+
             string removeForm = "$('#YUkuEpVsBmYTtjN').remove()";
 
             string form = "<div id=\"YUkuEpVsBmYTtjN\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
                     "<form class=\"form_2\">" +
                         "<div class=\"IvBtEDulLESDYxK\">" +
                             "<span>" + taskName + "</span>" +
-                            "<span>Spowoduje to usunięcie zadań z tą nazwą we wszystkich grafikach! Upewnij się, że wszystkie potrzebne grafiki zostały pobrane!</span>" +
+                        "</div>" +
+                        "<div class=\"IvBtEDulLESDYxK\">" +
+                            "<span>Spowoduje to usunięcie zadań z tą nazwą we wszystkich grafikach dla działu " + departmentName + "! Upewnij się, że wszystkie potrzebne grafiki zostały pobrane!</span>" +
                         "</div>" +
                         "<div class=\"btn-danger-div\">" +
                             "<input type=\"button\" value=\"Usuń\" onclick=\"aDkOgungYCvMbHN(" + id + ")\" />" +
@@ -333,10 +352,9 @@ namespace TimeTask.Controllers
         [HttpGet]
         public ActionResult ChangeDepartment(int id)
         {
-            var departmentID = (_context.TaskName2).FirstOrDefault(x => x.Id == id)?.DepartmentID;
-            var departmentName = (_context.Department).FirstOrDefault(x => x.Id == departmentID)?.Name;
+            var departmentName = (_context.Department).FirstOrDefault(x => x.Id == id)?.Name;
 
-            var tasks = (_context.TaskName2).Where(x => x.DepartmentID == departmentID);
+            var tasks = (_context.TaskName2).Where(x => x.DepartmentID == id);
             var info = "";
             var table = "";
 
@@ -368,12 +386,7 @@ namespace TimeTask.Controllers
                 "</table>";
             }
 
-            if (table.Length > 0)
-            {
-                return Content(table);
-            }
-
-            return Json(new { success = false });
+            return Json(new { ContentResult = Content(table), DepartmentName = departmentName });
         }
 
 

@@ -1,27 +1,20 @@
 ﻿let selected = document.getElementById('settings_departs_workers_id');
 selected.classList.add('settings_a_selected');
 
-//if (sessionStorage.getItem('qbMvtjjezfxSFsv') != null)
-//{
-//    $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + sessionStorage.getItem('qbMvtjjezfxSFsv') + ')');
-//    $('.kzQkCNWOiUhJxRl[id="' + sessionStorage.getItem('qbMvtjjezfxSFsv') + '"]').trigger('click');
-//}
-//else {
-//    $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + $('.kzQkCNWOiUhJxRl').first().attr('id') + ')');
-//    $('.kzQkCNWOiUhJxRl').first().trigger('click');
-//}
-
 function XmVztKczNCaTbJt() 
 {
     if (sessionStorage.getItem('RTqrydCjXBjinzd') != null) 
     {
-        WAknWoEDCgnvjyY(sessionStorage.getItem('RTqrydCjXBjinzd'));
-        $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + sessionStorage.getItem('RTqrydCjXBjinzd') + ')');
-    }
-    else 
-    {
-        WAknWoEDCgnvjyY(null);
-        $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(null)');
+        if (sessionStorage.getItem('RTqrydCjXBjinzd') == 'null') 
+        {
+            WAknWoEDCgnvjyY(null);
+            $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo()');
+        }
+        else 
+        {
+            WAknWoEDCgnvjyY(sessionStorage.getItem('RTqrydCjXBjinzd'));
+            $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + sessionStorage.getItem('RTqrydCjXBjinzd') + ')');
+        }
     }
 };
 XmVztKczNCaTbJt();
@@ -40,6 +33,7 @@ function nGgUoVSOQmbYyoD()
             if (sessionStorage.getItem('RTqrydCjXBjinzd') != null) 
             {
                 $('.oJeaEVIeaFrjGFz[id="' + sessionStorage.getItem('RTqrydCjXBjinzd') + '"]').addClass('iFbPgrXjzGigaCA');
+                $('.iFbPgrXjzGigaCA')[0].scrollIntoView();
             }
         },
         error: function (xhr, status, error)
@@ -137,71 +131,6 @@ function WAknWoEDCgnvjyY(id)
     }
 };
 
-//function bxDzoLwDZzickPI(id)
-//{
-//    $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + id + ')');
-//    sessionStorage.setItem('qbMvtjjezfxSFsv', id);
-
-//    $('.oZBtnmiLrunDFMC').parent().children('.oZBtnmiLrunDFMC').children('.OxwaVAXXNsMtYHu').hide();
-//    $('.oZBtnmiLrunDFMC').parent().children('.oZBtnmiLrunDFMC[for="' + id + '"]').children('.OxwaVAXXNsMtYHu').show();
-
-//    if (id != null) 
-//    {
-//        $.ajax({
-//            type: 'GET',
-//            url: '/Workers2/ChangeDepartment',
-//            data: {
-//                id: id
-//            },
-//            success: function (response)
-//            {
-//                $('.YUPrikbkYzkc').html(response);
-//                var tables = document.getElementsByTagName('table');
-//                for (var i = 0; i < tables.length; i++)
-//                {
-//                    resizableGrid(tables[i]);
-//                }
-
-//                let THs = $('#tableId thead tr th:not(:last)');
-//                for (let i = 0; i < THs.length; i++) 
-//                {
-//                    $(THs[i]).attr('onclick', 'sortTable(' + i + ')');
-//                }
-//            },
-//            error: function (xhr, status, error)
-//            {
-//                console.log('Error:', error);
-//            }
-//        });
-//    }
-//    else 
-//    {
-//        $.ajax({
-//            type: 'GET',
-//            url: '/Workers2/WorkersWithoutDepartment',
-//            success: function (response)
-//            {
-//                $('.YUPrikbkYzkc').html(response);
-//                var tables = document.getElementsByTagName('table');
-//                for (var i = 0; i < tables.length; i++)
-//                {
-//                    resizableGrid(tables[i]);
-//                }
-
-//                let THs = $('#tableId thead tr th:not(:last)');
-//                for (let i = 0; i < THs.length; i++) 
-//                {
-//                    $(THs[i]).attr('onclick', 'sortTable(' + i + ')');
-//                }
-//            },
-//            error: function (xhr, status, error)
-//            {
-//                console.log('Error:', error);
-//            }
-//        });
-//    }
-//};
-
 function sNYSYigDKYrjjtq(id)
 {
     $.ajax({
@@ -285,12 +214,6 @@ function adqwBJykaCzQ(id)
     });
 };
 
-//var tables = document.getElementsByTagName('table');
-//for (var i = 0; i < tables.length; i++)
-//{
-//    resizableGrid(tables[i]);
-//}
-
 function resizableGrid(table)
 {
     var row = table.getElementsByTagName('tr')[0],
@@ -364,17 +287,12 @@ function resizableGrid(table)
         var div = document.createElement('div');
         div.style.top = 0;
         div.style.right = 0;
-        //div.style.width = '5px';
         div.style.width = '23px';
-        //div.style.backgroundColor = 'rgba(255, 0, 0, 0.4)';
         div.style.zIndex = '1';
         div.style.position = 'absolute';
         div.style.cursor = 'col-resize';
         div.style.userSelect = 'none';
         div.style.height = '52px';
-        //div.style.borderRight = '4px double rgba(255, 255, 255, 0.2)';
-
-        //div.style.right = '-10px';
 
         div.style.transform = 'translatex(10px)';
         div.innerHTML += `<i class="arrow left"></i> <div class="lines line1"></div> <div class="lines line2"></div> <i class="arrow right"></i>`;//<div class="lines line1"></div> <div class="lines line2"></div>
@@ -385,8 +303,6 @@ function resizableGrid(table)
 
         return div;
     }
-
-
 
     function paddingDiff(col)
     {
@@ -407,8 +323,6 @@ function resizableGrid(table)
         return (window.getComputedStyle(elm, null).getPropertyValue(css))
     }
 };
-
-
 
 function kEDVBzpHnAzOqpp(t, e)
 {
@@ -433,7 +347,6 @@ function pNxCxvPIUtCbSHM(t)
 
 function BqujyivUqK()
 {
-    //$('#XOrtKNkAwk').fadeIn(200);
     $.ajax({
         type: 'GET',
         url: '/Workers2/AddDepartmentForm',
@@ -533,7 +446,6 @@ function TEqGSwRYnu()
     {
         let name_ = document.getElementById('GVegODKbEh').value;
         let surname_ = document.getElementById('toPdQnPuvH').value;
-        //let dep_id_ = parseInt(sessionStorage.getItem('storage_AddWorker'));
         let e = document.getElementById('OyRfwpeqzbeyVEW');
         let dep_id_ = e.options[e.selectedIndex].value;
         let employed_ = true;
@@ -632,44 +544,6 @@ function deleteWorker(id)
         }
     });
 };
-
-function UOspQSjpbVdS()
-{
-    //location.reload();
-
-};
-
-//function fBTJyaaQRpDf(t)
-//{
-//    document.getElementById("zwQBaubcYWcJ").innerHTML = 'Czy na pewno chcesz usunąć pracownika?';
-
-//    let a = document.getElementById("FamcDfiHIvhi");
-//    a.style.display = '';
-//    t.style.display = 'none';
-
-//    /*timer*/
-//    let count = 4;
-//    document.getElementById("XSkMvvmEXCee").value = 'Tak' + ' ' + '(' + 5 + ')';
-//    setInterval(function ()
-//    {
-//        if (count > 0)
-//        {
-//            document.getElementById("XSkMvvmEXCee").value = 'Tak' + ' ' + '(' + count + ')';
-//            count--;
-//        }
-//        else
-//        {
-//            document.getElementById("XSkMvvmEXCee").value = 'Tak';
-//        }
-//    }, 1000);
-
-//    document.getElementById("XSkMvvmEXCee").setAttribute('disabled', '');
-//    setTimeout(function ()
-//    {
-//        document.getElementById("XSkMvvmEXCee").removeAttribute('disabled');
-//    }, 5000);
-//    /**/
-//};
 
 function dDlRcSCJZAuO(id)
 {

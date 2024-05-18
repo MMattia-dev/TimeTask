@@ -11,7 +11,7 @@
 
 <div class="parent">
     <section class="left-nav">
-        @Html.Partial("_Task")
+        <partial name="_Task" />
     </section>
     <section class="right-nav p-0">
         <div class="grZWUijDhGWKyHd" style="opacity: 0;">
@@ -36,10 +36,9 @@
                         @for(int i = 1; i <= 7; i++){
                             <div class="SBVWNWOJZnTplXL" onmouseover="szWBomtrGKAViBb(this, event)">
                                 <div class="LwxRoYhfmyzTlGm" worker="@item.Id">
-                                    <input type="time" onchange="HSuokUFEKzccQCK(this)" onblur="wgddAsHIsXNWQkl(this)" id="wgddAsHIsXNWQkl_" />
+                                    <input type="time" onblur="wgddAsHIsXNWQkl(this)" id="wgddAsHIsXNWQkl_" />
                                     <span>-</span>
-                                    <input type="time" onchange="UrLQumgARjxLfGF(this)" onblur="YNXxUwIhBTDduDG(this)" id="YNXxUwIhBTDduDG_" />
-      <!--wyłączone (nie usuwać)--> @* <div onclick="SnVgWOTEsLEUbKu(this)" class="kqOeanWDDXEYTBz" worker="@item.Id" title="Wybierz godziny"><svg viewBox="0 0 10 6" width="10" height="6"><path d="M0 0h10L5 6z"></path></svg></div> *@
+                                    <input type="time" onblur="YNXxUwIhBTDduDG(this)" id="YNXxUwIhBTDduDG_" />
                                     <div class="avnythFRVEkXnim" worker="@item.Id" style="display: none;"></div>
                                     <a class="MNewKOhqZkqNDeJ" onclick="jzOfWppePYfqVYf(this)" title="Usuń wpisy" style="display: none;"><ion-icon name="trash-outline"></ion-icon></a>
                                 </div>
@@ -55,9 +54,6 @@
                                                         var taskName = ((IEnumerable<TaskName2>)ViewBag.TaskNames).FirstOrDefault(x => x.Id == item2.TaskNameID);
                                                     }
                                                     <span>@taskName?.Name</span>
-                                                    @* <a onclick="mhzWFFdkOFYMLsP(this)" WghrTajUyfTSWFc="@item2.Id" title="Usuń zadanie">
-                                                        <ion-icon name="close"></ion-icon>
-                                                    </a> *@
                                                 </div>
                                             }
                                         }
@@ -74,65 +70,6 @@
         </div>
     </section>
 </div> 
-
-<div id="hJQarhdVtvVBOnk" class="pGKcZvErUB" style="display: none;">
-    <form class="form">
-        <div class="form-group">
-            <input class="form-control" autocomplete="off" placeholder="nazwa zadania..." id="IluduaIgOUVOGRf" />
-        </div>
-        <div class="form-group form-group-margin">
-            <select class="form-control bYwPpsleuVCBkPv" id="hdfoDuUOBPpvhSl">
-                @foreach (var item in ((IEnumerable<Department>)ViewBag.Departments))
-                {
-                    <option value="@item.Id">@item.Name</option>
-                }
-                <option id="null">Wszyscy</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <input type="button" value="Zapisz" class="btn-custom" onclick="zGWGBXreWGtGNcS()" />
-        </div>
-        <div class="form-group">
-            <input type="button" value="Wróć" class="btn-custom_" onclick="rURQfWmsrmzXwCV()" />
-        </div>
-    </form>
-</div>
-<div id="HrjQZZqwQjnGRuC" class="pGKcZvErUB" style="display: none;">
-    <form class="form">
-        <div class="form-group form-group-margin">
-            <input class="form-control" autocomplete="off" placeholder="nazwa zadania..." id="gPLPpoufGitmRJK" />
-        </div>
-        <div class="form-group form-group-margin" style="display: none;">
-            <select class="form-control bYwPpsleuVCBkPv" id="rFaJKmZDlbnwiBP">
-                @foreach (var item in ((IEnumerable<Department>)ViewBag.Departments))
-                {
-                    <option value="@item.Id">@item.Name</option>
-                }
-                <option id="0">Wszyscy</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <input type="button" value="Zapisz" class="btn-custom" onclick="CaomIrxdWJchcOk()" />
-        </div>
-        <div class="form-group">
-            <input type="button" value="Wróć" class="btn-custom_" onclick="wNvCTiOzGLwtsaX()" />
-        </div>
-    </form>
-</div>
-<div id="YUkuEpVsBmYTtjN" class="pGKcZvErUB" style="display: none;">
-    <form class="form_2">
-        <div class="IvBtEDulLESDYxK">
-            <span id="cKSpcSCmKURLYSF"></span>
-            <span>Spowoduje to usunięcie zadań z tą nazwą we wszystkich grafikach! Upewnij się, że wszystkie potrzebne grafiki zostały pobrane!</span>
-        </div>
-        <div class="btn-danger-div" id="eUkBfdkCVpxXxot">
-            <input type="button" value="Usuń" id="ApFOgPcwItDNkKp" onclick="aDkOgungYCvMbHN()" />
-        </div>
-        <div class="form-group">
-            <input type="button" value="Wróć" class="btn-custom_" onclick="spDekwIzyQklvGF()" />
-        </div>
-    </form>
-</div>
 
 <script type="text/javascript">
     

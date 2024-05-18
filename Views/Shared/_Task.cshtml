@@ -1,5 +1,4 @@
-﻿@* @model IEnumerable<TimeTask.Models.Task2> *@
-@using Newtonsoft.Json
+﻿@using Newtonsoft.Json
 
 @{
     var department = ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name).FirstOrDefault();
@@ -10,20 +9,11 @@
 </div>
 
 <div class="IdRKPExyAQSewBL" onscroll="HzvDBbvTRQnGBub(this)" >
-    <!--koblSjvDsfoQbAD-->
-    <!--style="opacity: 0;"-->
 
     <a class="settings_a" href="@Url.Action("Index", "Home")">
         <ion-icon name="home-outline"></ion-icon>
         <span>Strona główna</span>
     </a>
-    @* <a class="settings_a" id="PeAfgVTiQsbFhjt" onclick="kLqdFLvjJrKETlK(this)">
-        <ion-icon name="save-outline"></ion-icon>
-        <div class="settings_a_select">
-            <span></span>
-            <span>Zapisz zmiany</span>
-        </div>
-    </a> *@
     <a class="settings_a" onclick="lhkKNaastOkkmMh(this); MkoKdHskxQLfcuP()" id="MkoKdHskxQLfcuP_">
         <ion-icon name="calendar-outline"></ion-icon>
         <div class="settings_a_select">
@@ -63,15 +53,6 @@
             <ion-icon name="chevron-down-outline"></ion-icon>
         </div>
     </a>
-    <!-- Zadania powinno sie dodawac z poziomu ustawien -->
-
-    @* <a class="settings_a">
-        <ion-icon name="medkit-outline"></ion-icon>
-        <div class="settings_a_select">
-            <span></span>
-            <span>Dodaj nowe zadanie</span>
-        </div>
-    </a> *@
     <a class="settings_a">
         <ion-icon name="copy-outline"></ion-icon>
         <div class="settings_a_select">
@@ -86,104 +67,6 @@
             <span>Pobierz grafik</span>
         </div>
     </a>
-
-
-
-
-
-
-
-
-    @* <a class="settings_a" href="@Url.Action("Index", "Home")" style="display: none;">
-        <svg viewBox="-8.5 0 32 32" width="32" height="32"><path d="M15.281 7.188v17.594l-15.281-8.781z"></path></svg>
-        <span>Strona główna</span>
-    </a> *@
-
-    <select class="HQTuaisxjrtQHPq" id="uKdvKAhOhYwppOO" onchange="FvEKesXHjbxXQEL()" style="display: none;">
-        @{
-            int year = DateTime.Now.Year;
-            int prevYear = year - 5;
-            int nextYear = year + 1;
-            int pn = nextYear - prevYear;
-        }
-
-        @for (int i = 1; i < pn; i++)
-        {
-            prevYear++;
-            if (prevYear == year)
-            {
-                <option selected value="@prevYear">@prevYear</option>
-            }
-            else
-            {
-                <option value="@prevYear">@prevYear</option>
-            }
-        }
-    </select>
-
-    <select class="HQTuaisxjrtQHPq" id="JFUPeUjXoygHiiK" onchange="drmZhscxvPoxiya()" style="display: none;"></select>
-
-    @* <span class="settings_span" style="display: none;">Grafik dla działu:</span>
-    <div style="height: 5px; display: none;"></div> *@
-    <select class="HQTuaisxjrtQHPq" id="kRyEzzxRxADfSZj" onchange="arKOctcZVJhWuhL()" style="display: none;">
-        @foreach (var item in ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name))
-        {
-            <option value="@item.Id">@item.Name</option>
-        }
-    </select>
-
-    @* <span class="settings_span" style="display: none;">Zadania:</span>
-    <div style="height: 5px; display: none;"></div> *@
-    @if (((IEnumerable<TaskName2>)ViewBag.TaskNames).Count() == 0)
-    {
-        <div class="CMwsOZudhBlDtQi" style="display: none;">
-            <div class="nfLIRJNjWZmLKJe"></div>
-
-            <div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw" onclick="kJYIwPwacgrxdrX()">
-                <span>Dodaj nowe zadanie</span>
-            </div>
-
-            <div class="pyyxmssXgPCWuUc XGhZTcUEoJhWtNr fNPXdDDFqqbVOkt" id="PeAfgVTiQsbFhjt" onclick="kLqdFLvjJrKETlK(this)">
-                <span>Zapisz zmiany</span>
-                <span id="jSxkTLkOwolIQOG"></span>
-            </div>
-
-            <div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw" onclick="BgMujOvGVhgxcrK()">
-                <span>Pobierz grafik</span>
-            </div>
-        </div>
-    }
-    else
-    {
-        <div class="CMwsOZudhBlDtQi" style="display: none;">
-            <div class="nfLIRJNjWZmLKJe">
-                @foreach (var item in ((IEnumerable<TaskName2>)ViewBag.TaskNames).OrderBy(x => x.DepartmentID))
-                {
-                    <div class="YgYDRNgkzyxgztO" id2="@item.Id" id="@item.DepartmentID" style="display: none;">
-                        <svg class="EpPTURkmdIzOSnq" id2="@item.Id" viewBox="0 0 20 20" height="20" width="20"><path d="M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z" /><path d="M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z" /><path d="M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z" /></svg>
-                        <div class="uESYaZNLlshNOzd">
-                            <span>@item.Name</span>
-                            <a onclick="ydcXSyYYSvQPggQ(this)" gwyIDEzPzXYjfLE="@item.Id" kCKFvozEWxUVxxp="@item.Name" iuCJIrClUqpPWfy="@item.DepartmentID" title="Edytuj"><svg viewBox="0 0 512 512" height="13" width="13"><path class="st0" d="M494.56,55.774l-38.344-38.328c-23.253-23.262-60.965-23.253-84.226,0l-35.878,35.878l122.563,122.563l35.886-35.878C517.814,116.747,517.814,79.044,494.56,55.774z" /><polygon class="st0" points="0,389.435 0,511.998 122.571,511.998 425.246,209.314 302.691,86.751 	" /></svg></a>
-                            <a onclick="pXwvhczxXMKKzWB(this)" WYxbaolkBNcDokP="@item.Id" title="Usuń"><svg viewBox="0 0 469.404 469.404" height="13" width="13"><path d="M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z"></path></svg></a>
-                        </div>
-                    </div>
-                }
-            </div>
-
-            <div class="pyyxmssXgPCWuUc XGhZTcUEoJhWtNr" onclick="kJYIwPwacgrxdrX()">
-                <span>Dodaj nowe zadanie</span>
-            </div>
-
-            <div class="pyyxmssXgPCWuUc XGhZTcUEoJhWtNr fNPXdDDFqqbVOkt" id="PeAfgVTiQsbFhjt" onclick="kLqdFLvjJrKETlK(this)">
-                <span>Zapisz zmiany</span>
-                <span id="jSxkTLkOwolIQOG"></span>
-            </div>
-
-            <div class="pyyxmssXgPCWuUc xVZlAxNFqwZlPbw" onclick="BgMujOvGVhgxcrK()">
-                <span>Pobierz grafik</span>
-            </div>
-        </div>
-    }
 </div>
 
 <div class="user">
@@ -194,25 +77,4 @@
             <span>Ustawienia konta</span>
         </div>
     </a>
-    @* <a asp-area="Identity" asp-page="/Account/Manage/Index" class="userFirstA">
-        <svg viewBox="0 0 512 512" width="48" height="48">
-            <path d="M213.333333,3.55271368e-14 C269.912851,3.55271368e-14 324.175019,22.4761259 364.18278,62.4838867 C404.190541,102.491647 426.666667,156.753816 426.666667,213.333333 C426.666667,331.15408 331.15408,426.666667 213.333333,426.666667 C95.5125867,426.666667 2.84217094e-14,331.15408 2.84217094e-14,213.333333 C2.84217094e-14,95.5125867 95.5125867,3.55271368e-14 213.333333,3.55271368e-14 Z M234.666667,234.666667 L192,234.666667 C139.18529,234.666667 93.8415802,266.653822 74.285337,312.314895 C105.229171,355.70638 155.977088,384 213.333333,384 C270.689579,384 321.437496,355.70638 352.381644,312.31198 C332.825087,266.653822 287.481377,234.666667 234.666667,234.666667 L234.666667,234.666667 Z M213.333333,64 C177.987109,64 149.333333,92.653776 149.333333,128 C149.333333,163.346224 177.987109,192 213.333333,192 C248.679557,192 277.333333,163.346224 277.333333,128 C277.333333,92.653776 248.679557,64 213.333333,64 Z"></path>
-        </svg>
-    </a>
-    <div class="userDiv">
-        <a>@User.Identity?.Name?.Split('@')[0]</a>
-    </div>
-    <form class="logOut" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-        <input type="submit" value="" id="logOutClick" />
-        <button type="button" title="Wyloguj" onclick="logOut()">
-            <svg viewBox="-2 0 19 19" width="37" height="37">
-                <path d="M7.498 17.1a7.128 7.128 0 0 1-.98-.068 7.455 7.455 0 0 1-1.795-.483 7.26 7.26 0 0 1-3.028-2.332A7.188 7.188 0 0 1 .73 12.52a7.304 7.304 0 0 1 .972-7.128 7.221 7.221 0 0 1 1.387-1.385 1.03 1.03 0 0 1 1.247 1.638 5.176 5.176 0 0 0-.993.989 5.313 5.313 0 0 0-.678 1.181 5.23 5.23 0 0 0-.348 1.292 5.22 5.22 0 0 0 .326 2.653 5.139 5.139 0 0 0 .69 1.212 5.205 5.205 0 0 0 .992.996 5.257 5.257 0 0 0 1.178.677 5.37 5.37 0 0 0 1.297.35 5.075 5.075 0 0 0 1.332.008 5.406 5.406 0 0 0 1.32-.343 5.289 5.289 0 0 0 2.211-1.682 5.18 5.18 0 0 0 1.02-2.465 5.2 5.2 0 0 0 .01-1.336 5.315 5.315 0 0 0-.343-1.318 5.195 5.195 0 0 0-.695-1.222 5.134 5.134 0 0 0-.987-.989 1.03 1.03 0 1 1 1.24-1.643 7.186 7.186 0 0 1 1.384 1.386 7.259 7.259 0 0 1 .97 1.706 7.413 7.413 0 0 1 .473 1.827 7.296 7.296 0 0 1-4.522 7.65 7.476 7.476 0 0 1-1.825.471 7.203 7.203 0 0 1-.89.056zM7.5 9.613a1.03 1.03 0 0 1-1.03-1.029V2.522a1.03 1.03 0 0 1 2.06 0v6.062a1.03 1.03 0 0 1-1.03 1.03z"></path>
-            </svg>
-        </button>
-    </form> *@
 </div>
-
-@*<script type="text/javascript">
-    var model_t = @Html.Raw(JsonConvert.SerializeObject(Model));
-</script>*@
-

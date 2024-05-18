@@ -15,7 +15,8 @@
     <section class="right-nav">
         <div class="kxOMhDZFzkDb">
             <div class="ECTosDyufuTqvBV">
-                @if(Model != null){
+                @if(Model != null)
+                {
                     var r = Model.GroupBy(x => x.Date.Year).Select(x => x.First()).OrderBy(x => x.Date);
                     foreach (var item in r)
                     {
@@ -25,7 +26,8 @@
                 }
             </div>
 
-            <div class="IVnxgCORpPYL" onclick="fwsxYepQKkCq()">
+            <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" onclick="fwsxYepQKkCq()">
+                <ion-icon name="add-outline"></ion-icon>
                 <span>Nowe święto</span>
             </div>
         </div>
