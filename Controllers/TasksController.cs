@@ -311,6 +311,16 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
+        [HttpGet]
+        public ActionResult asd()
+        {
+
+
+            return Json(new { success = false });
+        }
+
+
+
 
     }
 }
