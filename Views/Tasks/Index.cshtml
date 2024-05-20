@@ -3,11 +3,13 @@
 
 @{
     ViewData["Title"] = "Index";
+
+    //pierwszy dział
+    var firstDepartmentID = ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name).FirstOrDefault()?.Id;
 }
 
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
 <script src="~/lib/jquery/dist/jquery-ui.min.js"></script>
-
 
 <div class="parent">
     <section class="left-nav">
@@ -72,12 +74,19 @@
 </div> 
 
 <script type="text/javascript">
-    
     var model_t = @Html.Raw(JsonConvert.SerializeObject(Model));
-    var model_h = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Holiday));
-    var model_d = @Html.Raw(JsonConvert.SerializeObject(ViewBag.Departments));
     var model_task = @Html.Raw(JsonConvert.SerializeObject(ViewBag.TaskNames));
 </script>
 
 <script type="text/javascript" src="~/js/TaskJS.js"></script>
 <script type="text/javascript" src="~/js/site.js"></script>
+
+<script type="text/javascript">
+    if (sessionStorage.getItem('JcvzYoovBpGECWh') != null)
+    {
+        arKOctcZVJhWuhL(sessionStorage.getItem('JcvzYoovBpGECWh'));
+    }
+    else {
+        arKOctcZVJhWuhL(@firstDepartmentID);
+    }
+</script>

@@ -352,24 +352,10 @@ function CiSEfkVgdGdf(worker_id, newDepartment) {
     });
 };
 
-if (typeof arKOctcZVJhWuhL === 'function')
-{
-    arKOctcZVJhWuhL();
-    //setTimeout(function () { 
-    //    arKOctcZVJhWuhL();
-    //}, 1000)
-}
-
-//if (typeof drmZhscxvPoxiya === 'function')
+//if (typeof arKOctcZVJhWuhL === 'function')
 //{
-//    setTimeout(function ()
-//    {
-//        drmZhscxvPoxiya();
-//    }, 1000);
-    
+//    arKOctcZVJhWuhL();
 //}
-
-
 
 function getDayName(dateStr, locale)
 {
@@ -693,6 +679,7 @@ $('.left-nav').mouseleave(function (e)
     //$('.YgYDRNgkzyxgztO').remove();
     $('.YgYDRNgkzyxgztO:not(.temp)').remove();
     $('#KhUYdWBbOzZAJwi').remove();
+    $('ion-icon').removeClass('nHCgJALAMsLYOCi');
 });
 
 $(document).on('keydown', function (e)
@@ -711,7 +698,17 @@ $(document).on('keydown', function (e)
     }    
 });
 
-
+function lhkKNaastOkkmMh(t)
+{
+    if (!$(t).hasClass('pAPTryUdWHeiZZa')) 
+    {
+        $(t).children('div').children('ion-icon').addClass('nHCgJALAMsLYOCi');
+    }
+    else
+    {
+        $(t).children('div').children('ion-icon').removeClass('nHCgJALAMsLYOCi');
+    }
+};
 
 //let source = "";
 //let poi = `<video autoplay loop id="myVideo"><source src="` + source + `" type="video/mp4"></video>`;

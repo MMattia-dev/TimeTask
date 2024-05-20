@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
@@ -238,27 +239,68 @@ namespace TimeTask.Controllers
 
         public ActionResult DatesInChosenWeek(int year, int weekOfYear)
         {
-            var result = Enumerable.Range(0, 1 + LastDateOfWeekISO8601(year, weekOfYear).Subtract(FirstDateOfWeekISO8601(year, weekOfYear)).Days).Select(x => FirstDateOfWeekISO8601(year, weekOfYear).AddDays(x)).ToArray();
+            //var result = Enumerable.Range(0, 1 + LastDateOfWeekISO8601(year, weekOfYear).Subtract(FirstDateOfWeekISO8601(year, weekOfYear)).Days).Select(x => FirstDateOfWeekISO8601(year, weekOfYear).AddDays(x)).ToArray();
 
-            var result_ = new List<string>();
-            foreach (var day in result)
+            //var result_ = new List<string>();
+            //foreach (var day in result)
+            //{
+            //    foreach(var holiday in _context.Holiday)
+            //    {
+            //        if (day.ToShortDateString() == holiday.Date.ToShortDateString())
+            //        {
+            //            result_.Add(day.ToShortDateString());
+            //        }
+            //    }
+            //}
+
+            ////return Json(result);
+            //return Json(new
+            //{
+            //    result, result_
+            //});
+
+            var days = Enumerable.Range(0, 1 + LastDateOfWeekISO8601(year, weekOfYear).Subtract(FirstDateOfWeekISO8601(year, weekOfYear)).Days).Select(x => FirstDateOfWeekISO8601(year, weekOfYear).AddDays(x)).ToArray();
+
+            string div = "<div class=\"GJakzZdfXNDmfZz\">" +
+                            "<label id=\"task_lock_headers_id\" onchange=\"task_lock_headers_onchange(this)\">" +
+                                "<input type=\"checkbox\" id=\"task_lock_headers_input\" />" +
+                                "<svg id=\"lock1\" viewBox=\"-3.5 0 19 19\" width=\"32\" height=\"32\"><path d=\"M11.182 8.927v6.912a.794.794 0 0 1-.792.792H1.61a.794.794 0 0 1-.792-.792V8.927a.794.794 0 0 1 .792-.792h.654L1.956 7.11a3.534 3.534 0 0 1 6.769-2.035.554.554 0 1 1-1.062.32A2.426 2.426 0 0 0 3.017 6.79l.404 1.345h6.97a.794.794 0 0 1 .79.792zM7.108 11.47a1.108 1.108 0 1 0-1.583 1.001v1.849a.475.475 0 1 0 .95 0v-1.849a1.108 1.108 0 0 0 .633-1.001z\"></path></svg>" +
+                                "<svg id=\"lock2\" viewBox=\"-3.5 0 19 19\" width=\"32\" height=\"32\"><path d=\"M11.182 8.927v6.912a.794.794 0 0 1-.792.792H1.61a.794.794 0 0 1-.792-.792V8.927a.794.794 0 0 1 .792-.792h.856V6.367a3.534 3.534 0 1 1 7.068 0v1.768h.856a.794.794 0 0 1 .792.792zm-2.756-2.56a2.426 2.426 0 1 0-4.852 0v1.768h4.852zM7.108 11.47a1.108 1.108 0 1 0-1.583 1.001v1.849a.475.475 0 0 0 .95 0v-1.849a1.108 1.108 0 0 0 .633-1.001z\"></path></svg>" +
+                                "<span>zablokuj</span>" +
+                                "<span>nagłówki</span>" +
+                            "</label>" +
+                        "</div>";
+
+            var culture = new CultureInfo("pl-PL");
+            foreach (var day in days)
             {
-                foreach(var holiday in _context.Holiday)
+                var holiday = (_context.Holiday).Select(x => x.Date.ToString("yyyy-MM-dd")).ToList();
+
+                if (holiday.Contains(day.ToString("yyyy-MM-dd")))
                 {
-                    if (day.ToShortDateString() == holiday.Date.ToShortDateString())
+                    if (day.DayOfWeek == DayOfWeek.Sunday)
                     {
-                        result_.Add(day.ToShortDateString());
+                        div += "<div class=\"XJsRKtmIfTCptru\"><span style=\"color: orangered;\">" + day.ToString("yyyy-MM-dd") + "</span><span style=\"color: orangered;\">" + day.ToString("ddd", culture) + "</span></div>";
+                    }
+                    else
+                    {
+                        div += "<div class=\"XJsRKtmIfTCptru\"><span style=\"color: orangered;\">" + day.ToString("yyyy-MM-dd") + "</span><span>" + day.ToString("ddd", culture) + "</span></div>";
+                    }
+                }
+                else
+                {
+                    if (day.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        div += "<div class=\"XJsRKtmIfTCptru\"><span>" + day.ToString("yyyy-MM-dd") + "</span><span style=\"color: orangered;\">" + day.ToString("ddd", culture) + "</span></div>";
+                    }
+                    else
+                    {
+                        div += "<div class=\"XJsRKtmIfTCptru\"><span>" + day.ToString("yyyy-MM-dd") + "</span><span>" + day.ToString("ddd", culture) + "</span></div>";
                     }
                 }
             }
 
-
-
-            //return Json(result);
-            return Json(new
-            {
-                result, result_
-            });
+            return Content(div);
         }
 
         [HttpPost]
@@ -312,12 +354,118 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult asd()
+        public ActionResult GetDepartments(int? firstDepartment, int? savedDepartment)
         {
+            string departments = "";
 
+            if (firstDepartment != null)
+            {
+                foreach (var item in _context.Department.OrderBy(x => x.Name))
+                {
+                    if (savedDepartment != null)
+                    {
+                        if (savedDepartment == item.Id)
+                        {
+                            departments += "<div onclick=\"HMdMMtqNwVAguDt(this, " + item.Id + ")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"jxcqHOZgFmYHYkI__\">" +
+                                "<div class=\"settings_a_select\">" +
+                                    "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + item.Name + "</span>" +
+                                "</div>" +
+                            "</div>";
+                        }
+                        else
+                        {
+                            departments += "<div onclick=\"HMdMMtqNwVAguDt(this, " + item.Id + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"jxcqHOZgFmYHYkI__\">" +
+                                "<div class=\"settings_a_select\">" +
+                                    "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + item.Name + "</span>" +
+                                "</div>" +
+                            "</div>";
+                        }
+                    }
+                    else
+                    {
+                        if (firstDepartment == item.Id)
+                        {
+                            departments += "<div onclick=\"HMdMMtqNwVAguDt(this, " + item.Id + ")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"jxcqHOZgFmYHYkI__\">" +
+                                "<div class=\"settings_a_select\">" +
+                                    "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + item.Name + "</span>" +
+                                "</div>" +
+                            "</div>";
+                        }
+                        else
+                        {
+                            departments += "<div onclick=\"HMdMMtqNwVAguDt(this, " + item.Id + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"jxcqHOZgFmYHYkI__\">" +
+                                "<div class=\"settings_a_select\">" +
+                                    "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + item.Name + "</span>" +
+                                "</div>" +
+                            "</div>";
+                        }
+                    }
+                }
+            }
+
+            if (departments.Length > 0)
+            {
+                return Content(departments);
+            }
 
             return Json(new { success = false });
         }
+
+        [HttpGet]
+        public ActionResult ClickOnDepartment(int departmentID)
+        {
+            var departmentName = _context.Department.FirstOrDefault(x => x.Id == departmentID)?.Name;
+
+            return Json(departmentName);
+        }
+
+        [HttpGet]
+        public ActionResult GetTasks(int? firstDepartment, int? savedDepartment)
+        {
+            string tasks = "";
+
+            if (firstDepartment != null)
+            {
+                foreach (var task in _context.TaskName2.OrderBy(x => x.Name))
+                {
+                    if (savedDepartment != null)
+                    {
+                        if (task.DepartmentID == savedDepartment)
+                        {
+                            tasks += "<div class=\"YgYDRNgkzyxgztO\" id2=\"" + task.Id + "\" id=\"" + task.DepartmentID + "\">" +
+                                    "<svg onmousedown=\"uXPtoAMyTPOkWCV(this)\" onmouseup=\"vhKnmbRGiUsyfyh(this)\" class=\"EpPTURkmdIzOSnq\" id2=\"" + task.Id + "\" viewBox=\"0 0 20 20\" height=\"20\" width=\"20\"><path d=\"M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z\" /><path d=\"M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z\" /><path d=\"M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z\" /></svg>" +
+                                    "<div>" +
+                                        "<span>" + task.Name + "</span>" +
+                                    "</div>" +
+                                "</div>";
+                        }
+                    }
+                    else
+                    {
+                        if (task.DepartmentID == firstDepartment)
+                        {
+                            tasks += "<div class=\"YgYDRNgkzyxgztO\" id2=\"" + task.Id + "\" id=\"" + task.DepartmentID + "\">" +
+                                    "<svg onmousedown=\"uXPtoAMyTPOkWCV(this)\" onmouseup=\"vhKnmbRGiUsyfyh(this)\" class=\"EpPTURkmdIzOSnq\" id2=\"" + task.Id + "\" viewBox=\"0 0 20 20\" height=\"20\" width=\"20\"><path d=\"M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z\" /><path d=\"M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z\" /><path d=\"M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z\" /></svg>" +
+                                    "<div>" +
+                                        "<span>" + task.Name + "</span>" +
+                                    "</div>" +
+                                "</div>";
+                        }
+                    }
+                }
+            }
+
+            if (tasks.Length > 0)
+            {
+                return Content(tasks);
+            }
+
+            return Json(new { success = false });
+        }
+
+
+
+
 
 
 
