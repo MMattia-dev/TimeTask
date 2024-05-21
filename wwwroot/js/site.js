@@ -543,10 +543,6 @@ $('.left-nav').mouseenter(function ()
 {
     $('.left-nav').css({ 'width': '265px', 'box-shadow': '12px 0px 16px -15px rgba(0, 0, 0, 1)',  });
     $('.settings_a span').css({ 'opacity': '1', 'margin-left': '20px', });
-    //$('.settings_a .EQCwcxEkFOGSEpo').css({ 'opacity': '1', 'margin-left': '20px', });
-    //$('.lNhHgAvbrNdaAip').css({ 'opacity': '1', 'margin-left': '20px', });
-    //$('.settings_a.gGYzjsTuUMWvEwI').css({ 'height': '136px', });
-    //$('.settings_a.gGYzjsTuUMWvEwI').children('ion-icon').css({ 'opacity': '0', });
     $('.settings_a').css({ 'box-shadow': 'inset 0 -1px 0 rgba(255, 255, 255, 0.1)', });
     $('.IdRKPExyAQSewBL').css({ 'scrollbar-color': 'rgba(36, 110, 142, 0.7) transparent', 'scrollbar-width': 'thin' });
     
@@ -569,17 +565,32 @@ $('.left-nav').mouseenter(function ()
     }
     if (sessionStorage.getItem('JcvzYoovBpGECWh') != null) //department
     {
-        if (model_d.length > 0) 
-        {
-            for (let i = 0; i < model_d.length; i++)
+        //if (model_d.length > 0) 
+        //{
+        //    for (let i = 0; i < model_d.length; i++)
+        //    {
+        //        if (model_d[i].Id == sessionStorage.getItem('JcvzYoovBpGECWh')) 
+        //        {
+        //            let depName = model_d[i].Name;
+        //            $('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1).html(depName);
+        //        }
+        //    }
+        //}
+        $.ajax({
+            type: 'GET',
+            url: '/Tasks/ClickOnDepartment',
+            data: {
+                departmentID: sessionStorage.getItem('JcvzYoovBpGECWh')
+            },
+            success: function (response)
             {
-                if (model_d[i].Id == sessionStorage.getItem('JcvzYoovBpGECWh')) 
-                {
-                    let depName = model_d[i].Name;
-                    $('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1).html(depName);
-                }
+                $('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1).html(response);
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
             }
-        }
+        });
     }
     //
 

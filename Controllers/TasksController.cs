@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TimeTask.Data;
 using TimeTask.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TimeTask.Controllers
 {
@@ -239,26 +240,6 @@ namespace TimeTask.Controllers
 
         public ActionResult DatesInChosenWeek(int year, int weekOfYear)
         {
-            //var result = Enumerable.Range(0, 1 + LastDateOfWeekISO8601(year, weekOfYear).Subtract(FirstDateOfWeekISO8601(year, weekOfYear)).Days).Select(x => FirstDateOfWeekISO8601(year, weekOfYear).AddDays(x)).ToArray();
-
-            //var result_ = new List<string>();
-            //foreach (var day in result)
-            //{
-            //    foreach(var holiday in _context.Holiday)
-            //    {
-            //        if (day.ToShortDateString() == holiday.Date.ToShortDateString())
-            //        {
-            //            result_.Add(day.ToShortDateString());
-            //        }
-            //    }
-            //}
-
-            ////return Json(result);
-            //return Json(new
-            //{
-            //    result, result_
-            //});
-
             var days = Enumerable.Range(0, 1 + LastDateOfWeekISO8601(year, weekOfYear).Subtract(FirstDateOfWeekISO8601(year, weekOfYear)).Days).Select(x => FirstDateOfWeekISO8601(year, weekOfYear).AddDays(x)).ToArray();
 
             string div = "<div class=\"GJakzZdfXNDmfZz\">" +
@@ -272,6 +253,8 @@ namespace TimeTask.Controllers
                         "</div>";
 
             var culture = new CultureInfo("pl-PL");
+            List<string> dates = new List<string>();
+
             foreach (var day in days)
             {
                 var holiday = (_context.Holiday).Select(x => x.Date.ToString("yyyy-MM-dd")).ToList();
@@ -298,9 +281,12 @@ namespace TimeTask.Controllers
                         div += "<div class=\"XJsRKtmIfTCptru\"><span>" + day.ToString("yyyy-MM-dd") + "</span><span>" + day.ToString("ddd", culture) + "</span></div>";
                     }
                 }
+
+                dates.Add(day.ToString("yyyy-MM-dd"));
             }
 
-            return Content(div);
+            //return Content(div);
+            return Json(new { contentResult = Content(div), dates });
         }
 
         [HttpPost]
@@ -461,6 +447,58 @@ namespace TimeTask.Controllers
             }
 
             return Json(new { success = false });
+        }
+
+        [HttpGet]
+        public ActionResult Years(int? savedYear)
+        {
+            int yearNow = DateTime.Now.Year;
+            int prevYears = yearNow - 3;
+
+            string html = "";
+            for (int i = prevYears; i <= yearNow; i++)
+            {
+                if (savedYear != null)
+                {
+                    if (savedYear == i)
+                    {
+                        html += "<div onclick=\"CanjEZFvPetVidb(" + i + ")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"MkoKdHskxQLfcuP__\">" +
+                            "<div class=\"settings_a_select\">" +
+                                "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
+                            "</div>" +
+                        "</div>";
+                    }
+                    else
+                    {
+                        html += "<div onclick=\"CanjEZFvPetVidb(" + i + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"MkoKdHskxQLfcuP__\">" +
+                            "<div class=\"settings_a_select\">" +
+                                "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
+                            "</div>" +
+                        "</div>";
+                    }
+                }
+                else
+                {
+                    if (DateTime.Now.Year == i)
+                    {
+                        html += "<div onclick=\"CanjEZFvPetVidb(" + i + ")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"MkoKdHskxQLfcuP__\">" +
+                            "<div class=\"settings_a_select\">" +
+                                "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
+                            "</div>" +
+                        "</div>";
+                    }
+                    else
+                    {
+                        html += "<div onclick=\"CanjEZFvPetVidb(" + i + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"MkoKdHskxQLfcuP__\">" +
+                            "<div class=\"settings_a_select\">" +
+                                "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
+                            "</div>" +
+                        "</div>";
+                    }
+                }
+            }
+
+            return Content(html);
         }
 
 
