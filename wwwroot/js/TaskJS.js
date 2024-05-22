@@ -13,62 +13,61 @@
 
 function loadOnLoad()
 {
-    let date = new Date();
-
-    let JFUPeUjXoygHiiK = document.getElementById('JFUPeUjXoygHiiK');// tydzien
-    let year_ = $('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('span').eq(1).html();
-    if (sessionStorage.getItem('LTRXohWjonyFAsg') != null)
-    {
-        year_ = sessionStorage.getItem('LTRXohWjonyFAsg');
-    }
-    let month_ = date.getMonth() + 1;
-    let day_ = date.getDate();
-
     $.ajax({
         type: 'GET',
         url: '/Tasks/WeeksInYear',
         data: {
-            year: year_,
-            month: month_,
-            day: day_
+            savedYear: sessionStorage.getItem('LTRXohWjonyFAsg')
         },
         success: function (response)
         {
-            for (const [key, value] of Object.entries(response))
-            {
-                if (key == 'weeks')
-                {
-                    for (let i = 1; i <= value; i++)
-                    {
-                        //
-                    }
-                }
-                if (key == 'currentWeek')
-                {
-                    if (sessionStorage.getItem('hQxHXfkxHkfALTJ') != null)
-                    {
-                        let hQxHXfkxHkfALTJ = sessionStorage.getItem('hQxHXfkxHkfALTJ');
-
-                        $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(hQxHXfkxHkfALTJ);
-                    }
-                    else
-                    {
-                        let newValue = value + 1;
-
-                        $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(newValue);
-                    }
-                }
-            }
+            //$('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(parseInt(response) + 1);
+            $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(parseInt(response.getCurrentWeek) + 1);
         },
         error: function (xhr, status, error)
         {
-            console.log('Error getting data:', error);
+            console.log('Error:', error);
         }
-    }).then(function ()
-    {
-        drmZhscxvPoxiya();
-        //getDepartments();
     });
+
+    //let date = new Date();
+
+    //let year_ = $('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('span').eq(1).html();
+    ////if (sessionStorage.getItem('LTRXohWjonyFAsg') != null)
+    ////{
+    ////    year_ = sessionStorage.getItem('LTRXohWjonyFAsg');
+    ////}
+    //let month_ = date.getMonth() + 1;
+    //let day_ = date.getDate();
+
+    //$.ajax({
+    //    type: 'GET',
+    //    url: '/Tasks/WeeksInYear',
+    //    data: {
+    //        savedYear: sessionStorage.getItem('LTRXohWjonyFAsg') != null,
+    //        year: year_,
+    //        month: month_,
+    //        day: day_
+    //    },
+    //    success: function (response)
+    //    {
+    //        if (sessionStorage.getItem('hQxHXfkxHkfALTJ') != null) 
+    //        {
+    //            $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(sessionStorage.getItem('hQxHXfkxHkfALTJ'));
+    //        }
+    //        else {
+    //            $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(parseInt(response.currentWeek) + 1);
+    //        }
+    //    },
+    //    error: function (xhr, status, error)
+    //    {
+    //        console.log('Error:', error);
+    //    }
+    //}).then(function ()
+    //{
+    //    //drmZhscxvPoxiya();
+
+    //});
 };
 loadOnLoad();
 
@@ -118,7 +117,7 @@ function task_lock_headers_onchange(t)
 //    return date.toLocaleDateString(locale, { weekday: 'long' });
 //};
 
-function drmZhscxvPoxiya()
+function drmZhscxvPoxiya(year)
 {
 
 
@@ -826,28 +825,50 @@ function MkoKdHskxQLfcuP()
     }
 };
 
-function CanjEZFvPetVidb(year) 
+function CanjEZFvPetVidb(t, year) 
 {
-
-
     //let year = $(t).children('.settings_a_select').children('span').eq(1).html();
-    //$('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('span').eq(1).html(year);
+    $('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('span').eq(1).html(year);
 
-    //let MkoKdHskxQLfcuP__ = document.querySelectorAll('#MkoKdHskxQLfcuP__');
-    //for (let i = 0; i < MkoKdHskxQLfcuP__.length; i++) {
-    //    $(MkoKdHskxQLfcuP__[i]).removeClass('QbNQbKEvEMUpWaH');
-    //}
-    //$(t).addClass('QbNQbKEvEMUpWaH');
+    let MkoKdHskxQLfcuP__ = document.querySelectorAll('#MkoKdHskxQLfcuP__');
+    for (let i = 0; i < MkoKdHskxQLfcuP__.length; i++) {
+        $(MkoKdHskxQLfcuP__[i]).removeClass('QbNQbKEvEMUpWaH');
+    }
+    $(t).addClass('QbNQbKEvEMUpWaH');
 
     //sessionStorage.setItem('LTRXohWjonyFAsg', $('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('span').eq(1).html());
+    sessionStorage.setItem('LTRXohWjonyFAsg', year);
 
-    //drmZhscxvPoxiya();
+    drmZhscxvPoxiya(year);
 };
 
 function fssIiZoJOhPhaRO() 
 {
     if (!$('#fssIiZoJOhPhaRO_').hasClass('pAPTryUdWHeiZZa'))
     {
+        $.ajax({
+            type: 'GET',
+            url: '/Tasks/WeeksInYear',
+            data: {
+                savedYear: sessionStorage.getItem('LTRXohWjonyFAsg'),
+                savedWeek: sessionStorage.getItem('hQxHXfkxHkfALTJ')
+            },
+            success: function (response)
+            {
+                $('#fssIiZoJOhPhaRO_').after(response.contentResult.content);
+                //console.log(response);
+
+
+                $('#fssIiZoJOhPhaRO_').addClass('pAPTryUdWHeiZZa');
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+
+        
+
         //let html = '';
         //let date = new Date();
         //let year_ = $('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('span').eq(1).html();
@@ -921,10 +942,6 @@ function fssIiZoJOhPhaRO()
         //        console.log('Error getting data:', error);
         //    }
         //});
-
-
-
-        $('#fssIiZoJOhPhaRO_').addClass('pAPTryUdWHeiZZa');
     }
     else 
     {
@@ -940,7 +957,7 @@ function fssIiZoJOhPhaRO()
     }
 };
 
-function XyLurmdtOTQYvZU(t) 
+function XyLurmdtOTQYvZU(t, week) 
 {
     //let week = $(t).children('.settings_a_select').children('span').eq(1).html();
     //$('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(week);

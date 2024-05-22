@@ -196,13 +196,87 @@ namespace TimeTask.Controllers
             return cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
         }
 
-        public ActionResult WeeksInYear(int year, int month, int day)
+        //public ActionResult WeeksInYear(int year, int month, int day)
+        //{
+        //    var result = new { weeks = GetWeeksInYear(year), currentWeek = GetCurrentWeek(year, month, day) };
+        //    return Json(result);
+        //}
+
+        //[HttpGet]
+        //public ActionResult CurrentWeek(int? savedYear)
+        //{
+        //    int? year;
+        //    if (savedYear != null)
+        //        year = savedYear;
+        //    else
+        //        year = DateTime.Now.Year;
+
+        //    int month = DateTime.Now.Month;
+        //    int day = DateTime.Now.Day;
+
+        //    //return Json(new { weeks = GetWeeksInYear((int)year), currentWeek = GetCurrentWeek((int)year, month, day) });
+        //    return Json(GetCurrentWeek((int)year, month, day));
+        //}
+
+        [HttpGet]
+        public ActionResult WeeksInYear(int? savedYear, int? savedWeek)
         {
-            var result = new { weeks = GetWeeksInYear(year), currentWeek = GetCurrentWeek(year, month, day) };
-            return Json(result);
+            int? year;
+            if (savedYear != null)
+                year = savedYear;
+            else
+                year = DateTime.Now.Year;
+
+            int month = DateTime.Now.Month;
+            int day = DateTime.Now.Day;
+
+            int weeks = GetWeeksInYear((int)year);
+
+            string div = "";
+            for (int i = 1; i <= weeks; i++)
+            {
+                if (savedWeek != null)
+                {
+                    if (i == savedWeek)
+                    {
+                        div += "<div onclick=\"XyLurmdtOTQYvZU(this, " + i + ")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"fssIiZoJOhPhaRO__\">" +
+                            "<div class=\"settings_a_select\">" +
+                                "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
+                            "</div>" +
+                        "</div>";
+                    }
+                    else
+                    {
+                        div += "<div onclick=\"XyLurmdtOTQYvZU(this, " + i + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"fssIiZoJOhPhaRO__\">" +
+                            "<div class=\"settings_a_select\">" +
+                                "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
+                            "</div>" +
+                        "</div>";
+                    }
+                }
+                else
+                {
+                    if (i == GetCurrentWeek((int)year, month, day))
+                    {
+                        div += "<div onclick=\"XyLurmdtOTQYvZU(this, " + i + ")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"fssIiZoJOhPhaRO__\">" +
+                            "<div class=\"settings_a_select\">" +
+                                "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
+                            "</div>" +
+                        "</div>";
+                    }
+                    else
+                    {
+                        div += "<div onclick=\"XyLurmdtOTQYvZU(this, " + i + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"fssIiZoJOhPhaRO__\">" +
+                            "<div class=\"settings_a_select\">" +
+                                "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
+                            "</div>" +
+                        "</div>";
+                    }
+                }
+            }
+
+            return Json(new { contentResult = Content(div), getCurrentWeek = GetCurrentWeek((int)year, month, day) });
         }
-
-
 
         public DateTime FirstDateOfWeekISO8601(int year, int weekOfYear)
         {
@@ -462,7 +536,7 @@ namespace TimeTask.Controllers
                 {
                     if (savedYear == i)
                     {
-                        html += "<div onclick=\"CanjEZFvPetVidb(" + i + ")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"MkoKdHskxQLfcuP__\">" +
+                        html += "<div onclick=\"CanjEZFvPetVidb(this, " + i + ")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"MkoKdHskxQLfcuP__\">" +
                             "<div class=\"settings_a_select\">" +
                                 "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
                             "</div>" +
@@ -470,7 +544,7 @@ namespace TimeTask.Controllers
                     }
                     else
                     {
-                        html += "<div onclick=\"CanjEZFvPetVidb(" + i + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"MkoKdHskxQLfcuP__\">" +
+                        html += "<div onclick=\"CanjEZFvPetVidb(this, " + i + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"MkoKdHskxQLfcuP__\">" +
                             "<div class=\"settings_a_select\">" +
                                 "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
                             "</div>" +
@@ -481,7 +555,7 @@ namespace TimeTask.Controllers
                 {
                     if (DateTime.Now.Year == i)
                     {
-                        html += "<div onclick=\"CanjEZFvPetVidb(" + i + ")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"MkoKdHskxQLfcuP__\">" +
+                        html += "<div onclick=\"CanjEZFvPetVidb(this, " + i + ")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"MkoKdHskxQLfcuP__\">" +
                             "<div class=\"settings_a_select\">" +
                                 "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
                             "</div>" +
@@ -489,7 +563,7 @@ namespace TimeTask.Controllers
                     }
                     else
                     {
-                        html += "<div onclick=\"CanjEZFvPetVidb(" + i + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"MkoKdHskxQLfcuP__\">" +
+                        html += "<div onclick=\"CanjEZFvPetVidb(this, " + i + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"MkoKdHskxQLfcuP__\">" +
                             "<div class=\"settings_a_select\">" +
                                 "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
                             "</div>" +
