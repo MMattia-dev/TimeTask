@@ -219,7 +219,96 @@ namespace TimeTask.Controllers
         //}
 
         [HttpGet]
-        public ActionResult WeeksInYear(int? savedYear, int? savedWeek)
+        public ActionResult Years(int? savedYear, int? savedWeek, int? savedDepartment)
+        {
+            //year week
+            int month = DateTime.Now.Month;
+            int day = DateTime.Now.Day;
+
+            int? year;
+            if (savedYear != null)
+            {
+                year = savedYear;
+            }
+            else
+            {
+                year = DateTime.Now.Year;
+            }
+
+            int? week;
+            if (savedWeek != null)
+            {
+                week = savedWeek;
+            }
+            else
+            {
+                week = GetCurrentWeek((int)year, month, day) + 1;
+            }
+            //
+
+            //department
+            int? department;
+            if (savedDepartment != null)
+            {
+                department = savedDepartment;
+            }
+            else
+            {
+                department = (_context.Department).OrderBy(x => x.Name).FirstOrDefault()?.Id;
+            }
+            //
+
+            int yearNow = DateTime.Now.Year;
+            int prevYears = yearNow - 3;
+
+            string html = "";
+            for (int i = prevYears; i <= yearNow; i++)
+            {
+                if (savedYear != null)
+                {
+                    if (savedYear == i)
+                    {
+                        html += "<div onclick=\"CanjEZFvPetVidb(this, " + i + ", " + week + ", " + department + ")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"MkoKdHskxQLfcuP__\">" +
+                            "<div class=\"settings_a_select\">" +
+                                "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
+                            "</div>" +
+                        "</div>";
+                    }
+                    else
+                    {
+                        html += "<div onclick=\"CanjEZFvPetVidb(this, " + i + ", " + week + ", " + department + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"MkoKdHskxQLfcuP__\">" +
+                            "<div class=\"settings_a_select\">" +
+                                "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
+                            "</div>" +
+                        "</div>";
+                    }
+                }
+                else
+                {
+                    if (DateTime.Now.Year == i)
+                    {
+                        html += "<div onclick=\"CanjEZFvPetVidb(this, " + i + ", " + week + ", " + department + ")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"MkoKdHskxQLfcuP__\">" +
+                            "<div class=\"settings_a_select\">" +
+                                "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
+                            "</div>" +
+                        "</div>";
+                    }
+                    else
+                    {
+                        html += "<div onclick=\"CanjEZFvPetVidb(this, " + i + ", " + week + ", " + department + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"MkoKdHskxQLfcuP__\">" +
+                            "<div class=\"settings_a_select\">" +
+                                "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
+                            "</div>" +
+                        "</div>";
+                    }
+                }
+            }
+
+            return Content(html);
+        }
+
+        [HttpGet]
+        public ActionResult WeeksInYear(int? savedYear, int? savedWeek, int? savedDepartment)
         {
             int? year;
             if (savedYear != null)
@@ -232,6 +321,18 @@ namespace TimeTask.Controllers
 
             int weeks = GetWeeksInYear((int)year);
 
+            //department
+            int? department;
+            if (savedDepartment != null)
+            {
+                department = savedDepartment;
+            }
+            else
+            {
+                department = (_context.Department).OrderBy(x => x.Name).FirstOrDefault()?.Id;
+            }
+            //
+
             string div = "";
             for (int i = 1; i <= weeks; i++)
             {
@@ -239,7 +340,7 @@ namespace TimeTask.Controllers
                 {
                     if (i == savedWeek)
                     {
-                        div += "<div onclick=\"XyLurmdtOTQYvZU(this, " + i + ")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"fssIiZoJOhPhaRO__\">" +
+                        div += "<div onclick=\"XyLurmdtOTQYvZU(this, " + year + ", " + i + ", " + department +")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"fssIiZoJOhPhaRO__\">" +
                             "<div class=\"settings_a_select\">" +
                                 "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
                             "</div>" +
@@ -247,7 +348,7 @@ namespace TimeTask.Controllers
                     }
                     else
                     {
-                        div += "<div onclick=\"XyLurmdtOTQYvZU(this, " + i + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"fssIiZoJOhPhaRO__\">" +
+                        div += "<div onclick=\"XyLurmdtOTQYvZU(this, " + year + ", " + i + ", " + department + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"fssIiZoJOhPhaRO__\">" +
                             "<div class=\"settings_a_select\">" +
                                 "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
                             "</div>" +
@@ -256,9 +357,9 @@ namespace TimeTask.Controllers
                 }
                 else
                 {
-                    if (i == GetCurrentWeek((int)year, month, day))
+                    if (i == GetCurrentWeek((int)year, month, day) + 1)
                     {
-                        div += "<div onclick=\"XyLurmdtOTQYvZU(this, " + i + ")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"fssIiZoJOhPhaRO__\">" +
+                        div += "<div onclick=\"XyLurmdtOTQYvZU(this, " + year + ", " + i + ", " + department + ")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"fssIiZoJOhPhaRO__\">" +
                             "<div class=\"settings_a_select\">" +
                                 "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
                             "</div>" +
@@ -266,7 +367,7 @@ namespace TimeTask.Controllers
                     }
                     else
                     {
-                        div += "<div onclick=\"XyLurmdtOTQYvZU(this, " + i + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"fssIiZoJOhPhaRO__\">" +
+                        div += "<div onclick=\"XyLurmdtOTQYvZU(this, " + year + ", " + i + ", " + department + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"fssIiZoJOhPhaRO__\">" +
                             "<div class=\"settings_a_select\">" +
                                 "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
                             "</div>" +
@@ -310,6 +411,48 @@ namespace TimeTask.Controllers
             var result = firstThursday.AddDays(weekNum * 7);
 
             return result.AddDays(3);
+        }
+
+        [HttpGet]
+        public ActionResult CreateTable(int? savedYear, int? savedWeek, int? savedDepartment)
+        {
+            //year week
+            int month = DateTime.Now.Month;
+            int day = DateTime.Now.Day;
+
+            int? year;
+            if (savedYear != null)
+            {
+                year = savedYear;
+            }
+            else
+            {
+                year = DateTime.Now.Year;
+            }
+
+            int? week;
+            if (savedWeek != null)
+            {
+                week = savedWeek;
+            }
+            else
+            {
+                week = GetCurrentWeek((int)year, month, day) + 1;
+            }
+            //
+
+            var departmentID = _context.Department.FirstOrDefault(x => x.Id == savedDepartment)?.Id;
+            if (departmentID == null)
+            {
+                departmentID = _context.Department.OrderBy(x => x.Name).FirstOrDefault()?.Id;
+            }
+
+
+
+
+
+
+            return Json(DatesInChosenWeek((int)year, (int)week));
         }
 
         public ActionResult DatesInChosenWeek(int year, int weekOfYear)
@@ -359,8 +502,8 @@ namespace TimeTask.Controllers
                 dates.Add(day.ToString("yyyy-MM-dd"));
             }
 
-            //return Content(div);
-            return Json(new { contentResult = Content(div), dates });
+            //return Json(new { contentResult = Content(div), dates });
+            return Json(Content(div));
         }
 
         [HttpPost]
@@ -472,11 +615,41 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult ClickOnDepartment(int departmentID)
+        public ActionResult ClickOnDepartment(int? savedYear, int? savedWeek, int departmentID)
         {
-            var departmentName = _context.Department.FirstOrDefault(x => x.Id == departmentID)?.Name;
+            //year week
+            int month = DateTime.Now.Month;
+            int day = DateTime.Now.Day;
 
-            return Json(departmentName);
+            int? year;
+            if (savedYear != null)
+            {
+                year = savedYear;
+            }
+            else
+            {
+                year = DateTime.Now.Year;
+            }
+
+            int? week;
+            if (savedWeek != null)
+            {
+                week = savedWeek;
+            }
+            else
+            {
+                week = GetCurrentWeek((int)year, month, day) + 1;
+            }
+            //
+
+            var departmentName = _context.Department.FirstOrDefault(x => x.Id == departmentID)?.Name;
+            if (departmentName == null)
+            {
+                departmentName = _context.Department.OrderBy(x => x.Name).FirstOrDefault()?.Name;
+            }
+
+            //return Json(departmentName);
+            return Json(new { year, week, departmentName });
         }
 
         [HttpGet]
@@ -492,8 +665,8 @@ namespace TimeTask.Controllers
                     {
                         if (task.DepartmentID == savedDepartment)
                         {
-                            tasks += "<div class=\"YgYDRNgkzyxgztO\" id2=\"" + task.Id + "\" id=\"" + task.DepartmentID + "\">" +
-                                    "<svg onmousedown=\"uXPtoAMyTPOkWCV(this)\" onmouseup=\"vhKnmbRGiUsyfyh(this)\" class=\"EpPTURkmdIzOSnq\" id2=\"" + task.Id + "\" viewBox=\"0 0 20 20\" height=\"20\" width=\"20\"><path d=\"M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z\" /><path d=\"M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z\" /><path d=\"M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z\" /></svg>" +
+                            tasks += "<div class=\"YgYDRNgkzyxgztO\" id=\"ekzMacYlAMvOgoy__\">" + //pGXQuswWwoZGMWg=\"" + task.Id + "\"   //id=\"" + task.DepartmentID + "\"
+                                    "<svg onmousedown=\"uXPtoAMyTPOkWCV(this, " + task.Id + ")\" onmouseup=\"vhKnmbRGiUsyfyh(this)\" class=\"EpPTURkmdIzOSnq\" id2=\"" + task.Id + "\" viewBox=\"0 0 20 20\" height=\"20\" width=\"20\"><path d=\"M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z\" /><path d=\"M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z\" /><path d=\"M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z\" /></svg>" +
                                     "<div>" +
                                         "<span>" + task.Name + "</span>" +
                                     "</div>" +
@@ -504,8 +677,8 @@ namespace TimeTask.Controllers
                     {
                         if (task.DepartmentID == firstDepartment)
                         {
-                            tasks += "<div class=\"YgYDRNgkzyxgztO\" id2=\"" + task.Id + "\" id=\"" + task.DepartmentID + "\">" +
-                                    "<svg onmousedown=\"uXPtoAMyTPOkWCV(this)\" onmouseup=\"vhKnmbRGiUsyfyh(this)\" class=\"EpPTURkmdIzOSnq\" id2=\"" + task.Id + "\" viewBox=\"0 0 20 20\" height=\"20\" width=\"20\"><path d=\"M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z\" /><path d=\"M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z\" /><path d=\"M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z\" /></svg>" +
+                            tasks += "<div class=\"YgYDRNgkzyxgztO\" id=\"ekzMacYlAMvOgoy__\">" + //pGXQuswWwoZGMWg=\"" + task.Id + "\"   //id=\"" + task.DepartmentID + "\"
+                                    "<svg onmousedown=\"uXPtoAMyTPOkWCV(this, " + task.Id + ")\" onmouseup=\"vhKnmbRGiUsyfyh(this)\" class=\"EpPTURkmdIzOSnq\" id2=\"" + task.Id + "\" viewBox=\"0 0 20 20\" height=\"20\" width=\"20\"><path d=\"M2.5 8C1.94772 8 1.5 7.55228 1.5 7C1.5 6.44772 1.94772 6 2.5 6H17.5C18.0523 6 18.5 6.44772 18.5 7C18.5 7.55228 18.0523 8 17.5 8H2.5Z\" /><path d=\"M2.5 11.25C1.94772 11.25 1.5 10.8023 1.5 10.25C1.5 9.69772 1.94772 9.25 2.5 9.25H17.5C18.0523 9.25 18.5 9.69772 18.5 10.25C18.5 10.8023 18.0523 11.25 17.5 11.25H2.5Z\" /><path d=\"M2.5 14.5C1.94772 14.5 1.5 14.0523 1.5 13.5C1.5 12.9477 1.94772 12.5 2.5 12.5H17.5C18.0523 12.5 18.5 12.9477 18.5 13.5C18.5 14.0523 18.0523 14.5 17.5 14.5H2.5Z\" /></svg>" +
                                     "<div>" +
                                         "<span>" + task.Name + "</span>" +
                                     "</div>" +
@@ -523,57 +696,19 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
-        [HttpGet]
-        public ActionResult Years(int? savedYear)
-        {
-            int yearNow = DateTime.Now.Year;
-            int prevYears = yearNow - 3;
-
-            string html = "";
-            for (int i = prevYears; i <= yearNow; i++)
-            {
-                if (savedYear != null)
-                {
-                    if (savedYear == i)
-                    {
-                        html += "<div onclick=\"CanjEZFvPetVidb(this, " + i + ")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"MkoKdHskxQLfcuP__\">" +
-                            "<div class=\"settings_a_select\">" +
-                                "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
-                            "</div>" +
-                        "</div>";
-                    }
-                    else
-                    {
-                        html += "<div onclick=\"CanjEZFvPetVidb(this, " + i + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"MkoKdHskxQLfcuP__\">" +
-                            "<div class=\"settings_a_select\">" +
-                                "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
-                            "</div>" +
-                        "</div>";
-                    }
-                }
-                else
-                {
-                    if (DateTime.Now.Year == i)
-                    {
-                        html += "<div onclick=\"CanjEZFvPetVidb(this, " + i + ")\" class=\"settings_a ugiECcrnKwaoVsb QbNQbKEvEMUpWaH\" id=\"MkoKdHskxQLfcuP__\">" +
-                            "<div class=\"settings_a_select\">" +
-                                "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
-                            "</div>" +
-                        "</div>";
-                    }
-                    else
-                    {
-                        html += "<div onclick=\"CanjEZFvPetVidb(this, " + i + ")\" class=\"settings_a ugiECcrnKwaoVsb\" id=\"MkoKdHskxQLfcuP__\">" +
-                            "<div class=\"settings_a_select\">" +
-                                "<span></span><span style=\"opacity: 1; margin-right: 20px;\">" + i + "</span>" +
-                            "</div>" +
-                        "</div>";
-                    }
-                }
-            }
-
-            return Content(html);
-        }
+        //[HttpGet]
+        //public ActionResult GetWeek(int? savedWeek)
+        //{
+        //    int? week;
+        //    if (savedWeek != null)
+        //    {
+        //        week = savedWeek;
+        //    }
+        //    else
+        //    {
+        //        week
+        //    }
+        //}
 
 
 

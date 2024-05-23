@@ -13,22 +13,26 @@
 
 function loadOnLoad()
 {
-    $.ajax({
-        type: 'GET',
-        url: '/Tasks/WeeksInYear',
-        data: {
-            savedYear: sessionStorage.getItem('LTRXohWjonyFAsg')
-        },
-        success: function (response)
-        {
-            //$('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(parseInt(response) + 1);
-            $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(parseInt(response.getCurrentWeek) + 1);
-        },
-        error: function (xhr, status, error)
-        {
-            console.log('Error:', error);
-        }
-    });
+    //$.ajax({
+    //    type: 'GET',
+    //    url: '/Tasks/WeeksInYear',
+    //    data: {
+    //        savedYear: sessionStorage.getItem('LTRXohWjonyFAsg')
+    //    },
+    //    success: function (response)
+    //    {
+    //        //$('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(parseInt(response) + 1);
+    //        $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(parseInt(response.getCurrentWeek) + 1);
+    //    },
+    //    error: function (xhr, status, error)
+    //    {
+    //        console.log('Error:', error);
+    //    }
+    //});
+
+
+
+
 
     //let date = new Date();
 
@@ -68,6 +72,11 @@ function loadOnLoad()
     //    //drmZhscxvPoxiya();
 
     //});
+
+
+    drmZhscxvPoxiya(sessionStorage.getItem('LTRXohWjonyFAsg'), sessionStorage.getItem('hQxHXfkxHkfALTJ'), sessionStorage.getItem('JcvzYoovBpGECWh'));
+
+
 };
 loadOnLoad();
 
@@ -117,8 +126,33 @@ function task_lock_headers_onchange(t)
 //    return date.toLocaleDateString(locale, { weekday: 'long' });
 //};
 
-function drmZhscxvPoxiya(year)
+function drmZhscxvPoxiya(year, week, department)
 {
+    //console.log(year, week, department);
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/CreateTable',
+        data: {
+            savedYear: year,
+            savedWeek: week,
+            savedDepartment: department
+        },
+        success: function (response)
+        {
+            $('.fSJtEaXwJSHzoxW').html(response.dates.content);
+            $('.wcHMgjWjXaRMPKy').html();
+
+            console.log(response);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+
+
+
+
 
 
     //let LwxRoYhfmyzTlGm = document.querySelectorAll('.LwxRoYhfmyzTlGm');
@@ -486,226 +520,226 @@ function arKOctcZVJhWuhL(id)
 //    }
 //};
 
-function dpxpJkwLFcKTpet()
-{
-    let LwxRoYhfmyzTlGm = document.querySelectorAll('.LwxRoYhfmyzTlGm');
-    let changesArray = [];
-    for (let z = 0; z < LwxRoYhfmyzTlGm.length; z++)
-    {
-        let d_ = LwxRoYhfmyzTlGm[z].getAttribute('date');
-        let w_ = LwxRoYhfmyzTlGm[z].getAttribute('worker');
-        let jStart_ = LwxRoYhfmyzTlGm[z].querySelectorAll('input')[0].value;
-        let jEnd_ = LwxRoYhfmyzTlGm[z].querySelectorAll('input')[1].value;
+//function dpxpJkwLFcKTpet()
+//{
+//    let LwxRoYhfmyzTlGm = document.querySelectorAll('.LwxRoYhfmyzTlGm');
+//    let changesArray = [];
+//    for (let z = 0; z < LwxRoYhfmyzTlGm.length; z++)
+//    {
+//        let d_ = LwxRoYhfmyzTlGm[z].getAttribute('date');
+//        let w_ = LwxRoYhfmyzTlGm[z].getAttribute('worker');
+//        let jStart_ = LwxRoYhfmyzTlGm[z].querySelectorAll('input')[0].value;
+//        let jEnd_ = LwxRoYhfmyzTlGm[z].querySelectorAll('input')[1].value;
 
-        if (jStart_ != '' && jEnd_ != '')
-        {
-            for (let y = 0; y < model_t.length; y++)
-            {
-                let id_Model = model_t[y].Id;
-                let workerID_Model = model_t[y].WorkerID;
-                let date_Model = model_t[y].Date.split('T')[0];
-                let jobStart_Model = new Date(model_t[y].JobStart);
-                let jobEnd_Model = new Date(model_t[y].JobEnd);
+//        if (jStart_ != '' && jEnd_ != '')
+//        {
+//            for (let y = 0; y < model_t.length; y++)
+//            {
+//                let id_Model = model_t[y].Id;
+//                let workerID_Model = model_t[y].WorkerID;
+//                let date_Model = model_t[y].Date.split('T')[0];
+//                let jobStart_Model = new Date(model_t[y].JobStart);
+//                let jobEnd_Model = new Date(model_t[y].JobEnd);
 
-                let jobStart_Modelnew = padTo2Digits(jobStart_Model.getHours()) + ':' + padTo2Digits(jobStart_Model.getMinutes());
-                let jobEnd_Modelnew = padTo2Digits(jobEnd_Model.getHours()) + ':' + padTo2Digits(jobEnd_Model.getMinutes());
-
-
-                if (w_ == workerID_Model && d_ == date_Model && jStart_ != jobStart_Modelnew && jEnd_ != jobEnd_Modelnew)
-                {
-                    changesArray.push({ id: id_Model, jobStart: date_Model + ' ' + jStart_, jobEnd: date_Model + ' ' + jEnd_ });
-                }
-                else if (w_ == workerID_Model && d_ == date_Model && jStart_ == jobStart_Modelnew && jEnd_ != jobEnd_Modelnew)
-                {
-                    changesArray.push({ id: id_Model, jobStart: date_Model + ' ' + jStart_, jobEnd: date_Model + ' ' + jEnd_ });
-                }
-                else if (w_ == workerID_Model && d_ == date_Model && jStart_ != jobStart_Modelnew && jEnd_ == jobEnd_Modelnew)
-                {
-                    changesArray.push({ id: id_Model, jobStart: date_Model + ' ' + jStart_, jobEnd: date_Model + ' ' + jEnd_ });
-                }
-            }
-        }
-    }
-
-    if (changesArray.length > 0)
-    {
-        for (let z = 0; z < changesArray.length; z++)
-        {
-            let id_ = changesArray[z].id;
-            let jobStart_ = changesArray[z].jobStart;
-            let jobEnd_ = changesArray[z].jobEnd;
-
-            $.ajax({
-                type: 'POST',
-                url: '/Tasks/EditTask',
-                data: {
-                    id: id_,
-                    jobStart: jobStart_,
-                    jobEnd: jobEnd_
-                },
-                success: function (response)
-                {
-
-                },
-                error: function (xhr, status, error)
-                {
-                    console.log('Error updating data:', error);
-                }
-            });
-
-        }
-    }
-};
-
-function MAQLaRkPpbPPjIH() 
-{
-    let wcHMgjWjXaRMPKy = document.querySelectorAll('.wcHMgjWjXaRMPKy');
-    for (let i = 0; i < wcHMgjWjXaRMPKy.length; i++)
-    {
-        let workerID_ = wcHMgjWjXaRMPKy[i].getAttribute('worker');//
-
-        let SBVWNWOJZnTplXL = wcHMgjWjXaRMPKy[i].querySelectorAll('.SBVWNWOJZnTplXL');
-        for (let j = 0; j < SBVWNWOJZnTplXL.length; j++)
-        {
-            let date_ = SBVWNWOJZnTplXL[j].getAttribute('date');//
-            let jobStart_ = SBVWNWOJZnTplXL[j].querySelectorAll('.LwxRoYhfmyzTlGm input')[0].value;//
-            let jobEnd_ = SBVWNWOJZnTplXL[j].querySelectorAll('.LwxRoYhfmyzTlGm input')[1].value;//
-            let YgYDRNgkzyxgztO = SBVWNWOJZnTplXL[j].querySelectorAll('.AQzCKqmlrQJmxzn .pTBYGYxynGajyIy');
-
-            if (jobStart_ != '' && jobEnd_ != '')
-            {
-                for (let k = 0; k < YgYDRNgkzyxgztO.length; k++)
-                {
-                    if (YgYDRNgkzyxgztO[k].hasAttribute('id2'))
-                    {
-                        let taskNameID_ = YgYDRNgkzyxgztO[k].getAttribute('id2');
-                        if (taskNameID_ != null)
-                        {
-                            let dateJobStart = date_ + ' ' + jobStart_;
-                            let dateJobEnd = date_ + ' ' + jobEnd_;
-
-                            $.ajax({
-                                type: 'POST',
-                                url: '/Tasks/AddTasks',
-                                data: {
-                                    workerID: workerID_,
-                                    taskNameID: taskNameID_,
-                                    date: date_,
-                                    jobStart: dateJobStart,
-                                    jobEnd: dateJobEnd
-                                },
-                                success: function (response)
-                                {
-
-                                },
-                                error: function (xhr, status, error)
-                                {
-                                    console.log('Error adding data:', error);
-                                }
-                            });
-                        }
-                    }
-                }
-            }
-        }
-    }
-};
-
-function kLqdFLvjJrKETlK(t)
-{
-    $(t).children(':first').html('Zapisywanie');
-    var dots = window.setInterval(function ()
-    {
-        var wait = document.getElementById("jSxkTLkOwolIQOG");
-        if (wait.innerHTML.length > 4)
-            wait.innerHTML = "";
-        else
-            wait.innerHTML += ".";
-    }, 200);
+//                let jobStart_Modelnew = padTo2Digits(jobStart_Model.getHours()) + ':' + padTo2Digits(jobStart_Model.getMinutes());
+//                let jobEnd_Modelnew = padTo2Digits(jobEnd_Model.getHours()) + ':' + padTo2Digits(jobEnd_Model.getMinutes());
 
 
-    $('.loader_div').fadeIn(200);
+//                if (w_ == workerID_Model && d_ == date_Model && jStart_ != jobStart_Modelnew && jEnd_ != jobEnd_Modelnew)
+//                {
+//                    changesArray.push({ id: id_Model, jobStart: date_Model + ' ' + jStart_, jobEnd: date_Model + ' ' + jEnd_ });
+//                }
+//                else if (w_ == workerID_Model && d_ == date_Model && jStart_ == jobStart_Modelnew && jEnd_ != jobEnd_Modelnew)
+//                {
+//                    changesArray.push({ id: id_Model, jobStart: date_Model + ' ' + jStart_, jobEnd: date_Model + ' ' + jEnd_ });
+//                }
+//                else if (w_ == workerID_Model && d_ == date_Model && jStart_ != jobStart_Modelnew && jEnd_ == jobEnd_Modelnew)
+//                {
+//                    changesArray.push({ id: id_Model, jobStart: date_Model + ' ' + jStart_, jobEnd: date_Model + ' ' + jEnd_ });
+//                }
+//            }
+//        }
+//    }
+
+//    if (changesArray.length > 0)
+//    {
+//        for (let z = 0; z < changesArray.length; z++)
+//        {
+//            let id_ = changesArray[z].id;
+//            let jobStart_ = changesArray[z].jobStart;
+//            let jobEnd_ = changesArray[z].jobEnd;
+
+//            $.ajax({
+//                type: 'POST',
+//                url: '/Tasks/EditTask',
+//                data: {
+//                    id: id_,
+//                    jobStart: jobStart_,
+//                    jobEnd: jobEnd_
+//                },
+//                success: function (response)
+//                {
+
+//                },
+//                error: function (xhr, status, error)
+//                {
+//                    console.log('Error updating data:', error);
+//                }
+//            });
+
+//        }
+//    }
+//};
+
+//function MAQLaRkPpbPPjIH() 
+//{
+//    let wcHMgjWjXaRMPKy = document.querySelectorAll('.wcHMgjWjXaRMPKy');
+//    for (let i = 0; i < wcHMgjWjXaRMPKy.length; i++)
+//    {
+//        let workerID_ = wcHMgjWjXaRMPKy[i].getAttribute('worker');//
+
+//        let SBVWNWOJZnTplXL = wcHMgjWjXaRMPKy[i].querySelectorAll('.SBVWNWOJZnTplXL');
+//        for (let j = 0; j < SBVWNWOJZnTplXL.length; j++)
+//        {
+//            let date_ = SBVWNWOJZnTplXL[j].getAttribute('date');//
+//            let jobStart_ = SBVWNWOJZnTplXL[j].querySelectorAll('.LwxRoYhfmyzTlGm input')[0].value;//
+//            let jobEnd_ = SBVWNWOJZnTplXL[j].querySelectorAll('.LwxRoYhfmyzTlGm input')[1].value;//
+//            let YgYDRNgkzyxgztO = SBVWNWOJZnTplXL[j].querySelectorAll('.AQzCKqmlrQJmxzn .pTBYGYxynGajyIy');
+
+//            if (jobStart_ != '' && jobEnd_ != '')
+//            {
+//                for (let k = 0; k < YgYDRNgkzyxgztO.length; k++)
+//                {
+//                    if (YgYDRNgkzyxgztO[k].hasAttribute('pGXQuswWwoZGMWg'))
+//                    {
+//                        let taskNameID_ = YgYDRNgkzyxgztO[k].getAttribute('pGXQuswWwoZGMWg');
+//                        if (taskNameID_ != null)
+//                        {
+//                            let dateJobStart = date_ + ' ' + jobStart_;
+//                            let dateJobEnd = date_ + ' ' + jobEnd_;
+
+//                            $.ajax({
+//                                type: 'POST',
+//                                url: '/Tasks/AddTasks',
+//                                data: {
+//                                    workerID: workerID_,
+//                                    taskNameID: taskNameID_,
+//                                    date: date_,
+//                                    jobStart: dateJobStart,
+//                                    jobEnd: dateJobEnd
+//                                },
+//                                success: function (response)
+//                                {
+
+//                                },
+//                                error: function (xhr, status, error)
+//                                {
+//                                    console.log('Error adding data:', error);
+//                                }
+//                            });
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+//};
+
+//function kLqdFLvjJrKETlK(t)
+//{
+//    $(t).children(':first').html('Zapisywanie');
+//    var dots = window.setInterval(function ()
+//    {
+//        var wait = document.getElementById("jSxkTLkOwolIQOG");
+//        if (wait.innerHTML.length > 4)
+//            wait.innerHTML = "";
+//        else
+//            wait.innerHTML += ".";
+//    }, 200);
 
 
-    MAQLaRkPpbPPjIH();
-    dpxpJkwLFcKTpet();
+//    $('.loader_div').fadeIn(200);
 
 
-    setTimeout(function ()
-    {
-        location.reload();
-    }, 250);
-};
+//    MAQLaRkPpbPPjIH();
+//    dpxpJkwLFcKTpet();
 
-function fuhYEhklpyusggn(t)
-{
-    $(t).parent().remove();
-};
 
-function VSalvFSAeCOdsNG(t)
-{
-    let w = t.getAttribute('worker');
-    let d = t.getAttribute('date');
-    t.innerHTML = '<svg viewBox="0 0 10 6" width="10" height="6"><path d="M0 0h10L5 6z"></path></svg>';
-    t.style.removeProperty('background-color');
+//    setTimeout(function ()
+//    {
+//        location.reload();
+//    }, 250);
+//};
 
-    let avnythFRVEkXnim = document.querySelectorAll('.avnythFRVEkXnim');
-    for (let i = 0; i < avnythFRVEkXnim.length; i++)
-    {
-        let w2 = avnythFRVEkXnim[i].getAttribute('worker');
-        let d2 = avnythFRVEkXnim[i].getAttribute('date');
+//function fuhYEhklpyusggn(t)
+//{
+//    $(t).parent().remove();
+//};
 
-        if (w == w2 && d == d2)
-        {
-            $(avnythFRVEkXnim[i]).hide();
-            t.setAttribute('onclick', 'SnVgWOTEsLEUbKu(this)');
-        }
-    }
-};
+//function VSalvFSAeCOdsNG(t)
+//{
+//    let w = t.getAttribute('worker');
+//    let d = t.getAttribute('date');
+//    t.innerHTML = '<svg viewBox="0 0 10 6" width="10" height="6"><path d="M0 0h10L5 6z"></path></svg>';
+//    t.style.removeProperty('background-color');
 
-function MnoxFPIpMwcHhAv(t)
-{
-    if ($(t).parent().parent().parent().children().eq(1).children(':visible').length > 0)
-    {
+//    let avnythFRVEkXnim = document.querySelectorAll('.avnythFRVEkXnim');
+//    for (let i = 0; i < avnythFRVEkXnim.length; i++)
+//    {
+//        let w2 = avnythFRVEkXnim[i].getAttribute('worker');
+//        let d2 = avnythFRVEkXnim[i].getAttribute('date');
 
-        //wyłącz zmianę tygodnia
-        document.getElementById('uKdvKAhOhYwppOO').classList.add('hkyYYlXJPLaqBDt');
-        document.getElementById('JFUPeUjXoygHiiK').classList.add('hkyYYlXJPLaqBDt');
-        //
+//        if (w == w2 && d == d2)
+//        {
+//            $(avnythFRVEkXnim[i]).hide();
+//            t.setAttribute('onclick', 'SnVgWOTEsLEUbKu(this)');
+//        }
+//    }
+//};
 
-        //włącz 'Zapisz zmiany' button
-        document.getElementById('PeAfgVTiQsbFhjt').classList.remove('fNPXdDDFqqbVOkt');
-        //
-    }
+//function MnoxFPIpMwcHhAv(t)
+//{
+//    if ($(t).parent().parent().parent().children().eq(1).children(':visible').length > 0)
+//    {
 
-    let input1_ = t.innerHTML.split(' - ')[0];
-    let input2_ = t.innerHTML.split(' - ')[1];
+//        //wyłącz zmianę tygodnia
+//        document.getElementById('uKdvKAhOhYwppOO').classList.add('hkyYYlXJPLaqBDt');
+//        document.getElementById('JFUPeUjXoygHiiK').classList.add('hkyYYlXJPLaqBDt');
+//        //
 
-    let parentWorker = $(t).parent().attr("worker");
-    let parentDate = $(t).parent().attr("date");
+//        //włącz 'Zapisz zmiany' button
+//        document.getElementById('PeAfgVTiQsbFhjt').classList.remove('fNPXdDDFqqbVOkt');
+//        //
+//    }
 
-    let LwxRoYhfmyzTlGm = document.querySelectorAll('.LwxRoYhfmyzTlGm');
-    for (let i = 0; i < LwxRoYhfmyzTlGm.length; i++)
-    {
-        if (LwxRoYhfmyzTlGm[i].getAttribute('worker') == parentWorker && LwxRoYhfmyzTlGm[i].getAttribute('date') == parentDate)
-        {
-            let input1 = LwxRoYhfmyzTlGm[i].querySelectorAll('input')[0];
-            let input2 = LwxRoYhfmyzTlGm[i].querySelectorAll('input')[1];
+//    let input1_ = t.innerHTML.split(' - ')[0];
+//    let input2_ = t.innerHTML.split(' - ')[1];
 
-            input1.value = input1_;
-            input2.value = input2_;
-        }
-    }
+//    let parentWorker = $(t).parent().attr("worker");
+//    let parentDate = $(t).parent().attr("date");
 
-    $(t).parent().hide();
-    let kqOeanWDDXEYTBz = document.querySelectorAll('.kqOeanWDDXEYTBz');
-    for (let j = 0; j < kqOeanWDDXEYTBz.length; j++)
-    {
-        kqOeanWDDXEYTBz[j].innerHTML = '<svg viewBox="0 0 10 6" width="10" height="6"><path d="M0 0h10L5 6z"></path></svg>';
-        kqOeanWDDXEYTBz[j].setAttribute('onclick', 'SnVgWOTEsLEUbKu(this)');
-        kqOeanWDDXEYTBz[j].style.removeProperty('background-color');
-    }
-};
+//    let LwxRoYhfmyzTlGm = document.querySelectorAll('.LwxRoYhfmyzTlGm');
+//    for (let i = 0; i < LwxRoYhfmyzTlGm.length; i++)
+//    {
+//        if (LwxRoYhfmyzTlGm[i].getAttribute('worker') == parentWorker && LwxRoYhfmyzTlGm[i].getAttribute('date') == parentDate)
+//        {
+//            let input1 = LwxRoYhfmyzTlGm[i].querySelectorAll('input')[0];
+//            let input2 = LwxRoYhfmyzTlGm[i].querySelectorAll('input')[1];
+
+//            input1.value = input1_;
+//            input2.value = input2_;
+//        }
+//    }
+
+//    $(t).parent().hide();
+//    let kqOeanWDDXEYTBz = document.querySelectorAll('.kqOeanWDDXEYTBz');
+//    for (let j = 0; j < kqOeanWDDXEYTBz.length; j++)
+//    {
+//        kqOeanWDDXEYTBz[j].innerHTML = '<svg viewBox="0 0 10 6" width="10" height="6"><path d="M0 0h10L5 6z"></path></svg>';
+//        kqOeanWDDXEYTBz[j].setAttribute('onclick', 'SnVgWOTEsLEUbKu(this)');
+//        kqOeanWDDXEYTBz[j].style.removeProperty('background-color');
+//    }
+//};
 
 
 
@@ -741,91 +775,278 @@ function szWBomtrGKAViBb(t, e)
     }
 };
 
-//function BgMujOvGVhgxcrK()
+//function collapse_everything(exception)
 //{
-    
+//    let children = $('.IdRKPExyAQSewBL').children();
+//    for (let i = 0; i < children.length; i++) 
+//    {
+//        if ($(children[i]).attr('id') != exception) 
+//        {
+//            if ($(children[i]).hasClass('ugiECcrnKwaoVsb') || $(children[i]).hasClass('YgYDRNgkzyxgztO')) 
+//            {
+//                //$(children[i]).remove();
+
+//                ////$(children[i]).css({ "height": "42px", "opacity": "1" });
+
+//                ////setTimeout(function(){
+//                ////    $(children[i]).remove();
+//                ////},200)
+
+//            }
+//            else 
+//            {
+//                //$(children[i]).hide();
+//                $(children[i]).removeClass('pAPTryUdWHeiZZa');
+//                $(children[i]).children('.settings_a_select').children('ion-icon').removeClass('nHCgJALAMsLYOCi');
+                
+//            }
+//        }
+//        else 
+//        {
+//            if ($(children[i]).hasClass('ugiECcrnKwaoVsb') || $(children[i]).hasClass('YgYDRNgkzyxgztO')) 
+//            {
+                
+//            }
+//            else 
+//            {
+                
+//            }
+//        }
+//    }
 //};
 
-//function FvEKesXHjbxXQEL()
+//function collapse_everything_continue(exception) 
 //{
-//    drmZhscxvPoxiya();
+//    let children = $('.IdRKPExyAQSewBL').children();
+//    for (let i = 0; i < children.length; i++) 
+//    {
+//        if ($(children[i]).hasClass('ugiECcrnKwaoVsb') || $(children[i]).hasClass('YgYDRNgkzyxgztO')) 
+//        {
+//            //$(children[i])
+//            //    .css({ "height": "0", "opacity": "0" })
+//            //    .stop().animate({
+//            //        height: 42,
+//            //        opacity: 1
+//            //    }, 200);
+
+//        }
+
+//        if ($(children[i]).attr('id') != exception)
+//        {
+//            if ($(children[i]).hasClass('ugiECcrnKwaoVsb') || $(children[i]).hasClass('YgYDRNgkzyxgztO'))
+//            {
+
+//            }
+//        }
+//        else 
+//        {
+//            if ($(children[i]).hasClass('ugiECcrnKwaoVsb') || $(children[i]).hasClass('YgYDRNgkzyxgztO'))
+//            {
+                
+//            }
+//        }
+//    }
+//}
+
+//function uncollapse_everything(exception) 
+//{
+//    let children = $('.IdRKPExyAQSewBL').children();
+//    for (let i = 0; i < children.length; i++) 
+//    {
+//        if ($(children[i]).attr('id') != exception) 
+//        {
+//            if ($(children[i]).hasClass('ugiECcrnKwaoVsb') || $(children[i]).hasClass('YgYDRNgkzyxgztO')) 
+//            {
+//                //$(children[i])
+//                //    .stop().animate({
+//                //        height: 0,
+//                //        opacity: 0
+//                //    }, 200);
+//            }
+//            else 
+//            {
+
+//            }
+//        }
+//        else 
+//        {
+
+//        }
+//    }
 //};
 
-//function lhkKNaastOkkmMh(t)
-//{
-//    $(t).children('.settings_a_select').children('ion-icon').attr('name', 'chevron-up-outline');
-//};
-
-function MkoKdHskxQLfcuP()
+function show_options(element, content) 
 {
-    if (!$('#MkoKdHskxQLfcuP_').hasClass('pAPTryUdWHeiZZa')) 
+    let trueIDs = element.id + '_';
+
+    let children = $('.IdRKPExyAQSewBL').children();
+    for (let i = 0; i < children.length; i++) //wszystkie dzieci
     {
-        //let html = '';
-        //let date = new Date();
-        //let prevYears = date.getFullYear() - 2;
-        //for (prevYears; prevYears <= date.getFullYear(); prevYears++) 
-        //{
-        //    html += `<div onclick="CanjEZFvPetVidb(this)" class="settings_a ugiECcrnKwaoVsb" id="MkoKdHskxQLfcuP__">` +
-        //        `<div class="settings_a_select">` +
-        //        `<span></span><span style="opacity: 1; margin-right: 20px;">` + prevYears + `</span>` +
-        //        `</div>` +
-        //        `</div>`;
-        //}
-        //$('#MkoKdHskxQLfcuP_').after(html);
-
-
-
-        //let MkoKdHskxQLfcuP__ = document.querySelectorAll('#MkoKdHskxQLfcuP__');
-        //for (let i = 0; i < MkoKdHskxQLfcuP__.length; i++) 
-        //{
-        //    if (sessionStorage.getItem('LTRXohWjonyFAsg') != null)
-        //    {
-        //        if ($(MkoKdHskxQLfcuP__[i]).children('.settings_a_select').children('span').eq(1).html() == sessionStorage.getItem('LTRXohWjonyFAsg')) 
-        //        {
-        //            $(MkoKdHskxQLfcuP__[i]).addClass('QbNQbKEvEMUpWaH');
-        //        }
-        //    }
-        //    else 
-        //    {
-        //        if ($(MkoKdHskxQLfcuP__[i]).children('.settings_a_select').children('span').eq(1).html() == date.getFullYear()) 
-        //        {
-        //            $(MkoKdHskxQLfcuP__[i]).addClass('QbNQbKEvEMUpWaH');
-        //        }
-        //    }
-        //}
-
-
-
-        $.ajax({
-            type: 'GET',
-            url: '/Tasks/Years',
-            data: {
-                savedYear: sessionStorage.getItem('LTRXohWjonyFAsg')
-            },
-            success: function (response)
+        if ($(children[i]).attr('id') == element.id) //znajdz dziecko ktore klikam
+        {        
+            if ($(children[i]).hasClass('pAPTryUdWHeiZZa'))
             {
-                $('#MkoKdHskxQLfcuP_').after(response).addClass('pAPTryUdWHeiZZa');
-            },
-            error: function (xhr, status, error)
-            {
-                console.log('Error:', error);
+                $(children[i]).children('.settings_a_select').children('ion-icon').addClass('nHCgJALAMsLYOCi');
+                $(children[i]).after(content); //dodaj opcje pod spodem
+                $(children[i]+'[id="' + trueIDs + '"]') //animacja
+                    .css({ "height": "0", "opacity": "0" })
+                    .stop().animate({
+                        height: 42,
+                        opacity: 1
+                    }, 200);
             }
-        });
-    }
-    else 
-    {
-        let MkoKdHskxQLfcuP__ = document.querySelectorAll('#MkoKdHskxQLfcuP__');
-        for (let i = 0; i < MkoKdHskxQLfcuP__.length; i++) {
-            $(MkoKdHskxQLfcuP__[i]).remove();
+            else 
+            {
+                $(children[i]).children('.settings_a_select').children('ion-icon').removeClass('nHCgJALAMsLYOCi');
+                $(children[i] + '[id="' + trueIDs + '"]') //animacja
+                    .stop().animate({
+                        height: 0,
+                        opacity: 0
+                    }, 200);
+
+                setTimeout(function () 
+                { 
+                    $(children[i] + '[id="' + trueIDs + '"]').remove();
+                },200)
+            }
         }
+        else //wszystkie pozostale dzieci 
+        {
+            if ($(children[i]).attr('id') == trueIDs) //opcje pod klikanym elementem
+            {
+                //
+            }
+            else //wszystkie pozostale elementy
+            {
+                if (children[i].id.slice(-2) == "__") 
+                {
+                    $(children[i]) //animacja
+                        .stop().animate({
+                            height: 0,
+                            opacity: 0
+                        }, 200);
 
-        //$('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('ion-icon').attr('name', 'chevron-down-outline');
+                    setTimeout(function ()
+                    {
+                        $(children[i]).remove();
+                    }, 200)
 
-        $('#MkoKdHskxQLfcuP_').removeClass('pAPTryUdWHeiZZa');
+                    $('#' + children[i].id.slice(0, -1)).children('.settings_a_select').children('ion-icon').removeClass('nHCgJALAMsLYOCi');
+                    $('#' + children[i].id.slice(0, -1)).removeClass('pAPTryUdWHeiZZa');
+                }
+            }
+        }
     }
 };
 
-function CanjEZFvPetVidb(t, year) 
+function MkoKdHskxQLfcuP_test(t) 
+{
+    if (sessionStorage.getItem('hQxHXfkxHkfALTJ') == null)
+    {
+        $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html()
+    }
+
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/Years',
+        data: {
+            savedYear: sessionStorage.getItem('LTRXohWjonyFAsg'),
+            savedWeek: sessionStorage.getItem('hQxHXfkxHkfALTJ'),
+            savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh')
+        },
+        success: function (response)
+        {
+            $(t).toggleClass("pAPTryUdWHeiZZa");
+            show_options(t, response);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+//function MkoKdHskxQLfcuP(t)
+//{
+//    if (!$('#MkoKdHskxQLfcuP_').hasClass('pAPTryUdWHeiZZa')) 
+//    {
+//        //let html = '';
+//        //let date = new Date();
+//        //let prevYears = date.getFullYear() - 2;
+//        //for (prevYears; prevYears <= date.getFullYear(); prevYears++) 
+//        //{
+//        //    html += `<div onclick="CanjEZFvPetVidb(this)" class="settings_a ugiECcrnKwaoVsb" id="MkoKdHskxQLfcuP__">` +
+//        //        `<div class="settings_a_select">` +
+//        //        `<span></span><span style="opacity: 1; margin-right: 20px;">` + prevYears + `</span>` +
+//        //        `</div>` +
+//        //        `</div>`;
+//        //}
+//        //$('#MkoKdHskxQLfcuP_').after(html);
+
+
+
+//        //let MkoKdHskxQLfcuP__ = document.querySelectorAll('#MkoKdHskxQLfcuP__');
+//        //for (let i = 0; i < MkoKdHskxQLfcuP__.length; i++) 
+//        //{
+//        //    if (sessionStorage.getItem('LTRXohWjonyFAsg') != null)
+//        //    {
+//        //        if ($(MkoKdHskxQLfcuP__[i]).children('.settings_a_select').children('span').eq(1).html() == sessionStorage.getItem('LTRXohWjonyFAsg')) 
+//        //        {
+//        //            $(MkoKdHskxQLfcuP__[i]).addClass('QbNQbKEvEMUpWaH');
+//        //        }
+//        //    }
+//        //    else 
+//        //    {
+//        //        if ($(MkoKdHskxQLfcuP__[i]).children('.settings_a_select').children('span').eq(1).html() == date.getFullYear()) 
+//        //        {
+//        //            $(MkoKdHskxQLfcuP__[i]).addClass('QbNQbKEvEMUpWaH');
+//        //        }
+//        //    }
+//        //}
+
+//        if (sessionStorage.getItem('hQxHXfkxHkfALTJ') == null)
+//        {
+//            $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html()
+//        }
+
+//        $.ajax({
+//            type: 'GET',
+//            url: '/Tasks/Years',
+//            data: {
+//                savedYear: sessionStorage.getItem('LTRXohWjonyFAsg'),
+//                savedWeek: sessionStorage.getItem('hQxHXfkxHkfALTJ'),
+//                savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh')
+//            },
+//            success: function (response)
+//            {
+//                //collapse_everything("MkoKdHskxQLfcuP_");
+
+//                //$('#MkoKdHskxQLfcuP_').after(response).addClass('pAPTryUdWHeiZZa');
+
+//                //collapse_everything_continue("MkoKdHskxQLfcuP_");
+//            },
+//            error: function (xhr, status, error)
+//            {
+//                console.log('Error:', error);
+//            }
+//        });
+//    }
+//    else 
+//    {
+//        //let MkoKdHskxQLfcuP__ = document.querySelectorAll('#MkoKdHskxQLfcuP__');
+//        //for (let i = 0; i < MkoKdHskxQLfcuP__.length; i++) {
+//        //    $(MkoKdHskxQLfcuP__[i]).remove();
+//        //}
+
+//        ////$('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('ion-icon').attr('name', 'chevron-down-outline');
+
+//        $('#MkoKdHskxQLfcuP_').removeClass('pAPTryUdWHeiZZa');
+
+//        uncollapse_everything("MkoKdHskxQLfcuP_");
+//    }
+//};
+
+function CanjEZFvPetVidb(t, year, week, department) 
 {
     //let year = $(t).children('.settings_a_select').children('span').eq(1).html();
     $('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('span').eq(1).html(year);
@@ -839,201 +1060,23 @@ function CanjEZFvPetVidb(t, year)
     //sessionStorage.setItem('LTRXohWjonyFAsg', $('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('span').eq(1).html());
     sessionStorage.setItem('LTRXohWjonyFAsg', year);
 
-    drmZhscxvPoxiya(year);
+    drmZhscxvPoxiya(year, week, department);
 };
 
-function fssIiZoJOhPhaRO() 
-{
-    if (!$('#fssIiZoJOhPhaRO_').hasClass('pAPTryUdWHeiZZa'))
-    {
-        $.ajax({
-            type: 'GET',
-            url: '/Tasks/WeeksInYear',
-            data: {
-                savedYear: sessionStorage.getItem('LTRXohWjonyFAsg'),
-                savedWeek: sessionStorage.getItem('hQxHXfkxHkfALTJ')
-            },
-            success: function (response)
-            {
-                $('#fssIiZoJOhPhaRO_').after(response.contentResult.content);
-                //console.log(response);
-
-
-                $('#fssIiZoJOhPhaRO_').addClass('pAPTryUdWHeiZZa');
-            },
-            error: function (xhr, status, error)
-            {
-                console.log('Error:', error);
-            }
-        });
-
-        
-
-        //let html = '';
-        //let date = new Date();
-        //let year_ = $('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('span').eq(1).html();
-        //if (sessionStorage.getItem('LTRXohWjonyFAsg') != null)
-        //{
-        //    year_ = sessionStorage.getItem('LTRXohWjonyFAsg');
-        //}
-        //let month_ = date.getMonth() + 1;
-        //let day_ = date.getDate();
-
-        //$.ajax({
-        //    type: 'GET',
-        //    url: '/Tasks/WeeksInYear',
-        //    data: {
-        //        year: year_,
-        //        month: month_,
-        //        day: day_
-        //    },
-        //    success: function (response) 
-        //    {
-        //        for (const [key, value] of Object.entries(response)) 
-        //        {
-        //            if (key == 'weeks') 
-        //            {
-        //                for (let i = 1; i <= value; i++)
-        //                {
-        //                    html += `<div onclick="XyLurmdtOTQYvZU(this)" class="settings_a ugiECcrnKwaoVsb" id="fssIiZoJOhPhaRO__">` +
-        //                        `<div class="settings_a_select">` +
-        //                        `<span></span><span style="opacity: 1; margin-right: 20px;">` + i + `</span>` +
-        //                        `</div>` +
-        //                        `</div>`;
-        //                }
-        //                $('#fssIiZoJOhPhaRO_').after(html);
-
-        //            }
-        //            if (key == 'currentWeek') 
-        //            {
-        //                //
-        //                let fssIiZoJOhPhaRO__ = document.querySelectorAll('#fssIiZoJOhPhaRO__');
-        //                for (let i = 0; i < fssIiZoJOhPhaRO__.length; i++) 
-        //                {
-        //                    let span = $(fssIiZoJOhPhaRO__[i]).children('.settings_a_select').children('span').eq(1).html();
-        //                    if (span == value + 1) 
-        //                    {
-        //                        if (sessionStorage.getItem('hQxHXfkxHkfALTJ') == null) 
-        //                        {
-        //                            $(fssIiZoJOhPhaRO__[i]).addClass('QbNQbKEvEMUpWaH');
-        //                        }
-
-        //                    }
-        //                }
-        //            }
-        //        }
-
-        //        let fssIiZoJOhPhaRO__ = document.querySelectorAll('#fssIiZoJOhPhaRO__');
-        //        for (let i = 0; i < fssIiZoJOhPhaRO__.length; i++) 
-        //        {
-        //            if (sessionStorage.getItem('hQxHXfkxHkfALTJ') != null)
-        //            {
-        //                if ($(fssIiZoJOhPhaRO__[i]).children('.settings_a_select').children('span').eq(1).html() == sessionStorage.getItem('hQxHXfkxHkfALTJ')) 
-        //                {
-        //                    $(fssIiZoJOhPhaRO__[i]).addClass('QbNQbKEvEMUpWaH');
-        //                }
-        //            }
-        //        }
-
-        //        $('#fssIiZoJOhPhaRO_').addClass('pAPTryUdWHeiZZa');
-        //    },
-        //    error: function (xhr, status, error)
-        //    {
-        //        console.log('Error getting data:', error);
-        //    }
-        //});
-    }
-    else 
-    {
-        let fssIiZoJOhPhaRO__ = document.querySelectorAll('#fssIiZoJOhPhaRO__');
-        for (let i = 0; i < fssIiZoJOhPhaRO__.length; i++)
-        {
-            $(fssIiZoJOhPhaRO__[i]).remove();
-        }
-
-        //$('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('ion-icon').attr('name', 'chevron-down-outline');
-
-        $('#fssIiZoJOhPhaRO_').removeClass('pAPTryUdWHeiZZa');
-    }
-};
-
-function XyLurmdtOTQYvZU(t, week) 
-{
-    //let week = $(t).children('.settings_a_select').children('span').eq(1).html();
-    //$('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(week);
-
-    //let fssIiZoJOhPhaRO__ = document.querySelectorAll('#fssIiZoJOhPhaRO__');
-    //for (let i = 0; i < fssIiZoJOhPhaRO__.length; i++)
-    //{
-    //    $(fssIiZoJOhPhaRO__[i]).removeClass('QbNQbKEvEMUpWaH');
-    //}
-    //$(t).addClass('QbNQbKEvEMUpWaH');
-
-    //sessionStorage.setItem('hQxHXfkxHkfALTJ', $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html());
-
-    //drmZhscxvPoxiya();
-};
-
-function jxcqHOZgFmYHYkI(firstDepartment) 
-{
-    if (!$('#jxcqHOZgFmYHYkI_').hasClass('pAPTryUdWHeiZZa')) 
-    {
-        $.ajax({
-            type: 'GET',
-            url: '/Tasks/GetDepartments',
-            data: {
-                firstDepartment: firstDepartment,
-                savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh')
-            },
-            success: function (response)
-            {
-                $('#jxcqHOZgFmYHYkI_').after(response).addClass('pAPTryUdWHeiZZa');
-            },
-            error: function (xhr, status, error)
-            {
-                console.log('Error:', error);
-            }
-        });
-    }
-    else 
-    {
-        let jxcqHOZgFmYHYkI__ = document.querySelectorAll('#jxcqHOZgFmYHYkI__');
-        for (let i = 0; i < jxcqHOZgFmYHYkI__.length; i++)
-        {
-            $(jxcqHOZgFmYHYkI__[i]).remove();
-        }
-
-        $('#jxcqHOZgFmYHYkI_').removeClass('pAPTryUdWHeiZZa');
-    }
-};
-
-function HMdMMtqNwVAguDt(t, id) 
+function fssIiZoJOhPhaRO_test(t) 
 {
     $.ajax({
         type: 'GET',
-        url: '/Tasks/ClickOnDepartment',
+        url: '/Tasks/WeeksInYear',
         data: {
-            departmentID: id
+            savedYear: sessionStorage.getItem('LTRXohWjonyFAsg'),
+            savedWeek: sessionStorage.getItem('hQxHXfkxHkfALTJ'),
+            savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh')
         },
         success: function (response)
         {
-            $('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1).html(response);
-
-            let jxcqHOZgFmYHYkI__ = document.querySelectorAll('#jxcqHOZgFmYHYkI__');
-            for (let i = 0; i < jxcqHOZgFmYHYkI__.length; i++) {
-                $(jxcqHOZgFmYHYkI__[i]).removeClass('QbNQbKEvEMUpWaH');
-            }
-            $(t).addClass('QbNQbKEvEMUpWaH');
-            sessionStorage.setItem('JcvzYoovBpGECWh', id);
-            arKOctcZVJhWuhL(id);
-
-            //clear taskNames
-            let ekzMacYlAMvOgoy__ = document.querySelectorAll('#ekzMacYlAMvOgoy__');
-            for (let i = 0; i < ekzMacYlAMvOgoy__.length; i++) {
-                $(ekzMacYlAMvOgoy__[i]).remove(); 
-            }
-            $('#ekzMacYlAMvOgoy_').removeClass('pAPTryUdWHeiZZa');
-            $('#ekzMacYlAMvOgoy_').children('.settings_a_select').children('ion-icon').removeClass('nHCgJALAMsLYOCi');
+            $(t).toggleClass("pAPTryUdWHeiZZa");
+            show_options(t, response.contentResult.content);
         },
         error: function (xhr, status, error)
         {
@@ -1042,41 +1085,308 @@ function HMdMMtqNwVAguDt(t, id)
     });
 };
 
-function ekzMacYlAMvOgoy(firstDepartment) 
+//function fssIiZoJOhPhaRO(t) 
+//{
+//    if (!$('#fssIiZoJOhPhaRO_').hasClass('pAPTryUdWHeiZZa'))
+//    {
+//        $.ajax({
+//            type: 'GET',
+//            url: '/Tasks/WeeksInYear',
+//            data: {
+//                savedYear: sessionStorage.getItem('LTRXohWjonyFAsg'),
+//                savedWeek: sessionStorage.getItem('hQxHXfkxHkfALTJ'),
+//                savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh')
+//            },
+//            success: function (response)
+//            {
+//                //collapse_everything("fssIiZoJOhPhaRO_");
+
+//                //$('#fssIiZoJOhPhaRO_').after(response.contentResult.content);
+
+//                //$('#fssIiZoJOhPhaRO_').addClass('pAPTryUdWHeiZZa');
+
+//                //collapse_everything_continue("fssIiZoJOhPhaRO_");
+//            },
+//            error: function (xhr, status, error)
+//            {
+//                console.log('Error:', error);
+//            }
+//        });
+
+        
+
+//        //let html = '';
+//        //let date = new Date();
+//        //let year_ = $('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('span').eq(1).html();
+//        //if (sessionStorage.getItem('LTRXohWjonyFAsg') != null)
+//        //{
+//        //    year_ = sessionStorage.getItem('LTRXohWjonyFAsg');
+//        //}
+//        //let month_ = date.getMonth() + 1;
+//        //let day_ = date.getDate();
+
+//        //$.ajax({
+//        //    type: 'GET',
+//        //    url: '/Tasks/WeeksInYear',
+//        //    data: {
+//        //        year: year_,
+//        //        month: month_,
+//        //        day: day_
+//        //    },
+//        //    success: function (response) 
+//        //    {
+//        //        for (const [key, value] of Object.entries(response)) 
+//        //        {
+//        //            if (key == 'weeks') 
+//        //            {
+//        //                for (let i = 1; i <= value; i++)
+//        //                {
+//        //                    html += `<div onclick="XyLurmdtOTQYvZU(this)" class="settings_a ugiECcrnKwaoVsb" id="fssIiZoJOhPhaRO__">` +
+//        //                        `<div class="settings_a_select">` +
+//        //                        `<span></span><span style="opacity: 1; margin-right: 20px;">` + i + `</span>` +
+//        //                        `</div>` +
+//        //                        `</div>`;
+//        //                }
+//        //                $('#fssIiZoJOhPhaRO_').after(html);
+
+//        //            }
+//        //            if (key == 'currentWeek') 
+//        //            {
+//        //                //
+//        //                let fssIiZoJOhPhaRO__ = document.querySelectorAll('#fssIiZoJOhPhaRO__');
+//        //                for (let i = 0; i < fssIiZoJOhPhaRO__.length; i++) 
+//        //                {
+//        //                    let span = $(fssIiZoJOhPhaRO__[i]).children('.settings_a_select').children('span').eq(1).html();
+//        //                    if (span == value + 1) 
+//        //                    {
+//        //                        if (sessionStorage.getItem('hQxHXfkxHkfALTJ') == null) 
+//        //                        {
+//        //                            $(fssIiZoJOhPhaRO__[i]).addClass('QbNQbKEvEMUpWaH');
+//        //                        }
+
+//        //                    }
+//        //                }
+//        //            }
+//        //        }
+
+//        //        let fssIiZoJOhPhaRO__ = document.querySelectorAll('#fssIiZoJOhPhaRO__');
+//        //        for (let i = 0; i < fssIiZoJOhPhaRO__.length; i++) 
+//        //        {
+//        //            if (sessionStorage.getItem('hQxHXfkxHkfALTJ') != null)
+//        //            {
+//        //                if ($(fssIiZoJOhPhaRO__[i]).children('.settings_a_select').children('span').eq(1).html() == sessionStorage.getItem('hQxHXfkxHkfALTJ')) 
+//        //                {
+//        //                    $(fssIiZoJOhPhaRO__[i]).addClass('QbNQbKEvEMUpWaH');
+//        //                }
+//        //            }
+//        //        }
+
+//        //        $('#fssIiZoJOhPhaRO_').addClass('pAPTryUdWHeiZZa');
+//        //    },
+//        //    error: function (xhr, status, error)
+//        //    {
+//        //        console.log('Error getting data:', error);
+//        //    }
+//        //});
+//    }
+//    else 
+//    {
+//        //let fssIiZoJOhPhaRO__ = document.querySelectorAll('#fssIiZoJOhPhaRO__');
+//        //for (let i = 0; i < fssIiZoJOhPhaRO__.length; i++)
+//        //{
+//        //    $(fssIiZoJOhPhaRO__[i]).remove();
+//        //}
+
+//        //$('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('ion-icon').attr('name', 'chevron-down-outline');
+
+//        $('#fssIiZoJOhPhaRO_').removeClass('pAPTryUdWHeiZZa');
+
+//        uncollapse_everything("fssIiZoJOhPhaRO_");
+//    }
+//};
+
+function XyLurmdtOTQYvZU(t, year, week, department) 
 {
-    if (!$('#ekzMacYlAMvOgoy_').hasClass('pAPTryUdWHeiZZa'))
-    {
-        $.ajax({
-            type: 'GET',
-            url: '/Tasks/GetTasks',
-            data: {
-                firstDepartment: firstDepartment,
-                savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh')
-            },
-            success: function (response)
-            {
-                $('#ekzMacYlAMvOgoy_').after(response);
+    //let week = $(t).children('.settings_a_select').children('span').eq(1).html();
+    $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(week);
 
-                $('#ekzMacYlAMvOgoy_').addClass('pAPTryUdWHeiZZa');
-                $('#ekzMacYlAMvOgoy_').children('.settings_a_select').children('ion-icon').addClass('nHCgJALAMsLYOCi');
-            },
-            error: function (xhr, status, error)
-            {
-                console.log('Error:', error);
-            }
-        });
-    }
-    else 
+    let fssIiZoJOhPhaRO__ = document.querySelectorAll('#fssIiZoJOhPhaRO__');
+    for (let i = 0; i < fssIiZoJOhPhaRO__.length; i++)
     {
-        let ekzMacYlAMvOgoy__ = document.querySelectorAll('.YgYDRNgkzyxgztO');
-        for (let i = 0; i < ekzMacYlAMvOgoy__.length; i++)
-        {
-            $(ekzMacYlAMvOgoy__[i]).remove();
-        }
-
-        $('#ekzMacYlAMvOgoy_').removeClass('pAPTryUdWHeiZZa');
+        $(fssIiZoJOhPhaRO__[i]).removeClass('QbNQbKEvEMUpWaH');
     }
+    $(t).addClass('QbNQbKEvEMUpWaH');
+
+    //sessionStorage.setItem('hQxHXfkxHkfALTJ', $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html());
+    sessionStorage.setItem('hQxHXfkxHkfALTJ', week);
+
+    drmZhscxvPoxiya(year, week, department);
 };
+
+function jxcqHOZgFmYHYkI_test(t, firstDepartment) 
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/GetDepartments',
+        data: {
+            firstDepartment: firstDepartment,
+            savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh')
+        },
+        success: function (response)
+        {
+            $(t).toggleClass("pAPTryUdWHeiZZa");
+            show_options(t, response);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+//function jxcqHOZgFmYHYkI(firstDepartment) 
+//{
+//    if (!$('#jxcqHOZgFmYHYkI_').hasClass('pAPTryUdWHeiZZa')) 
+//    {
+//        $.ajax({
+//            type: 'GET',
+//            url: '/Tasks/GetDepartments',
+//            data: {
+//                firstDepartment: firstDepartment,
+//                savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh')
+//            },
+//            success: function (response)
+//            {
+//                collapse_everything("jxcqHOZgFmYHYkI_");
+
+//                $('#jxcqHOZgFmYHYkI_').after(response).addClass('pAPTryUdWHeiZZa');
+
+//                collapse_everything_continue("jxcqHOZgFmYHYkI_");
+//            },
+//            error: function (xhr, status, error)
+//            {
+//                console.log('Error:', error);
+//            }
+//        });
+//    }
+//    else 
+//    {
+//        //let jxcqHOZgFmYHYkI__ = document.querySelectorAll('#jxcqHOZgFmYHYkI__');
+//        //for (let i = 0; i < jxcqHOZgFmYHYkI__.length; i++)
+//        //{
+//        //    $(jxcqHOZgFmYHYkI__[i]).remove();
+//        //}
+
+//        $('#jxcqHOZgFmYHYkI_').removeClass('pAPTryUdWHeiZZa');
+
+//        uncollapse_everything("jxcqHOZgFmYHYkI_");
+//    }
+//};
+
+function HMdMMtqNwVAguDt(t, id) 
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/ClickOnDepartment',
+        data: {
+            savedYear: sessionStorage.getItem('LTRXohWjonyFAsg'),
+            savedWeek: sessionStorage.getItem('hQxHXfkxHkfALTJ'),
+            departmentID: id
+        },
+        success: function (response)
+        {
+            $('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1).html(response.departmentName);
+
+            let jxcqHOZgFmYHYkI__ = document.querySelectorAll('#jxcqHOZgFmYHYkI__');
+            for (let i = 0; i < jxcqHOZgFmYHYkI__.length; i++) {
+                $(jxcqHOZgFmYHYkI__[i]).removeClass('QbNQbKEvEMUpWaH');
+            }
+            $(t).addClass('QbNQbKEvEMUpWaH');
+
+            sessionStorage.setItem('JcvzYoovBpGECWh', id);
+            //arKOctcZVJhWuhL(id);
+
+            ////clear taskNames
+            //let ekzMacYlAMvOgoy__ = document.querySelectorAll('#ekzMacYlAMvOgoy__');
+            //for (let i = 0; i < ekzMacYlAMvOgoy__.length; i++) {
+            //    $(ekzMacYlAMvOgoy__[i]).remove(); 
+            //}
+            //$('#ekzMacYlAMvOgoy_').removeClass('pAPTryUdWHeiZZa');
+            //$('#ekzMacYlAMvOgoy_').children('.settings_a_select').children('ion-icon').removeClass('nHCgJALAMsLYOCi');
+
+
+
+            drmZhscxvPoxiya(response.year, response.week, id);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function ekzMacYlAMvOgoy_test(t, firstDepartment) 
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/GetTasks',
+        data: {
+            firstDepartment: firstDepartment,
+            savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh')
+        },
+        success: function (response)
+        {
+            $(t).toggleClass("pAPTryUdWHeiZZa");
+            show_options(t, response);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+}
+
+//function ekzMacYlAMvOgoy(firstDepartment) 
+//{
+//    if (!$('#ekzMacYlAMvOgoy_').hasClass('pAPTryUdWHeiZZa'))
+//    {
+//        $.ajax({
+//            type: 'GET',
+//            url: '/Tasks/GetTasks',
+//            data: {
+//                firstDepartment: firstDepartment,
+//                savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh')
+//            },
+//            success: function (response)
+//            {
+//                collapse_everything("ekzMacYlAMvOgoy_");
+
+//                $('#ekzMacYlAMvOgoy_').after(response);
+
+//                $('#ekzMacYlAMvOgoy_').addClass('pAPTryUdWHeiZZa');
+//                $('#ekzMacYlAMvOgoy_').children('.settings_a_select').children('ion-icon').addClass('nHCgJALAMsLYOCi');
+
+//                collapse_everything_continue("ekzMacYlAMvOgoy_");
+//            },
+//            error: function (xhr, status, error)
+//            {
+//                console.log('Error:', error);
+//            }
+//        });
+//    }
+//    else 
+//    {
+//        //let ekzMacYlAMvOgoy__ = document.querySelectorAll('.YgYDRNgkzyxgztO');
+//        //for (let i = 0; i < ekzMacYlAMvOgoy__.length; i++)
+//        //{
+//        //    $(ekzMacYlAMvOgoy__[i]).remove();
+//        //}
+
+//        $('#ekzMacYlAMvOgoy_').removeClass('pAPTryUdWHeiZZa');
+
+//        uncollapse_everything("ekzMacYlAMvOgoy_");
+//    }
+//};
 
 function uXPtoAMyTPOkWCV(t) 
 {
@@ -1130,7 +1440,7 @@ function uXPtoAMyTPOkWCV(t)
 
             //
             let workerID = $(newItem).parent().parent().parent('.wcHMgjWjXaRMPKy').attr('worker'); //nie może być równe null
-            let taskNameID = $(newItem).attr('id2'); //nie będzie równe null
+            let taskNameID = $(newItem).attr('pGXQuswWwoZGMWg'); //nie będzie równe null
             let date = $(newItem).parent().parent('.SBVWNWOJZnTplXL').attr('date'); //nigdy nie będzie równe null
             let jobStart = $(newItem).parent().parent('.SBVWNWOJZnTplXL').children('.LwxRoYhfmyzTlGm').children('input').eq(0).val(); //może być równe null
             let jobEnd = $(newItem).parent().parent('.SBVWNWOJZnTplXL').children('.LwxRoYhfmyzTlGm').children('input').eq(1).val(); //może być równe null

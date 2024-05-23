@@ -557,11 +557,29 @@ $('.left-nav').mouseenter(function ()
     //task
     if (sessionStorage.getItem('LTRXohWjonyFAsg') != null) //year
     {
-        $('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('span').eq(1).html(sessionStorage.getItem('LTRXohWjonyFAsg'));
+        //$('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('span').eq(1).html(sessionStorage.getItem('LTRXohWjonyFAsg'));
+
+
     }
     if (sessionStorage.getItem('hQxHXfkxHkfALTJ') != null) //week
     {
-        $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(sessionStorage.getItem('hQxHXfkxHkfALTJ'));
+        //$('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(sessionStorage.getItem('hQxHXfkxHkfALTJ'));
+        //$.ajax({
+        //    type: 'GET',
+        //    url: '/Tasks/',
+        //    data: {
+        //        savedYear: sessionStorage.getItem('LTRXohWjonyFAsg'),
+        //        savedWeek: sessionStorage.getItem('hQxHXfkxHkfALTJ')
+        //    },
+        //    success: function (response)
+        //    {
+        //        $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html();
+        //    },
+        //    error: function (xhr, status, error)
+        //    {
+        //        console.log('Error:', error);
+        //    }
+        //});
     }
     if (sessionStorage.getItem('JcvzYoovBpGECWh') != null) //department
     {
@@ -576,22 +594,42 @@ $('.left-nav').mouseenter(function ()
         //        }
         //    }
         //}
-        $.ajax({
-            type: 'GET',
-            url: '/Tasks/ClickOnDepartment',
-            data: {
-                departmentID: sessionStorage.getItem('JcvzYoovBpGECWh')
-            },
-            success: function (response)
-            {
-                $('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1).html(response);
-            },
-            error: function (xhr, status, error)
-            {
-                console.log('Error:', error);
-            }
-        });
+
+        //$.ajax({
+        //    type: 'GET',
+        //    url: '/Tasks/ClickOnDepartment',
+        //    data: {
+        //        departmentID: sessionStorage.getItem('JcvzYoovBpGECWh')
+        //    },
+        //    success: function (response)
+        //    {
+        //        $('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1).html(response.departmentName);
+        //    },
+        //    error: function (xhr, status, error)
+        //    {
+        //        console.log('Error:', error);
+        //    }
+        //});
     }
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/ClickOnDepartment',
+        data: {
+            savedYear: sessionStorage.getItem('LTRXohWjonyFAsg'),
+            savedWeek: sessionStorage.getItem('hQxHXfkxHkfALTJ'),
+            departmentID: sessionStorage.getItem('JcvzYoovBpGECWh')
+        },
+        success: function (response)
+        {
+            $('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('span').eq(1).html(response.year);
+            $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(response.week);
+            $('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1).html(response.departmentName);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
     //
 
     //leave
@@ -719,6 +757,8 @@ function lhkKNaastOkkmMh(t)
     {
         $(t).children('div').children('ion-icon').removeClass('nHCgJALAMsLYOCi');
     }
+
+
 };
 
 //let source = "";
