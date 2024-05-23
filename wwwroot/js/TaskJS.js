@@ -139,10 +139,18 @@ function drmZhscxvPoxiya(year, week, department)
         },
         success: function (response)
         {
-            $('.fSJtEaXwJSHzoxW').html(response.dates.content);
-            $('.wcHMgjWjXaRMPKy').html();
+            $('.fSJtEaXwJSHzoxW').html(response.contentResult);
+            //$('.bHSvgvYnvUySJXK').html(response.html);
+            $('.fSJtEaXwJSHzoxW').after(response.html);
 
-            console.log(response);
+            if (sessionStorage.getItem('task_lock_headers') != null)
+            {
+                task_lock_headers();
+            }
+            else
+            {
+                task_unlock_headers();
+            }    
         },
         error: function (xhr, status, error)
         {
@@ -1917,83 +1925,85 @@ function enable()
     $('.lds-ring-small').remove();
 };
 
-function jzOfWppePYfqVYf(t) //remove from database
+function jzOfWppePYfqVYf(t, id) //remove from database
 {
-    let workerID = $(t).parent().parent().parent().attr('worker');
-    let date = $(t).parent().parent().attr('date');
 
-    let a = $(t).parent().parent().children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW:visible');
+
+    //let workerID = $(t).parent().parent().parent().attr('worker');
+    //let date = $(t).parent().parent().attr('date');
+
+    //let a = $(t).parent().parent().children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW:visible');
     
-    if (a.length > 0) 
-    {
-        $(t).parent().append(createSmallLoader());
-        disable();
+    //if (a.length > 0) 
+    //{
+    //    $(t).parent().append(createSmallLoader());
+    //    disable();
 
-        let index = 0;
-        let interval = setInterval(() =>
-        {
-            if (index === a.length - 1) {
-                clearInterval(interval);
-                setTimeout(function ()
-                {
-                    $(t).parent().children('input').val('');
-                    $(t).hide();
-                    enable();
-                }, 100);
-            }
+    //    let index = 0;
+    //    let interval = setInterval(() =>
+    //    {
+    //        if (index === a.length - 1) {
+    //            clearInterval(interval);
+    //            setTimeout(function ()
+    //            {
+    //                $(t).parent().children('input').val('');
+    //                $(t).hide();
+    //                enable();
+    //            }, 100);
+    //        }
 
-            let id_ = $(a[index]).attr('pHXkWraiQguiibO');
+    //        let id_ = $(a[index]).attr('pHXkWraiQguiibO');
             
-            $.ajax({
-                type: 'POST',
-                url: '/Tasks/RemoveTask',
-                data: { id: id_ },
-                success: function (response)
-                {
-                    var indx = model_t.indexOf(id_);
-                    model_t.splice(indx, 1);
+    //        $.ajax({
+    //            type: 'POST',
+    //            url: '/Tasks/RemoveTask',
+    //            data: { id: id_ },
+    //            success: function (response)
+    //            {
+    //                var indx = model_t.indexOf(id_);
+    //                model_t.splice(indx, 1);
 
 
-                    $(a[index]).remove();
-                    index++;
-                },
-                error: function (response) 
-                {
-                    console.log('Error:', error);
-                }
-            });
-        }, 100);
-    }
-    else 
-    {
-        $(t).parent().append(createSmallLoader());
-        disable();
+    //                $(a[index]).remove();
+    //                index++;
+    //            },
+    //            error: function (response) 
+    //            {
+    //                console.log('Error:', error);
+    //            }
+    //        });
+    //    }, 100);
+    //}
+    //else 
+    //{
+    //    $(t).parent().append(createSmallLoader());
+    //    disable();
 
-        for (let i = 0; i < model_t.length; i++) 
-        {
-            if (model_t[i].WorkerID == workerID && new Date(model_t[i].Date).toLocaleDateString() == new Date(date).toLocaleDateString()) 
-            {
-                $.ajax({
-                    type: 'POST',
-                    url: '/Tasks/RemoveTask',
-                    data: {
-                        id: model_t[i].Id,
-                    },
-                    success: function (response)
-                    {
-                        var indx = model_t.indexOf(model_t[i].Id);
-                        model_t.splice(indx, 1);
+    //    for (let i = 0; i < model_t.length; i++) 
+    //    {
+    //        if (model_t[i].WorkerID == workerID && new Date(model_t[i].Date).toLocaleDateString() == new Date(date).toLocaleDateString()) 
+    //        {
+    //            $.ajax({
+    //                type: 'POST',
+    //                url: '/Tasks/RemoveTask',
+    //                data: {
+    //                    id: model_t[i].Id,
+    //                },
+    //                success: function (response)
+    //                {
+    //                    var indx = model_t.indexOf(model_t[i].Id);
+    //                    model_t.splice(indx, 1);
 
-                        $(t).parent().children('input').val('');
-                        $(t).hide();
-                        enable();
-                    },
-                    error: function (xhr, status, error)
-                    {
-                        console.log('Error:', error);
-                    }
-                });
-            }
-        }
-    }
+    //                    $(t).parent().children('input').val('');
+    //                    $(t).hide();
+    //                    enable();
+    //                },
+    //                error: function (xhr, status, error)
+    //                {
+    //                    console.log('Error:', error);
+    //                }
+    //            });
+    //        }
+    //    }
+    //}
 };
