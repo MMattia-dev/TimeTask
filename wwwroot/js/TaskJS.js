@@ -143,6 +143,8 @@ function drmZhscxvPoxiya(year, week, department)
             //$('.bHSvgvYnvUySJXK').html(response.html);
             $('.fSJtEaXwJSHzoxW').after(response.html);
 
+            console.log(response.test);
+
             if (sessionStorage.getItem('task_lock_headers') != null)
             {
                 task_lock_headers();
