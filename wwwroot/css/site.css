@@ -2694,7 +2694,8 @@ ion-icon {
     justify-content: center;
     align-items: center;
     width: 100%;
-    border-right: 1px solid rgba(55, 55, 55, 0.5);
+    /*border-right: 1px solid rgba(55, 55, 55, 0.5);*/
+    border-right: 1px solid rgba(55, 55, 55, 1);
     transition: background-color 0.2s, border 0.2s;
 }
 

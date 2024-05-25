@@ -451,61 +451,88 @@ namespace TimeTask.Controllers
 
             //days
             List<DateTime> days = getDatesInWeek((int)year, (int)week);
-            //string daysString = "";
-            //foreach (var item in days)
-            //{
-            //    var enterTime = _context.Task2.FirstOrDefault(x => x.);
-
-            //    daysString += "<div class=\"SBVWNWOJZnTplXL\" onmouseover=\"szWBomtrGKAViBb(this, event)\">" +
-            //            "" +
-            //            "" +
-            //            "" +
-            //            "" +
-            //            "" +
-            //            "" +
-            //            "" +
-            //            "" +
-            //            "" +
-            //        "";   
-            //}
-            //
 
             //table
             var workers = _context.Workers2.Where(x => x.DepartmentID == departmentID);
             string html = "";
-            List<Task2> test = new List<Task2>();
             foreach (var worker in workers)
             {
                 string daysString = "";
                 foreach (var item in days)
                 {
-                    //var exist = _context.Task2.Where(x => x.WorkerID == worker.Id && item.ToString("yyyy-MM-dd") == x.Date.Value.ToString("yyyy-MM-dd") || x.WorkerID == worker.Id && x.JobStart != null && x.JobEnd != null);
-                    //var enterTime = _context.Task2.FirstOrDefault(x => x.WorkerID == worker.Id && item.ToString("yyyy-MM-dd") == x.Date.Value.ToString("yyyy-MM-dd") )?.JobStart.Value.ToString("HH:mm");
-                    //var exitTime = _context.Task2.FirstOrDefault(x => x.WorkerID == worker.Id && item.ToString("yyyy-MM-dd") == x.Date.Value.ToString("yyyy-MM-dd") )?.JobEnd.Value.ToString("HH:mm");
+                    var taskArray = _context.Task2.Where(x => x.WorkerID == worker.Id);
 
-                    //string deleteButton = "";
-                    //if (exist.Any())
-                    //{
-                    //    var taskID = _context.Task2.FirstOrDefault(x => x.WorkerID == worker.Id && x.Date.Value.ToString("yyyy-MM-dd") == item.ToString("yyyy-MM-dd") || x.WorkerID == worker.Id && x.JobStart.Value.ToString("yyyy-MM-dd") == item.ToString("yyyy-MM-dd") && x.JobEnd.Value.ToString("yyyy-MM-dd") == item.ToString("yyyy-MM-dd"))?.Id;
-                    //    deleteButton = "<a class=\"MNewKOhqZkqNDeJ\" onclick=\"jzOfWppePYfqVYf(this, " + taskID + ")\" title=\"Usuń wpisy\" style=\"display: none;\"><ion-icon name=\"trash-outline\"></ion-icon></a>";
-                    //}
-                    var taskArray = _context.Task2.Where(x => x.WorkerID == worker.Id && x.JobStart!.Value.ToShortDateString() == item.ToShortDateString()).ToList();
-                    test = taskArray;
-                    //daysString = "<div class=\"SBVWNWOJZnTplXL\" onmouseover=\"szWBomtrGKAViBb(this, event)\">" +
-                    //        "<div class=\"LwxRoYhfmyzTlGm\">" +
-                    //            "<input type=\"time\" value=\"" + enterTime + "\" onblur=\"wgddAsHIsXNWQkl(this)\" id=\"wgddAsHIsXNWQkl_\" />" +
-                    //            "<span>-</span>" +
-                    //            "<input type=\"time\" value=\"" + exitTime + "\" onblur=\"YNXxUwIhBTDduDG(this)\" id=\"YNXxUwIhBTDduDG_\" />" +
-                    //            //"<div class=\"avnythFRVEkXnim\" worker=\"@item.Id\" style=\"display: none;\"></div>" +
-                    //            deleteButton +
-                    //        "</div>" +
-                    //        "" +
-                    //        "" +
-                    //        "" +
-                    //        "" +
-                    //        "" +
-                    //        "" +
-                    //    "</div>";
+                    //
+                    string? tasks = null;
+                    string? jobEnter = null;
+                    string? jobExit = null;
+                    string deleteButton = "";
+                    //List<int> taskIdArray = new List<int>();
+
+                    foreach (var task in taskArray)
+                    {
+                        if (task.Date.HasValue && task.Date.Value.ToString("yyyy-MM-dd") == item.ToString("yyyy-MM-dd"))
+                        {
+                            //if (task.JobStart.HasValue)
+                            //{
+                            //    jobEnter = task.JobStart.Value.ToString("HH:mm");
+                            //}
+
+                            //if (task.JobEnd.HasValue)
+                            //{
+                            //    jobExit = task.JobEnd.Value.ToString("HH:mm");
+                            //}
+                            if (task.JobStart.HasValue && task.JobEnd.HasValue)
+                            {
+                                jobEnter = task.JobStart.Value.ToString("HH:mm");
+                                jobExit = task.JobEnd.Value.ToString("HH:mm");
+                                deleteButton = "<a class=\"MNewKOhqZkqNDeJ\" onclick=\"czzROjFaPsDoZoT(this)\" title=\"Usuń godziny\"><ion-icon name=\"trash-outline\"></ion-icon></a>";
+                            }
+
+                            if (task.TaskNameID != null)
+                            {
+                                tasks += "<div class=\"ZslufbFdcfCIeaW\">" + //id=\"" + task.Id + "\"
+                                            "<span>" + _context.TaskName2.FirstOrDefault(x => x.Id == task.TaskNameID && x.DepartmentID == worker.DepartmentID)?.Name + "</span>" +
+                                            "<a onclick=\"aTdCbXqRfUSGyXc(" + task.Id + ")\" title=\"Usuń zadanie\"><ion-icon name=\"close\"></ion-icon></a>" +
+                                         "</div>";
+                            }
+
+                            //deleteButton = "<a class=\"MNewKOhqZkqNDeJ\" onclick=\"jzOfWppePYfqVYf(this)\" title=\"Usuń wpisy\"><ion-icon name=\"trash-outline\"></ion-icon></a>";
+                        }
+                    }
+                    //
+
+                    string jobStartInput = "";
+                    string jobEndInput = "";
+                    if (jobEnter != null)
+                    {
+                        jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" disabled />";
+                    }
+                    else
+                    {
+                        jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" onblur=\"wgddAsHIsXNWQkl(this)\" />";
+                    }
+
+                    if (jobExit != null)
+                    {
+                        jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" disabled />";
+                    }
+                    else
+                    {
+                        jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" onblur=\"YNXxUwIhBTDduDG(this)\" />";
+                    }
+
+                    daysString += "<div class=\"SBVWNWOJZnTplXL\" date=\"" + item.ToString("yyyy-MM-dd") + "\">" +
+                            "<div class=\"LwxRoYhfmyzTlGm\">" +
+                                jobStartInput +
+                                "<span>-</span>" +
+                                jobEndInput +
+                                deleteButton +
+                            "</div>" +
+                            "<div class=\"AQzCKqmlrQJmxzn\">" +
+                                tasks +
+                            "</div>" +
+                        "</div>";
                 }
 
                 var departmentName = _context.Department.FirstOrDefault(x => x.Id == worker.DepartmentID)?.Name;
@@ -520,7 +547,7 @@ namespace TimeTask.Controllers
             }
             //
 
-            return Json(new { contentResult = DatesInChosenWeek((int)year, (int)week), html, test });
+            return Json(new { contentResult = DatesInChosenWeek((int)year, (int)week), html });
         }
 
         public List<DateTime> getDatesInWeek(int year, int weekOfYear)
@@ -580,56 +607,6 @@ namespace TimeTask.Controllers
             //return Json(new { contentResult = Content(div), dates });
             //return Json(Content(div));
             return div;
-        }
-
-        [HttpPost]
-        public ActionResult AddTasks(int workerID, int? taskNameID, DateTime? date, DateTime? jobStart, DateTime? jobEnd)
-        {
-            var newData = new Task2()
-            {
-                WorkerID = workerID,
-                TaskNameID = taskNameID,
-                Date = date,
-                JobStart = jobStart,
-                JobEnd = jobEnd
-            };
-
-            _context.Task2.Add(newData);
-            _context.SaveChanges();
-            //return Json(new { success = true });
-            return Json(newData.Id);
-        }
-
-        [HttpPost]
-        public ActionResult RemoveTask(int id)
-        {
-            var row = _context.Task2.FirstOrDefault(e => e.Id == id);
-            if (row != null)
-            {
-                _context.Task2.Remove(row);
-                _context.SaveChanges();
-
-                return Json(new { success = true });
-            }
-
-            return Json(new { success = false });
-        }
-
-        [HttpPost]
-        public ActionResult EditTask(int id, int? taskNameID, DateTime? jobStart, DateTime? jobEnd)
-        {
-            var row = _context.Task2.FirstOrDefault(e => e.Id == id);
-            if (row != null)
-            {
-                row.TaskNameID = taskNameID;
-                row.JobStart = jobStart;
-                row.JobEnd = jobEnd;
-                _context.SaveChanges();
-
-                return Json(new { success = true });
-            }
-
-            return Json(new { success = false });
         }
 
         [HttpGet]
@@ -769,22 +746,89 @@ namespace TimeTask.Controllers
                 return Content(tasks);
             }
 
+            return Json(false);
+        }
+
+        [HttpPost]
+        public ActionResult AddTasks(int workerID, int? taskNameID, DateTime? date, DateTime? jobStart, DateTime? jobEnd)
+        {
+            var newData = new Task2()
+            {
+                WorkerID = workerID,
+                TaskNameID = taskNameID,
+                Date = date,
+                JobStart = jobStart,
+                JobEnd = jobEnd
+            };
+
+            _context.Task2.Add(newData);
+            _context.SaveChanges();
+            //return Json(new { success = true });
+            return Json(newData.Id);
+        }
+
+        [HttpPost]
+        public ActionResult RemoveTask(int id)
+        {
+            var row = _context.Task2.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.Task2.Remove(row);
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
             return Json(new { success = false });
         }
 
-        //[HttpGet]
-        //public ActionResult GetWeek(int? savedWeek)
-        //{
-        //    int? week;
-        //    if (savedWeek != null)
-        //    {
-        //        week = savedWeek;
-        //    }
-        //    else
-        //    {
-        //        week
-        //    }
-        //}
+        [HttpPost]
+        public ActionResult EditTask(int id, int? taskNameID, DateTime? jobStart, DateTime? jobEnd)
+        {
+            var row = _context.Task2.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.TaskNameID = taskNameID;
+                row.JobStart = jobStart;
+                row.JobEnd = jobEnd;
+                _context.SaveChanges();
+
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult AddOrEditTask(int workerId, int? taskNameId, DateTime dateTime, DateTime? jobStart, DateTime? jobEnd)
+        {
+            var taskArray = _context.Task2.Where(x => x.WorkerID == workerId);
+            //foreach (var item in _context.Task2)
+            //{
+
+            //}
+            if (taskArray.Any()) //worker już się znajduje w bazie Task (edit)
+            {
+                foreach (var task in taskArray) //task.Date nigdy nie będzie null
+                {
+                    if (task.Date.HasValue && !task.JobStart.HasValue && !task.JobEnd.HasValue) //date juz jest w bazie, jobStart i jobEnd nie ma
+                    {
+
+                    }
+
+                    if (!task.Date.HasValue && task.JobStart.HasValue && task.JobEnd.HasValue) //date nie ma w bazie, jobStart i jobEnd są
+                    {
+
+                    }
+                }
+            }
+            else //worker jeszcze nie znajduje się w bazie (add)
+            {
+                
+            }
+
+            return Json(false);
+        }
 
 
 

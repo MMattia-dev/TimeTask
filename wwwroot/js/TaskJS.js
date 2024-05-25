@@ -128,7 +128,6 @@ function task_lock_headers_onchange(t)
 
 function drmZhscxvPoxiya(year, week, department)
 {
-    //console.log(year, week, department);
     $.ajax({
         type: 'GET',
         url: '/Tasks/CreateTable',
@@ -139,11 +138,13 @@ function drmZhscxvPoxiya(year, week, department)
         },
         success: function (response)
         {
-            $('.fSJtEaXwJSHzoxW').html(response.contentResult);
-            //$('.bHSvgvYnvUySJXK').html(response.html);
-            $('.fSJtEaXwJSHzoxW').after(response.html);
+            let wcHMgjWjXaRMPKy = document.querySelectorAll('.wcHMgjWjXaRMPKy');
+            for (let i = 0; i < wcHMgjWjXaRMPKy.length; i++) {
+                $(wcHMgjWjXaRMPKy[i]).remove();
+            }
 
-            console.log(response.test);
+            $('.fSJtEaXwJSHzoxW').html(response.contentResult);
+            $('.fSJtEaXwJSHzoxW').after(response.html);
 
             if (sessionStorage.getItem('task_lock_headers') != null)
             {
@@ -1346,8 +1347,11 @@ function ekzMacYlAMvOgoy_test(t, firstDepartment)
         },
         success: function (response)
         {
-            $(t).toggleClass("pAPTryUdWHeiZZa");
-            show_options(t, response);
+            if (response != false)
+            {
+                $(t).toggleClass("pAPTryUdWHeiZZa");
+                show_options(t, response);
+            }
         },
         error: function (xhr, status, error)
         {
@@ -1398,7 +1402,15 @@ function ekzMacYlAMvOgoy_test(t, firstDepartment)
 //    }
 //};
 
-function uXPtoAMyTPOkWCV(t) 
+function vhKnmbRGiUsyfyh(t) 
+{
+    t.style.removeProperty('cursor');
+    //$('.AQzCKqmlrQJmxzn').css('background-color', '');
+    $('.AQzCKqmlrQJmxzn').removeAttr('style');
+    $('.left-nav').removeClass('HFhDvVpHKOUBBMS');
+};
+
+function uXPtoAMyTPOkWCV(t, taskID) 
 {
     t.style.cursor = 'grabbing';
     let YgYDRNgkzyxgztO = $(t).parent();
@@ -1450,7 +1462,8 @@ function uXPtoAMyTPOkWCV(t)
 
             //
             let workerID = $(newItem).parent().parent().parent('.wcHMgjWjXaRMPKy').attr('worker'); //nie może być równe null
-            let taskNameID = $(newItem).attr('pGXQuswWwoZGMWg'); //nie będzie równe null
+            //let taskNameID = $(newItem).attr('pGXQuswWwoZGMWg'); //nie będzie równe null
+            let taskNameID = taskID; //może być równe null
             let date = $(newItem).parent().parent('.SBVWNWOJZnTplXL').attr('date'); //nigdy nie będzie równe null
             let jobStart = $(newItem).parent().parent('.SBVWNWOJZnTplXL').children('.LwxRoYhfmyzTlGm').children('input').eq(0).val(); //może być równe null
             let jobEnd = $(newItem).parent().parent('.SBVWNWOJZnTplXL').children('.LwxRoYhfmyzTlGm').children('input').eq(1).val(); //może być równe null
@@ -1465,429 +1478,455 @@ function uXPtoAMyTPOkWCV(t)
     });
 };
 
-function vhKnmbRGiUsyfyh(t) 
-{
-    t.style.removeProperty('cursor');
-    $('.AQzCKqmlrQJmxzn').css('background-color', '');
-    $('.left-nav').removeClass('HFhDvVpHKOUBBMS');
-};
-
 function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd) 
 {
-    let checkBool = false;
-    for (let i = 0; i < model_t.length; i++) 
-    {
-        if (model_t[i].WorkerID == workerID && new Date(model_t[i].Date).toLocaleDateString() == new Date(date).toLocaleDateString()) 
+    console.log(workerID, taskNameID, date, jobStart, jobEnd);
+
+    disable();
+    $(element).append(createSmallLoader2());
+
+    $.ajax({
+        type: 'POST',
+        url: '/Tasks/AddOrEditTask',
+        data: {
+            workerId: workerID,
+            taskNameId: taskNameID,
+            dateTime: date,
+            jobStart: jobStart,
+            jobEnd: jobEnd
+        },
+        success: function (response)
         {
-            if (jobStart == '' && jobEnd == '') 
-            {
-                if (model_t[i].TaskNameID != null)
-                {
-                    checkBool = true;
-
-                    $(element).append(createSmallLoader2());
-                    disable();
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Tasks/AddTasks',
-                        data: {
-                            workerID: workerID,
-                            taskNameID: taskNameID,
-                            date: date,
-                            jobStart: null,
-                            jobEnd: null
-                        },
-                        success: function (response)
-                        {
-                            model_t.push({ Id: response, WorkerID: workerID, TaskNameID: taskNameID, Date: date, JobStart: null, JobEnd: null });
-                            
-                            let span = $(element).children('div').children('span').html();
-                            $(element).append(`<span>` + span + `</span>`);
-                            $(element).children('div').remove();
-                            $(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW');
-                            $(element).attr('phxkwraiqguiibo', response).attr('id', date);
-                            
-
-                            enable();
-                        },
-                        error: function (xhr, status, error)
-                        {
-                            console.log('Error adding data:', error);
-                        }
-                    });
-                    break;
-                }
-                //if (model_t[i].TaskNameID == null)
-                //{
-                //    //
-                //}
-            }
-            else 
-            {
-                if (model_t[i].TaskNameID != null)
-                {
-                    checkBool = true;
-
-                    $(element).append(createSmallLoader2());
-                    disable();
-                    let dateJobStart = date + ' ' + jobStart;
-                    let dateJobEnd = date + ' ' + jobEnd;
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Tasks/AddTasks',
-                        data: {
-                            workerID: workerID,
-                            taskNameID: taskNameID,
-                            date: date,
-                            jobStart: dateJobStart,
-                            jobEnd: dateJobEnd
-                        },
-                        success: function (response)
-                        {
-                            model_t.push({ Id: response, WorkerID: workerID, TaskNameID: taskNameID, Date: date, JobStart: dateJobStart, JobEnd: dateJobEnd });
-
-                            let span = $(element).children('div').children('span').html();
-                            $(element).append(`<span>` + span + `</span>`);
-                            $(element).children('div').remove();
-                            $(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW');
-                            $(element).attr('phxkwraiqguiibo', response).attr('id', date);
+            console.log(response);
 
 
-                            enable();
-                        },
-                        error: function (xhr, status, error)
-                        {
-                            console.log('Error adding data:', error);
-                        }
-                    });
-                    break;
-                }
-                if (model_t[i].TaskNameID == null)
-                {
-                    checkBool = true;
-
-                    $(element).append(createSmallLoader2());
-                    disable();
-                    let dateJobStart = date + ' ' + jobStart;
-                    let dateJobEnd = date + ' ' + jobEnd;
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Tasks/EditTask',
-                        data: {
-                            id: model_t[i].Id,
-                            taskNameID: taskNameID,
-                            jobStart: dateJobStart,
-                            jobEnd: dateJobEnd
-                        },
-                        success: function (response)
-                        {
-                            var indx = model_t.findIndex(obj => obj.Id == model_t[i].Id);
-                            model_t[indx].TaskNameID = taskNameID;
-                            model_t[indx].JobStart = dateJobStart;
-                            model_t[indx].JobEnd = dateJobEnd;
 
 
-                            let span = $(element).children('div').children('span').html();
-                            $(element).append(`<span>` + span + `</span>`);
-                            $(element).children('div').remove();
-                            $(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW');
-                            $(element).attr('phxkwraiqguiibo', model_t[i].Id).attr('id', date);
-
-                            enable();
-                        },
-                        error: function (xhr, status, error)
-                        {
-                            console.log('Error adding data:', error);
-                        }
-                    });
-                    break;
-                }
-            }          
+            enable();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
         }
-    }
+    });
 
-    if (!checkBool) 
-    {
-        $(element).append(createSmallLoader2());
-        disable();
-        $.ajax({
-            type: 'POST',
-            url: '/Tasks/AddTasks',
-            data: {
-                workerID: workerID,
-                taskNameID: taskNameID,
-                date: date,
-                jobStart: null,
-                jobEnd: null
-            },
-            success: function (response)
-            {
-                model_t.push({ Id: response, WorkerID: workerID, TaskNameID: taskNameID, Date: date, JobStart: null, JobEnd: null });
-                $(element).parent().parent().children('.LwxRoYhfmyzTlGm').children('.MNewKOhqZkqNDeJ').fadeIn(100);
+    //let checkBool = false;
+    //for (let i = 0; i < model_t.length; i++) 
+    //{
+    //    if (model_t[i].WorkerID == workerID && new Date(model_t[i].Date).toLocaleDateString() == new Date(date).toLocaleDateString()) 
+    //    {
+    //        if (jobStart == '' && jobEnd == '') 
+    //        {
+    //            if (model_t[i].TaskNameID != null)
+    //            {
+    //                checkBool = true;
 
-                let span = $(element).children('div').children('span').html();
-                $(element).append(`<span>` + span + `</span>`);
-                $(element).children('div').remove();
-                $(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW');
-                $(element).attr('phxkwraiqguiibo', response).attr('id', date);
+    //                $(element).append(createSmallLoader2());
+    //                disable();
+    //                $.ajax({
+    //                    type: 'POST',
+    //                    url: '/Tasks/AddTasks',
+    //                    data: {
+    //                        workerID: workerID,
+    //                        taskNameID: taskNameID,
+    //                        date: date,
+    //                        jobStart: null,
+    //                        jobEnd: null
+    //                    },
+    //                    success: function (response)
+    //                    {
+    //                        model_t.push({ Id: response, WorkerID: workerID, TaskNameID: taskNameID, Date: date, JobStart: null, JobEnd: null });
+                            
+    //                        let span = $(element).children('div').children('span').html();
+    //                        $(element).append(`<span>` + span + `</span>`);
+    //                        $(element).children('div').remove();
+    //                        $(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW');
+    //                        $(element).attr('phxkwraiqguiibo', response).attr('id', date);
+                            
+    //                        enable();
+    //                    },
+    //                    error: function (xhr, status, error)
+    //                    {
+    //                        console.log('Error adding data:', error);
+    //                    }
+    //                });
+    //                break;
+    //            }
+    //            if (model_t[i].TaskNameID == null)
+    //            {
+    //                //
+    //            }
+    //        }
+    //        else 
+    //        {
+    //            if (model_t[i].TaskNameID != null)
+    //            {
+    //                checkBool = true;
 
-                enable();
-            },
-            error: function (xhr, status, error)
-            {
-                console.log('Error adding data:', error);
-            }
-        });
-    }
+    //                $(element).append(createSmallLoader2());
+    //                disable();
+    //                let dateJobStart = date + ' ' + jobStart;
+    //                let dateJobEnd = date + ' ' + jobEnd;
+    //                $.ajax({
+    //                    type: 'POST',
+    //                    url: '/Tasks/AddTasks',
+    //                    data: {
+    //                        workerID: workerID,
+    //                        taskNameID: taskNameID,
+    //                        date: date,
+    //                        jobStart: dateJobStart,
+    //                        jobEnd: dateJobEnd
+    //                    },
+    //                    success: function (response)
+    //                    {
+    //                        model_t.push({ Id: response, WorkerID: workerID, TaskNameID: taskNameID, Date: date, JobStart: dateJobStart, JobEnd: dateJobEnd });
+
+    //                        let span = $(element).children('div').children('span').html();
+    //                        $(element).append(`<span>` + span + `</span>`);
+    //                        $(element).children('div').remove();
+    //                        $(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW');
+    //                        $(element).attr('phxkwraiqguiibo', response).attr('id', date);
+
+
+    //                        enable();
+    //                    },
+    //                    error: function (xhr, status, error)
+    //                    {
+    //                        console.log('Error adding data:', error);
+    //                    }
+    //                });
+    //                break;
+    //            }
+    //            if (model_t[i].TaskNameID == null)
+    //            {
+    //                checkBool = true;
+
+    //                $(element).append(createSmallLoader2());
+    //                disable();
+    //                let dateJobStart = date + ' ' + jobStart;
+    //                let dateJobEnd = date + ' ' + jobEnd;
+    //                $.ajax({
+    //                    type: 'POST',
+    //                    url: '/Tasks/EditTask',
+    //                    data: {
+    //                        id: model_t[i].Id,
+    //                        taskNameID: taskNameID,
+    //                        jobStart: dateJobStart,
+    //                        jobEnd: dateJobEnd
+    //                    },
+    //                    success: function (response)
+    //                    {
+    //                        var indx = model_t.findIndex(obj => obj.Id == model_t[i].Id);
+    //                        model_t[indx].TaskNameID = taskNameID;
+    //                        model_t[indx].JobStart = dateJobStart;
+    //                        model_t[indx].JobEnd = dateJobEnd;
+
+
+    //                        let span = $(element).children('div').children('span').html();
+    //                        $(element).append(`<span>` + span + `</span>`);
+    //                        $(element).children('div').remove();
+    //                        $(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW');
+    //                        $(element).attr('phxkwraiqguiibo', model_t[i].Id).attr('id', date);
+
+    //                        enable();
+    //                    },
+    //                    error: function (xhr, status, error)
+    //                    {
+    //                        console.log('Error adding data:', error);
+    //                    }
+    //                });
+    //                break;
+    //            }
+    //        }          
+    //    }
+    //}
+
+    //if (!checkBool) 
+    //{
+    //    $(element).append(createSmallLoader2());
+    //    disable();
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: '/Tasks/AddTasks',
+    //        data: {
+    //            workerID: workerID,
+    //            taskNameID: taskNameID,
+    //            date: date,
+    //            jobStart: null,
+    //            jobEnd: null
+    //        },
+    //        success: function (response)
+    //        {
+    //            model_t.push({ Id: response, WorkerID: workerID, TaskNameID: taskNameID, Date: date, JobStart: null, JobEnd: null });
+    //            $(element).parent().parent().children('.LwxRoYhfmyzTlGm').children('.MNewKOhqZkqNDeJ').fadeIn(100);
+
+    //            let span = $(element).children('div').children('span').html();
+    //            $(element).append(`<span>` + span + `</span>`);
+    //            $(element).children('div').remove();
+    //            $(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW');
+    //            $(element).attr('phxkwraiqguiibo', response).attr('id', date);
+
+    //            enable();
+    //        },
+    //        error: function (xhr, status, error)
+    //        {
+    //            console.log('Error adding data:', error);
+    //        }
+    //    });
+    //}
 };
 
 function wgddAsHIsXNWQkl(t) 
 {
-    let workerID = $(t).parent().parent().parent('.wcHMgjWjXaRMPKy').attr('worker');
-    let jobStart = t.value;
-    let jobEnd = $(t).parent().children('input').eq(1).val();
-    let date = $(t).parent().attr('date');
 
-    if (jobStart.length > 0 && jobEnd.length > 0) 
-    {
-        let dateJobStart = date + ' ' + jobStart;
-        let dateJobEnd = date + ' ' + jobEnd;
 
-        let array = [];//jezeli pusta to nie ma nic wpisane w bazie
+    //let workerID = $(t).parent().parent().parent('.wcHMgjWjXaRMPKy').attr('worker');
+    //let jobStart = t.value;
+    //let jobEnd = $(t).parent().children('input').eq(1).val();
+    //let date = $(t).parent().attr('date');
 
-        //sprawdz czy jest coś do zedytowania
-        for (let i = 0; i < model_t.length; i++) 
-        {
-            if (model_t[i].WorkerID == workerID && new Date(model_t[i].Date).toLocaleDateString() == new Date(date).toLocaleDateString()) //=id
-            {
-                if (model_t[i].JobStart != null && model_t[i].JobEnd != null) 
-                {
-                    //jezeli sa godziny wpisane i taskId
-                    if (model_t[i].TaskNameID != null) 
-                    {
-                        array.push({ id: model_t[i].Id, taskId: model_t[i].TaskNameID, start: dateJobStart, end: dateJobEnd });
-                    }
-                    //jezeli sa godziny wpisane ale nie ma taskId
-                    if (model_t[i].TaskNameID == null) 
-                    {
-                        array.push({ id: model_t[i].Id, taskId: null, start: dateJobStart, end: dateJobEnd });
-                    }
-                }
-                if (model_t[i].JobStart == null && model_t[i].JobEnd == null) 
-                {
-                    //jezeli nie ma godzin ale jest wpisany taskId
-                    if (model_t[i].TaskNameID != null) 
-                    {
-                        array.push({ id: model_t[i].Id, taskId: model_t[i].TaskNameID, start: dateJobStart, end: dateJobEnd });
-                    }
-                    //jezeli nie ma niczego wpisanego
-                    if (model_t[i].TaskNameID == null) 
-                    {
-                        //nic do zrobienia
-                    }
-                }
-            }
-        }
+    //if (jobStart.length > 0 && jobEnd.length > 0) 
+    //{
+    //    let dateJobStart = date + ' ' + jobStart;
+    //    let dateJobEnd = date + ' ' + jobEnd;
 
-        if (array.length > 0)
-        {
-            //edytuj
-            //sprawdz czy godziny istnieja juz bazie
-            for (let i = 0; i < model_t.length; i++) 
-            {
-                for (let j = 0; j < array.length; j++) 
-                {
-                    if (model_t[i].Id == array[j].id) 
-                    {
-                        if (new Date(model_t[i].JobStart).toLocaleTimeString() != new Date(array[j].start).toLocaleTimeString() || new Date(model_t[i].JobEnd).toLocaleTimeString() != new Date(array[j].end).toLocaleTimeString()) 
-                        {
-                            $(t).parent().append(createSmallLoader());
-                            disable();
-                            $.ajax({
-                                type: 'POST',
-                                url: '/Tasks/EditTask',
-                                data: {
-                                    id: array[j].id,
-                                    taskNameID: array[j].taskId,
-                                    jobStart: array[j].start,
-                                    jobEnd: array[j].end
-                                },
-                                success: function (response)
-                                {
-                                    //location.reload();
+    //    let array = [];//jezeli pusta to nie ma nic wpisane w bazie
 
-                                    var indx = model_t.findIndex(obj => obj.Id == array[j].id);
-                                    model_t[indx].TaskNameID = array[j].taskId;
-                                    model_t[indx].JobStart = array[j].start;
-                                    model_t[indx].JobEnd = array[j].end;
-                                    enable();
-                                },
-                                error: function (xhr, status, error)
-                                {
-                                    console.log('Error adding data:', error);
-                                }
-                            });
-                        }
-                    }
-                }
-            }
-        }
-        else 
-        {
-            //dodaj do bazy
-            $(t).parent().append(createSmallLoader());
-            disable();
-            $.ajax({
-                type: 'POST',
-                url: '/Tasks/AddTasks',
-                data: {
-                    workerID: workerID,
-                    taskNameID: null,
-                    date: date,
-                    jobStart: dateJobStart,
-                    jobEnd: dateJobEnd
-                },
-                success: function (response)
-                {
-                    //location.reload();
-                    model_t.push({ Id: response, WorkerID: workerID, TaskNameID: null, Date: date, JobStart: dateJobStart, JobEnd: dateJobEnd });
-                    $(t).parent().children('.MNewKOhqZkqNDeJ').fadeIn(100);
+    //    //sprawdz czy jest coś do zedytowania
+    //    for (let i = 0; i < model_t.length; i++) 
+    //    {
+    //        if (model_t[i].WorkerID == workerID && new Date(model_t[i].Date).toLocaleDateString() == new Date(date).toLocaleDateString()) //=id
+    //        {
+    //            if (model_t[i].JobStart != null && model_t[i].JobEnd != null) 
+    //            {
+    //                //jezeli sa godziny wpisane i taskId
+    //                if (model_t[i].TaskNameID != null) 
+    //                {
+    //                    array.push({ id: model_t[i].Id, taskId: model_t[i].TaskNameID, start: dateJobStart, end: dateJobEnd });
+    //                }
+    //                //jezeli sa godziny wpisane ale nie ma taskId
+    //                if (model_t[i].TaskNameID == null) 
+    //                {
+    //                    array.push({ id: model_t[i].Id, taskId: null, start: dateJobStart, end: dateJobEnd });
+    //                }
+    //            }
+    //            if (model_t[i].JobStart == null && model_t[i].JobEnd == null) 
+    //            {
+    //                //jezeli nie ma godzin ale jest wpisany taskId
+    //                if (model_t[i].TaskNameID != null) 
+    //                {
+    //                    array.push({ id: model_t[i].Id, taskId: model_t[i].TaskNameID, start: dateJobStart, end: dateJobEnd });
+    //                }
+    //                //jezeli nie ma niczego wpisanego
+    //                if (model_t[i].TaskNameID == null) 
+    //                {
+    //                    //nic do zrobienia
+    //                }
+    //            }
+    //        }
+    //    }
 
-                    enable();
-                },
-                error: function (xhr, status, error)
-                {
-                    console.log('Error adding data:', error);
-                }
-            });
-        }
-    }
+    //    if (array.length > 0)
+    //    {
+    //        //edytuj
+    //        //sprawdz czy godziny istnieja juz bazie
+    //        for (let i = 0; i < model_t.length; i++) 
+    //        {
+    //            for (let j = 0; j < array.length; j++) 
+    //            {
+    //                if (model_t[i].Id == array[j].id) 
+    //                {
+    //                    if (new Date(model_t[i].JobStart).toLocaleTimeString() != new Date(array[j].start).toLocaleTimeString() || new Date(model_t[i].JobEnd).toLocaleTimeString() != new Date(array[j].end).toLocaleTimeString()) 
+    //                    {
+    //                        $(t).parent().append(createSmallLoader());
+    //                        disable();
+    //                        $.ajax({
+    //                            type: 'POST',
+    //                            url: '/Tasks/EditTask',
+    //                            data: {
+    //                                id: array[j].id,
+    //                                taskNameID: array[j].taskId,
+    //                                jobStart: array[j].start,
+    //                                jobEnd: array[j].end
+    //                            },
+    //                            success: function (response)
+    //                            {
+    //                                //location.reload();
+
+    //                                var indx = model_t.findIndex(obj => obj.Id == array[j].id);
+    //                                model_t[indx].TaskNameID = array[j].taskId;
+    //                                model_t[indx].JobStart = array[j].start;
+    //                                model_t[indx].JobEnd = array[j].end;
+    //                                enable();
+    //                            },
+    //                            error: function (xhr, status, error)
+    //                            {
+    //                                console.log('Error adding data:', error);
+    //                            }
+    //                        });
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //    else 
+    //    {
+    //        //dodaj do bazy
+    //        $(t).parent().append(createSmallLoader());
+    //        disable();
+    //        $.ajax({
+    //            type: 'POST',
+    //            url: '/Tasks/AddTasks',
+    //            data: {
+    //                workerID: workerID,
+    //                taskNameID: null,
+    //                date: date,
+    //                jobStart: dateJobStart,
+    //                jobEnd: dateJobEnd
+    //            },
+    //            success: function (response)
+    //            {
+    //                //location.reload();
+    //                model_t.push({ Id: response, WorkerID: workerID, TaskNameID: null, Date: date, JobStart: dateJobStart, JobEnd: dateJobEnd });
+    //                $(t).parent().children('.MNewKOhqZkqNDeJ').fadeIn(100);
+
+    //                enable();
+    //            },
+    //            error: function (xhr, status, error)
+    //            {
+    //                console.log('Error adding data:', error);
+    //            }
+    //        });
+    //    }
+    //}
 };
 
 function YNXxUwIhBTDduDG(t)
 {
-    let workerID = $(t).parent().parent().parent('.wcHMgjWjXaRMPKy').attr('worker');
-    let jobStart = $(t).parent().children('input').eq(0).val();
-    let jobEnd = t.value;
-    let date = $(t).parent().attr('date');
 
-    if (jobStart.length > 0 && jobEnd.length > 0) 
-    {
-        let dateJobStart = date + ' ' + jobStart;
-        let dateJobEnd = date + ' ' + jobEnd;
 
-        let array = [];//jezeli pusta to nie ma nic wpisane w bazie
+    //let workerID = $(t).parent().parent().parent('.wcHMgjWjXaRMPKy').attr('worker');
+    //let jobStart = $(t).parent().children('input').eq(0).val();
+    //let jobEnd = t.value;
+    //let date = $(t).parent().attr('date');
 
-        //sprawdz czy jest coś do zedytowania
-        for (let i = 0; i < model_t.length; i++) 
-        {
-            if (model_t[i].WorkerID == workerID && new Date(model_t[i].Date).toLocaleDateString() == new Date(date).toLocaleDateString()) //=id
-            {
-                if (model_t[i].JobStart != null && model_t[i].JobEnd != null) 
-                {
-                    //jezeli sa godziny wpisane i taskId
-                    if (model_t[i].TaskNameID != null) 
-                    {
-                        array.push({ id: model_t[i].Id, taskId: model_t[i].TaskNameID, start: dateJobStart, end: dateJobEnd });
-                        //console.log('a1');
-                    }
-                    //jezeli sa godziny wpisane ale nie ma taskId
-                    if (model_t[i].TaskNameID == null) 
-                    {
-                        array.push({ id: model_t[i].Id, taskId: null, start: dateJobStart, end: dateJobEnd });
-                        //console.log('a2');
-                    }
-                }
-                if (model_t[i].JobStart == null && model_t[i].JobEnd == null) 
-                {
-                    //jezeli nie ma godzin ale jest wpisany taskId
-                    if (model_t[i].TaskNameID != null) 
-                    {
-                        array.push({ id: model_t[i].Id, taskId: model_t[i].TaskNameID, start: dateJobStart, end: dateJobEnd });
-                        //console.log('a3');
-                    }
-                    //jezeli nie ma niczego wpisanego
-                    if (model_t[i].TaskNameID == null) 
-                    {
-                        //nic do zrobienia
-                        //console.log('a4');
-                    }
-                }
-            }
-        }
+    //if (jobStart.length > 0 && jobEnd.length > 0) 
+    //{
+    //    let dateJobStart = date + ' ' + jobStart;
+    //    let dateJobEnd = date + ' ' + jobEnd;
 
-        if (array.length > 0)
-        {
-            //edytuj
-            //sprawdz czy godziny istnieja juz bazie
-            for (let i = 0; i < model_t.length; i++) 
-            {
-                for (let j = 0; j < array.length; j++) 
-                {
-                    if (model_t[i].Id == array[j].id) 
-                    {
-                        if (new Date(model_t[i].JobStart).toLocaleTimeString() != new Date(array[j].start).toLocaleTimeString() || new Date(model_t[i].JobEnd).toLocaleTimeString() != new Date(array[j].end).toLocaleTimeString()) 
-                        {
-                            $(t).parent().append(createSmallLoader());
-                            disable();
-                            $.ajax({
-                                type: 'POST',
-                                url: '/Tasks/EditTask',
-                                data: {
-                                    id: array[j].id,
-                                    taskNameID: array[j].taskId,
-                                    jobStart: array[j].start,
-                                    jobEnd: array[j].end
-                                },
-                                success: function (response)
-                                {
-                                    //location.reload();
+    //    let array = [];//jezeli pusta to nie ma nic wpisane w bazie
+
+    //    //sprawdz czy jest coś do zedytowania
+    //    for (let i = 0; i < model_t.length; i++) 
+    //    {
+    //        if (model_t[i].WorkerID == workerID && new Date(model_t[i].Date).toLocaleDateString() == new Date(date).toLocaleDateString()) //=id
+    //        {
+    //            if (model_t[i].JobStart != null && model_t[i].JobEnd != null) 
+    //            {
+    //                //jezeli sa godziny wpisane i taskId
+    //                if (model_t[i].TaskNameID != null) 
+    //                {
+    //                    array.push({ id: model_t[i].Id, taskId: model_t[i].TaskNameID, start: dateJobStart, end: dateJobEnd });
+    //                    //console.log('a1');
+    //                }
+    //                //jezeli sa godziny wpisane ale nie ma taskId
+    //                if (model_t[i].TaskNameID == null) 
+    //                {
+    //                    array.push({ id: model_t[i].Id, taskId: null, start: dateJobStart, end: dateJobEnd });
+    //                    //console.log('a2');
+    //                }
+    //            }
+    //            if (model_t[i].JobStart == null && model_t[i].JobEnd == null) 
+    //            {
+    //                //jezeli nie ma godzin ale jest wpisany taskId
+    //                if (model_t[i].TaskNameID != null) 
+    //                {
+    //                    array.push({ id: model_t[i].Id, taskId: model_t[i].TaskNameID, start: dateJobStart, end: dateJobEnd });
+    //                    //console.log('a3');
+    //                }
+    //                //jezeli nie ma niczego wpisanego
+    //                if (model_t[i].TaskNameID == null) 
+    //                {
+    //                    //nic do zrobienia
+    //                    //console.log('a4');
+    //                }
+    //            }
+    //        }
+    //    }
+
+    //    if (array.length > 0)
+    //    {
+    //        //edytuj
+    //        //sprawdz czy godziny istnieja juz bazie
+    //        for (let i = 0; i < model_t.length; i++) 
+    //        {
+    //            for (let j = 0; j < array.length; j++) 
+    //            {
+    //                if (model_t[i].Id == array[j].id) 
+    //                {
+    //                    if (new Date(model_t[i].JobStart).toLocaleTimeString() != new Date(array[j].start).toLocaleTimeString() || new Date(model_t[i].JobEnd).toLocaleTimeString() != new Date(array[j].end).toLocaleTimeString()) 
+    //                    {
+    //                        $(t).parent().append(createSmallLoader());
+    //                        disable();
+    //                        $.ajax({
+    //                            type: 'POST',
+    //                            url: '/Tasks/EditTask',
+    //                            data: {
+    //                                id: array[j].id,
+    //                                taskNameID: array[j].taskId,
+    //                                jobStart: array[j].start,
+    //                                jobEnd: array[j].end
+    //                            },
+    //                            success: function (response)
+    //                            {
+    //                                //location.reload();
                                     
-                                    var indx = model_t.findIndex(obj => obj.Id == array[j].id);
-                                    model_t[indx].TaskNameID = array[j].taskId;
-                                    model_t[indx].JobStart = array[j].start;
-                                    model_t[indx].JobEnd = array[j].end;
-                                    enable();
-                                },
-                                error: function (xhr, status, error)
-                                {
-                                    console.log('Error adding data:', error);
-                                }
-                            });
-                        }
-                    }
-                }
-            }
-        }
-        else 
-        {
-            //dodaj do bazy
-            $(t).parent().append(createSmallLoader());
-            disable();
-            $.ajax({
-                type: 'POST',
-                url: '/Tasks/AddTasks',
-                data: {
-                    workerID: workerID,
-                    taskNameID: null,
-                    date: date,
-                    jobStart: dateJobStart,
-                    jobEnd: dateJobEnd
-                },
-                success: function (response)
-                {
-                    model_t.push({ Id: response, WorkerID: workerID, TaskNameID: null, Date: date, JobStart: dateJobStart, JobEnd: dateJobEnd });
-                    $(t).parent().children('.MNewKOhqZkqNDeJ').fadeIn(100);
+    //                                var indx = model_t.findIndex(obj => obj.Id == array[j].id);
+    //                                model_t[indx].TaskNameID = array[j].taskId;
+    //                                model_t[indx].JobStart = array[j].start;
+    //                                model_t[indx].JobEnd = array[j].end;
+    //                                enable();
+    //                            },
+    //                            error: function (xhr, status, error)
+    //                            {
+    //                                console.log('Error adding data:', error);
+    //                            }
+    //                        });
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //    else 
+    //    {
+    //        //dodaj do bazy
+    //        $(t).parent().append(createSmallLoader());
+    //        disable();
+    //        $.ajax({
+    //            type: 'POST',
+    //            url: '/Tasks/AddTasks',
+    //            data: {
+    //                workerID: workerID,
+    //                taskNameID: null,
+    //                date: date,
+    //                jobStart: dateJobStart,
+    //                jobEnd: dateJobEnd
+    //            },
+    //            success: function (response)
+    //            {
+    //                model_t.push({ Id: response, WorkerID: workerID, TaskNameID: null, Date: date, JobStart: dateJobStart, JobEnd: dateJobEnd });
+    //                $(t).parent().children('.MNewKOhqZkqNDeJ').fadeIn(100);
 
-                    enable();
-                },
-                error: function (xhr, status, error)
-                {
-                    console.log('Error adding data:', error);
-                }
-            });
-        }
-    }
+    //                enable();
+    //            },
+    //            error: function (xhr, status, error)
+    //            {
+    //                console.log('Error adding data:', error);
+    //            }
+    //        });
+    //    }
+    //}
 };
 
 function createSmallLoader() 
@@ -1927,10 +1966,8 @@ function enable()
     $('.lds-ring-small').remove();
 };
 
-function jzOfWppePYfqVYf(t, id) //remove from database
+function jzOfWppePYfqVYf(t) //remove from database
 {
-
-
     //let workerID = $(t).parent().parent().parent().attr('worker');
     //let date = $(t).parent().parent().attr('date');
 
@@ -2008,4 +2045,18 @@ function jzOfWppePYfqVYf(t, id) //remove from database
     //        }
     //    }
     //}
+};
+
+function czzROjFaPsDoZoT(t) 
+{
+    //remove time
+
+
+};
+
+function aTdCbXqRfUSGyXc(id) 
+{
+    //remove task
+
+
 };

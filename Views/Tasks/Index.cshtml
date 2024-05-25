@@ -4,7 +4,6 @@
 @{
     ViewData["Title"] = "Index";
 
-    //pierwszy dział
     var firstDepartmentID = ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name).FirstOrDefault()?.Id;
 }
 
@@ -19,7 +18,6 @@
         <div class="grZWUijDhGWKyHd" style="opacity: 0;">          
             <div class="GlpaymKnQLOGAOs">
                 <div class="fSJtEaXwJSHzoxW"></div>
-                @* <div class="bHSvgvYnvUySJXK"></div> *@
 
                 @* @foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).OrderBy(x => x.Surname).ThenBy(e => e.DepartmentID))
                 {
@@ -80,7 +78,7 @@
 <script type="text/javascript" src="~/js/TaskJS.js"></script>
 <script type="text/javascript" src="~/js/site.js"></script>
 
-<script type="text/javascript">
+@* <script type="text/javascript">
     if (sessionStorage.getItem('JcvzYoovBpGECWh') != null)
     {
         arKOctcZVJhWuhL(sessionStorage.getItem('JcvzYoovBpGECWh'));
@@ -88,4 +86,4 @@
     else {
         arKOctcZVJhWuhL(@firstDepartmentID);
     }
-</script>
+</script> *@
