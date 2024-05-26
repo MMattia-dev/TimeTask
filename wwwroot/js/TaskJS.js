@@ -1480,10 +1480,8 @@ function uXPtoAMyTPOkWCV(t, taskID)
 
 function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd) 
 {
-    console.log(workerID, taskNameID, date, jobStart, jobEnd);
-
-    disable();
-    $(element).append(createSmallLoader2());
+    //disable();
+    //$(element).append(createSmallLoader2());
 
     $.ajax({
         type: 'POST',
@@ -1492,17 +1490,18 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd)
             workerId: workerID,
             taskNameId: taskNameID,
             dateTime: date,
+            //jobStart: date + ' ' + jobStart,
             jobStart: jobStart,
+            //jobEnd: date + ' ' + jobEnd
             jobEnd: jobEnd
         },
         success: function (response)
         {
+            //$(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW').html(`<span>` + response.taskName + `</span><a onclick="aTdCbXqRfUSGyXc(` + response.id + `)" title="Usuń zadanie"><ion-icon name="close"></ion-icon></a>`);
+            
+            //enable();
+
             console.log(response);
-
-
-
-
-            enable();
         },
         error: function (xhr, status, error)
         {
@@ -1673,6 +1672,208 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd)
     //            console.log('Error adding data:', error);
     //        }
     //    });
+    //}
+};
+
+function czzROjFaPsDoZoT(t) 
+{
+    var workerID = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').parent('.wcHMgjWjXaRMPKy').attr('worker');
+    var date = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').attr('date');
+    var ids = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW');
+
+    let arrayOfIds = [];
+    for (let i = 0; i < ids.length; i++) {
+        let onclick = $(ids[i]).children('a').attr('onclick');
+        
+        var id = onclick.substring(
+            onclick.indexOf(", ") + 1,
+            onclick.lastIndexOf(")")
+        );
+        id = id.replace(/\s/g, '');
+
+        arrayOfIds.push(id);
+    }
+
+
+    if (arrayOfIds.length > 0)
+    {
+        disable();
+        $(t).parent().append(createSmallLoader());
+
+        if (arrayOfIds.length == 1)
+        {
+            $.ajax({
+                type: 'POST',
+                url: '/Tasks/DeleteOrEditTask_Time',
+                data: {
+                    id: arrayOfIds[0],
+                    numberOfElements: 1
+                },
+                success: function (response)
+                {
+                    $(t).parent().children('input').val('');
+                    $(t).remove();
+                    enable();
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error:', error);
+                }
+            });
+        }
+        else 
+        {
+            for (let i = 0; i < arrayOfIds.length; i++) 
+            {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Tasks/DeleteOrEditTask_Time',
+                    data: {
+                        id: arrayOfIds[i],
+                        numberOfElements: arrayOfIds.length
+                    },
+                    success: function (response)
+                    {
+                        $(t).parent().children('input').val('');
+                        $(t).remove();
+                        enable();
+                    },
+                    error: function (xhr, status, error)
+                    {
+                        console.log('Error:', error);
+                    }
+                });
+            }
+        }
+    }
+    else 
+    {
+        disable();
+        $(t).parent().append(createSmallLoader());
+
+        $.ajax({
+            type: 'POST',
+            url: '/Tasks/DeleteOrEditTask_Time',
+            data: {
+                workerID: workerID,
+                date: date,
+                numberOfElements: 0
+            },
+            success: function (response)
+            {
+                $(t).parent().children('input').val('');
+                $(t).remove();
+                enable();
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
+};
+
+function aTdCbXqRfUSGyXc(t, id) 
+{
+    var ZslufbFdcfCIeaW_elements = $(t).parent().parent().children('.ZslufbFdcfCIeaW');
+
+    $.ajax({
+        type: 'POST',
+        url: '/Tasks/DeleteOrEditTask_Task',
+        data: {
+            id: id,
+            numberOfElements: ZslufbFdcfCIeaW_elements.length
+        },
+        success: function (response)
+        {
+            $(t).parent().remove();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+    
+};
+
+function jzOfWppePYfqVYf(t) //remove from database
+{
+    //let workerID = $(t).parent().parent().parent().attr('worker');
+    //let date = $(t).parent().parent().attr('date');
+
+    //let a = $(t).parent().parent().children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW:visible');
+
+    //if (a.length > 0) 
+    //{
+    //    $(t).parent().append(createSmallLoader());
+    //    disable();
+
+    //    let index = 0;
+    //    let interval = setInterval(() =>
+    //    {
+    //        if (index === a.length - 1) {
+    //            clearInterval(interval);
+    //            setTimeout(function ()
+    //            {
+    //                $(t).parent().children('input').val('');
+    //                $(t).hide();
+    //                enable();
+    //            }, 100);
+    //        }
+
+    //        let id_ = $(a[index]).attr('pHXkWraiQguiibO');
+
+    //        $.ajax({
+    //            type: 'POST',
+    //            url: '/Tasks/RemoveTask',
+    //            data: { id: id_ },
+    //            success: function (response)
+    //            {
+    //                var indx = model_t.indexOf(id_);
+    //                model_t.splice(indx, 1);
+
+
+    //                $(a[index]).remove();
+    //                index++;
+    //            },
+    //            error: function (response) 
+    //            {
+    //                console.log('Error:', error);
+    //            }
+    //        });
+    //    }, 100);
+    //}
+    //else 
+    //{
+    //    $(t).parent().append(createSmallLoader());
+    //    disable();
+
+    //    for (let i = 0; i < model_t.length; i++) 
+    //    {
+    //        if (model_t[i].WorkerID == workerID && new Date(model_t[i].Date).toLocaleDateString() == new Date(date).toLocaleDateString()) 
+    //        {
+    //            $.ajax({
+    //                type: 'POST',
+    //                url: '/Tasks/RemoveTask',
+    //                data: {
+    //                    id: model_t[i].Id,
+    //                },
+    //                success: function (response)
+    //                {
+    //                    var indx = model_t.indexOf(model_t[i].Id);
+    //                    model_t.splice(indx, 1);
+
+    //                    $(t).parent().children('input').val('');
+    //                    $(t).hide();
+    //                    enable();
+    //                },
+    //                error: function (xhr, status, error)
+    //                {
+    //                    console.log('Error:', error);
+    //                }
+    //            });
+    //        }
+    //    }
     //}
 };
 
@@ -1966,97 +2167,5 @@ function enable()
     $('.lds-ring-small').remove();
 };
 
-function jzOfWppePYfqVYf(t) //remove from database
-{
-    //let workerID = $(t).parent().parent().parent().attr('worker');
-    //let date = $(t).parent().parent().attr('date');
-
-    //let a = $(t).parent().parent().children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW:visible');
-    
-    //if (a.length > 0) 
-    //{
-    //    $(t).parent().append(createSmallLoader());
-    //    disable();
-
-    //    let index = 0;
-    //    let interval = setInterval(() =>
-    //    {
-    //        if (index === a.length - 1) {
-    //            clearInterval(interval);
-    //            setTimeout(function ()
-    //            {
-    //                $(t).parent().children('input').val('');
-    //                $(t).hide();
-    //                enable();
-    //            }, 100);
-    //        }
-
-    //        let id_ = $(a[index]).attr('pHXkWraiQguiibO');
-            
-    //        $.ajax({
-    //            type: 'POST',
-    //            url: '/Tasks/RemoveTask',
-    //            data: { id: id_ },
-    //            success: function (response)
-    //            {
-    //                var indx = model_t.indexOf(id_);
-    //                model_t.splice(indx, 1);
 
 
-    //                $(a[index]).remove();
-    //                index++;
-    //            },
-    //            error: function (response) 
-    //            {
-    //                console.log('Error:', error);
-    //            }
-    //        });
-    //    }, 100);
-    //}
-    //else 
-    //{
-    //    $(t).parent().append(createSmallLoader());
-    //    disable();
-
-    //    for (let i = 0; i < model_t.length; i++) 
-    //    {
-    //        if (model_t[i].WorkerID == workerID && new Date(model_t[i].Date).toLocaleDateString() == new Date(date).toLocaleDateString()) 
-    //        {
-    //            $.ajax({
-    //                type: 'POST',
-    //                url: '/Tasks/RemoveTask',
-    //                data: {
-    //                    id: model_t[i].Id,
-    //                },
-    //                success: function (response)
-    //                {
-    //                    var indx = model_t.indexOf(model_t[i].Id);
-    //                    model_t.splice(indx, 1);
-
-    //                    $(t).parent().children('input').val('');
-    //                    $(t).hide();
-    //                    enable();
-    //                },
-    //                error: function (xhr, status, error)
-    //                {
-    //                    console.log('Error:', error);
-    //                }
-    //            });
-    //        }
-    //    }
-    //}
-};
-
-function czzROjFaPsDoZoT(t) 
-{
-    //remove time
-
-
-};
-
-function aTdCbXqRfUSGyXc(id) 
-{
-    //remove task
-
-
-};
