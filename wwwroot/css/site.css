@@ -2618,9 +2618,9 @@ ion-icon {
     position: sticky;
     top: 0;*/
     /*border-bottom: 1px solid rgba(55, 55, 55, 0.5);*/
-    border-bottom: 1px solid rgba(55, 55, 55, 1);
+    border-bottom: 1px solid rgba(55, 55, 55, 0.75);
     /*border-right: 1px solid rgba(55, 55, 55, 0.5);*/
-    border-right: 1px solid rgba(55, 55, 55, 1);
+    border-right: 1px solid rgba(55, 55, 55, 0.75);
     z-index: 2;
     text-align: center;
     /**/
@@ -2648,7 +2648,7 @@ ion-icon {
         position: -webkit-sticky;
         position: sticky;
         top: 0;
-        background-color: rgba(24, 26, 38, 1);
+        background-color: rgba(34, 36, 48, 1);
         /*border-bottom: 1px solid rgba(0, 0, 0, 1);
         border-right: 1px solid rgba(0, 0, 0, 1);*/
         transition: background-color 0.2s, border 0.2s;
@@ -2675,13 +2675,13 @@ ion-icon {
     }
 
         .fSJtEaXwJSHzoxW.fSJtEaXwJSHzoxW_ .GJakzZdfXNDmfZz {
-            background-color: rgba(24, 26, 38, 1);
+            background-color: rgba(34, 36, 48, 1);
             transition: background-color 0.2s, border 0.2s;
             /*border-right: 1px solid rgba(0, 0, 0, 1);*/
         }
 
         .fSJtEaXwJSHzoxW.fSJtEaXwJSHzoxW_ .XJsRKtmIfTCptru {
-            background-color: rgba(24, 26, 38, 1);
+            background-color: rgba(34, 36, 48, 1);
             transition: background-color 0.2s;
             /*border-right: 1px solid rgba(0, 0, 0, 1);
             border-top: 1px solid rgba(0, 0, 0, 1);*/
@@ -2697,7 +2697,7 @@ ion-icon {
     align-items: center;
     width: 100%;
     /*border-right: 1px solid rgba(55, 55, 55, 0.5);*/
-    border-right: 1px solid rgba(55, 55, 55, 1);
+    border-right: 1px solid rgba(55, 55, 55, 0.75);
     transition: background-color 0.2s, border 0.2s;
 }
 
@@ -2750,9 +2750,9 @@ ion-icon {
     overflow-x: hidden;
     gap: 5px;
     /*border-right: 1px solid rgba(55, 55, 55, 0.5);*/
-    border-right: 1px solid rgba(55, 55, 55, 1);
+    border-right: 1px solid rgba(55, 55, 55, 0.75);
     /*border-top: 1px solid rgba(55, 55, 55, 0.5);*/
-    border-top: 1px solid rgba(55, 55, 55, 1);
+    border-top: 1px solid rgba(55, 55, 55, 0.75);
     transition: background-color 0.2s, border 0.2s;
 }
 
@@ -2785,9 +2785,9 @@ ion-icon {
 .LwxRoYhfmyzTlGm {
     height: 40px;
     /*border-bottom: 1px solid rgba(55, 55, 55, 0.5);*/
-    border-bottom: 1px solid rgba(55, 55, 55, 1);
+    border-bottom: 1px solid rgba(55, 55, 55, 0.75);
     /*border-right: 1px solid rgba(55, 55, 55, 0.5);*/
-    border-right: 1px solid rgba(55, 55, 55, 1);
+    border-right: 1px solid rgba(55, 55, 55, 0.75);
     display: inherit;
     justify-content: center;
     align-items: center;
@@ -2826,9 +2826,9 @@ ion-icon {
 .AQzCKqmlrQJmxzn {
     height: 160px;
     /*border-right: 1px solid rgba(55, 55, 55, 0.5);*/
-    border-right: 1px solid rgba(55, 55, 55, 1);
+    border-right: 1px solid rgba(55, 55, 55, 0.75);
     /*border-bottom: 1px solid rgba(55, 55, 55, 0.5);*/
-    border-bottom: 1px solid rgba(55, 55, 55, 1);
+    border-bottom: 1px solid rgba(55, 55, 55, 0.75);
     /*padding-bottom: 45px;*/
     padding: 5px 5px 45px 5px;
     overflow-x: hidden;

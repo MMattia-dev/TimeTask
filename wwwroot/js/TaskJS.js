@@ -82,11 +82,12 @@ loadOnLoad();
 
 function task_lock_headers()
 {
-    $('.fSJtEaXwJSHzoxW').addClass('fSJtEaXwJSHzoxW_');
+    $('#task_lock_headers_id').children('span').eq(0).html('Odblokuj');
+    //$('.fSJtEaXwJSHzoxW').addClass('fSJtEaXwJSHzoxW_');
     $('.oKvcDSylPNSLgqr').addClass('oKvcDSylPNSLgqr_');
-    $('.LwxRoYhfmyzTlGm').addClass('LwxRoYhfmyzTlGm_');
-    $('.SBVWNWOJZnTplXL').addClass('SBVWNWOJZnTplXL_');
-    $('.AQzCKqmlrQJmxzn').addClass('AQzCKqmlrQJmxzn_');
+    //$('.LwxRoYhfmyzTlGm').addClass('LwxRoYhfmyzTlGm_');
+    //$('.SBVWNWOJZnTplXL').addClass('SBVWNWOJZnTplXL_');
+    //$('.AQzCKqmlrQJmxzn').addClass('AQzCKqmlrQJmxzn_');
     sessionStorage.setItem('task_lock_headers', 'true');
 
     $('#lock1').hide();
@@ -96,11 +97,12 @@ function task_lock_headers()
 
 function task_unlock_headers()
 {
-    $('.fSJtEaXwJSHzoxW').removeClass('fSJtEaXwJSHzoxW_');
+    $('#task_lock_headers_id').children('span').eq(0).html('Zablokuj');
+    //$('.fSJtEaXwJSHzoxW').removeClass('fSJtEaXwJSHzoxW_');
     $('.oKvcDSylPNSLgqr').removeClass('oKvcDSylPNSLgqr_');
-    $('.LwxRoYhfmyzTlGm').removeClass('LwxRoYhfmyzTlGm_');
-    $('.SBVWNWOJZnTplXL').removeClass('SBVWNWOJZnTplXL_');
-    $('.AQzCKqmlrQJmxzn').removeClass('AQzCKqmlrQJmxzn_');
+    //$('.LwxRoYhfmyzTlGm').removeClass('LwxRoYhfmyzTlGm_');
+    //$('.SBVWNWOJZnTplXL').removeClass('SBVWNWOJZnTplXL_');
+    //$('.AQzCKqmlrQJmxzn').removeClass('AQzCKqmlrQJmxzn_');
     sessionStorage.removeItem('task_lock_headers');
 
     $('#lock1').show();
@@ -1480,8 +1482,8 @@ function uXPtoAMyTPOkWCV(t, taskID)
 
 function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd) 
 {
-    //disable();
-    //$(element).append(createSmallLoader2());
+    disable();
+    $(element).append(createSmallLoader2());
 
     $.ajax({
         type: 'POST',
@@ -1490,18 +1492,14 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd)
             workerId: workerID,
             taskNameId: taskNameID,
             dateTime: date,
-            //jobStart: date + ' ' + jobStart,
             jobStart: jobStart,
-            //jobEnd: date + ' ' + jobEnd
             jobEnd: jobEnd
         },
         success: function (response)
         {
-            //$(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW').html(`<span>` + response.taskName + `</span><a onclick="aTdCbXqRfUSGyXc(` + response.id + `)" title="Usuń zadanie"><ion-icon name="close"></ion-icon></a>`);
+            $(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW').removeAttr('id').html(`<span>` + response.taskName + `</span><a onclick="aTdCbXqRfUSGyXc(this, ` + response.id + `)" title="Usuń zadanie"><ion-icon name="close"></ion-icon></a>`);
             
-            //enable();
-
-            console.log(response);
+            enable();
         },
         error: function (xhr, status, error)
         {
@@ -1695,82 +1693,111 @@ function czzROjFaPsDoZoT(t)
     }
 
 
-    if (arrayOfIds.length > 0)
-    {
-        disable();
-        $(t).parent().append(createSmallLoader());
 
-        if (arrayOfIds.length == 1)
-        {
-            $.ajax({
-                type: 'POST',
-                url: '/Tasks/DeleteOrEditTask_Time',
-                data: {
-                    id: arrayOfIds[0],
-                    numberOfElements: 1
-                },
-                success: function (response)
-                {
-                    $(t).parent().children('input').val('');
-                    $(t).remove();
-                    enable();
-                },
-                error: function (xhr, status, error)
-                {
-                    console.log('Error:', error);
-                }
-            });
-        }
-        else 
-        {
-            for (let i = 0; i < arrayOfIds.length; i++) 
-            {
-                $.ajax({
-                    type: 'POST',
-                    url: '/Tasks/DeleteOrEditTask_Time',
-                    data: {
-                        id: arrayOfIds[i],
-                        numberOfElements: arrayOfIds.length
-                    },
-                    success: function (response)
-                    {
-                        $(t).parent().children('input').val('');
-                        $(t).remove();
-                        enable();
-                    },
-                    error: function (xhr, status, error)
-                    {
-                        console.log('Error:', error);
-                    }
-                });
-            }
-        }
-    }
-    else 
-    {
-        disable();
-        $(t).parent().append(createSmallLoader());
+    //disable();
+    //$(t).parent().append(createSmallLoader());
 
-        $.ajax({
-            type: 'POST',
-            url: '/Tasks/DeleteOrEditTask_Time',
-            data: {
-                workerID: workerID,
-                date: date,
-                numberOfElements: 0
-            },
-            success: function (response)
-            {
-                $(t).parent().children('input').val('');
-                $(t).remove();
-                enable();
-            },
-            error: function (xhr, status, error)
-            {
-                console.log('Error:', error);
-            }
-        });
-    }
+
+
+    $.ajax({
+        type: 'POST',
+        url: '/Tasks/DeleteOrEditTask_Time',
+        data: {
+            workerID: workerID,
+            date: date,
+            arrayOfIds: arrayOfIds
+        },
+        success: function (response)
+        {
+            //$(t).parent().children('input').val('');
+            //$(t).remove();
+            //enable();
+            console.log(response);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+
+
+
+    //if (arrayOfIds.length > 0)
+    //{
+    //    disable();
+    //    $(t).parent().append(createSmallLoader());
+
+    //    if (arrayOfIds.length == 1)
+    //    {
+    //        $.ajax({
+    //            type: 'POST',
+    //            url: '/Tasks/DeleteOrEditTask_Time',
+    //            data: {
+    //                id: arrayOfIds[0],
+    //                numberOfElements: 1
+    //            },
+    //            success: function (response)
+    //            {
+    //                $(t).parent().children('input').val('');
+    //                $(t).remove();
+    //                enable();
+    //            },
+    //            error: function (xhr, status, error)
+    //            {
+    //                console.log('Error:', error);
+    //            }
+    //        });
+    //    }
+    //    else 
+    //    {
+    //        for (let i = 0; i < arrayOfIds.length; i++) 
+    //        {
+    //            $.ajax({
+    //                type: 'POST',
+    //                url: '/Tasks/DeleteOrEditTask_Time',
+    //                data: {
+    //                    id: arrayOfIds[i],
+    //                    numberOfElements: arrayOfIds.length
+    //                },
+    //                success: function (response)
+    //                {
+    //                    $(t).parent().children('input').val('');
+    //                    $(t).remove();
+    //                    enable();
+    //                },
+    //                error: function (xhr, status, error)
+    //                {
+    //                    console.log('Error:', error);
+    //                }
+    //            });
+    //        }
+    //    }
+    //}
+    //else 
+    //{
+    //    disable();
+    //    $(t).parent().append(createSmallLoader());
+
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: '/Tasks/DeleteOrEditTask_Time',
+    //        data: {
+    //            workerID: workerID,
+    //            date: date,
+    //            numberOfElements: 0
+    //        },
+    //        success: function (response)
+    //        {
+    //            $(t).parent().children('input').val('');
+    //            $(t).remove();
+    //            enable();
+    //        },
+    //        error: function (xhr, status, error)
+    //        {
+    //            console.log('Error:', error);
+    //        }
+    //    });
+    //}
 };
 
 function aTdCbXqRfUSGyXc(t, id) 
