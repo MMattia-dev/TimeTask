@@ -468,21 +468,11 @@ namespace TimeTask.Controllers
                     string? jobEnter = null;
                     string? jobExit = null;
                     string deleteButton = "";
-                    //List<int> taskIdArray = new List<int>();
 
                     foreach (var task in taskArray)
                     {
                         if (task.Date.HasValue && task.Date.Value.ToString("yyyy-MM-dd") == item.ToString("yyyy-MM-dd"))
                         {
-                            //if (task.JobStart.HasValue)
-                            //{
-                            //    jobEnter = task.JobStart.Value.ToString("HH:mm");
-                            //}
-
-                            //if (task.JobEnd.HasValue)
-                            //{
-                            //    jobExit = task.JobEnd.Value.ToString("HH:mm");
-                            //}
                             if (task.JobStart.HasValue && task.JobEnd.HasValue)
                             {
                                 jobEnter = task.JobStart.Value.ToString("HH:mm");
@@ -492,38 +482,38 @@ namespace TimeTask.Controllers
 
                             if (task.TaskNameID != null)
                             {
-                                tasks += "<div class=\"ZslufbFdcfCIeaW\">" + //id=\"" + task.Id + "\"
+                                tasks += "<div class=\"ZslufbFdcfCIeaW\">" +
                                             "<span>" + _context.TaskName2.FirstOrDefault(x => x.Id == task.TaskNameID && x.DepartmentID == worker.DepartmentID)?.Name + "</span>" +
                                             "<a onclick=\"aTdCbXqRfUSGyXc(this, " + task.Id + ")\" title=\"Usuń zadanie\"><ion-icon name=\"close\"></ion-icon></a>" +
                                          "</div>";
                             }
-
-                            //deleteButton = "<a class=\"MNewKOhqZkqNDeJ\" onclick=\"jzOfWppePYfqVYf(this)\" title=\"Usuń wpisy\"><ion-icon name=\"trash-outline\"></ion-icon></a>";
                         }
                     }
                     //
 
-                    string jobStartInput = "";
-                    string jobEndInput = "";
-                    if (jobEnter != null)
-                    {
-                        //jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" disabled />";
-                        jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" onblur=\"wgddAsHIsXNWQkl(this)\" />";
-                    }
-                    else
-                    {
-                        jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" onblur=\"wgddAsHIsXNWQkl(this)\" />";
-                    }
+                    //string jobStartInput = "";
+                    //string jobEndInput = "";
+                    //if (jobEnter != null)
+                    //{
+                    //    //jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" disabled />";
+                    //    jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" onblur=\"wgddAsHIsXNWQkl(this)\" />";
+                    //}
+                    //else
+                    //{
+                    //    jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" onblur=\"wgddAsHIsXNWQkl(this)\" />";
+                    //}
 
-                    if (jobExit != null)
-                    {
-                        //jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" disabled />";
-                        jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" onblur=\"YNXxUwIhBTDduDG(this)\" />";
-                    }
-                    else
-                    {
-                        jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" onblur=\"YNXxUwIhBTDduDG(this)\" />";
-                    }
+                    //if (jobExit != null)
+                    //{
+                    //    //jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" disabled />";
+                    //    jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" onblur=\"YNXxUwIhBTDduDG(this)\" />";
+                    //}
+                    //else
+                    //{
+                    //    jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" onblur=\"YNXxUwIhBTDduDG(this)\" />";
+                    //}
+                    string jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" onblur=\"wgddAsHIsXNWQkl(this)\" />";
+                    string jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" onblur=\"YNXxUwIhBTDduDG(this)\" />";
 
                     daysString += "<div class=\"SBVWNWOJZnTplXL\" date=\"" + item.ToString("yyyy-MM-dd") + "\">" +
                             "<div class=\"LwxRoYhfmyzTlGm\">" +
@@ -907,90 +897,14 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteOrEditTask_Time(int id, int numberOfElements, int workerID, DateTime date, List<int> arrayOfIds)
+        public ActionResult DeleteOrEditTask_Time(int workerID, DateTime date, List<int> arrayOfIds)
         {
             //czzROjFaPsDoZoT
-            //edit every single row to have jobStart and jobEnd as NULL if there is more than one row   OR   delete single row if there is only one row left with TaskNameID = NULL
 
-
-
-            //if (numberOfElements > 0)
-            //{
-            //    if (numberOfElements == 1) 
-            //    {
-            //        var t = _context.Task2.FirstOrDefault(x => x.Id == id);
-            //        if (t?.TaskNameID == null) //delete
-            //        {
-            //            var row = _context.Task2.FirstOrDefault(e => e.Id == id);
-            //            if (row != null)
-            //            {
-            //                _context.Task2.Remove(row);
-            //                _context.SaveChanges();
-
-            //                return Json(new { success = true });
-            //            }
-            //        }
-            //        else //edit jobStart and jobEnd as NULL
-            //        {
-            //            var row = _context.Task2.FirstOrDefault(e => e.Id == id);
-            //            if (row != null)
-            //            {
-            //                row.JobStart = null;
-            //                row.JobEnd = null;
-            //                _context.SaveChanges();
-
-            //                return Json(new { success = true });
-            //            }
-            //        }
-            //    }
-            //    else //edit jobStart and jobEnd as NULL
-            //    {
-            //        var row = _context.Task2.FirstOrDefault(e => e.Id == id);
-            //        if (row != null)
-            //        {
-            //            row.JobStart = null;
-            //            row.JobEnd = null;
-            //            _context.SaveChanges();
-
-            //            return Json(new { success = true });
-            //        }
-            //    }               
-            //}
-            //else //delete
-            //{
-            //    int? foundID = null;
-            //    var taskArray = _context.Task2.Where(x => x.WorkerID == workerID);
-            //    foreach (var task in taskArray)
-            //    {
-            //        if (task.Date.HasValue)
-            //        {
-            //            if (date.ToString("yyyy-MM-dd") == task.Date.Value.ToString("yyyy-MM-dd"))
-            //            {
-            //                foundID = task.Id;
-            //            }
-            //        }
-            //    }
-
-            //    if (foundID != null)
-            //    {
-            //        var row = _context.Task2.FirstOrDefault(e => e.Id == foundID);
-            //        if (row != null)
-            //        {
-            //            _context.Task2.Remove(row);
-            //            _context.SaveChanges();
-
-            //            return Json(new { success = true });
-            //        }
-            //    }
-            //}
-
-
-
-            //int workerID, DateTime date, List<int> arrayOfIds
             int numberOfElements_ = arrayOfIds.Count();
             if (numberOfElements_ > 0) //foreach item set jobStart and jobEnd to NULL
             {
-                foreach (int id_ in arrayOfIds)
+                foreach (int id_ in arrayOfIds.OrderBy(x => x))
                 {
                     var row = _context.Task2.FirstOrDefault(e => e.Id == id_);
                     if (row != null)
@@ -1005,13 +919,31 @@ namespace TimeTask.Controllers
                         return Json(new { success = true });
                     }
                 }
-
             }
             else //find id using workerID and Date, remove row
             {
-                
-            }
+                var taskArray = _context.Task2.Where(x => x.WorkerID == workerID).OrderBy(x => x.Id);
+                foreach (var task in taskArray)
+                {
+                    if (task.Date.HasValue)
+                    {
+                        if (task.Date.Value.ToShortDateString() == date.ToShortDateString() && task.WorkerID == workerID)
+                        {
+                            var row = _context.Task2.FirstOrDefault(e => e.Id == task.Id);
+                            if (row != null)
+                            {
+                                _context.Task2.Remove(row);
+                                _context.SaveChanges();
+                            }
 
+                            if (task.Equals(taskArray.Last()))
+                            {
+                                return Json(new { success = true });
+                            }
+                        }
+                    }
+                }
+            }
 
             return Json(false);
         }
@@ -1020,7 +952,6 @@ namespace TimeTask.Controllers
         public ActionResult DeleteOrEditTask_Task(int id, int numberOfElements)
         {
             //aTdCbXqRfUSGyXc
-            //remove single task if there is more than one task on the same day   OR   if there is only one task, edit the row and make TaskNameID into NULL
 
             if (numberOfElements > 0)
             {
@@ -1061,6 +992,55 @@ namespace TimeTask.Controllers
             return Json(false);
         }
 
+        [HttpPost]
+        public ActionResult AddOrEditTime(int workerID, DateTime date, List<int> arrayOfIds, TimeOnly? jobStart, TimeOnly? jobEnd)
+        {
+            if (jobStart != null && jobEnd != null)
+            {
+                int numberOfElements_ = arrayOfIds.Count();
+                if (numberOfElements_ > 0)
+                {
+                    foreach (int id_ in arrayOfIds.OrderBy(x => x))
+                    {
+                        var row = _context.Task2.FirstOrDefault(e => e.Id == id_);
+                        if (row != null)
+                        {
+                            if (row.JobStart.HasValue && row.JobEnd.HasValue)
+                            {
+                                //sprawdz czy godziny sa juz w bazie czy ich nie ma (czy Add czy Edit)
+                                if (row.JobStart.Value.ToShortTimeString() != jobStart.Value.ToShortTimeString() || row.JobEnd.Value.ToShortTimeString() != jobEnd.Value.ToShortTimeString())
+                                {
+                                    //return Json(new { success = true });
+                                    //return Json("1");
+                                    if (row.Id.Equals(arrayOfIds.Last()))
+                                    {
+                                        return Json(arrayOfIds);
+                                    }
+
+                                }
+                                
+
+                            }
+                            if (!row.JobStart.HasValue && !row.JobEnd.HasValue)
+                            {
+                                //return Json("2");
+                                if (row.Id.Equals(arrayOfIds.Last()))
+                                {
+                                    return Json(arrayOfIds);
+                                }
+
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    
+                }
+            }         
+
+            return Json(false);
+        }
 
 
 
