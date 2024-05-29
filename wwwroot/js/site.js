@@ -747,6 +747,7 @@ $(document).on('keydown', function (e)
     }    
 });
 
+//do usunięcia później
 function lhkKNaastOkkmMh(t)
 {
     if (!$(t).hasClass('pAPTryUdWHeiZZa')) 

@@ -1600,8 +1600,15 @@ function AddOrEditTime(element, workerID, date, ids, jobStart, jobEnd)
     }
 
 
-    //disable();
-    //$(element).parent().append(createSmallLoader());
+
+    //if (jobStart != "" && jobEnd != "") 
+    //{
+    //    $(element).parent().children('input').addClass('disabled');
+    //    $(element).parent().children('.MNewKOhqZkqNDeJ').addClass('disabled');
+    //    $(element).parent().parent().children('.AQzCKqmlrQJmxzn').addClass('disabled');
+    //    $(element).parent().parent().append(createSmallLoader_center());
+    //}
+
 
 
     $.ajax({
@@ -1616,14 +1623,26 @@ function AddOrEditTime(element, workerID, date, ids, jobStart, jobEnd)
         },
         success: function (response)
         {
-            //$(element).parent().children('input').val('');
-            //$(element).remove();
-            //enable();
+            //if (response != false) 
+            //{
+            //    console.log(response);
+            //}
 
-            if (response != false) 
-            {
-                console.log(response);
+            if (response != false) {
+                $(element).parent().children('input').addClass('disabled');
+                $(element).parent().children('.MNewKOhqZkqNDeJ').addClass('disabled');
+                $(element).parent().parent().children('.AQzCKqmlrQJmxzn').addClass('disabled');
+                $(element).parent().parent().append(createSmallLoader_center());
             }
+
+            setTimeout(function () {
+                $(element).parent().children('input').removeClass('disabled');
+                $(element).parent().children('.MNewKOhqZkqNDeJ').removeClass('disabled');
+                $(element).parent().parent().children('.AQzCKqmlrQJmxzn').removeClass('disabled');
+                $('.lds-ring-small').remove();
+            }, 200);
+            
+            console.log(response);
         },
         error: function (xhr, status, error)
         {
@@ -1670,6 +1689,16 @@ function createSmallLoader2()
     lds.className = 'lds-ring-small';
     lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
     
+    return lds;
+};
+
+function createSmallLoader_center() 
+{
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.style.cssText = 'position: absolute; top: calc(50% - 13px); left: calc(50% - 13px);';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+
     return lds;
 };
 

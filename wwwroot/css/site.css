@@ -134,16 +134,16 @@ html {
 .lds-ring-small {
     display: inline-block;
     position: relative;
-    width: 25px;
-    height: 25px;
+    width: 26px;
+    height: 26px;
 }
 
     .lds-ring-small div {
         box-sizing: border-box;
         display: block;
         position: absolute;
-        width: 25px;
-        height: 25px;
+        width: 26px;
+        height: 26px;
         border: 3px solid #fff;
         border-radius: 50%;
         animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
@@ -2451,7 +2451,7 @@ ion-icon {
         }
 
     .MNewKOhqZkqNDeJ.disabled {
-        transition: opacity 0.2s ease-in-out;
+        /*transition: opacity 0.2s ease-in-out;*/
         pointer-events: none;
         opacity: 0.7;
     }
@@ -2624,7 +2624,7 @@ ion-icon {
     z-index: 2;
     text-align: center;
     /**/
-    transition: background-color 0.2s, border 0.2s;
+    /*transition: background-color 0.2s, border 0.2s;*/
 }
     .oKvcDSylPNSLgqr span {
         font-family: Arial;
@@ -2649,10 +2649,19 @@ ion-icon {
         position: sticky;
         top: 0;
         background-color: rgba(34, 36, 48, 1);
+        z-index: 3;
         /*border-bottom: 1px solid rgba(0, 0, 0, 1);
         border-right: 1px solid rgba(0, 0, 0, 1);*/
-        transition: background-color 0.2s, border 0.2s;
+        /*transition: background-color 0.2s, border 0.2s;*/
     }
+
+        /*.oKvcDSylPNSLgqr.oKvcDSylPNSLgqr_:not(:last-child) {
+            border-right: 1px solid rgba(0, 0, 0, 1);
+        }*/
+
+.wcHMgjWjXaRMPKy:not(:last-child) .oKvcDSylPNSLgqr.oKvcDSylPNSLgqr_ {
+    border-right: 1px solid rgba(0, 0, 0, 1);
+}
 
 .fSJtEaXwJSHzoxW {
     height: 100%;
@@ -2664,7 +2673,6 @@ ion-icon {
     position: sticky;
     left: 0;*/
     z-index: 3;
-    
 }
 
     .fSJtEaXwJSHzoxW.fSJtEaXwJSHzoxW_ {
@@ -2676,13 +2684,13 @@ ion-icon {
 
         .fSJtEaXwJSHzoxW.fSJtEaXwJSHzoxW_ .GJakzZdfXNDmfZz {
             background-color: rgba(34, 36, 48, 1);
-            transition: background-color 0.2s, border 0.2s;
+            /*transition: background-color 0.2s, border 0.2s;*/
             /*border-right: 1px solid rgba(0, 0, 0, 1);*/
         }
 
         .fSJtEaXwJSHzoxW.fSJtEaXwJSHzoxW_ .XJsRKtmIfTCptru {
             background-color: rgba(34, 36, 48, 1);
-            transition: background-color 0.2s;
+            /*transition: background-color 0.2s;*/
             /*border-right: 1px solid rgba(0, 0, 0, 1);
             border-top: 1px solid rgba(0, 0, 0, 1);*/
         }
@@ -2698,7 +2706,7 @@ ion-icon {
     width: 100%;
     /*border-right: 1px solid rgba(55, 55, 55, 0.5);*/
     border-right: 1px solid rgba(55, 55, 55, 0.75);
-    transition: background-color 0.2s, border 0.2s;
+    /*transition: background-color 0.2s, border 0.2s;*/
 }
 
     .GJakzZdfXNDmfZz label {
@@ -2753,7 +2761,7 @@ ion-icon {
     border-right: 1px solid rgba(55, 55, 55, 0.75);
     /*border-top: 1px solid rgba(55, 55, 55, 0.5);*/
     border-top: 1px solid rgba(55, 55, 55, 0.75);
-    transition: background-color 0.2s, border 0.2s;
+    /*transition: background-color 0.2s, border 0.2s;*/
 }
 
     .XJsRKtmIfTCptru span {
@@ -2774,12 +2782,12 @@ ion-icon {
     display: inherit;
     flex-direction: column;
     filter: brightness(100%);
-    transition: background-color 0.2s, border 0.2s;
+    /*transition: background-color 0.2s, border 0.2s;*/
 }
 
     .SBVWNWOJZnTplXL.SBVWNWOJZnTplXL_ {
         /*background-color: rgba(34, 36, 48, 0.6);*/
-        transition: background-color 0.2s, border 0.2s;
+        /*transition: background-color 0.2s, border 0.2s;*/
     }
 
 .LwxRoYhfmyzTlGm {
@@ -2793,7 +2801,7 @@ ion-icon {
     align-items: center;
     gap: 4px;
     position: relative;
-    transition: background-color 0.2s, border 0.2s;
+    /*transition: background-color 0.2s, border 0.2s;*/
 }
 
     .LwxRoYhfmyzTlGm span {
@@ -2812,7 +2820,7 @@ ion-icon {
     }
 
         .LwxRoYhfmyzTlGm input.disabled {
-            transition: opacity 0.2s ease-in-out;
+            /*transition: opacity 0.2s ease-in-out;*/
             pointer-events: none;
             opacity: 0.7;
         }
@@ -2820,7 +2828,7 @@ ion-icon {
     .LwxRoYhfmyzTlGm.LwxRoYhfmyzTlGm_ {
         /*border-bottom: 1px solid rgba(0, 0, 0, 1);
         border-right: 1px solid rgba(0, 0, 0, 1);*/
-        transition: background-color 0.2s, border 0.2s;
+        /*transition: background-color 0.2s, border 0.2s;*/
     }
 
 .AQzCKqmlrQJmxzn {
@@ -2835,17 +2843,17 @@ ion-icon {
     overflow-y: auto;
     scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
     scrollbar-width: thin;
-    transition: background-color 0.2s, border 0.2s;
+    /*transition: background-color 0.2s, border 0.2s;*/
 }
 
     .AQzCKqmlrQJmxzn.AQzCKqmlrQJmxzn_ {
         /*border-right: 1px solid rgba(0, 0, 0, 1);
         border-bottom: 1px solid rgba(0, 0, 0, 1);*/
-        transition: background-color 0.2s, border 0.2s;
+        /*transition: background-color 0.2s, border 0.2s;*/
     }
 
     .AQzCKqmlrQJmxzn.disabled {
-        transition: opacity 0.2s ease-in-out;
+        /*transition: opacity 0.2s ease-in-out;*/
         pointer-events: none;
         opacity: 0.7;
     }
