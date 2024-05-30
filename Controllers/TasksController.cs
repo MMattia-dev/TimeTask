@@ -1069,6 +1069,7 @@ namespace TimeTask.Controllers
                     }
                     else //add
                     {
+
                         string a = date.ToString("yyyy-MM-dd") + " " + jobStart.Value.ToString("HH:mm");
                         DateTime? start = DateTime.ParseExact(a, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
                         string b = date.ToString("yyyy-MM-dd") + " " + jobEnd.Value.ToString("HH:mm");
