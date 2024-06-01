@@ -493,8 +493,9 @@ namespace TimeTask.Controllers
                     }
                     //
 
-                    string jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" onblur=\"wgddAsHIsXNWQkl(this)\" />";
-                    string jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" onblur=\"YNXxUwIhBTDduDG(this)\" />";
+                    string jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" onblur=\"wgddAsHIsXNWQkl(this)\"/>"; //onfocus=\"xHESyoJNbeGSonp(this)\"
+                    //string jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" onblur=\"YNXxUwIhBTDduDG(this)\" onfocus=\"xHESyoJNbeGSonp(this)\" />";
+                    string jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" onblur=\"wgddAsHIsXNWQkl(this)\" />"; //onfocus=\"xHESyoJNbeGSonp(this)\"
 
                     daysString += "<div class=\"SBVWNWOJZnTplXL\" date=\"" + item.ToString("yyyy-MM-dd") + "\">" +
                             "<div class=\"LwxRoYhfmyzTlGm\">" +
@@ -770,105 +771,121 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddOrEditTask(int workerId, int? taskNameId, DateTime dateTime, DateTime? jobStart, DateTime? jobEnd)
+        public ActionResult AddOrEditTask(int workerId, int? taskNameId, DateTime dateTime, DateTime? jobStart, DateTime? jobEnd, int numberOfElements)
         {
             var taskName = _context.TaskName2.FirstOrDefault(x => x.Id == taskNameId)?.Name;
 
-            var taskArray = _context.Task2.Where(x => x.WorkerID == workerId);
-            if (taskArray.Any())
-            {
-                foreach (var item in taskArray)
-                {
-                    if (item.Date.Value.ToShortDateString() == dateTime.ToShortDateString())
-                    {
-                        if (item.TaskNameID == null) //edit
-                        {
-                            var row = _context.Task2.FirstOrDefault(e => e.Id == item.Id);
-                            if (row != null)
-                            {
-                                row.TaskNameID = taskNameId;
-                                _context.SaveChanges();
+            return Json(numberOfElements);
 
-                                return Json(new { id = row.Id, taskName });
-                            }
-                        }
-                        else //add
-                        {
-                            DateTime? start = null;
-                            DateTime? exit = null;
-                            if (jobStart != null)
-                            {
-                                string a = dateTime.ToString("yyyy-MM-dd") + " " + jobStart.Value.ToString("HH:mm");
-                                start = DateTime.ParseExact(a, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
-                            }
-                            if (jobEnd != null)
-                            {
-                                string a = dateTime.ToString("yyyy-MM-dd") + " " + jobEnd.Value.ToString("HH:mm");
-                                exit = DateTime.ParseExact(a, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
-                            }
+            //var taskArray = _context.Task2.Where(x => x.WorkerID == workerId);
+            //if (taskArray.Any())
+            //{
+            //    foreach (var item in taskArray)
+            //    {
+            //        if (item.Date.Value.ToShortDateString() == dateTime.ToShortDateString())
+            //        {
+            //            if (item.TaskNameID == null) //edit
+            //            {
+            //                var row = _context.Task2.FirstOrDefault(e => e.Id == item.Id);
+            //                if (row != null)
+            //                {
+            //                    //row.TaskNameID = taskNameId;
+            //                    //_context.SaveChanges();
 
-                            var newData = new Task2()
-                            {
-                                WorkerID = workerId,
-                                TaskNameID = taskNameId,
-                                Date = dateTime,
-                                JobStart = start,
-                                JobEnd = exit
-                            };
+            //                    //return Json(new { id = row.Id, taskName });
+            //                    return Json(new { id = row.Id, taskName, a = "1" });
+            //                }
+            //            }
+            //            else //add
+            //            {
+            //                DateTime? start = null;
+            //                DateTime? exit = null;
+            //                if (jobStart != null)
+            //                {
+            //                    string a = dateTime.ToString("yyyy-MM-dd") + " " + jobStart.Value.ToString("HH:mm");
+            //                    start = DateTime.ParseExact(a, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+            //                }
+            //                if (jobEnd != null)
+            //                {
+            //                    string a = dateTime.ToString("yyyy-MM-dd") + " " + jobEnd.Value.ToString("HH:mm");
+            //                    exit = DateTime.ParseExact(a, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+            //                }
 
-                            _context.Task2.Add(newData);
-                            _context.SaveChanges();
+            //                var newData = new Task2()
+            //                {
+            //                    WorkerID = workerId,
+            //                    TaskNameID = taskNameId,
+            //                    Date = dateTime,
+            //                    JobStart = start,
+            //                    JobEnd = exit
+            //                };
 
-                            return Json(new { id = newData.Id, taskName });
-                        }
-                    }
-                    else //daty nie ma w bazie -> add
-                    {
-                        DateTime? start = null;
-                        DateTime? exit = null;
-                        if (jobStart != null)
-                        {
-                            string a = dateTime.ToString("yyyy-MM-dd") + " " + jobStart.Value.ToString("HH:mm");
-                            start = DateTime.ParseExact(a, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
-                        }
-                        if (jobEnd != null)
-                        {
-                            string a = dateTime.ToString("yyyy-MM-dd") + " " + jobEnd.Value.ToString("HH:mm");
-                            exit = DateTime.ParseExact(a, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
-                        }
+            //                //_context.Task2.Add(newData);
+            //                //_context.SaveChanges();
 
-                        var newData = new Task2()
-                        {
-                            WorkerID = workerId,
-                            TaskNameID = taskNameId,
-                            Date = dateTime,
-                            JobStart = start,
-                            JobEnd = exit
-                        };
+            //                //return Json(new { id = newData.Id, taskName });
+            //                return Json(new { id = newData.Id, taskName, a = "2" });
+            //            }
+            //        }
+            //        else //daty nie ma w bazie -> add
+            //        {
+            //            //Wyszukaj wiersz z TaskNameID = NULL i zamien (edit) na task
+            //            return Json("3");
 
-                        _context.Task2.Add(newData);
-                        _context.SaveChanges();
 
-                        return Json(new { id = newData.Id, taskName });
-                    }
-                }
-            }
-            else //add new
-            {
-                var newData = new Task2()
-                {
-                    WorkerID = workerId,
-                    TaskNameID = taskNameId,
-                    Date = dateTime,
-                    JobStart = jobStart,
-                    JobEnd = jobEnd
-                };
 
-                _context.Task2.Add(newData);
-                _context.SaveChanges();
+            //            //DateTime? start = null;
+            //            //DateTime? exit = null;
+            //            //if (jobStart != null)
+            //            //{
+            //            //    string a = dateTime.ToString("yyyy-MM-dd") + " " + jobStart.Value.ToString("HH:mm");
+            //            //    start = DateTime.ParseExact(a, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+            //            //}
+            //            //if (jobEnd != null)
+            //            //{
+            //            //    string a = dateTime.ToString("yyyy-MM-dd") + " " + jobEnd.Value.ToString("HH:mm");
+            //            //    exit = DateTime.ParseExact(a, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+            //            //}
 
-                return Json(new { id = newData.Id, taskName });
-            }
+            //            //var newData = new Task2()
+            //            //{
+            //            //    WorkerID = workerId,
+            //            //    TaskNameID = taskNameId,
+            //            //    Date = dateTime,
+            //            //    JobStart = start,
+            //            //    JobEnd = exit
+            //            //};
+
+            //            ////_context.Task2.Add(newData);
+            //            ////_context.SaveChanges();
+
+            //            ////return Json(new { id = newData.Id, taskName });
+            //            //return Json(new { id = newData.Id, taskName, a = "3" });
+            //        }
+            //    }
+
+            //    //if (!taskArray.Select(x => x.Date).Contains(dateTime))
+            //    //{
+            //    //    return Json("4");
+            //    //}
+            //}
+            //else //add new
+            //{
+            //    var newData = new Task2()
+            //    {
+            //        WorkerID = workerId,
+            //        TaskNameID = taskNameId,
+            //        Date = dateTime,
+            //        JobStart = jobStart,
+            //        JobEnd = jobEnd
+            //    };
+
+            //    //_context.Task2.Add(newData);
+            //    //_context.SaveChanges();
+
+            //    //return Json(new { id = newData.Id, taskName });
+            //    return Json(new { id = newData.Id, taskName, a = "4" });
+            //}
 
             return Json(false);
         }
@@ -986,37 +1003,31 @@ namespace TimeTask.Controllers
                             {
                                 if (row.JobStart.Value.ToShortTimeString() != jobStart.Value.ToShortTimeString() || row.JobEnd.Value.ToShortTimeString() != jobEnd.Value.ToShortTimeString())
                                 {
-                                    string a = date.ToString("yyyy-MM-dd") + " " + jobStart.Value.ToString("HH:mm");
-                                    DateTime? start = DateTime.ParseExact(a, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
-                                    string b = date.ToString("yyyy-MM-dd") + " " + jobEnd.Value.ToString("HH:mm");
-                                    DateTime? exit = DateTime.ParseExact(b, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+                                    DateTime? start = MergeDateAndTime(date, jobStart);
+                                    DateTime? exit = MergeDateAndTime(date, jobEnd);
 
-                                    //row.JobStart = start;
-                                    //row.JobEnd = exit;
-                                    //_context.SaveChanges();
+                                    row.JobStart = start;
+                                    row.JobEnd = exit;
+                                    _context.SaveChanges();
 
                                     if (row.Id.Equals(arrayOfIds.Last()))
                                     {
-                                        //return Json(new { success = true });
-                                        return Json("1");
+                                        return Json(new { success = true, addButton = false });
                                     }
                                 }
                             }
                             if (!row.JobStart.HasValue && !row.JobEnd.HasValue) //puste jobStart i jobEnd, taski są
                             {
-                                string a = date.ToString("yyyy-MM-dd") + " " + jobStart.Value.ToString("HH:mm");
-                                DateTime? start = DateTime.ParseExact(a, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
-                                string b = date.ToString("yyyy-MM-dd") + " " + jobEnd.Value.ToString("HH:mm");
-                                DateTime? exit = DateTime.ParseExact(b, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+                                DateTime? start = MergeDateAndTime(date, jobStart);
+                                DateTime? exit = MergeDateAndTime(date, jobEnd);
 
-                                //row.JobStart = start;
-                                //row.JobEnd = exit;
-                                //_context.SaveChanges();
+                                row.JobStart = start;
+                                row.JobEnd = exit;
+                                _context.SaveChanges();
 
                                 if (row.Id.Equals(arrayOfIds.Last()))
                                 {
-                                    //return Json(new { success = true });
-                                    return Json("2");
+                                    return Json(new { success = true, addButton = false });
                                 }
                             }
                         }
@@ -1033,70 +1044,92 @@ namespace TimeTask.Controllers
                             {
                                 if (task.Date.Value.ToShortDateString() == date.ToShortDateString())
                                 {
-                                    //var row = _context.Task2.FirstOrDefault(e => e.Id == task.Id);
-
-                                    //return Json(date);
-                                    //if (task.JobStart.HasValue && task.JobEnd.HasValue)
-                                    //{
-                                    //    return Json("3-1");
-                                    //}
-                                    //if (!task.JobStart.HasValue && !task.JobEnd.HasValue)
-                                    //{
-                                    //    return Json("3-2");
-                                    //}
                                     if (task.JobStart.HasValue && task.JobEnd.HasValue)
                                     {
                                         if (task?.JobStart.Value != null && task?.JobEnd.Value != null)
                                         {
-                                            return Json("3-1");
-                                        }
-                                        else
-                                        {
-                                            return Json("3-2");
+                                            if (task.JobStart.Value.ToShortTimeString() != jobStart.Value.ToShortTimeString() || task.JobEnd.Value.ToShortTimeString() != jobEnd.Value.ToShortTimeString())
+                                            {
+                                                //worker już w bazie, godzina tez, taski nie
+                                                var row = _context.Task2.FirstOrDefault(e => e.Id == task.Id);
+                                                if (row != null)
+                                                {
+                                                    DateTime? start = MergeDateAndTime(date, jobStart);
+                                                    DateTime? exit = MergeDateAndTime(date, jobEnd);
+
+                                                    row.JobStart = start;
+                                                    row.JobEnd = exit;
+                                                    _context.SaveChanges();
+
+                                                    return Json(new { success = true, addButton = false });
+                                                }
+                                            }
                                         }
                                     }
-                                    else
-                                    {
-                                        return Json("3-3");
-                                    }
-                                }
-                                else
-                                {
-                                    return Json("3-4");
                                 }
                             }
+                        }
+
+                        if (!taskArray.Select(x => x.Date).Contains(date)) //worker już w bazie, pusty dzien
+                        {
+                            DateTime? start = MergeDateAndTime(date, jobStart);
+                            DateTime? exit = MergeDateAndTime(date, jobEnd);
+
+                            var newData = new Task2()
+                            {
+                                WorkerID = workerID,
+                                TaskNameID = null,
+                                Date = date,
+                                JobStart = start,
+                                JobEnd = exit
+                            };
+
+                            _context.Task2.Add(newData);
+                            _context.SaveChanges();
+                            string deleteButton = "<a class=\"MNewKOhqZkqNDeJ\" onclick=\"czzROjFaPsDoZoT(this)\" title=\"Usuń godziny\"><ion-icon name=\"trash-outline\"></ion-icon></a>";
+
+                            return Json(new { success = true, addButton = true, contentResult = Content(deleteButton) });
                         }
                     }
                     else //add
                     {
+                        DateTime? start = MergeDateAndTime(date, jobStart);
+                        DateTime? exit = MergeDateAndTime(date, jobEnd);
 
+                        var newData = new Task2()
+                        {
+                            WorkerID = workerID,
+                            TaskNameID = null,
+                            Date = date,
+                            JobStart = start,
+                            JobEnd = exit
+                        };
 
-                        string a = date.ToString("yyyy-MM-dd") + " " + jobStart.Value.ToString("HH:mm");
-                        DateTime? start = DateTime.ParseExact(a, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
-                        string b = date.ToString("yyyy-MM-dd") + " " + jobEnd.Value.ToString("HH:mm");
-                        DateTime? exit = DateTime.ParseExact(b, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+                        _context.Task2.Add(newData);
+                        _context.SaveChanges();
+                        string deleteButton = "<a class=\"MNewKOhqZkqNDeJ\" onclick=\"czzROjFaPsDoZoT(this)\" title=\"Usuń godziny\"><ion-icon name=\"trash-outline\"></ion-icon></a>";
 
-                        //var newData = new Task2()
-                        //{
-                        //    WorkerID = workerId,
-                        //    TaskNameID = taskNameId,
-                        //    Date = dateTime,
-                        //    JobStart = jobStart,
-                        //    JobEnd = jobEnd
-                        //};
-
-                        //_context.Task2.Add(newData);
-                        //_context.SaveChanges();
-
-                        return Json("4");
+                        return Json(new { success = true, addButton = true, contentResult = Content(deleteButton) });
                     }
                 }
             }         
 
-            return Json(false);
+            return Json(new { success = false, addButton = false });
         }
 
+        public DateTime MergeDateAndTime(DateTime date, TimeOnly? time)
+        {
+            string timeString = "00:00";
+            if (time != null)
+            {
+                timeString = time.Value.ToString("HH:mm");
+            }
 
+            string e = date.ToString("yyyy-MM-dd") + " " + timeString;
+            DateTime dateTime = DateTime.ParseExact(e, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+
+            return dateTime;
+        }
 
 
 

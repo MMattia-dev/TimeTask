@@ -1469,7 +1469,9 @@ function uXPtoAMyTPOkWCV(t, taskID)
             let date = $(newItem).parent().parent('.SBVWNWOJZnTplXL').attr('date'); //nigdy nie będzie równe null
             let jobStart = $(newItem).parent().parent('.SBVWNWOJZnTplXL').children('.LwxRoYhfmyzTlGm').children('input').eq(0).val(); //może być równe null
             let jobEnd = $(newItem).parent().parent('.SBVWNWOJZnTplXL').children('.LwxRoYhfmyzTlGm').children('input').eq(1).val(); //może być równe null
-            saveAfterDrop(newItem, workerID, taskNameID, date, jobStart, jobEnd);
+            let numberofelements = $(newItem).parent().children('.ZslufbFdcfCIeaW').length;
+            
+            saveAfterDrop(newItem, workerID, taskNameID, date, jobStart, jobEnd, numberofelements);
         },
         drag: function ()
         {
@@ -1480,7 +1482,7 @@ function uXPtoAMyTPOkWCV(t, taskID)
     });
 };
 
-function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd) 
+function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd, numberofelements) 
 {
     disable();
     $(element).append(createSmallLoader2());
@@ -1493,13 +1495,16 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd)
             taskNameId: taskNameID,
             dateTime: date,
             jobStart: jobStart,
-            jobEnd: jobEnd
+            jobEnd: jobEnd,
+            numberOfElements: numberofelements
         },
         success: function (response)
         {
             $(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW').removeAttr('id').html(`<span>` + response.taskName + `</span><a onclick="aTdCbXqRfUSGyXc(this, ` + response.id + `)" title="Usuń zadanie"><ion-icon name="close"></ion-icon></a>`);
             
             enable();
+
+            console.log(response);
         },
         error: function (xhr, status, error)
         {
@@ -1599,18 +1604,6 @@ function AddOrEditTime(element, workerID, date, ids, jobStart, jobEnd)
         arrayOfIds.push(id);
     }
 
-
-
-    //if (jobStart != "" && jobEnd != "") 
-    //{
-    //    $(element).parent().children('input').addClass('disabled');
-    //    $(element).parent().children('.MNewKOhqZkqNDeJ').addClass('disabled');
-    //    $(element).parent().parent().children('.AQzCKqmlrQJmxzn').addClass('disabled');
-    //    $(element).parent().parent().append(createSmallLoader_center());
-    //}
-
-
-
     $.ajax({
         type: 'POST',
         url: '/Tasks/AddOrEditTime',
@@ -1623,16 +1616,17 @@ function AddOrEditTime(element, workerID, date, ids, jobStart, jobEnd)
         },
         success: function (response)
         {
-            //if (response != false) 
-            //{
-            //    console.log(response);
-            //}
-
-            if (response != false) {
+            if (response.success != false) {
                 $(element).parent().children('input').addClass('disabled');
                 $(element).parent().children('.MNewKOhqZkqNDeJ').addClass('disabled');
                 $(element).parent().parent().children('.AQzCKqmlrQJmxzn').addClass('disabled');
                 $(element).parent().parent().append(createSmallLoader_center());
+
+                console.log(response);
+            }
+            if (response.addButton == true) 
+            {
+                $(element).parent().append(response.contentResult.content);
             }
 
             setTimeout(function () {
@@ -1641,8 +1635,6 @@ function AddOrEditTime(element, workerID, date, ids, jobStart, jobEnd)
                 $(element).parent().parent().children('.AQzCKqmlrQJmxzn').removeClass('disabled');
                 $('.lds-ring-small').remove();
             }, 200);
-            
-            console.log(response);
         },
         error: function (xhr, status, error)
         {
@@ -1656,22 +1648,23 @@ function wgddAsHIsXNWQkl(t)
     var workerID = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').parent('.wcHMgjWjXaRMPKy').attr('worker');
     var date = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').attr('date');
     var ids = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW');
-    let jobStart = t.value;
+    //let jobStart = t.value;
+    let jobStart = $(t).parent().children('input').eq(0).val();;
     let jobEnd = $(t).parent().children('input').eq(1).val();
 
     AddOrEditTime(t, workerID, date, ids, jobStart, jobEnd);
 };
 
-function YNXxUwIhBTDduDG(t)
-{
-    var workerID = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').parent('.wcHMgjWjXaRMPKy').attr('worker');
-    var date = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').attr('date');
-    var ids = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW');
-    let jobStart = $(t).parent().children('input').eq(0).val();
-    let jobEnd = t.value;
+//function YNXxUwIhBTDduDG(t)
+//{
+//    var workerID = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').parent('.wcHMgjWjXaRMPKy').attr('worker');
+//    var date = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').attr('date');
+//    var ids = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW');
+//    let jobStart = $(t).parent().children('input').eq(0).val();
+//    let jobEnd = t.value;
 
-    AddOrEditTime(t, workerID, date, ids, jobStart, jobEnd);
-};
+//    AddOrEditTime(t, workerID, date, ids, jobStart, jobEnd);
+//};
 
 function createSmallLoader() 
 {

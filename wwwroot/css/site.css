@@ -2393,7 +2393,7 @@ ion-icon {
     align-items: center;
     justify-content: space-between;
     z-index: 0;
-    margin-bottom: 5px;
+    /*margin-bottom: 5px;*/
 }
 
     .ZslufbFdcfCIeaW span {
@@ -2838,12 +2838,16 @@ ion-icon {
     /*border-bottom: 1px solid rgba(55, 55, 55, 0.5);*/
     border-bottom: 1px solid rgba(55, 55, 55, 0.75);
     /*padding-bottom: 45px;*/
+    /*padding: 5px 5px 45px 5px;*/
     padding: 5px 5px 45px 5px;
     overflow-x: hidden;
     overflow-y: auto;
     scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
     scrollbar-width: thin;
     /*transition: background-color 0.2s, border 0.2s;*/
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
     .AQzCKqmlrQJmxzn.AQzCKqmlrQJmxzn_ {
