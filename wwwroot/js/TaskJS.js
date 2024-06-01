@@ -83,7 +83,7 @@ loadOnLoad();
 function task_lock_headers()
 {
     $('#task_lock_headers_id').children('span').eq(0).html('Odblokuj');
-    //$('.fSJtEaXwJSHzoxW').addClass('fSJtEaXwJSHzoxW_');
+    $('.fSJtEaXwJSHzoxW').addClass('fSJtEaXwJSHzoxW_');
     $('.oKvcDSylPNSLgqr').addClass('oKvcDSylPNSLgqr_');
     //$('.LwxRoYhfmyzTlGm').addClass('LwxRoYhfmyzTlGm_');
     //$('.SBVWNWOJZnTplXL').addClass('SBVWNWOJZnTplXL_');
@@ -98,7 +98,7 @@ function task_lock_headers()
 function task_unlock_headers()
 {
     $('#task_lock_headers_id').children('span').eq(0).html('Zablokuj');
-    //$('.fSJtEaXwJSHzoxW').removeClass('fSJtEaXwJSHzoxW_');
+    $('.fSJtEaXwJSHzoxW').removeClass('fSJtEaXwJSHzoxW_');
     $('.oKvcDSylPNSLgqr').removeClass('oKvcDSylPNSLgqr_');
     //$('.LwxRoYhfmyzTlGm').removeClass('LwxRoYhfmyzTlGm_');
     //$('.SBVWNWOJZnTplXL').removeClass('SBVWNWOJZnTplXL_');
@@ -1489,7 +1489,7 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd, nu
 
     $.ajax({
         type: 'POST',
-        url: '/Tasks/AddOrEditTask',
+        url: '/Tasks/AddTask_',
         data: {
             workerId: workerID,
             taskNameId: taskNameID,

@@ -771,11 +771,106 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddOrEditTask(int workerId, int? taskNameId, DateTime dateTime, DateTime? jobStart, DateTime? jobEnd, int numberOfElements)
+        public ActionResult AddTask_(int workerId, int? taskNameId, DateTime dateTime, TimeOnly? jobStart, TimeOnly? jobEnd, int numberOfElements)
         {
+            DateTime? start = null;
+            DateTime? exit = null;
+            if (jobStart != null)
+                start = MergeDateAndTime(dateTime, jobStart);
+            if (jobEnd != null)
+                exit = MergeDateAndTime(dateTime, jobEnd);
+
             var taskName = _context.TaskName2.FirstOrDefault(x => x.Id == taskNameId)?.Name;
 
-            return Json(numberOfElements);
+            var taskArray = _context.Task2.Where(x => x.WorkerID == workerId).OrderBy(x => x.Id);
+
+            if (taskArray.Any())
+            {
+                if (numberOfElements > 0)
+                {
+                    foreach (var item in taskArray)
+                    {
+                        if (item.Date.HasValue)
+                        {
+                            if (item.Date.Value.ToShortDateString() == dateTime.ToShortDateString())
+                            {
+                                // add
+                                var newData = new Task2()
+                                {
+                                    WorkerID = workerId,
+                                    TaskNameID = taskNameId,
+                                    Date = dateTime,
+                                    JobStart = start,
+                                    JobEnd = exit,
+                                };
+
+                                _context.Task2.Add(newData);
+                                _context.SaveChanges();
+
+                                return Json(new { id = newData.Id, taskName });
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (!taskArray.Select(x => x.Date).Contains(dateTime))
+                    {
+                        // add
+                        var newData = new Task2()
+                        {
+                            WorkerID = workerId,
+                            TaskNameID = taskNameId,
+                            Date = dateTime,
+                            JobStart = start,
+                            JobEnd = exit,
+                        };
+
+                        _context.Task2.Add(newData);
+                        _context.SaveChanges();
+
+                        return Json(new { id = newData.Id, taskName });
+                    }
+                    else
+                    {
+                        foreach (var item in taskArray)
+                        {
+                            if (item.Date.HasValue)
+                            {
+                                if (item.Date.Value.ToShortDateString() == dateTime.ToShortDateString())
+                                {
+                                    // edit
+                                    var row = _context.Task2.FirstOrDefault(e => e.Id == item.Id);
+                                    if (row != null)
+                                    {
+                                        row.TaskNameID = taskNameId;
+                                        _context.SaveChanges();
+
+                                        return Json(new { id = item.Id, taskName });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // add
+                var newData = new Task2()
+                {
+                    WorkerID = workerId,
+                    TaskNameID = taskNameId,
+                    Date = dateTime,
+                    JobStart = start,
+                    JobEnd = exit
+                };
+
+                _context.Task2.Add(newData);
+                _context.SaveChanges();
+
+                return Json(new { id = newData.Id, taskName });
+            }
 
             //var taskArray = _context.Task2.Where(x => x.WorkerID == workerId);
             //if (taskArray.Any())
@@ -930,10 +1025,11 @@ namespace TimeTask.Controllers
                                 _context.SaveChanges();
                             }
 
-                            if (task.Equals(taskArray.Last()))
-                            {
-                                return Json(new { success = true });
-                            }
+                            return Json(new { success = true });
+                            //if (task.Equals(taskArray.Last())) //sequence contains no elements
+                            //{
+                            //    return Json(new { success = true });
+                            //}
                         }
                     }
                 }
@@ -1038,38 +1134,7 @@ namespace TimeTask.Controllers
                     if (_context.Task2.Select(x => x.WorkerID).Contains(workerID))
                     {
                         var taskArray = _context.Task2.Where(x => x.WorkerID == workerID).OrderBy(x => x.Id);
-                        foreach (var task in taskArray)
-                        {
-                            if (task.Date.HasValue)
-                            {
-                                if (task.Date.Value.ToShortDateString() == date.ToShortDateString())
-                                {
-                                    if (task.JobStart.HasValue && task.JobEnd.HasValue)
-                                    {
-                                        if (task?.JobStart.Value != null && task?.JobEnd.Value != null)
-                                        {
-                                            if (task.JobStart.Value.ToShortTimeString() != jobStart.Value.ToShortTimeString() || task.JobEnd.Value.ToShortTimeString() != jobEnd.Value.ToShortTimeString())
-                                            {
-                                                //worker już w bazie, godzina tez, taski nie
-                                                var row = _context.Task2.FirstOrDefault(e => e.Id == task.Id);
-                                                if (row != null)
-                                                {
-                                                    DateTime? start = MergeDateAndTime(date, jobStart);
-                                                    DateTime? exit = MergeDateAndTime(date, jobEnd);
-
-                                                    row.JobStart = start;
-                                                    row.JobEnd = exit;
-                                                    _context.SaveChanges();
-
-                                                    return Json(new { success = true, addButton = false });
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
+                        
                         if (!taskArray.Select(x => x.Date).Contains(date)) //worker już w bazie, pusty dzien
                         {
                             DateTime? start = MergeDateAndTime(date, jobStart);
@@ -1089,6 +1154,40 @@ namespace TimeTask.Controllers
                             string deleteButton = "<a class=\"MNewKOhqZkqNDeJ\" onclick=\"czzROjFaPsDoZoT(this)\" title=\"Usuń godziny\"><ion-icon name=\"trash-outline\"></ion-icon></a>";
 
                             return Json(new { success = true, addButton = true, contentResult = Content(deleteButton) });
+                        }
+                        else
+                        {
+                            foreach (var task in taskArray)
+                            {
+                                if (task.Date.HasValue)
+                                {
+                                    if (task.Date.Value.ToShortDateString() == date.ToShortDateString())
+                                    {
+                                        if (task.JobStart.HasValue && task.JobEnd.HasValue)
+                                        {
+                                            if (task?.JobStart.Value != null && task?.JobEnd.Value != null)
+                                            {
+                                                if (task.JobStart.Value.ToShortTimeString() != jobStart.Value.ToShortTimeString() || task.JobEnd.Value.ToShortTimeString() != jobEnd.Value.ToShortTimeString())
+                                                {
+                                                    //worker już w bazie, godzina tez, taski nie
+                                                    var row = _context.Task2.FirstOrDefault(e => e.Id == task.Id);
+                                                    if (row != null)
+                                                    {
+                                                        DateTime? start = MergeDateAndTime(date, jobStart);
+                                                        DateTime? exit = MergeDateAndTime(date, jobEnd);
+
+                                                        row.JobStart = start;
+                                                        row.JobEnd = exit;
+                                                        _context.SaveChanges();
+
+                                                        return Json(new { success = true, addButton = false });
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                     else //add
