@@ -67,6 +67,13 @@ html {
     padding: 15px;
 }
 
+    .loader_div.ThGRLdncUmRCRpk {
+        top: 0;
+        left: 0;
+        z-index: 5;
+        background-color: transparent;
+    }
+
     .loader_div.BkvylzxsLMTrGpQ {
         background-color: transparent;
         justify-content: center;
@@ -401,8 +408,7 @@ ion-icon {
 
         ion-icon.delete.urlop {
             transform: translateY(4px) translateX(-2px);
-        }
-    
+        }  
 
 .IdRKPExyAQSewBL {
     overflow-y: auto;
@@ -459,6 +465,7 @@ ion-icon {
     -moz-box-shadow: -19px 0px 30px -20px rgba(0, 0, 0, 0.75);
     box-shadow: -19px 0px 30px -20px rgba(0, 0, 0, 0.75);*/
     margin-left: 74px;
+
 }
 
     .right-nav.RRoFiIClIdLQJJD {
@@ -1077,6 +1084,7 @@ ion-icon {
 
     .settings_a.HJfwfKTcBSSFmBp {
         pointer-events: none;
+        cursor: default;
     }
 
     .settings_a select {
@@ -2633,7 +2641,7 @@ ion-icon {
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        max-width: 240px;
+        max-width: 210px;
     }
 
     .oKvcDSylPNSLgqr span:first-child {
@@ -2653,6 +2661,7 @@ ion-icon {
         /*border-bottom: 1px solid rgba(0, 0, 0, 1);
         border-right: 1px solid rgba(0, 0, 0, 1);*/
         /*transition: background-color 0.2s, border 0.2s;*/
+        border-bottom: 1px solid black;
     }
 
         /*.oKvcDSylPNSLgqr.oKvcDSylPNSLgqr_:not(:last-child) {
@@ -2661,7 +2670,7 @@ ion-icon {
 
 .wcHMgjWjXaRMPKy:not(:last-child) .oKvcDSylPNSLgqr.oKvcDSylPNSLgqr_ {
     border-right: 1px solid black;
-    border-bottom: 1px solid black;
+    
 }
 
 .fSJtEaXwJSHzoxW {

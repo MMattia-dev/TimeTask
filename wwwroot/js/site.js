@@ -45,12 +45,11 @@ if (sessionStorage.getItem('HzvDBbvTRQnGBub') != null)
 }
 
 
-
 /**/
 var main = document.querySelector('.parent');
 var loader = document.createElement('div');
 loader.className = 'loader_div';
-loader.id = '#loaderID';
+loader.id = 'loaderID';
 var lds = document.createElement('div');
 lds.className = 'lds-ring';
 lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
@@ -59,7 +58,19 @@ loader.appendChild(lds);
 main.appendChild(loader);
 /**/
 
+function createLoader() 
+{
+    var loader = document.createElement('div');
+    loader.className = 'loader_div ThGRLdncUmRCRpk';
+    //loader.classList.add
+    loader.id = 'loaderID_';
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    loader.appendChild(lds);
 
+    return loader;
+};
 
 //wallpaper
 var defaultWallpaper_ = localStorage.getItem('wallpaper');
@@ -555,62 +566,6 @@ $('.left-nav').mouseenter(function ()
 
 
     //task
-    if (sessionStorage.getItem('LTRXohWjonyFAsg') != null) //year
-    {
-        //$('#MkoKdHskxQLfcuP_').children('.settings_a_select').children('span').eq(1).html(sessionStorage.getItem('LTRXohWjonyFAsg'));
-
-
-    }
-    if (sessionStorage.getItem('hQxHXfkxHkfALTJ') != null) //week
-    {
-        //$('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(sessionStorage.getItem('hQxHXfkxHkfALTJ'));
-        //$.ajax({
-        //    type: 'GET',
-        //    url: '/Tasks/',
-        //    data: {
-        //        savedYear: sessionStorage.getItem('LTRXohWjonyFAsg'),
-        //        savedWeek: sessionStorage.getItem('hQxHXfkxHkfALTJ')
-        //    },
-        //    success: function (response)
-        //    {
-        //        $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html();
-        //    },
-        //    error: function (xhr, status, error)
-        //    {
-        //        console.log('Error:', error);
-        //    }
-        //});
-    }
-    if (sessionStorage.getItem('JcvzYoovBpGECWh') != null) //department
-    {
-        //if (model_d.length > 0) 
-        //{
-        //    for (let i = 0; i < model_d.length; i++)
-        //    {
-        //        if (model_d[i].Id == sessionStorage.getItem('JcvzYoovBpGECWh')) 
-        //        {
-        //            let depName = model_d[i].Name;
-        //            $('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1).html(depName);
-        //        }
-        //    }
-        //}
-
-        //$.ajax({
-        //    type: 'GET',
-        //    url: '/Tasks/ClickOnDepartment',
-        //    data: {
-        //        departmentID: sessionStorage.getItem('JcvzYoovBpGECWh')
-        //    },
-        //    success: function (response)
-        //    {
-        //        $('#jxcqHOZgFmYHYkI_').children('.settings_a_select').children('span').eq(1).html(response.departmentName);
-        //    },
-        //    error: function (xhr, status, error)
-        //    {
-        //        console.log('Error:', error);
-        //    }
-        //});
-    }
     $.ajax({
         type: 'GET',
         url: '/Tasks/ClickOnDepartment',
@@ -630,6 +585,8 @@ $('.left-nav').mouseenter(function ()
             console.log('Error:', error);
         }
     });
+
+    howManyTasks_(sessionStorage.getItem('JcvzYoovBpGECWh'));
     //
 
     //leave
@@ -747,6 +704,38 @@ $(document).on('keydown', function (e)
     }    
 });
 
+function howManyTasks_(departmentID) 
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/HowManyTasks',
+        data: {
+            department: departmentID
+        },
+        success: function (response)
+        {
+            if (response == 0)
+            {
+                $('#ekzMacYlAMvOgoy_').children('.settings_a_select').children('span').eq(1).html('Brak zadań');
+                $('#ekzMacYlAMvOgoy_').children('ion-icon').eq(0).attr('name', 'file-tray-outline');
+                $('#ekzMacYlAMvOgoy_').addClass('HJfwfKTcBSSFmBp');
+                $('#uMVdMfTVrITLlKW').hide();
+            }
+            else
+            {
+                $('#ekzMacYlAMvOgoy_').children('.settings_a_select').children('span').eq(1).html('Wybierz zadanie');
+                $('#ekzMacYlAMvOgoy_').children('ion-icon').eq(0).attr('name', 'file-tray-full-outline');
+                $('#ekzMacYlAMvOgoy_').removeClass('HJfwfKTcBSSFmBp');
+                $('#uMVdMfTVrITLlKW').show();
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
 //do usunięcia później
 function lhkKNaastOkkmMh(t)
 {
@@ -758,8 +747,6 @@ function lhkKNaastOkkmMh(t)
     {
         $(t).children('div').children('ion-icon').removeClass('nHCgJALAMsLYOCi');
     }
-
-
 };
 
 //let source = "";

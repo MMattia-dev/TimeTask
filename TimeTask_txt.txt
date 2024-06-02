@@ -8,8 +8,9 @@ zrobione - 5) usuñ WorkerException, urlopy, czas pracy podczas usuwania Worker
 8) sortowanie tabeli nie dzia³a w /Workers2/Index (klikanie na <th>)
 9) pozbyæ siê wszystkich modeli w javascript
 10) sprawdŸ jak strona zachowa siê przy pustych tabelach
-11) "czas pracy" i "urlopy" w ustawieniach zmieniæ na dwie osobne podstrony
-
+zrobione - 11) "czas pracy" i "urlopy" w ustawieniach zmieniæ na dwie osobne podstrony
+12) stwórz role dla ró¿nych u¿ytkowników (np. pracownicy: "tylko do odczytu")
+12) zablokuj mo¿liwoœæ edycji grafiku po 1 tygodniu/2 tygodniach
 
 zmien wszystkie localstorage na sessionstorage
 zmien wszystkie id i class na has³a

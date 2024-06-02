@@ -32,9 +32,7 @@ namespace TimeTask.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Departments = _context.Department;
-            ViewBag.TaskNames = _context.TaskName2;
-            ViewBag.Workers = _context.Workers2;
-            ViewBag.Holiday = _context.Holiday;
+            ViewBag.Tasks = _context.Task2;
             
             return _context.Task2 != null ? 
                           View(await _context.Task2.ToListAsync()) :
@@ -199,27 +197,26 @@ namespace TimeTask.Controllers
             return cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
         }
 
-        //public ActionResult WeeksInYear(int year, int month, int day)
-        //{
-        //    var result = new { weeks = GetWeeksInYear(year), currentWeek = GetCurrentWeek(year, month, day) };
-        //    return Json(result);
-        //}
+        [HttpGet]
+        public ActionResult HowManyTasks(int? department)
+        {
+            int howManyTasksForDepartment = _context.TaskName2.Where(x => x.DepartmentID == department).Count();
 
-        //[HttpGet]
-        //public ActionResult CurrentWeek(int? savedYear)
-        //{
-        //    int? year;
-        //    if (savedYear != null)
-        //        year = savedYear;
-        //    else
-        //        year = DateTime.Now.Year;
+            if (department == null)
+            {
+                int? firstDepartment = _context.Department.OrderBy(x => x.Name).FirstOrDefault()?.Id;
+                if (firstDepartment == null)
+                {
+                    howManyTasksForDepartment = 0;
+                }
+                else
+                {
+                    howManyTasksForDepartment = _context.TaskName2.Where(x => x.DepartmentID == firstDepartment).Count();
+                }
+            }
 
-        //    int month = DateTime.Now.Month;
-        //    int day = DateTime.Now.Day;
-
-        //    //return Json(new { weeks = GetWeeksInYear((int)year), currentWeek = GetCurrentWeek((int)year, month, day) });
-        //    return Json(GetCurrentWeek((int)year, month, day));
-        //}
+            return Json(howManyTasksForDepartment);
+        }
 
         [HttpGet]
         public ActionResult Years(int? savedYear, int? savedWeek, int? savedDepartment)
@@ -493,9 +490,8 @@ namespace TimeTask.Controllers
                     }
                     //
 
-                    string jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" onblur=\"wgddAsHIsXNWQkl(this)\"/>"; //onfocus=\"xHESyoJNbeGSonp(this)\"
-                    //string jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" onblur=\"YNXxUwIhBTDduDG(this)\" onfocus=\"xHESyoJNbeGSonp(this)\" />";
-                    string jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" onblur=\"wgddAsHIsXNWQkl(this)\" />"; //onfocus=\"xHESyoJNbeGSonp(this)\"
+                    string jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" onblur=\"wgddAsHIsXNWQkl(this)\"/>";
+                    string jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" onblur=\"wgddAsHIsXNWQkl(this)\" />";
 
                     daysString += "<div class=\"SBVWNWOJZnTplXL\" date=\"" + item.ToString("yyyy-MM-dd") + "\">" +
                             "<div class=\"LwxRoYhfmyzTlGm\">" +
@@ -514,7 +510,7 @@ namespace TimeTask.Controllers
 
                 html += "<div class=\"wcHMgjWjXaRMPKy\" worker=\"" + worker.Id + "\">" +
                             "<div class=\"oKvcDSylPNSLgqr\">" +
-                                "<span>" + worker.Surname + " " + worker.Name + "</span>" +
+                                "<span title=\"" + worker.Surname + " " + worker.Name + "\">" + worker.Surname + " " + worker.Name + "</span>" +
                                 "<span>" + departmentName + "</span>" +
                             "</div>" +
                             daysString +
@@ -638,6 +634,59 @@ namespace TimeTask.Controllers
             }
 
             return Json(new { success = false });
+        }
+
+        [HttpGet]
+        public ActionResult CopyWorkSchedule(int? savedYear, int? savedWeek, int? savedDepartment)
+        {
+            //year week
+            int month = DateTime.Now.Month;
+            int day = DateTime.Now.Day;
+
+            int? year;
+            if (savedYear != null)
+            {
+                year = savedYear;
+            }
+            else
+            {
+                year = DateTime.Now.Year;
+            }
+
+            int? week;
+            if (savedWeek != null)
+            {
+                week = savedWeek;
+            }
+            else
+            {
+                week = GetCurrentWeek((int)year, month, day) + 1;
+            }
+            //
+
+            int? departmentID = null;
+            if (savedDepartment != null)
+            {
+                departmentID = savedDepartment;
+            }
+            else
+            {
+                departmentID = _context.Department.OrderBy(x => x.Name).FirstOrDefault()?.Id;
+            }
+
+
+
+
+
+            string html = "";
+
+            if (html.Length > 0)
+            {
+                return Content(html);
+            }
+
+            //return Json(false);
+            return Json(new { year, week, departmentID });
         }
 
         [HttpGet]
@@ -916,10 +965,6 @@ namespace TimeTask.Controllers
                             }
 
                             return Json(new { success = true });
-                            //if (task.Equals(taskArray.Last())) //sequence contains no elements
-                            //{
-                            //    return Json(new { success = true });
-                            //}
                         }
                     }
                 }

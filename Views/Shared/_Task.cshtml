@@ -18,7 +18,7 @@
         <ion-icon name="home-outline"></ion-icon>
         <span>Strona główna</span>
     </a>
-    <a class="settings_a" onclick="MkoKdHskxQLfcuP_test(this)" id="MkoKdHskxQLfcuP_">
+    <a class="settings_a" onclick="MkoKdHskxQLfcuP(this)" id="MkoKdHskxQLfcuP_">
         <ion-icon name="calendar-outline"></ion-icon>
         <div class="settings_a_select">
             <span>Rok</span>
@@ -26,7 +26,7 @@
             <ion-icon name="chevron-down-outline"></ion-icon>
         </div>
     </a>
-    <a class="settings_a" onclick="fssIiZoJOhPhaRO_test(this)" id="fssIiZoJOhPhaRO_">
+    <a class="settings_a" onclick="fssIiZoJOhPhaRO(this)" id="fssIiZoJOhPhaRO_">
         <ion-icon name="calendar-number-outline"></ion-icon>
         <div class="settings_a_select">
             <span>Tydzień</span>
@@ -37,7 +37,7 @@
 
     @if (departmentLenght == 0)
     {
-        <a class="settings_a HJfwfKTcBSSFmBp" id="jxcqHOZgFmYHYkI_">
+        <a class="settings_a HJfwfKTcBSSFmBp">
             <ion-icon name="briefcase-outline"></ion-icon>
             <div class="settings_a_select">
                 <span></span>
@@ -47,7 +47,7 @@
     }
     else
     {
-        <a class="settings_a" onclick="jxcqHOZgFmYHYkI_test(this, @firstDepartmentID)" id="jxcqHOZgFmYHYkI_">
+        <a class="settings_a" onclick="jxcqHOZgFmYHYkI(this, @firstDepartmentID)" id="jxcqHOZgFmYHYkI_">
             <ion-icon name="briefcase-outline"></ion-icon>
             <div class="settings_a_select">
                 <span>Dział</span>
@@ -57,28 +57,32 @@
         </a>
     }
 
-    <a class="settings_a" onclick="ekzMacYlAMvOgoy_test(this, @firstDepartmentID)" id="ekzMacYlAMvOgoy_">
+    <a class="settings_a" onclick="ekzMacYlAMvOgoy(this, @firstDepartmentID)" id="ekzMacYlAMvOgoy_">
         <ion-icon name="file-tray-full-outline"></ion-icon>
         <div class="settings_a_select DttiWwFOUZxPakg">
             <span></span>
             <span>Wybierz zadanie</span>
-            <ion-icon name="chevron-down-outline"></ion-icon>
+            <ion-icon name="chevron-down-outline" id="uMVdMfTVrITLlKW"></ion-icon>
         </div>
     </a>
-    <a class="settings_a">
-        <ion-icon name="copy-outline"></ion-icon>
-        <div class="settings_a_select">
-            <span></span>
-            <span>Kopiuj grafik</span>
-        </div>
-    </a>
-    <a class="settings_a" id="yrVkwsnBhnYhdqa" onclick="BgMujOvGVhgxcrK()">
-        <ion-icon name="download-outline"></ion-icon>
-        <div class="settings_a_select">
-            <span></span>
-            <span>Pobierz grafik</span>
-        </div>
-    </a>
+
+    @if (((IEnumerable<Task2>)ViewBag.Tasks).Any())
+    {
+        <a class="settings_a" onclick="ZdzFYcenRSIqyJF()">
+            <ion-icon name="copy-outline"></ion-icon>
+            <div class="settings_a_select">
+                <span></span>
+                <span>Kopiuj grafik</span>
+            </div>
+        </a>
+        <a class="settings_a" id="yrVkwsnBhnYhdqa" onclick="BgMujOvGVhgxcrK()">
+            <ion-icon name="download-outline"></ion-icon>
+            <div class="settings_a_select">
+                <span></span>
+                <span>Pobierz grafik</span>
+            </div>
+        </a>
+    }
 </div>
 
 <div class="user">

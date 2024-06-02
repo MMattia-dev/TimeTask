@@ -2,12 +2,9 @@
 {
     setTimeout(function ()
     {
-        let koblSjvDsfoQbAD = document.querySelector('.koblSjvDsfoQbAD');
-        $(koblSjvDsfoQbAD).css({ 'opacity': '1' });
-        let grZWUijDhGWKyHd = document.querySelector('.grZWUijDhGWKyHd');
-        $(grZWUijDhGWKyHd).css({ 'opacity': '1' });
-        let loader_div = document.querySelector('.loader_div');
-        $(loader_div).fadeOut('fast');
+        $('.koblSjvDsfoQbAD').css({ 'opacity': '1' });
+        $('.grZWUijDhGWKyHd').css({ 'opacity': '1' });
+        $('.loader_div').fadeOut('fast');
     }, 500);
 });
 
@@ -16,6 +13,79 @@ function loadOnLoad()
     drmZhscxvPoxiya(sessionStorage.getItem('LTRXohWjonyFAsg'), sessionStorage.getItem('hQxHXfkxHkfALTJ'), sessionStorage.getItem('JcvzYoovBpGECWh'));
 };
 loadOnLoad();
+
+function drmZhscxvPoxiya(year, week, department)
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/CreateTable',
+        data: {
+            savedYear: year,
+            savedWeek: week,
+            savedDepartment: department
+        },
+        success: function (response)
+        {
+            howManyTasks(department);
+
+            let wcHMgjWjXaRMPKy = document.querySelectorAll('.wcHMgjWjXaRMPKy');
+            for (let i = 0; i < wcHMgjWjXaRMPKy.length; i++)
+            {
+                $(wcHMgjWjXaRMPKy[i]).remove();
+            }
+
+            $('.fSJtEaXwJSHzoxW').html(response.contentResult);
+            $('.fSJtEaXwJSHzoxW').after(response.html);
+
+            if (sessionStorage.getItem('task_lock_headers') != null)
+            {
+                task_lock_headers();
+            }
+            else
+            {
+                task_unlock_headers();
+            }
+
+            $('#loaderID_').remove(); //koniec ładowania
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function howManyTasks(departmentID) 
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/HowManyTasks',
+        data: {
+            department: departmentID
+        },
+        success: function (response)
+        {
+            if (response == 0)
+            {
+                $('#ekzMacYlAMvOgoy_').children('.settings_a_select').children('span').eq(1).html('Brak zadań');
+                $('#ekzMacYlAMvOgoy_').children('ion-icon').eq(0).attr('name', 'file-tray-outline');
+                $('#ekzMacYlAMvOgoy_').addClass('HJfwfKTcBSSFmBp');
+                $('#uMVdMfTVrITLlKW').hide();
+            }
+            else
+            {
+                $('#ekzMacYlAMvOgoy_').children('.settings_a_select').children('span').eq(1).html('Wybierz zadanie');
+                $('#ekzMacYlAMvOgoy_').children('ion-icon').eq(0).attr('name', 'file-tray-full-outline');
+                $('#ekzMacYlAMvOgoy_').removeClass('HJfwfKTcBSSFmBp');
+                $('#uMVdMfTVrITLlKW').show();
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
 
 function task_lock_headers()
 {
@@ -51,42 +121,6 @@ function task_lock_headers_onchange(t)
     {
         task_unlock_headers();
     }
-};
-
-function drmZhscxvPoxiya(year, week, department)
-{
-    $.ajax({
-        type: 'GET',
-        url: '/Tasks/CreateTable',
-        data: {
-            savedYear: year,
-            savedWeek: week,
-            savedDepartment: department
-        },
-        success: function (response)
-        {
-            let wcHMgjWjXaRMPKy = document.querySelectorAll('.wcHMgjWjXaRMPKy');
-            for (let i = 0; i < wcHMgjWjXaRMPKy.length; i++) {
-                $(wcHMgjWjXaRMPKy[i]).remove();
-            }
-
-            $('.fSJtEaXwJSHzoxW').html(response.contentResult);
-            $('.fSJtEaXwJSHzoxW').after(response.html);
-
-            if (sessionStorage.getItem('task_lock_headers') != null)
-            {
-                task_lock_headers();
-            }
-            else
-            {
-                task_unlock_headers();
-            }    
-        },
-        error: function (xhr, status, error)
-        {
-            console.log('Error:', error);
-        }
-    });
 };
 
 function szWBomtrGKAViBb(t, e)
@@ -184,7 +218,7 @@ function show_options(element, content)
     }
 };
 
-function MkoKdHskxQLfcuP_test(t) 
+function MkoKdHskxQLfcuP(t) 
 {
     if (sessionStorage.getItem('hQxHXfkxHkfALTJ') == null)
     {
@@ -226,7 +260,7 @@ function CanjEZFvPetVidb(t, year, week, department)
     drmZhscxvPoxiya(year, week, department);
 };
 
-function fssIiZoJOhPhaRO_test(t) 
+function fssIiZoJOhPhaRO(t) 
 {
     $.ajax({
         type: 'GET',
@@ -264,7 +298,7 @@ function XyLurmdtOTQYvZU(t, year, week, department)
     drmZhscxvPoxiya(year, week, department);
 };
 
-function jxcqHOZgFmYHYkI_test(t, firstDepartment) 
+function jxcqHOZgFmYHYkI(t, firstDepartment) 
 {
     $.ajax({
         type: 'GET',
@@ -287,6 +321,8 @@ function jxcqHOZgFmYHYkI_test(t, firstDepartment)
 
 function HMdMMtqNwVAguDt(t, id) 
 {
+    $('.right-nav').append(createLoader());
+
     $.ajax({
         type: 'GET',
         url: '/Tasks/ClickOnDepartment',
@@ -308,6 +344,8 @@ function HMdMMtqNwVAguDt(t, id)
             sessionStorage.setItem('JcvzYoovBpGECWh', id);
 
             drmZhscxvPoxiya(response.year, response.week, id);
+
+            //koniec ładowania -> drmZhscxvPoxiya
         },
         error: function (xhr, status, error)
         {
@@ -316,7 +354,7 @@ function HMdMMtqNwVAguDt(t, id)
     });
 };
 
-function ekzMacYlAMvOgoy_test(t, firstDepartment) 
+function ekzMacYlAMvOgoy(t, firstDepartment) 
 {
     $.ajax({
         type: 'GET',
@@ -399,7 +437,6 @@ function uXPtoAMyTPOkWCV(t, taskID)
 
             //
             let workerID = $(newItem).parent().parent().parent('.wcHMgjWjXaRMPKy').attr('worker'); //nie może być równe null
-            //let taskNameID = $(newItem).attr('pGXQuswWwoZGMWg'); //nie będzie równe null
             let taskNameID = taskID; //może być równe null
             let date = $(newItem).parent().parent('.SBVWNWOJZnTplXL').attr('date'); //nigdy nie będzie równe null
             let jobStart = $(newItem).parent().parent('.SBVWNWOJZnTplXL').children('.LwxRoYhfmyzTlGm').children('input').eq(0).val(); //może być równe null
@@ -631,4 +668,34 @@ function enable()
     $('.left-nav').removeClass('HFhDvVpHKOUBBMS');
 
     $('.lds-ring-small').remove();
+};
+
+function ZdzFYcenRSIqyJF(year, week, department) 
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/CopyWorkSchedule',
+        data: {
+            savedYear: year,
+            savedWeek: week,
+            savedDepartment: department
+        },
+        success: function (response)
+        {
+            console.log(response);
+            //$('body').append(response);
+            //$('#uLTJNrstvNEQ').fadeIn(200);
+
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+ZdzFYcenRSIqyJF(sessionStorage.getItem('LTRXohWjonyFAsg'), sessionStorage.getItem('hQxHXfkxHkfALTJ'), sessionStorage.getItem('JcvzYoovBpGECWh'));
+
+function BgMujOvGVhgxcrK() 
+{
+
 };
