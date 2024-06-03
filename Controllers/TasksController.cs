@@ -636,8 +636,82 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
+        [HttpPost]
+        public ActionResult CopyWorkSchedule(int copyYear, int copyWeek, int destinyYear, int destinyWeek, int department)
+        {
+            if (destinyWeek != 0)
+            {
+                if (copyYear == destinyYear && copyWeek == destinyWeek)
+                {
+                    //
+                }
+                else
+                {
+                    var copyDates = getDatesInWeek(copyYear, copyWeek);
+                    var destinyDates = getDatesInWeek(destinyYear, destinyWeek);
+
+                    List<Task2> copyArray = new List<Task2>();
+                    foreach (var date in copyDates)
+                    {
+                        foreach (var worker in _context.Workers2)
+                        {
+                            var workerID = worker.Id;
+                            //var tasks = _context.Task2.Where(x => x.WorkerID == workerID && x.Date.Value);
+                            foreach (var task in _context.Task2)
+                            {
+                                if (task.Date.HasValue)
+                                {
+                                    if (task.WorkerID == workerID && worker.DepartmentID == department && task.Date.Value.ToShortDateString() == date.ToShortDateString())
+                                    {
+                                        var row = _context.Task2.FirstOrDefault(x => x.Id == task.Id);
+                                        if (row != null)
+                                        {
+                                            copyArray.Add(row);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    //dopasuj poniedziałek do poniedziałku, wtorek do wtorku, itp.
+
+                    foreach (var newDate in destinyDates)
+                    {
+
+                    }
+
+                    //List<Task2> changedArray = new List<Task2>();
+                    //if (copyArray.Any())
+                    //{
+                    //    foreach (var item in copyArray)
+                    //    {
+                    //        DateTime? start = null;
+                    //        DateTime? end = null;
+                    //        if (item.JobStart != null && item.JobEnd != null)
+                    //        {
+                    //            //string dateString_JobStart = item.JobStart.Value.ToString("yyyy-MM-dd");
+                    //            string timeString_JobStart = item.JobStart.Value.ToString("HH:mm");
+
+                    //            //string dateString_JobEnd = item.JobEnd.Value.ToString("yyyy-MM-dd");
+                    //            string timeString_JobEnd = item.JobEnd.Value.ToString("HH:mm");
+
+                    //            foreach (var newDate in destinyDates)
+                    //            {
+                                    
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                }
+            }
+
+            return Json(false);
+            //return Json(new { copyYear, copyWeek, destinyYear, destinyWeek, department});
+        }
+
         [HttpGet]
-        public ActionResult CopyWorkSchedule(int? savedYear, int? savedWeek, int? savedDepartment)
+        public ActionResult CopyWorkScheduleForm(int? savedYear, int? savedWeek, int? savedDepartment)
         {
             //year week
             int month = DateTime.Now.Month;
@@ -674,19 +748,111 @@ namespace TimeTask.Controllers
                 departmentID = _context.Department.OrderBy(x => x.Name).FirstOrDefault()?.Id;
             }
 
+            int yearNow = DateTime.Now.Year;
+            int prevYears = yearNow - 3;
 
-
-
-
-            string html = "";
-
-            if (html.Length > 0)
+            string yearOptions = "";
+            for (int i = prevYears; i <= yearNow; i++)
             {
-                return Content(html);
+                if (savedYear != null)
+                {
+                    if (savedYear == i)
+                    {
+                        yearOptions += "<option selected>" + i + "</option>";
+                    }
+                    else
+                    {
+                        yearOptions += "<option>" + i + "</option>";
+                    }
+                }
+                else
+                {
+                    if (DateTime.Now.Year == i)
+                    {
+                        yearOptions += "<option selected>" + i + "</option>";
+                    }
+                    else
+                    {
+                        yearOptions += "<option>" + i + "</option>";
+                    }
+                }
             }
 
-            //return Json(false);
-            return Json(new { year, week, departmentID });
+            int weeks = GetWeeksInYear((int)year);
+            string weekOptions = "";
+            for (int i = 1; i <= weeks; i++)
+            {
+                if (savedWeek != null)
+                {
+                    if (i == savedWeek)
+                    {
+                        weekOptions += "<option selected>" + i + "</option>";
+                    }
+                    else
+                    {
+                        weekOptions += "<option>" + i + "</option>";
+                    }
+                }
+                else
+                {
+                    if (i == GetCurrentWeek((int)year, month, day) + 1)
+                    {
+                        weekOptions += "<option selected>" + i + "</option>";
+                    }
+                    else
+                    {
+                        weekOptions += "<option>" + i + "</option>";
+                    }
+                }
+            }
+
+            string simpleWeeks = "<option selected disabled>-</option>";
+            for (int i = 1; i <= weeks; i++)
+            {
+                simpleWeeks += "<option>" + i + "</option>";
+            }
+
+
+            string removeForm = "$('#pwFBWqdAoChTxAb').remove()";
+
+            string form = "<div id=\"pwFBWqdAoChTxAb\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form class=\"form_\">" +
+                        "<div class=\"form-group\">" +
+                            "<label>Kopiowany tydzień:</label>" +
+                            //"<input class=\"form-control\" autocomplete=\"off\" id=\"ahTFhNgePFSjraf\" disabled value=\"" + DateTime.Now.Year + "\" />" +
+                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"ahTFhNgePFSjraf\">" +
+                                yearOptions +
+                            "</select>" +
+                        "</div>" +
+                        "<div class=\"form-group form-group-margin\">" +
+                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"KEYeauHuNLZPWCy\">" +
+                                weekOptions +
+                            "</select>" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<ion-icon name=\"arrow-down-outline\" class=\"fuRbuXSaYHCrfuV\"></ion-icon>" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<label>Docelowy tydzień:</label>" +
+                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"EGeBKVhjMnvAsVQ\">" +
+                                yearOptions +
+                            "</select>" +
+                        "</div>" +
+                        "<div class=\"form-group form-group-margin2\">" +                        
+                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"zDthMDvUyTtutDb\">" +
+                                simpleWeeks +
+                            "</select>" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input type=\"button\" value=\"Kopiuj grafik\" class=\"btn-custom\" onclick=\"VHWnkLNgLFRzozC(" + departmentID + ")\" />" +
+                        "</div>" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
+
+            return Content(form);
         }
 
         [HttpGet]

@@ -5965,6 +5965,12 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     transform: translateY(20px);
 }
 
+.fuRbuXSaYHCrfuV {
+    min-width: 35px;
+    min-height: 35px;
+    transform: translateY(5px);
+}
+
 
 @keyframes blink {
     0% {
