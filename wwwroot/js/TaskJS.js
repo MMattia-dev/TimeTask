@@ -4,6 +4,7 @@
     {
         $('.koblSjvDsfoQbAD').css({ 'opacity': '1' });
         $('.grZWUijDhGWKyHd').css({ 'opacity': '1' });
+        $('#OcoYTyiBrpZJStB').css({ 'opacity': '1' });
         $('.loader_div').fadeOut('fast');
     }, 500);
 });
@@ -16,6 +17,8 @@ loadOnLoad();
 
 function drmZhscxvPoxiya(year, week, department)
 {
+    $('.right-nav').append(createLoader());
+
     $.ajax({
         type: 'GET',
         url: '/Tasks/CreateTable',
@@ -34,21 +37,33 @@ function drmZhscxvPoxiya(year, week, department)
                 $(wcHMgjWjXaRMPKy[i]).remove();
             }
 
-            $('.fSJtEaXwJSHzoxW').html(response.contentResult);
-            $('.fSJtEaXwJSHzoxW').after(response.html);
+            //$('.fSJtEaXwJSHzoxW').html(response.contentResult);
+            //$('.fSJtEaXwJSHzoxW').after(response.html);
 
-            if (sessionStorage.getItem('task_lock_headers') != null)
-            {
-                task_lock_headers();
-            }
-            else
-            {
-                task_unlock_headers();
-            }
+
+
+            //if (sessionStorage.getItem('task_lock_headers') != null)
+            //{
+            //    task_lock_headers();
+            //}
+            //else
+            //{
+            //    task_unlock_headers();
+            //}
+            lock_headers(sessionStorage.getItem('task_lock_headers'));
+
 
             $('#loaderID_').remove(); //koniec ładowania
 
             $('#kSSnezAexZyLwQZ').attr("onclick", "ZdzFYcenRSIqyJF(" + year + "," + week + "," + department + ")");
+
+            if (response.week.toString().length == 2) {
+                $('#OcoYTyiBrpZJStB').html(response.week).removeClass('OcoYTyiBrpZJStB_');
+            }
+            if (response.week.toString().length == 1) {
+                $('#OcoYTyiBrpZJStB').html(response.week).addClass('OcoYTyiBrpZJStB_');
+            }
+            
         },
         error: function (xhr, status, error)
         {
@@ -91,26 +106,60 @@ function howManyTasks(departmentID)
 
 function task_lock_headers()
 {
-    $('#task_lock_headers_id').children('span').eq(0).html('Odblokuj');
-    $('.fSJtEaXwJSHzoxW').addClass('fSJtEaXwJSHzoxW_');
-    $('.oKvcDSylPNSLgqr').addClass('oKvcDSylPNSLgqr_');
-    sessionStorage.setItem('task_lock_headers', 'true');
+    //$('#task_lock_headers_id').children('span').eq(0).html('Odblokuj');
+    //$('.fSJtEaXwJSHzoxW').addClass('fSJtEaXwJSHzoxW_');
+    //$('.oKvcDSylPNSLgqr').addClass('oKvcDSylPNSLgqr_');
+    //sessionStorage.setItem('task_lock_headers', 'true');
 
-    $('#lock1').hide();
-    $('#lock2').show();
-    document.getElementById('task_lock_headers_input').checked = true;
+    //$('#lock1').hide();
+    //$('#lock2').show();
+    //document.getElementById('task_lock_headers_input').checked = true;
+
+    $('.GJakzZdfXNDmfZz').children('ion-icon').remove();
+    $('.GJakzZdfXNDmfZz').prepend('<ion-icon name="lock-closed-outline"></ion-icon>');
+
 };
 
 function task_unlock_headers()
 {
-    $('#task_lock_headers_id').children('span').eq(0).html('Zablokuj');
-    $('.fSJtEaXwJSHzoxW').removeClass('fSJtEaXwJSHzoxW_');
-    $('.oKvcDSylPNSLgqr').removeClass('oKvcDSylPNSLgqr_');
-    sessionStorage.removeItem('task_lock_headers');
+    //$('#task_lock_headers_id').children('span').eq(0).html('Zablokuj');
+    //$('.fSJtEaXwJSHzoxW').removeClass('fSJtEaXwJSHzoxW_');
+    //$('.oKvcDSylPNSLgqr').removeClass('oKvcDSylPNSLgqr_');
+    //sessionStorage.removeItem('task_lock_headers');
 
-    $('#lock1').show();
-    $('#lock2').hide();
-    document.getElementById('task_lock_headers_input').checked = false;
+    //$('#lock1').show();
+    //$('#lock2').hide();
+    //document.getElementById('task_lock_headers_input').checked = false;
+
+    $('.GJakzZdfXNDmfZz').children('ion-icon').remove();
+    $('.GJakzZdfXNDmfZz').prepend('<ion-icon name="lock-open-outline"></ion-icon>');
+
+};
+
+function GJakzZdfXNDmfZz_() 
+{
+    if (sessionStorage.getItem('task_lock_headers') == null) 
+    {
+        sessionStorage.setItem('task_lock_headers', 'true');
+        lock_headers(sessionStorage.getItem('task_lock_headers'));
+    }
+    else 
+    {
+        sessionStorage.removeItem('task_lock_headers');
+        lock_headers(sessionStorage.getItem('task_lock_headers'));
+    }
+};
+
+function lock_headers(lock) 
+{
+    if (lock != null)
+    {
+        task_lock_headers();
+    }
+    else 
+    {
+        task_unlock_headers();
+    }
 };
 
 function task_lock_headers_onchange(t)
@@ -323,7 +372,7 @@ function jxcqHOZgFmYHYkI(t, firstDepartment)
 
 function HMdMMtqNwVAguDt(t, id) 
 {
-    $('.right-nav').append(createLoader());
+    //$('.right-nav').append(createLoader());
 
     $.ajax({
         type: 'GET',
@@ -713,17 +762,27 @@ function VHWnkLNgLFRzozC(department)
             },
             success: function (response)
             {
-                if (response != false) 
+                if (response.success != false) 
                 {
                     sessionStorage.setItem('LTRXohWjonyFAsg', $('#EGeBKVhjMnvAsVQ').find(':selected').val());
                     sessionStorage.setItem('hQxHXfkxHkfALTJ', $('#zDthMDvUyTtutDb').find(':selected').val());
                     drmZhscxvPoxiya(sessionStorage.getItem('LTRXohWjonyFAsg'), sessionStorage.getItem('hQxHXfkxHkfALTJ'), sessionStorage.getItem('JcvzYoovBpGECWh'));
 
-                    console.log(response);
-                }
+                    $('#pwFBWqdAoChTxAb').remove();
+                    $('#loaderID').hide();
 
-                $('#pwFBWqdAoChTxAb').remove();
-                $('#loaderID').hide();
+                    $('body').append(response.messageDiv.content);
+                }
+                else 
+                {
+                    setTimeout(function ()
+                    {
+                        $('#pwFBWqdAoChTxAb').remove();
+                        $('#loaderID').hide();
+
+                        $('body').append(response.messageDiv.content);
+                    }, 500);
+                }
             },
             error: function (xhr, status, error)
             {
@@ -731,9 +790,36 @@ function VHWnkLNgLFRzozC(department)
             }
         });
     }
+    else 
+    {
+        $('#zDthMDvUyTtutDb').addClass('SHnDWPzuoAGGIwU');
+    }
+};
+
+function uOKeZlFghfhXJzQ(t) 
+{
+    if ($(t).find(':selected').val() > 0)
+    {
+        $(t).removeClass('SHnDWPzuoAGGIwU');
+        $('.btn-custom').removeAttr('disabled');
+    }
 };
 
 function BgMujOvGVhgxcrK() 
+{
+    //var divContents = $(".GlpaymKnQLOGAOs").html();
+    //var printWindow = window.open('', '', 'height=400,width=800');
+    //printWindow.document.write('<html><head><title>DIV Contents</title>');
+    //printWindow.document.write('</head><body >');
+    //printWindow.document.write(divContents);
+    //printWindow.document.write('</body></html>');
+    //printWindow.document.close();
+    //printWindow.print();
+
+
+};
+
+function nDYntMlpKcjgONc() 
 {
 
 };

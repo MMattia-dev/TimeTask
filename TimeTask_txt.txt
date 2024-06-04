@@ -11,6 +11,9 @@ zrobione - 5) usuñ WorkerException, urlopy, czas pracy podczas usuwania Worker
 zrobione - 11) "czas pracy" i "urlopy" w ustawieniach zmieniæ na dwie osobne podstrony
 12) stwórz role dla ró¿nych u¿ytkowników (np. pracownicy: "tylko do odczytu")
 12) zablokuj mo¿liwoœæ edycji grafiku po 1 tygodniu/2 tygodniach
+13) pionowa linia oddzielaj¹ca okresy rozliczeniowe dla ró¿nych pracowników (pomaranczowa linia)
+14) wiadomoœci na g³ównej stronie o zbli¿aj¹cym siê koñcu okresu rozliczeniowego
+15) wiadomoœci na g³ównej stronie o przypomnieniach, notatkach, dodatkowych zadaniach i projektach (i ich aktualizacjach), 
 
 zmien wszystkie localstorage na sessionstorage
 zmien wszystkie id i class na has³a

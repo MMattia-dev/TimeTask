@@ -406,6 +406,16 @@ form.form_3 {
     height: 200px;
 }
 
+    .jbiihcodqinw span {
+        background-color: rgba(255, 255, 255, 0.2);
+        padding: 10px;
+        border-radius: 3px;
+        color: rgba(255, 255, 255, 0.8);
+        width: 275px;
+        text-align: center;
+        font-size: 14px;
+    }
+
 input[type=checkbox] {
     width: 15px;
     height: 15px;

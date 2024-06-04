@@ -1120,10 +1120,6 @@ ion-icon {
         color: orangered;
     }
 
-    .settings_a#yrVkwsnBhnYhdqa ion-icon {
-        color: deepskyblue;
-    }
-
     .settings_a:hover {
         background-color: rgba(54, 56, 68, 1);
     }    
@@ -2675,8 +2671,8 @@ ion-icon {
 
 .fSJtEaXwJSHzoxW {
     height: 100%;
-    width: 100px;
-    min-width: 100px;
+    width: 90px;
+    min-width: 90px;
     display: inherit;
     flex-direction: column;
     /*position: -webkit-sticky;
@@ -2706,7 +2702,106 @@ ion-icon {
             border-top: 1px solid rgba(0, 0, 0, 1);
         }
 
-.GJakzZdfXNDmfZz {
+.task_table {
+    border-collapse: collapse;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+    .task_table thead {
+        
+    }
+
+        .task_table thead tr {
+            
+        }
+
+            .task_table thead tr th {
+                height: 80px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+                .task_table thead tr th:not(:first-child) {
+                    width: 256px;
+                    border-left: 1px solid rgba(255, 255, 255, 0.1);
+                }
+
+                    .task_table thead tr th:not(:first-child) span {
+                        color: rgba(255, 255, 255, 0.8);
+                        font-weight: normal;
+                    }
+
+                        .task_table thead tr th:not(:first-child) span:first-child {
+                            font-size: 16px;                       
+                        }
+
+                        .task_table thead tr th:not(:first-child) span:nth-child(2) {
+                            font-size: 13px;
+                        }
+
+                .task_table thead tr th div {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .task_table thead tr th:first-child {
+                    width: 90px;
+                    max-width: 90px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                    .task_table thead tr th:first-child .GJakzZdfXNDmfZz {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                        height: 100%;
+                        width: 100%;
+                    }
+
+                        .task_table thead tr th:first-child .GJakzZdfXNDmfZz:hover {
+                            cursor: pointer;
+                            background-color: rgba(255, 255, 255, 0.1);
+                        }
+
+    .task_table tbody {
+
+    }
+
+        .task_table tbody tr {
+            
+        }
+
+            .task_table tbody tr td {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                height: 180px;
+
+            }
+
+                .task_table tbody tr td:first-child {
+                    width: 90px;
+                    max-width: 90px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                    .task_table tbody tr td:first-child span {
+                        color: rgba(255, 255, 255, 0.8);
+                        font-weight: normal;
+                        font-size: 12px;
+                    }
+
+                .task_table tbody tr td:not(:first-child) {
+                    border-left: 1px solid rgba(255, 255, 255, 0.1);
+                }
+
+                
+
+/*.GJakzZdfXNDmfZz {
     background-color: transparent;
     height: 82px;
     min-height: 82px;
@@ -2715,12 +2810,10 @@ ion-icon {
     justify-content: center;
     align-items: center;
     width: 100%;
-    /*border-right: 1px solid rgba(55, 55, 55, 0.5);*/
     border-right: 1px solid rgba(55, 55, 55, 0.75);
-    /*transition: background-color 0.2s, border 0.2s;*/
-}
+}*/
 
-    .GJakzZdfXNDmfZz label {
+    /*.GJakzZdfXNDmfZz label {
         display: flex;
         height: 100%;
         width: 100%;
@@ -2728,9 +2821,9 @@ ion-icon {
         justify-content: center;
         align-items: center;
         flex-direction: column;
-    }
+    }*/
 
-        .GJakzZdfXNDmfZz label:hover {
+        /*.GJakzZdfXNDmfZz label:hover {
             cursor: pointer;
         }
 
@@ -2756,9 +2849,9 @@ ion-icon {
 
         .GJakzZdfXNDmfZz label svg {
             fill: rgba(255, 255, 255, 0.8);
-        }
+        }*/
 
-.XJsRKtmIfTCptru {
+/*.XJsRKtmIfTCptru {
     height: 200px;
     min-height: 200px;
     display: inherit;
@@ -2768,11 +2861,8 @@ ion-icon {
     overflow-y: auto;
     overflow-x: hidden;
     gap: 5px;
-    /*border-right: 1px solid rgba(55, 55, 55, 0.5);*/
     border-right: 1px solid rgba(55, 55, 55, 0.75);
-    /*border-top: 1px solid rgba(55, 55, 55, 0.5);*/
     border-top: 1px solid rgba(55, 55, 55, 0.75);
-    /*transition: background-color 0.2s, border 0.2s;*/
 }
 
     .XJsRKtmIfTCptru span {
@@ -2783,36 +2873,26 @@ ion-icon {
 
         .XJsRKtmIfTCptru span:nth-child(2) {
             font-size: 12px;
-        }
+        }*/
 
-.SBVWNWOJZnTplXL {
+/*.SBVWNWOJZnTplXL {
     height: 200px;
     min-height: 200px;
     width: 100%;
-    /*background-color: rgba(34, 36, 48, 0.6);*/
     display: inherit;
     flex-direction: column;
     filter: brightness(100%);
-    /*transition: background-color 0.2s, border 0.2s;*/
-}
+}*/
 
-    .SBVWNWOJZnTplXL.SBVWNWOJZnTplXL_ {
-        /*background-color: rgba(34, 36, 48, 0.6);*/
-        /*transition: background-color 0.2s, border 0.2s;*/
-    }
-
-.LwxRoYhfmyzTlGm {
+/*.LwxRoYhfmyzTlGm {
     height: 40px;
-    /*border-bottom: 1px solid rgba(55, 55, 55, 0.5);*/
     border-bottom: 1px solid rgba(55, 55, 55, 0.75);
-    /*border-right: 1px solid rgba(55, 55, 55, 0.5);*/
     border-right: 1px solid rgba(55, 55, 55, 0.75);
     display: inherit;
     justify-content: center;
     align-items: center;
     gap: 4px;
     position: relative;
-    /*transition: background-color 0.2s, border 0.2s;*/
 }
 
     .LwxRoYhfmyzTlGm span {
@@ -2831,52 +2911,32 @@ ion-icon {
     }
 
         .LwxRoYhfmyzTlGm input.disabled {
-            /*transition: opacity 0.2s ease-in-out;*/
             pointer-events: none;
             opacity: 0.7;
-        }
+        }*/
 
-    .LwxRoYhfmyzTlGm.LwxRoYhfmyzTlGm_ {
-        /*border-bottom: 1px solid rgba(0, 0, 0, 1);
-        border-right: 1px solid rgba(0, 0, 0, 1);*/
-        /*transition: background-color 0.2s, border 0.2s;*/
-    }
-
-.AQzCKqmlrQJmxzn {
+/*.AQzCKqmlrQJmxzn {
     height: 160px;
-    /*border-right: 1px solid rgba(55, 55, 55, 0.5);*/
     border-right: 1px solid rgba(55, 55, 55, 0.75);
-    /*border-bottom: 1px solid rgba(55, 55, 55, 0.5);*/
     border-bottom: 1px solid rgba(55, 55, 55, 0.75);
-    /*padding-bottom: 45px;*/
-    /*padding: 5px 5px 45px 5px;*/
     padding: 5px 5px 45px 5px;
     overflow-x: hidden;
     overflow-y: auto;
     scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
     scrollbar-width: thin;
-    /*transition: background-color 0.2s, border 0.2s;*/
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-    .AQzCKqmlrQJmxzn.AQzCKqmlrQJmxzn_ {
-        /*border-right: 1px solid rgba(0, 0, 0, 1);
-        border-bottom: 1px solid rgba(0, 0, 0, 1);*/
-        /*transition: background-color 0.2s, border 0.2s;*/
-    }
-
     .AQzCKqmlrQJmxzn.disabled {
-        /*transition: opacity 0.2s ease-in-out;*/
         pointer-events: none;
         opacity: 0.7;
-    }
+    }*/
 
 .kqOeanWDDXEYTBz {
     position: absolute;
     right: 2px;
-    /*top: 8px;*/
     cursor: pointer;
     height: 36px;
     width: 36px;
@@ -2938,7 +2998,8 @@ ion-icon {
     }
 
 .IvBtEDulLESDYxK {
-    background-color: rgba(80, 80, 80, 1);
+    /*background-color: rgba(80, 80, 80, 1);*/
+    background-color: rgba(255, 255, 255, 0.2);
     border-radius: 3px;
     height: auto;
     width: 275px;
@@ -5971,6 +6032,22 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     transform: translateY(5px);
 }
 
+span#OcoYTyiBrpZJStB {
+    font-size: 14px;
+    position: absolute;
+    top: 2.16em;
+    left: 30px;
+    opacity: 0;
+    color: transparent;
+    text-shadow: 0 0 0.75px rgba(255,255,255,0.8);
+    font-weight: bold;
+    transition: unset;
+    transition: opacity 0.2s ease;
+}
+
+    span#OcoYTyiBrpZJStB.OcoYTyiBrpZJStB_ {
+        left: 34px;
+    }
 
 @keyframes blink {
     0% {

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Differencing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Logging;
 using NuGet.Packaging.Signing;
 using TimeTask.Data;
 using TimeTask.Models;
@@ -452,73 +453,132 @@ namespace TimeTask.Controllers
             //days
             List<DateTime> days = getDatesInWeek((int)year, (int)week);
 
-            //table
-            var workers = _context.Workers2.Where(x => x.DepartmentID == departmentID);
+
             string html = "";
-            foreach (var worker in workers)
-            {
-                string daysString = "";
-                foreach (var item in days)
-                {
-                    var taskArray = _context.Task2.Where(x => x.WorkerID == worker.Id);
 
-                    //
-                    string? tasks = null;
-                    string? jobEnter = null;
-                    string? jobExit = null;
-                    string deleteButton = "";
 
-                    foreach (var task in taskArray)
-                    {
-                        if (task.Date.HasValue && task.Date.Value.ToString("yyyy-MM-dd") == item.ToString("yyyy-MM-dd"))
-                        {
-                            if (task.JobStart.HasValue && task.JobEnd.HasValue)
-                            {
-                                jobEnter = task.JobStart.Value.ToString("HH:mm");
-                                jobExit = task.JobEnd.Value.ToString("HH:mm");
-                                deleteButton = "<a class=\"MNewKOhqZkqNDeJ\" onclick=\"czzROjFaPsDoZoT(this)\" title=\"Usuń godziny\"><ion-icon name=\"trash-outline\"></ion-icon></a>";
-                            }
 
-                            if (task.TaskNameID != null)
-                            {
-                                tasks += "<div class=\"ZslufbFdcfCIeaW\">" +
-                                            "<span>" + _context.TaskName2.FirstOrDefault(x => x.Id == task.TaskNameID && x.DepartmentID == worker.DepartmentID)?.Name + "</span>" +
-                                            "<a onclick=\"aTdCbXqRfUSGyXc(this, " + task.Id + ")\" title=\"Usuń zadanie\"><ion-icon name=\"close\"></ion-icon></a>" +
-                                         "</div>";
-                            }
-                        }
-                    }
-                    //
 
-                    string jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" onblur=\"wgddAsHIsXNWQkl(this)\"/>";
-                    string jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" onblur=\"wgddAsHIsXNWQkl(this)\" />";
+            ////table
+            //var workers = _context.Workers2.Where(x => x.DepartmentID == departmentID);
+            //string html = "";
+            //foreach (var worker in workers)
+            //{
+            //    string daysString = "";
+            //    foreach (var item in days)
+            //    {
+            //        var taskArray = _context.Task2.Where(x => x.WorkerID == worker.Id);
 
-                    daysString += "<div class=\"SBVWNWOJZnTplXL\" date=\"" + item.ToString("yyyy-MM-dd") + "\">" +
-                            "<div class=\"LwxRoYhfmyzTlGm\">" +
-                                jobStartInput +
-                                "<span>-</span>" +
-                                jobEndInput +
-                                deleteButton +
-                            "</div>" +
-                            "<div class=\"AQzCKqmlrQJmxzn\">" +
-                                tasks +
-                            "</div>" +
-                        "</div>";
-                }
+            //        //
+            //        string? tasks = null;
+            //        string? jobEnter = null;
+            //        string? jobExit = null;
+            //        string deleteButton = "";
 
-                var departmentName = _context.Department.FirstOrDefault(x => x.Id == worker.DepartmentID)?.Name;
+            //        foreach (var task in taskArray)
+            //        {
+            //            if (task.Date.HasValue && task.Date.Value.ToString("yyyy-MM-dd") == item.ToString("yyyy-MM-dd"))
+            //            {
+            //                if (task.JobStart.HasValue && task.JobEnd.HasValue)
+            //                {
+            //                    jobEnter = task.JobStart.Value.ToString("HH:mm");
+            //                    jobExit = task.JobEnd.Value.ToString("HH:mm");
+            //                    deleteButton = "<a class=\"MNewKOhqZkqNDeJ\" onclick=\"czzROjFaPsDoZoT(this)\" title=\"Usuń godziny\"><ion-icon name=\"trash-outline\"></ion-icon></a>";
+            //                }
 
-                html += "<div class=\"wcHMgjWjXaRMPKy\" worker=\"" + worker.Id + "\">" +
-                            "<div class=\"oKvcDSylPNSLgqr\">" +
-                                "<span title=\"" + worker.Surname + " " + worker.Name + "\">" + worker.Surname + " " + worker.Name + "</span>" +
-                                "<span>" + departmentName + "</span>" +
-                            "</div>" +
-                            daysString +
-                        "</div>";
-            }
-            //
+            //                if (task.TaskNameID != null)
+            //                {
+            //                    tasks += "<div class=\"ZslufbFdcfCIeaW\">" +
+            //                                "<span>" + _context.TaskName2.FirstOrDefault(x => x.Id == task.TaskNameID && x.DepartmentID == worker.DepartmentID)?.Name + "</span>" +
+            //                                "<a onclick=\"aTdCbXqRfUSGyXc(this, " + task.Id + ")\" title=\"Usuń zadanie\"><ion-icon name=\"close\"></ion-icon></a>" +
+            //                             "</div>";
+            //                }
+            //            }
+            //        }
+            //        //
 
-            return Json(new { contentResult = DatesInChosenWeek((int)year, (int)week), html });
+            //        string jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" onblur=\"wgddAsHIsXNWQkl(this)\"/>";
+            //        string jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" onblur=\"wgddAsHIsXNWQkl(this)\" />";
+
+            //        daysString += "<div class=\"SBVWNWOJZnTplXL\" date=\"" + item.ToString("yyyy-MM-dd") + "\">" +
+            //                "<div class=\"LwxRoYhfmyzTlGm\">" +
+            //                    jobStartInput +
+            //                    "<span>-</span>" +
+            //                    jobEndInput +
+            //                    deleteButton +
+            //                "</div>" +
+            //                "<div class=\"AQzCKqmlrQJmxzn\">" +
+            //                    tasks +
+            //                "</div>" +
+            //            "</div>";
+            //    }
+
+            //    var departmentName = _context.Department.FirstOrDefault(x => x.Id == worker.DepartmentID)?.Name;
+
+            //    html += "<div class=\"wcHMgjWjXaRMPKy\" worker=\"" + worker.Id + "\">" +
+            //                "<div class=\"oKvcDSylPNSLgqr\">" +
+            //                    "<span title=\"" + worker.Surname + " " + worker.Name + "\">" + worker.Surname + " " + worker.Name + "</span>" +
+            //                    "<span>" + departmentName + "</span>" +
+            //                "</div>" +
+            //                daysString +
+            //            "</div>";
+            //}
+            ////
+
+
+            return Json(new { contentResult = DatesInChosenWeek((int)year, (int)week), html, week });
+        }
+
+        public string DatesInChosenWeek(int year, int weekOfYear)
+        {
+            var days = Enumerable.Range(0, 1 + LastDateOfWeekISO8601(year, weekOfYear).Subtract(FirstDateOfWeekISO8601(year, weekOfYear)).Days).Select(x => FirstDateOfWeekISO8601(year, weekOfYear).AddDays(x)).ToArray();
+
+            //string div = "<div class=\"GJakzZdfXNDmfZz\">" +
+            //                "<label id=\"task_lock_headers_id\" onchange=\"task_lock_headers_onchange(this)\">" +
+            //                    "<input type=\"checkbox\" id=\"task_lock_headers_input\" />" +
+            //                    "<svg id=\"lock1\" viewBox=\"-3.5 0 19 19\" width=\"32\" height=\"32\"><path d=\"M11.182 8.927v6.912a.794.794 0 0 1-.792.792H1.61a.794.794 0 0 1-.792-.792V8.927a.794.794 0 0 1 .792-.792h.654L1.956 7.11a3.534 3.534 0 0 1 6.769-2.035.554.554 0 1 1-1.062.32A2.426 2.426 0 0 0 3.017 6.79l.404 1.345h6.97a.794.794 0 0 1 .79.792zM7.108 11.47a1.108 1.108 0 1 0-1.583 1.001v1.849a.475.475 0 1 0 .95 0v-1.849a1.108 1.108 0 0 0 .633-1.001z\"></path></svg>" +
+            //                    "<svg id=\"lock2\" viewBox=\"-3.5 0 19 19\" width=\"32\" height=\"32\"><path d=\"M11.182 8.927v6.912a.794.794 0 0 1-.792.792H1.61a.794.794 0 0 1-.792-.792V8.927a.794.794 0 0 1 .792-.792h.856V6.367a3.534 3.534 0 1 1 7.068 0v1.768h.856a.794.794 0 0 1 .792.792zm-2.756-2.56a2.426 2.426 0 1 0-4.852 0v1.768h4.852zM7.108 11.47a1.108 1.108 0 1 0-1.583 1.001v1.849a.475.475 0 0 0 .95 0v-1.849a1.108 1.108 0 0 0 .633-1.001z\"></path></svg>" +
+            //                    "<span>zablokuj</span>" +
+            //                    "<span>nagłówki</span>" +
+            //                "</label>" +
+            //            "</div>";
+
+            //var culture = new CultureInfo("pl-PL");
+            //List<string> dates = new List<string>();
+
+            //foreach (var day in days)
+            //{
+            //    var holiday = (_context.Holiday).Select(x => x.Date.ToString("yyyy-MM-dd")).ToList();
+
+            //    if (holiday.Contains(day.ToString("yyyy-MM-dd")))
+            //    {
+            //        if (day.DayOfWeek == DayOfWeek.Sunday)
+            //        {
+            //            div += "<div class=\"XJsRKtmIfTCptru\"><span style=\"color: orangered;\">" + day.ToString("yyyy-MM-dd") + "</span><span style=\"color: orangered;\">" + day.ToString("ddd", culture) + "</span></div>";
+            //        }
+            //        else
+            //        {
+            //            div += "<div class=\"XJsRKtmIfTCptru\"><span style=\"color: orangered;\">" + day.ToString("yyyy-MM-dd") + "</span><span>" + day.ToString("ddd", culture) + "</span></div>";
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (day.DayOfWeek == DayOfWeek.Sunday)
+            //        {
+            //            div += "<div class=\"XJsRKtmIfTCptru\"><span>" + day.ToString("yyyy-MM-dd") + "</span><span style=\"color: orangered;\">" + day.ToString("ddd", culture) + "</span></div>";
+            //        }
+            //        else
+            //        {
+            //            div += "<div class=\"XJsRKtmIfTCptru\"><span>" + day.ToString("yyyy-MM-dd") + "</span><span>" + day.ToString("ddd", culture) + "</span></div>";
+            //        }
+            //    }
+
+            //    dates.Add(day.ToString("yyyy-MM-dd"));
+            //}
+
+            string div = "";
+
+            return div;
         }
 
         public List<DateTime> getDatesInWeek(int year, int weekOfYear)
@@ -526,56 +586,6 @@ namespace TimeTask.Controllers
             var days = Enumerable.Range(0, 1 + LastDateOfWeekISO8601(year, weekOfYear).Subtract(FirstDateOfWeekISO8601(year, weekOfYear)).Days).Select(x => FirstDateOfWeekISO8601(year, weekOfYear).AddDays(x)).ToList();
 
             return days;
-        }
-
-        public string DatesInChosenWeek(int year, int weekOfYear)
-        {
-            var days = Enumerable.Range(0, 1 + LastDateOfWeekISO8601(year, weekOfYear).Subtract(FirstDateOfWeekISO8601(year, weekOfYear)).Days).Select(x => FirstDateOfWeekISO8601(year, weekOfYear).AddDays(x)).ToArray();
-
-            string div = "<div class=\"GJakzZdfXNDmfZz\">" +
-                            "<label id=\"task_lock_headers_id\" onchange=\"task_lock_headers_onchange(this)\">" +
-                                "<input type=\"checkbox\" id=\"task_lock_headers_input\" />" +
-                                "<svg id=\"lock1\" viewBox=\"-3.5 0 19 19\" width=\"32\" height=\"32\"><path d=\"M11.182 8.927v6.912a.794.794 0 0 1-.792.792H1.61a.794.794 0 0 1-.792-.792V8.927a.794.794 0 0 1 .792-.792h.654L1.956 7.11a3.534 3.534 0 0 1 6.769-2.035.554.554 0 1 1-1.062.32A2.426 2.426 0 0 0 3.017 6.79l.404 1.345h6.97a.794.794 0 0 1 .79.792zM7.108 11.47a1.108 1.108 0 1 0-1.583 1.001v1.849a.475.475 0 1 0 .95 0v-1.849a1.108 1.108 0 0 0 .633-1.001z\"></path></svg>" +
-                                "<svg id=\"lock2\" viewBox=\"-3.5 0 19 19\" width=\"32\" height=\"32\"><path d=\"M11.182 8.927v6.912a.794.794 0 0 1-.792.792H1.61a.794.794 0 0 1-.792-.792V8.927a.794.794 0 0 1 .792-.792h.856V6.367a3.534 3.534 0 1 1 7.068 0v1.768h.856a.794.794 0 0 1 .792.792zm-2.756-2.56a2.426 2.426 0 1 0-4.852 0v1.768h4.852zM7.108 11.47a1.108 1.108 0 1 0-1.583 1.001v1.849a.475.475 0 0 0 .95 0v-1.849a1.108 1.108 0 0 0 .633-1.001z\"></path></svg>" +
-                                "<span>zablokuj</span>" +
-                                "<span>nagłówki</span>" +
-                            "</label>" +
-                        "</div>";
-
-            var culture = new CultureInfo("pl-PL");
-            List<string> dates = new List<string>();
-
-            foreach (var day in days)
-            {
-                var holiday = (_context.Holiday).Select(x => x.Date.ToString("yyyy-MM-dd")).ToList();
-
-                if (holiday.Contains(day.ToString("yyyy-MM-dd")))
-                {
-                    if (day.DayOfWeek == DayOfWeek.Sunday)
-                    {
-                        div += "<div class=\"XJsRKtmIfTCptru\"><span style=\"color: orangered;\">" + day.ToString("yyyy-MM-dd") + "</span><span style=\"color: orangered;\">" + day.ToString("ddd", culture) + "</span></div>";
-                    }
-                    else
-                    {
-                        div += "<div class=\"XJsRKtmIfTCptru\"><span style=\"color: orangered;\">" + day.ToString("yyyy-MM-dd") + "</span><span>" + day.ToString("ddd", culture) + "</span></div>";
-                    }
-                }
-                else
-                {
-                    if (day.DayOfWeek == DayOfWeek.Sunday)
-                    {
-                        div += "<div class=\"XJsRKtmIfTCptru\"><span>" + day.ToString("yyyy-MM-dd") + "</span><span style=\"color: orangered;\">" + day.ToString("ddd", culture) + "</span></div>";
-                    }
-                    else
-                    {
-                        div += "<div class=\"XJsRKtmIfTCptru\"><span>" + day.ToString("yyyy-MM-dd") + "</span><span>" + day.ToString("ddd", culture) + "</span></div>";
-                    }
-                }
-
-                dates.Add(day.ToString("yyyy-MM-dd"));
-            }
-
-            return div;
         }
 
         [HttpGet]
@@ -643,7 +653,17 @@ namespace TimeTask.Controllers
             {
                 if (copyYear == destinyYear && copyWeek == destinyWeek)
                 {
-                    //
+                    string removeForm = "$('#vcwaaOrnxVPZpSQ').remove()";
+                    string messageDiv = "<div id=\"vcwaaOrnxVPZpSQ\" class=\"pGKcZvErUB pGKcZvErUB_\" style=\"z-index: 999; background-color: rgba(0, 0, 0, 0.4);\">" +
+                                            "<form class=\"jbiihcodqinw\">" +
+                                                "<span>Docelowy tydzień nie może być równy kopiowanemu!</span>" +
+                                                "<div class=\"form-group\">" +
+                                                    "<input type=\"button\" value=\"OK\" class=\"btn-custom\" onclick=\"" + removeForm + "\" />" +
+                                                "</div>" +
+                                            "</form>" +
+                                        "</div>";
+
+                    return Json(new { success = false, messageDiv = Content(messageDiv) });
                 }
                 else
                 {
@@ -656,7 +676,6 @@ namespace TimeTask.Controllers
                         foreach (var worker in _context.Workers2)
                         {
                             var workerID = worker.Id;
-                            //var tasks = _context.Task2.Where(x => x.WorkerID == workerID && x.Date.Value);
                             foreach (var task in _context.Task2)
                             {
                                 if (task.Date.HasValue)
@@ -674,40 +693,132 @@ namespace TimeTask.Controllers
                         }
                     }
 
-                    //dopasuj poniedziałek do poniedziałku, wtorek do wtorku, itp.
+                    List<Task2> addData = new List<Task2>();
 
-                    foreach (var newDate in destinyDates)
+                    foreach (var item in copyArray)
                     {
+                        if (item.Date.HasValue)
+                        {
+                            foreach (var newDate in destinyDates)
+                            {
+                                if (item.Date.Value.DayOfWeek == newDate.DayOfWeek) //dopasuj poniedziałek do poniedziałku, wtorek do wtorku, itd.
+                                {
+                                    if (item.JobStart != null && item.JobEnd != null)
+                                    {
+                                        string copyTime_jobStart = item.JobStart.Value.ToString("HH:mm");
+                                        string copyTime_jobEnd = item.JobEnd.Value.ToString("HH:mm");
 
+                                        string jobStart_whole = newDate.ToString("yyyy-MM-dd") + " " + copyTime_jobStart;
+                                        string jobEnd_whole = newDate.ToString("yyyy-MM-dd") + " " + copyTime_jobEnd;
+
+                                        DateTime start = DateTime.ParseExact(jobStart_whole, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+                                        DateTime end = DateTime.ParseExact(jobEnd_whole, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+
+                                        var newData = new Task2()
+                                        {
+                                            WorkerID = item.WorkerID,
+                                            TaskNameID = item.TaskNameID,
+                                            Date = newDate.Date,
+                                            JobStart = start,
+                                            JobEnd = end
+                                        };
+
+                                        addData.Add(newData);
+                                    }
+                                    else
+                                    {
+                                        var newData = new Task2()
+                                        {
+                                            WorkerID = item.WorkerID,
+                                            TaskNameID = item.TaskNameID,
+                                            Date = newDate.Date,
+                                            JobStart = null,
+                                            JobEnd = null
+                                        };
+
+                                        addData.Add(newData);
+                                    }
+                                }
+                            }
+                        }                        
                     }
 
-                    //List<Task2> changedArray = new List<Task2>();
-                    //if (copyArray.Any())
-                    //{
-                    //    foreach (var item in copyArray)
-                    //    {
-                    //        DateTime? start = null;
-                    //        DateTime? end = null;
-                    //        if (item.JobStart != null && item.JobEnd != null)
-                    //        {
-                    //            //string dateString_JobStart = item.JobStart.Value.ToString("yyyy-MM-dd");
-                    //            string timeString_JobStart = item.JobStart.Value.ToString("HH:mm");
+                    //sprawdz czy daty z destinyWeek nie istnieją w bazie
+                    bool check = false;
+                    if (addData.Any())
+                    {
+                        foreach (var row in addData)
+                        {
+                            foreach (var item in _context.Task2)
+                            {
+                                if (row.Date.HasValue && item.Date.HasValue)
+                                {
+                                    if (row.Date.Value.ToShortDateString() == item.Date.Value.ToShortDateString())
+                                    {
+                                        string removeForm = "$('#CDGkkjRFIPzoATj').remove()";
+                                        string messageDiv = "<div id=\"CDGkkjRFIPzoATj\" class=\"pGKcZvErUB pGKcZvErUB_\" style=\"z-index: 999; background-color: rgba(0, 0, 0, 0.4);\">" +
+                                                                "<form class=\"jbiihcodqinw\">" +
+                                                                    "<span>Grafik z docelowego tygodnia nie jest pusty!</span>" +
+                                                                    "<div class=\"form-group\">" +
+                                                                        "<input type=\"button\" value=\"OK\" class=\"btn-custom\" onclick=\"" + removeForm + "\" />" +
+                                                                    "</div>" +
+                                                                "</form>" +
+                                                            "</div>";
 
-                    //            //string dateString_JobEnd = item.JobEnd.Value.ToString("yyyy-MM-dd");
-                    //            string timeString_JobEnd = item.JobEnd.Value.ToString("HH:mm");
+                                        return Json(new { success = false, messageDiv = Content(messageDiv) });
+                                    }
+                                    else
+                                    {
+                                        check = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        string removeForm = "$('#CDGkkjRFIPzoATj').remove()";
+                        string messageDiv = "<div id=\"CDGkkjRFIPzoATj\" class=\"pGKcZvErUB pGKcZvErUB_\" style=\"z-index: 999; background-color: rgba(0, 0, 0, 0.4);\">" +
+                                                "<form class=\"jbiihcodqinw\">" +
+                                                    "<span>Kopiowany grafik nie zawiera żadnych danych!</span>" +
+                                                    "<div class=\"form-group\">" +
+                                                        "<input type=\"button\" value=\"OK\" class=\"btn-custom\" onclick=\"" + removeForm + "\" />" +
+                                                    "</div>" +
+                                                "</form>" +
+                                            "</div>";
 
-                    //            foreach (var newDate in destinyDates)
-                    //            {
-                                    
-                    //            }
-                    //        }
-                    //    }
-                    //}
+                        return Json(new { success = false, messageDiv = Content(messageDiv) });
+                    }
+
+                    //
+
+                    if (check)
+                    {
+                        string removeForm = "$('#JXhDXOLmxsWkFon').remove()";
+                        string messageDiv = "<div id=\"JXhDXOLmxsWkFon\" class=\"pGKcZvErUB pGKcZvErUB_\" style=\"z-index: 999; background-color: rgba(0, 0, 0, 0.4);\">" +
+                                                "<form class=\"jbiihcodqinw\">" +
+                                                    "<span>Kopiowanie zakończone.</span>" +
+                                                    "<div class=\"form-group\">" +
+                                                        "<input type=\"button\" value=\"OK\" class=\"btn-custom\" onclick=\"" + removeForm + "\" />" +
+                                                    "</div>" +
+                                                "</form>" +
+                                            "</div>";
+
+                        foreach (var row in addData)
+                        {
+                            _context.Task2.Add(row);
+                            _context.SaveChanges();
+
+                            if (row.Equals(addData.Last()))
+                            {
+                                return Json(new { success = true, messageDiv = Content(messageDiv) });
+                            }
+                        }
+                    }
                 }
             }
 
-            return Json(false);
-            //return Json(new { copyYear, copyWeek, destinyYear, destinyWeek, department});
+            return Json(new { success = false });
         }
 
         [HttpGet]
@@ -813,13 +924,14 @@ namespace TimeTask.Controllers
             }
 
 
+            string departmentName = _context.Department.FirstOrDefault(x => x.Id == departmentID)?.Name;
+
             string removeForm = "$('#pwFBWqdAoChTxAb').remove()";
 
             string form = "<div id=\"pwFBWqdAoChTxAb\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
                     "<form class=\"form_\">" +
                         "<div class=\"form-group\">" +
                             "<label>Kopiowany tydzień:</label>" +
-                            //"<input class=\"form-control\" autocomplete=\"off\" id=\"ahTFhNgePFSjraf\" disabled value=\"" + DateTime.Now.Year + "\" />" +
                             "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"ahTFhNgePFSjraf\">" +
                                 yearOptions +
                             "</select>" +
@@ -838,13 +950,13 @@ namespace TimeTask.Controllers
                                 yearOptions +
                             "</select>" +
                         "</div>" +
-                        "<div class=\"form-group form-group-margin2\">" +                        
-                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"zDthMDvUyTtutDb\">" +
+                        "<div class=\"form-group form-group-margin2\">" +
+                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"zDthMDvUyTtutDb\" onchange=\"uOKeZlFghfhXJzQ(this)\">" +
                                 simpleWeeks +
                             "</select>" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<input type=\"button\" value=\"Kopiuj grafik\" class=\"btn-custom\" onclick=\"VHWnkLNgLFRzozC(" + departmentID + ")\" />" +
+                            "<input disabled type=\"button\" value=\"Kopiuj grafik (" + departmentName + ")\" class=\"btn-custom\" onclick=\"VHWnkLNgLFRzozC(" + departmentID + ")\" />" +
                         "</div>" +
                         "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
                             "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
