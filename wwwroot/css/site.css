@@ -2675,9 +2675,6 @@ ion-icon {
     min-width: 90px;
     display: inherit;
     flex-direction: column;
-    /*position: -webkit-sticky;
-    position: sticky;
-    left: 0;*/
     z-index: 4;
 }
 
@@ -2690,21 +2687,17 @@ ion-icon {
 
         .fSJtEaXwJSHzoxW.fSJtEaXwJSHzoxW_ .GJakzZdfXNDmfZz {
             background-color: rgba(34, 36, 48, 1);
-            /*transition: background-color 0.2s, border 0.2s;*/
-            /*border-right: 1px solid rgba(0, 0, 0, 1);*/
         }
 
         .fSJtEaXwJSHzoxW.fSJtEaXwJSHzoxW_ .XJsRKtmIfTCptru {
             background-color: rgba(34, 36, 48, 1);
-            /*transition: background-color 0.2s;*/
-            /*border-right: 1px solid rgba(0, 0, 0, 1);
-            border-top: 1px solid rgba(0, 0, 0, 1);*/
             border-top: 1px solid rgba(0, 0, 0, 1);
         }
 
 .task_table {
     border-collapse: collapse;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    /*border: 1px solid rgba(255, 255, 255, 0.1);*/
+    /*transform: translateX(-1px) translateY(-1px);*/
 }
 
     .task_table thead {
@@ -2716,9 +2709,13 @@ ion-icon {
         }
 
             .task_table thead tr th {
-                height: 80px;
+                height: 70px;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
+
+                .task_table thead tr th:last-child {
+                    border-right: 1px solid rgba(255, 255, 255, 0.1);
+                }
 
                 .task_table thead tr th:not(:first-child) {
                     width: 256px;
@@ -2745,8 +2742,8 @@ ion-icon {
                 }
 
                 .task_table thead tr th:first-child {
-                    width: 90px;
-                    max-width: 90px;
+                    width: 85px;
+                    max-width: 85px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -2776,13 +2773,16 @@ ion-icon {
 
             .task_table tbody tr td {
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                height: 180px;
-
+                height: 200px;
             }
 
+                .task_table tbody tr td:last-child {
+                    border-right: 1px solid rgba(255, 255, 255, 0.1);
+                }
+
                 .task_table tbody tr td:first-child {
-                    width: 90px;
-                    max-width: 90px;
+                    width: 85px;
+                    max-width: 85px;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
@@ -2799,6 +2799,54 @@ ion-icon {
                     border-left: 1px solid rgba(255, 255, 255, 0.1);
                 }
 
+                .task_table tbody tr td div.LwxRoYhfmyzTlGm {
+                    width: 100%;
+                    height: 40px;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 4px;
+                    position: relative;
+                }
+
+                    .task_table tbody tr td div.LwxRoYhfmyzTlGm span {
+                        color: rgba(255, 255, 255, 0.8);
+                        font-size: 12px;
+                        font-family: Arial;
+                    }
+
+                    .task_table tbody tr td div.LwxRoYhfmyzTlGm input {
+                        background-color: transparent;
+                        color: rgba(255, 255, 255, 0.8);
+                        border: none;
+                        outline: none;
+                        font-size: 13px;
+                        font-family: Arial;
+                    }
+
+                        .task_table tbody tr td div.LwxRoYhfmyzTlGm input:disabled {
+                            pointer-events: none;
+                            opacity: 0.7;
+                        }
+
+                .task_table tbody tr td div.AQzCKqmlrQJmxzn {
+                    width: 100%;
+                    height: calc(100% - 40px);
+                    padding: 5px 5px 45px 5px;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
+                    scrollbar-width: thin;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                }
+
+                    .task_table tbody tr td div.AQzCKqmlrQJmxzn:disabled {
+                        pointer-events: none;
+                        opacity: 0.7;
+                    }
                 
 
 /*.GJakzZdfXNDmfZz {
@@ -2998,15 +3046,12 @@ ion-icon {
     }
 
 .IvBtEDulLESDYxK {
-    /*background-color: rgba(80, 80, 80, 1);*/
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 3px;
     height: auto;
     width: 275px;
     padding: 10px;
     display: flex;
-    /*justify-content: center;
-    align-items: center;*/
     flex-direction: column;
     margin-bottom: 10px;
     gap: 8px;
@@ -3022,26 +3067,11 @@ ion-icon {
         width: 350px;
         gap: 4px;
     }
-    /*.SWAGjrIjXHjtobQ {
-    width: 260px;
-    height: 200px;
-    background-color: rgba(0, 0, 0, 0.25);
-    position: absolute;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    pointer-events: none;*/
-    /*top: 0;
-    left: 0;*/
-    /*}*/
+
     .lzfFwBKdGEtuYUv {
         height: 200px;
         border-right: 3px solid rgba(0, 0, 0, 0.5);
         border-bottom: 3px solid rgba(0, 0, 0, 0.5);
-        /*padding-bottom: 45px;*/
-        /*padding: 5px 5px 45px 5px;*/
         overflow-x: hidden;
         overflow-y: auto;
         scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
@@ -3050,9 +3080,6 @@ ion-icon {
         display: flex;
         justify-content: center;
         align-items: center;
-        /*background-color: rgba(0, 0, 0, 0.3);*/
-        /*z-index: 100;*/
-        /*pointer-events: none !important;*/
         background-color: rgba(34, 36, 48, 0.6);
     }
 
@@ -3062,13 +3089,9 @@ ion-icon {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /*background-color: rgba(34, 36, 48, 1);*/
     width: 550px;
     height: 330px;
     border-radius: 8px;
-    /*-webkit-box-shadow: 0px 0px 25px 5px rgba(0, 0, 0, 1);
-    -moz-box-shadow: 0px 0px 25px 5px rgba(0, 0, 0, 1);
-    box-shadow: 0px 0px 25px 5px rgba(0, 0, 0, 1);*/
 }
 
 

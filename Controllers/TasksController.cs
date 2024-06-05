@@ -453,9 +453,151 @@ namespace TimeTask.Controllers
             //days
             List<DateTime> days = getDatesInWeek((int)year, (int)week);
 
+            //culture
+            var culture = new CultureInfo("pl-PL");
 
-            string html = "";
+            //workers
+            string workers = "";
+            var workersList = _context.Workers2.Where(x => x.DepartmentID == departmentID).OrderBy(x => x.Name);
+            foreach (var worker in workersList)
+            {
+                workers += "<th>" +
+                        "<div>" +
+                            "<span>" + worker.Surname + " " + worker.Name + "</span>" +
+                            "<span>" + _context.Department.FirstOrDefault(x => x.Id == worker.DepartmentID)?.Name + "</span>" +
+                        "</div>" +
+                    "</th>";
+            }
 
+            //days string
+            List<Tuple<DateTime, string>> daysANew = new List<Tuple<DateTime, string>>();
+            foreach (var day_ in days)
+            {
+                var holiday = _context.Holiday.Select(x => x.Date.ToShortDateString()).ToList();
+                if (holiday.Contains(day_.ToShortDateString()))
+                {
+                    if (day_.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        daysANew.Add(new Tuple<DateTime, string>(day_, "<td><span style=\"color: orangered;\">" + day_.ToString("yyyy-MM-dd") + "</span><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span></td>"));
+                    }
+                    else
+                    {
+                        daysANew.Add(new Tuple<DateTime, string>(day_, "<td><span style=\"color: orangered;\">" + day_.ToString("yyyy-MM-dd") + "</span><span>" + day_.ToString("ddd", culture) + "</span></td>"));
+                    }
+                }
+                else
+                {
+                    if (day_.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        daysANew.Add(new Tuple<DateTime, string>(day_, "<td><span>" + day_.ToString("yyyy-MM-dd") + "</span><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span></td>"));
+                    }
+                    else
+                    {
+                        daysANew.Add(new Tuple<DateTime, string>(day_, "<td><span>" + day_.ToString("yyyy-MM-dd") + "</span><span>" + day_.ToString("ddd", culture) + "</span></td>"));
+                    }
+                }
+            }
+            daysANew.OrderBy(x => x.Item1);
+
+            //hours and tasks
+
+
+            //weeks string
+            //string weeksString = "";
+            //for (int i = 0; i < 7; i++)
+            //{
+            //    foreach (var worker in workersList)
+            //    {
+            //        weeksString += "<tr>" +
+            //            daysANew[0].Item2 +
+            //            "<td>" +
+            //                "<div class=\"LwxRoYhfmyzTlGm\">" +
+            //                    "" +
+            //                "</div>" +
+            //                "<div class=\"AQzCKqmlrQJmxzn\">" +
+            //                    "" +
+            //                "</div>" +
+            //            "</td>" +
+            //        "</tr>";
+
+            //        break;
+            //    }
+
+
+            //    daysANew.RemoveAt(0);
+            //}
+            string weeksString = "";
+            foreach (var worker in workersList)
+            {
+                string daysString = "";
+                foreach (var item in daysANew)
+                {
+                    var taskArray = _context.Task2.Where(x => x.WorkerID == worker.Id).ToList();
+
+                    string? tasks = null;
+                    string? jobEnter = null;
+                    string? jobExit = null;
+                    string deleteButton = "";
+
+                    foreach (var task in taskArray)
+                    {
+                        if (task.Date.Value.ToShortDateString() == item.Item1.ToShortDateString())
+                        {
+                            jobEnter = task.JobStart.Value.ToString("HH:mm");
+                            jobExit = task.JobEnd.Value.ToString("HH:mm");
+                            deleteButton = "<a class=\"MNewKOhqZkqNDeJ\" onclick=\"czzROjFaPsDoZoT(this)\" title=\"Usuń godziny\"><ion-icon name=\"trash-outline\"></ion-icon></a>";
+
+                            if (task.TaskNameID != null)
+                            {
+                                tasks += "<div class=\"ZslufbFdcfCIeaW\">" +
+                                        "<span>" + _context.TaskName2.FirstOrDefault(x => x.Id == task.TaskNameID && x.DepartmentID == worker.DepartmentID)?.Name + "</span>" +
+                                        "<a onclick=\"aTdCbXqRfUSGyXc(this, " + task.Id + ")\" title=\"Usuń zadanie\"><ion-icon name=\"close\"></ion-icon></a>" +
+                                    "</div>";
+                            }
+                        }
+                    }
+
+                    string jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" onblur=\"wgddAsHIsXNWQkl(this)\"/>";
+                    string jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" onblur=\"wgddAsHIsXNWQkl(this)\" />";
+
+                    //weeksString += "<tr>" +
+                    //    daysANew[0].Item2 +
+                    //    "<td>" +
+                    //        "<div class=\"LwxRoYhfmyzTlGm\">" +
+                    //            "" +
+                    //        "</div>" +
+                    //        "<div class=\"AQzCKqmlrQJmxzn\">" +
+                    //            "" +
+                    //        "</div>" +
+                    //    "</td>" +
+                    //"</tr>";
+                    weeksString += "<tr>" +
+                            "" +
+                            "" +
+                            "" +
+                        "</tr>";
+
+                }
+            }
+
+            //table
+            string table = "<table class=\"task_table\">" +
+                    "<thead>" +
+                        "<tr>" +
+                            "<th>" +
+                                "<div class=\"GJakzZdfXNDmfZz\" onclick=\"GJakzZdfXNDmfZz_()\" title=\"Zablokuj nagłówki\">" +
+                                    "<ion-icon id=\"lock-closed\" name=\"lock-closed\"></ion-icon>" +
+                                    "<ion-icon id=\"lock-open\" name=\"lock-open\"></ion-icon>" +
+                                "</div>" +
+                            "</th>" +
+                            workers +
+                        "</tr>" +
+                    "</thead>" +
+                    "<tbody>" +
+                        weeksString +
+                    "</tbody>" +
+                "</table>";
+            
 
 
 
@@ -526,7 +668,8 @@ namespace TimeTask.Controllers
             ////
 
 
-            return Json(new { contentResult = DatesInChosenWeek((int)year, (int)week), html, week });
+            //return Json(new { contentResult = DatesInChosenWeek((int)year, (int)week), html, week });
+            return Json(new { contentResult = DatesInChosenWeek((int)year, (int)week), table, week });
         }
 
         public string DatesInChosenWeek(int year, int weekOfYear)
