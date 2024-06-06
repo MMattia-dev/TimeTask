@@ -17,7 +17,7 @@ loadOnLoad();
 
 function drmZhscxvPoxiya(year, week, department)
 {
-    $('.right-nav').append(createLoader());
+    $('.right-nav').append(createLoader()); //ładowanie
 
     $.ajax({
         type: 'GET',
@@ -31,29 +31,9 @@ function drmZhscxvPoxiya(year, week, department)
         {
             howManyTasks(department);
 
-            //let wcHMgjWjXaRMPKy = document.querySelectorAll('.wcHMgjWjXaRMPKy');
-            //for (let i = 0; i < wcHMgjWjXaRMPKy.length; i++)
-            //{
-            //    $(wcHMgjWjXaRMPKy[i]).remove();
-            //}
-
-            //$('.fSJtEaXwJSHzoxW').html(response.contentResult);
-            //$('.fSJtEaXwJSHzoxW').after(response.html);
-
             $('.grZWUijDhGWKyHd').html(response.table);
-
-            //if (sessionStorage.getItem('task_lock_headers') != null)
-            //{
-            //    task_lock_headers();
-            //}
-            //else
-            //{
-            //    task_unlock_headers();
-            //}
+            
             lock_headers(sessionStorage.getItem('task_lock_headers'));
-
-
-            $('#loaderID_').remove(); //koniec ładowania
 
             $('#kSSnezAexZyLwQZ').attr("onclick", "ZdzFYcenRSIqyJF(" + year + "," + week + "," + department + ")");
 
@@ -63,7 +43,8 @@ function drmZhscxvPoxiya(year, week, department)
             if (response.week.toString().length == 1) {
                 $('#OcoYTyiBrpZJStB').html(response.week).addClass('OcoYTyiBrpZJStB_');
             }
-            
+
+            $('#loaderID_').remove(); //koniec ładowania
         },
         error: function (xhr, status, error)
         {
@@ -118,6 +99,7 @@ function task_lock_headers()
     $('#lock-closed').show();
     $('#lock-open').hide();
 
+
 };
 
 function task_unlock_headers()
@@ -133,6 +115,7 @@ function task_unlock_headers()
 
     $('#lock-closed').hide();
     $('#lock-open').show();
+
 
 };
 
@@ -372,8 +355,6 @@ function jxcqHOZgFmYHYkI(t, firstDepartment)
 
 function HMdMMtqNwVAguDt(t, id) 
 {
-    //$('.right-nav').append(createLoader());
-
     $.ajax({
         type: 'GET',
         url: '/Tasks/ClickOnDepartment',
@@ -395,8 +376,6 @@ function HMdMMtqNwVAguDt(t, id)
             sessionStorage.setItem('JcvzYoovBpGECWh', id);
 
             drmZhscxvPoxiya(response.year, response.week, id);
-
-            //koniec ładowania -> drmZhscxvPoxiya
         },
         error: function (xhr, status, error)
         {
@@ -487,11 +466,11 @@ function uXPtoAMyTPOkWCV(t, taskID)
             this.scrollTo(0, this.scrollHeight);
 
             //
-            let workerID = $(newItem).parent().parent().parent('.wcHMgjWjXaRMPKy').attr('worker'); //nie może być równe null
+            let workerID = $(newItem).parent().parent().attr('worker'); //nie może być równe null
             let taskNameID = taskID; //może być równe null
-            let date = $(newItem).parent().parent('.SBVWNWOJZnTplXL').attr('date'); //nigdy nie będzie równe null
-            let jobStart = $(newItem).parent().parent('.SBVWNWOJZnTplXL').children('.LwxRoYhfmyzTlGm').children('input').eq(0).val(); //może być równe null
-            let jobEnd = $(newItem).parent().parent('.SBVWNWOJZnTplXL').children('.LwxRoYhfmyzTlGm').children('input').eq(1).val(); //może być równe null
+            let date = $(newItem).parent().parent().parent().attr('date'); //nigdy nie będzie równe null
+            let jobStart = $(newItem).parent().parent().children('.LwxRoYhfmyzTlGm').children('input').eq(0).val(); //może być równe null
+            let jobEnd = $(newItem).parent().parent().children('.LwxRoYhfmyzTlGm').children('input').eq(1).val(); //może być równe null
             let numberofelements = $(newItem).parent().children('.ZslufbFdcfCIeaW').length;
             
             saveAfterDrop(newItem, workerID, taskNameID, date, jobStart, jobEnd, numberofelements);
@@ -538,7 +517,7 @@ function czzROjFaPsDoZoT(t)
 {
     var workerID = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').parent('.wcHMgjWjXaRMPKy').attr('worker');
     var date = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').attr('date');
-    var ids = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW');
+    var ids = $(t).parent('.LwxRoYhfmyzTlGm').parent().children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW');
 
     let arrayOfIds = [];
     for (let i = 0; i < ids.length; i++) {
@@ -665,10 +644,9 @@ function AddOrEditTime(element, workerID, date, ids, jobStart, jobEnd)
 function wgddAsHIsXNWQkl(t) 
 {
     var workerID = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').parent('.wcHMgjWjXaRMPKy').attr('worker');
-    var date = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').attr('date');
-    var ids = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW');
-    //let jobStart = t.value;
-    let jobStart = $(t).parent().children('input').eq(0).val();;
+    var date = $(t).parent().parent().parent().attr('date');
+    var ids = $(t).parent('.LwxRoYhfmyzTlGm').parent().children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW');
+    let jobStart = $(t).parent().children('input').eq(0).val();
     let jobEnd = $(t).parent().children('input').eq(1).val();
 
     AddOrEditTime(t, workerID, date, ids, jobStart, jobEnd);
@@ -807,15 +785,6 @@ function uOKeZlFghfhXJzQ(t)
 
 function BgMujOvGVhgxcrK() 
 {
-    //var divContents = $(".GlpaymKnQLOGAOs").html();
-    //var printWindow = window.open('', '', 'height=400,width=800');
-    //printWindow.document.write('<html><head><title>DIV Contents</title>');
-    //printWindow.document.write('</head><body >');
-    //printWindow.document.write(divContents);
-    //printWindow.document.write('</body></html>');
-    //printWindow.document.close();
-    //printWindow.print();
-
 
 };
 

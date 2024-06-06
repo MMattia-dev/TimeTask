@@ -71,7 +71,8 @@ html {
         top: 0;
         left: 0;
         z-index: 5;
-        background-color: transparent;
+        /*background-color: transparent;*/
+        background-color: rgba(0, 0, 0, 0.2);
     }
 
     .loader_div.BkvylzxsLMTrGpQ {
@@ -2587,6 +2588,7 @@ ion-icon {
     scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
     scrollbar-width: thin;
     transition: opacity 0.5s;
+    position: relative;
 }
 
 .GlpaymKnQLOGAOs {
@@ -2696,30 +2698,24 @@ ion-icon {
 
 .task_table {
     border-collapse: collapse;
-    /*border: 1px solid rgba(255, 255, 255, 0.1);*/
-    /*transform: translateX(-1px) translateY(-1px);*/
 }
 
     .task_table thead {
-        
+        /**/
     }
 
         .task_table thead tr {
-            
+            /**/
         }
 
             .task_table thead tr th {
                 height: 70px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                border-right: 1px solid rgba(255, 255, 255, 0.15);
             }
-
-                .task_table thead tr th:last-child {
-                    border-right: 1px solid rgba(255, 255, 255, 0.1);
-                }
 
                 .task_table thead tr th:not(:first-child) {
                     width: 256px;
-                    border-left: 1px solid rgba(255, 255, 255, 0.1);
+                    min-width: 256px;
                 }
 
                     .task_table thead tr th:not(:first-child) span {
@@ -2743,6 +2739,7 @@ ion-icon {
 
                 .task_table thead tr th:first-child {
                     width: 85px;
+                    min-width: 85px;
                     max-width: 85px;
                     display: flex;
                     justify-content: center;
@@ -2760,25 +2757,22 @@ ion-icon {
 
                         .task_table thead tr th:first-child .GJakzZdfXNDmfZz:hover {
                             cursor: pointer;
-                            background-color: rgba(255, 255, 255, 0.1);
+                            background-color: rgba(255, 255, 255, 0.2);
                         }
 
     .task_table tbody {
-
+        /**/
     }
 
         .task_table tbody tr {
-            
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
         }
 
             .task_table tbody tr td {
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                border-right: 1px solid rgba(255, 255, 255, 0.15);
                 height: 200px;
+                max-height: 200px;
             }
-
-                .task_table tbody tr td:last-child {
-                    border-right: 1px solid rgba(255, 255, 255, 0.1);
-                }
 
                 .task_table tbody tr td:first-child {
                     width: 85px;
@@ -2795,14 +2789,10 @@ ion-icon {
                         font-size: 12px;
                     }
 
-                .task_table tbody tr td:not(:first-child) {
-                    border-left: 1px solid rgba(255, 255, 255, 0.1);
-                }
-
                 .task_table tbody tr td div.LwxRoYhfmyzTlGm {
                     width: 100%;
                     height: 40px;
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.15); 
                     display: flex;
                     justify-content: center;
                     align-items: center;
