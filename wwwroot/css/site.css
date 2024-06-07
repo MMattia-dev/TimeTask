@@ -2666,12 +2666,12 @@ ion-icon {
             border-right: 1px solid rgba(0, 0, 0, 1);
         }*/
 
-.wcHMgjWjXaRMPKy:not(:last-child) .oKvcDSylPNSLgqr.oKvcDSylPNSLgqr_ {
+/*.wcHMgjWjXaRMPKy:not(:last-child) .oKvcDSylPNSLgqr.oKvcDSylPNSLgqr_ {
     border-right: 1px solid black;
     
-}
+}*/
 
-.fSJtEaXwJSHzoxW {
+/*.fSJtEaXwJSHzoxW {
     height: 100%;
     width: 90px;
     min-width: 90px;
@@ -2694,10 +2694,13 @@ ion-icon {
         .fSJtEaXwJSHzoxW.fSJtEaXwJSHzoxW_ .XJsRKtmIfTCptru {
             background-color: rgba(34, 36, 48, 1);
             border-top: 1px solid rgba(0, 0, 0, 1);
-        }
+        }*/
 
 .task_table {
-    border-collapse: collapse;
+    table-layout: fixed;
+    overflow: auto;
+    /*width: 100%;
+    height: 100%;*/
 }
 
     .task_table thead {
@@ -2708,10 +2711,27 @@ ion-icon {
             /**/
         }
 
+            .task_table thead tr.locked {
+                
+                
+            }
+                .task_table thead tr.locked th {
+                    
+                }
+
             .task_table thead tr th {
                 height: 70px;
-                border-right: 1px solid rgba(255, 255, 255, 0.15);
+                border-right: 1px solid rgb(70, 70, 70);
             }
+
+                .task_table thead tr th.locked {
+                    position: sticky;
+                    top: 0px;
+                    background-color: rgba(34, 36, 48, 1);
+                    z-index: 2;
+                    border-right: 1px solid rgb(70, 70, 70);
+                    border-bottom: 1px solid rgb(70, 70, 70);
+                }
 
                 .task_table thead tr th:not(:first-child) {
                     width: 256px;
@@ -2721,10 +2741,14 @@ ion-icon {
                     .task_table thead tr th:not(:first-child) span {
                         color: rgba(255, 255, 255, 0.8);
                         font-weight: normal;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        max-width: 210px;
                     }
 
                         .task_table thead tr th:not(:first-child) span:first-child {
-                            font-size: 16px;                       
+                            font-size: 16px;
                         }
 
                         .task_table thead tr th:not(:first-child) span:nth-child(2) {
@@ -2735,6 +2759,7 @@ ion-icon {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
+                    justify-content: center;
                 }
 
                 .task_table thead tr th:first-child {
@@ -2765,13 +2790,26 @@ ion-icon {
     }
 
         .task_table tbody tr {
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgb(70, 70, 70);
         }
 
             .task_table tbody tr td {
-                border-right: 1px solid rgba(255, 255, 255, 0.15);
+                border-right: 1px solid rgb(70, 70, 70);
                 height: 200px;
                 max-height: 200px;
+                /*position: relative;*/
+            }
+
+            .task_table tbody tr td:not(:first-child) {
+                position: relative;
+            }
+
+            .task_table tbody tr td.locked {
+                position: sticky;
+                left: 0px;
+                background-color: rgba(34, 36, 48, 1);
+                z-index: 1;
+                /*border-right: unset;*/
             }
 
                 .task_table tbody tr td:first-child {
@@ -2781,6 +2819,8 @@ ion-icon {
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
+                    /**/
+                    
                 }
 
                     .task_table tbody tr td:first-child span {
@@ -2789,10 +2829,16 @@ ion-icon {
                         font-size: 12px;
                     }
 
+                .task_table tbody tr td div.disabled {
+                    background-color: rgba(0, 0, 0, 0.3);
+                    pointer-events: none;
+                    opacity: 0.7;
+                }
+
                 .task_table tbody tr td div.LwxRoYhfmyzTlGm {
                     width: 100%;
                     height: 40px;
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.15); 
+                    border-bottom: 1px solid rgb(70, 70, 70);
                     display: flex;
                     justify-content: center;
                     align-items: center;

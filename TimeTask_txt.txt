@@ -14,6 +14,8 @@ zrobione - 11) "czas pracy" i "urlopy" w ustawieniach zmieniæ na dwie osobne pod
 13) pionowa linia oddzielaj¹ca okresy rozliczeniowe dla ró¿nych pracowników (pomaranczowa linia)
 14) wiadomoœci na g³ównej stronie o zbli¿aj¹cym siê koñcu okresu rozliczeniowego
 15) wiadomoœci na g³ównej stronie o przypomnieniach, notatkach, dodatkowych zadaniach i projektach (i ich aktualizacjach), 
+16) strona "Grafik" -> nie dzia³a position:sticky na lewym nag³ówku
+
 
 zmien wszystkie localstorage na sessionstorage
 zmien wszystkie id i class na has³a

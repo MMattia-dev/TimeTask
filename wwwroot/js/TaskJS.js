@@ -3,7 +3,6 @@
     setTimeout(function ()
     {
         $('.koblSjvDsfoQbAD').css({ 'opacity': '1' });
-        $('.grZWUijDhGWKyHd').css({ 'opacity': '1' });
         $('#OcoYTyiBrpZJStB').css({ 'opacity': '1' });
         $('.loader_div').fadeOut('fast');
     }, 500);
@@ -31,7 +30,7 @@ function drmZhscxvPoxiya(year, week, department)
         {
             howManyTasks(department);
 
-            $('.grZWUijDhGWKyHd').html(response.table);
+            $('.right-nav').html(response.table);
             
             lock_headers(sessionStorage.getItem('task_lock_headers'));
 
@@ -87,36 +86,18 @@ function howManyTasks(departmentID)
 
 function task_lock_headers()
 {
-    //$('#task_lock_headers_id').children('span').eq(0).html('Odblokuj');
-    //$('.fSJtEaXwJSHzoxW').addClass('fSJtEaXwJSHzoxW_');
-    //$('.oKvcDSylPNSLgqr').addClass('oKvcDSylPNSLgqr_');
-    //sessionStorage.setItem('task_lock_headers', 'true');
-
-    //$('#lock1').hide();
-    //$('#lock2').show();
-    //document.getElementById('task_lock_headers_input').checked = true;
-
     $('#lock-closed').show();
     $('#lock-open').hide();
-
-
+    $('.task_table thead tr th').addClass('locked');
+    $('.task_table tbody tr td:first-child').addClass('locked');
 };
 
 function task_unlock_headers()
 {
-    //$('#task_lock_headers_id').children('span').eq(0).html('Zablokuj');
-    //$('.fSJtEaXwJSHzoxW').removeClass('fSJtEaXwJSHzoxW_');
-    //$('.oKvcDSylPNSLgqr').removeClass('oKvcDSylPNSLgqr_');
-    //sessionStorage.removeItem('task_lock_headers');
-
-    //$('#lock1').show();
-    //$('#lock2').hide();
-    //document.getElementById('task_lock_headers_input').checked = false;
-
     $('#lock-closed').hide();
     $('#lock-open').show();
-
-
+    $('.task_table thead tr th').removeClass('locked');
+    $('.task_table tbody tr td:first-child').removeClass('locked');
 };
 
 function GJakzZdfXNDmfZz_() 
@@ -140,18 +121,6 @@ function lock_headers(lock)
         task_lock_headers();
     }
     else 
-    {
-        task_unlock_headers();
-    }
-};
-
-function task_lock_headers_onchange(t)
-{
-    if ($('#' + t.id + ' input').prop('checked'))
-    {
-        task_lock_headers();
-    }
-    else
     {
         task_unlock_headers();
     }
@@ -515,9 +484,9 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd, nu
 
 function czzROjFaPsDoZoT(t) 
 {
-    var workerID = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').parent('.wcHMgjWjXaRMPKy').attr('worker');
-    var date = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').attr('date');
-    var ids = $(t).parent('.LwxRoYhfmyzTlGm').parent().children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW');
+    var workerID = $(t).parent().parent().attr('worker');
+    var date = $(t).parent().parent().parent().attr('date');
+    var ids = $(t).parent().parent().children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW');
 
     let arrayOfIds = [];
     for (let i = 0; i < ids.length; i++) {
@@ -618,8 +587,7 @@ function AddOrEditTime(element, workerID, date, ids, jobStart, jobEnd)
         {
             if (response.success != false) {
                 $(element).parent().children('input').addClass('disabled');
-                $(element).parent().children('.MNewKOhqZkqNDeJ').addClass('disabled');
-                $(element).parent().parent().children('.AQzCKqmlrQJmxzn').addClass('disabled');
+                $(element).parent().parent().children().addClass('disabled');
                 $(element).parent().parent().append(createSmallLoader_center());
             }
             if (response.addButton == true) 
@@ -629,8 +597,7 @@ function AddOrEditTime(element, workerID, date, ids, jobStart, jobEnd)
 
             setTimeout(function () {
                 $(element).parent().children('input').removeClass('disabled');
-                $(element).parent().children('.MNewKOhqZkqNDeJ').removeClass('disabled');
-                $(element).parent().parent().children('.AQzCKqmlrQJmxzn').removeClass('disabled');
+                $(element).parent().parent().children().removeClass('disabled');
                 $('.lds-ring-small').remove();
             }, 200);
         },
@@ -643,9 +610,9 @@ function AddOrEditTime(element, workerID, date, ids, jobStart, jobEnd)
 
 function wgddAsHIsXNWQkl(t) 
 {
-    var workerID = $(t).parent('.LwxRoYhfmyzTlGm').parent('.SBVWNWOJZnTplXL').parent('.wcHMgjWjXaRMPKy').attr('worker');
+    var workerID = $(t).parent().parent().attr('worker');
     var date = $(t).parent().parent().parent().attr('date');
-    var ids = $(t).parent('.LwxRoYhfmyzTlGm').parent().children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW');
+    var ids = $(t).parent().parent().children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW');
     let jobStart = $(t).parent().children('input').eq(0).val();
     let jobEnd = $(t).parent().children('input').eq(1).val();
 
@@ -675,7 +642,7 @@ function createSmallLoader_center()
 {
     var lds = document.createElement('div');
     lds.className = 'lds-ring-small';
-    lds.style.cssText = 'position: absolute; top: calc(50% - 13px); left: calc(50% - 13px);';
+    lds.style.cssText = 'position: absolute; top: calc(50% - 13px); left: calc(50% - 13px); z-index: 50;';
     lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
 
     return lds;

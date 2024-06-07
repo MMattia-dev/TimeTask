@@ -749,12 +749,12 @@ namespace TimeTask.Controllers
                             {
                                 if (row.Date.HasValue && item.Date.HasValue)
                                 {
-                                    if (row.Date.Value.ToShortDateString() == item.Date.Value.ToShortDateString())
+                                    if (row.Date.Value.ToShortDateString() == item.Date.Value.ToShortDateString() && row.WorkerID == item.WorkerID)
                                     {
                                         string removeForm = "$('#CDGkkjRFIPzoATj').remove()";
                                         string messageDiv = "<div id=\"CDGkkjRFIPzoATj\" class=\"pGKcZvErUB pGKcZvErUB_\" style=\"z-index: 999; background-color: rgba(0, 0, 0, 0.4);\">" +
                                                                 "<form class=\"jbiihcodqinw\">" +
-                                                                    "<span>Grafik z docelowego tygodnia nie jest pusty!</span>" +
+                                                                    "<span>Grafik z docelowego tygodnia musi być pusty, aby kontynuować!</span>" +
                                                                     "<div class=\"form-group\">" +
                                                                         "<input type=\"button\" value=\"OK\" class=\"btn-custom\" onclick=\"" + removeForm + "\" />" +
                                                                     "</div>" +
@@ -776,7 +776,7 @@ namespace TimeTask.Controllers
                         string removeForm = "$('#CDGkkjRFIPzoATj').remove()";
                         string messageDiv = "<div id=\"CDGkkjRFIPzoATj\" class=\"pGKcZvErUB pGKcZvErUB_\" style=\"z-index: 999; background-color: rgba(0, 0, 0, 0.4);\">" +
                                                 "<form class=\"jbiihcodqinw\">" +
-                                                    "<span>Kopiowany grafik nie zawiera żadnych danych!</span>" +
+                                                    "<span>Kopiowany grafik jest pusty!</span>" +
                                                     "<div class=\"form-group\">" +
                                                         "<input type=\"button\" value=\"OK\" class=\"btn-custom\" onclick=\"" + removeForm + "\" />" +
                                                     "</div>" +
@@ -793,7 +793,7 @@ namespace TimeTask.Controllers
                         string removeForm = "$('#JXhDXOLmxsWkFon').remove()";
                         string messageDiv = "<div id=\"JXhDXOLmxsWkFon\" class=\"pGKcZvErUB pGKcZvErUB_\" style=\"z-index: 999; background-color: rgba(0, 0, 0, 0.4);\">" +
                                                 "<form class=\"jbiihcodqinw\">" +
-                                                    "<span>Kopiowanie zakończone.</span>" +
+                                                    "<span>Kopiowanie zakończone!</span>" +
                                                     "<div class=\"form-group\">" +
                                                         "<input type=\"button\" value=\"OK\" class=\"btn-custom\" onclick=\"" + removeForm + "\" />" +
                                                     "</div>" +
