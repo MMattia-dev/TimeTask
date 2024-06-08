@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Humanizer.Localisation.TimeToClockNotation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -219,51 +220,81 @@ namespace TimeTask.Controllers
             return Json(howManyTasksForDepartment);
         }
 
+        public int GetYear(int? savedYear)
+        {
+            int year = DateTime.Now.Year;
+            if (savedYear != null)
+            {
+                year = savedYear.Value;
+            }
+
+            return year;
+        }
+
+        public int GetWeek(int? savedWeek, int year, int month, int day)
+        {
+            int week = GetCurrentWeek(year, month, day) + 1;
+            if (savedWeek != null)
+            {
+                week = savedWeek.Value;
+            }
+
+            return week;
+        }
+
+        public int GetDepartmentId(int? savedDepartment)
+        {
+            int? department = _context.Department.OrderBy(x => x.Name).FirstOrDefault()?.Id;
+            if (savedDepartment != null)
+            {
+                department = savedDepartment.Value;
+            }
+
+            if (department != null)
+            {
+                return (int)department;
+            }
+
+            return 0;
+        }
+
         [HttpGet]
         public ActionResult Years(int? savedYear, int? savedWeek, int? savedDepartment)
         {
-            //year week
             int month = DateTime.Now.Month;
             int day = DateTime.Now.Day;
 
-            int? year;
-            if (savedYear != null)
+            int year = GetYear(savedYear);
+            int week = GetWeek(savedWeek, year, month, day);
+            int department = GetDepartmentId(savedDepartment);
+
+
+            List<int> yearsFromDatabase = new List<int>
             {
-                year = savedYear;
+                DateTime.Now.Year - 1
+            };
+            if (_context.Task2.Any())
+            {
+                foreach (var item in _context.Task2)
+                {
+                    if (item.Date.HasValue)
+                    {
+                        if (!yearsFromDatabase.Contains(item.Date.Value.Year))
+                        {
+                            yearsFromDatabase.Add(item.Date.Value.Year);
+                        }
+                    }
+                }
             }
             else
             {
-                year = DateTime.Now.Year;
+                yearsFromDatabase.Add(DateTime.Now.Year);
             }
-
-            int? week;
-            if (savedWeek != null)
-            {
-                week = savedWeek;
-            }
-            else
-            {
-                week = GetCurrentWeek((int)year, month, day) + 1;
-            }
-            //
-
-            //department
-            int? department;
-            if (savedDepartment != null)
-            {
-                department = savedDepartment;
-            }
-            else
-            {
-                department = (_context.Department).OrderBy(x => x.Name).FirstOrDefault()?.Id;
-            }
-            //
-
-            int yearNow = DateTime.Now.Year;
-            int prevYears = yearNow - 3;
+            yearsFromDatabase.Sort();
+            
 
             string html = "";
-            for (int i = prevYears; i <= yearNow; i++)
+            for (int i = yearsFromDatabase.First(); i <= yearsFromDatabase.Last(); i++)
             {
                 if (savedYear != null)
                 {
@@ -311,28 +342,15 @@ namespace TimeTask.Controllers
         [HttpGet]
         public ActionResult WeeksInYear(int? savedYear, int? savedWeek, int? savedDepartment)
         {
-            int? year;
-            if (savedYear != null)
-                year = savedYear;
-            else
-                year = DateTime.Now.Year;
+            int year = GetYear(savedYear);
 
             int month = DateTime.Now.Month;
             int day = DateTime.Now.Day;
 
             int weeks = GetWeeksInYear((int)year);
 
-            //department
-            int? department;
-            if (savedDepartment != null)
-            {
-                department = savedDepartment;
-            }
-            else
-            {
-                department = (_context.Department).OrderBy(x => x.Name).FirstOrDefault()?.Id;
-            }
-            //
+            int department = GetDepartmentId(savedDepartment);
+
 
             string div = "";
             for (int i = 1; i <= weeks; i++)
@@ -417,38 +435,14 @@ namespace TimeTask.Controllers
         [HttpGet]
         public ActionResult CreateTable(int? savedYear, int? savedWeek, int? savedDepartment)
         {
-            //year week
             int month = DateTime.Now.Month;
             int day = DateTime.Now.Day;
 
-            int? year;
-            if (savedYear != null)
-            {
-                year = savedYear;
-            }
-            else
-            {
-                year = DateTime.Now.Year;
-            }
 
-            int? week;
-            if (savedWeek != null)
-            {
-                week = savedWeek;
-            }
-            else
-            {
-                week = GetCurrentWeek((int)year, month, day) + 1;
-            }
-            //
+            int year = GetYear(savedYear);
+            int week = GetWeek(savedWeek, year, month, day);
+            int department = GetDepartmentId(savedDepartment);
 
-            //
-            var departmentID = _context.Department.FirstOrDefault(x => x.Id == savedDepartment)?.Id;
-            if (departmentID == null)
-            {
-                departmentID = _context.Department.OrderBy(x => x.Name).FirstOrDefault()?.Id;
-            }
-            //
 
             //days
             List<DateTime> days = getDatesInWeek((int)year, (int)week);
@@ -458,7 +452,7 @@ namespace TimeTask.Controllers
 
             //workers
             string workers = "";
-            var workersList = _context.Workers2.Where(x => x.DepartmentID == departmentID).OrderBy(x => x.Name);
+            var workersList = _context.Workers2.Where(x => x.DepartmentID == department).OrderBy(x => x.Name);
             foreach (var worker in workersList)
             {
                 workers += "<th>" +
@@ -820,46 +814,41 @@ namespace TimeTask.Controllers
         [HttpGet]
         public ActionResult CopyWorkScheduleForm(int? savedYear, int? savedWeek, int? savedDepartment)
         {
-            //year week
             int month = DateTime.Now.Month;
             int day = DateTime.Now.Day;
 
-            int? year;
-            if (savedYear != null)
+
+            int year = GetYear(savedYear);
+            int week = GetWeek(savedWeek, year, month, day);
+            int department = GetDepartmentId(savedDepartment);
+
+
+            List<int> yearsFromDatabase = new List<int>
             {
-                year = savedYear;
+                DateTime.Now.Year - 1
+            };
+            if (_context.Task2.Any())
+            {
+                foreach (var item in _context.Task2)
+                {
+                    if (item.Date.HasValue)
+                    {
+                        if (!yearsFromDatabase.Contains(item.Date.Value.Year))
+                        {
+                            yearsFromDatabase.Add(item.Date.Value.Year);
+                        }
+                    }
+                }
             }
             else
             {
-                year = DateTime.Now.Year;
+                yearsFromDatabase.Add(DateTime.Now.Year);
             }
+            yearsFromDatabase.Sort();
 
-            int? week;
-            if (savedWeek != null)
-            {
-                week = savedWeek;
-            }
-            else
-            {
-                week = GetCurrentWeek((int)year, month, day) + 1;
-            }
-            //
-
-            int? departmentID = null;
-            if (savedDepartment != null)
-            {
-                departmentID = savedDepartment;
-            }
-            else
-            {
-                departmentID = _context.Department.OrderBy(x => x.Name).FirstOrDefault()?.Id;
-            }
-
-            int yearNow = DateTime.Now.Year;
-            int prevYears = yearNow - 3;
 
             string yearOptions = "";
-            for (int i = prevYears; i <= yearNow; i++)
+            for (int i = yearsFromDatabase.First(); i <= yearsFromDatabase.Last(); i++)
             {
                 if (savedYear != null)
                 {
@@ -920,7 +909,7 @@ namespace TimeTask.Controllers
             }
 
 
-            string departmentName = _context.Department.FirstOrDefault(x => x.Id == departmentID)?.Name;
+            string? departmentName = _context.Department.FirstOrDefault(x => x.Id == department)?.Name;
 
             string removeForm = "$('#pwFBWqdAoChTxAb').remove()";
 
@@ -952,7 +941,7 @@ namespace TimeTask.Controllers
                             "</select>" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<input disabled type=\"button\" value=\"Kopiuj grafik (" + departmentName + ")\" class=\"btn-custom\" onclick=\"VHWnkLNgLFRzozC(" + departmentID + ")\" />" +
+                            "<input disabled type=\"button\" value=\"Kopiuj grafik (" + departmentName + ")\" class=\"btn-custom\" onclick=\"VHWnkLNgLFRzozC(" + department + ")\" />" +
                         "</div>" +
                         "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
                             "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
@@ -966,30 +955,11 @@ namespace TimeTask.Controllers
         [HttpGet]
         public ActionResult ClickOnDepartment(int? savedYear, int? savedWeek, int departmentID)
         {
-            //year week
             int month = DateTime.Now.Month;
             int day = DateTime.Now.Day;
 
-            int? year;
-            if (savedYear != null)
-            {
-                year = savedYear;
-            }
-            else
-            {
-                year = DateTime.Now.Year;
-            }
-
-            int? week;
-            if (savedWeek != null)
-            {
-                week = savedWeek;
-            }
-            else
-            {
-                week = GetCurrentWeek((int)year, month, day) + 1;
-            }
-            //
+            int year = GetYear(savedYear);
+            int week = GetWeek(savedWeek, year, month, day);           
 
             var departmentName = _context.Department.FirstOrDefault(x => x.Id == departmentID)?.Name;
             if (departmentName == null)
@@ -1441,6 +1411,44 @@ namespace TimeTask.Controllers
             return dateTime;
         }
 
+        [HttpGet]
+        public ActionResult DownloadTableForm(int? savedYear, int? savedWeek, int? savedDepartment)
+        {
+            int month = DateTime.Now.Month;
+            int day = DateTime.Now.Day;
+
+
+            int year = GetYear(savedYear);
+            int week = GetWeek(savedWeek, year, month, day);
+            int department = GetDepartmentId(savedDepartment);
+
+
+            string removeForm = "$('#FIfodjZXcJQcAEE').remove()";
+
+            string form = "<div id=\"FIfodjZXcJQcAEE\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form class=\"form_\">" +
+                        "<div class=\"form-group\">" +
+                            "<input type=\"button\" value=\"Pobierz PDF\" class=\"btn-download\" onclick=\"WfIEscZTJsEAoiw(" + year + "," + week + "," + department + ")\" />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input type=\"button\" value=\"Pobierz Excel\" class=\"btn-download\" onclick=\"uWpiumqJEoBHQnr(" + year + "," + week + "," + department + ")\" />" +
+                        "</div>" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
+
+            return Content(form);
+        }
+
+        [HttpGet]
+        public ActionResult CreateExcelFile()
+        {
+
+
+            return Json(false);
+        }
 
 
     }

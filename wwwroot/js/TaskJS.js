@@ -752,6 +752,33 @@ function uOKeZlFghfhXJzQ(t)
 
 function BgMujOvGVhgxcrK() 
 {
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/DownloadTableForm',
+        data: {
+            savedYear: sessionStorage.getItem('LTRXohWjonyFAsg'),
+            savedWeek: sessionStorage.getItem('hQxHXfkxHkfALTJ'),
+            savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh')
+        },
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#FIfodjZXcJQcAEE').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function WfIEscZTJsEAoiw(year, week, department) 
+{
+
+};
+
+function uWpiumqJEoBHQnr(year, week, department) 
+{
 
 };
 
