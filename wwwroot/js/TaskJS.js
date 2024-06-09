@@ -779,7 +779,23 @@ function WfIEscZTJsEAoiw(year, week, department)
 
 function uWpiumqJEoBHQnr(year, week, department) 
 {
-
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/CreateExcelFile',
+        data: {
+            year: year,
+            week: week,
+            department: department
+        },
+        success: function (response)
+        {
+            console.log(response);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
 };
 
 function nDYntMlpKcjgONc() 

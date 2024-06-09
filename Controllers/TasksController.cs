@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -438,11 +439,9 @@ namespace TimeTask.Controllers
             int month = DateTime.Now.Month;
             int day = DateTime.Now.Day;
 
-
             int year = GetYear(savedYear);
             int week = GetWeek(savedWeek, year, month, day);
             int department = GetDepartmentId(savedDepartment);
-
 
             //days
             List<DateTime> days = getDatesInWeek((int)year, (int)week);
@@ -1417,11 +1416,9 @@ namespace TimeTask.Controllers
             int month = DateTime.Now.Month;
             int day = DateTime.Now.Day;
 
-
             int year = GetYear(savedYear);
             int week = GetWeek(savedWeek, year, month, day);
             int department = GetDepartmentId(savedDepartment);
-
 
             string removeForm = "$('#FIfodjZXcJQcAEE').remove()";
 
@@ -1443,9 +1440,41 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult CreateExcelFile()
+        public ActionResult CreateExcelFile(int year, int week, int department)
         {
+            //workers
+            var workers = _context.Workers2.OrderBy(x => x.Name).Where(x => x.DepartmentID == department);
 
+            //datatable
+            DataTable dataTable = new DataTable();
+
+            //columns
+            dataTable.Columns.Add("Data", typeof(DateTime));
+            foreach (var worker in workers)
+            {
+                dataTable.Columns.Add(worker.Surname + " " + worker.Name, typeof(string));
+            }
+
+            //MyTable.Rows.Add(2, "Ivan");
+
+            //days
+            List<DateTime> days = getDatesInWeek((int)year, (int)week);
+
+            foreach (var date in days)
+            {
+                foreach (var worker in workers)
+                {
+                    var taskArray = _context.Task2.Where(x => x.WorkerID == worker.Id);
+
+                    foreach (var task in taskArray)
+                    {
+                        if (task.Date.HasValue && task.Date.Value.ToShortDateString() == date.ToShortDateString())
+                        {
+
+                        }
+                    }
+                }
+            }
 
             return Json(false);
         }
