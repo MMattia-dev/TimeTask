@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Humanizer.Localisation.TimeToClockNotation;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Differencing;
@@ -550,7 +551,7 @@ namespace TimeTask.Controllers
             }
 
             //table
-            string table = "<table class=\"task_table\">" +
+            string table = "<table class=\"task_table\" id=\"table\">" +
                     "<thead>" +
                         "<tr>" +
                             "<th>" +
@@ -1440,42 +1441,108 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult CreateExcelFile(int year, int week, int department)
+        public ActionResult CreateTableToDownload(int year, int week, int department)
         {
-            //workers
-            var workers = _context.Workers2.OrderBy(x => x.Name).Where(x => x.DepartmentID == department);
-
-            //datatable
-            DataTable dataTable = new DataTable();
-
-            //columns
-            dataTable.Columns.Add("Data", typeof(DateTime));
-            foreach (var worker in workers)
+            var culture = new CultureInfo("pl-PL");
+            List<DateTime> days = getDatesInWeek((int)year, (int)week);
+            string workers = "<th style=\"height: 30px; max-height: 30px;\">" + _context.Department.FirstOrDefault(x => x.Id == department)?.Name + "</th>";
+            var workersList = _context.Workers2.Where(x => x.DepartmentID == department).OrderBy(x => x.Name);
+            foreach (var worker in workersList)
             {
-                dataTable.Columns.Add(worker.Surname + " " + worker.Name, typeof(string));
+                workers += "<th style=\"height: 30px; max-height: 30px;\">" + worker.Surname + " " + worker.Name + "</th>";
             }
 
-            //MyTable.Rows.Add(2, "Ivan");
-
-            //days
-            List<DateTime> days = getDatesInWeek((int)year, (int)week);
-
-            foreach (var date in days)
+            List<Tuple<DateTime, string>> daysANew = new List<Tuple<DateTime, string>>();
+            foreach (var day_ in days)
             {
-                foreach (var worker in workers)
+                var holiday = _context.Holiday.Select(x => x.Date.ToShortDateString()).ToList();
+                if (holiday.Contains(day_.ToShortDateString()))
+                {
+                    //daysANew.Add(new Tuple<DateTime, string>(day_, "<td><span style=\"color: red;\">" + day_.ToString("yyyy-MM-dd") + "</span><span style=\"color: red;\">" + day_.ToString("ddd", culture) + "</span></td>"));
+                    daysANew.Add(new Tuple<DateTime, string>(day_, "<td style=\"color: red;\">" + day_.ToString("yyyy-MM-dd") + "</td>"));
+                }
+                else
+                {
+                    //daysANew.Add(new Tuple<DateTime, string>(day_, "<td><span>" + day_.ToString("yyyy-MM-dd") + "</span><span>" + day_.ToString("ddd", culture) + "</span></td>"));
+                    daysANew.Add(new Tuple<DateTime, string>(day_, "<td>" + day_.ToString("yyyy-MM-dd") + "</td>"));
+                }
+            }
+            daysANew.OrderBy(x => x.Item1);
+
+            string tr = "";
+            for (int i = 0; i < daysANew.Count(); i++)
+            {
+                string tdForWorkers = "";
+                foreach (var worker in workersList)
                 {
                     var taskArray = _context.Task2.Where(x => x.WorkerID == worker.Id);
 
+                    string hours = "";
+                    string tasks = "";
+
                     foreach (var task in taskArray)
                     {
-                        if (task.Date.HasValue && task.Date.Value.ToShortDateString() == date.ToShortDateString())
+                        if (task.Date.HasValue && task.Date.Value.ToShortDateString() == daysANew[i].Item1.ToShortDateString())
                         {
+                            if (task.JobStart.HasValue && task.JobEnd.HasValue)
+                            {
+                                hours = "<td style=\"font-weight: bold;\">" + task.JobStart.Value.ToString("HH:mm") + " - " + task.JobEnd.Value.ToString("HH:mm") + "</td>";
+                            }
 
+                            if (task.TaskNameID != null)
+                            {
+                                tasks += "<tr><td>" + _context.TaskName2.FirstOrDefault(x => x.Id == task.TaskNameID && x.DepartmentID == worker.DepartmentID)?.Name + "</td></tr>";
+                            }
                         }
                     }
+
+                    //tdForWorkers += "<td>" +
+                    //                    hours +
+                    //                    tasks +
+                    //                "</td>";
+                    tdForWorkers += "<td>" +
+                                        "<table id=\"AfdmIxOhSeUaVUc\">" +
+                                            "<tr>" +
+                                                hours +
+                                            "</tr>" +
+                                            //"<tr>" +
+                                            //    tasks +
+                                            //"</tr>" +
+                                            tasks +
+                                        "</table>" +
+                                    "</td>";
                 }
+
+                tr += "<tr>" +
+                        daysANew[i].Item2 +
+                        tdForWorkers +
+                    "</tr>";
             }
 
+            string table = "<table class=\"tableToDownload\" id=\"tableToDownloadId\">" +
+                    "<thead>" +
+                        "<tr>" +
+                            workers +
+                        "</tr>" +
+                    "</thead>" +
+                    "<tbody>" +
+                        tr +
+                    "</tbody>" +
+                "</table>";
+
+            //string style = "position: absolute; width: 100%; height: 100%; top: 0; left: 0; background-color: white; z-index: 1000; overflow: auto;";
+            string style = "display: none;";
+            string html = "<div id=\"block\" style=\"" + style + "\">" +
+                table + 
+                //"<input value=\"Zamknij\" type=\"button\" onclick=\"$('#block').remove()\" />" +
+                //"<input value=\"Excel\" type=\"button\" onclick=\"test()\" />" +
+                "<a id=\"dlink\" style=\"display:none;\"></a>" +
+                "</div>";
+
+            if (workers.Length > 0)
+            {
+                return Content(html);
+            }
             return Json(false);
         }
 

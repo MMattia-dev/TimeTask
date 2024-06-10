@@ -781,7 +781,7 @@ function uWpiumqJEoBHQnr(year, week, department)
 {
     $.ajax({
         type: 'GET',
-        url: '/Tasks/CreateExcelFile',
+        url: '/Tasks/CreateTableToDownload',
         data: {
             year: year,
             week: week,
@@ -789,7 +789,15 @@ function uWpiumqJEoBHQnr(year, week, department)
         },
         success: function (response)
         {
-            console.log(response);
+            if (response != false) {
+                $('body').append(response);
+                tableToExcel('tableToDownloadId', 'Arkusz1', 'Grafik.xls');
+                setTimeout(function ()
+                {
+                    $('#block').remove();
+                    $('#FIfodjZXcJQcAEE').remove();
+                }, 100);
+            }
         },
         error: function (xhr, status, error)
         {
@@ -798,7 +806,7 @@ function uWpiumqJEoBHQnr(year, week, department)
     });
 };
 
-function nDYntMlpKcjgONc() 
-{
-
-};
+//function test() 
+//{
+//    tableToExcel('tableToDownloadId', 'Arkusz1', 'Grafik.xls');
+//};
