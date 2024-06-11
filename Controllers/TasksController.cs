@@ -37,6 +37,12 @@ namespace TimeTask.Controllers
         {
             ViewBag.Departments = _context.Department;
             ViewBag.Tasks = _context.Task2;
+
+
+            //do usuniecia
+            ViewBag.Workers = _context.Workers2;
+
+
             
             return _context.Task2 != null ? 
                           View(await _context.Task2.ToListAsync()) :
@@ -1443,108 +1449,102 @@ namespace TimeTask.Controllers
         [HttpGet]
         public ActionResult CreateTableToDownload(int year, int week, int department)
         {
-            var culture = new CultureInfo("pl-PL");
-            List<DateTime> days = getDatesInWeek((int)year, (int)week);
-            string workers = "<th style=\"height: 30px; max-height: 30px;\">" + _context.Department.FirstOrDefault(x => x.Id == department)?.Name + "</th>";
-            var workersList = _context.Workers2.Where(x => x.DepartmentID == department).OrderBy(x => x.Name);
-            foreach (var worker in workersList)
-            {
-                workers += "<th style=\"height: 30px; max-height: 30px;\">" + worker.Surname + " " + worker.Name + "</th>";
-            }
 
-            List<Tuple<DateTime, string>> daysANew = new List<Tuple<DateTime, string>>();
-            foreach (var day_ in days)
-            {
-                var holiday = _context.Holiday.Select(x => x.Date.ToShortDateString()).ToList();
-                if (holiday.Contains(day_.ToShortDateString()))
-                {
-                    //daysANew.Add(new Tuple<DateTime, string>(day_, "<td><span style=\"color: red;\">" + day_.ToString("yyyy-MM-dd") + "</span><span style=\"color: red;\">" + day_.ToString("ddd", culture) + "</span></td>"));
-                    daysANew.Add(new Tuple<DateTime, string>(day_, "<td style=\"color: red;\">" + day_.ToString("yyyy-MM-dd") + "</td>"));
-                }
-                else
-                {
-                    //daysANew.Add(new Tuple<DateTime, string>(day_, "<td><span>" + day_.ToString("yyyy-MM-dd") + "</span><span>" + day_.ToString("ddd", culture) + "</span></td>"));
-                    daysANew.Add(new Tuple<DateTime, string>(day_, "<td>" + day_.ToString("yyyy-MM-dd") + "</td>"));
-                }
-            }
-            daysANew.OrderBy(x => x.Item1);
 
-            string tr = "";
-            for (int i = 0; i < daysANew.Count(); i++)
-            {
-                string tdForWorkers = "";
-                foreach (var worker in workersList)
-                {
-                    var taskArray = _context.Task2.Where(x => x.WorkerID == worker.Id);
+            //var culture = new CultureInfo("pl-PL");
+            //List<DateTime> days = getDatesInWeek((int)year, (int)week);
+            //string workers = "<th style=\"height: 30px; max-height: 30px;\">" + _context.Department.FirstOrDefault(x => x.Id == department)?.Name + "</th>";
+            //var workersList = _context.Workers2.Where(x => x.DepartmentID == department).OrderBy(x => x.Name);
+            //foreach (var worker in workersList)
+            //{
+            //    workers += "<th style=\"height: 30px; max-height: 30px;\">" + worker.Surname + " " + worker.Name + "</th>";
+            //}
 
-                    string hours = "";
-                    string tasks = "";
+            //List<Tuple<DateTime, string>> daysANew = new List<Tuple<DateTime, string>>();
+            //foreach (var day_ in days)
+            //{
+            //    var holiday = _context.Holiday.Select(x => x.Date.ToShortDateString()).ToList();
+            //    if (holiday.Contains(day_.ToShortDateString()) || day_.DayOfWeek == DayOfWeek.Sunday)
+            //    {
+            //        daysANew.Add(new Tuple<DateTime, string>(day_, "<td style=\"color: red;\">" + day_.ToString("yyyy-MM-dd") + "</td>"));
+            //    }
+            //    else
+            //    {
+            //        daysANew.Add(new Tuple<DateTime, string>(day_, "<td>" + day_.ToString("yyyy-MM-dd") + "</td>"));
+            //    }
+            //}
+            //daysANew.OrderBy(x => x.Item1);
 
-                    foreach (var task in taskArray)
-                    {
-                        if (task.Date.HasValue && task.Date.Value.ToShortDateString() == daysANew[i].Item1.ToShortDateString())
-                        {
-                            if (task.JobStart.HasValue && task.JobEnd.HasValue)
-                            {
-                                hours = "<td style=\"font-weight: bold;\">" + task.JobStart.Value.ToString("HH:mm") + " - " + task.JobEnd.Value.ToString("HH:mm") + "</td>";
-                            }
+            //string tr = "";
+            //for (int i = 0; i < daysANew.Count(); i++)
+            //{
+            //    string tdForWorkers = "";
+            //    foreach (var worker in workersList)
+            //    {
+            //        var taskArray = _context.Task2.Where(x => x.WorkerID == worker.Id);
 
-                            if (task.TaskNameID != null)
-                            {
-                                tasks += "<tr><td>" + _context.TaskName2.FirstOrDefault(x => x.Id == task.TaskNameID && x.DepartmentID == worker.DepartmentID)?.Name + "</td></tr>";
-                            }
-                        }
-                    }
+            //        string hours = "";
+            //        string tasks = "";
 
-                    //tdForWorkers += "<td>" +
-                    //                    hours +
-                    //                    tasks +
-                    //                "</td>";
-                    tdForWorkers += "<td>" +
-                                        "<table id=\"AfdmIxOhSeUaVUc\">" +
-                                            "<tr>" +
-                                                hours +
-                                            "</tr>" +
-                                            //"<tr>" +
-                                            //    tasks +
-                                            //"</tr>" +
-                                            tasks +
-                                        "</table>" +
-                                    "</td>";
-                }
+            //        foreach (var task in taskArray)
+            //        {
+            //            if (task.Date.HasValue && task.Date.Value.ToShortDateString() == daysANew[i].Item1.ToShortDateString())
+            //            {
+            //                if (task.JobStart.HasValue && task.JobEnd.HasValue)
+            //                {
+            //                    hours = "<td>" + task.JobStart.Value.ToString("HH:mm") + " - " + task.JobEnd.Value.ToString("HH:mm") + "</td>";
+            //                }
 
-                tr += "<tr>" +
-                        daysANew[i].Item2 +
-                        tdForWorkers +
-                    "</tr>";
-            }
+            //                if (task.TaskNameID != null)
+            //                {
+            //                    tasks += "<tr><td>" + _context.TaskName2.FirstOrDefault(x => x.Id == task.TaskNameID && x.DepartmentID == worker.DepartmentID)?.Name + "</td></tr>";
+            //                }
+            //            }
+            //        }
 
-            string table = "<table class=\"tableToDownload\" id=\"tableToDownloadId\">" +
-                    "<thead>" +
-                        "<tr>" +
-                            workers +
-                        "</tr>" +
-                    "</thead>" +
-                    "<tbody>" +
-                        tr +
-                    "</tbody>" +
-                "</table>";
+            //        tdForWorkers += "<td>" +
+            //                            "<table id=\"AfdmIxOhSeUaVUc\">" +
+            //                                "<tr>" +
+            //                                    hours +
+            //                                "</tr>" +
+            //                                tasks +
+            //                            "</table>" +
+            //                        "</td>";
+            //    }
 
-            //string style = "position: absolute; width: 100%; height: 100%; top: 0; left: 0; background-color: white; z-index: 1000; overflow: auto;";
-            string style = "display: none;";
-            string html = "<div id=\"block\" style=\"" + style + "\">" +
-                table + 
-                //"<input value=\"Zamknij\" type=\"button\" onclick=\"$('#block').remove()\" />" +
-                //"<input value=\"Excel\" type=\"button\" onclick=\"test()\" />" +
-                "<a id=\"dlink\" style=\"display:none;\"></a>" +
-                "</div>";
+            //    tr += "<tr>" +
+            //            daysANew[i].Item2 +
+            //            tdForWorkers +
+            //          "</tr>";
+            //}
 
-            if (workers.Length > 0)
-            {
-                return Content(html);
-            }
+            //string table = "<table class=\"tableToDownload\" id=\"tableToDownloadId\">" +
+            //                    "<thead>" +
+            //                        "<tr>" +
+            //                            workers +
+            //                        "</tr>" +
+            //                    "</thead>" +
+            //                    "<tbody>" +
+            //                        tr +
+            //                    "</tbody>" +
+            //                "</table>";
+
+            //string html = "<div id=\"block\" style=\"display: none;\">" +
+            //                    table + 
+            //                    "<a id=\"dlink\" style=\"display:none;\"></a>" +
+            //                "</div>";
+
+            //var departmentName = _context.Department.FirstOrDefault(x => x.Id == department)?.Name;
+
+            //if (workers.Length > 0)
+            //{
+            //    return Json(new { contentResult = Content(html), departmentName, week, year });
+            //}
+
             return Json(false);
         }
+
+
 
 
     }

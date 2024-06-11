@@ -2830,7 +2830,7 @@ ion-icon {
                         opacity: 0.7;
                     }
 
-.tableToDownload {
+/*.tableToDownload {
     border: 1px solid black;
     border-collapse: collapse;
     display: table;
@@ -2840,7 +2840,6 @@ ion-icon {
 
     .tableToDownload tr {
         border: 1px solid black;
-        /*height: 200px;*/
     }
 
     .tableToDownload th {
@@ -2851,26 +2850,16 @@ ion-icon {
         border-right: 1px solid black;
         display: table-cell;
         vertical-align: top;
-        /**/
         height: unset;
-        /*word-break: break-all;
-        word-wrap: break-word;*/
         height: 200px;
         width: 200px;
-        /*white-space: pre;*/
     }
 
     .tableToDownload #AfdmIxOhSeUaVUc {
         width: 100%;
         height: 100%;
-        /*table-layout: fixed;*/
         border: unset;
-        
     }
-
-        .tableToDownload #AfdmIxOhSeUaVUc tr:nth-child(2) {
-            /*display: grid;*/
-        }
 
         .tableToDownload #AfdmIxOhSeUaVUc tr {
             display: table-row;
@@ -2883,17 +2872,70 @@ ion-icon {
                 border-bottom: unset;
             }
 
-        .tableToDownload #AfdmIxOhSeUaVUc th, .tableToDownload #AfdmIxOhSeUaVUc td {
+        .tableToDownload #AfdmIxOhSeUaVUc tr th, .tableToDownload #AfdmIxOhSeUaVUc tr td {
             display: table-cell;
             border: unset;
-            
         }
 
         .tableToDownload #AfdmIxOhSeUaVUc tr td {
-            /*word-break: break-all;
-            word-wrap: break-word;*/
             height: 30px;
+        }*/
+
+.tableBody {
+    position: absolute;
+    width: calc(100% - 74px);
+    /*width: 100%;*/
+    height: 100%;
+    background-color: lightgray;
+    z-index: 1000;
+    overflow: auto;
+}
+
+    .tableBody table {
+        /*table-layout: fixed;*/
+        /*width: 100%;*/
+        /*overflow: scroll;*/
+    }
+
+    .tableBody table, .tableBody thead tr th, .tableBody tbody tr td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+        .tableBody table thead tr th, .tableBody table tbody tr td {
+            min-width: 200px;
         }
+
+        .tableBody table thead tr th {
+            height: 40px;
+            position: sticky;
+            top: 0;
+            background-color: darkgray;
+            
+        }
+
+        .tableBody table tbody tr td {
+            height: 200px;
+        }
+
+        .tableBody table tbody tr:nth-child(odd) td {
+            height: 40px;
+        }
+
+        .tableBody table tbody tr td.dates {
+            text-align: center;
+            font-size: 17px;
+            font-weight: bolder;
+        }
+
+        .tableBody table tbody tr td.hours {
+            text-align: center;
+        }
+
+        .tableBody table tbody tr td.tasks {
+            
+        }
+
 
 .kqOeanWDDXEYTBz {
     position: absolute;

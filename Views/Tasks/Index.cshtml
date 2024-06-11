@@ -7,13 +7,57 @@
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
 <script src="~/lib/jquery/dist/jquery-ui.min.js"></script>
 <script src="~/js/tableToExcel.js"></script>
+<script src="~/js/jspdf.min.js"></script>
+@* <script src="~/js/jspdf.plugin.autotable.js"></script> *@
+<script src="https://unpkg.com/jspdf-autotable@3.5.22/dist/jspdf.plugin.autotable.js"></script>
 
 <div class="parent">
     <section class="left-nav">
         <partial name="_Task" />
     </section>
     <section class="right-nav p-0 lsJiJbKJUVsiFNo">
-        <!---->
+       
+
+        <a id="dlink" style="display:none;"></a>
+        <div class="tableBody">
+            <table id="testTable">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        @foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).Where(x => x.DepartmentID == 96))
+                        {
+                            <th>@item.Surname @item.Name</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 1; i <= 7; i++)
+                    {
+                        <tr>
+                            <td rowspan="2" class="dates">@i</td>
+                            @foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).Where(x => x.DepartmentID == 96))
+                            {
+                                <td class="hours">--:-- - --:--</td>
+                            }
+                        </tr>
+                        <tr>
+                            @foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).Where(x => x.DepartmentID == 96))
+                            {
+                                <td class="tasks"> <!--rowspan tyle ile tasków-->
+                                    <span>Zadanie 1</span>
+                                    <span>Zadanie 2</span>
+                                </td>
+                            }
+                        </tr>
+                    }
+                    
+
+                </tbody>
+            </table>
+        </div>
+
+
+
     </section>
 </div> 
 
