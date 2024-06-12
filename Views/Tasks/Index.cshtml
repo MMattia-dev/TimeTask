@@ -18,7 +18,7 @@
     <section class="right-nav p-0 lsJiJbKJUVsiFNo">
        
 
-        <a id="dlink" style="display:none;"></a>
+        @* <a id="dlink" style="display:none;"></a>
         <div class="tableBody">
             <table id="testTable">
                 <thead>
@@ -26,7 +26,7 @@
                         <th>Data</th>
                         @foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).Where(x => x.DepartmentID == 96))
                         {
-                            <th>@item.Surname @item.Name</th>
+                            <th class="header">@item.Surname @item.Name</th>
                         }
                     </tr>
                 </thead>
@@ -34,27 +34,30 @@
                     @for (int i = 1; i <= 7; i++)
                     {
                         <tr>
-                            <td rowspan="2" class="dates">@i</td>
+                            <td rowspan="3" class="dates">@i (pon.)</td> <!--rowspan zalezny od ilosci taskow-->
                             @foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).Where(x => x.DepartmentID == 96))
                             {
-                                <td class="hours">--:-- - --:--</td>
+                                <td class="hours">08:00 - 16:00</td>
                             }
                         </tr>
-                        <tr>
+                        <!--foreach task-->
+                        <tr class="tasks">
                             @foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).Where(x => x.DepartmentID == 96))
                             {
-                                <td class="tasks"> <!--rowspan tyle ile tasków-->
-                                    <span>Zadanie 1</span>
-                                    <span>Zadanie 2</span>
-                                </td>
+                                <td>task 1</td>
                             }
                         </tr>
-                    }
-                    
+                        <tr class="tasks">
+                            @foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).Where(x => x.DepartmentID == 96))
+                            {
+                                <td>task 2</td>
+                            }
+                        </tr>
 
+                    }
                 </tbody>
             </table>
-        </div>
+        </div> *@
 
 
 

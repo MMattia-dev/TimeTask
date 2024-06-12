@@ -31,7 +31,7 @@ function drmZhscxvPoxiya(year, week, department)
         {
             howManyTasks(department);
 
-            //$('.right-nav').html(response.table);
+            $('.right-nav').html(response.table);
             
             lock_headers(sessionStorage.getItem('task_lock_headers'));
 
@@ -775,40 +775,41 @@ function BgMujOvGVhgxcrK()
 
 function uWpiumqJEoBHQnr(year, week, department) 
 {
-    //$.ajax({
-    //    type: 'GET',
-    //    url: '/Tasks/CreateTableToDownload',
-    //    data: {
-    //        year: year,
-    //        week: week,
-    //        department: department
-    //    },
-    //    success: function (response)
-    //    {
-    //        if (response != false) {
-    //            $('body').append(response.contentResult.content);
-    //            tableToExcel('tableToDownloadId', response.departmentName + '_' + response.week + '_' + response.year, 'Grafik_' + response.departmentName + '_' + response.week + '_' + response.year + '.xls');
-    //            setTimeout(function ()
-    //            {
-    //                $('#block').remove();
-    //            }, 100);
-    //            $('#FIfodjZXcJQcAEE').remove();
-    //        }
-    //    },
-    //    error: function (xhr, status, error)
-    //    {
-    //        console.log('Error:', error);
-    //    }
-    //});
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/CreateTableToDownload',
+        data: {
+            year: year,
+            week: week,
+            department: department
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                $('body').append(response.contentResult.content);
+                //tableToExcel('tableToDownloadId', response.departmentName + '_' + response.week + '_' + response.year, 'Grafik_' + response.departmentName + '_' + response.week + '_' + response.year + '.xls');
+                //setTimeout(function ()
+                //{
+                //    $('#block').remove();
+                //}, 100);
+                //$('#FIfodjZXcJQcAEE').remove();
 
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
 
-    tableToExcel('testTable', 'Arkusz1', 'Grafik.xls');
+    //tableToExcel('testTable', 'Arkusz1', 'Grafik.xls');
 };
 
 function WfIEscZTJsEAoiw(year, week, department) 
 {
-    //var doc = new jsPDF();
-    //doc.autoTable({ html: '#table' });
+    //var doc = new jsPDF('landscape');
+    //doc.autoTable({ html: '#testTable' });
     //doc.save('table.pdf');
 
     

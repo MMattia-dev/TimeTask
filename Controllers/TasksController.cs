@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography.Xml;
 using System.Threading.Tasks;
 using Humanizer.Localisation.TimeToClockNotation;
 using Microsoft.AspNetCore.Authorization;
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Differencing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Logging;
+using Newtonsoft.Json.Linq;
 using NuGet.Packaging.Signing;
 using TimeTask.Data;
 using TimeTask.Models;
@@ -38,12 +40,8 @@ namespace TimeTask.Controllers
             ViewBag.Departments = _context.Department;
             ViewBag.Tasks = _context.Task2;
 
+            //ViewBag.Workers = _context.Workers2;
 
-            //do usuniecia
-            ViewBag.Workers = _context.Workers2;
-
-
-            
             return _context.Task2 != null ? 
                           View(await _context.Task2.ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Task'  is null.");
@@ -1449,7 +1447,100 @@ namespace TimeTask.Controllers
         [HttpGet]
         public ActionResult CreateTableToDownload(int year, int week, int department)
         {
+            var culture = new CultureInfo("pl-PL");
+            List<DateTime> days = getDatesInWeek((int)year, (int)week);
+            var departmentName = _context.Department.FirstOrDefault(x => x.Id == department)?.Name;
 
+            string workers = "<th>" + departmentName + "</th>";
+            var workersList = _context.Workers2.Where(x => x.DepartmentID == department).OrderBy(x => x.Name).ToList();
+            foreach (var worker in workersList)
+            {
+                workers += "<th>" + worker.Surname + " " + worker.Name + "</th>";
+            }
+
+            List<Tuple<DateTime, string>> daysANew = new List<Tuple<DateTime, string>>();
+            foreach (var day_ in days)
+            {
+                var holiday = _context.Holiday.Select(x => x.Date.ToShortDateString()).ToList();
+                if (holiday.Contains(day_.ToShortDateString()) || day_.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    //daysANew.Add(new Tuple<DateTime, string>(day_, "<td style=\"color: red;\">" + day_.ToString("yyyy-MM-dd") + " (" + day_.ToString("ddd") + ")</td>"));
+                    daysANew.Add(new Tuple<DateTime, string>(day_, "<span style=\"color: red;\">" + day_.ToString("yyyy-MM-dd") + " (" + day_.ToString("ddd") + ")</span>"));
+                }
+                else
+                {
+                    //daysANew.Add(new Tuple<DateTime, string>(day_, "<td>" + day_.ToString("yyyy-MM-dd") + " (" + day_.ToString("ddd") + ")</td>"));
+                    daysANew.Add(new Tuple<DateTime, string>(day_, "<span>" + day_.ToString("yyyy-MM-dd") + " (" + day_.ToString("ddd") + ")</span>"));
+                }
+            }
+            daysANew.OrderBy(x => x.Item1);
+
+            string tr = "";
+            foreach (var day in daysANew)
+            {
+
+
+                ////string tdForWorkers = "";
+                //if (!workersList.Any())
+                //{
+                //    workersList = _context.Workers2.Where(x => x.DepartmentID == department).OrderBy(x => x.Name).ToList();
+                //}
+
+                ////var tasksList = _context.Task2.Where(x => x.WorkerID == workersList.Select(x => x.Id).First() && x.Date.HasValue && x.Date.Value.ToShortDateString() == day.Item1.ToShortDateString()).ToArray();
+                //var tasksList = _context.Task2.Where(x => x.WorkerID == workersList.Select(x => x.Id).First()).ToList();
+                ////var values = _context.Task2.Where(x => x.WorkerID == workersList.Select(x => x.Id).First() && x.Date.HasValue && x.Date.Value.ToShortDateString() == day.Item1.ToShortDateString()).ToList().FirstOrDefault();
+
+                //var task = "";
+                //var hours = "";
+                //foreach (var item in tasksList)
+                //{
+                //    if (item.Date.HasValue && item.Date.Value.ToShortDateString() == day.Item1.ToShortDateString())
+                //    {
+                //        task += "<tr class=\"tasks\">" +
+                //                "<td>" + _context.TaskName2.FirstOrDefault(x => x.Id == item.TaskNameID)?.Name + "</td>" +
+                //            "</tr>";
+
+                //        if (item.JobStart.HasValue && item.JobEnd.HasValue)
+                //        {
+                //            hours = "<td class=\"hours\">" + item.JobStart.Value.ToString("HH:mm") + " - " + item.JobEnd.Value.ToString("HH:mm") + "</td>";
+                //        }
+                //    }
+
+                //}
+
+                //tr += "<tr>" +
+                //        "<td rowspan=\"" + tasksList.Count() + "\" class=\"dates\">" + day.Item2 + "</td>" +
+                //        //"<td class=\"hours\">" + values.JobStart.Value.ToString("HH:mm") + " - " + values.JobEnd.Value.ToString("HH:mm") + "</td>" +
+                //        hours +
+                //    "</tr>";
+                //    //task;
+
+
+                //workersList.RemoveAt(0);
+            }
+
+
+
+            string table = "<table id=\"tableToDownloadId\">" +
+                                "<thead>" +
+                                    "<tr>" +
+                                        workers +
+                                    "</tr>" +
+                                "</thead>" +
+                                "<tbody>" +
+                                    tr +
+                                "</tbody>" +
+                            "</table>";
+
+            string html = "<div class=\"tableBody\" id=\"block\" style=\"\">" + //display: none;
+                                table +
+                                "<a id=\"dlink\" style=\"display:none;\"></a>" +
+                            "</div>";
+
+            if (workers.Length > 0)
+            {
+                return Json(new { contentResult = Content(html), departmentName, week, year });
+            }
 
             //var culture = new CultureInfo("pl-PL");
             //List<DateTime> days = getDatesInWeek((int)year, (int)week);
