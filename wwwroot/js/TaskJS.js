@@ -788,6 +788,9 @@ function uWpiumqJEoBHQnr(year, week, department)
             if (response != false) 
             {
                 $('body').append(response.contentResult.content);
+                //console.log(response);
+
+
                 //tableToExcel('tableToDownloadId', response.departmentName + '_' + response.week + '_' + response.year, 'Grafik_' + response.departmentName + '_' + response.week + '_' + response.year + '.xls');
                 //setTimeout(function ()
                 //{
