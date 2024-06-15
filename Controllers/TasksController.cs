@@ -1475,79 +1475,115 @@ namespace TimeTask.Controllers
             }
             daysANew.OrderBy(x => x.Item1);
 
-            string tr = "<tr>";
+            //string tr = "<tr>";
+            string tr = "";
+            List<int> highestNumbers = new List<int>();
+            //List<int> highestNumbers2 = new List<int>();
+            
             foreach (var day in daysANew)
             {
+                //znajdz dla danego dnia najwyższą ilość tasków -> albo po prostu ustaw najwyższą możliwą ilość przydzielonych tasków na 10 i miej to z głowy
+                //jeżeli Kowalski ma przydzielone 3 taski, a tego samego dnia Nowak ma przydzielony 1 task, to weź 3
                 int rowspan = 0;
+                tr += "<tr>";
                 foreach (var worker in workersList)
                 {
-                    rowspan = 1;
-                    var t = _context.Task2.Where(x => x.WorkerID == worker.Id && worker.DepartmentID == department);
-                    foreach (var item in t)
+                    int count = 0;
+
+                    var taskArray = _context.Task2.Where(x => x.WorkerID == worker.Id);
+                    foreach (var task in taskArray)
                     {
-                        if (item.Date.HasValue && item.Date.Value.ToShortDateString() == day.Item1.ToShortDateString())
+                        if (task.Date.HasValue && task.Date.Value.ToShortDateString() == day.Item1.ToShortDateString())
                         {
-                            rowspan++;
+                            if (task.TaskNameID != null)
+                            {
+                                count++;
+                            }
                         }
                     }
+                    highestNumbers.Add(count);
                 }
+                //highestNumbers2.Add(highestNumbers.Max());
+                rowspan = highestNumbers.Max();
 
-                List<Task2> inheritList = new List<Task2>();
+                tr += "<td rowspan=\"" + rowspan + "\" class=\"dates\">" + day.Item2 + "</td>";
 
-                tr += "<td rowspan=\"" + rowspan + "\" class=\"dates\">" + day.Item1.ToString("yyyy-MM-dd") + " (" + day.Item1.ToString("ddd") + ")</td>";
                 foreach (var worker in workersList)
                 {
                     var tasks = _context.Task2.Where(x => x.WorkerID == worker.Id);
-                    inheritList = tasks.ToList();
                     foreach (var task in tasks)
                     {
-                        if (task.Date.HasValue && task.Date.Value.ToShortDateString() == day.Item1.ToShortDateString() && task.JobStart.HasValue && task.JobEnd.HasValue)
+                        if (task.Date.HasValue && task.Date.Value.ToShortDateString() == day.Item1.ToShortDateString()) // && task.JobStart.HasValue && task.JobEnd.HasValue
                         {
-                            tr += "<td class=\"hours\">" + task.JobStart.Value.ToString("HH:mm") + " - " + task.JobEnd.Value.ToString("HH:mm") + "</td>";
+                            if (task.JobStart.HasValue && task.JobEnd.HasValue)
+                            {
+                                tr += "<td class=\"hours\">" + task.JobStart.Value.ToString("HH:mm") + " - " + task.JobEnd.Value.ToString("HH:mm") + "</td>";
+                            }
+                            else
+                            {
+                                tr += "<td class=\"hours\"></td>";
+                            }
+                            
                             break;
                         }
                     }
                 }
                 tr += "</tr>";
 
+                //tr += "<tr class=\"tasks\"><td></td><td></td><td></td></tr>";
+                var workersListCopy = workersList; //
 
-                //foreach (var worker in workersList)//
+
+                //foreach (var worker in workersList)
                 //{
+                //    tr += "<tr class=\"tasks\">";
                 //    var tasks = _context.Task2.Where(x => x.WorkerID == worker.Id);
                 //    foreach (var task in tasks)
                 //    {
                 //        //tr += "<tr class=\"tasks\">";
                 //        if (task.Date.HasValue && task.Date.Value.ToShortDateString() == day.Item1.ToShortDateString())
                 //        {
-                //            tr += "<tr class=\"tasks\"><td>" + _context.TaskName2.FirstOrDefault(x => x.Id == task.TaskNameID)?.Name + "</td></tr>";
-                //            //tr += "<td>" + _context.TaskName2.FirstOrDefault(x => x.Id == task.TaskNameID)?.Name + "</td>";
-                //            //tr += "<td></td>";
-
+                //            //tr += "<tr class=\"tasks\">";
+                //            if (task.TaskNameID != null)
+                //            {
+                //                tr += "<td>" + _context.TaskName2.FirstOrDefault(x => x.Id == task.TaskNameID)?.Name + "</td>";
+                //            }
+                //            else
+                //            {
+                //                tr += "<td></td>";
+                //            }
+                //            //tr += "</tr>";
                 //        }
                 //        //tr += "</tr>";
                 //    }
-                //}//
-
-                //najpierw taski potem worker loop
-
-                
-                foreach (var item in inheritList)
+                //    tr += "</tr>";
+                //}
+                foreach (var task in _context.Task2)
                 {
-                    tr += "<tr class=\"tasks\">";
                     foreach (var worker in workersList)
                     {
-
-                        if (item.Date.HasValue && item.Date.Value.ToShortDateString() == day.Item1.ToShortDateString())
+                        if (task.WorkerID == worker.Id)
                         {
-                            //tr += "<td>" + _context.TaskName2.FirstOrDefault(x => x.Id == item.TaskNameID)?.Name + "</td>";
+                            if (task.Date.HasValue && task.Date.Value.ToShortDateString() == day.Item1.ToShortDateString())
+                            {
+                                tr += "<tr>";
+
+
+
+                                tr += "</tr>";
+                            }
+                            else
+                            {
+                                tr += "<tr></tr>";
+                            }
                         }
-
                     }
-                    tr += "</tr>";
                 }
-                
-            }
 
+
+                
+
+            }
 
             string table = "<table id=\"tableToDownloadId\">" +
                                 "<thead>" +
@@ -1556,7 +1592,7 @@ namespace TimeTask.Controllers
                                     "</tr>" +
                                 "</thead>" +
                                 "<tbody>" +
-                                    tr +
+                                tr +
                                 "</tbody>" +
                             "</table>";
 

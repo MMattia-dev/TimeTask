@@ -798,6 +798,7 @@ function uWpiumqJEoBHQnr(year, week, department)
                 //}, 100);
                 //$('#FIfodjZXcJQcAEE').remove();
 
+                //console.log(response.highestNumbers2);
             }
         },
         error: function (xhr, status, error)

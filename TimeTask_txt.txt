@@ -16,6 +16,7 @@ zrobione - 11) "czas pracy" i "urlopy" w ustawieniach zmieniæ na dwie osobne pod
 15) wiadomoœci na g³ównej stronie o przypomnieniach, notatkach, dodatkowych zadaniach i projektach (i ich aktualizacjach), 
 16) strona "Grafik" -> nie dzia³a position:sticky na lewym nag³ówku
 17) zmieñ w tabeli "Task2" kolumnê TaskNameID na TaskName (zmien ID na nazwe zadania) i zmieñ kolumnê Date na !null
+18) ustaw w "Grafiku" najwy¿sz¹ mo¿liw¹ iloœæ przydzielonych tasków na 10
 
 
 

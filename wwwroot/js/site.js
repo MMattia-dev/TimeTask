@@ -91,7 +91,7 @@ if (defaultWallpaper_ != null)
     }
     else
     {
-        $('body').append('<video autoplay loop muted id="myVideo"><source src="' + defaultWallpaper_ + '" type="video/mp4"></video>');
+        $('body').append('<video autoplay loop id="myVideo"><source src="' + defaultWallpaper_ + '" type="video/mp4"></video>');
     }
 }
 else {
@@ -749,32 +749,25 @@ function lhkKNaastOkkmMh(t)
     }
 };
 
-//let source = "";
+
+//let source = "https://872335286.tapecontent.net/radosgw/q8VJmv2M28szV6g/4d5i3It7Fu5wEltweDn3hr4LpIzHLRLzRTkXFwnxY0cd0h_kSE16k3JvtEJ8kmafYtdkTu9sMXDQmietb4S944A8d8wtxS0Oyg0F3i-PIk6i2IzqBG8sB9Ga1AMjtbRsFuh-dcLRBEEMh1xA4LnSLRJ2SEiIpvNu9-azUpqCgNy58BbdcK792a4g-uQR1mu5cbkpv92krCTQLau6YlkGemuH2NlOkkIHghCSPOc7leVUaiaxNmB98hNeXRUXVKqUBDA445Vp3Dhg_YbYnbC5WMLuEJBeOKUFbVktUQ/arY5bn1Fll.mp4?stream=1";
 //let poi = `<video autoplay loop id="myVideo"><source src="` + source + `" type="video/mp4"></video>`;
 //$('.parent').append(poi);
-////let poi2 = `<label style="position: absolute; top: 10px; left: 10px; z-index: 1;"><input type="checkbox" id="asdfgh" /></label>`;
-////$('body').append(poi2);
+//let poi2 = `<label style="position: absolute; top: 10px; left: 10px; z-index: 1;"><input type="checkbox" id="asdfgh" /></label>`;
+//$('body').append(poi2);
 
 //var video = document.getElementById("myVideo");
-////$(window).on("beforeunload", function ()
-////{
-////    var vid = document.getElementById("myVideo");
-////    var currentTime = vid.currentTime;
-////    localStorage.setItem('video_', currentTime);
-////    return;
-////});
-////if (localStorage.getItem('video_') != null)
-////{
-////    video.currentTime = localStorage.getItem('video_');
-////}
-////else {
-////    video.currentTime = 1000;
-////}
-//video.currentTime = 1350;
+//$(window).on("beforeunload", function ()
+//{
+//    var vid = document.getElementById("myVideo");
+//    var currentTime = vid.currentTime;
+//    localStorage.setItem('video_', currentTime);
+//    return;
+//});
+
+//video.currentTime = 400;
 //video.playbackRate = 1;
-////video.pause();
-////$(video).hide();
-//video.volume = 0.1;
+//video.volume = 1;
 
 //$('#asdfgh').on('change', function ()
 //{
