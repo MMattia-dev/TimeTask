@@ -810,7 +810,9 @@ function cDoWdsoylXsqbSk_()
                 {
                     if (response == false)
                     {
-                        let html = `<div id="luPdsIeDncpbPAe" class="pGKcZvErUB pGKcZvErUB_" style="backdrop-filter: blur(5px); z-index: 999;">` +
+                        $('#ftcuESUFJMUetmm').remove();
+
+                        let html = `<div id="luPdsIeDncpbPAe" class="pGKcZvErUB pGKcZvErUB_" style="background-color: rgba(0, 0, 0, 0.6); z-index: 999;">` +
                                 `<form class="jbiihcodqinw">` +
                                     `<span style="color: white;">Pracownik już istnieje w bazie.</span>` +
                                     `<div class="BnDZmDEehCCybzG LPbaczkZTGFbIBk" onclick="xtKQetqkJXANhci(` + wID + `)">` + //$('#luPdsIeDncpbPAe').remove()

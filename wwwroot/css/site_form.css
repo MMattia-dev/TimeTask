@@ -186,10 +186,9 @@ form:not(.logOut) {
     /*border-radius: 8px;*/
     padding-top: 50px;
     padding-bottom: 50px;
-    /*border: 1px solid rgba(255, 255, 255, 0.1);*/
-    -webkit-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.6);
+    /*-webkit-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.6);
     -moz-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.6);
-    box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.6);*/
 }
 
     form:not(.logOut).ZOVrPTgSspFJBET {

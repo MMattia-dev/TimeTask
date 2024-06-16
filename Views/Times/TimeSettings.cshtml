@@ -192,33 +192,34 @@
 
                 @if (((IEnumerable<TimeSettings3>)ViewBag.TimeSetting).Count() > 0 && ((IEnumerable<TimeSettings3>)ViewBag.TimeSetting).Any(x => x.WorkerId != null))
                 {
-                    <div class="MslTtblACOgbHhY">
-                        <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Wyjątki dla pracowników</span>
-                        @* <select class="form-control BdeTMrFhVdXURgF raZYoDOYNwjFDKk" id="" onchange="">
-                    <option selected>Wszystkie działy</option>
-                    @foreach (var item in (IEnumerable<TimeSettings3>)ViewBag.TimeSetting)
+                    foreach (var item in (IEnumerable<TimeSettings3>)ViewBag.TimeSetting)
                     {
-                    foreach (var item2 in (IEnumerable<Workers2>)ViewBag.Workers)
-                    {
-                    if (item.WorkerId == item2.Id)
-                    {
-                    var depsName = ((IEnumerable<Department>)ViewBag.Departments).Where(x => x.Id == item2.DepartmentID);
-                    var temp = depsName.GroupBy(x => x.Id).Select(x => x.First()).ToList<Department>();
-                    temp.Distinct();
-                    foreach (var item3 in temp)
-                    {
-                    <option>@item3.Name</option>
-                    }
-                    }
-                    }
-                    }
-                    </select> *@
+                        if (item.WorkerId != null)
+                        {
+                            if (((IEnumerable<Workers2>)ViewBag.Workers).Where(x => x.Id == item.WorkerId).Count() > 0)
+                            {
+                                <div class="MslTtblACOgbHhY">
+                                    <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Wyjątki dla pracowników</span>
+                                </div>
 
-                    </div>
+                                break;
+                            }
+                        }
+                    }
+                }
+
+
+                @if (((IEnumerable<TimeSettings3>)ViewBag.TimeSetting).Count() > 0 && ((IEnumerable<TimeSettings3>)ViewBag.TimeSetting).Any(x => x.WorkerId != null))
+                {
                     @foreach (var item in (IEnumerable<TimeSettings3>)ViewBag.TimeSetting)
                     {
                         if (item.WorkerId != null)
                         {
+                            if (((IEnumerable<Workers2>)ViewBag.Workers).Where(x => x.Id == item.WorkerId).Count() > 0)
+                            {
+                                
+                            }
+
                             var workerSurname = ((IEnumerable<Workers2>)ViewBag.Workers).FirstOrDefault(x => x.Id == item.WorkerId)?.Surname;
                             var workerName = ((IEnumerable<Workers2>)ViewBag.Workers).FirstOrDefault(x => x.Id == item.WorkerId)?.Name;
                             var workerDepartment_id = ((IEnumerable<Workers2>)ViewBag.Workers).FirstOrDefault(x => x.Id == item.WorkerId)?.DepartmentID;

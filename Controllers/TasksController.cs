@@ -1479,7 +1479,9 @@ namespace TimeTask.Controllers
             string tr = "";
             List<int> highestNumbers = new List<int>();
             //List<int> highestNumbers2 = new List<int>();
-            
+            List<Task2> lista = new List<Task2>();
+            string tr_test = "";
+
             foreach (var day in daysANew)
             {
                 //znajdz dla danego dnia najwyższą ilość tasków -> albo po prostu ustaw najwyższą możliwą ilość przydzielonych tasków na 10 i miej to z głowy
@@ -1498,6 +1500,11 @@ namespace TimeTask.Controllers
                             if (task.TaskNameID != null)
                             {
                                 count++;
+                                lista.Add(task);
+                                //if (task.Date.Value.ToShortDateString() == new DateTime(2024, 6, 17).ToShortDateString())
+                                //{
+                                //    lista.Add(task);
+                                //}
                             }
                         }
                     }
@@ -1558,31 +1565,30 @@ namespace TimeTask.Controllers
                 //    }
                 //    tr += "</tr>";
                 //}
-                foreach (var task in _context.Task2)
+
+
+                foreach (var task in lista)
                 {
+                    tr += "<tr>";
                     foreach (var worker in workersList)
                     {
-                        if (task.WorkerID == worker.Id)
+                        if (worker.Id == task.WorkerID)
                         {
-                            if (task.Date.HasValue && task.Date.Value.ToShortDateString() == day.Item1.ToShortDateString())
+                            tr += "<td>" + _context.TaskName2.FirstOrDefault(x => x.Id == task.TaskNameID)?.Name + "</td>";
+                            //tr_test += "<td>" + _context.TaskName2.FirstOrDefault(x => x.Id == task.TaskNameID)?.Name + "</td>";
+
+                            if ()
                             {
-                                tr += "<tr>";
 
-
-
-                                tr += "</tr>";
                             }
-                            else
-                            {
-                                tr += "<tr></tr>";
-                            }
+
+
                         }
                     }
+                    tr += "</tr>";
                 }
 
-
-                
-
+                lista.Clear();
             }
 
             string table = "<table id=\"tableToDownloadId\">" +
@@ -1604,7 +1610,7 @@ namespace TimeTask.Controllers
 
             if (workers.Length > 0)
             {
-                return Json(new { contentResult = Content(html), departmentName, week, year });
+                return Json(new { contentResult = Content(html), departmentName, week, year, trtest = Content(tr_test) });
                 //return Json(test);
             }
 
