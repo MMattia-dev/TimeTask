@@ -775,6 +775,8 @@ function BgMujOvGVhgxcrK()
 
 function uWpiumqJEoBHQnr(year, week, department) 
 {
+    //var list = null;
+
     $.ajax({
         type: 'GET',
         url: '/Tasks/CreateTableToDownload',
@@ -788,8 +790,11 @@ function uWpiumqJEoBHQnr(year, week, department)
             if (response != false) 
             {
                 $('body').append(response.contentResult.content);
-                console.log(response.trtest.content);
+                
+                //list = response.lista;
+                //console.log(response.lista);
 
+                
 
                 //tableToExcel('tableToDownloadId', response.departmentName + '_' + response.week + '_' + response.year, 'Grafik_' + response.departmentName + '_' + response.week + '_' + response.year + '.xls');
                 //setTimeout(function ()
@@ -798,13 +803,107 @@ function uWpiumqJEoBHQnr(year, week, department)
                 //}, 100);
                 //$('#FIfodjZXcJQcAEE').remove();
 
-                //console.log(response.highestNumbers2);
+
+
+                var elements = document.querySelectorAll('#nolCEYewpEzatms');
+                for (let i = 0; i < elements.length; i++) 
+                {
+                    let ySTSTxoKQmeigkh = $(elements[i]).attr('ySTSTxoKQmeigkh');
+                    let hQexneNrZZNwiTZ = $(elements[i]).attr('hQexneNrZZNwiTZ');
+
+                    for (let j = 0; j < response.lista.length; j++) 
+                    {
+                        let date1 = new Date(ySTSTxoKQmeigkh).toISOString().split('T')[0];
+                        let date2 = new Date(response.lista[j].date).toISOString().split('T')[0];
+
+                        let w1 = parseInt(hQexneNrZZNwiTZ);
+                        let w2 = parseInt(response.lista[j].workerID);
+
+                        if (date1 == date2 && w1 == w2) 
+                        {
+                            elements[i].innerHTML = response.lista[j].taskNameID;
+
+                            
+                        }
+                        //console.log(date1.toISOString().split('T')[0], date2.toISOString().split('T')[0]);
+                        
+                    }
+
+
+
+                    //$.ajax({
+                    //    type: 'GET',
+                    //    url: '/Tasks/FillTasks',
+                    //    data: {
+                    //        //t: response.lista,
+                    //        //list: list,
+                    //        d: ySTSTxoKQmeigkh,
+                    //        w: hQexneNrZZNwiTZ,
+                    //        e: elements[i].innerHTML
+                    //    },
+                    //    success: function (response_)
+                    //    {
+                    //        if (response_ != false) 
+                    //        {
+                    //            elements[i].innerHTML = response_;
+                    //            console.log(response_);
+                                
+                    //        }
+                    //    },
+                    //    error: function (xhr_, status_, error_)
+                    //    {
+                    //        console.log('Error:', error_);
+                    //    }
+                    //});
+                }
+
+
+                
+
+
+
+
             }
         },
         error: function (xhr, status, error)
         {
             console.log('Error:', error);
         }
+    }).then(function()
+    {
+        //var elements = document.querySelectorAll('#nolCEYewpEzatms');
+        //for (let i = 0; i < elements.length; i++) 
+        //{
+        //    let ySTSTxoKQmeigkh = $(elements[i]).attr('ySTSTxoKQmeigkh');
+        //    let hQexneNrZZNwiTZ = $(elements[i]).attr('hQexneNrZZNwiTZ');
+
+        //    //console.log(elements[i]);
+
+        //    $.ajax({
+        //        type: 'GET',
+        //        url: '/Tasks/FillTasks',
+        //        data: {
+        //            //t: response.lista,
+        //            list: list,
+        //            d: ySTSTxoKQmeigkh,
+        //            w: hQexneNrZZNwiTZ,
+        //            e: elements[i].innerHTML
+        //        },
+        //        success: function (response_)
+        //        {
+        //            if (response_ != false) 
+        //            {
+        //                elements[i].innerHTML = response_;
+        //                console.log(response_);
+
+        //            }
+        //        },
+        //        error: function (xhr_, status_, error_)
+        //        {
+        //            console.log('Error:', error_);
+        //        }
+        //    });
+        //}
     });
 
     //tableToExcel('testTable', 'Arkusz1', 'Grafik.xls');

@@ -2830,56 +2830,6 @@ ion-icon {
                         opacity: 0.7;
                     }
 
-/*.tableToDownload {
-    border: 1px solid black;
-    border-collapse: collapse;
-    display: table;
-    table-layout: fixed;
-    
-}
-
-    .tableToDownload tr {
-        border: 1px solid black;
-    }
-
-    .tableToDownload th {
-        border: 1px solid black;
-    }
-
-    .tableToDownload td {
-        border-right: 1px solid black;
-        display: table-cell;
-        vertical-align: top;
-        height: unset;
-        height: 200px;
-        width: 200px;
-    }
-
-    .tableToDownload #AfdmIxOhSeUaVUc {
-        width: 100%;
-        height: 100%;
-        border: unset;
-    }
-
-        .tableToDownload #AfdmIxOhSeUaVUc tr {
-            display: table-row;
-            vertical-align: top;
-            border: unset;
-            border-bottom: 1px solid black;
-        }
-
-            .tableToDownload #AfdmIxOhSeUaVUc tr:last-child {
-                border-bottom: unset;
-            }
-
-        .tableToDownload #AfdmIxOhSeUaVUc tr th, .tableToDownload #AfdmIxOhSeUaVUc tr td {
-            display: table-cell;
-            border: unset;
-        }
-
-        .tableToDownload #AfdmIxOhSeUaVUc tr td {
-            height: 30px;
-        }*/
 
 .tableBody {
     position: absolute;
@@ -2917,12 +2867,6 @@ ion-icon {
                 text-align: center;
             }
 
-        .tableBody table tbody tr td.dates span {
-            /*text-align: center;*/
-            /*font-size: 17px;*/
-            /*font-weight: bolder;*/
-        }
-
         .tableBody table tbody tr td.hours {
             text-align: center;
             font-size: 14px;
@@ -2939,15 +2883,7 @@ ion-icon {
             height: 30px;
             font-size: 14px;
         }
-
-/*.tableTasks, .tableTasks tbody tr, .tableTasks tbody tr td {
-    border: unset !important;
-}
-
-    .tableTasks tbody tr td {
-        vertical-align: top;
-        height: 30px !important;
-    } */         
+       
 
     
 
