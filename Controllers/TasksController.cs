@@ -1565,8 +1565,58 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult FillTasks(string d, string w, string e)
+        public ActionResult FillTasks(DateTime date, int worker, int task)
         {
+            //var taskName = _context.TaskName2.FirstOrDefault(x => x.Id == task)?.Name;
+
+            //return Json(taskName);
+
+            int w = 234;
+
+            //var tasks = _context.Task2.Where(x => x.WorkerID == worker).ToList();
+            var tasks = _context.Task2.Where(x => x.WorkerID == w).ToList();
+
+
+            //foreach (var item in tasks)
+            //{
+            //    if (item.Date.HasValue)
+            //    {
+            //        if (item.Date.Value.ToShortDateString() == date.ToShortDateString())
+            //        {
+            //            var taskName = _context.TaskName2.FirstOrDefault(x => x.Id == item.TaskNameID);
+
+            //            if (taskName?.Id == task)
+            //            {
+            //                continue;
+            //            }
+            //            else
+            //            {
+            //                return Json(taskName?.Name);
+            //            }
+
+                        
+            //        }
+            //    }
+            //}
+
+            List<int> ids = new List<int>();
+            foreach (var item in tasks)
+            {
+                //if (item.Date.HasValue && item.Date.Value.ToShortDateString() == date.ToShortDateString())
+                //{
+
+                //}
+                DateTime dt = new DateTime(2024, 6, 24);
+                if (item.Date.HasValue && item.Date.Value.ToShortDateString() == dt.ToShortDateString())
+                {
+                    ids.Add(item.Id);
+                }
+            }
+
+            if (ids.Any())
+            {
+                return Json(ids);
+            }
 
 
             return Json(false);

@@ -811,6 +811,8 @@ function uWpiumqJEoBHQnr(year, week, department)
                     let ySTSTxoKQmeigkh = $(elements[i]).attr('ySTSTxoKQmeigkh');
                     let hQexneNrZZNwiTZ = $(elements[i]).attr('hQexneNrZZNwiTZ');
 
+                    //var list;
+
                     for (let j = 0; j < response.lista.length; j++) 
                     {
                         let date1 = new Date(ySTSTxoKQmeigkh).toISOString().split('T')[0];
@@ -821,44 +823,35 @@ function uWpiumqJEoBHQnr(year, week, department)
 
                         if (date1 == date2 && w1 == w2) 
                         {
-                            elements[i].innerHTML = response.lista[j].taskNameID;
-
-                            
+                            //elements[i].innerHTML = response.lista[j].taskNameID;
+                            $.ajax({
+                                type: 'GET',
+                                url: '/Tasks/FillTasks',
+                                data: {
+                                    date: date1,
+                                    worker: w1,
+                                    task: response.lista[j].taskNameID
+                                },
+                                success: function (response)
+                                {
+                                    //elements[i].innerHTML = response;
+                                    console.log(response);
+                                },
+                                error: function (xhr, status, error)
+                                {
+                                    console.log('Error:', error);
+                                }
+                            });
                         }
-                        //console.log(date1.toISOString().split('T')[0], date2.toISOString().split('T')[0]);
                         
+                        
+
                     }
 
+                    break;
 
-
-                    //$.ajax({
-                    //    type: 'GET',
-                    //    url: '/Tasks/FillTasks',
-                    //    data: {
-                    //        //t: response.lista,
-                    //        //list: list,
-                    //        d: ySTSTxoKQmeigkh,
-                    //        w: hQexneNrZZNwiTZ,
-                    //        e: elements[i].innerHTML
-                    //    },
-                    //    success: function (response_)
-                    //    {
-                    //        if (response_ != false) 
-                    //        {
-                    //            elements[i].innerHTML = response_;
-                    //            console.log(response_);
-                                
-                    //        }
-                    //    },
-                    //    error: function (xhr_, status_, error_)
-                    //    {
-                    //        console.log('Error:', error_);
-                    //    }
-                    //});
                 }
 
-
-                
 
 
 
