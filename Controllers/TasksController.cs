@@ -1476,7 +1476,8 @@ namespace TimeTask.Controllers
 
             string tr = "";
             List<int> highestNumbers = new List<int>();
-            List<Task2> lista = new List<Task2>();
+            //List<Task2> lista = new List<Task2>();
+            List<int> ids = new List<int>();
 
             foreach (var day in daysANew)
             {
@@ -1494,7 +1495,8 @@ namespace TimeTask.Controllers
                             if (task.TaskNameID != null)
                             {
                                 count++;
-                                lista.Add(task);
+                                //lista.Add(task);
+                                ids.Add(task.Id);
                             }
                         }
                     }
@@ -1553,152 +1555,167 @@ namespace TimeTask.Controllers
             string html = "<div class=\"tableBody\" id=\"block\" style=\"\">" + //display: none;
                                 table +
                                 "<a id=\"dlink\" style=\"display:none;\"></a>" +
+                                "<input type=\"button\" onclick=\"OvdYNubWPJBjNuP()\" value=\"Populate cells\" />" +
                                 "<input type=\"button\" onclick=\"$('#block').remove()\" value=\"Zamknij\" />" +
                             "</div>";
 
             if (workers.Length > 0)
             {
-                return Json(new { contentResult = Content(html), departmentName, week, year, lista });
+                return Json(new { contentResult = Content(html), departmentName, week, year, ids });
             }
 
             return Json(false);
         }
 
         [HttpGet]
-        public ActionResult FillTasks(DateTime date, int worker, int task)
+        public ActionResult FillTasks(int id) //DateTime date, int worker, int task //List<int> ids_array
         {
-            //var taskName = _context.TaskName2.FirstOrDefault(x => x.Id == task)?.Name;
+            
+            
+            return Json(false);
+        }
 
-            //return Json(taskName);
+        [HttpGet]
+        public ActionResult OtherSettingsForm(int? savedYear, int? savedWeek, int? savedDepartment)
+        {
+            int month = DateTime.Now.Month;
+            int day = DateTime.Now.Day;
 
-            int w = 234;
+            int year = GetYear(savedYear);
+            int week = GetWeek(savedWeek, year, month, day);
+            int department = GetDepartmentId(savedDepartment);
 
-            //var tasks = _context.Task2.Where(x => x.WorkerID == worker).ToList();
-            var tasks = _context.Task2.Where(x => x.WorkerID == w).ToList();
+            var departmentName = _context.Department.FirstOrDefault(x => x.Id == department)?.Name;
 
+            string removeForm = "$('#FMnrCopWCecUjag').remove()";
 
-            //foreach (var item in tasks)
-            //{
-            //    if (item.Date.HasValue)
-            //    {
-            //        if (item.Date.Value.ToShortDateString() == date.ToShortDateString())
-            //        {
-            //            var taskName = _context.TaskName2.FirstOrDefault(x => x.Id == item.TaskNameID);
+            string form = "<div id=\"FMnrCopWCecUjag\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form class=\"form_\">" +
+                        //"<div class=\"form-group\">" +
+                        //    "<label>Rok</label>" +
+                        //    "<input type=\"text\" value=\"" + year + "\" class=\"form-control\" disabled />" +
+                        //"</div>" +
+                        //"<div class=\"form-group\">" +
+                        //    "<label>Tydzień</label>" +
+                        //    "<input type=\"text\" value=\"" + week + "\" class=\"form-control\" disabled />" +
+                        //"</div>" +
+                        "<div class=\"form-group-margin\">" +
+                            "<label>Dział:</label>" +
+                            "<input type=\"text\" value=\"" + departmentName + "\" class=\"form-control\" disabled />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input type=\"button\" value=\"Ustaw godziny dla wszystkich dla wybranego tygodnia\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"KknXAduygEtFJvn()\" />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input type=\"button\" value=\"Ustaw zadanie dla wszystkich dla wybranego tygodnia\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"USnvJSnvkJlVGaA()\" />" +
+                        "</div>" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
 
-            //            if (taskName?.Id == task)
-            //            {
-            //                continue;
-            //            }
-            //            else
-            //            {
-            //                return Json(taskName?.Name);
-            //            }
+            return Content(form);
+        }
 
-                        
-            //        }
-            //    }
-            //}
+        [HttpGet]
+        public ActionResult AssignHoursForAllForm(int? savedYear, int? savedWeek, int? savedDepartment)
+        {
+            int month = DateTime.Now.Month;
+            int day = DateTime.Now.Day;
 
-            List<int> ids = new List<int>();
-            foreach (var item in tasks)
+            int year = GetYear(savedYear);
+            int week = GetWeek(savedWeek, year, month, day);
+            int department = GetDepartmentId(savedDepartment);
+
+            string removeForm = "$('#leJHkkOjgbGLkyn').remove()";
+
+            string form = "<div id=\"leJHkkOjgbGLkyn\" class=\"pGKcZvErUB\">" +
+                    "<form class=\"form_\">" +
+                        "<div class=\"form-group fKmurRETigHLDYk\">" +
+                            "<div>" +
+                                "<label>Godzina od:</label>" +
+                                "<input class=\"form-control\" type=\"time\" id=\"eYpvywdCgUdMWFB\" />" +
+                            "</div>" +
+                            "<span>-</span>" +
+                            "<div>" +
+                                "<label>Godzina do:</label>" +
+                                "<input class=\"form-control\" type=\"time\" id=\"AsLyaHDkxjuuiPP\" />" +
+                            "</div>" +
+                        "</div>" +
+                        "<div class=\"form-group-margin\">" +
+                            "<label>Wybierz dni:</label>" +
+                            "<div id=\"rJsRgTkikJFkTVs\" class=\"IVnxgCORpPYL ijBuUPWrdXEngvb STxfpYUfaLUAern\" onclick=\"NDBuqpieiEpridq(this, " + year + ", " + week + ", " + department + ")\">" +
+                                "<div class=\"iNzvwDsTQXDyPIR\">" +
+                                    "<span style=\"color: rgba(255, 255, 255, 0.5);\">Wybierz dni</span>" +
+                                    "<ion-icon name=\"chevron-down-outline\"></ion-icon>" +
+                                "</div>" +
+                            "</div>" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input disabled type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"ksDOTJUbXxnvIKA(" + year + ", " + week + ", " + department + ")\" />" +
+                        "</div>" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
+
+            return Content(form);
+        }
+
+        [HttpGet]
+        public ActionResult DaysDiv(int year, int week, int department)
+        {
+            List<DateTime> days = getDatesInWeek((int)year, (int)week);
+
+            string daysString = "";
+            foreach (var day in days)
             {
-                //if (item.Date.HasValue && item.Date.Value.ToShortDateString() == date.ToShortDateString())
-                //{
-
-                //}
-                DateTime dt = new DateTime(2024, 6, 24);
-                if (item.Date.HasValue && item.Date.Value.ToShortDateString() == dt.ToShortDateString())
-                {
-                    ids.Add(item.Id);
-                }
+                daysString += "<div class=\"oJeaEVIeaFrjGFz ijEfZAzszvHWwUi\">" +
+                        //"<input type=\"checkbox\" />" +
+                        "<ion-icon name=\"square-outline\"></ion-icon>" +
+                        "<span>" + day.ToString("dddd") + "</span>" +
+                    "</div>";
             }
 
-            if (ids.Any())
+            string div = "<div id=\"shwJrqmCKCOdpeV\" class=\"IVnxgCORpPYL ijBuUPWrdXEngvb pKKeaPLlODAnOgN ufrBpxEyiiUltaQ\">" +
+                    daysString +
+                "</div>";
+
+
+
+            return Content(div);
+        }
+
+        [HttpPost]
+        public ActionResult AssignHoursForAll(int year, int week, int department)
+        {
+            List<int> workers = _context.Workers2.Where(x => x.DepartmentID == department).Select(x => x.Id).ToList();
+            List<DateTime> days = getDatesInWeek((int)year, (int)week);
+
+            foreach (var workerId in workers)
             {
-                return Json(ids);
+                
             }
 
 
             return Json(false);
         }
 
-        //[HttpGet]
-        //public ActionResult FillTasks(string d, string w, string e) //List<Task2> t, 
-        //{
-        //    DateTime date = DateTime.ParseExact(d, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-        //    int workerId = int.Parse(w);
+        [HttpGet]
+        public ActionResult AssignTasksForAllForm()
+        {
+            string removeForm = "$('#ziubgYIMDAkZxTP').remove()";
 
+            string form = "<div id=\"ziubgYIMDAkZxTP\" class=\"pGKcZvErUB\">" +
+                    "<form class=\"form_\">" +
+                        "" +
+                    "</form>" +
+                "</div>";
 
-
-
-
-        //    var t_ = _context.Task2.Where(x => x.WorkerID == workerId).ToList();
-        //    foreach (var task in t_)
-        //    {
-        //        if (task.Date.HasValue)
-        //        {
-        //            if (task.Date.Value.ToShortDateString() == date.ToShortDateString())
-        //            {
-        //                //var row = _context.Task2.FirstOrDefault(e => e.Id == task.Id);
-        //                //if (row != null)
-        //                //{
-        //                //    var tName = _context.TaskName2.FirstOrDefault(x => x.Id == row.TaskNameID)?.Name;
-        //                //    if (e == null && tName != e)
-        //                //    {
-        //                //        if (tName != null)
-        //                //        {
-        //                //            return Json(tName);
-        //                //            //return Json("1");
-        //                //        }
-        //                //        else
-        //                //        {
-        //                //            //return Json("");
-        //                //            return Json("2");
-        //                //        }
-        //                //    }
-        //                //}
-        //                //else
-        //                //{
-        //                //    return Json("2.5");
-        //                //}
-
-        //                //return Json("3");
-
-        //                var tName = _context.TaskName2.FirstOrDefault(x => x.Id == task.TaskNameID)?.Name;
-        //                if (tName != e)
-        //                {
-
-        //                }
-
-
-        //            }
-        //            else
-        //            {
-        //                //return Json("4");
-        //                //return Json(new { a = task.Date.Value.ToShortDateString(), b = date.ToShortDateString() });
-        //            }
-        //        }
-
-        //    }
-
-        //    //foreach (var task in t)
-        //    //{
-        //    //    if (task.Date.HasValue && task.Date.Value.ToShortDateString() == d.ToShortDateString() && task.WorkerID == w)
-        //    //    {
-        //    //        var tName = _context.TaskName2.FirstOrDefault(x => x.Id == task.TaskNameID)?.Name;
-        //    //        if (tName != e)
-        //    //        {
-        //    //            return Json(tName);
-        //    //        }
-        //    //    }
-        //    //}
-
-        //    return Json(false);
-        //}
-
-
-
-
+            return Content(form);
+        }
 
 
     }

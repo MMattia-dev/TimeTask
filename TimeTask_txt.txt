@@ -18,6 +18,7 @@ zrobione - 11) "czas pracy" i "urlopy" w ustawieniach zmieniæ na dwie osobne pod
 17) zmieñ w tabeli "Task2" kolumnê TaskNameID na TaskName (zmien ID na nazwe zadania) i zmieñ kolumnê Date na !null
 18) ustaw w "Grafiku" najwy¿sz¹ mo¿liw¹ iloœæ przydzielonych tasków na 10
 19) dodaj opcjê dodawania "nieobecny/na urlopie" zamiast godzin
+20) dokoñcz pobieranie excela i pdfa grafiku (!!!)
 
 
 zmien wszystkie localstorage na sessionstorage

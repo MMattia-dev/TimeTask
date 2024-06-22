@@ -554,7 +554,8 @@ $('.left-nav').mouseenter(function ()
 {
     $('.left-nav').css({ 'width': '265px', 'box-shadow': '12px 0px 16px -15px rgba(0, 0, 0, 1)',  });
     $('.settings_a span:not("#OcoYTyiBrpZJStB")').css({ 'opacity': '1', 'margin-left': '20px', });
-    $('.settings_a').css({ 'box-shadow': 'inset 0 -1px 0 rgba(255, 255, 255, 0.1)', });
+    //$('.settings_a').css({ 'box-shadow': 'inset 0 -1px 0 rgba(255, 255, 255, 0.1)', });
+    $('.settings_a').css({ 'box-shadow': '0 1px 0 rgba(255, 255, 255, 0.1)', });
     $('.IdRKPExyAQSewBL').css({ 'scrollbar-color': 'rgba(36, 110, 142, 0.7) transparent', 'scrollbar-width': 'thin' });
     
     $('.settings_a select').css({ 'opacity': '1', 'margin-left': '20px',  });
