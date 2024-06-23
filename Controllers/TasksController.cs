@@ -1672,7 +1672,7 @@ namespace TimeTask.Controllers
             string daysString = "";
             foreach (var day in days)
             {
-                daysString += "<div class=\"oJeaEVIeaFrjGFz ijEfZAzszvHWwUi\">" +
+                daysString += "<div class=\"oJeaEVIeaFrjGFz ijEfZAzszvHWwUi\" onclick=\"NFjIyzElkiTJLTK(this)\">" +
                         //"<input type=\"checkbox\" />" +
                         "<ion-icon name=\"square-outline\"></ion-icon>" +
                         "<span>" + day.ToString("dddd") + "</span>" +
@@ -1682,8 +1682,6 @@ namespace TimeTask.Controllers
             string div = "<div id=\"shwJrqmCKCOdpeV\" class=\"IVnxgCORpPYL ijBuUPWrdXEngvb pKKeaPLlODAnOgN ufrBpxEyiiUltaQ\">" +
                     daysString +
                 "</div>";
-
-
 
             return Content(div);
         }
