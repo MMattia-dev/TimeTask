@@ -868,6 +868,11 @@ function KknXAduygEtFJvn()
         {
             $('#FMnrCopWCecUjag').remove();
             $('body').append(response);
+
+            for (let i = 1; i <= 7; i++) //usun session storage "days checkboxes"
+            {
+                sessionStorage.removeItem('grafik_' + i);
+            }
         },
         error: function (xhr, status, error)
         {
@@ -894,6 +899,13 @@ function NDBuqpieiEpridq(element, year, week, department)
                 $('.iNzvwDsTQXDyPIR ion-icon').addClass('zwyAWlfnleMVUJu');
 
                 sessionStorage.setItem('OIXejnXwFVXLtKT', 'true');
+
+                if (MdQnLBuxjkWnziZ.length > 0) {
+                    for (let i = 0; i < MdQnLBuxjkWnziZ.length; i++) {
+                        $('.oJeaEVIeaFrjGFz.ijEfZAzszvHWwUi[id="' + MdQnLBuxjkWnziZ[i].Id + '"]').addClass('QqPxuRNTyfpMJwi');
+                        $('.oJeaEVIeaFrjGFz.ijEfZAzszvHWwUi[id="' + MdQnLBuxjkWnziZ[i].Id + '"]').children('svg').replaceWith('<svg viewBox="0 0 24 24" height="22" width="22"><path fill="none" d="M0 0h24v24H0z"></path><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path></svg>');
+                    }
+                }
             },
             error: function (xhr, status, error)
             {
@@ -919,30 +931,104 @@ $('body').on('click', function ()
     PHXgTRqEbNEfYsk();
 });
 
-function NFjIyzElkiTJLTK() 
+var MdQnLBuxjkWnziZ = [];
+function NFjIyzElkiTJLTK(e, t) 
 {
+    let dayOfWeek = $(t).attr('name');
+    dayOfWeek = dayOfWeek.split('.')[0];
 
+    $('#dUzUxfaNorqvNMm').hide();
+
+    if (sessionStorage.getItem('grafik_' + t.id) == null) 
+    {
+        $('#' + t.id).addClass('QqPxuRNTyfpMJwi');
+        $('#' + t.id).children('svg').replaceWith('<svg viewBox="0 0 24 24" height="22" width="22"><path fill="none" d="M0 0h24v24H0z"></path><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"></path></svg>');
+        sessionStorage.setItem('grafik_' + t.id, 'true');
+
+        if (!MdQnLBuxjkWnziZ.find(e => e.Id === t.id)) 
+        {
+            MdQnLBuxjkWnziZ.push({ Id: t.id, dayName: dayOfWeek });
+        }
+    }
+    else 
+    {
+        $('#' + t.id).removeClass('QqPxuRNTyfpMJwi');
+        $('#' + t.id).children('svg').replaceWith('<svg viewBox="0 0 24 24" height="22" width="22"><path fill="none" d="M0 0h24v24H0z"></path><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2"></path></svg>');
+        sessionStorage.removeItem('grafik_' + t.id);
+
+        MdQnLBuxjkWnziZ = MdQnLBuxjkWnziZ.filter(function (e) { return e.Id != t.id; }); 
+    }
+
+    sortArrayDefault(MdQnLBuxjkWnziZ);
+
+    if (MdQnLBuxjkWnziZ.length > 0)
+    {
+        let string = "";
+        for (let i = 0; i < MdQnLBuxjkWnziZ.length; i++) 
+        {
+            string += MdQnLBuxjkWnziZ[i].dayName + ', ';
+        }
+        $('#SBkLZHkCOnzAkgl').html('<span>' + string + '</span>');
+
+
+        if (document.getElementById('eYpvywdCgUdMWFB').value != '' && document.getElementById('AsLyaHDkxjuuiPP').value != '') 
+        {
+            $('#lcgkhBMDzScROMd').removeAttr('disabled');
+        }
+    }
+    else 
+    {
+        $('#lcgkhBMDzScROMd').attr('disabled', '');
+
+        $('#SBkLZHkCOnzAkgl').html('');
+        $('#dUzUxfaNorqvNMm').show();
+    }
+
+    e.stopPropagation();
+};
+
+function kBwJoRVnVZFOCVS(e) 
+{
+    let hour_input_1 = $('#eYpvywdCgUdMWFB').val();
+    let hour_input_2 = $('#AsLyaHDkxjuuiPP').val();
+
+    if (MdQnLBuxjkWnziZ.length > 0 && hour_input_1 != '' && hour_input_2 != '') 
+    {
+        $('#lcgkhBMDzScROMd').removeAttr('disabled');
+    }
+    if (MdQnLBuxjkWnziZ.length == 0 && hour_input_1 == '' && hour_input_2 == '') 
+    {
+        $('#lcgkhBMDzScROMd').attr('disabled', '');
+    }
 };
 
 function ksDOTJUbXxnvIKA(year, week, department) 
 {
-    $.ajax({
-        type: 'POST',
-        url: '/Tasks/AssignHoursForAll',
-        data: {
-            year: year,
-            week: week,
-            department: department
-        },
-        success: function (response)
-        {
-            
-        },
-        error: function (xhr, status, error)
-        {
-            console.log('Error:', error);
-        }
-    });
+    let hour_input_1 = $('#eYpvywdCgUdMWFB').val();
+    let hour_input_2 = $('#AsLyaHDkxjuuiPP').val();
+
+    if (MdQnLBuxjkWnziZ.length > 0 && hour_input_1 != '' && hour_input_2 != '')
+    {
+        $.ajax({
+            type: 'POST',
+            url: '/Tasks/AssignHoursForAll',
+            data: {
+                year: year,
+                week: week,
+                department: department
+            },
+            success: function (response)
+            {
+                console.log(response);
+
+
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
 };
 
 function USnvJSnvkJlVGaA() 

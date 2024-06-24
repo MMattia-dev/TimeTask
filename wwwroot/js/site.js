@@ -104,7 +104,21 @@ else {
 }
 //
 
-
+function sortArrayDefault(array)
+{
+    array.sort(function (a, b)
+    {
+        if (a.Id < b.Id)
+        {
+            return -1;
+        }
+        if (a.Id > b.Id)
+        {
+            return 1;
+        }
+        return 0;
+    });
+};
 
 function sortArray(array) {
     array.sort(function (a, b)
