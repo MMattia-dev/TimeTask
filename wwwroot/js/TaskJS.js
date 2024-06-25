@@ -890,8 +890,7 @@ function NDBuqpieiEpridq(element, year, week, department)
             url: '/Tasks/DaysDiv',
             data: {
                 year: year,
-                week: week,
-                department: department
+                week: week
             },
             success: function (response)
             {
@@ -947,7 +946,7 @@ function NFjIyzElkiTJLTK(e, t)
 
         if (!MdQnLBuxjkWnziZ.find(e => e.Id === t.id)) 
         {
-            MdQnLBuxjkWnziZ.push({ Id: t.id, dayName: dayOfWeek });
+            MdQnLBuxjkWnziZ.push({ Id: t.id, dayName: dayOfWeek, date: t.getAttribute('date') });
         }
     }
     else 
@@ -1002,26 +1001,68 @@ function kBwJoRVnVZFOCVS(e)
     }
 };
 
-function ksDOTJUbXxnvIKA(year, week, department) 
+function ksDOTJUbXxnvIKA(department) 
 {
     let hour_input_1 = $('#eYpvywdCgUdMWFB').val();
     let hour_input_2 = $('#AsLyaHDkxjuuiPP').val();
 
+    let array = [];
+    for (let i = 0; i < MdQnLBuxjkWnziZ.length; i++) {
+        array.push(MdQnLBuxjkWnziZ[i].date);
+    }
+
     if (MdQnLBuxjkWnziZ.length > 0 && hour_input_1 != '' && hour_input_2 != '')
     {
+        $('#leJHkkOjgbGLkyn').remove();
+        $('.right-nav').append(createLoader()); //ładowanie
+
         $.ajax({
             type: 'POST',
             url: '/Tasks/AssignHoursForAll',
             data: {
-                year: year,
-                week: week,
-                department: department
+                department: department,
+                dates: array,
+                hourFrom: hour_input_1,
+                hourTo: hour_input_2
             },
             success: function (response)
             {
-                console.log(response);
+                //console.log(response);
+                if (response != false && response.returnList.length > 0) 
+                {
+                    let tr = document.querySelectorAll('#table tbody tr');
 
+                    if (response.checkIfFirst) 
+                    {
+                        for (let i = 0; i < response.returnList.length; i++)
+                        {
+                            let responseWorker = parseInt(response.returnList[i].WorkerId);
+                            let responseDate = response.returnList[i].Date.toISOString().split('T')[0];
 
+                            for (let j = 0; j < tr.length; j++) 
+                            {
+                                let trWorker = parseInt($(tr[j]).children('td').attr('worker'));
+                                let trDate = new Date($(tr[j]).attr('date')).toISOString().split('T')[0];
+
+                                if (responseWorker == trWorker && responseDate == trDate) 
+                                {
+                                    $(tr[j]).children('td').children('.LwxRoYhfmyzTlGm').children('input').eq(0).val(hour_input_1);
+                                    $(tr[j]).children('td').children('.LwxRoYhfmyzTlGm').children('input').eq(1).val(hour_input_2);
+                                    $(tr[j]).children('td').children('.LwxRoYhfmyzTlGm').append(response.contentResult.content);
+
+                                    if (j === tr.length - 1)
+                                    {
+                                        $('#loaderID_').remove(); //koniec ładowania
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else 
+                    {
+
+                    }
+                }
             },
             error: function (xhr, status, error)
             {

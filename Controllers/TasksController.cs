@@ -1646,7 +1646,7 @@ namespace TimeTask.Controllers
                             "</div>" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<input disabled id=\"lcgkhBMDzScROMd\" type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"ksDOTJUbXxnvIKA(" + year + ", " + week + ", " + department + ")\" />" +
+                            "<input disabled id=\"lcgkhBMDzScROMd\" type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"ksDOTJUbXxnvIKA(" + department + ")\" />" +
                         "</div>" +
                         "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
                             "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
@@ -1658,14 +1658,14 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult DaysDiv(int year, int week, int department)
+        public ActionResult DaysDiv(int year, int week)
         {
             List<DateTime> days = getDatesInWeek((int)year, (int)week);
 
             string daysString = "";
             foreach (var day in days)
             {
-                daysString += "<div class=\"oJeaEVIeaFrjGFz ijEfZAzszvHWwUi\" onclick=\"NFjIyzElkiTJLTK(event, this)\" id=\"" + day.Day + "\" name=\"" + day.ToString("ddd") + "\">" +
+                daysString += "<div class=\"oJeaEVIeaFrjGFz ijEfZAzszvHWwUi\" onclick=\"NFjIyzElkiTJLTK(event, this)\" id=\"" + day.Day + "\" name=\"" + day.ToString("ddd") + "\" date=\"" + day.ToShortDateString() + "\">" +
                         "<svg viewBox=\"0 0 24 24\" height=\"22\" width=\"22\"><path fill=\"none\" d=\"M0 0h24v24H0z\"></path><path d=\"M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 \"></path></svg>" +
                         "<span>" + day.ToString("dddd") + "</span>" +
                     "</div>";
@@ -1679,56 +1679,93 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AssignHoursForAll(int year, int week, int department)
+        public ActionResult AssignHoursForAll(int department, List<string> dates, TimeOnly hourFrom, TimeOnly hourTo)
         {
-            List<int> workers = _context.Workers2.Where(x => x.DepartmentID == department).Select(x => x.Id).ToList();
-            List<DateTime> days = getDatesInWeek((int)year, (int)week);
+            bool checkIfFirst = false;
 
-            List<Task2> test = new List<Task2>();
+            var workers = _context.Workers2.Where(x => x.DepartmentID == department);
 
-            foreach (var workerId in workers)
+            List<Task2> returnList = new List<Task2>();
+
+            foreach (var worker in workers)
             {
-                //var newData = new Task2()
-                //{
-                //    WorkerID = workerID,
-                //    TaskNameID = null,
-                //    Date = date,
-                //    JobStart = start,
-                //    JobEnd = exit
-                //};
-
-                //_context.Task2.Add(newData);
-                //_context.SaveChanges();
-
-
-                //var row = _context.Task2.FirstOrDefault(e => e.Id == id_);
-                //if (row != null)
-                //{
-                //    row.JobStart = null;
-                //    row.JobEnd = null;
-                //    _context.SaveChanges();
-                //}
-
-                //var taskArray = _context.Task2();
-                foreach (var day in days)
+                foreach (string date in dates)
                 {
-                    foreach (var row in _context.Task2)
+                    var taskArray = _context.Task2.Where(x => x.WorkerID == worker.Id);
+
+                    if (taskArray.Any())
                     {
-                        if (row.WorkerID == workerId && row.Date.HasValue && row.Date.Value.ToShortDateString() == day.ToShortDateString())
+                        foreach (var item in taskArray)
                         {
-                            test.Add(row);
+
+
+                            //if (item.WorkerID == worker && item.Date.HasValue && item.Date.Value.ToShortDateString() == date)
+                            //{
+                            //    test.Add(item);
+                            //    //edit
+                            //    var row = _context.Task2.FirstOrDefault(e => e.Id == item.Id);
+                            //    if (row != null)
+                            //    {
+                            //        row.JobStart = MergeDateAndTime(item.Date.Value, hourFrom);
+                            //        row.JobEnd = MergeDateAndTime(item.Date.Value, hourTo);
+                            //        _context.SaveChanges();
+                            //    }
+                            //}
+                            //else
+                            //{
+                            //    test.Add(item);
+                            //    //add
+                            //    var newDate = DateTime.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+                            //    var newData = new Task2()
+                            //    {
+                            //        WorkerID = worker,
+                            //        TaskNameID = null,
+                            //        Date = MergeDateAndTime(newDate, null),
+                            //        JobStart = MergeDateAndTime(newDate, hourFrom),
+                            //        JobEnd = MergeDateAndTime(newDate, hourTo)
+                            //    };
+
+                            //    _context.Task2.Add(newData);
+                            //    _context.SaveChanges();
+                            //}
                         }
-                        else
+                    }
+                    else
+                    {
+                        var newDate = new DateTime(int.Parse(date.Split('.')[2]), int.Parse(date.Split('.')[1]), int.Parse(date.Split('.')[0]));
+
+                        var newData = new Task2()
                         {
-                            test.Add(row);
-                        }
+                            WorkerID = worker.Id,
+                            TaskNameID = null,
+                            Date = MergeDateAndTime(newDate, null),
+                            JobStart = MergeDateAndTime(newDate, hourFrom),
+                            JobEnd = MergeDateAndTime(newDate, hourTo)
+                        };
+
+                        _context.Task2.Add(newData);
+                        _context.SaveChanges();
+
+                        returnList.Add(newData);
+
+                        checkIfFirst = true;
                     }
                 }
             }
 
-            if (test.Any())
+            if (returnList.Any())
             {
-                return Json(test);
+                if (checkIfFirst)
+                {
+                    string deleteButton = "<a class=\"MNewKOhqZkqNDeJ\" onclick=\"czzROjFaPsDoZoT(this)\" title=\"Usuń godziny\"><ion-icon name=\"trash-outline\"></ion-icon></a>";
+
+                    return Json(new { checkIfFirst, returnList, contentResult = Content(deleteButton) });
+                }
+                else
+                {
+                    return Json(new { checkIfFirst, returnList });
+                }
             }
 
             return Json(false);
