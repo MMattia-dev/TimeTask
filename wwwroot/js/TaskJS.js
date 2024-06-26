@@ -1014,7 +1014,7 @@ function ksDOTJUbXxnvIKA(department)
     if (MdQnLBuxjkWnziZ.length > 0 && hour_input_1 != '' && hour_input_2 != '')
     {
         $('#leJHkkOjgbGLkyn').remove();
-        $('.right-nav').append(createLoader()); //ładowanie
+        $('.parent').append(createLoader()); //ładowanie
 
         $.ajax({
             type: 'POST',
@@ -1030,19 +1030,21 @@ function ksDOTJUbXxnvIKA(department)
                 //console.log(response);
                 if (response != false && response.returnList.length > 0) 
                 {
-                    let tr = document.querySelectorAll('#table tbody tr');
+                    let tr = document.querySelectorAll('#table tbody tr td:not(:first-child)');
 
                     if (response.checkIfFirst) 
                     {
+                        //console.log(response.returnList);
+
                         for (let i = 0; i < response.returnList.length; i++)
                         {
-                            let responseWorker = parseInt(response.returnList[i].WorkerId);
-                            let responseDate = response.returnList[i].Date.toISOString().split('T')[0];
+                            let responseWorker = response.returnList[i].item2;
+                            let responseDate = new Date(response.returnList[i].item1).toISOString().split('T')[0];
 
                             for (let j = 0; j < tr.length; j++) 
                             {
-                                let trWorker = parseInt($(tr[j]).children('td').attr('worker'));
-                                let trDate = new Date($(tr[j]).attr('date')).toISOString().split('T')[0];
+                                let trWorker = parseInt($(tr[j]).attr('worker'));
+                                let trDate = new Date($(tr[j]).parent().attr('date')).toISOString().split('T')[0];
 
                                 if (responseWorker == trWorker && responseDate == trDate) 
                                 {

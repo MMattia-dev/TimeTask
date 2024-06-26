@@ -1685,7 +1685,8 @@ namespace TimeTask.Controllers
 
             var workers = _context.Workers2.Where(x => x.DepartmentID == department);
 
-            List<Task2> returnList = new List<Task2>();
+            //List<Task2> returnList = new List<Task2>();
+            List<Tuple<DateTime, int>> returnList = new List<Tuple<DateTime, int>>(); 
 
             foreach (var worker in workers)
             {
@@ -1744,10 +1745,11 @@ namespace TimeTask.Controllers
                             JobEnd = MergeDateAndTime(newDate, hourTo)
                         };
 
-                        _context.Task2.Add(newData);
-                        _context.SaveChanges();
+                        //_context.Task2.Add(newData);
+                        //_context.SaveChanges();
 
-                        returnList.Add(newData);
+                        //returnList.Add(newData);
+                        returnList.Add(new Tuple<DateTime, int>(MergeDateAndTime(newDate, null), worker.Id));
 
                         checkIfFirst = true;
                     }
