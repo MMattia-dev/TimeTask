@@ -1596,10 +1596,10 @@ namespace TimeTask.Controllers
                             "<input type=\"text\" value=\"" + departmentName + "\" class=\"form-control\" disabled />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<input type=\"button\" value=\"Ustaw godziny dla wszystkich dla wybranego tygodnia\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"KknXAduygEtFJvn()\" />" +
+                            "<input type=\"button\" value=\"Ustaw/Edytuj godziny dla wszystkich dla wybranego tygodnia\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"KknXAduygEtFJvn()\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<input type=\"button\" value=\"Ustaw zadanie dla wszystkich dla wybranego tygodnia\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"USnvJSnvkJlVGaA()\" />" +
+                            "<input type=\"button\" value=\"Ustaw/Edytuj zadanie dla wszystkich dla wybranego tygodnia\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"USnvJSnvkJlVGaA()\" />" +
                         "</div>" +
                         "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
                             "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
@@ -1681,11 +1681,8 @@ namespace TimeTask.Controllers
         [HttpPost]
         public ActionResult AssignHoursForAll(int department, List<string> dates, TimeOnly hourFrom, TimeOnly hourTo)
         {
-            bool checkIfFirst = false;
-
             var workers = _context.Workers2.Where(x => x.DepartmentID == department);
 
-            //List<Task2> returnList = new List<Task2>();
             List<Tuple<DateTime, int>> returnList = new List<Tuple<DateTime, int>>(); 
 
             foreach (var worker in workers)
@@ -1698,8 +1695,6 @@ namespace TimeTask.Controllers
                     {
                         foreach (var item in taskArray)
                         {
-
-
                             //if (item.WorkerID == worker && item.Date.HasValue && item.Date.Value.ToShortDateString() == date)
                             //{
                             //    test.Add(item);
@@ -1730,6 +1725,15 @@ namespace TimeTask.Controllers
                             //    _context.Task2.Add(newData);
                             //    _context.SaveChanges();
                             //}
+
+
+
+
+
+                            //if (row.Id.Equals(arrayOfIds.Last()))
+                            //{
+                            //    return Json(new { success = true, addButton = true, contentResult = Content(deleteButton) });
+                            //}
                         }
                     }
                     else
@@ -1745,29 +1749,17 @@ namespace TimeTask.Controllers
                             JobEnd = MergeDateAndTime(newDate, hourTo)
                         };
 
-                        //_context.Task2.Add(newData);
-                        //_context.SaveChanges();
+                        _context.Task2.Add(newData);
+                        _context.SaveChanges();
 
-                        //returnList.Add(newData);
                         returnList.Add(new Tuple<DateTime, int>(MergeDateAndTime(newDate, null), worker.Id));
-
-                        checkIfFirst = true;
                     }
                 }
             }
 
             if (returnList.Any())
             {
-                if (checkIfFirst)
-                {
-                    string deleteButton = "<a class=\"MNewKOhqZkqNDeJ\" onclick=\"czzROjFaPsDoZoT(this)\" title=\"Usuń godziny\"><ion-icon name=\"trash-outline\"></ion-icon></a>";
-
-                    return Json(new { checkIfFirst, returnList, contentResult = Content(deleteButton) });
-                }
-                else
-                {
-                    return Json(new { checkIfFirst, returnList });
-                }
+                return Json(new { success = true });
             }
 
             return Json(false);

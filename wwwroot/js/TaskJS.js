@@ -1027,43 +1027,9 @@ function ksDOTJUbXxnvIKA(department)
             },
             success: function (response)
             {
-                //console.log(response);
-                if (response != false && response.returnList.length > 0) 
+                if (response != false) 
                 {
-                    let tr = document.querySelectorAll('#table tbody tr td:not(:first-child)');
-
-                    if (response.checkIfFirst) 
-                    {
-                        //console.log(response.returnList);
-
-                        for (let i = 0; i < response.returnList.length; i++)
-                        {
-                            let responseWorker = response.returnList[i].item2;
-                            let responseDate = new Date(response.returnList[i].item1).toISOString().split('T')[0];
-
-                            for (let j = 0; j < tr.length; j++) 
-                            {
-                                let trWorker = parseInt($(tr[j]).attr('worker'));
-                                let trDate = new Date($(tr[j]).parent().attr('date')).toISOString().split('T')[0];
-
-                                if (responseWorker == trWorker && responseDate == trDate) 
-                                {
-                                    $(tr[j]).children('td').children('.LwxRoYhfmyzTlGm').children('input').eq(0).val(hour_input_1);
-                                    $(tr[j]).children('td').children('.LwxRoYhfmyzTlGm').children('input').eq(1).val(hour_input_2);
-                                    $(tr[j]).children('td').children('.LwxRoYhfmyzTlGm').append(response.contentResult.content);
-
-                                    if (j === tr.length - 1)
-                                    {
-                                        $('#loaderID_').remove(); //koniec ładowania
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    else 
-                    {
-
-                    }
+                    location.reload();
                 }
             },
             error: function (xhr, status, error)
