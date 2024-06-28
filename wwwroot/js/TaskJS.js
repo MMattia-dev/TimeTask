@@ -1029,7 +1029,8 @@ function ksDOTJUbXxnvIKA(department)
             {
                 if (response != false) 
                 {
-                    location.reload();
+                    //location.reload();
+                    console.log(response);
                 }
             },
             error: function (xhr, status, error)

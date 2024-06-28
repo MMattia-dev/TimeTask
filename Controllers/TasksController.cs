@@ -1726,9 +1726,29 @@ namespace TimeTask.Controllers
                             //    _context.SaveChanges();
                             //}
 
+                            if (item.Date.HasValue && item.Date.Value.ToShortDateString() == date)
+                            {
+                                return Json("1");
+                            }
+                            else
+                            {
+                                //return Json("2");
+                                var newDate = new DateTime(int.Parse(date.Split('.')[2]), int.Parse(date.Split('.')[1]), int.Parse(date.Split('.')[0]));
 
+                                var newData = new Task2()
+                                {
+                                    WorkerID = worker.Id,
+                                    TaskNameID = null,
+                                    Date = MergeDateAndTime(newDate, null),
+                                    JobStart = MergeDateAndTime(newDate, hourFrom),
+                                    JobEnd = MergeDateAndTime(newDate, hourTo)
+                                };
 
+                                _context.Task2.Add(newData);
+                                _context.SaveChanges();
 
+                                returnList.Add(new Tuple<DateTime, int>(MergeDateAndTime(newDate, null), worker.Id));
+                            }
 
                             //if (row.Id.Equals(arrayOfIds.Last()))
                             //{
