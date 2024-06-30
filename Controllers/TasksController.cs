@@ -1695,46 +1695,26 @@ namespace TimeTask.Controllers
                     {
                         foreach (var item in taskArray)
                         {
-                            //if (item.WorkerID == worker && item.Date.HasValue && item.Date.Value.ToShortDateString() == date)
-                            //{
-                            //    test.Add(item);
-                            //    //edit
-                            //    var row = _context.Task2.FirstOrDefault(e => e.Id == item.Id);
-                            //    if (row != null)
-                            //    {
-                            //        row.JobStart = MergeDateAndTime(item.Date.Value, hourFrom);
-                            //        row.JobEnd = MergeDateAndTime(item.Date.Value, hourTo);
-                            //        _context.SaveChanges();
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    test.Add(item);
-                            //    //add
-                            //    var newDate = DateTime.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-
-                            //    var newData = new Task2()
-                            //    {
-                            //        WorkerID = worker,
-                            //        TaskNameID = null,
-                            //        Date = MergeDateAndTime(newDate, null),
-                            //        JobStart = MergeDateAndTime(newDate, hourFrom),
-                            //        JobEnd = MergeDateAndTime(newDate, hourTo)
-                            //    };
-
-                            //    _context.Task2.Add(newData);
-                            //    _context.SaveChanges();
-                            //}
-
                             if (item.Date.HasValue && item.Date.Value.ToShortDateString() == date)
                             {
-                                return Json("1");
+                                //return Json("1");
+
+                                var row = _context.Task2.FirstOrDefault(e => e.Id == item.Id);
+                                if (row != null)
+                                {
+                                    row.JobStart = MergeDateAndTime(item.Date.Value, hourFrom);
+                                    row.JobEnd = MergeDateAndTime(item.Date.Value, hourTo);
+                                    _context.SaveChanges();
+                                }
+
+                                returnList.Add(new Tuple<DateTime, int>(item.Date.Value, worker.Id));
                             }
                             else
                             {
                                 //return Json("2");
                                 var newDate = new DateTime(int.Parse(date.Split('.')[2]), int.Parse(date.Split('.')[1]), int.Parse(date.Split('.')[0]));
 
+                                //
                                 var newData = new Task2()
                                 {
                                     WorkerID = worker.Id,
@@ -1744,8 +1724,8 @@ namespace TimeTask.Controllers
                                     JobEnd = MergeDateAndTime(newDate, hourTo)
                                 };
 
-                                _context.Task2.Add(newData);
-                                _context.SaveChanges();
+                                //_context.Task2.Add(newData);
+                                //_context.SaveChanges();
 
                                 returnList.Add(new Tuple<DateTime, int>(MergeDateAndTime(newDate, null), worker.Id));
                             }
@@ -1769,8 +1749,8 @@ namespace TimeTask.Controllers
                             JobEnd = MergeDateAndTime(newDate, hourTo)
                         };
 
-                        _context.Task2.Add(newData);
-                        _context.SaveChanges();
+                        //_context.Task2.Add(newData);
+                        //_context.SaveChanges();
 
                         returnList.Add(new Tuple<DateTime, int>(MergeDateAndTime(newDate, null), worker.Id));
                     }
