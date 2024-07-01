@@ -1714,7 +1714,7 @@ namespace TimeTask.Controllers
                                 //return Json("2");
                                 var newDate = new DateTime(int.Parse(date.Split('.')[2]), int.Parse(date.Split('.')[1]), int.Parse(date.Split('.')[0]));
 
-                                //
+                                ////
                                 var newData = new Task2()
                                 {
                                     WorkerID = worker.Id,
