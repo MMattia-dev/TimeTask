@@ -1681,6 +1681,8 @@ namespace TimeTask.Controllers
         [HttpPost]
         public ActionResult AssignHoursForAll(int department, List<string> dates, TimeOnly hourFrom, TimeOnly hourTo)
         {
+            List<string> test = new List<string>();
+
             var workers = _context.Workers2.Where(x => x.DepartmentID == department);
 
             List<Tuple<DateTime, int>> returnList = new List<Tuple<DateTime, int>>(); 
@@ -1695,41 +1697,86 @@ namespace TimeTask.Controllers
                     {
                         foreach (var item in taskArray)
                         {
-                            if (item.Date.HasValue && item.Date.Value.ToShortDateString() == date)
+                            if (item.Date.HasValue)
                             {
-                                //return Json("1");
-
-                                var row = _context.Task2.FirstOrDefault(e => e.Id == item.Id);
-                                if (row != null)
+                                if (item.Date.Value.ToShortDateString() == date)
                                 {
-                                    row.JobStart = MergeDateAndTime(item.Date.Value, hourFrom);
-                                    row.JobEnd = MergeDateAndTime(item.Date.Value, hourTo);
-                                    _context.SaveChanges();
-                                }
+                                    //test.Add("1;" + item.Date.Value + ";" + worker.Surname);
+                                    var row = _context.Task2.FirstOrDefault(e => e.Id == item.Id);
+                                    if (row != null)
+                                    {
+                                        row.JobStart = MergeDateAndTime(item.Date.Value, hourFrom);
+                                        row.JobEnd = MergeDateAndTime(item.Date.Value, hourTo);
+                                        _context.SaveChanges();
 
-                                returnList.Add(new Tuple<DateTime, int>(item.Date.Value, worker.Id));
+                                        test.Add("1;" + item.Date.Value + ";" + worker.Surname);
+                                    }
+                                }
+                                else
+                                {
+                                    //if (item.TaskNameID != null)
+                                    //{
+                                    //    test.Add("2;" + item.Date.Value + ";" + worker.Surname);
+                                    //}
+                                    //else
+                                    //{
+                                    //    test.Add("2.5;" + item.Date.Value + ";" + worker.Surname);
+                                    //}
+
+                                    var newDate = new DateTime(int.Parse(date.Split('.')[2]), int.Parse(date.Split('.')[1]), int.Parse(date.Split('.')[0]));
+
+                                    var newData = new Task2()
+                                    {
+                                        WorkerID = worker.Id,
+                                        TaskNameID = null,
+                                        Date = MergeDateAndTime(newDate, null),
+                                        JobStart = MergeDateAndTime(newDate, hourFrom),
+                                        JobEnd = MergeDateAndTime(newDate, hourTo)
+                                    };
+
+                                    _context.Task2.Add(newData);
+                                    _context.SaveChanges();
+
+                                    test.Add("2;" + item.Date.Value + ";" + worker.Surname);
+                                }
                             }
                             else
                             {
-                                //return Json("2");
-                                var newDate = new DateTime(int.Parse(date.Split('.')[2]), int.Parse(date.Split('.')[1]), int.Parse(date.Split('.')[0]));
-
-
-                                //////
-                                var newData = new Task2()
-                                {
-                                    WorkerID = worker.Id,
-                                    TaskNameID = null,
-                                    Date = MergeDateAndTime(newDate, null),
-                                    JobStart = MergeDateAndTime(newDate, hourFrom),
-                                    JobEnd = MergeDateAndTime(newDate, hourTo)
-                                };
-
-                                //_context.Task2.Add(newData);
-                                //_context.SaveChanges();
-
-                                returnList.Add(new Tuple<DateTime, int>(MergeDateAndTime(newDate, null), worker.Id));
+                                //test.Add("2.5;" + null + ";" + worker.Surname);
                             }
+                            //if (item.Date.HasValue && item.Date.Value.ToShortDateString() == date)
+                            //{
+                            //    var row = _context.Task2.FirstOrDefault(e => e.Id == item.Id);
+                            //    if (row != null)
+                            //    {
+                            //        row.JobStart = MergeDateAndTime(item.Date.Value, hourFrom);
+                            //        row.JobEnd = MergeDateAndTime(item.Date.Value, hourTo);
+                            //        _context.SaveChanges();
+
+                            //        test.Add("1;" + item.Date.Value + ";" + worker.Surname);
+                            //    }
+
+                            //    //returnList.Add(new Tuple<DateTime, int>(item.Date.Value, worker.Id));
+                            //}
+                            //else
+                            //{
+                            //    var newDate = new DateTime(int.Parse(date.Split('.')[2]), int.Parse(date.Split('.')[1]), int.Parse(date.Split('.')[0]));
+
+                            //    var newData = new Task2()
+                            //    {
+                            //        WorkerID = worker.Id,
+                            //        TaskNameID = null,
+                            //        Date = MergeDateAndTime(newDate, null),
+                            //        JobStart = MergeDateAndTime(newDate, hourFrom),
+                            //        JobEnd = MergeDateAndTime(newDate, hourTo)
+                            //    };
+
+                            //    _context.Task2.Add(newData);
+                            //    _context.SaveChanges();
+
+                            //    //returnList.Add(new Tuple<DateTime, int>(MergeDateAndTime(newDate, null), worker.Id));
+                            //    test.Add("2;" + MergeDateAndTime(newDate, null) + ";" + worker.Surname);
+                            //}
 
                             //if (row.Id.Equals(arrayOfIds.Last()))
                             //{
@@ -1750,20 +1797,29 @@ namespace TimeTask.Controllers
                             JobEnd = MergeDateAndTime(newDate, hourTo)
                         };
 
-                        //_context.Task2.Add(newData);
-                        //_context.SaveChanges();
+                        _context.Task2.Add(newData);
+                        _context.SaveChanges();
 
-                        returnList.Add(new Tuple<DateTime, int>(MergeDateAndTime(newDate, null), worker.Id));
+                        //returnList.Add(new Tuple<DateTime, int>(MergeDateAndTime(newDate, null), worker.Id));
+                        test.Add("3;" + MergeDateAndTime(newDate, null) + ";" + worker.Surname);
                     }
                 }
             }
 
             if (returnList.Any())
             {
+                //return Json(new { success = true });
+            }
+
+            if (test.Any())
+            {
                 return Json(new { success = true });
+                //return Json(test);
             }
 
             return Json(false);
+            //return Json(test);
+
         }
 
         [HttpGet]
