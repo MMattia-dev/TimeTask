@@ -1596,10 +1596,10 @@ namespace TimeTask.Controllers
                             "<input type=\"text\" value=\"" + departmentName + "\" class=\"form-control\" disabled />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<input type=\"button\" value=\"Ustaw/Edytuj godziny dla wszystkich dla wybranego tygodnia\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"KknXAduygEtFJvn()\" />" +
+                            "<input type=\"button\" value=\"Ustaw godziny dla wszystkich dla wybranego tygodnia\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"KknXAduygEtFJvn()\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<input type=\"button\" value=\"Ustaw/Edytuj zadanie dla wszystkich dla wybranego tygodnia\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"USnvJSnvkJlVGaA()\" />" +
+                            "<input type=\"button\" value=\"Ustaw zadanie dla wszystkich dla wybranego tygodnia\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"USnvJSnvkJlVGaA()\" />" +
                         "</div>" +
                         "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
                             "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
@@ -1665,7 +1665,7 @@ namespace TimeTask.Controllers
             string daysString = "";
             foreach (var day in days)
             {
-                daysString += "<div class=\"oJeaEVIeaFrjGFz ijEfZAzszvHWwUi\" onclick=\"NFjIyzElkiTJLTK(event, this)\" id=\"" + day.Day + "\" name=\"" + day.ToString("ddd") + "\" date=\"" + day.ToShortDateString() + "\">" +
+                daysString += "<div class=\"oJeaEVIeaFrjGFz ijEfZAzszvHWwUi\" onclick=\"NFjIyzElkiTJLTK(event, this)\" id=\"" + day.Day + "\" name=\"" + day.ToString("ddd") + "\" date=\"" + day + "\">" +
                         "<svg viewBox=\"0 0 24 24\" height=\"22\" width=\"22\"><path fill=\"none\" d=\"M0 0h24v24H0z\"></path><path d=\"M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 \"></path></svg>" +
                         "<span>" + day.ToString("dddd") + "</span>" +
                     "</div>";
@@ -1679,162 +1679,141 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AssignHoursForAll(int department, List<string> dates, TimeOnly hourFrom, TimeOnly hourTo)
+        public ActionResult AssignHoursForAll(int department, List<DateTime> dates, TimeOnly hourFrom, TimeOnly hourTo)
         {
-            List<string> test = new List<string>();
+            int i = 0;
+            bool isLastIteration = false;
 
             var workers = _context.Workers2.Where(x => x.DepartmentID == department);
 
-            List<Tuple<DateTime, int>> returnList = new List<Tuple<DateTime, int>>(); 
-
-            foreach (var worker in workers)
+            foreach (var date in dates)
             {
-                foreach (string date in dates)
+                var arrayOfIds = new List<int>();
+                foreach (var worker in workers)
                 {
                     var taskArray = _context.Task2.Where(x => x.WorkerID == worker.Id);
-
-                    if (taskArray.Any())
+                    foreach (var task in taskArray)
                     {
-                        foreach (var item in taskArray)
+                        if (task.Date.HasValue && task.Date.Value.ToShortDateString() == date.ToShortDateString())
                         {
-                            if (item.Date.HasValue)
-                            {
-                                if (item.Date.Value.ToShortDateString() == date)
-                                {
-                                    //test.Add("1;" + item.Date.Value + ";" + worker.Surname);
-                                    var row = _context.Task2.FirstOrDefault(e => e.Id == item.Id);
-                                    if (row != null)
-                                    {
-                                        row.JobStart = MergeDateAndTime(item.Date.Value, hourFrom);
-                                        row.JobEnd = MergeDateAndTime(item.Date.Value, hourTo);
-                                        _context.SaveChanges();
-
-                                        test.Add("1;" + item.Date.Value + ";" + worker.Surname);
-                                    }
-                                }
-                                else
-                                {
-                                    //if (item.TaskNameID != null)
-                                    //{
-                                    //    test.Add("2;" + item.Date.Value + ";" + worker.Surname);
-                                    //}
-                                    //else
-                                    //{
-                                    //    test.Add("2.5;" + item.Date.Value + ";" + worker.Surname);
-                                    //}
-
-                                    var newDate = new DateTime(int.Parse(date.Split('.')[2]), int.Parse(date.Split('.')[1]), int.Parse(date.Split('.')[0]));
-
-                                    var newData = new Task2()
-                                    {
-                                        WorkerID = worker.Id,
-                                        TaskNameID = null,
-                                        Date = MergeDateAndTime(newDate, null),
-                                        JobStart = MergeDateAndTime(newDate, hourFrom),
-                                        JobEnd = MergeDateAndTime(newDate, hourTo)
-                                    };
-
-                                    _context.Task2.Add(newData);
-                                    _context.SaveChanges();
-
-                                    test.Add("2;" + item.Date.Value + ";" + worker.Surname);
-                                }
-                            }
-                            else
-                            {
-                                //test.Add("2.5;" + null + ";" + worker.Surname);
-                            }
-                            //if (item.Date.HasValue && item.Date.Value.ToShortDateString() == date)
-                            //{
-                            //    var row = _context.Task2.FirstOrDefault(e => e.Id == item.Id);
-                            //    if (row != null)
-                            //    {
-                            //        row.JobStart = MergeDateAndTime(item.Date.Value, hourFrom);
-                            //        row.JobEnd = MergeDateAndTime(item.Date.Value, hourTo);
-                            //        _context.SaveChanges();
-
-                            //        test.Add("1;" + item.Date.Value + ";" + worker.Surname);
-                            //    }
-
-                            //    //returnList.Add(new Tuple<DateTime, int>(item.Date.Value, worker.Id));
-                            //}
-                            //else
-                            //{
-                            //    var newDate = new DateTime(int.Parse(date.Split('.')[2]), int.Parse(date.Split('.')[1]), int.Parse(date.Split('.')[0]));
-
-                            //    var newData = new Task2()
-                            //    {
-                            //        WorkerID = worker.Id,
-                            //        TaskNameID = null,
-                            //        Date = MergeDateAndTime(newDate, null),
-                            //        JobStart = MergeDateAndTime(newDate, hourFrom),
-                            //        JobEnd = MergeDateAndTime(newDate, hourTo)
-                            //    };
-
-                            //    _context.Task2.Add(newData);
-                            //    _context.SaveChanges();
-
-                            //    //returnList.Add(new Tuple<DateTime, int>(MergeDateAndTime(newDate, null), worker.Id));
-                            //    test.Add("2;" + MergeDateAndTime(newDate, null) + ";" + worker.Surname);
-                            //}
-
-                            //if (row.Id.Equals(arrayOfIds.Last()))
-                            //{
-                            //    return Json(new { success = true, addButton = true, contentResult = Content(deleteButton) });
-                            //}
+                            arrayOfIds.Add(task.Id);
                         }
                     }
-                    else
+                }
+
+                foreach (var worker in workers)
+                {
+                    AddOrEditTime(worker.Id, date, new List<int>(), hourFrom, hourTo);
+                    i++;
+
+                    if (i == workers.Count() * dates.Count())
                     {
-                        var newDate = new DateTime(int.Parse(date.Split('.')[2]), int.Parse(date.Split('.')[1]), int.Parse(date.Split('.')[0]));
-
-                        var newData = new Task2()
-                        {
-                            WorkerID = worker.Id,
-                            TaskNameID = null,
-                            Date = MergeDateAndTime(newDate, null),
-                            JobStart = MergeDateAndTime(newDate, hourFrom),
-                            JobEnd = MergeDateAndTime(newDate, hourTo)
-                        };
-
-                        _context.Task2.Add(newData);
-                        _context.SaveChanges();
-
-                        //returnList.Add(new Tuple<DateTime, int>(MergeDateAndTime(newDate, null), worker.Id));
-                        test.Add("3;" + MergeDateAndTime(newDate, null) + ";" + worker.Surname);
+                        isLastIteration = true;
                     }
                 }
             }
 
-            if (returnList.Any())
-            {
-                //return Json(new { success = true });
-            }
-
-            if (test.Any())
+            if (isLastIteration)
             {
                 return Json(new { success = true });
-                //return Json(test);
             }
 
             return Json(false);
-            //return Json(test);
-
         }
 
         [HttpGet]
-        public ActionResult AssignTasksForAllForm()
+        public ActionResult AssignTasksForAllForm(int? savedYear, int? savedWeek, int? savedDepartment)
         {
+            int month = DateTime.Now.Month;
+            int day = DateTime.Now.Day;
+
+            int year = GetYear(savedYear);
+            int week = GetWeek(savedWeek, year, month, day);
+            int department = GetDepartmentId(savedDepartment);
+
+            string options = "";
+            foreach (var taskName in _context.TaskName2.Where(x => x.DepartmentID == department))
+            {
+                options += "<option value=\"" + taskName.Id + "\">" + taskName.Name + "</option>";
+            }
+
             string removeForm = "$('#ziubgYIMDAkZxTP').remove()";
 
             string form = "<div id=\"ziubgYIMDAkZxTP\" class=\"pGKcZvErUB\">" +
                     "<form class=\"form_\">" +
-                        "" +
+                        "<div class=\"form-group\">" +
+                            "<label>Wybierz zadanie:</label>" +
+                            "<select id=\"DFOtUXAzDWlbzYQ\" onchange=\"VMcMOySCeFdTRHU()\" class=\"form-control\">" +
+                                options +
+                            "</select>" +
+                        "</div>" +
+                        "<div class=\"form-group-margin\">" +
+                            "<label>Wybierz dni:</label>" +
+                            "<div id=\"rJsRgTkikJFkTVs\" class=\"IVnxgCORpPYL ijBuUPWrdXEngvb STxfpYUfaLUAern\" onclick=\"NDBuqpieiEpridq(this, " + year + ", " + week + ", " + department + ")\">" +
+                                "<div class=\"iNzvwDsTQXDyPIR\">" +
+                                    "<span id=\"dUzUxfaNorqvNMm\" style=\"color: rgba(255, 255, 255, 0.5);\">Wybierz dni</span>" +
+                                    "<div id=\"SBkLZHkCOnzAkgl\"></div>" +
+                                    "<ion-icon name=\"chevron-down-outline\"></ion-icon>" +
+                                "</div>" +
+                            "</div>" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input disabled id=\"lcgkhBMDzScROMd\" type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"DfqpMwbIHeqYiyR(" + department + ")\" />" +
+                        "</div>" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
                     "</form>" +
                 "</div>";
 
             return Content(form);
         }
+
+        [HttpPost]
+        public ActionResult AssignTaskForAll(int department, List<DateTime> dates, int taskId)
+        {
+            int i = 0;
+            bool isLastIteration = false;
+
+            var workers = _context.Workers2.Where(x => x.DepartmentID == department);
+
+            foreach (var date in dates)
+            {
+                var arrayOfIds = new List<int>();
+                foreach (var worker in workers)
+                {
+                    var taskArray = _context.Task2.Where(x => x.WorkerID == worker.Id);
+                    foreach (var task in taskArray)
+                    {
+                        if (task.Date.HasValue && task.Date.Value.ToShortDateString() == date.ToShortDateString())
+                        {
+                            arrayOfIds.Add(task.Id);
+                        }
+                    }
+                }
+
+                foreach (var worker in workers)
+                {
+                    //AddOrEditTime(worker.Id, date, new List<int>(), hourFrom, hourTo);
+
+                    i++;
+
+                    if (i == workers.Count() * dates.Count())
+                    {
+                        isLastIteration = true;
+                    }
+                }
+            }
+
+            if (isLastIteration)
+            {
+                return Json(new { success = true });
+            }
+
+            return Json(false);
+        }
+
+
 
 
     }

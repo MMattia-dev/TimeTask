@@ -834,6 +834,12 @@ function WfIEscZTJsEAoiw(year, week, department)
 
 function nDYntMlpKcjgONc() 
 {
+    MdQnLBuxjkWnziZ = [];
+    for (let i = 1; i <= 7; i++) //usun session storage "days checkboxes"
+    {
+        sessionStorage.removeItem('grafik_' + i);
+    }
+
     $.ajax({
         type: 'GET',
         url: '/Tasks/OtherSettingsForm',
@@ -869,6 +875,7 @@ function KknXAduygEtFJvn()
             $('#FMnrCopWCecUjag').remove();
             $('body').append(response);
 
+            MdQnLBuxjkWnziZ = [];
             for (let i = 1; i <= 7; i++) //usun session storage "days checkboxes"
             {
                 sessionStorage.removeItem('grafik_' + i);
@@ -925,9 +932,12 @@ function PHXgTRqEbNEfYsk()
     sessionStorage.removeItem('OIXejnXwFVXLtKT');
 };
 
-$('body').on('click', function ()
+$(document).on('click', function (event)
 {
-    PHXgTRqEbNEfYsk();
+    if (!$(event.target).closest('#shwJrqmCKCOdpeV').length)
+    {
+        PHXgTRqEbNEfYsk();
+    }
 });
 
 var MdQnLBuxjkWnziZ = [];
@@ -969,10 +979,20 @@ function NFjIyzElkiTJLTK(e, t)
         }
         $('#SBkLZHkCOnzAkgl').html('<span>' + string + '</span>');
 
-
-        if (document.getElementById('eYpvywdCgUdMWFB').value != '' && document.getElementById('AsLyaHDkxjuuiPP').value != '') 
+        if (document.getElementById('eYpvywdCgUdMWFB') && document.getElementById('AsLyaHDkxjuuiPP')) 
         {
-            $('#lcgkhBMDzScROMd').removeAttr('disabled');
+            if (document.getElementById('eYpvywdCgUdMWFB').value != '' && document.getElementById('AsLyaHDkxjuuiPP').value != '') 
+            {
+                $('#lcgkhBMDzScROMd').removeAttr('disabled');
+            }
+        }
+
+        if (document.getElementById('DFOtUXAzDWlbzYQ')) 
+        {
+            if (document.getElementById('DFOtUXAzDWlbzYQ').selectedIndex > 0) 
+            {
+                $('#lcgkhBMDzScROMd').removeAttr('disabled');
+            }
         }
     }
     else 
@@ -983,7 +1003,7 @@ function NFjIyzElkiTJLTK(e, t)
         $('#dUzUxfaNorqvNMm').show();
     }
 
-    e.stopPropagation();
+    //e.stopPropagation();
 };
 
 function kBwJoRVnVZFOCVS(e) 
@@ -1029,8 +1049,7 @@ function ksDOTJUbXxnvIKA(department)
             {
                 if (response != false) 
                 {
-                    //location.reload();
-                    console.log(response);
+                    location.reload();
                 }
             },
             error: function (xhr, status, error)
@@ -1046,14 +1065,73 @@ function USnvJSnvkJlVGaA()
     $.ajax({
         type: 'GET',
         url: '/Tasks/AssignTasksForAllForm',
+        data: {
+            savedYear: sessionStorage.getItem('LTRXohWjonyFAsg'),
+            savedWeek: sessionStorage.getItem('hQxHXfkxHkfALTJ'),
+            savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh')
+        },
         success: function (response)
         {
             $('#FMnrCopWCecUjag').remove();
             $('body').append(response);
+
+            MdQnLBuxjkWnziZ = [];
+            for (let i = 1; i <= 7; i++) 
+            {
+                sessionStorage.removeItem('grafik_' + i);
+            }
         },
         error: function (xhr, status, error)
         {
             console.log('Error:', error);
         }
     });
+};
+
+function VMcMOySCeFdTRHU() 
+{
+    if (MdQnLBuxjkWnziZ.length > 0) 
+    {
+        if (document.getElementById('DFOtUXAzDWlbzYQ').selectedIndex > 0) 
+        {
+            $('#lcgkhBMDzScROMd').removeAttr('disabled');
+        }
+    }
+};
+
+function DfqpMwbIHeqYiyR(department) 
+{
+    let array = [];
+    for (let i = 0; i < MdQnLBuxjkWnziZ.length; i++)
+    {
+        array.push(MdQnLBuxjkWnziZ[i].date);
+    }
+
+    if (MdQnLBuxjkWnziZ.length > 0) 
+    {
+        $('#ziubgYIMDAkZxTP').remove();
+        $('.parent').append(createLoader()); //ładowanie
+
+        $.ajax({
+            type: 'POST',
+            url: '/Tasks/AssignTaskForAll',
+            data: {
+                department: department,
+                dates: array,
+                taskId: document.getElementById('DFOtUXAzDWlbzYQ').value
+            },
+            success: function (response) 
+            {
+                if (response != false) 
+                {
+                    location.reload();
+                }
+            },
+            error: function (xhr, status, error) 
+            {
+                console.log('Error:', error);
+            }
+        });
+
+    }
 };
