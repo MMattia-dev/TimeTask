@@ -1681,6 +1681,10 @@ namespace TimeTask.Controllers
         [HttpPost]
         public ActionResult AssignHoursForAll(int department, List<DateTime> dates, TimeOnly hourFrom, TimeOnly hourTo)
         {
+            List<int> test = new List<int>();
+
+
+
             int i = 0;
             bool isLastIteration = false;
 
@@ -1689,6 +1693,14 @@ namespace TimeTask.Controllers
             foreach (var date in dates)
             {
                 var arrayOfIds = new List<int>();
+
+                ////TimeOnly? jobStart = null;
+                //DateTime? jobStart = null;
+                ////TimeOnly? jobEnd = null;
+                //DateTime? jobEnd = null;
+                //int? t = null;
+                //int id = 0;
+
                 foreach (var worker in workers)
                 {
                     var taskArray = _context.Task2.Where(x => x.WorkerID == worker.Id);
@@ -1697,13 +1709,189 @@ namespace TimeTask.Controllers
                         if (task.Date.HasValue && task.Date.Value.ToShortDateString() == date.ToShortDateString())
                         {
                             arrayOfIds.Add(task.Id);
+                            //if (task.JobStart.HasValue)
+                            //{
+                            //    //jobStart = TimeOnly.FromDateTime(task.JobStart.Value);
+                            //    jobStart = task.JobStart.Value;
+                            //}
+                            //if (task.JobEnd.HasValue)
+                            //{
+                            //    //jobEnd = TimeOnly.FromDateTime(task.JobEnd.Value);
+                            //    jobEnd = task.JobEnd.Value;
+                            //}
+                            //t = task.TaskNameID;
+                            //id = task.Id;
                         }
                     }
                 }
 
+
+
+
+                if (arrayOfIds.Count() > 0)
+                {
+                    //foreach (var item in arrayOfIds)
+                    //{
+                    //    var taskArray = _context.Task2;
+                    //    foreach (var row in taskArray)
+                    //    {
+                    //        if (row.Id == item)
+                    //        {
+                    //            if (row.Date.HasValue)
+                    //            {
+                    //                EditTask(row.Id, row.TaskNameID, MergeDateAndTime(row.Date.Value, hourFrom), MergeDateAndTime(row.Date.Value, hourTo));
+
+                    //                //if (date.ToShortDateString() == row.Date.Value.ToShortDateString())
+                    //                //{
+
+                    //                //}
+
+
+                    //            }
+                    //        }
+                    //    }
+
+
+                    //}
+                    //var taskArray = _context.Task2;
+                    //foreach (var item in taskArray)
+                    //{
+                    //    //if (item.Date.HasValue)
+                    //    //{
+                    //    //    if (item.Date.Value.ToShortDateString() == date.ToShortDateString())
+                    //    //    {
+                    //    //        foreach (var id in arrayOfIds)
+                    //    //        {
+                    //    //            if (item.Id == id)
+                    //    //            {
+                    //    //                //return Json("asd");
+                    //    //            }
+                    //    //        }
+                    //    //    }
+                    //    //}
+
+                    //    foreach (var worker in workers)
+                    //    {
+                    //        //if (item.WorkerID == worker.Id)
+                    //        //{
+                    //        //    if (item.Date.HasValue)
+                    //        //    {
+                    //        //        if (item.Date.Value.ToShortDateString() == date.ToShortDateString())
+                    //        //        {
+                    //        //            foreach (var id in arrayOfIds)
+                    //        //            {
+                    //        //                if (item.Id == id)
+                    //        //                {
+                    //        //                    //return Json("asd");
+                    //        //                    EditTask(item.Id, item.TaskNameID, MergeDateAndTime(item.Date.Value, hourFrom), MergeDateAndTime(item.Date.Value, hourTo));
+                    //        //                }
+                    //        //            }
+                    //        //        }
+                    //        //    }
+                    //        //}
+                    //        //else
+                    //        //{
+                    //        //    //return Json("eq");
+                    //        //    //AddTasks(worker.Id, null, date, MergeDateAndTime(date, hourFrom), MergeDateAndTime(date, hourTo));
+                    //        //    //break;
+
+                    //        //    if (!item.Date.HasValue)
+                    //        //    {
+                    //        //        return Json("asd");
+                    //        //    }
+                    //        //}
+
+
+
+                    //    }
+                    //}
+
+                    var taskArray = _context.Task2.ToList();
+                    foreach (var worker in workers)
+                    {
+                        if (taskArray != null)
+                        {
+                            if (taskArray.Where(x => x.Date.Value.ToShortDateString() == date.ToShortDateString()).Select(x => x.WorkerID).Contains(worker.Id))
+                            {
+                                var foundRows = taskArray.Where(x => x.Date.Value.ToShortDateString() == date.ToShortDateString() && x.WorkerID == worker.Id);
+                                //if (row != null)
+                                //{
+                                //    EditTask(row.Id, row.TaskNameID, MergeDateAndTime(row.Date.Value, hourFrom), MergeDateAndTime(row.Date.Value, hourTo));
+                                //}
+                                if (foundRows != null)
+                                {
+                                    foreach (var row in foundRows)
+                                    {
+                                        EditTask(row.Id, row.TaskNameID, MergeDateAndTime(row.Date.Value, hourFrom), MergeDateAndTime(row.Date.Value, hourTo));
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+                    foreach (var worker in workers)
+                    {
+                        AddTasks(worker.Id, null, date, MergeDateAndTime(date, hourFrom), MergeDateAndTime(date, hourTo));
+                    } 
+                }
+
+
+
+
                 foreach (var worker in workers)
                 {
-                    AddOrEditTime(worker.Id, date, new List<int>(), hourFrom, hourTo);
+                    //AddOrEditTime(worker.Id, date, new List<int>(), hourFrom, hourTo);
+
+
+
+                    //1. jest task, są godziny
+                    //2. nie ma tasku, są godziny
+                    //3. jest task, nie ma godzin
+                    //4. nie ma tasku, nie ma godzin -> add
+
+
+
+                    //if (t != null && jobStart != null && jobEnd != null)
+                    //{
+                    //    EditTask(id, t, jobStart, jobEnd);
+
+                    //}
+                    //if (t == null && jobStart != null && jobEnd != null)
+                    //{
+                    //    EditTask(id, t, jobStart, jobEnd);
+
+                    //}
+                    //if (t != null && jobStart == null && jobEnd == null)
+                    //{
+                    //    EditTask(id, t, jobStart, jobEnd);
+
+                    //}
+                    //if (t == null && jobStart == null && jobEnd == null)
+                    //{
+                    //    AddTasks(worker.Id, t, date, MergeDateAndTime(date, hourFrom), MergeDateAndTime(date, hourTo));
+
+                    //}
+
+                    //if (t == null && jobStart == null && jobEnd == null)
+                    //{
+                    //    //AddTasks(worker.Id, t, date, MergeDateAndTime(date, hourFrom), MergeDateAndTime(date, hourTo));
+
+                    //}
+                    //if (t == null && jobStart != null && jobEnd != null)
+                    //{
+                    //    //EditTask(id, t, MergeDateAndTime(date, hourFrom), MergeDateAndTime(date, hourTo));
+                    //    //test.Add(id);
+                        
+                    //}
+
+                    
+
+
+
+
                     i++;
 
                     if (i == workers.Count() * dates.Count())
@@ -1716,6 +1904,7 @@ namespace TimeTask.Controllers
             if (isLastIteration)
             {
                 return Json(new { success = true });
+                //return Json(test);
             }
 
             return Json(false);
@@ -1743,7 +1932,7 @@ namespace TimeTask.Controllers
                     "<form class=\"form_\">" +
                         "<div class=\"form-group\">" +
                             "<label>Wybierz zadanie:</label>" +
-                            "<select id=\"DFOtUXAzDWlbzYQ\" onchange=\"VMcMOySCeFdTRHU()\" class=\"form-control\">" +
+                            "<select id=\"DFOtUXAzDWlbzYQ\" class=\"form-control\">" +
                                 options +
                             "</select>" +
                         "</div>" +
@@ -1770,7 +1959,7 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AssignTaskForAll(int department, List<DateTime> dates, int taskId)
+        public ActionResult AssignTaskForAll(int department, List<DateTime> dates, int taskNameId)
         {
             int i = 0;
             bool isLastIteration = false;
@@ -1780,6 +1969,13 @@ namespace TimeTask.Controllers
             foreach (var date in dates)
             {
                 var arrayOfIds = new List<int>();
+                //TimeOnly? jobStart = null;
+                DateTime? jobStart = null;
+                //TimeOnly? jobEnd = null;
+                DateTime? jobEnd = null;
+                int? t = null;
+                int id = 0;
+
                 foreach (var worker in workers)
                 {
                     var taskArray = _context.Task2.Where(x => x.WorkerID == worker.Id);
@@ -1788,6 +1984,18 @@ namespace TimeTask.Controllers
                         if (task.Date.HasValue && task.Date.Value.ToShortDateString() == date.ToShortDateString())
                         {
                             arrayOfIds.Add(task.Id);
+                            if (task.JobStart.HasValue)
+                            {
+                                //jobStart = TimeOnly.FromDateTime(task.JobStart.Value);
+                                jobStart = task.JobStart.Value;
+                            }
+                            if (task.JobEnd.HasValue)
+                            {
+                                //jobEnd = TimeOnly.FromDateTime(task.JobEnd.Value);
+                                jobEnd = task.JobEnd.Value;
+                            }
+                            t = task.TaskNameID;
+                            id = task.Id;
                         }
                     }
                 }
@@ -1795,6 +2003,38 @@ namespace TimeTask.Controllers
                 foreach (var worker in workers)
                 {
                     //AddOrEditTime(worker.Id, date, new List<int>(), hourFrom, hourTo);
+
+                    //AddTask_(worker.Id, taskNameId, date, jobStart, jobEnd, arrayOfIds.Count());
+
+                    //AddTasks(worker.Id, taskNameId, date, jobStart, jobEnd);
+
+                    //1. jest task, są godziny
+                    //2. nie ma tasku, są godziny
+                    //3. jest task, nie ma godzin
+                    //4. nie ma tasku, nie ma godzin -> add
+
+                    //if (t != null && jobStart != null && jobEnd != null)
+                    //{
+                    //    EditTask(id, taskNameId, jobStart, jobEnd);
+                    //}
+                    //if (t == null && jobStart != null && jobEnd != null)
+                    //{
+                    //    EditTask(id, taskNameId, jobStart, jobEnd);
+                    //}
+                    //if (t != null && jobStart == null && jobEnd == null)
+                    //{
+                    //    EditTask(id, taskNameId, jobStart, jobEnd);
+                    //}
+                    //if (t == null && jobStart == null && jobEnd == null)
+                    //{
+                    //    AddTasks(worker.Id, taskNameId, date, jobStart, jobEnd);
+                    //}
+
+
+
+
+
+
 
                     i++;
 

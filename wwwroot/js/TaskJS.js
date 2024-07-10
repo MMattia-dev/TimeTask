@@ -989,7 +989,7 @@ function NFjIyzElkiTJLTK(e, t)
 
         if (document.getElementById('DFOtUXAzDWlbzYQ')) 
         {
-            if (document.getElementById('DFOtUXAzDWlbzYQ').selectedIndex > 0) 
+            if (document.getElementById('DFOtUXAzDWlbzYQ').selectedIndex > -1) 
             {
                 $('#lcgkhBMDzScROMd').removeAttr('disabled');
             }
@@ -1049,7 +1049,8 @@ function ksDOTJUbXxnvIKA(department)
             {
                 if (response != false) 
                 {
-                    location.reload();
+                    //location.reload();
+                    console.log(response);
                 }
             },
             error: function (xhr, status, error)
@@ -1088,17 +1089,6 @@ function USnvJSnvkJlVGaA()
     });
 };
 
-function VMcMOySCeFdTRHU() 
-{
-    if (MdQnLBuxjkWnziZ.length > 0) 
-    {
-        if (document.getElementById('DFOtUXAzDWlbzYQ').selectedIndex > 0) 
-        {
-            $('#lcgkhBMDzScROMd').removeAttr('disabled');
-        }
-    }
-};
-
 function DfqpMwbIHeqYiyR(department) 
 {
     let array = [];
@@ -1106,6 +1096,8 @@ function DfqpMwbIHeqYiyR(department)
     {
         array.push(MdQnLBuxjkWnziZ[i].date);
     }
+
+    let tnid = document.getElementById('DFOtUXAzDWlbzYQ').value;
 
     if (MdQnLBuxjkWnziZ.length > 0) 
     {
@@ -1118,7 +1110,7 @@ function DfqpMwbIHeqYiyR(department)
             data: {
                 department: department,
                 dates: array,
-                taskId: document.getElementById('DFOtUXAzDWlbzYQ').value
+                taskNameId: tnid
             },
             success: function (response) 
             {
