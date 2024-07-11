@@ -476,6 +476,12 @@ ion-icon {
 
     .right-nav.lsJiJbKJUVsiFNo {
         overflow: auto;
+        /*overflow: hidden;*/
+    }
+
+    .right-nav.ttbOkNfvCKQgfoH {
+        overflow: hidden;
+        /*overflow: auto;*/
     }
 
     .right-nav.SHNVXqYepsFyCsw {
@@ -1626,9 +1632,10 @@ ion-icon {
                 height: 50px;
                 min-height: 50px;
                 display: flex;
-                justify-content: start;
+                justify-content: space-between;
                 align-items: center;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                padding-right: 10px;
                 /*border-top: 1px solid rgba(255, 255, 255, 0.2);*/
             }
 
@@ -1661,6 +1668,10 @@ ion-icon {
                     min-width: 20px;
                     max-width: 20px;
                 }
+
+                    .IVnxgCORpPYL.ijBuUPWrdXEngvb.pKKeaPLlODAnOgN .oJeaEVIeaFrjGFz.ijEfZAzszvHWwUi .JedpDSUGFTACLwa {
+                        display: flex;
+                    }
 
                 .IVnxgCORpPYL.ijBuUPWrdXEngvb.pKKeaPLlODAnOgN .oJeaEVIeaFrjGFz.ijEfZAzszvHWwUi.QqPxuRNTyfpMJwi {
                     background-color: rgba(14, 16, 28, 1);
@@ -2661,10 +2672,35 @@ ion-icon {
         border-bottom: 1px solid black;
     }
 
+.grafik_panel {
+    position: fixed;
+    background-color: rgba(34, 36, 48, 1);
+}
+
+    .grafik_panel:hover {
+        background-color: rgba(54, 56, 68, 1);
+        cursor: pointer;
+    }
+
+    .grafik_panel.grafik_panelRight {
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 30px;
+        z-index: 10;
+    }
+
+    .grafik_panel.grafik_panelBottom {
+        bottom: 0;
+        right: 0;
+        height: 30px;
+        width: calc(100% - 75px);
+        z-index: 9;
+    }
+
 .task_table {
     table-layout: fixed;
-    overflow: auto;
-    position: relative;
+    /*overflow: auto;*/
 }
 
     .task_table thead {
@@ -2677,16 +2713,17 @@ ion-icon {
 
             .task_table thead tr th {
                 height: 70px;
-                border-right: 1px solid rgba(255, 255, 255, 0.1);
+                position: sticky;
+                top: 0;
+                /*background-color: rgba(34, 36, 48, 1);*/
+                background-color: rgba(34, 36, 48, 0.3);
+                backdrop-filter: blur(4px);
+                z-index: 2;
+                border-right: 1px solid #404040;
             }
 
-                .task_table thead tr th.locked {
-                    position: sticky;
-                    top: 0px;
-                    background-color: rgba(34, 36, 48, 1);
-                    z-index: 2;
-                    border-right: 1px solid rgba(255, 255, 255, 0.1);
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                .task_table thead tr th.vjhHvFgopmFabVr {
+                    box-shadow: inset 0 -1px 0 #404040;
                 }
 
                 .task_table thead tr th:not(:first-child) {
@@ -2722,35 +2759,26 @@ ion-icon {
                     width: 85px;
                     min-width: 85px;
                     max-width: 85px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
                 }
-                    .task_table thead tr th:first-child .GJakzZdfXNDmfZz {
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: center;
-                        align-items: center;
-                        text-align: center;
-                        height: 100%;
-                        width: 100%;
-                    }
 
-                        .task_table thead tr th:first-child .GJakzZdfXNDmfZz:hover {
-                            cursor: pointer;
-                            background-color: rgba(255, 255, 255, 0.1);
-                        }
+                .task_table thead tr th:nth-child(2).XQgfHJtzDYcFTLm {
+                    box-shadow: inset 1px 0 0 #404040;
+                }
+
+                .task_table thead tr th:nth-child(2).izuWWuIqNqHyJQJ {
+                    box-shadow: inset 1px -1px 0 #404040;
+                }    
 
     .task_table tbody {
         /**/
     }
 
         .task_table tbody tr {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid #404040;
         }
 
             .task_table tbody tr td {
-                border-right: 1px solid rgba(255, 255, 255, 0.1);
+                border-right: 1px solid #404040;
                 height: 200px;
                 max-height: 200px;
             }
@@ -2759,21 +2787,23 @@ ion-icon {
                 position: relative;
             }
 
-            .task_table tbody tr td.locked {
-                position: sticky;
-                left: 0px;
-                background-color: rgba(34, 36, 48, 1);
-                z-index: 1;
-            }
-
                 .task_table tbody tr td:first-child {
                     width: 85px;
                     max-width: 85px;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
+                    min-width: 85px;
+                    position: sticky;
+                    left: 0;
+                    /*background-color: rgba(34, 36, 48, 1);*/
+                    background-color: rgba(34, 36, 48, 0.3);
+                    /*background: linear-gradient(to right, rgba(34, 36, 48, 0) 50%, rgba(34, 36, 48, 0.5) 100%);*/
+                    backdrop-filter: blur(8px);
+                    z-index: 1;
+                    text-align: center;
                 }
+
+                    .task_table tbody tr td:first-child.sEmBPQCwNeEgole {
+                        box-shadow: inset -1px 0 0 #404040;
+                    }
 
                     .task_table tbody tr td:first-child span {
                         color: rgba(255, 255, 255, 0.8);
@@ -2790,7 +2820,7 @@ ion-icon {
                 .task_table tbody tr td div.LwxRoYhfmyzTlGm {
                     width: 100%;
                     height: 40px;
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                    border-bottom: 1px solid #404040;
                     display: flex;
                     justify-content: center;
                     align-items: center;

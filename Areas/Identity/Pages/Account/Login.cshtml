@@ -39,15 +39,23 @@
     </section>*@
 
     <section class="right-nav right-nav-fix" style="margin-left: 0px;">
-        <form id="account" method="post" class="form_2" style="display: none;">
-            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+        <form id="account" method="post" style="display: none;">
+            <div asp-validation-summary="ModelOnly" class="text-danger FaQpvzMjktgwVbO" role="alert"></div>
             <div class="form-group">
-                <input asp-for="Input.Email" type="email" placeholder="e-mail" aria-required="true" autocomplete="username" class="form-control" id="userid" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                <div class="labelText">
+                    <label>e-mail</label>
+                    <span asp-validation-for="Input.Email" lang="pl" class="text-danger hsDilyxlHmmgUUe"></span>
+                </div>
+                <input asp-for="Input.Email" type="email" aria-required="true" autocomplete="username" class="form-control" id="userid" />
+                @* <span asp-validation-for="Input.Email" class="text-danger"></span> *@
             </div>
             <div class="form-group form-group-margin">
-                <input asp-for="Input.Password" type="password" placeholder="password" aria-required="true" autocomplete="current-password" class="form-control" id="passid" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                <div class="labelText">
+                    <label>hasło</label>
+                    <span asp-validation-for="Input.Password" lang="pl" class="text-danger hsDilyxlHmmgUUe"></span>
+                </div>
+                <input asp-for="Input.Password" type="password" aria-required="true" autocomplete="current-password" class="form-control" id="passid" />
+                @* <span asp-validation-for="Input.Password" class="text-danger"></span> *@
             </div>
             @*<div class="form-group">
                 <label asp-for="Input.RememberMe" class="form-label">
@@ -56,12 +64,12 @@
                 </label>
             </div>*@
             <div class="form-group form-group-margin">
-                <button id="login-submit" type="button" class="btn-custom" onclick="logIn()">Log in</button> <!--logInUs(); -->
-                <button id="logInClick" type="submit"></button>
+                <button id="login-submit" type="button" class="btn-custom wrGCDkWAjoFTCiS" onclick="logIn()">Zaloguj</button> <!--logInUs(); -->
+                <button id="logInClick" type="submit" hidden></button>
             </div>
             <div class="form-group form-group2">
-                <a class="btn-custom_" id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                <a class="btn-custom_" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">New user? Register. (do zrobienia)</a>
+                <a class="btn-download tFlGIOwtMalkfgS WguSTckZVkExEBx" id="forgot-password" asp-page="./ForgotPassword">Zresetuj hasło</a>
+                <a class="btn-download tFlGIOwtMalkfgS WguSTckZVkExEBx" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Stwórz nowe konto (do zrobienia)</a>
                 @*<a class="btn-custom_" id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation.</a>*@
             </div>
 
@@ -148,6 +156,7 @@
 }
 
 <script type="text/javascript">
+
 
     sessionStorage.removeItem('chosenDepartment');
 

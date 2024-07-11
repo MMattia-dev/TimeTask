@@ -81,7 +81,7 @@ if (defaultWallpaper_ != null)
     //    'background-size': 'cover',
     //    'background-position': 'center'
     //});
-    if (defaultWallpaper_.indexOf("jpg") >= 0 || defaultWallpaper_.indexOf("gif") >= 0)
+    if (defaultWallpaper_.indexOf("jpg") >= 0 || defaultWallpaper_.indexOf("jpeg") >= 0 || defaultWallpaper_.indexOf("gif") >= 0)
     {
         $('html').css({
             'background': 'url(' + defaultWallpaper_ + ')',
@@ -195,23 +195,35 @@ function logOut() {
         $('#logOutClick').trigger('click');
     }, 1000);
 };
+function logIn() 
+{
+    if ($('#userid').val().length > 0 && $('#passid').val().length > 0)
+    {
+        //if text-danger is visible
+        //change language of text-danger
 
-function logIn() {
-    localStorage.setItem('logged', 'true');
-    $(loader).fadeIn();
 
-    setTimeout(function ()
+
+        localStorage.setItem('logged', 'true');
+        $(loader).fadeIn();
+
+        setTimeout(function ()
+        {
+            $('#logInClick').trigger('click');
+        }, 1000);
+    }
+    else 
     {
         $('#logInClick').trigger('click');
-    }, 1000);
-    
+
+    }
 };
 
 //$(loader).show();
 
 $(document).ready(function ()
 {
-    
+
     //$(loader).fadeOut();
 
     ////$('#account').fadeIn(300);
