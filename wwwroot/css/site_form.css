@@ -44,8 +44,7 @@
     -webkit-appearance: auto;
     appearance: menulist;
     /**/
-    
-    
+
 }
 
     .form-control:focus {
@@ -95,6 +94,19 @@
         .form-control.BdeTMrFhVdXURgF.raZYoDOYNwjFDKk {
             border-color: transparent;
         }
+
+    .form-control.ZRqsTiEveySPXEn {
+        width: 110px;
+    }
+
+    .form-control.PpUlJWeIciRKSTQ {
+        width: 190px;
+    }
+
+    .form-control.HZDznQEKaNVLIxx {
+        width: 120px;
+    }
+
 
 .form-floating.CvFOfCxRqEKEFvM {
     width: 100%;

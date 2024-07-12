@@ -261,23 +261,23 @@ namespace TimeTask.Controllers
             });
         }
 
-        [HttpPost]
-        public ActionResult AddTasks(int workerID, int? taskNameID, DateTime? date, DateTime? jobStart, DateTime? jobEnd)
-        {
-            var newData = new Task2()
-            {
-                WorkerID = workerID,
-                TaskNameID = taskNameID,
-                Date = date,
-                JobStart = jobStart,
-                JobEnd = jobEnd
-            };
+        //[HttpPost]
+        //public ActionResult AddTasks(int workerID, int? taskNameID, DateTime? date, DateTime? jobStart, DateTime? jobEnd)
+        //{
+        //    var newData = new Task2()
+        //    {
+        //        WorkerID = workerID,
+        //        TaskNameID = taskNameID,
+        //        Date = date,
+        //        JobStart = jobStart,
+        //        JobEnd = jobEnd
+        //    };
 
-            _context.Task2.Add(newData);
-            _context.SaveChanges();
-            return Json(new { success = true });
-            //return Json(newData.Id);
-        }
+        //    _context.Task2.Add(newData);
+        //    _context.SaveChanges();
+        //    return Json(new { success = true });
+        //    //return Json(newData.Id);
+        //}
 
         [HttpPost]
         public ActionResult RemoveTask(int id)

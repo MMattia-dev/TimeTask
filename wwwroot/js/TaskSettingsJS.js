@@ -57,7 +57,7 @@ function WAknWoEDCgnvjyY(id)
         },
         success: function (response)
         {
-            $('.YUPrikbkYzkc').html(response.contentResult.content);
+            $('#YUPrikbkYzkc_').html(response.contentResult.content);
             var tables = document.getElementsByTagName('table');
             for (var i = 0; i < tables.length; i++)
             {

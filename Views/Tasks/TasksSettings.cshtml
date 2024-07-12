@@ -1,0 +1,165 @@
+﻿@{
+    ViewData["Title"] = "TasksSettings";
+
+    //pierwszy dział
+    var firstDepartment = ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name).FirstOrDefault()?.Name;
+    var firstDepartmentID = ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name).FirstOrDefault()?.Id;
+
+    //czy są jakiekolwiek działy
+    var departmentsLength = ((IEnumerable<Department>)ViewBag.Departments).Count();
+}
+
+<link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
+
+<div class="parent">
+    <section class="left-nav">
+        @Html.Partial("_Settings");
+    </section>
+    <section class="right-nav">
+        <div class="kxOMhDZFzkDb yQNvRBYQAhqDuTe">
+            <div class="ECTosDyufuTqvBV gvkEfATyldCdKLB">
+                <a href="@Url.Action("Settings", "Tasks")" class="oZBtnmiLrunDFMC ahGbQKRlkOtlhln"><span>Zadania (tabela)</span></a>
+                <a href="@Url.Action("TasksSettings", "Tasks")" class="oZBtnmiLrunDFMC ahGbQKRlkOtlhln MQihtEemnyVHxOa"><span>Ustawienia</span></a>
+            </div>
+        </div>
+
+        <div class="YUPrikbkYzkc">
+            <div class="YavvRCMQscelhIs riqhWBvtFoKacNt KJiwNsHiMAVNLKL">
+
+                <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Ustawienia ogólne</span>
+
+                <div class="msdgExEZCpefgcL">
+                    <span>Widok grafiku:</span>
+                    <select class="form-control PpUlJWeIciRKSTQ">
+                        <option>Tygodniowy (domyślny)</option>
+                        <option>Miesięczny</option>
+                    </select>
+                </div>
+
+                <div class="msdgExEZCpefgcL">
+                    <span>Pierwszy dzień tygodnia:</span>
+                    <select class="form-control PpUlJWeIciRKSTQ">
+                        <option>Poniedziałek (domyślny)</option>
+                        <option>Niedziela</option>
+                    </select>
+                </div>
+
+                <div class="msdgExEZCpefgcL">
+                    <span>Limit przydzielonych zadań na dzień:</span>
+                    <select class="form-control HZDznQEKaNVLIxx">
+                        <option>7 (domyślny)</option>
+                        @for (int i = 6; i >= 1; i--)
+                        {
+                            <option>@i</option>
+                        }
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="YavvRCMQscelhIs riqhWBvtFoKacNt KJiwNsHiMAVNLKL">
+
+                <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Urlopy</span>
+
+                <div class="msdgExEZCpefgcL">
+                    <div>
+                        <label class="FdcnMtAlziKwEep">
+                            <input type="checkbox" id="" onchange="" />
+                            <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
+                        </label>
+                        <span class="hFzZLqJdsEqdlrx">Pokaż urlopy w grafiku</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="YavvRCMQscelhIs riqhWBvtFoKacNt KJiwNsHiMAVNLKL">
+
+                <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Święta</span>
+
+                <div class="msdgExEZCpefgcL">
+                    <div>
+                        <label class="FdcnMtAlziKwEep">
+                            <input type="checkbox" id="" onchange="" />
+                            <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
+                        </label>
+                        <span class="hFzZLqJdsEqdlrx">Pokaż święta w grafiku</span>
+                    </div>
+                </div>
+
+                <div class="msdgExEZCpefgcL">
+                    <div>
+                        <label class="FdcnMtAlziKwEep">
+                            <input type="checkbox" id="" onchange="" />
+                            <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
+                        </label>
+                        <span style="width: 375px;" class="hFzZLqJdsEqdlrx">Zablokuj możliwość dodawania zadań do dni świątecznych</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="YavvRCMQscelhIs riqhWBvtFoKacNt KJiwNsHiMAVNLKL">
+
+                <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Ustawienia dodatkowe</span>
+
+                <div class="msdgExEZCpefgcL">
+                    <div>
+                        <label class="FdcnMtAlziKwEep">
+                            <input type="checkbox" id="" onchange="" />
+                            <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
+                        </label>
+                        <span style="width: 254px;" class="hFzZLqJdsEqdlrx">Automatyczne powielanie grafiku</span>
+                    </div>
+
+                    @* <select class="form-control ZRqsTiEveySPXEn" style="margin-right: 20px;">
+                    <option>co tydzień</option>
+                    <option>co miesiąc</option>             zależnie od tego czy grafik jest tygodniowy czy miesięczny
+                    </select> *@
+
+                    <div class="VjYAEBHWVZOOXnf">
+                        <span>Rozpocznij od dnia:</span>
+                        <input class="form-control" type="date" id="DBuHyqhLORsufUq" />
+                    </div>
+                </div>
+
+                <div class="msdgExEZCpefgcL">
+                    <div>
+                        <label class="FdcnMtAlziKwEep">
+                            <input type="checkbox" id="" onchange="" />
+                            <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
+                        </label>
+                        <span style="width: 254px;" class="hFzZLqJdsEqdlrx">Automatyczne pobieranie grafiku</span>
+                    </div>
+
+                    <div class="VjYAEBHWVZOOXnf">
+                        <span>Rozpocznij od dnia:</span>
+                        <input class="form-control ZRqsTiEveySPXEn" type="date" id="DBuHyqhLORsufUq" />
+                    </div>
+                </div>
+
+                <div class="msdgExEZCpefgcL">
+                    <div>
+                        <label class="FdcnMtAlziKwEep">
+                            <input type="checkbox" id="" onchange="" />
+                            <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
+                        </label>
+                        <span class="hFzZLqJdsEqdlrx">Zablokuj możliwość edycji grafiku po określonym czasie:</span>
+                    </div>
+
+                    <select class="form-control PpUlJWeIciRKSTQ">
+                        <option>Tydzień</option>
+                        <option>Miesiąc</option>
+                        <option>Rok</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+</div>
+
+<script type="text/javascript" src="~/js/site.js"></script>
+<script type="text/javascript" src="~/js/TaskSettingsJS.js"></script>
+<script type="text/javascript" src="~/js/sorttable2.js"></script>

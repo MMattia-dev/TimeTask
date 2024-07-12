@@ -19,7 +19,7 @@ zrobione - 11) "czas pracy" i "urlopy" w ustawieniach zmieniæ na dwie osobne pod
 18) ustaw w "Grafiku" najwy¿sz¹ mo¿liw¹ iloœæ przydzielonych tasków na 10
 19) dodaj opcjê dodawania "nieobecny/na urlopie" zamiast godzin
 20) dokoñcz pobieranie excela i pdfa grafiku (!!!)
-
+21) wygaœ "parent" podczas d³u¿szej nieaktywnoœci w aplikacji (bêd¹c zalogowanym), na stronie g³ównej poka¿ zegar cyfrowy na górnej lewej stronie
 
 zmien wszystkie localstorage na sessionstorage
 zmien wszystkie id i class na has³a

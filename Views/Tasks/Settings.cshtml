@@ -16,12 +16,19 @@
         @Html.Partial("_Settings");
     </section>
     <section class="right-nav">
-        
         <div class="kxOMhDZFzkDb">
-            <div class="ECTosDyufuTqvBV">
-                
+            <div class="ECTosDyufuTqvBV gvkEfATyldCdKLB">
+                <a href="@Url.Action("Settings", "Tasks")" class="oZBtnmiLrunDFMC ahGbQKRlkOtlhln MQihtEemnyVHxOa"><span>Zadania (tabela)</span></a>
+                <a href="@Url.Action("TasksSettings", "Tasks")" class="oZBtnmiLrunDFMC ahGbQKRlkOtlhln"><span>Ustawienia</span></a>
+            </div>
+
+            <div class="ECTosDyufuTqvBV gvkEfATyldCdKLB">
                 @if (departmentsLength > 0)
                 {
+                    <div class="IVnxgCORpPYL ijBuUPWrdXEngvb RlREsSaJYGSFniA" id="MyRfivjxPqfhHQr" onclick="YENAVVQWwo(@firstDepartmentID)" title="Dodaj nowe zadanie">
+                        <ion-icon name="add-outline"></ion-icon>
+                    </div>
+
                     <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" id="rJsRgTkikJFkTVs" onclick="nGgUoVSOQmbYyoD()">
                         <ion-icon name="briefcase-outline"></ion-icon>
                         <div class="iNzvwDsTQXDyPIR">
@@ -30,26 +37,10 @@
                         </div>
                     </div>
                 }
-
-            </div>
-
-            @if (departmentsLength > 0)
-            {
-                <div class="IVnxgCORpPYL ijBuUPWrdXEngvb">
-                    <span>Ustawienia dodatkowe np.grafik tygodniowy czy miesieczny</span>
-                </div>
-                <div class="IVnxgCORpPYL ijBuUPWrdXEngvb">
-                    <span>Automatyczne powielanie grafiku, limit przydzielonych zadań na dzień</span>
-                </div>
-
-                <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" id="MyRfivjxPqfhHQr" onclick="YENAVVQWwo(@firstDepartmentID)">
-                    <ion-icon name="add-outline"></ion-icon>
-                    <span>Nowe zadanie</span>
-                </div>
-            }            
+            </div>          
         </div>
 
-        <div class="YUPrikbkYzkc"></div>
+        <div class="YUPrikbkYzkc" id="YUPrikbkYzkc_"></div>
 
     </section>
 </div>
