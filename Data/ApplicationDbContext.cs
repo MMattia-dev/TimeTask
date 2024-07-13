@@ -40,5 +40,6 @@ namespace TimeTask.Data
         public DbSet<TimeTask.Models.MainSettings2> MainSettings2 { get; set; } = default!;
         public DbSet<TimeTask.Models.TimeSettings3> TimeSettings3 { get; set; } = default!;
         public DbSet<TimeTask.Models.Task2> Task2 { get; set; } = default!;
+        public DbSet<TimeTask.Models.TasksSettings> TasksSettings { get; set; } = default!;
     }
 }

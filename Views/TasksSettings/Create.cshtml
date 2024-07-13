@@ -1,0 +1,88 @@
+﻿@model TimeTask.Models.TasksSettings
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>TasksSettings</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkScheduleView" class="control-label"></label>
+                <input asp-for="WorkScheduleView" class="form-control" />
+                <span asp-validation-for="WorkScheduleView" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstDayOfWeek" class="control-label"></label>
+                <input asp-for="FirstDayOfWeek" class="form-control" />
+                <span asp-validation-for="FirstDayOfWeek" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DayTasksLimit" class="control-label"></label>
+                <input asp-for="DayTasksLimit" class="form-control" />
+                <span asp-validation-for="DayTasksLimit" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ShowLeaves" /> @Html.DisplayNameFor(model => model.ShowLeaves)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ShowHolidays" /> @Html.DisplayNameFor(model => model.ShowHolidays)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="AutoCopySchedule" /> @Html.DisplayNameFor(model => model.AutoCopySchedule)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartCopyScheduleDate" class="control-label"></label>
+                <input asp-for="StartCopyScheduleDate" class="form-control" />
+                <span asp-validation-for="StartCopyScheduleDate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="AutoDownloadSchedule" /> @Html.DisplayNameFor(model => model.AutoDownloadSchedule)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDownloadScheduleDate" class="control-label"></label>
+                <input asp-for="StartDownloadScheduleDate" class="form-control" />
+                <span asp-validation-for="StartDownloadScheduleDate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="LockScheduleEdit" /> @Html.DisplayNameFor(model => model.LockScheduleEdit)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="LockTime" class="control-label"></label>
+                <input asp-for="LockTime" class="form-control" />
+                <span asp-validation-for="LockTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

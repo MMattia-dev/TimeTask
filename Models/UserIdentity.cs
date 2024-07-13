@@ -11,6 +11,7 @@ namespace TimeTask.Models
         [MaxLength(450)]
         public required string AspNetUsersId { get; set; }
         public int WorkerId { get; set; }
+        public int? GroupId { get; set; } //id grupy do której należy użytkownik, opcjonalne. (więcej w modelu Groups)
 
     }
 }

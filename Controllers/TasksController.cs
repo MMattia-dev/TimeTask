@@ -552,7 +552,7 @@ namespace TimeTask.Controllers
                             if (task.TaskName != null)
                             {
                                 tasks += "<div class=\"ZslufbFdcfCIeaW\">" +
-                                        "<span>" + _context.TaskName2.FirstOrDefault(x => x.Name == task.TaskName && x.DepartmentID == worker.DepartmentID)?.Name + "</span>" +
+                                        "<span>" + task.TaskName + "</span>" +
                                         "<a onclick=\"aTdCbXqRfUSGyXc(this, " + task.Id + ")\" title=\"Usuń zadanie\"><ion-icon name=\"close\"></ion-icon></a>" +
                                     "</div>";
                             }
@@ -2112,7 +2112,7 @@ namespace TimeTask.Controllers
             }
 
             string div = "<div id=\"shwJrqmCKCOdpeV\" class=\"IVnxgCORpPYL ijBuUPWrdXEngvb pKKeaPLlODAnOgN ufrBpxEyiiUltaQ\">" +
-                    daysString +
+                     daysString +
                 "</div>";
 
             return Content(div);

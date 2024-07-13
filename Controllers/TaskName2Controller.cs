@@ -334,9 +334,9 @@ namespace TimeTask.Controllers
                         "<div class=\"IvBtEDulLESDYxK\">" +
                             "<span>" + taskName + "</span>" +
                         "</div>" +
-                        "<div class=\"IvBtEDulLESDYxK\">" +
-                            "<span>Spowoduje to usunięcie zadań z tą nazwą we wszystkich grafikach dla działu " + departmentName + "! Upewnij się, że wszystkie potrzebne grafiki zostały pobrane!</span>" +
-                        "</div>" +
+                        //"<div class=\"IvBtEDulLESDYxK\">" +
+                        //    "<span>Spowoduje to usunięcie zadań z tą nazwą we wszystkich grafikach dla działu " + departmentName + "! Upewnij się, że wszystkie potrzebne grafiki zostały pobrane!</span>" +
+                        //"</div>" +
                         "<div class=\"btn-danger-div\">" +
                             "<input type=\"button\" value=\"Usuń\" onclick=\"aDkOgungYCvMbHN(" + id + ")\" />" +
                         "</div>" +

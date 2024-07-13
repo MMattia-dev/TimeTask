@@ -72,6 +72,15 @@ function createLoader()
     return loader;
 };
 
+function createSmallLoader2() 
+{
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+
+    return lds;
+};
+
 //wallpaper
 var defaultWallpaper_ = localStorage.getItem('wallpaper');
 if (defaultWallpaper_ != null)
@@ -726,9 +735,11 @@ $(document).on('keydown', function (e)
 
         if (e.key === "Enter")
         {
-            $('.btn-custom').trigger('click');
+            //$('.btn-custom').trigger('click');
+            return false;
         }
-    }    
+    }
+
 });
 
 function howManyTasks_(departmentID) 
@@ -778,23 +789,28 @@ function lhkKNaastOkkmMh(t)
 
 
 //let source = "";
-//let poi = `<video autoplay muted loop id="myVideo"><source src="` + source + `" type="video/mp4"></video>`;
+//let poi = `<video autoplay loop id="myVideo"><source src="` + source + `" type="video/mp4"></video>`;
 //$('.parent').append(poi);
 //let poi2 = `<label style="position: absolute; top: 10px; left: 10px; z-index: 1;"><input type="checkbox" id="asdfgh" /></label>`;
 //$('body').append(poi2);
 
 //var video = document.getElementById("myVideo");
-////$(window).on("beforeunload", function ()
-////{
-////    var vid = document.getElementById("myVideo");
-////    var currentTime = vid.currentTime;
-////    localStorage.setItem('video_', currentTime);
-////    return;
-////});
+//$(window).on("beforeunload", function ()
+//{
+//    var vid = document.getElementById("myVideo");
+//    var currentTime = vid.currentTime;
+//    localStorage.setItem('video_', currentTime);
+//    return;
+//});
+//if (localStorage.getItem('video_') != null) {
+//    var vid = document.getElementById("myVideo");
+//    vid.currentTime = localStorage.getItem('video_');
+//}
 
-//video.currentTime = 800;
+
+////video.currentTime = 600;
 //video.playbackRate = 1;
-////video.volume = 1;
+//video.volume = 0.5;
 
 //$('#asdfgh').on('change', function ()
 //{
@@ -822,7 +838,7 @@ function lhkKNaastOkkmMh(t)
 //            //$('.right-nav').fadeIn();
 //            //$('.left-nav').fadeIn();
 //            video.pause();
-//            video.volume = 0;
+//            //video.volume = 0;
 //        }, 400);
 //    }
 //});

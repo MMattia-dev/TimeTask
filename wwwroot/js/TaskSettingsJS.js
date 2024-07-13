@@ -350,3 +350,33 @@ function kEDVBzpHnAzOqpp(t, e)
 {
     e.stopPropagation();
 };
+
+function DGSWGCQnhgXKmAe(WpMXiAZVwrrkfTh) 
+{
+    let DGSWGCQnhgXKmAe_id = document.getElementById('DGSWGCQnhgXKmAe_');
+    let index = DGSWGCQnhgXKmAe_id.selectedIndex;
+    
+    $(DGSWGCQnhgXKmAe_id).parent().append(createSmallLoader2());
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/TasksSettingsAddOrEdit',
+        data: {
+            WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
+            workScheduleView: index
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                setTimeout(function () {
+                    $('.lds-ring-small').remove();
+                }, 300);     
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};

@@ -1,0 +1,101 @@
+﻿@model IEnumerable<TimeTask.Models.TasksSettings>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkScheduleView)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstDayOfWeek)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DayTasksLimit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShowLeaves)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShowHolidays)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AutoCopySchedule)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartCopyScheduleDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AutoDownloadSchedule)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDownloadScheduleDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LockScheduleEdit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LockTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkScheduleView)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstDayOfWeek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DayTasksLimit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShowLeaves)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShowHolidays)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AutoCopySchedule)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartCopyScheduleDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AutoDownloadSchedule)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDownloadScheduleDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LockScheduleEdit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LockTime)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
