@@ -20,5 +20,6 @@ namespace TimeTask.Models
         public bool LockScheduleEdit { get; set; } //zablokuj możliwość edycji grafiku po upływie wybranego czasu
         public int LockTime { get; set; } //0 = tydzień, 1 = miesiąc, 2 = rok
         public bool ShowOnlyInitials { get; set; } //czy ma pokazywać tylko inicjały imion i nazwisk 
+        public bool AllowOthersToEdit { get; set; } //Włącz możliwość edycji grafiku przez innych pracowników
     }
 }

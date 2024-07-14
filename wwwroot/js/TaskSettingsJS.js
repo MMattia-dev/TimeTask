@@ -364,6 +364,7 @@ function DGSWGCQnhgXKmAe(WpMXiAZVwrrkfTh)
         data: {
             WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
             workScheduleView: index
+            //dopisz resztę
         },
         success: function (response)
         {
