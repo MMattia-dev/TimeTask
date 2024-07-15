@@ -351,27 +351,25 @@ function kEDVBzpHnAzOqpp(t, e)
     e.stopPropagation();
 };
 
-function DGSWGCQnhgXKmAe(WpMXiAZVwrrkfTh) 
-{
-    let DGSWGCQnhgXKmAe_id = document.getElementById('DGSWGCQnhgXKmAe_');
-    let index = DGSWGCQnhgXKmAe_id.selectedIndex;
+function DGSWGCQnhgXKmAe(WpMXiAZVwrrkfTh) {
+    let element = document.getElementById('DGSWGCQnhgXKmAe_');
+    let index = element.selectedIndex;
     
-    $(DGSWGCQnhgXKmAe_id).parent().append(createSmallLoader2());
+    $(element).parent().append(createSmallLoader3());
 
     $.ajax({
         type: 'POST',
-        url: '/TasksSettings/TasksSettingsAddOrEdit',
+        url: '/TasksSettings/CWIKXSnlsspiXYE',
         data: {
             WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
-            workScheduleView: index
-            //dopisz resztę
+            workScheduleView: index,
         },
         success: function (response)
         {
             if (response != false) 
             {
                 setTimeout(function () {
-                    $('.lds-ring-small').remove();
+                    $('.lds-ring-small2').remove();
                 }, 300);     
             }
         },
@@ -381,3 +379,556 @@ function DGSWGCQnhgXKmAe(WpMXiAZVwrrkfTh)
         }
     });
 };
+
+function ynAnPsGicwfcWMt(WpMXiAZVwrrkfTh) {
+    let element = document.getElementById('ynAnPsGicwfcWMt_');
+    let index = element.selectedIndex;
+
+    $(element).parent().append(createSmallLoader3());
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/QnejSftKzHnXHGh',
+        data: {
+            WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
+            firstDayOfWeek: index,
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                setTimeout(function ()
+                {
+                    $('.lds-ring-small2').remove();
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function uTwWyyqQLuKCRUq(WpMXiAZVwrrkfTh) {
+    let element = document.getElementById('uTwWyyqQLuKCRUq_');
+    let value = element.value;
+
+    $(element).parent().append(createSmallLoader3());
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/lviiRZwkMwhqaFz',
+        data: {
+            WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
+            dayTasksLimit: value
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                setTimeout(function ()
+                {
+                    $('.lds-ring-small2').remove();
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function vHNhdTLtVqLZhGE(WpMXiAZVwrrkfTh) {
+    let element = document.getElementById('vHNhdTLtVqLZhGE_');
+    let checkStatus = element.checked;
+
+    $(element).parent().parent().append(createSmallLoader3());
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/aYDBWeCxsbWbRXT',
+        data: {
+            WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
+            showLeaves: checkStatus
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                setTimeout(function ()
+                {
+                    $('.lds-ring-small2').remove();
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function xIHLFrzYfniOJtj(WpMXiAZVwrrkfTh) {
+    let element = document.getElementById('xIHLFrzYfniOJtj_');
+    let checkStatus = element.checked;
+
+    $(element).parent().parent().append(createSmallLoader3());
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/tTuvgjjIbKgMnAT',
+        data: {
+            WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
+            showHolidays: checkStatus
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                setTimeout(function ()
+                {
+                    $('.lds-ring-small2').remove();
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function UbUzTtXGLKIHPnT(WpMXiAZVwrrkfTh) {
+    let element = document.getElementById('UbUzTtXGLKIHPnT_');
+    let checkStatus = element.checked;
+
+    $(element).parent().parent().append(createSmallLoader3());
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/eRLkNpeUUCgmaTG',
+        data: {
+            WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
+            lockAddingToHolidays: checkStatus
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                setTimeout(function ()
+                {
+                    $('.lds-ring-small2').remove();
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function BJhwjaWvHWWTVEo(WpMXiAZVwrrkfTh) {
+    let element = document.getElementById('BJhwjaWvHWWTVEo_');
+    let checkStatus = element.checked;
+
+    $(element).parent().parent().append(createSmallLoader3());
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/pITtnYRlNsBToxu',
+        data: {
+            WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
+            showOnlyInitials: checkStatus
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                setTimeout(function ()
+                {
+                    $('.lds-ring-small2').remove();
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function UnbUFgGDXRYLZYj(WpMXiAZVwrrkfTh) {
+    let element = document.getElementById('UnbUFgGDXRYLZYj_');
+    let checkStatus = element.checked;
+
+    $(element).parent().parent().append(createSmallLoader3());
+
+    if (!checkStatus) {
+        $('#NquudTpGloVzKoB').remove();
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/nrnghIGnHUEBHwZ',
+        data: {
+            WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
+            enablePrivateSchedule: checkStatus
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                setTimeout(function ()
+                {
+                    $('.lds-ring-small2').remove();
+
+                    if (checkStatus)
+                    {
+                        $(element).parent().parent().append(response.span.content);
+                    }
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function eSXbJrbKMlYGIrp(WpMXiAZVwrrkfTh) {
+    let element = document.getElementById('eSXbJrbKMlYGIrp_');
+    let checkStatus = element.checked;
+
+    $(element).parent().parent().append(createSmallLoader3());
+
+    if (!checkStatus) {
+        $('#pCAkeIBbalSqCTB_').remove();
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/ZwaEFuuPmrMYBqS',
+        data: {
+            WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
+            allowOthersToEdit: checkStatus
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                setTimeout(function ()
+                {
+                    $('.lds-ring-small2').remove();
+
+                    if (checkStatus) {
+                        $(element).parent().parent().append(response.span.content);
+                    }
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function enKTbQYvxBzlFBO(WpMXiAZVwrrkfTh) {
+    let element = document.getElementById('enKTbQYvxBzlFBO_');
+    let checkStatus = element.checked;
+
+    if (checkStatus)
+    {  
+        $(element).parent().parent().append(createSmallLoader3());
+    }
+    else 
+    {
+        $(element).parent().parent().parent().append(createSmallLoader3());
+        $('#qAIabAYRAJSWgqK_').remove();
+    }   
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/TDDLDmIHYjVfcuh',
+        data: {
+            WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
+            lockScheduleEdit: checkStatus,
+            lockTime: 0,
+            GvwTTLESihOmLhQ: WpMXiAZVwrrkfTh
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                setTimeout(function ()
+                {
+                    $('.lds-ring-small2').remove();
+                    if (checkStatus) {
+                        $(element).parent().parent().parent().append(response.select.content);
+                    }
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function qAIabAYRAJSWgqK(WpMXiAZVwrrkfTh) {
+    let element = document.getElementById('qAIabAYRAJSWgqK_');
+    let index = element.selectedIndex;
+
+    $(element).parent().append(createSmallLoader3());
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/juChQgTUCIkTtOm',
+        data: {
+            WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
+            lockTime: index
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                setTimeout(function ()
+                {
+                    $('.lds-ring-small2').remove();
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function ZwiLZYVPGXOWYCD(WpMXiAZVwrrkfTh) {
+    let element = document.getElementById('ZwiLZYVPGXOWYCD_');
+    let checkStatus = element.checked;
+
+    $(element).parent().parent().append(createSmallLoader3());
+
+    if (!checkStatus)
+    {
+        $('#ItYujZvGhAXoNJw').remove();
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/jjuMOIhJgObMnkV',
+        data: {
+            WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
+            autoCopySchedule: checkStatus,
+            GvwTTLESihOmLhQ: WpMXiAZVwrrkfTh
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                setTimeout(function ()
+                {
+                    $('.lds-ring-small2').remove();
+
+                    if (checkStatus)
+                    {
+                        $(element).parent().parent().append(response.div.content);
+
+                    }
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function oPEStVVIUxnydDp(WpMXiAZVwrrkfTh) {
+    let element = document.getElementById('oPEStVVIUxnydDp_');
+    let date = element.value;
+
+    $(element).parent().parent().append(createSmallLoader3());
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/diUskrbpMczAOwe',
+        data: {
+            WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
+            startCopyScheduleDate: date
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                setTimeout(function ()
+                {
+                    $('.lds-ring-small2').remove();
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+$('#oPEStVVIUxnydDp_').on('keydown', function (e) { 
+    e.preventDefault();
+});
+
+function gBTdQeDEXrAZpsu(WpMXiAZVwrrkfTh) {
+    let element = document.getElementById('gBTdQeDEXrAZpsu_');
+    let index = element.selectedIndex;
+
+    $(element).parent().append(createSmallLoader3());
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/rbEQghxgwXxjXzA',
+        data: {
+            WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
+            repeatAutoCopySchedule: index
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                setTimeout(function ()
+                {
+                    $('.lds-ring-small2').remove();
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function jXPbcuZxwEHflcw(WpMXiAZVwrrkfTh)
+{
+    let element = document.getElementById('jXPbcuZxwEHflcw_');
+    let checkStatus = element.checked;
+
+    $(element).parent().parent().append(createSmallLoader3());
+
+    if (!checkStatus)
+    {
+        $('#pNstugmIpmEENyd').remove();
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/ukDCUiaPPTbFNUr',
+        data: {
+            WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
+            autoShareSchedule: checkStatus,
+            GvwTTLESihOmLhQ: WpMXiAZVwrrkfTh
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                setTimeout(function ()
+                {
+                    $('.lds-ring-small2').remove();
+
+                    if (checkStatus)
+                    {
+                        $(element).parent().parent().append(response.div.content);
+
+                    }
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function XcUHXPHttLovDJu(WpMXiAZVwrrkfTh)
+{
+    let element = document.getElementById('XcUHXPHttLovDJu_');
+    let date = element.value;
+
+    $(element).parent().parent().append(createSmallLoader3());
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/XJjyLULKstxMRZK',
+        data: {
+            WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
+            startShareScheduleDate: date
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                setTimeout(function ()
+                {
+                    $('.lds-ring-small2').remove();
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+$('#XcUHXPHttLovDJu_').on('keydown', function (e)
+{
+    e.preventDefault();
+});
+
+function YcyAWdmiezAOUBV(WpMXiAZVwrrkfTh)
+{
+    let element = document.getElementById('YcyAWdmiezAOUBV_');
+    let index = element.selectedIndex;
+
+    $(element).parent().append(createSmallLoader3());
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/jdEewtdRqcJGuIS',
+        data: {
+            WpMXiAZVwrrkfTh: WpMXiAZVwrrkfTh,
+            repeatAutoShareSchedule: index
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                setTimeout(function ()
+                {
+                    $('.lds-ring-small2').remove();
+                }, 300);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function blyVpYCtnXKDgCn(WpMXiAZVwrrkfTh) {
+
+};
+
+
+

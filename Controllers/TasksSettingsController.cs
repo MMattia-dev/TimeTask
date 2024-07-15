@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -161,7 +162,21 @@ namespace TimeTask.Controllers
           return (_context.TasksSettings?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        public ActionResult TasksSettingsAddOrEdit(byte[] WpMXiAZVwrrkfTh, int workScheduleView, int firstDayOfWeek, int dayTasksLimit, bool showLeaves, bool showHolidays, bool autoCopySchedule, DateTime? startCopyScheduleDate, bool autoDownloadSchedule, DateTime? startDownloadScheduleDate, bool lockScheduleEdit, int lockTime)
+        public DateTime MergeDateAndTime(DateTime date, TimeOnly? time)
+        {
+            string timeString = "00:00";
+            if (time != null)
+            {
+                timeString = time.Value.ToString("HH:mm");
+            }
+
+            string e = date.ToString("yyyy-MM-dd") + " " + timeString;
+            DateTime dateTime = DateTime.ParseExact(e, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+
+            return dateTime;
+        }
+
+        public ActionResult CWIKXSnlsspiXYE(byte[] WpMXiAZVwrrkfTh, int workScheduleView)
         {
             byte[] encryptedUserId = WpMXiAZVwrrkfTh;
             var userId = Data.Encryption.EncryptionHelper.Decrypt(encryptedUserId);
@@ -174,53 +189,8 @@ namespace TimeTask.Controllers
                 var row = _context.TasksSettings.FirstOrDefault(x => x.UserId == userId);
                 if (row != null)
                 {
-                    if (row.WorkScheduleView != workScheduleView)
-                    {
-                        row.WorkScheduleView = workScheduleView;
-                    }
-                    if (row.FirstDayOfWeek != firstDayOfWeek)
-                    {
-                        row.FirstDayOfWeek = firstDayOfWeek;
-                    }
-                    if (row.DayTasksLimit != dayTasksLimit)
-                    {
-                        row.DayTasksLimit = dayTasksLimit;
-                    }
-                    if (row.ShowLeaves != showLeaves)
-                    {
-                        row.ShowLeaves = showLeaves;
-                    }
-                    if (row.ShowHolidays != showHolidays)
-                    {
-                        row.ShowHolidays = showHolidays;
-                    }
-                    if (row.AutoCopySchedule != autoCopySchedule)
-                    {
-                        row.AutoCopySchedule = autoCopySchedule;
-                    }
-                    if (row.StartCopyScheduleDate != startCopyScheduleDate)
-                    {
-                        row.StartCopyScheduleDate = startCopyScheduleDate;
-                    }
-                    if (row.AutoDownloadSchedule != autoDownloadSchedule)
-                    {
-                        row.AutoDownloadSchedule = autoDownloadSchedule;
-                    }
-                    if (row.StartDownloadScheduleDate != startDownloadScheduleDate)
-                    {
-                        row.StartDownloadScheduleDate = startDownloadScheduleDate;
-                    }
-                    if (row.LockScheduleEdit != lockScheduleEdit)
-                    {
-                        row.LockScheduleEdit = lockScheduleEdit;
-                    }
-                    if (row.LockTime != lockTime)
-                    {
-                        row.LockTime = lockTime;
-                    }
-
+                    row.WorkScheduleView = workScheduleView;
                     _context.SaveChanges();
-
                     return Json(new { success = true });
                 }
             }
@@ -229,31 +199,762 @@ namespace TimeTask.Controllers
                 //add
                 var newData = new TasksSettings()
                 {
-                    UserId = userId,
-                    WorkScheduleView = workScheduleView,
-                    FirstDayOfWeek = firstDayOfWeek,
-                    DayTasksLimit = dayTasksLimit,
-                    ShowLeaves = showLeaves,
-                    ShowHolidays = showHolidays,
-                    AutoCopySchedule = autoCopySchedule,
-                    StartCopyScheduleDate = startCopyScheduleDate,
-                    AutoDownloadSchedule = autoDownloadSchedule,
-                    StartDownloadScheduleDate = startDownloadScheduleDate,
-                    LockScheduleEdit = lockScheduleEdit,
-                    LockTime = lockTime
+                    UserId = userId,                        //
+                    WorkScheduleView = workScheduleView,    //
+                    FirstDayOfWeek = 0,
+                    DayTasksLimit = 10,
+                    ShowLeaves = false,
+                    ShowHolidays = false,
+                    AutoCopySchedule = false,
+                    StartCopyScheduleDate = null,
+                    AutoShareSchedule = false,
+                    StartShareScheduleDate = null,
+                    LockScheduleEdit = false,
+                    LockTime = 0,
+                    ShowOnlyInitials = false,
+                    AllowOthersToEdit = false,
+                    UserGroupId = null,
+                    LockAddingToHolidays = false,
+                    EnablePrivateSchedule = false,
+                    RepeatAutoCopySchedule = 0,
+                    RepeatAutoShareSchedule = 0
                 };
 
                 _context.TasksSettings.Add(newData);
                 _context.SaveChanges();
-
                 return Json(new { success = true });
             }
 
             return Json(false);
         }
 
+        public ActionResult QnejSftKzHnXHGh(byte[] WpMXiAZVwrrkfTh, int firstDayOfWeek)
+        {
+            byte[] encryptedUserId = WpMXiAZVwrrkfTh;
+            var userId = Data.Encryption.EncryptionHelper.Decrypt(encryptedUserId);
 
+            var taskSettingsArray = _context.TasksSettings.Where(x => x.UserId == userId);
 
+            if (taskSettingsArray.Any())
+            {
+                //edit
+                var row = _context.TasksSettings.FirstOrDefault(x => x.UserId == userId);
+                if (row != null)
+                {
+                    row.FirstDayOfWeek = firstDayOfWeek;
+                    _context.SaveChanges();
+                    return Json(new { success = true });
+                }
+            }
+            else
+            {
+                //add
+                var newData = new TasksSettings()
+                {
+                    UserId = userId,                        //
+                    WorkScheduleView = 0,
+                    FirstDayOfWeek = firstDayOfWeek,        //
+                    DayTasksLimit = 10,
+                    ShowLeaves = false,
+                    ShowHolidays = false,
+                    AutoCopySchedule = false,
+                    StartCopyScheduleDate = null,
+                    AutoShareSchedule = false,
+                    StartShareScheduleDate = null,
+                    LockScheduleEdit = false,
+                    LockTime = 0,
+                    ShowOnlyInitials = false,
+                    AllowOthersToEdit = false,
+                    UserGroupId = null,
+                    LockAddingToHolidays = false,
+                    EnablePrivateSchedule = false,
+                    RepeatAutoCopySchedule = 0,
+                    RepeatAutoShareSchedule = 0
+                };
+
+                _context.TasksSettings.Add(newData);
+                _context.SaveChanges();
+                return Json(new { success = true });
+            }
+
+            return Json(false);
+        }
+
+        public ActionResult lviiRZwkMwhqaFz(byte[] WpMXiAZVwrrkfTh, int dayTasksLimit)
+        {
+            byte[] encryptedUserId = WpMXiAZVwrrkfTh;
+            var userId = Data.Encryption.EncryptionHelper.Decrypt(encryptedUserId);
+
+            var taskSettingsArray = _context.TasksSettings.Where(x => x.UserId == userId);
+
+            if (taskSettingsArray.Any())
+            {
+                //edit
+                var row = _context.TasksSettings.FirstOrDefault(x => x.UserId == userId);
+                if (row != null)
+                {
+                    row.DayTasksLimit = dayTasksLimit;
+                    _context.SaveChanges();
+                    return Json(new { success = true });
+                }
+            }
+            else
+            {
+                //add
+                var newData = new TasksSettings()
+                {
+                    UserId = userId,                        //
+                    WorkScheduleView = 0,
+                    FirstDayOfWeek = 0,
+                    DayTasksLimit = dayTasksLimit,          //
+                    ShowLeaves = false,
+                    ShowHolidays = false,
+                    AutoCopySchedule = false,
+                    StartCopyScheduleDate = null,
+                    AutoShareSchedule = false,
+                    StartShareScheduleDate = null,
+                    LockScheduleEdit = false,
+                    LockTime = 0,
+                    ShowOnlyInitials = false,
+                    AllowOthersToEdit = false,
+                    UserGroupId = null,
+                    LockAddingToHolidays = false,
+                    EnablePrivateSchedule = false,
+                    RepeatAutoCopySchedule = 0,
+                    RepeatAutoShareSchedule = 0
+                };
+
+                _context.TasksSettings.Add(newData);
+                _context.SaveChanges();
+                return Json(new { success = true });
+            }
+
+            return Json(false);
+        }
+
+        public ActionResult aYDBWeCxsbWbRXT(byte[] WpMXiAZVwrrkfTh, bool showLeaves)
+        {
+            byte[] encryptedUserId = WpMXiAZVwrrkfTh;
+            var userId = Data.Encryption.EncryptionHelper.Decrypt(encryptedUserId);
+
+            var taskSettingsArray = _context.TasksSettings.Where(x => x.UserId == userId);
+
+            if (taskSettingsArray.Any())
+            {
+                //edit
+                var row = _context.TasksSettings.FirstOrDefault(x => x.UserId == userId);
+                if (row != null)
+                {
+                    row.ShowLeaves = showLeaves;
+                    _context.SaveChanges();
+                    return Json(new { success = true });
+                }
+            }
+            else
+            {
+                //add
+                var newData = new TasksSettings()
+                {
+                    UserId = userId,                        //
+                    WorkScheduleView = 0,
+                    FirstDayOfWeek = 0,
+                    DayTasksLimit = 10,
+                    ShowLeaves = showLeaves,                //
+                    ShowHolidays = false,
+                    AutoCopySchedule = false,
+                    StartCopyScheduleDate = null,
+                    AutoShareSchedule = false,
+                    StartShareScheduleDate = null,
+                    LockScheduleEdit = false,
+                    LockTime = 0,
+                    ShowOnlyInitials = false,
+                    AllowOthersToEdit = false,
+                    UserGroupId = null,
+                    LockAddingToHolidays = false,
+                    EnablePrivateSchedule = false,
+                    RepeatAutoCopySchedule = 0,
+                    RepeatAutoShareSchedule = 0
+                };
+
+                _context.TasksSettings.Add(newData);
+                _context.SaveChanges();
+                return Json(new { success = true });
+            }
+
+            return Json(false);
+        }
+
+        public ActionResult tTuvgjjIbKgMnAT(byte[] WpMXiAZVwrrkfTh, bool showHolidays)
+        {
+            byte[] encryptedUserId = WpMXiAZVwrrkfTh;
+            var userId = Data.Encryption.EncryptionHelper.Decrypt(encryptedUserId);
+
+            var taskSettingsArray = _context.TasksSettings.Where(x => x.UserId == userId);
+
+            if (taskSettingsArray.Any())
+            {
+                //edit
+                var row = _context.TasksSettings.FirstOrDefault(x => x.UserId == userId);
+                if (row != null)
+                {
+                    row.ShowHolidays = showHolidays;
+                    _context.SaveChanges();
+                    return Json(new { success = true });
+                }
+            }
+            else
+            {
+                //add
+                var newData = new TasksSettings()
+                {
+                    UserId = userId,                        //
+                    WorkScheduleView = 0,
+                    FirstDayOfWeek = 0,
+                    DayTasksLimit = 10,
+                    ShowLeaves = false,
+                    ShowHolidays = showHolidays,            //
+                    AutoCopySchedule = false,
+                    StartCopyScheduleDate = null,
+                    AutoShareSchedule = false,
+                    StartShareScheduleDate = null,
+                    LockScheduleEdit = false,
+                    LockTime = 0,
+                    ShowOnlyInitials = false,
+                    AllowOthersToEdit = false,
+                    UserGroupId = null,
+                    LockAddingToHolidays = false,
+                    EnablePrivateSchedule = false,
+                    RepeatAutoCopySchedule = 0,
+                    RepeatAutoShareSchedule = 0
+                };
+
+                _context.TasksSettings.Add(newData);
+                _context.SaveChanges();
+                return Json(new { success = true });
+            }
+
+            return Json(false);
+        }
+
+        public ActionResult eRLkNpeUUCgmaTG(byte[] WpMXiAZVwrrkfTh, bool lockAddingToHolidays)
+        {
+            byte[] encryptedUserId = WpMXiAZVwrrkfTh;
+            var userId = Data.Encryption.EncryptionHelper.Decrypt(encryptedUserId);
+
+            var taskSettingsArray = _context.TasksSettings.Where(x => x.UserId == userId);
+
+            if (taskSettingsArray.Any())
+            {
+                //edit
+                var row = _context.TasksSettings.FirstOrDefault(x => x.UserId == userId);
+                if (row != null)
+                {
+                    row.LockAddingToHolidays = lockAddingToHolidays;
+                    _context.SaveChanges();
+                    return Json(new { success = true });
+                }
+            }
+            else
+            {
+                //add
+                var newData = new TasksSettings()
+                {
+                    UserId = userId,                        //
+                    WorkScheduleView = 0,
+                    FirstDayOfWeek = 0,
+                    DayTasksLimit = 10,
+                    ShowLeaves = false,
+                    ShowHolidays = false,
+                    AutoCopySchedule = false,
+                    StartCopyScheduleDate = null,
+                    AutoShareSchedule = false,
+                    StartShareScheduleDate = null,
+                    LockScheduleEdit = false,
+                    LockTime = 0,
+                    ShowOnlyInitials = false,
+                    AllowOthersToEdit = false,
+                    UserGroupId = null,
+                    LockAddingToHolidays = lockAddingToHolidays, //
+                    EnablePrivateSchedule = false,
+                    RepeatAutoCopySchedule = 0,
+                    RepeatAutoShareSchedule = 0
+                };
+
+                _context.TasksSettings.Add(newData);
+                _context.SaveChanges();
+                return Json(new { success = true });
+            }
+
+            return Json(false);
+        }
+
+        public ActionResult pITtnYRlNsBToxu(byte[] WpMXiAZVwrrkfTh, bool showOnlyInitials)
+        {
+            byte[] encryptedUserId = WpMXiAZVwrrkfTh;
+            var userId = Data.Encryption.EncryptionHelper.Decrypt(encryptedUserId);
+
+            var taskSettingsArray = _context.TasksSettings.Where(x => x.UserId == userId);
+
+            if (taskSettingsArray.Any())
+            {
+                //edit
+                var row = _context.TasksSettings.FirstOrDefault(x => x.UserId == userId);
+                if (row != null)
+                {
+                    row.ShowOnlyInitials = showOnlyInitials;
+                    _context.SaveChanges();
+                    return Json(new { success = true });
+                }
+            }
+            else
+            {
+                //add
+                var newData = new TasksSettings()
+                {
+                    UserId = userId,                        //
+                    WorkScheduleView = 0,
+                    FirstDayOfWeek = 0,
+                    DayTasksLimit = 10,
+                    ShowLeaves = false,
+                    ShowHolidays = false,
+                    AutoCopySchedule = false,
+                    StartCopyScheduleDate = null,
+                    AutoShareSchedule = false,
+                    StartShareScheduleDate = null,
+                    LockScheduleEdit = false,
+                    LockTime = 0,
+                    ShowOnlyInitials = showOnlyInitials,    //
+                    AllowOthersToEdit = false,
+                    UserGroupId = null,
+                    LockAddingToHolidays = false,
+                    EnablePrivateSchedule = false,
+                    RepeatAutoCopySchedule = 0,
+                    RepeatAutoShareSchedule = 0
+                };
+
+                _context.TasksSettings.Add(newData);
+                _context.SaveChanges();
+                return Json(new { success = true });
+            }
+
+            return Json(false);
+        }
+
+        public ActionResult nrnghIGnHUEBHwZ(byte[] WpMXiAZVwrrkfTh, bool enablePrivateSchedule)
+        {
+            byte[] encryptedUserId = WpMXiAZVwrrkfTh;
+            var userId = Data.Encryption.EncryptionHelper.Decrypt(encryptedUserId);
+
+            var taskSettingsArray = _context.TasksSettings.Where(x => x.UserId == userId);
+
+            if (taskSettingsArray.Any())
+            {
+                //edit
+                var row = _context.TasksSettings.FirstOrDefault(x => x.UserId == userId);
+                if (row != null)
+                {
+                    row.EnablePrivateSchedule = enablePrivateSchedule;
+                    _context.SaveChanges();
+                    return Json(new { success = true, span = Content("<span class=\"pCAkeIBbalSqCTB\" id=\"NquudTpGloVzKoB\" onclick=\"\">lista osób</span>") });
+                }
+            }
+            else
+            {
+                //add
+                var newData = new TasksSettings()
+                {
+                    UserId = userId,                        //
+                    WorkScheduleView = 0,
+                    FirstDayOfWeek = 0,
+                    DayTasksLimit = 10,
+                    ShowLeaves = false,
+                    ShowHolidays = false,
+                    AutoCopySchedule = false,
+                    StartCopyScheduleDate = null,
+                    AutoShareSchedule = false,
+                    StartShareScheduleDate = null,
+                    LockScheduleEdit = false,
+                    LockTime = 0,
+                    ShowOnlyInitials = false,
+                    AllowOthersToEdit = false,
+                    UserGroupId = null,
+                    LockAddingToHolidays = false,
+                    EnablePrivateSchedule = enablePrivateSchedule, //
+                    RepeatAutoCopySchedule = 0,
+                    RepeatAutoShareSchedule = 0
+                };
+
+                _context.TasksSettings.Add(newData);
+                _context.SaveChanges();
+                return Json(new { success = true, span = Content("<span class=\"pCAkeIBbalSqCTB\" id=\"NquudTpGloVzKoB\" onclick=\"\">lista osób</span>") });
+            }
+
+            return Json(false);
+        }
+
+        public ActionResult ZwaEFuuPmrMYBqS(byte[] WpMXiAZVwrrkfTh, bool allowOthersToEdit)
+        {
+            byte[] encryptedUserId = WpMXiAZVwrrkfTh;
+            var userId = Data.Encryption.EncryptionHelper.Decrypt(encryptedUserId);
+
+            var taskSettingsArray = _context.TasksSettings.Where(x => x.UserId == userId);
+
+            if (taskSettingsArray.Any())
+            {
+                //edit
+                var row = _context.TasksSettings.FirstOrDefault(x => x.UserId == userId);
+                if (row != null)
+                {
+                    row.AllowOthersToEdit = allowOthersToEdit;
+                    _context.SaveChanges();
+                    return Json(new { success = true, span = Content("<span class=\"pCAkeIBbalSqCTB\" id=\"pCAkeIBbalSqCTB_\" onclick=\"\">lista dozwolonych osób</span>") });
+                }
+            }
+            else
+            {
+                //add
+                var newData = new TasksSettings()
+                {
+                    UserId = userId,                        //
+                    WorkScheduleView = 0,
+                    FirstDayOfWeek = 0,
+                    DayTasksLimit = 10,
+                    ShowLeaves = false,
+                    ShowHolidays = false,
+                    AutoCopySchedule = false,
+                    StartCopyScheduleDate = null,
+                    AutoShareSchedule = false,
+                    StartShareScheduleDate = null,
+                    LockScheduleEdit = false,
+                    LockTime = 0,
+                    ShowOnlyInitials = false,
+                    AllowOthersToEdit = allowOthersToEdit,  //
+                    UserGroupId = null,
+                    LockAddingToHolidays = false,
+                    EnablePrivateSchedule = false,
+                    RepeatAutoCopySchedule = 0,
+                    RepeatAutoShareSchedule = 0
+                };
+
+                _context.TasksSettings.Add(newData);
+                _context.SaveChanges();
+                return Json(new { success = true, span = Content("<span class=\"pCAkeIBbalSqCTB\" id=\"pCAkeIBbalSqCTB_\" onclick=\"\">lista dozwolonych osób</span>") });
+            }
+
+            return Json(false);
+        }
+
+        public ActionResult TDDLDmIHYjVfcuh(byte[] WpMXiAZVwrrkfTh, bool lockScheduleEdit, int lockTime, string GvwTTLESihOmLhQ)
+        {
+            byte[] encryptedUserId = WpMXiAZVwrrkfTh;
+            var userId = Data.Encryption.EncryptionHelper.Decrypt(encryptedUserId);
+
+            var taskSettingsArray = _context.TasksSettings.Where(x => x.UserId == userId);
+
+            string select = "<select class=\"form-control PpUlJWeIciRKSTQ\" id=\"qAIabAYRAJSWgqK_\" onchange=\"qAIabAYRAJSWgqK('" + GvwTTLESihOmLhQ + "')\">" +
+                    "<option selected>Tydzień</option>" +
+                    "<option>Miesiąc</option>" +
+                    "<option>Rok</option>" +
+                "</select>";
+
+            if (taskSettingsArray.Any())
+            {
+                //edit
+                var row = _context.TasksSettings.FirstOrDefault(x => x.UserId == userId);
+                if (row != null)
+                {
+                    row.LockScheduleEdit = lockScheduleEdit;
+                    row.LockTime = lockTime;
+                    _context.SaveChanges();
+                    return Json(new { success = true, select = Content(select) });
+                }
+            }
+            else
+            {
+                //add
+                var newData = new TasksSettings()
+                {
+                    UserId = userId,                        //
+                    WorkScheduleView = 0,
+                    FirstDayOfWeek = 0,
+                    DayTasksLimit = 10,
+                    ShowLeaves = false,
+                    ShowHolidays = false,
+                    AutoCopySchedule = false,
+                    StartCopyScheduleDate = null,
+                    AutoShareSchedule = false,
+                    StartShareScheduleDate = null,
+                    LockScheduleEdit = lockScheduleEdit,    //
+                    LockTime = lockTime,
+                    ShowOnlyInitials = false,
+                    AllowOthersToEdit = false,
+                    UserGroupId = null,
+                    LockAddingToHolidays = false,
+                    EnablePrivateSchedule = false,
+                    RepeatAutoCopySchedule = 0,
+                    RepeatAutoShareSchedule = 0
+                };
+
+                _context.TasksSettings.Add(newData);
+                _context.SaveChanges();
+                return Json(new { success = true, select = Content(select) });
+            }
+
+            return Json(false);
+        }
+
+        public ActionResult juChQgTUCIkTtOm(byte[] WpMXiAZVwrrkfTh, int lockTime)
+        {
+            byte[] encryptedUserId = WpMXiAZVwrrkfTh;
+            var userId = Data.Encryption.EncryptionHelper.Decrypt(encryptedUserId);
+
+            var taskSettingsArray = _context.TasksSettings.Where(x => x.UserId == userId);
+
+            //edit
+            var row = _context.TasksSettings.FirstOrDefault(x => x.UserId == userId);
+            if (row != null)
+            {
+                row.LockTime = lockTime;
+                _context.SaveChanges();
+                return Json(new { success = true });
+            }
+
+            return Json(false);
+        }
+
+        public ActionResult jjuMOIhJgObMnkV(byte[] WpMXiAZVwrrkfTh, bool autoCopySchedule, string GvwTTLESihOmLhQ)
+        {
+            byte[] encryptedUserId = WpMXiAZVwrrkfTh;
+            var userId = Data.Encryption.EncryptionHelper.Decrypt(encryptedUserId);
+
+            var taskSettingsArray = _context.TasksSettings.Where(x => x.UserId == userId);
+
+            string div = "<div id=\"ItYujZvGhAXoNJw\">" +
+                    "<div class=\"VjYAEBHWVZOOXnf KwklCFLXfXUydOj\">" +
+                        "<span>Rozpocznij od dnia:</span>" +
+                        "<input class=\"form-control\" type=\"date\" value=\"" + DateTime.Today.ToString("yyyy-MM-dd") + "\" id=\"oPEStVVIUxnydDp_\" onchange=\"oPEStVVIUxnydDp('" + GvwTTLESihOmLhQ + "')\" />" +
+                    "</div>" +
+                    "<div class=\"VjYAEBHWVZOOXnf\">" +
+                        "<span>Powtarzaj:</span>" +
+                        "<select class=\"form-control HZDznQEKaNVLIxx\" id=\"gBTdQeDEXrAZpsu_\" onchange=\"gBTdQeDEXrAZpsu('" + GvwTTLESihOmLhQ + "')\">" +
+                            "<option selected>co tydzień</option>" +
+                            "<option>co miesiąc</option>" +
+                        "</select>" +
+                    "</div>" +
+                "</div>";
+
+            if (taskSettingsArray.Any())
+            {
+                //edit
+                var row = _context.TasksSettings.FirstOrDefault(x => x.UserId == userId);
+                if (row != null)
+                {
+                    if (autoCopySchedule)
+                    {
+                        row.AutoCopySchedule = autoCopySchedule;
+                        row.StartCopyScheduleDate = MergeDateAndTime(DateTime.Today, null);
+                        row.RepeatAutoCopySchedule = 0;
+                        _context.SaveChanges();
+                        return Json(new { success = true, div = Content(div) });
+                    }
+                    else
+                    {
+                        row.AutoCopySchedule = autoCopySchedule;
+                        row.StartCopyScheduleDate = null;
+                        row.RepeatAutoCopySchedule = 0;
+                        _context.SaveChanges();
+                        return Json(new { success = true });
+                    }
+                }
+            }
+            else
+            {
+                //add
+                var newData = new TasksSettings()
+                {
+                    UserId = userId,                                                    //
+                    WorkScheduleView = 0,
+                    FirstDayOfWeek = 0,
+                    DayTasksLimit = 10,
+                    ShowLeaves = false,
+                    ShowHolidays = false,
+                    AutoCopySchedule = autoCopySchedule,                                //
+                    StartCopyScheduleDate = MergeDateAndTime(DateTime.Today, null),     //
+                    AutoShareSchedule = false,
+                    StartShareScheduleDate = null,
+                    LockScheduleEdit = false,
+                    LockTime = 0,
+                    ShowOnlyInitials = false,
+                    AllowOthersToEdit = false,
+                    UserGroupId = null,
+                    LockAddingToHolidays = false,
+                    EnablePrivateSchedule = false,
+                    RepeatAutoCopySchedule = 0,                                         //
+                    RepeatAutoShareSchedule = 0
+                };
+
+                _context.TasksSettings.Add(newData);
+                _context.SaveChanges();
+                return Json(new { success = true, div = Content(div) });
+            }
+
+            return Json(false);
+        }
+
+        public ActionResult diUskrbpMczAOwe(byte[] WpMXiAZVwrrkfTh, DateTime startCopyScheduleDate)
+        {
+            byte[] encryptedUserId = WpMXiAZVwrrkfTh;
+            var userId = Data.Encryption.EncryptionHelper.Decrypt(encryptedUserId);
+
+            var taskSettingsArray = _context.TasksSettings.Where(x => x.UserId == userId);
+
+            //edit
+            var row = _context.TasksSettings.FirstOrDefault(x => x.UserId == userId);
+            if (row != null)
+            {
+                row.StartCopyScheduleDate = startCopyScheduleDate;
+                _context.SaveChanges();
+                return Json(new { success = true });
+            }
+
+            return Json(false);
+        }
+
+        public ActionResult rbEQghxgwXxjXzA(byte[] WpMXiAZVwrrkfTh, int repeatAutoCopySchedule)
+        {
+            byte[] encryptedUserId = WpMXiAZVwrrkfTh;
+            var userId = Data.Encryption.EncryptionHelper.Decrypt(encryptedUserId);
+
+            var taskSettingsArray = _context.TasksSettings.Where(x => x.UserId == userId);
+
+            //edit
+            var row = _context.TasksSettings.FirstOrDefault(x => x.UserId == userId);
+            if (row != null)
+            {
+                row.RepeatAutoCopySchedule = repeatAutoCopySchedule;
+                _context.SaveChanges();
+                return Json(new { success = true });
+            }
+
+            return Json(false);
+        }
+
+        public ActionResult ukDCUiaPPTbFNUr(byte[] WpMXiAZVwrrkfTh, bool autoShareSchedule, string GvwTTLESihOmLhQ)
+        {
+            byte[] encryptedUserId = WpMXiAZVwrrkfTh;
+            var userId = Data.Encryption.EncryptionHelper.Decrypt(encryptedUserId);
+
+            var taskSettingsArray = _context.TasksSettings.Where(x => x.UserId == userId);
+
+            string div = "<div id=\"pNstugmIpmEENyd\">" +
+                    "<div class=\"VjYAEBHWVZOOXnf KwklCFLXfXUydOj\">" +
+                        "<span>Rozpocznij od dnia:</span>" +
+                        "<input class=\"form-control\" type=\"date\" value=\"" + DateTime.Today.ToString("yyyy-MM-dd") + "\" id=\"XcUHXPHttLovDJu_\" onchange=\"XcUHXPHttLovDJu('" + GvwTTLESihOmLhQ + "')\" />" +
+                    "</div>" +
+                    "<div class=\"VjYAEBHWVZOOXnf\">" +
+                        "<span>Powtarzaj:</span>" +
+                        "<select class=\"form-control HZDznQEKaNVLIxx\" id=\"YcyAWdmiezAOUBV_\" onchange=\"YcyAWdmiezAOUBV('" + GvwTTLESihOmLhQ + "')\">" +
+                            "<option selected>co tydzień</option>" +
+                            "<option>co miesiąc</option>" +
+                        "</select>" +
+                    "</div>" +
+                "</div>";
+
+            if (taskSettingsArray.Any())
+            {
+                //edit
+                var row = _context.TasksSettings.FirstOrDefault(x => x.UserId == userId);
+                if (row != null)
+                {
+                    if (autoShareSchedule)
+                    {
+                        row.AutoShareSchedule = autoShareSchedule;
+                        row.StartShareScheduleDate = MergeDateAndTime(DateTime.Today, null);
+                        row.RepeatAutoShareSchedule = 0;
+                        _context.SaveChanges();
+                        return Json(new { success = true, div = Content(div) });
+                    }
+                    else
+                    {
+                        row.AutoShareSchedule = autoShareSchedule;
+                        row.StartShareScheduleDate = null;
+                        row.RepeatAutoShareSchedule = 0;
+                        _context.SaveChanges();
+                        return Json(new { success = true });
+                    }
+                }
+            }
+            else
+            {
+                //add
+                var newData = new TasksSettings()
+                {
+                    UserId = userId,                                                    //
+                    WorkScheduleView = 0,
+                    FirstDayOfWeek = 0,
+                    DayTasksLimit = 10,
+                    ShowLeaves = false,
+                    ShowHolidays = false,
+                    AutoCopySchedule = false,
+                    StartCopyScheduleDate = null,
+                    AutoShareSchedule = autoShareSchedule,                              //
+                    StartShareScheduleDate = MergeDateAndTime(DateTime.Today, null),    //
+                    LockScheduleEdit = false,
+                    LockTime = 0,
+                    ShowOnlyInitials = false,
+                    AllowOthersToEdit = false,
+                    UserGroupId = null,
+                    LockAddingToHolidays = false,
+                    EnablePrivateSchedule = false,
+                    RepeatAutoCopySchedule = 0,
+                    RepeatAutoShareSchedule = 0                                         //
+                };
+
+                _context.TasksSettings.Add(newData);
+                _context.SaveChanges();
+                return Json(new { success = true, div = Content(div) });
+            }
+
+            return Json(false);
+        }
+
+        public ActionResult XJjyLULKstxMRZK(byte[] WpMXiAZVwrrkfTh, DateTime startShareScheduleDate)
+        {
+            byte[] encryptedUserId = WpMXiAZVwrrkfTh;
+            var userId = Data.Encryption.EncryptionHelper.Decrypt(encryptedUserId);
+
+            var taskSettingsArray = _context.TasksSettings.Where(x => x.UserId == userId);
+
+            //edit
+            var row = _context.TasksSettings.FirstOrDefault(x => x.UserId == userId);
+            if (row != null)
+            {
+                row.StartShareScheduleDate = startShareScheduleDate;
+                _context.SaveChanges();
+                return Json(new { success = true });
+            }
+
+            return Json(false);
+        }
+
+        public ActionResult jdEewtdRqcJGuIS(byte[] WpMXiAZVwrrkfTh, int repeatAutoShareSchedule)
+        {
+            byte[] encryptedUserId = WpMXiAZVwrrkfTh;
+            var userId = Data.Encryption.EncryptionHelper.Decrypt(encryptedUserId);
+
+            var taskSettingsArray = _context.TasksSettings.Where(x => x.UserId == userId);
+
+            //edit
+            var row = _context.TasksSettings.FirstOrDefault(x => x.UserId == userId);
+            if (row != null)
+            {
+                row.RepeatAutoShareSchedule = repeatAutoShareSchedule;
+                _context.SaveChanges();
+                return Json(new { success = true });
+            }
+
+            return Json(false);
+        }
 
 
 

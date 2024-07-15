@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeTask.Data;
 
@@ -11,9 +12,11 @@ using TimeTask.Data;
 namespace TimeTask.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240714103853_fiazdfTVjCfKADH")]
+    partial class fiazdfTVjCfKADH
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -769,25 +772,13 @@ namespace TimeTask.Data.Migrations
                     b.Property<int>("DayTasksLimit")
                         .HasColumnType("int");
 
-                    b.Property<bool>("EnablePrivateSchedule")
-                        .HasColumnType("bit");
-
                     b.Property<int>("FirstDayOfWeek")
                         .HasColumnType("int");
-
-                    b.Property<bool>("LockAddingToHolidays")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("LockScheduleEdit")
                         .HasColumnType("bit");
 
                     b.Property<int>("LockTime")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RepeatAutoCopySchedule")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RepeatAutoShareSchedule")
                         .HasColumnType("int");
 
                     b.Property<bool>("ShowHolidays")
@@ -804,9 +795,6 @@ namespace TimeTask.Data.Migrations
 
                     b.Property<DateTime?>("StartShareScheduleDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("UserGroupId")
-                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .IsRequired()

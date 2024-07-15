@@ -171,6 +171,37 @@ html {
             animation-delay: -0.15s;
         }
 
+.lds-ring-small2 {
+    display: inline-block;
+    position: relative;
+    width: 33px;
+    height: 33px;
+}
+
+    .lds-ring-small2 div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 33px;
+        height: 33px;
+        border: 3px solid #fff;
+        border-radius: 50%;
+        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        border-color: #fff transparent transparent transparent;
+    }
+
+        .lds-ring-small2 div:nth-child(1) {
+            animation-delay: -0.45s;
+        }
+
+        .lds-ring-small2 div:nth-child(2) {
+            animation-delay: -0.3s;
+        }
+
+        .lds-ring-small2 div:nth-child(3) {
+            animation-delay: -0.15s;
+        }
+
 @keyframes lds-ring {
     0% {
         transform: rotate(0deg);
@@ -3911,7 +3942,18 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     display: flex;
     align-items: center;
     gap: 10px;
+    height: 33px;
 }
+    .msdgExEZCpefgcL span.pCAkeIBbalSqCTB {
+        color: rgb(0, 152, 255);
+        font-size: 14px;
+        margin-left: 20px;
+    }
+
+        .msdgExEZCpefgcL span.pCAkeIBbalSqCTB:hover {
+            cursor: pointer;
+            color: rgb(0, 92, 230);
+        }
 
     .msdgExEZCpefgcL span {
         color: rgba(255, 255, 255, 0.8);
@@ -3985,6 +4027,10 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         width: 150px;
     }
 
+    .msdgExEZCpefgcL .VjYAEBHWVZOOXnf.KwklCFLXfXUydOj {
+        margin-left: 30px;
+    }
+
 .hFzZLqJdsEqdlrx {
     font-size: 14px;
     color: white;
@@ -3995,6 +4041,12 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         font-weight: bold;
         color: rgba(255, 255, 255, 0.8);
     }
+
+        .hFzZLqJdsEqdlrx.phzshsahNeRSjfT.wbxnvJGiIuXUOzi {
+            text-align: left;
+            width: 100%;
+            margin-left: 100px;
+        }
 
 .hFzZLqJdsEqdlrx_ {
     font-size: 14px;

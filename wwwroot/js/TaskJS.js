@@ -32,7 +32,7 @@ function drmZhscxvPoxiya(year, week, department)
 
             $('.right-nav').html(response.table);
             
-            $('#kSSnezAexZyLwQZ').attr("onclick", "ZdzFYcenRSIqyJF(" + year + "," + week + "," + department + ")");
+            //$('#kSSnezAexZyLwQZ').attr("onclick", "ZdzFYcenRSIqyJF(" + year + "," + week + "," + department + ")");
 
             if (response.week.toString().length == 2) {
                 $('#OcoYTyiBrpZJStB').html(response.week).removeClass('OcoYTyiBrpZJStB_');
@@ -657,8 +657,11 @@ function ZdzFYcenRSIqyJF(year, week, department)
         },
         success: function (response)
         {
+            $('#FMnrCopWCecUjag').remove();
+
             $('body').append(response);
-            $('#pwFBWqdAoChTxAb').fadeIn(200);
+            //$('#pwFBWqdAoChTxAb').fadeIn(200);
+            $('#pwFBWqdAoChTxAb').show();
         },
         error: function (xhr, status, error)
         {
@@ -741,8 +744,11 @@ function BgMujOvGVhgxcrK()
         },
         success: function (response)
         {
+            $('#FMnrCopWCecUjag').remove();
+
             $('body').append(response);
-            $('#FIfodjZXcJQcAEE').fadeIn(200);
+            //$('#FIfodjZXcJQcAEE').fadeIn(200);
+            $('#FIfodjZXcJQcAEE').show();
         },
         error: function (xhr, status, error)
         {

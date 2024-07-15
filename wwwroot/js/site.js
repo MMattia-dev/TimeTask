@@ -81,6 +81,15 @@ function createSmallLoader2()
     return lds;
 };
 
+function createSmallLoader3() 
+{
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small2';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+
+    return lds;
+};
+
 //wallpaper
 var defaultWallpaper_ = localStorage.getItem('wallpaper');
 if (defaultWallpaper_ != null)

@@ -22,6 +22,8 @@ zrobione - 11) "czas pracy" i "urlopy" w ustawieniach zmieniæ na dwie osobne pod
 21) wygaœ "parent" podczas d³u¿szej nieaktywnoœci w aplikacji (bêd¹c zalogowanym), na stronie g³ównej poka¿ zegar cyfrowy na górnej lewej stronie
 22) zmieñ wszystkie Ajax na Fetch, albo u¿yj biblioteki Axios która ³¹czy obie 
 23) usun¹æ widoki (cshtml) które nie s¹ potrzebne
+24) stwórz mo¿liwoœæ udostêpniania grafiku tj. pracownicy bêd¹ w stanie zobaczyæ grafik dla nowego tygodnia/miesi¹ca tylko wtedy gdy "Admin grupy"/"Admin dzia³u" kliknie udostêpnij (potrzebna nowa kolumna w "Task2" -> "SharedStatus" i "SharedDate")
+
 
 zmien wszystkie localstorage na sessionstorage
 zmien wszystkie id i class na has³a

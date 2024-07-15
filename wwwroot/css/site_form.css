@@ -47,6 +47,10 @@
 
 }
 
+    .form-control[type=date] {
+        height: 33px;
+    }
+
     .form-control:focus {
         /*background-color: transparent;*/
         background-color: rgba(34, 36, 48, 1);
@@ -104,7 +108,7 @@
     }
 
     .form-control.HZDznQEKaNVLIxx {
-        width: 120px;
+        width: 130px;
     }
 
 
@@ -241,6 +245,7 @@ form:not(.logOut) {
     width: 370px;
     min-height: 278px;
     /*border-radius: 8px;*/
+    border-radius: 5px;
     padding-top: 50px;
     padding-bottom: 50px;
     /*-webkit-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.6);
