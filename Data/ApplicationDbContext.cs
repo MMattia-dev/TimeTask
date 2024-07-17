@@ -41,5 +41,7 @@ namespace TimeTask.Data
         public DbSet<TimeTask.Models.TimeSettings3> TimeSettings3 { get; set; } = default!;
         public DbSet<TimeTask.Models.Task2> Task2 { get; set; } = default!;
         public DbSet<TimeTask.Models.TasksSettings> TasksSettings { get; set; } = default!;
+        public DbSet<TimeTask.Models.PrivateScheduleList> PrivateScheduleList { get; set; } = default!;
+        public DbSet<TimeTask.Models.DayTasksLimitExceptionForDepartments> DayTasksLimitExceptionForDepartments { get; set; } = default!;
     }
 }

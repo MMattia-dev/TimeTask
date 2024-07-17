@@ -926,9 +926,164 @@ function YcyAWdmiezAOUBV(WpMXiAZVwrrkfTh)
     });
 };
 
-function blyVpYCtnXKDgCn(WpMXiAZVwrrkfTh) {
-
+function blyVpYCtnXKDgCn() {
+    $.ajax({
+        type: 'GET',
+        url: '/TasksSettings/ShowPrivateListForm',
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#WnlkUXBVyfUSVNt').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
 };
 
+function JkdfhMQViSLmhkI(t) {
+    let d = t.value;
+    let xFWQqAJBnCBpKJb = document.getElementById('xFWQqAJBnCBpKJb_');
 
+    $.ajax({
+        type: 'GET',
+        url: '/TasksSettings/GetWorkers',
+        data: {
+            departmentId: d
+        },
+        success: function (response)
+        {
+            if (t.selectedIndex > 0)
+            {
+                $(xFWQqAJBnCBpKJb).html(response);
 
+                xFWQqAJBnCBpKJb.removeAttribute('disabled');
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function xFWQqAJBnCBpKJb(t) {
+    let w = t.value;
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/PostPrivateSchedule',
+        data: {
+            workerId: w
+        },
+        success: function (response)
+        {
+            if (t.selectedIndex > 0)
+            {
+                $(t).parent().parent().before(response.tr.content);
+                $('#dzpHswVEgOuhbEo').replaceWith(response.tr2.content);
+
+                let eEwwYSDbqyMdghL = document.querySelector('.eEwwYSDbqyMdghL');
+                eEwwYSDbqyMdghL.scrollTo(0, eEwwYSDbqyMdghL.scrollHeight);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function GAQosyFmQwieNft(t, id) {
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/RemovePrivateScheduleRow',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            $(t).parent().parent().remove();
+            $('#dzpHswVEgOuhbEo').replaceWith(response);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function vNqzVHFCucSjrph() {
+    $.ajax({
+        type: 'GET',
+        url: '/TasksSettings/DayTasksLimitExceptionForDepartmentsForm',
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#TJYBmCvnwJKVnYd').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function NVfGsCLOTlTvFpa(t) {
+    let xFWQqAJBnCBpKJb = document.getElementById('xFWQqAJBnCBpKJb_');
+
+    if (t.selectedIndex > 0)
+    {
+        xFWQqAJBnCBpKJb.removeAttribute('disabled');
+    }
+};
+
+function dPeoUrjVuXwlYwP(t) {
+    let d = document.getElementById('NVfGsCLOTlTvFpa_').value;
+    let tasksLimit = t.value;
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/DayTasksLimitExceptionForDepartmentsPost',
+        data: {
+            departmentId: d,
+            tasksLimit: tasksLimit
+        },
+        success: function (response)
+        {
+            if (t.selectedIndex > 0)
+            {
+                $(t).parent().parent().before(response.tr.content);
+                $('#dzpHswVEgOuhbEo').replaceWith(response.tr2.content);
+
+                let eEwwYSDbqyMdghL = document.querySelector('.eEwwYSDbqyMdghL');
+                eEwwYSDbqyMdghL.scrollTo(0, eEwwYSDbqyMdghL.scrollHeight);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function TOcOvMfyvdIqAPS(t, id)
+{
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/DayTasksLimitExceptionForDepartmentsRemove',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            $(t).parent().parent().remove();
+            $('#dzpHswVEgOuhbEo').replaceWith(response);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};

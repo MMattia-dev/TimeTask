@@ -281,6 +281,25 @@ form:not(.logOut) {
         padding-bottom: 55px;
     }
 
+    form:not(.logOut).AdMcjKPGypQwFuM {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        width: 600px;
+        max-height: 400px;
+    }
+
+        form:not(.logOut) .vuDyPdjSQVLwUdF {
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
 .DhOaDlrUqJcgIUx {
     margin-bottom: 25px;
 }

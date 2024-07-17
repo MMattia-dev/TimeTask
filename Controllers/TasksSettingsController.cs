@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using TimeTask.Data;
 using TimeTask.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -555,7 +556,7 @@ namespace TimeTask.Controllers
                 {
                     row.EnablePrivateSchedule = enablePrivateSchedule;
                     _context.SaveChanges();
-                    return Json(new { success = true, span = Content("<span class=\"pCAkeIBbalSqCTB\" id=\"NquudTpGloVzKoB\" onclick=\"\">lista osób</span>") });
+                    return Json(new { success = true, span = Content("<span class=\"pCAkeIBbalSqCTB\" id=\"NquudTpGloVzKoB\" onclick=\"blyVpYCtnXKDgCn()\">lista osób</span>") });
                 }
             }
             else
@@ -586,7 +587,7 @@ namespace TimeTask.Controllers
 
                 _context.TasksSettings.Add(newData);
                 _context.SaveChanges();
-                return Json(new { success = true, span = Content("<span class=\"pCAkeIBbalSqCTB\" id=\"NquudTpGloVzKoB\" onclick=\"\">lista osób</span>") });
+                return Json(new { success = true, span = Content("<span class=\"pCAkeIBbalSqCTB\" id=\"NquudTpGloVzKoB\" onclick=\"blyVpYCtnXKDgCn()\">lista osób</span>") });
             }
 
             return Json(false);
@@ -956,6 +957,285 @@ namespace TimeTask.Controllers
             return Json(false);
         }
 
+        public ActionResult ShowPrivateListForm()
+        {
+            string removeForm = "$('#WnlkUXBVyfUSVNt').remove()";
+
+            var privateScheduleList = _context.PrivateScheduleList;
+            string tr = "";
+            foreach (var row in privateScheduleList)
+            {
+                var workersArray = _context.Workers2.First(x => x.Id == row.WorkerId);
+                var departmentName = _context.Department.First(x => x.Id == workersArray.DepartmentID).Name;
+                var name = workersArray.Surname + " " + workersArray.Name;
+
+                tr += "<tr>" +
+                        "<td title=\"" + row.Id + "\">" + row.Id + "</td>" +
+                        "<td title=\"" + departmentName + "\">" + departmentName + "</td>" +
+                        "<td title=\"" + name + "\">" + name + "</td>" +
+                        "<td>" +
+                            "<a onclick=\"GAQosyFmQwieNft(this, " + row.Id + ")\">Usuń</a>" +
+                        "</td>" +
+                    "</tr>";
+            }
+
+            string table = "<div class=\"eEwwYSDbqyMdghL\">" +
+                "<table class=\"rHIpYUaJfTsSFHO\">" +
+                    "<thead>" +
+                        "<tr>" +
+                            "<th title=\"id\"><ion-icon name=\"key\"></ion-icon></th>" +
+                            "<th>Dział</th>" +
+                            "<th>Nazwisko i Imię</th>" +
+                            "<th></th>" +
+                        "<tr>" +
+                    "</thead>" +
+                    "<tbody>" +
+                        tr +
+                        AddTr() +
+                    "</tbody>" +
+                "</table>" +
+                "</div>";
+
+
+            string form = "<div id=\"WnlkUXBVyfUSVNt\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form class=\"AdMcjKPGypQwFuM\">" +
+                        "<span class=\"hFzZLqJdsEqdlrx phzshsahNeRSjfT wbxnvJGiIuXUOzi\">Prywatne grafiki - lista</span>" +
+                        table +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
+
+            return Content(form);
+        }
+
+        public ActionResult GetWorkers(int departmentId)
+        {
+            string options = "<option selected disabled>--Wybierz--</option>";
+            foreach (var worker in _context.Workers2.Where(x => x.DepartmentID == departmentId).OrderBy(x => x.Surname))
+            {
+                if (!_context.PrivateScheduleList.Select(x => x.WorkerId).Contains(worker.Id))
+                {
+                    options += "<option value=\"" + worker.Id + "\">" + worker.Surname + " " + worker.Name + "</option>";
+                }
+            }
+
+            return Content(options);
+        }
+
+        public ActionResult PostPrivateSchedule(int workerId)
+        {
+            var newData = new PrivateScheduleList()
+            {
+                WorkerId = workerId,
+            };
+
+            _context.PrivateScheduleList.Add(newData);
+            _context.SaveChanges();
+
+            var workersArray = _context.Workers2.First(x => x.Id == workerId);
+            var departmentName = _context.Department.First(x => x.Id == workersArray.DepartmentID).Name;
+            var name = workersArray.Surname + " " + workersArray.Name;
+
+            string newTr = "<tr>" +
+                        "<td title=\"" + newData.Id + "\">" + newData.Id + "</td>" +
+                        "<td title=\"" + departmentName + "\">" + departmentName + "</td>" +
+                        "<td title=\"" + name + "\">" + name + "</td>" +
+                        "<td>" +
+                            "<a onclick=\"GAQosyFmQwieNft(this, " + newData.Id + ")\">Usuń</a>" +
+                        "</td>" +
+                    "</tr>";
+
+            //lista osób (liczba osób)
+
+            return Json(new { tr = Content(newTr), tr2 = Content(AddTr()) });
+        }
+
+        public ActionResult RemovePrivateScheduleRow(int id)
+        {
+            var row = _context.PrivateScheduleList.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.PrivateScheduleList.Remove(row);
+                _context.SaveChanges();
+
+                return Json(AddTr());
+            }
+
+            return Json(false);
+        }
+
+        public string AddTr()
+        {
+            string departmentsOptions = "<option selected disabled>--Wybierz--</option>";
+            foreach (var department in _context.Department.OrderBy(x => x.Name))
+            {
+                List<int> list = new List<int>();
+                foreach (var worker in _context.Workers2.Where(x => x.DepartmentID == department.Id))
+                {
+                    if (!_context.PrivateScheduleList.Select(x => x.WorkerId).Contains(worker.Id))
+                    {
+                        list.Add(worker.Id);
+                    }
+                }
+
+                if (list.Any())
+                {
+                    departmentsOptions += "<option value=\"" + department.Id + "\">" + department.Name + "</option>";
+                }
+            }
+
+            string newTr2 = "<tr id=\"dzpHswVEgOuhbEo\">" +
+                            "<td title=\"Dodaj nową osobę\"><ion-icon name=\"add-outline\"></ion-icon></td>" +
+                            "<td class=\"eCLCYNmbmlOrFSF\">" +
+                                "<select class=\"form-control\" onchange=\"JkdfhMQViSLmhkI(this)\">" +
+                                    departmentsOptions +
+                                "</select>" +
+                            "</td>" +
+                            "<td class=\"eCLCYNmbmlOrFSF\">" +
+                                "<select disabled class=\"form-control\" onchange=\"xFWQqAJBnCBpKJb(this)\" id=\"xFWQqAJBnCBpKJb_\">" +
+                                    "<option>--Wybierz--</option>" +
+                                "</select>" +
+                            "</td>" +
+                            "<td></td>" +
+                        "</tr>";
+
+            return newTr2;
+        }
+
+        public string AddTr2()
+        {
+            string departmentsOptions = "<option selected disabled>--Wybierz--</option>";
+            foreach (var department in _context.Department.OrderBy(x => x.Name))
+            {
+                List<int> list = new List<int>();
+                if (!_context.DayTasksLimitExceptionForDepartments.Select(x => x.DepartmentId).Contains(department.Id))
+                {
+                    list.Add(department.Id);
+                }
+
+                if (list.Any())
+                {
+                    departmentsOptions += "<option value=\"" + department.Id + "\">" + department.Name + "</option>";
+                }
+            }
+
+            string limit = "<option>--Wybierz--</option>";
+            for (int i = 10; i >= 1; i--)
+            {
+                limit += "<option value=\"" + i + "\">" + i + "</option>";
+            }
+
+            string newTr2 = "<tr id=\"dzpHswVEgOuhbEo\">" +
+                            "<td title=\"Dodaj nowy dział\"><ion-icon name=\"add-outline\"></ion-icon></td>" +
+                            "<td class=\"eCLCYNmbmlOrFSF\">" +
+                                "<select class=\"form-control\" onchange=\"NVfGsCLOTlTvFpa(this)\" id=\"NVfGsCLOTlTvFpa_\">" +
+                                    departmentsOptions +
+                                "</select>" +
+                            "</td>" +
+                            "<td class=\"eCLCYNmbmlOrFSF\">" +
+                                "<select disabled class=\"form-control\" onchange=\"dPeoUrjVuXwlYwP(this)\" id=\"xFWQqAJBnCBpKJb_\">" +
+                                    limit +
+                                "</select>" +
+                            "</td>" +
+                            "<td></td>" +
+                        "</tr>";
+
+            return newTr2;
+        }
+
+        public ActionResult DayTasksLimitExceptionForDepartmentsForm()
+        {
+            string removeForm = "$('#TJYBmCvnwJKVnYd').remove()";
+
+            var array = _context.DayTasksLimitExceptionForDepartments;
+            string tr = "";
+
+            if (array.Any())
+            {
+                foreach (var row in array)
+                {
+                    var departmentName = _context.Department.FirstOrDefault(x => x.Id == row.DepartmentId)?.Name;
+
+                    tr += "<tr>" +
+                            "<td title=\"" + row.Id + "\">" + row.Id + "</td>" +
+                            "<td title=\"" + departmentName + "\">" + departmentName + "</td>" +
+                            "<td title=\"" + row.DayTasksLimit + "\">" + row.DayTasksLimit + "</td>" +
+                            "<td>" +
+                                "<a onclick=\"TOcOvMfyvdIqAPS(this, " + row.Id + ")\">Usuń</a>" +
+                            "</td>" +
+                        "</tr>";
+                }
+            }
+
+            string table = "<div class=\"eEwwYSDbqyMdghL\">" +
+                    "<table class=\"rHIpYUaJfTsSFHO\">" +
+                        "<thead>" +
+                            "<tr>" +
+                                "<th title=\"id\"><ion-icon name=\"key\"></ion-icon></th>" +
+                                "<th>Dział</th>" +
+                                "<th>Limit zadań</th>" +
+                                "<th></th>" +
+                            "</tr>" +
+                        "</thead>" +
+                        "<tbody>" +
+                            tr +
+                            AddTr2() +
+                        "</tbody>" +
+                    "</table>" +
+                "</div>";
+
+            string form = "<div id=\"TJYBmCvnwJKVnYd\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form class=\"AdMcjKPGypQwFuM\">" +
+                        "<span class=\"hFzZLqJdsEqdlrx phzshsahNeRSjfT wbxnvJGiIuXUOzi\">Limit zadań - lista</span>" +
+                        table +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
+
+            return Content(form);
+        }
+        public ActionResult DayTasksLimitExceptionForDepartmentsPost(int departmentId, int tasksLimit)
+        {
+            var newData = new DayTasksLimitExceptionForDepartments()
+            {
+                DepartmentId = departmentId,
+                DayTasksLimit = tasksLimit
+            };
+
+            _context.DayTasksLimitExceptionForDepartments.Add(newData);
+            _context.SaveChanges();
+
+            var departmentName = _context.Department.First(x => x.Id == departmentId).Name;
+
+            string newTr = "<tr>" +
+                        "<td title=\"" + newData.Id + "\">" + newData.Id + "</td>" +
+                        "<td title=\"" + departmentName + "\">" + departmentName + "</td>" +
+                        "<td title=\"" + newData.DayTasksLimit + "\">" + newData.DayTasksLimit + "</td>" +
+                        "<td>" +
+                            "<a onclick=\"TOcOvMfyvdIqAPS(this, " + newData.Id + ")\">Usuń</a>" +
+                        "</td>" +
+                    "</tr>";
+
+            return Json(new { tr = Content(newTr), tr2 = Content(AddTr2()) });
+        }
+
+        public ActionResult DayTasksLimitExceptionForDepartmentsRemove(int id)
+        {
+            var row = _context.DayTasksLimitExceptionForDepartments.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.DayTasksLimitExceptionForDepartments.Remove(row);
+                _context.SaveChanges();
+
+                return Json(AddTr2());
+            }
+
+            return Json(false);
+        }
 
 
 

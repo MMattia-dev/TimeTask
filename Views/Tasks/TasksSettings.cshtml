@@ -37,7 +37,7 @@
             <div class="YavvRCMQscelhIs riqhWBvtFoKacNt KJiwNsHiMAVNLKL">
                 <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Ustawienia główne</span>
                 <div class="msdgExEZCpefgcL">
-                    <span>Widok grafiku:</span>
+                    <span>Widok grafiku: (wszyscy)</span>
                     <select class="form-control PpUlJWeIciRKSTQ" id="DGSWGCQnhgXKmAe_" onchange="DGSWGCQnhgXKmAe('@encryptedUserID')">
                         @if (taskSettingsArray != null)
                         {
@@ -60,7 +60,7 @@
                     </select>
                 </div>
                 <div class="msdgExEZCpefgcL">
-                    <span>Pierwszy dzień tygodnia:</span>
+                    <span>Pierwszy dzień tygodnia: (wszyscy)</span>
                     <select class="form-control PpUlJWeIciRKSTQ" id="ynAnPsGicwfcWMt_" onchange="ynAnPsGicwfcWMt('@encryptedUserID')">
                         @if (taskSettingsArray != null)
                         {
@@ -83,7 +83,7 @@
                     </select>
                 </div>
                 <div class="msdgExEZCpefgcL">
-                    <span>Limit przydzielonych zadań na dzień:</span>
+                    <span>Limit przydzielonych zadań na dzień: (admin)</span>
                     <select class="form-control HZDznQEKaNVLIxx" id="uTwWyyqQLuKCRUq_" onchange="uTwWyyqQLuKCRUq('@encryptedUserID')">
                         @if (taskSettingsArray != null)
                         {
@@ -122,6 +122,7 @@
                             }
                         }
                     </select>
+                    <span class="pCAkeIBbalSqCTB" id="NquudTpGloVzKoB" onclick="vNqzVHFCucSjrph()">wyjątki dla działów</span>
                 </div>
             </div>
 
@@ -147,7 +148,7 @@
                             }
                             <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                         </label>
-                        <span class="hFzZLqJdsEqdlrx">Pokaż urlopy w grafiku</span>
+                        <span class="hFzZLqJdsEqdlrx">Pokaż urlopy w grafiku (wszyscy)</span>
                     </div>
                 </div>
             </div>
@@ -174,7 +175,7 @@
                             }
                             <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                         </label>
-                        <span class="hFzZLqJdsEqdlrx">Pokaż święta w grafiku</span>
+                        <span class="hFzZLqJdsEqdlrx">Pokaż święta w grafiku (wszyscy)</span>
                     </div>
                 </div>
                 <div class="msdgExEZCpefgcL">
@@ -197,7 +198,7 @@
                             }
                             <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                         </label>
-                        <span style="width: 375px;" class="hFzZLqJdsEqdlrx">Zablokuj możliwość dodawania zadań do dni świątecznych</span>
+                        <span style="width: 375px;" class="hFzZLqJdsEqdlrx">Zablokuj możliwość dodawania zadań do dni świątecznych (admin)</span>
                     </div>
                 </div>
             </div>
@@ -224,7 +225,7 @@
                             }
                             <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                         </label>
-                        <span class="hFzZLqJdsEqdlrx">Pokazuj tylko inicjały imion i nazwisk w grafikach</span>
+                        <span class="hFzZLqJdsEqdlrx">Pokazuj tylko inicjały imion i nazwisk w grafikach (admin i liderzy)</span>
                     </div>
                 </div>
                 <div class="msdgExEZCpefgcL">
@@ -247,7 +248,7 @@
                             }
                             <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                         </label>
-                        <span class="hFzZLqJdsEqdlrx">Włącz prywatne grafiki</span>
+                        <span class="hFzZLqJdsEqdlrx">Włącz prywatne grafiki (admin)</span>
                         <!--help icon -> (Każdy pracownik będzie widział tylko swój grafik, 
                         nie będzie miał wglądu do grafików innych pracowników ze swojego działu)-->
                         <!--może dodać tabelę, w której będzie można określić, którzy pracownicy mają mieć prywatny grafik (nowa tabela)-->
@@ -255,7 +256,7 @@
                         {
                             if (taskSettingsArray.EnablePrivateSchedule == true)
                             {
-                                <span class="pCAkeIBbalSqCTB" id="NquudTpGloVzKoB" onclick="blyVpYCtnXKDgCn('@encryptedUserID')">lista osób</span>
+                                <span class="pCAkeIBbalSqCTB" id="NquudTpGloVzKoB" onclick="blyVpYCtnXKDgCn()">lista osób</span>
                             }
                         }
                     </div>
@@ -284,7 +285,7 @@
                             }
                             <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                         </label>
-                        <span class="hFzZLqJdsEqdlrx">Włącz możliwość edycji grafiku przez innych pracowników</span>
+                        <span class="hFzZLqJdsEqdlrx">Włącz możliwość edycji grafiku przez pracowników innych niż liderzy czy admini (admin)</span>
                         @* <a href="#">lista dozwolonych osób (do zrobienia (nowa tabela))</a> *@
                         @* <span class="pCAkeIBbalSqCTB" onclick="alert()">lista dozwolonych osób</span> *@
                         @if (taskSettingsArray != null)
@@ -316,7 +317,7 @@
                             }
                             <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                         </label>
-                        <span class="hFzZLqJdsEqdlrx">Zablokuj możliwość edycji grafiku po upływie określonego czasu</span>
+                        <span class="hFzZLqJdsEqdlrx">Zablokuj możliwość edycji grafiku po upływie określonego czasu (admin)</span>
                     </div>
                     @if (taskSettingsArray != null)
                     {
@@ -369,7 +370,7 @@
                             }
                             <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                         </label>
-                        <span class="hFzZLqJdsEqdlrx">Włącz automatyczne powielanie grafiku</span>
+                        <span class="hFzZLqJdsEqdlrx">Włącz automatyczne powielanie grafiku (admin i liderzy)</span>
                     </div>
                     @if (taskSettingsArray != null)
                     {
@@ -422,7 +423,7 @@
                             }
                             <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                         </label>
-                        <span class="hFzZLqJdsEqdlrx">Włącz automatyczne udostępnianie grafiku</span>
+                        <span class="hFzZLqJdsEqdlrx">Włącz automatyczne udostępnianie grafiku (admin i liderzy)</span>
                     </div>
                     @if (taskSettingsArray != null)
                     {
