@@ -1,4 +1,5 @@
 ﻿@using Newtonsoft.Json
+@using System.Security.Claims
 
 @{
     var departmentLenght = ((IEnumerable<Department>)ViewBag.Departments).Count();
@@ -6,6 +7,20 @@
     //pierwszy dział
     var firstDepartment = ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name).FirstOrDefault()?.Name;
     var firstDepartmentID = ((IEnumerable<Department>)ViewBag.Departments).OrderBy(x => x.Name).FirstOrDefault()?.Id;
+
+    //userID
+    var claimsIdentity = User.Identity as ClaimsIdentity;
+    var userID = "";
+    if (claimsIdentity != null)
+    {
+        var userIdClaim = claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+        if (userIdClaim != null)
+        {
+            userID = userIdClaim.Value;
+        }
+    }
+
+    var taskSettingsArray = ((IEnumerable<TasksSettings>)ViewBag.TasksSettings).Where(x => x.UserId == userID);
 }
 
 <div class="loader_div iXYXpnpgGMALUNG">
@@ -26,15 +41,31 @@
             <ion-icon name="chevron-down-outline"></ion-icon>
         </div>
     </a>
-    <a class="settings_a" onclick="fssIiZoJOhPhaRO(this)" id="fssIiZoJOhPhaRO_">
-        <ion-icon name="calendar-clear-outline"></ion-icon>
-        <span id="OcoYTyiBrpZJStB"></span>
-        <div class="settings_a_select">
-            <span>Tydzień</span>
-            <span></span>
-            <ion-icon name="chevron-down-outline"></ion-icon>
-        </div>
-    </a>
+
+    @if (!taskSettingsArray.Any() || taskSettingsArray.First().WorkScheduleView == 0)
+    {
+        <a class="settings_a" onclick="fssIiZoJOhPhaRO(this)" id="fssIiZoJOhPhaRO_">
+            <ion-icon name="calendar-clear-outline"></ion-icon>
+            <span id="OcoYTyiBrpZJStB"></span>
+            <div class="settings_a_select">
+                <span>Tydzień</span>
+                <span></span>
+                <ion-icon name="chevron-down-outline"></ion-icon>
+            </div>
+        </a>
+    }
+    else
+    {
+        <a class="settings_a" onclick="eAtzZqRcgNRQSze(this)" id="eAtzZqRcgNRQSze_">
+            <ion-icon name="calendar-clear-outline"></ion-icon>
+            <span id="OcoYTyiBrpZJStB"></span>
+            <div class="settings_a_select">
+                <span>Miesiąc</span>
+                <span></span>
+                <ion-icon name="chevron-down-outline"></ion-icon>
+            </div>
+        </a>
+    }
 
     @if (departmentLenght == 0)
     {

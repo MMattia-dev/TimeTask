@@ -8,11 +8,11 @@
     }, 500);
 });
 
-function loadOnLoad()
-{
-    drmZhscxvPoxiya(sessionStorage.getItem('LTRXohWjonyFAsg'), sessionStorage.getItem('hQxHXfkxHkfALTJ'), sessionStorage.getItem('JcvzYoovBpGECWh'));
-};
-loadOnLoad();
+//function loadOnLoad()
+//{
+//    drmZhscxvPoxiya(sessionStorage.getItem('LTRXohWjonyFAsg'), sessionStorage.getItem('hQxHXfkxHkfALTJ'), sessionStorage.getItem('JcvzYoovBpGECWh'));
+//};
+//loadOnLoad();
 
 function drmZhscxvPoxiya(year, week, department)
 {
@@ -40,6 +40,44 @@ function drmZhscxvPoxiya(year, week, department)
             if (response.week.toString().length == 1) {
                 $('#OcoYTyiBrpZJStB').html(response.week).addClass('OcoYTyiBrpZJStB_');
             }
+
+            $('#loaderID_').remove(); //koniec ładowania
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function ThXhilqYhSiZDrl(year, month, department) 
+{
+    $('.right-nav').append(createLoader()); //ładowanie
+
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/CreateTableForMonths',
+        data: {
+            savedYear: year,
+            savedMonth: month,
+            savedDepartment: department
+        },
+        success: function (response)
+        {
+            //howManyTasks(department);
+
+            //$('.right-nav').html(response.table);
+
+            //if (response.week.toString().length == 2)
+            //{
+            //    $('#OcoYTyiBrpZJStB').html(response.week).removeClass('OcoYTyiBrpZJStB_');
+            //}
+            //if (response.week.toString().length == 1)
+            //{
+            //    $('#OcoYTyiBrpZJStB').html(response.week).addClass('OcoYTyiBrpZJStB_');
+            //}
+
+
 
             $('#loaderID_').remove(); //koniec ładowania
         },
@@ -261,6 +299,27 @@ function fssIiZoJOhPhaRO(t)
     });
 };
 
+function eAtzZqRcgNRQSze(t) {
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/MonthsInYear',
+        data: {
+            savedYear: sessionStorage.getItem('LTRXohWjonyFAsg'),
+            savedMonth: sessionStorage.getItem('XmRbNRjSsnfRbUN'), //miesiąc
+            savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh')
+        },
+        success: function (response)
+        {
+            $(t).toggleClass("pAPTryUdWHeiZZa");
+            show_options(t, response.contentResult.content);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
 function XyLurmdtOTQYvZU(t, year, week, department) 
 {
     $('#fssIiZoJOhPhaRO_').children('.settings_a_select').children('span').eq(1).html(week);
@@ -275,6 +334,24 @@ function XyLurmdtOTQYvZU(t, year, week, department)
     sessionStorage.setItem('hQxHXfkxHkfALTJ', week);
 
     drmZhscxvPoxiya(year, week, department);
+};
+
+function vMuRKnlzsTqjFoH(t, year, month, department) 
+{
+    //$('#eAtzZqRcgNRQSze_').children('.settings_a_select').children('span').eq(1).html(month);
+    let monthName = $(t).children().children('span').eq(1).html();
+    $('#eAtzZqRcgNRQSze_').children('.settings_a_select').children('span').eq(1).html(monthName);
+
+    let eAtzZqRcgNRQSze__ = document.querySelectorAll('#eAtzZqRcgNRQSze__');
+    for (let i = 0; i < eAtzZqRcgNRQSze__.length; i++) 
+    {
+        $(eAtzZqRcgNRQSze__[i]).removeClass('QbNQbKEvEMUpWaH');
+    }
+    $(t).addClass('QbNQbKEvEMUpWaH');
+
+    sessionStorage.setItem('XmRbNRjSsnfRbUN', month);
+
+    ThXhilqYhSiZDrl(year, month, department);
 };
 
 function jxcqHOZgFmYHYkI(t, firstDepartment) 

@@ -37,7 +37,7 @@
             <div class="YavvRCMQscelhIs riqhWBvtFoKacNt KJiwNsHiMAVNLKL">
                 <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Ustawienia główne</span>
                 <div class="msdgExEZCpefgcL">
-                    <span>Widok grafiku: (wszyscy)</span>
+                    <span>Widok grafiku: (admin i liderzy)</span>
                     <select class="form-control PpUlJWeIciRKSTQ" id="DGSWGCQnhgXKmAe_" onchange="DGSWGCQnhgXKmAe('@encryptedUserID')">
                         @if (taskSettingsArray != null)
                         {
@@ -60,7 +60,7 @@
                     </select>
                 </div>
                 <div class="msdgExEZCpefgcL">
-                    <span>Pierwszy dzień tygodnia: (wszyscy)</span>
+                    <span>Pierwszy dzień tygodnia: (admin)</span>
                     <select class="form-control PpUlJWeIciRKSTQ" id="ynAnPsGicwfcWMt_" onchange="ynAnPsGicwfcWMt('@encryptedUserID')">
                         @if (taskSettingsArray != null)
                         {
@@ -81,6 +81,7 @@
                             <option>Niedziela</option>
                         }
                     </select>
+                    <span style="color: greenyellow;">(działa)</span>
                 </div>
                 <div class="msdgExEZCpefgcL">
                     <span>Limit przydzielonych zadań na dzień: (admin)</span>
@@ -176,6 +177,7 @@
                             <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                         </label>
                         <span class="hFzZLqJdsEqdlrx">Pokaż święta w grafiku (wszyscy)</span>
+                        <span style="color: greenyellow;">(działa)</span>
                     </div>
                 </div>
                 <div class="msdgExEZCpefgcL">
@@ -248,15 +250,13 @@
                             }
                             <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                         </label>
-                        <span class="hFzZLqJdsEqdlrx">Włącz prywatne grafiki (admin)</span>
-                        <!--help icon -> (Każdy pracownik będzie widział tylko swój grafik, 
-                        nie będzie miał wglądu do grafików innych pracowników ze swojego działu)-->
-                        <!--może dodać tabelę, w której będzie można określić, którzy pracownicy mają mieć prywatny grafik (nowa tabela)-->
+                        <span class="hFzZLqJdsEqdlrx">Włącz prywatne grafiki (admin i liderzy)</span>
+                        <ion-icon name="help-circle-outline" onclick="GtmejktUVOJfTCB()"></ion-icon>
                         @if (taskSettingsArray != null)
                         {
                             if (taskSettingsArray.EnablePrivateSchedule == true)
                             {
-                                <span class="pCAkeIBbalSqCTB" id="NquudTpGloVzKoB" onclick="blyVpYCtnXKDgCn()">lista osób</span>
+                                <span class="pCAkeIBbalSqCTB" id="oGcQReBvhchwRqL" onclick="blyVpYCtnXKDgCn()">lista osób</span>
                             }
                         }
                     </div>
@@ -285,14 +285,15 @@
                             }
                             <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                         </label>
-                        <span class="hFzZLqJdsEqdlrx">Włącz możliwość edycji grafiku przez pracowników innych niż liderzy czy admini (admin)</span>
+                        @* <span class="hFzZLqJdsEqdlrx">Włącz możliwość edycji grafiku przez pracowników innych niż liderzy czy admini (admin)</span> *@
+                        <span class="hFzZLqJdsEqdlrx">Zezwól na edycję grafików przez pracowników innych niż liderzy (admin)</span>
                         @* <a href="#">lista dozwolonych osób (do zrobienia (nowa tabela))</a> *@
                         @* <span class="pCAkeIBbalSqCTB" onclick="alert()">lista dozwolonych osób</span> *@
                         @if (taskSettingsArray != null)
                         {
                             if (taskSettingsArray.AllowOthersToEdit == true)
                             {
-                                <span class="pCAkeIBbalSqCTB" id="pCAkeIBbalSqCTB_" onclick="vCLpIjekJHmTCDZ('@encryptedUserID')">lista dozwolonych osób</span>
+                                <span class="pCAkeIBbalSqCTB" id="pCAkeIBbalSqCTB_" onclick="vCLpIjekJHmTCDZ()">lista dozwolonych osób</span>
                             }
                         }
                     </div>
@@ -317,7 +318,7 @@
                             }
                             <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                         </label>
-                        <span class="hFzZLqJdsEqdlrx">Zablokuj możliwość edycji grafiku po upływie określonego czasu (admin)</span>
+                        <span class="hFzZLqJdsEqdlrx">Zablokuj możliwość edycji grafików po upływie określonego czasu (admin)</span>
                     </div>
                     @if (taskSettingsArray != null)
                     {
@@ -370,7 +371,8 @@
                             }
                             <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                         </label>
-                        <span class="hFzZLqJdsEqdlrx">Włącz automatyczne powielanie grafiku (admin i liderzy)</span>
+                        <span class="hFzZLqJdsEqdlrx">Włącz automatyczne powielanie grafiku (admin i liderzy) (po włączeniu pokaż form)</span>
+                        <span class="pCAkeIBbalSqCTB" id="" onclick="">ustawienia</span>
                     </div>
                     @if (taskSettingsArray != null)
                     {
@@ -423,7 +425,7 @@
                             }
                             <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                         </label>
-                        <span class="hFzZLqJdsEqdlrx">Włącz automatyczne udostępnianie grafiku (admin i liderzy)</span>
+                        <span class="hFzZLqJdsEqdlrx">Włącz automatyczne udostępnianie grafiku (admin i liderzy) (link do ustawień, w tym dla jakiego dzału ustawić (role))</span>
                     </div>
                     @if (taskSettingsArray != null)
                     {
@@ -439,7 +441,7 @@
                                 </div>
                                 <div class="VjYAEBHWVZOOXnf">
                                     <span>Powtarzaj:</span>
-                                    <select class="form-control PpUlJWeIciRKSTQ" id="YcyAWdmiezAOUBV_" onchange="YcyAWdmiezAOUBV('@encryptedUserID')">
+                                    <select class="form-control HZDznQEKaNVLIxx" id="YcyAWdmiezAOUBV_" onchange="YcyAWdmiezAOUBV('@encryptedUserID')">
                                         @if (taskSettingsArray.RepeatAutoShareSchedule == 0)
                                         {
                                             <option selected>co tydzień</option>

@@ -528,6 +528,8 @@ ion-icon {
             color: rgba(255, 255, 255, 0.8);
             font-weight: bold;
             transform: translateY(-10px);
+            text-align: right;
+            width: 100%;
         }
 
 #info {
@@ -2998,43 +3000,22 @@ ion-icon {
         pointer-events: none;
     }
 
-.IvBtEDulLESDYxK {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
-    height: auto;
-    width: 275px;
-    padding: 10px;
+
+
+.lzfFwBKdGEtuYUv {
+    height: 200px;
+    border-right: 3px solid rgba(0, 0, 0, 0.5);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.5);
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
+    scrollbar-width: thin;
+    transition: background-color 0.2s;
     display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-    gap: 8px;
-}
-
-    .IvBtEDulLESDYxK span {
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 14px;
-        text-align: center;
-    }
-
-    .IvBtEDulLESDYxK.IifKberCJgUGDkZ {
-        width: 350px;
-        gap: 4px;
-    }
-
-    .lzfFwBKdGEtuYUv {
-        height: 200px;
-        border-right: 3px solid rgba(0, 0, 0, 0.5);
-        border-bottom: 3px solid rgba(0, 0, 0, 0.5);
-        overflow-x: hidden;
-        overflow-y: auto;
-        scrollbar-color: rgba(36, 110, 142, 0.7) transparent;
-        scrollbar-width: thin;
-        transition: background-color 0.2s;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(34, 36, 48, 0.6);
-    }
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(34, 36, 48, 0.6);
+}   
 
 .QzmjBfeBaWcRPCc {
     display: flex;
@@ -3903,8 +3884,6 @@ ion-icon {
     .HsRFJWiSLmrJcoG:before {
         position: absolute;
         content: "";
-        /*height: 26px;
-        width: 26px;*/
         height: 20px;
         width: 20px;
         left: 4px;
@@ -4030,6 +4009,10 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         margin-left: 30px;
     }
 
+    .msdgExEZCpefgcL div ion-icon {
+        cursor: pointer;
+    }
+
 .eEwwYSDbqyMdghL {
     overflow-y: auto;
     overflow-x: hidden;
@@ -4120,6 +4103,30 @@ input:checked + .HsRFJWiSLmrJcoG:before {
 
             .rHIpYUaJfTsSFHO tr td.eCLCYNmbmlOrFSF select:hover {
                 filter: contrast(120%);
+            }
+
+            .rHIpYUaJfTsSFHO tr th.VXpzVpGPRbXLGTy {
+                width: 240px;
+            }
+
+            .rHIpYUaJfTsSFHO tr td.VXpzVpGPRbXLGTy {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 240px;
+                max-width: 240px;
+            }
+
+            .rHIpYUaJfTsSFHO tr th.BtlBMWzsKzlwKDR {
+                width: 120px;
+            }
+
+            .rHIpYUaJfTsSFHO tr td.BtlBMWzsKzlwKDR {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 120px;
+                max-width: 120px;
             }
     
 .hFzZLqJdsEqdlrx {

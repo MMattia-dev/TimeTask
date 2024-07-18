@@ -567,7 +567,7 @@ function UnbUFgGDXRYLZYj(WpMXiAZVwrrkfTh) {
     $(element).parent().parent().append(createSmallLoader3());
 
     if (!checkStatus) {
-        $('#NquudTpGloVzKoB').remove();
+        $('#oGcQReBvhchwRqL').remove();
     }
 
     $.ajax({
@@ -1080,6 +1080,95 @@ function TOcOvMfyvdIqAPS(t, id)
         {
             $(t).parent().parent().remove();
             $('#dzpHswVEgOuhbEo').replaceWith(response);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function vCLpIjekJHmTCDZ() {
+    $.ajax({
+        type: 'GET',
+        url: '/TasksSettings/AllowedToEditScheduleForm',
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#YqBrQVpkndLZzaa').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function jUPppSZJVxzCUha(t) {
+    let xSfEDycxtdtGZgN = document.getElementById('xSfEDycxtdtGZgN_');
+
+    if (t.selectedIndex > 0)
+    {
+        xSfEDycxtdtGZgN.removeAttribute('disabled');
+    }
+};
+
+function xSfEDycxtdtGZgN(t) {
+    let w = document.getElementById('jUPppSZJVxzCUha_').value;
+    let d = t.value;
+
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/AllowedToEditSchedulePost',
+        data: {
+            departmentId: d,
+            workerId: w
+        },
+        success: function (response)
+        {
+            if (t.selectedIndex > 0)
+            {
+                $(t).parent().parent().before(response.tr.content);
+                $('#dzpHswVEgOuhbEo').replaceWith(response.tr2.content);
+
+                let eEwwYSDbqyMdghL = document.querySelector('.eEwwYSDbqyMdghL');
+                eEwwYSDbqyMdghL.scrollTo(0, eEwwYSDbqyMdghL.scrollHeight);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function grtJxEXjDniewcb(t, id) {
+    $.ajax({
+        type: 'POST',
+        url: '/TasksSettings/AllowedToEditScheduleRemove',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            $(t).parent().parent().remove();
+            $('#dzpHswVEgOuhbEo').replaceWith(response);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
+
+function GtmejktUVOJfTCB() {
+    $.ajax({
+        type: 'GET',
+        url: '/TasksSettings/nMGlijSPHjLmvGt',
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#gxIYmUVtuQuFwST').fadeIn(200);
         },
         error: function (xhr, status, error)
         {

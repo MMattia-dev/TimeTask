@@ -1,7 +1,22 @@
-﻿@model IEnumerable<TimeTask.Models.Task2>
+﻿@using System.Security.Claims
+@model IEnumerable<TimeTask.Models.Task2>
 
 @{
     ViewData["Title"] = "Grafik";
+
+    //userID
+    var claimsIdentity = User.Identity as ClaimsIdentity;
+    var userID = "";
+    if (claimsIdentity != null)
+    {
+        var userIdClaim = claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+        if (userIdClaim != null)
+        {
+            userID = userIdClaim.Value;
+        }
+    }
+
+    var taskSettingsArray = ((IEnumerable<TasksSettings>)ViewBag.TasksSettings).Where(x => x.UserId == userID);
 }
 
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
@@ -16,53 +31,22 @@
         <partial name="_Task" />
     </section>
     <section class="right-nav p-0 ttbOkNfvCKQgfoH">
-       
-
-        @* <a id="dlink" style="display:none;"></a>
-        <div class="tableBody">
-            <table id="testTable">
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        @foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).Where(x => x.DepartmentID == 96))
-                        {
-                            <th class="header">@item.Surname @item.Name</th>
-                        }
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (int i = 1; i <= 7; i++)
-                    {
-                        <tr>
-                            <td rowspan="3" class="dates">@i (pon.)</td> <!--rowspan zalezny od ilosci taskow-->
-                            @foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).Where(x => x.DepartmentID == 96))
-                            {
-                                <td class="hours">08:00 - 16:00</td>
-                            }
-                        </tr>
-                        <!--foreach task-->
-                        <tr class="tasks">
-                            @foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).Where(x => x.DepartmentID == 96))
-                            {
-                                <td>task 1</td>
-                            }
-                        </tr>
-                        <tr class="tasks">
-                            @foreach (var item in ((IEnumerable<Workers2>)ViewBag.Workers).Where(x => x.DepartmentID == 96))
-                            {
-                                <td>task 2</td>
-                            }
-                        </tr>
-
-                    }
-                </tbody>
-            </table>
-        </div> *@
-
-
-
+        
     </section>
 </div> 
 
 <script type="text/javascript" src="~/js/site.js"></script>
 <script type="text/javascript" src="~/js/TaskJS.js"></script>
+
+@if (!taskSettingsArray.Any() || taskSettingsArray.First().WorkScheduleView == 0)
+{
+    <script>
+        drmZhscxvPoxiya(sessionStorage.getItem('LTRXohWjonyFAsg'), sessionStorage.getItem('hQxHXfkxHkfALTJ'), sessionStorage.getItem('JcvzYoovBpGECWh'));
+    </script>
+}
+else
+{
+    <script>
+        ThXhilqYhSiZDrl(sessionStorage.getItem('LTRXohWjonyFAsg'), sessionStorage.getItem('XmRbNRjSsnfRbUN'), sessionStorage.getItem('JcvzYoovBpGECWh'));
+    </script>
+}

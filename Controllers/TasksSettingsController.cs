@@ -608,7 +608,7 @@ namespace TimeTask.Controllers
                 {
                     row.AllowOthersToEdit = allowOthersToEdit;
                     _context.SaveChanges();
-                    return Json(new { success = true, span = Content("<span class=\"pCAkeIBbalSqCTB\" id=\"pCAkeIBbalSqCTB_\" onclick=\"\">lista dozwolonych osób</span>") });
+                    return Json(new { success = true, span = Content("<span class=\"pCAkeIBbalSqCTB\" id=\"pCAkeIBbalSqCTB_\" onclick=\"vCLpIjekJHmTCDZ()\">lista dozwolonych osób</span>") });
                 }
             }
             else
@@ -639,7 +639,7 @@ namespace TimeTask.Controllers
 
                 _context.TasksSettings.Add(newData);
                 _context.SaveChanges();
-                return Json(new { success = true, span = Content("<span class=\"pCAkeIBbalSqCTB\" id=\"pCAkeIBbalSqCTB_\" onclick=\"\">lista dozwolonych osób</span>") });
+                return Json(new { success = true, span = Content("<span class=\"pCAkeIBbalSqCTB\" id=\"pCAkeIBbalSqCTB_\" onclick=\"vCLpIjekJHmTCDZ()\">lista dozwolonych osób</span>") });
             }
 
             return Json(false);
@@ -1160,8 +1160,8 @@ namespace TimeTask.Controllers
 
                     tr += "<tr>" +
                             "<td title=\"" + row.Id + "\">" + row.Id + "</td>" +
-                            "<td title=\"" + departmentName + "\">" + departmentName + "</td>" +
-                            "<td title=\"" + row.DayTasksLimit + "\">" + row.DayTasksLimit + "</td>" +
+                            "<td class=\"VXpzVpGPRbXLGTy\" title=\"" + departmentName + "\">" + departmentName + "</td>" +
+                            "<td class=\"BtlBMWzsKzlwKDR\" title=\"" + row.DayTasksLimit + "\">" + row.DayTasksLimit + "</td>" +
                             "<td>" +
                                 "<a onclick=\"TOcOvMfyvdIqAPS(this, " + row.Id + ")\">Usuń</a>" +
                             "</td>" +
@@ -1174,8 +1174,8 @@ namespace TimeTask.Controllers
                         "<thead>" +
                             "<tr>" +
                                 "<th title=\"id\"><ion-icon name=\"key\"></ion-icon></th>" +
-                                "<th>Dział</th>" +
-                                "<th>Limit zadań</th>" +
+                                "<th class=\"VXpzVpGPRbXLGTy\">Dział</th>" +
+                                "<th class=\"BtlBMWzsKzlwKDR\">Limit zadań</th>" +
                                 "<th></th>" +
                             "</tr>" +
                         "</thead>" +
@@ -1235,6 +1235,149 @@ namespace TimeTask.Controllers
             }
 
             return Json(false);
+        }
+
+        public string AddTr3()
+        {
+            string workers = "<option selected disabled>--Wybierz--</option>";
+            foreach (var worker in _context.Workers2.OrderBy(x => x.DepartmentID))
+            {
+                workers += "<option value=\"" + worker.Id + "\">" + worker.Surname + " " + worker.Name + " (" + _context.Department.First(x => x.Id == worker.DepartmentID).Name + ")</option>";
+            }
+
+            string departmentsOptions = "<option selected disabled>--Wybierz--</option>";
+            foreach (var department in _context.Department.OrderBy(x => x.Name))
+            {
+                departmentsOptions += "<option value=\"" + department.Id + "\">" + department.Name + "</option>";
+            }
+
+            string newTr2 = "<tr id=\"dzpHswVEgOuhbEo\">" +
+                            "<td title=\"Dodaj nowy dział\"><ion-icon name=\"add-outline\"></ion-icon></td>" +
+                            "<td class=\"eCLCYNmbmlOrFSF\">" +
+                                "<select class=\"form-control\" onchange=\"jUPppSZJVxzCUha(this)\" id=\"jUPppSZJVxzCUha_\">" +
+                                    workers +
+                                "</select>" +
+                            "</td>" +
+                            "<td class=\"eCLCYNmbmlOrFSF\">" +
+                                "<select disabled class=\"form-control\" onchange=\"xSfEDycxtdtGZgN(this)\" id=\"xSfEDycxtdtGZgN_\">" +
+                                    departmentsOptions +
+                                "</select>" +
+                            "</td>" +
+                            "<td></td>" +
+                        "</tr>";
+
+            return newTr2;
+        }
+
+        public ActionResult AllowedToEditScheduleForm()
+        {
+            string removeForm = "$('#YqBrQVpkndLZzaa').remove()";
+
+            var allowedToEditSchedule = _context.AllowedToEditSchedule;
+            string tr = "";
+            foreach (var row in allowedToEditSchedule)
+            {
+                var workersArray = _context.Workers2.First(x => x.Id == row.WorkerId);
+                var name = workersArray.Surname + " " + workersArray.Name;
+                //var departmentName = _context.Department.First(x => x.Id == workersArray.DepartmentID).Name;
+                var departmentName = _context.Department.First(x => x.Id == row.DepartmentId).Name;
+
+                tr += "<tr>" +
+                        "<td title=\"" + row.Id + "\">" + row.Id + "</td>" +
+                        "<td class=\"VXpzVpGPRbXLGTy\" title=\"" + name + " (" + _context.Department.First(x => x.Id == workersArray.DepartmentID).Name + ")\">" + name + " (" + _context.Department.First(x => x.Id == workersArray.DepartmentID).Name + ")</td>" +
+                        "<td class=\"BtlBMWzsKzlwKDR\" title=\"" + departmentName + "\">" + departmentName + "</td>" +
+                        "<td>" +
+                            "<a onclick=\"grtJxEXjDniewcb(this, " + row.Id + ")\">Usuń</a>" +
+                        "</td>" +
+                    "</tr>";
+            }
+
+            string table = "<div class=\"eEwwYSDbqyMdghL\">" +
+                "<table class=\"rHIpYUaJfTsSFHO\">" +
+                    "<thead>" +
+                        "<tr>" +
+                            "<th title=\"id\"><ion-icon name=\"key\"></ion-icon></th>" +
+                            "<th class=\"VXpzVpGPRbXLGTy\">Nazwisko i Imię (Dział)</th>" +
+                            "<th class=\"BtlBMWzsKzlwKDR\">Dział</th>" +
+                            "<th></th>" +
+                        "<tr>" +
+                    "</thead>" +
+                    "<tbody>" +
+                        tr +
+                        AddTr3() +
+                    "</tbody>" +
+                "</table>" +
+                "</div>";
+
+
+            string form = "<div id=\"YqBrQVpkndLZzaa\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form class=\"AdMcjKPGypQwFuM\">" +
+                        "<span class=\"hFzZLqJdsEqdlrx phzshsahNeRSjfT wbxnvJGiIuXUOzi\">Edycja grafików - lista dozwolonych osób</span>" +
+                        table +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
+
+            return Content(form);
+        }
+
+        public ActionResult AllowedToEditSchedulePost(int departmentId, int workerId)
+        {
+            var newData = new AllowedToEditSchedule()
+            {
+                WorkerId = workerId,
+                DepartmentId = departmentId
+            };
+
+            _context.AllowedToEditSchedule.Add(newData);
+            _context.SaveChanges();
+
+            var workersArray = _context.Workers2.First(x => x.Id == workerId);  
+            var name = workersArray.Surname + " " + workersArray.Name;
+            var departmentName = _context.Department.First(x => x.Id == departmentId).Name;
+
+            string newTr = "<tr>" +
+                        "<td title=\"" + newData.Id + "\">" + newData.Id + "</td>" +
+                        "<td class=\"VXpzVpGPRbXLGTy\" title=\"" + name + " (" + _context.Department.First(x => x.Id == workersArray.DepartmentID).Name + ")\">" + name + " (" + _context.Department.First(x => x.Id == workersArray.DepartmentID).Name + ")</td>" +
+                        "<td class=\"BtlBMWzsKzlwKDR\" title=\"" + departmentName + "\">" + departmentName + "</td>" +
+                        "<td>" +
+                            "<a onclick=\"grtJxEXjDniewcb(this, " + newData.Id + ")\">Usuń</a>" +
+                        "</td>" +
+                    "</tr>";
+
+            return Json(new { tr = Content(newTr), tr2 = Content(AddTr3()) });
+        }
+
+        public ActionResult AllowedToEditScheduleRemove(int id)
+        {
+            var row = _context.AllowedToEditSchedule.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.AllowedToEditSchedule.Remove(row);
+                _context.SaveChanges();
+
+                return Json(AddTr3());
+            }
+
+            return Json(false);
+        }
+
+        public ActionResult nMGlijSPHjLmvGt()
+        {
+            string form = "<div id=\"gxIYmUVtuQuFwST\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form>" +
+                        "<div class=\"IvBtEDulLESDYxK\">" +
+                            "<span>Osoby wpisane na listę nie będą widoczne w grafiku. Nikt oprócz ich samych nie będzie miał wglądu do ich grafików (z wyjątkiem osób przygotowujących plan).</span>" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input type=\"button\" value=\"OK\" class=\"btn-download\" onclick=\"$('#gxIYmUVtuQuFwST').remove();\" />" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
+
+            return Json(form);
         }
 
 
