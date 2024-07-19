@@ -699,38 +699,158 @@ namespace TimeTask.Controllers
 
         public ActionResult CreateTableForMonths(int? savedYear, int? savedMonth, int? savedDepartment)
         {
+            //culture
+            var culture = new CultureInfo("pl-PL");
+
             int year = GetYear(savedYear);
             int month = GetMonth(savedMonth);
             int department = GetDepartmentId(savedDepartment);
 
             //days
-            //List<DateTime> days = new List<DateTime>();
-            int days = 0;
-            if (!GetTasksSettings(GetUserId()).Any() || GetTasksSettings(GetUserId()).First().FirstDayOfWeek == 0)
+            int days = DateTime.DaysInMonth((int)year, (int)month);
+
+            //days string
+            string th = "";
+            if (!GetTasksSettings(GetUserId()).Any() || GetTasksSettings(GetUserId()).First().ShowHolidays == false)
             {
-                days = DateTime.DaysInMonth((int)year, (int)month);
+                for (int i = 1; i <= days; i++)
+                {
+                    var date = new DateTime(year, month, i);
+
+                    string span = "";
+                    if (date.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        span = "<span style=\"color: orangered;\">" + date.ToString("dddd", culture) + "</span>";
+                    }
+                    else
+                    {
+                        span = "<span>" + date.ToString("dddd", culture) + "</span>";
+                    }
+
+                    th += "<th>" +
+                            "<div>" +
+                                "<span>" + date.ToShortDateString() + "</span>" +
+                                span +
+                            "</div>" +
+                        "</th>";
+                }
             }
             else
             {
-                //
+                for (int i = 1; i <= days; i++)
+                {
+                    var date = new DateTime(year, month, i);
+
+                    string span = "";
+                    if (date.DayOfWeek == DayOfWeek.Sunday)
+                    {
+                        span = "<span style=\"color: orangered;\">" + date.ToString("dddd", culture) + "</span>";
+                    }
+                    else
+                    {
+                        span = "<span>" + date.ToString("dddd", culture) + "</span>";
+                    }
+
+                    var holiday = _context.Holiday.Select(x => x.Date.ToShortDateString()).ToList();
+                    if (holiday.Contains(date.ToShortDateString()))
+                    {
+                        th += "<th>" +
+                                    "<div>" +
+                                        "<span style=\"color: orangered;\">" + date.ToShortDateString() + "</span>" +
+                                        span +
+                                    "</div>" +
+                                "</th>";
+                    }
+                    else
+                    {
+                        th += "<th>" +
+                                    "<div>" +
+                                        "<span>" + date.ToShortDateString() + "</span>" +
+                                        span +
+                                    "</div>" +
+                                "</th>";
+                    }
+                }
             }
 
-            //culture
-            var culture = new CultureInfo("pl-PL");
-
-            //workers
-            string workers = "";
-            var workersList = _context.Workers2.Where(x => x.DepartmentID == department).OrderBy(x => x.Surname);
+            //workers rows
+            string tr = "";
+            var workersList = _context.Workers2.Where(x => x.DepartmentID == department).OrderBy(x => x.Surname).ToList();
             if (workersList.Any())
             {
                 foreach (var worker in workersList)
                 {
-                    workers += "";
+                    string td = "";
+                    for (int i = 1; i <= days; i++)
+                    {
+                        var date = new DateTime(year, month, i);
+
+                        var taskArray = _context.Task2.Where(x => x.WorkerID == worker.Id);
+
+                        string? tasks = null;
+                        string? jobEnter = null;
+                        string? jobExit = null;
+                        string deleteButton = "";
+
+                        foreach (var task in taskArray)
+                        {
+                            if (task.Date.ToShortDateString() == date.ToShortDateString())
+                            {
+                                if (task.JobStart.HasValue && task.JobEnd.HasValue)
+                                {
+                                    jobEnter = task.JobStart.Value.ToString("HH:mm");
+                                    jobExit = task.JobEnd.Value.ToString("HH:mm");
+                                    deleteButton = "<a class=\"MNewKOhqZkqNDeJ\" onclick=\"czzROjFaPsDoZoT(this)\" title=\"Usuń godziny\"><ion-icon name=\"close\"></ion-icon></a>";
+                                }
+
+                                if (task.TaskName != null)
+                                {
+                                    tasks += "<div class=\"ZslufbFdcfCIeaW\">" +
+                                        "<span>" + task.TaskName + "</span>" +
+                                        "<a onclick=\"aTdCbXqRfUSGyXc(this, " + task.Id + ")\" title=\"Usuń zadanie\"><ion-icon name=\"close\"></ion-icon></a>" +
+                                    "</div>";
+                                }
+                            }
+                        }
+
+                        string jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" onblur=\"wgddAsHIsXNWQkl(this)\"/>";
+                        string jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" onblur=\"wgddAsHIsXNWQkl(this)\" />";
+
+                        td += "<td worker=\"" + worker.Id + "\" date=\"" + date.ToString("yyyy-MM-dd") + "\">" +
+                            "<div class=\"LwxRoYhfmyzTlGm\">" +
+                                jobStartInput +
+                                "<span>-</span>" +
+                                jobEndInput +
+                                deleteButton +
+                            "</div>" +
+                            "<div class=\"AQzCKqmlrQJmxzn\">" +
+                                tasks +
+                            "</div>" +
+                        "</td>";
+                    }
+
+                    tr += "<tr>" +
+                            "<td><span title=\"" + worker.Surname + " " + worker.Name + "\">" + worker.Surname + " " + worker.Name + "</span><br><span title=\"" + _context.Department.FirstOrDefault(x => x.Id == worker.DepartmentID)?.Name + "\">" + _context.Department.FirstOrDefault(x => x.Id == worker.DepartmentID)?.Name + "</span></td>" +
+                            td +
+                        "</tr>";
                 }
             }
 
+            //table
+            string table = "<table class=\"task_table task_table_months\" id=\"table\">" +
+                    "<thead>" +
+                        "<tr>" +
+                            "<th id=\"yUTtmGBmFaoGjIS\" class=\"xiJCivUvGCdFWti\"></th>" +
+                            th +
+                        "</tr>" +
+                    "</thead>" +
+                    "<tbody>" +
+                        tr +
+                    "</tbody>" +
+                "</table>";
 
-            return Json(false);
+
+            return Json(new { table, month });
         }
 
         public List<DateTime> getDatesInWeek(int year, int weekOfYear)
@@ -739,11 +859,6 @@ namespace TimeTask.Controllers
 
             return days;
         }
-
-        //public List<DateTime> getDatesInMonth(int year, int month)
-        //{
-        //    DateTime.DaysInMonth(year, month);
-        //}
 
         static DateTime FirstDateOfWeek(int year, int weekOfYear)
         {
@@ -2103,7 +2218,13 @@ namespace TimeTask.Controllers
             return Json(false);
         }
 
+        [HttpGet]
+        public ActionResult GetTasksSettings()
+        {
 
+
+            return Json(false);
+        }
 
 
 
