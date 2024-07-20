@@ -4,8 +4,11 @@
     {
         $('.koblSjvDsfoQbAD').css({ 'opacity': '1' });
         $('#OcoYTyiBrpZJStB').css({ 'opacity': '1' });
-        $('.loader_div').fadeOut('fast');
+        //$('.loader_div').fadeOut('fast');
     }, 500);
+
+    //$('.left-nav').trigger('mouseenter');
+    //$('.left-nav').trigger('mouseleave');
 });
 
 //function loadOnLoad()
@@ -32,8 +35,6 @@ function drmZhscxvPoxiya(year, week, department)
 
             $('.right-nav').html(response.table);
             
-            //$('#kSSnezAexZyLwQZ').attr("onclick", "ZdzFYcenRSIqyJF(" + year + "," + week + "," + department + ")");
-
             if (response.week.toString().length == 2) {
                 $('#OcoYTyiBrpZJStB').html(response.week).removeClass('OcoYTyiBrpZJStB_');
             }
@@ -41,7 +42,9 @@ function drmZhscxvPoxiya(year, week, department)
                 $('#OcoYTyiBrpZJStB').html(response.week).addClass('OcoYTyiBrpZJStB_');
             }
 
-            $('#loaderID_').remove(); //koniec ładowania
+            //$('#loaderID_').remove(); //koniec ładowania
+            $('.loader_div').remove(); //koniec ładowania
+            $('.left-nav').removeClass('HFhDvVpHKOUBBMS');
         },
         error: function (xhr, status, error)
         {
@@ -77,7 +80,9 @@ function ThXhilqYhSiZDrl(year, month, department)
                 $('#OcoYTyiBrpZJStB').html(response.month).addClass('OcoYTyiBrpZJStB_');
             }
 
-            $('#loaderID_').remove(); //koniec ładowania
+            //$('#loaderID_').remove(); //koniec ładowania
+            $('.loader_div').remove(); //koniec ładowania
+            $('.left-nav').removeClass('HFhDvVpHKOUBBMS');
         },
         error: function (xhr, status, error)
         {
@@ -274,18 +279,23 @@ function CanjEZFvPetVidb(t, year, week, department)
 
     $.ajax({
         type: 'GET',
-        url: '/Tasks/GetTasksSettings',
+        url: '/Tasks/GetScheduleViewSetting',
         success: function (response)
         {
-            
+            if (response == false)
+            {
+                drmZhscxvPoxiya(year, week, department);
+            }
+            else 
+            {
+                ThXhilqYhSiZDrl(year, sessionStorage.getItem('XmRbNRjSsnfRbUN'), department);
+            }
         },
         error: function (xhr, status, error)
         {
             console.log('Error:', error);
         }
     });
-
-    //drmZhscxvPoxiya(year, week, department);
 };
 
 function fssIiZoJOhPhaRO(t) 
@@ -411,7 +421,14 @@ function HMdMMtqNwVAguDt(t, id)
 
             sessionStorage.setItem('JcvzYoovBpGECWh', id);
 
-            drmZhscxvPoxiya(response.year, response.week, id);
+            if (response.weekView == true)
+            {
+                drmZhscxvPoxiya(response.year, response.week, id);
+            }
+            else 
+            {
+                ThXhilqYhSiZDrl(response.year, response.month, id);
+            }
         },
         error: function (xhr, status, error)
         {
@@ -504,7 +521,8 @@ function uXPtoAMyTPOkWCV(t, taskID)
             //
             let workerID = $(newItem).parent().parent().attr('worker'); //nie może być równe null
             let taskNameID = taskID; //może być równe null
-            let date = $(newItem).parent().parent().parent().attr('date'); //nigdy nie będzie równe null
+            //let date = $(newItem).parent().parent().parent().attr('date'); //nigdy nie będzie równe null
+            let date = $(newItem).parent().parent().attr('date'); //nigdy nie będzie równe null
             let jobStart = $(newItem).parent().parent().children('.LwxRoYhfmyzTlGm').children('input').eq(0).val(); //może być równe null
             let jobEnd = $(newItem).parent().parent().children('.LwxRoYhfmyzTlGm').children('input').eq(1).val(); //może być równe null
             let numberofelements = $(newItem).parent().children('.ZslufbFdcfCIeaW').length;
@@ -522,8 +540,8 @@ function uXPtoAMyTPOkWCV(t, taskID)
 
 function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd, numberofelements) 
 {
-    disable();
-    $(element).append(createSmallLoader2());
+    //disable();
+    //$(element).append(createSmallLoader2());
 
     $.ajax({
         type: 'POST',
@@ -538,9 +556,22 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd, nu
         },
         success: function (response)
         {
-            $(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW').removeAttr('id').html(`<span>` + response.taskName + `</span><a onclick="aTdCbXqRfUSGyXc(this, ` + response.id + `)" title="Usuń zadanie"><ion-icon name="close"></ion-icon></a>`);
-            
-            enable();
+            if (response != false)
+            {
+                $(element).removeClass('pTBYGYxynGajyIy').addClass('ZslufbFdcfCIeaW').removeAttr('id').html(`<span>` + response.taskName + `</span><a onclick="aTdCbXqRfUSGyXc(this, ` + response.id + `)" title="Usuń zadanie"><ion-icon name="close"></ion-icon></a>`);
+
+                //enable();
+                $(element).parent().children('input').addClass('disabled');
+                $(element).parent().parent().children().addClass('disabled');
+                $(element).parent().parent().append(createSmallLoader_center());
+
+                setTimeout(function ()
+                {
+                    $(element).parent().children('input').removeClass('disabled');
+                    $(element).parent().parent().children().removeClass('disabled');
+                    $('.lds-ring-small').remove();
+                }, 200);
+            }
         },
         error: function (xhr, status, error)
         {
@@ -552,7 +583,8 @@ function saveAfterDrop(element, workerID, taskNameID, date, jobStart, jobEnd, nu
 function czzROjFaPsDoZoT(t) 
 {
     var workerID = $(t).parent().parent().attr('worker');
-    var date = $(t).parent().parent().parent().attr('date');
+    //var date = $(t).parent().parent().parent().attr('date');
+    var date = $(t).parent().parent().attr('date');
     var ids = $(t).parent().parent().children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW');
 
     let arrayOfIds = [];
@@ -569,9 +601,8 @@ function czzROjFaPsDoZoT(t)
     }
 
 
-    disable();
-    $(t).parent().append(createSmallLoader());
-
+    //disable();
+    //$(t).parent().append(createSmallLoader());
 
     $.ajax({
         type: 'POST',
@@ -583,9 +614,26 @@ function czzROjFaPsDoZoT(t)
         },
         success: function (response)
         {
-            $(t).parent().children('input').val('');
-            $(t).remove();
-            enable();
+            //$(t).parent().children('input').val('');
+            //$(t).remove();
+            //enable();
+
+            if (response != false) 
+            {
+                $(t).parent().parent().children('.LwxRoYhfmyzTlGm').addClass('disabled');
+                $(t).parent().parent().children('.AQzCKqmlrQJmxzn').addClass('disabled');
+                $(t).parent().parent().append(createSmallLoader_center());
+
+                setTimeout(function ()
+                {
+                    $(t).parent().parent().children('.LwxRoYhfmyzTlGm').removeClass('disabled');
+                    $(t).parent().parent().children('.AQzCKqmlrQJmxzn').removeClass('disabled');
+                    $('.lds-ring-small').remove();
+
+                    $(t).parent().children('input').val('');
+                    $(t).remove();
+                }, 200);
+            }
         },
         error: function (xhr, status, error)
         {
@@ -598,11 +646,9 @@ function aTdCbXqRfUSGyXc(t, id)
 {
     var ZslufbFdcfCIeaW_elements = $(t).parent().parent().children('.ZslufbFdcfCIeaW');
 
-
-    disable();
-    $(t).hide();
-    $(t).parent().append(createSmallLoader2());
-
+    //disable();
+    //$(t).hide();
+    //$(t).parent().append(createSmallLoader2());
 
     $.ajax({
         type: 'POST',
@@ -613,15 +659,29 @@ function aTdCbXqRfUSGyXc(t, id)
         },
         success: function (response)
         {
-            $(t).parent().remove();
-            enable();
+            //$(t).parent().remove();
+            //enable();
+            if (response != false) 
+            {
+                $(t).parent().parent().parent().children('.LwxRoYhfmyzTlGm').addClass('disabled');
+                $(t).parent().parent().parent().children('.AQzCKqmlrQJmxzn').addClass('disabled');
+                $(t).parent().parent().parent().append(createSmallLoader_center());
+
+                setTimeout(function ()
+                {
+                    $(t).parent().parent().parent().children('.LwxRoYhfmyzTlGm').removeClass('disabled');
+                    $(t).parent().parent().parent().children('.AQzCKqmlrQJmxzn').removeClass('disabled');
+                    $('.lds-ring-small').remove();
+
+                    $(t).parent().remove();
+                }, 200);
+            }
         },
         error: function (xhr, status, error)
         {
             console.log('Error:', error);
         }
     });
-    
 };
 
 function AddOrEditTime(element, workerID, date, ids, jobStart, jobEnd) 
@@ -678,7 +738,8 @@ function AddOrEditTime(element, workerID, date, ids, jobStart, jobEnd)
 function wgddAsHIsXNWQkl(t) 
 {
     var workerID = $(t).parent().parent().attr('worker');
-    var date = $(t).parent().parent().parent().attr('date');
+    //var date = $(t).parent().parent().parent().attr('date');
+    var date = $(t).parent().parent().attr('date');
     var ids = $(t).parent().parent().children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW');
     let jobStart = $(t).parent().children('input').eq(0).val();
     let jobEnd = $(t).parent().children('input').eq(1).val();
@@ -741,6 +802,30 @@ function ZdzFYcenRSIqyJF(year, week, department)
         data: {
             savedYear: year,
             savedWeek: week,
+            savedDepartment: department
+        },
+        success: function (response)
+        {
+            $('#FMnrCopWCecUjag').remove();
+
+            $('body').append(response);
+            //$('#pwFBWqdAoChTxAb').fadeIn(200);
+            $('#pwFBWqdAoChTxAb').show();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function wJgypCrmZfsBOCD(year, month, department) {
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/CopyWorkScheduleForm',
+        data: {
+            savedYear: year,
+            savedMonth: month,
             savedDepartment: department
         },
         success: function (response)
@@ -918,7 +1003,8 @@ function nDYntMlpKcjgONc()
         data: {
             savedYear: sessionStorage.getItem('LTRXohWjonyFAsg'),
             savedWeek: sessionStorage.getItem('hQxHXfkxHkfALTJ'),
-            savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh')
+            savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh'),
+            savedMonth: sessionStorage.getItem('XmRbNRjSsnfRbUN')
         },
         success: function (response)
         {

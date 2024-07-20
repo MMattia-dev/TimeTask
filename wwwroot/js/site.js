@@ -241,89 +241,11 @@ function logIn()
 
 $(document).ready(function ()
 {
-
-    //$(loader).fadeOut();
-
-    ////$('#account').fadeIn(300);
-    let form = document.getElementsByTagName('form');
-    $(form).fadeIn();
-
-    ////if (window.performance)
-    ////{
-    ////    console.info("window.performance works fine on this browser");
-    ////}
-    ////https://stackoverflow.com/questions/5004978/check-if-page-gets-reloaded-or-refreshed-in-javascript
-
-    //var rightNav = document.querySelector('.right-nav');
-
-    //if (performance.navigation.type == performance.navigation.TYPE_RELOAD)
-    //{
-    //    //console.info("This page is reloaded");
-    //} else
-    //{
-    //    //console.info("This page is not reloaded");
-    //    if (localStorage.getItem('logged') != null) {
-    //        if (ihJchOaMxWUD != null) {
-    //            ihJchOaMxWUD.style.transition = 'min-width 0.75s, max-width 0.75s, width 0.75s';
-    //            if (localStorage.getItem('IVsEIeXIRNQqrAG'))
-    //            {
-    //                //setTimeout(function ()
-    //                //{
-    //                //    ihJchOaMxWUD.style.width = '100px';
-    //                //    ihJchOaMxWUD.style.maxWidth = '100px';
-    //                //    ihJchOaMxWUD.style.minWidth = '100px';
-    //                //}, 5000);
-    //                ihJchOaMxWUD.style.width = '100px';
-    //                ihJchOaMxWUD.style.maxWidth = '100px';
-    //                ihJchOaMxWUD.style.minWidth = '100px';
-    //            }
-    //            else
-    //            {
-    //                //setTimeout(function ()
-    //                //{
-    //                //    ihJchOaMxWUD.style.width = '300px';
-    //                //    ihJchOaMxWUD.style.maxWidth = '300px';
-    //                //    ihJchOaMxWUD.style.minWidth = '300px';
-    //                //}, 5000);
-    //                    ihJchOaMxWUD.style.width = '300px';
-    //                    ihJchOaMxWUD.style.maxWidth = '300px';
-    //                    ihJchOaMxWUD.style.minWidth = '300px';
-    //            }
-    //        }
-            
-            
-    //        setTimeout(function ()
-    //        {
-    //            $(ZLD38GJQEtrB).fadeIn();
-    //            $(ozozaNCrSaQI).fadeIn();
-    //            $(ATKLsxSduWPahPh).fadeIn();
-    //            localStorage.removeItem('logged');
-                
-    //        }, 700); //5700
-    //    }
-        
-    //}
-
-
+    //let form = document.getElementsByTagName('form');
+    //$(form).fadeIn();
 
     
     
-
-
-
-
-
-    //var $round = $('.round'),
-    //    roundRadius =
-    //        $round.find('circle').attr('r'),
-    //    roundPercent = $round.data('percent'),
-    //    roundCircum = 2 * roundRadius * Math.PI,
-    //    roundDraw = roundPercent * roundCircum / 100;
-    //$round.css('stroke-dasharray', roundDraw + ' 999')
-
-
-
-
 });
 
 function DKE3PlNoUnmS(t) {

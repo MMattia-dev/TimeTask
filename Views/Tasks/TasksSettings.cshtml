@@ -37,7 +37,7 @@
             <div class="YavvRCMQscelhIs riqhWBvtFoKacNt KJiwNsHiMAVNLKL">
                 <span class="hFzZLqJdsEqdlrx phzshsahNeRSjfT">Ustawienia główne</span>
                 <div class="msdgExEZCpefgcL">
-                    <span>Widok grafiku: (admin i liderzy)</span>
+                    <span>Widok grafiku: (admin i liderzy, admini mogą zmieniać dla wszystkich działów)</span>
                     <select class="form-control PpUlJWeIciRKSTQ" id="DGSWGCQnhgXKmAe_" onchange="DGSWGCQnhgXKmAe('@encryptedUserID')">
                         @if (taskSettingsArray != null)
                         {
@@ -58,9 +58,10 @@
                             <option>Miesięczny</option>
                         }
                     </select>
+                    <span style="color: greenyellow;">(działa)</span>
                 </div>
                 <div class="msdgExEZCpefgcL">
-                    <span>Pierwszy dzień tygodnia: (help icon: dotyczy grafiku tygodniowego) (admin)</span>
+                    <span>Pierwszy dzień tygodnia: (help icon: dotyczy grafiku tygodniowego) (admin i liderzy)</span>
                     <select class="form-control PpUlJWeIciRKSTQ" id="ynAnPsGicwfcWMt_" onchange="ynAnPsGicwfcWMt('@encryptedUserID')">
                         @if (taskSettingsArray != null)
                         {
@@ -286,7 +287,7 @@
                             <span class="HsRFJWiSLmrJcoG xHKISVUdAfxZoPT"></span>
                         </label>
                         @* <span class="hFzZLqJdsEqdlrx">Włącz możliwość edycji grafiku przez pracowników innych niż liderzy czy admini (admin)</span> *@
-                        <span class="hFzZLqJdsEqdlrx">Zezwól na edycję grafików przez pracowników innych niż liderzy (admin)</span>
+                        <span class="hFzZLqJdsEqdlrx">Zezwól na edycję grafików przez pracowników innych niż liderzy (admin i liderzy)</span>
                         @* <a href="#">lista dozwolonych osób (do zrobienia (nowa tabela))</a> *@
                         @* <span class="pCAkeIBbalSqCTB" onclick="alert()">lista dozwolonych osób</span> *@
                         @if (taskSettingsArray != null)

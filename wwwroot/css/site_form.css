@@ -233,6 +233,10 @@
     user-select: none;
 }
 
+form#account {
+    background-color: rgba(34, 36, 48, 1);
+}
+
 form:not(.logOut) {
     display: flex;
     gap: 8px;

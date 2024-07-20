@@ -662,7 +662,7 @@ namespace TimeTask.Controllers
                     string jobStartInput = "<input type=\"time\" value=\"" + jobEnter + "\" onblur=\"wgddAsHIsXNWQkl(this)\"/>";
                     string jobEndInput = "<input type=\"time\" value=\"" + jobExit + "\" onblur=\"wgddAsHIsXNWQkl(this)\" />";
 
-                    tdForWorkers += "<td worker=\"" + worker.Id + "\">" +
+                    tdForWorkers += "<td worker=\"" + worker.Id + "\" date=\"" + daysANew[i].Item1.ToString("yyyy-MM-dd") + "\">" +
                             "<div class=\"LwxRoYhfmyzTlGm\">" +
                                 jobStartInput +
                                 "<span>-</span>" +
@@ -675,7 +675,7 @@ namespace TimeTask.Controllers
                         "</td>";
                 }
 
-                tr += "<tr date=\"" + daysANew[i].Item1.ToString("yyyy-MM-dd") + "\">" +
+                tr += "<tr>" + //date=\"" + daysANew[i].Item1.ToString("yyyy-MM-dd") + "\"
                     daysANew[i].Item2 +
                     tdForWorkers +
                 "</tr>";
@@ -1119,7 +1119,7 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult CopyWorkScheduleForm(int? savedYear, int? savedWeek, int? savedDepartment)
+        public ActionResult CopyWorkScheduleForm(int? savedYear, int? savedWeek, int? savedDepartment, int? savedMonth)
         {
             int month = DateTime.Now.Month;
             int day = DateTime.Now.Day;
@@ -1129,6 +1129,7 @@ namespace TimeTask.Controllers
             int week = GetWeek(savedWeek, year, month, day);
             int department = GetDepartmentId(savedDepartment);
 
+            int savedMonth_ = GetMonth(savedMonth);
 
             List<int> yearsFromDatabase = new List<int>
             {
@@ -1178,74 +1179,118 @@ namespace TimeTask.Controllers
                 }
             }
 
-            int weeks = GetWeeksInYear((int)year);
-            string weekOptions = "";
-            for (int i = 1; i <= weeks; i++)
-            {
-                if (savedWeek != null)
-                {
-                    if (i == savedWeek)
-                    {
-                        weekOptions += "<option selected>" + i + "</option>";
-                    }
-                    else
-                    {
-                        weekOptions += "<option>" + i + "</option>";
-                    }
-                }
-                else
-                {
-                    if (i == GetCurrentWeek((int)year, month, day) + 1)
-                    {
-                        weekOptions += "<option selected>" + i + "</option>";
-                    }
-                    else
-                    {
-                        weekOptions += "<option>" + i + "</option>";
-                    }
-                }
-            }
-
-            string simpleWeeks = "<option selected disabled>-</option>";
-            for (int i = 1; i <= weeks; i++)
-            {
-                simpleWeeks += "<option>" + i + "</option>";
-            }
-
-
             string? departmentName = _context.Department.FirstOrDefault(x => x.Id == department)?.Name;
 
+            string copyOptions = "";
+            string targetOptions = "<option selected disabled>-</option>";
+            string copyLabel = "";
+            string targetLabel = "";
+            string beginCopyButton = "";
+            if (!GetTasksSettings(GetUserId()).Any() || GetTasksSettings(GetUserId()).First().WorkScheduleView == 0)
+            {
+                int weeks = GetWeeksInYear((int)year);
+                for (int i = 1; i <= weeks; i++)
+                {
+                    if (savedWeek != null)
+                    {
+                        if (i == savedWeek)
+                        {
+                            copyOptions += "<option selected>" + i + "</option>";
+                        }
+                        else
+                        {
+                            copyOptions += "<option>" + i + "</option>";
+                        }
+                    }
+                    else
+                    {
+                        if (i == GetCurrentWeek((int)year, month, day) + 1)
+                        {
+                            copyOptions += "<option selected>" + i + "</option>";
+                        }
+                        else
+                        {
+                            copyOptions += "<option>" + i + "</option>";
+                        }
+                    }
+                }
+
+                
+                for (int i = 1; i <= weeks; i++)
+                {
+                    targetOptions += "<option>" + i + "</option>";
+                }
+
+                copyLabel = "Kopiowany tydzień:";
+                targetLabel = "Docelowy tydzień:";
+                beginCopyButton = "<input disabled type=\"button\" value=\"Kopiuj grafik (" + departmentName + ")\" class=\"btn-custom\" onclick=\"VHWnkLNgLFRzozC(" + department + ")\" />";
+            }
+            else
+            {
+                int months = 12;
+                for (int i = 1; i <= months; i++)
+                {
+                    var culture = new CultureInfo("pl-PL");
+                    string monthName = new DateTime(year, i, 1).ToString("MMMM", culture);
+                    monthName = char.ToUpper(monthName[0]) + monthName.Substring(1);
+
+                    if (savedMonth != null)
+                    {
+                        if (i == savedMonth)
+                        {
+                            copyOptions += "<option value=\"" + i + "\" selected>" + monthName + "</option>";
+                        }
+                        else
+                        {
+                            copyOptions += "<option value=\"" + i + "\">" + monthName + "</option>";
+                        }
+                    }
+                    else
+                    {
+                        if (i == DateTime.Now.Month)
+                        {
+                            copyOptions += "<option value=\"" + i + "\" selected>" + monthName + "</option>";
+                        }
+                        else
+                        {
+                            copyOptions += "<option value=\"" + i + "\">" + monthName + "</option>";
+                        }
+                    }
+                }
+            }
+
+            
             string removeForm = "$('#pwFBWqdAoChTxAb').remove()";
 
             string form = "<div id=\"pwFBWqdAoChTxAb\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
                     "<form class=\"form_\">" +
                         "<div class=\"form-group\">" +
-                            "<label>Kopiowany tydzień:</label>" +
+                            "<label>" + copyLabel + "</label>" +
                             "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"ahTFhNgePFSjraf\">" +
                                 yearOptions +
                             "</select>" +
                         "</div>" +
                         "<div class=\"form-group form-group-margin\">" +
                             "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"KEYeauHuNLZPWCy\">" +
-                                weekOptions +
+                                copyOptions +
                             "</select>" +
                         "</div>" +
                         "<div class=\"form-group\">" +
                             "<ion-icon name=\"arrow-down-outline\" class=\"fuRbuXSaYHCrfuV\"></ion-icon>" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<label>Docelowy tydzień:</label>" +
+                            "<label>" + targetLabel + "</label>" +
                             "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"EGeBKVhjMnvAsVQ\">" +
                                 yearOptions +
                             "</select>" +
                         "</div>" +
                         "<div class=\"form-group form-group-margin2\">" +
                             "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"zDthMDvUyTtutDb\" onchange=\"uOKeZlFghfhXJzQ(this)\">" +
-                                simpleWeeks +
+                                targetOptions +
                             "</select>" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<input disabled type=\"button\" value=\"Kopiuj grafik (" + departmentName + ")\" class=\"btn-custom\" onclick=\"VHWnkLNgLFRzozC(" + department + ")\" />" +
+                            beginCopyButton +
                         "</div>" +
                         "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
                             "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
@@ -1877,7 +1922,7 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult OtherSettingsForm(int? savedYear, int? savedWeek, int? savedDepartment)
+        public ActionResult OtherSettingsForm(int? savedYear, int? savedWeek, int? savedDepartment, int? savedMonth)
         {
             int month = DateTime.Now.Month;
             int day = DateTime.Now.Day;
@@ -1885,17 +1930,30 @@ namespace TimeTask.Controllers
             int year = GetYear(savedYear);
             int week = GetWeek(savedWeek, year, month, day);
             int department = GetDepartmentId(savedDepartment);
+            int savedMonth_ = GetMonth(savedMonth);
 
             var departmentName = _context.Department.FirstOrDefault(x => x.Id == department)?.Name;
 
             string removeForm = "$('#FMnrCopWCecUjag').remove()";
 
+            string powielGrafikButton = "";
+            if (!GetTasksSettings(GetUserId()).Any() || GetTasksSettings(GetUserId()).First().WorkScheduleView == 0)
+            {
+                powielGrafikButton = "<div class=\"form-group\">" +
+                            "<input type=\"button\" value=\"Powiel grafik\" class=\"btn-download tFlGIOwtMalkfgS WguSTckZVkExEBx\" onclick=\"ZdzFYcenRSIqyJF(" + year + "," + week + "," + department + ")\" />" +
+                        "</div>";
+            }
+            else
+            {
+                powielGrafikButton += "<div class=\"form-group\">" +
+                            "<input type=\"button\" value=\"Powiel grafik\" class=\"btn-download tFlGIOwtMalkfgS WguSTckZVkExEBx\" onclick=\"wJgypCrmZfsBOCD(" + year + "," + savedMonth_ + "," + department + ")\" />" +
+                        "</div>";
+            }
+
             string form = "<div id=\"FMnrCopWCecUjag\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
                     "<form class=\"form_\">" +
                         "<span class=\"hFzZLqJdsEqdlrx phzshsahNeRSjfT wbxnvJGiIuXUOzi\">Opcje</span>" +
-                        "<div class=\"form-group\">" +
-                            "<input type=\"button\" value=\"Powiel grafik\" class=\"btn-download tFlGIOwtMalkfgS WguSTckZVkExEBx\" onclick=\"ZdzFYcenRSIqyJF(" + year + "," + week + "," + department + ")\" />" +
-                        "</div>" +
+                        powielGrafikButton +
                         "<div class=\"form-group\">" +
                             "<input type=\"button\" value=\"Pobierz grafik\" class=\"btn-download tFlGIOwtMalkfgS WguSTckZVkExEBx\" onclick=\"BgMujOvGVhgxcrK()\" />" +
                         "</div>" +
@@ -2219,9 +2277,21 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetTasksSettings()
+        public ActionResult GetScheduleViewSetting()
         {
-
+            var userId = GetUserId();
+            var tasksSettings = _context.TasksSettings.First(x => x.UserId == userId);
+            if (tasksSettings != null)
+            {
+                if (tasksSettings.WorkScheduleView == 0)
+                {
+                    return Json(false);
+                }
+                if (tasksSettings.WorkScheduleView == 1)
+                {
+                    return Json(true);
+                }
+            }
 
             return Json(false);
         }
