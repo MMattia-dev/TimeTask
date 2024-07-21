@@ -847,7 +847,8 @@ function VHWnkLNgLFRzozC(department)
 {
     if ($('#zDthMDvUyTtutDb').find(':selected').val() > 0) 
     {
-        $('#loaderID').show();
+        //$('#loaderID').show();
+        $('.right-nav').append(createLoader()); //ładowanie
         $('#pwFBWqdAoChTxAb').hide();
 
         $.ajax({
@@ -872,6 +873,8 @@ function VHWnkLNgLFRzozC(department)
                     $('#loaderID').hide();
 
                     $('body').append(response.messageDiv.content);
+
+                    $('.loader_div').remove();
                 }
                 else 
                 {
@@ -881,6 +884,65 @@ function VHWnkLNgLFRzozC(department)
                         $('#loaderID').hide();
 
                         $('body').append(response.messageDiv.content);
+
+                        $('.loader_div').remove();
+                    }, 500);
+                }
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
+    else 
+    {
+        $('#zDthMDvUyTtutDb').addClass('SHnDWPzuoAGGIwU');
+    }
+};
+
+function FCpuSdjhJZYSDbe(department) {
+    if ($('#zDthMDvUyTtutDb').find(':selected').val() > 0) 
+    {
+        //$('#loaderID').show();
+        $('.right-nav').append(createLoader()); //ładowanie
+        $('#pwFBWqdAoChTxAb').hide();
+        
+        $.ajax({
+            type: 'POST',
+            url: '/Tasks/CopyWorkScheduleForMonthlySchedule',
+            data: {
+                copyYear: $('#ahTFhNgePFSjraf').find(':selected').val(),
+                copyMonth: $('#KEYeauHuNLZPWCy').find(':selected').val(),
+                destinyYear: $('#EGeBKVhjMnvAsVQ').find(':selected').val(),
+                destinyMonth: $('#zDthMDvUyTtutDb').find(':selected').val(),
+                department: department
+            },
+            success: function (response)
+            {
+                if (response.success != false)
+                {
+                    sessionStorage.setItem('LTRXohWjonyFAsg', $('#EGeBKVhjMnvAsVQ').find(':selected').val());
+                    sessionStorage.setItem('XmRbNRjSsnfRbUN', $('#zDthMDvUyTtutDb').find(':selected').val());
+                    ThXhilqYhSiZDrl(sessionStorage.getItem('LTRXohWjonyFAsg'), sessionStorage.getItem('XmRbNRjSsnfRbUN'), sessionStorage.getItem('JcvzYoovBpGECWh'));
+
+                    $('#pwFBWqdAoChTxAb').remove();
+                    $('#loaderID').hide();
+
+                    $('body').append(response.messageDiv.content);
+
+                    $('.loader_div').remove();
+                }
+                else
+                {
+                    setTimeout(function ()
+                    {
+                        $('#pwFBWqdAoChTxAb').remove();
+                        $('#loaderID').hide();
+
+                        $('body').append(response.messageDiv.content);
+
+                        $('.loader_div').remove();
                     }, 500);
                 }
             },
@@ -1026,7 +1088,8 @@ function KknXAduygEtFJvn()
         data: {
             savedYear: sessionStorage.getItem('LTRXohWjonyFAsg'),
             savedWeek: sessionStorage.getItem('hQxHXfkxHkfALTJ'),
-            savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh')
+            savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh'),
+            savedMonth: sessionStorage.getItem('XmRbNRjSsnfRbUN')
         },
         success: function (response)
         {
@@ -1283,6 +1346,11 @@ function DfqpMwbIHeqYiyR(department)
         });
     }
 };
+function IJNleEGFLAdwYcv(t) 
+{
+    let tableRows = document.querySelectorAll('.task_table tbody tr');
+    let index = $(t).index();
 
 
 
+};

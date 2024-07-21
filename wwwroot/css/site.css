@@ -2753,11 +2753,14 @@ ion-icon {
                 background-color: rgba(34, 36, 48, 0.4);
                 z-index: 2;
                 transition: background-color 0.2s ease;
+                /**/
+                border-right: 1px solid #404040;
             }
 
                 .task_table thead tr th.vjhHvFgopmFabVr {
-                    background-color: rgba(34, 36, 48, 0.6);
-                    backdrop-filter: blur(5px);
+                    /*background-color: rgba(34, 36, 48, 0.6);*/
+                    background-color: rgba(34, 36, 48, 1);
+                    /*backdrop-filter: blur(5px);*/
                     transition: background-color 0.2s ease;
                     box-shadow: inset 0 -1px 0 #404040;
                 }
@@ -2803,18 +2806,26 @@ ion-icon {
                         max-width: 180px;
                     }
 
+                .task_table thead tr th:hover {
+                    background-color: #34384b;
+                    transition: background-color 0.2s ease;
+                }
+
     .task_table tbody {
         /**/
     }
 
         .task_table tbody tr {
             border-top: 1px solid #404040;
+            /*box-shadow: inset 0 -1px 0 #404040;*/
         }
 
             .task_table tbody tr td {
                 border-right: 1px solid #404040;
                 height: 200px;
                 max-height: 200px;
+                /**/
+                transition: background-color 0.2s ease;
             }
 
             .task_table tbody tr td:not(:first-child) {
@@ -2832,11 +2843,14 @@ ion-icon {
                     text-align: center;
                     border-right: none;
                     transition: background-color 0.2s ease;
+                    /**/
+                    border-right: 1px solid #404040;
                 }
 
                     .task_table tbody tr td:first-child.sEmBPQCwNeEgole {
-                        background-color: rgba(34, 36, 48, 0.6);
-                        backdrop-filter: blur(5px);
+                        /*background-color: rgba(34, 36, 48, 0.6);*/
+                        background-color: rgba(34, 36, 48, 1);
+                        /*backdrop-filter: blur(5px);*/
                         transition: background-color 0.2s ease;
                     }
 
@@ -2899,17 +2913,10 @@ ion-icon {
                         opacity: 0.7;
                     }
 
-/*.task_table_months {
-    table-layout: fixed;
-}
-
-    .task_table_months thead {
-
-    }
-
-        .task_table_months thead tr {
-
-        }*/
+                .task_table tbody tr td.oXreLkTMikWegJJ {
+                    background-color: rgba(34, 36, 48, 0.5);
+                    transition: background-color 0.2s ease;
+                }
 
 .tableBody {
     position: absolute;

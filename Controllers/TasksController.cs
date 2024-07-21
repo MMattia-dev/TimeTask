@@ -612,7 +612,7 @@ namespace TimeTask.Controllers
             {
                 foreach (var worker in workersList)
                 {
-                    workers += "<th>" +
+                    workers += "<th onmouseover=\"IJNleEGFLAdwYcv(this)\" onmouseout=\"KUCZpSmfCwmsGRy(this)\">" +
                             "<div>" +
                                 "<span>" + worker.Surname + " " + worker.Name + "</span>" +
                                 "<span>" + _context.Department.First(x => x.Id == worker.DepartmentID).Name + "</span>" +
@@ -1118,12 +1118,194 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
+        [HttpPost]
+        public ActionResult CopyWorkScheduleForMonthlySchedule(int copyYear, int copyMonth, int destinyYear, int destinyMonth, int department)
+        {
+            if (destinyMonth != 0)
+            {
+                if (copyYear == destinyYear && copyMonth == destinyMonth)
+                {
+                    string removeForm = "$('#vcwaaOrnxVPZpSQ').remove()";
+                    string messageDiv = "<div id=\"vcwaaOrnxVPZpSQ\" class=\"pGKcZvErUB pGKcZvErUB_\" style=\"z-index: 999; background-color: rgba(0, 0, 0, 0.4);\">" +
+                                            "<form class=\"jbiihcodqinw\">" +
+                                                "<span>Docelowy miesiąc nie może być równy kopiowanemu!</span>" +
+                                                "<div class=\"form-group\">" +
+                                                    "<input type=\"button\" value=\"OK\" class=\"btn-custom\" onclick=\"" + removeForm + "\" />" +
+                                                "</div>" +
+                                            "</form>" +
+                                        "</div>";
+
+                    return Json(new { success = false, messageDiv = Content(messageDiv) });
+                }
+                else
+                {
+                    var copyDates = getDatesInMonth(copyYear, copyMonth);
+                    var destinyDates = getDatesInMonth(destinyYear, destinyMonth);
+
+                    List<Task2> copyArray = new List<Task2>();
+                    foreach (var date in copyDates)
+                    {
+                        foreach (var worker in _context.Workers2)
+                        {
+                            var workerID = worker.Id;
+                            foreach (var task in _context.Task2)
+                            {
+                                if (task.WorkerID == workerID && worker.DepartmentID == department && task.Date.ToShortDateString() == date.ToShortDateString())
+                                {
+                                    var row = _context.Task2.FirstOrDefault(x => x.Id == task.Id);
+                                    if (row != null)
+                                    {
+                                        copyArray.Add(row);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    List<Task2> addData = new List<Task2>();
+
+                    foreach (var item in copyArray)
+                    {
+                        foreach (var newDate in destinyDates)
+                        {
+                            //dopasuj dzień miesiąca z copyArray do dnia miesiąca z destinyDates
+                            if (item.Date.Day == newDate.Date.Day)
+                            {
+                                if (item.JobStart != null && item.JobEnd != null)
+                                {
+                                    string copyTime_jobStart = item.JobStart.Value.ToString("HH:mm");
+                                    string copyTime_jobEnd = item.JobEnd.Value.ToString("HH:mm");
+
+                                    string jobStart_whole = newDate.ToString("yyyy-MM-dd") + " " + copyTime_jobStart;
+                                    string jobEnd_whole = newDate.ToString("yyyy-MM-dd") + " " + copyTime_jobEnd;
+
+                                    DateTime start = DateTime.ParseExact(jobStart_whole, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+                                    DateTime end = DateTime.ParseExact(jobEnd_whole, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+
+                                    var newData = new Task2()
+                                    {
+                                        WorkerID = item.WorkerID,
+                                        TaskName = item.TaskName,
+                                        Date = newDate.Date,
+                                        JobStart = start,
+                                        JobEnd = end
+                                    };
+
+                                    addData.Add(newData);
+                                }
+                                else
+                                {
+                                    var newData = new Task2()
+                                    {
+                                        WorkerID = item.WorkerID,
+                                        TaskName = item.TaskName,
+                                        Date = newDate.Date,
+                                        JobStart = null,
+                                        JobEnd = null
+                                    };
+
+                                    addData.Add(newData);
+                                }
+                            }
+                        }
+                    }
+
+                    //sprawdz czy daty z destinyMonth nie istnieją w bazie
+                    bool check = false;
+                    if (addData.Any())
+                    {
+                        foreach (var row in addData)
+                        {
+                            foreach (var item in _context.Task2)
+                            {
+                                if (row.Date.ToShortDateString() == item.Date.ToShortDateString() && row.WorkerID == item.WorkerID)
+                                {
+                                    string removeForm = "$('#CDGkkjRFIPzoATj').remove()";
+                                    string messageDiv = "<div id=\"CDGkkjRFIPzoATj\" class=\"pGKcZvErUB pGKcZvErUB_\" style=\"z-index: 999; background-color: rgba(0, 0, 0, 0.4);\">" +
+                                                            "<form class=\"jbiihcodqinw\">" +
+                                                                "<span>Grafik z docelowego miesiąca musi być pusty, aby kontynuować!</span>" +
+                                                                "<div class=\"form-group\">" +
+                                                                    "<input type=\"button\" value=\"OK\" class=\"btn-custom\" onclick=\"" + removeForm + "\" />" +
+                                                                "</div>" +
+                                                            "</form>" +
+                                                        "</div>";
+
+                                    return Json(new { success = false, messageDiv = Content(messageDiv) });
+                                }
+                                else
+                                {
+                                    check = true;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        string removeForm = "$('#CDGkkjRFIPzoATj').remove()";
+                        string messageDiv = "<div id=\"CDGkkjRFIPzoATj\" class=\"pGKcZvErUB pGKcZvErUB_\" style=\"z-index: 999; background-color: rgba(0, 0, 0, 0.4);\">" +
+                                                "<form class=\"jbiihcodqinw\">" +
+                                                    "<span>Kopiowany grafik jest pusty!</span>" +
+                                                    "<div class=\"form-group\">" +
+                                                        "<input type=\"button\" value=\"OK\" class=\"btn-custom\" onclick=\"" + removeForm + "\" />" +
+                                                    "</div>" +
+                                                "</form>" +
+                                            "</div>";
+
+                        return Json(new { success = false, messageDiv = Content(messageDiv) });
+                    }
+
+                    //
+
+                    if (check)
+                    {
+                        string removeForm = "$('#JXhDXOLmxsWkFon').remove()";
+                        string messageDiv = "<div id=\"JXhDXOLmxsWkFon\" class=\"pGKcZvErUB pGKcZvErUB_\" style=\"z-index: 999; background-color: rgba(0, 0, 0, 0.4);\">" +
+                                                "<form class=\"jbiihcodqinw\">" +
+                                                    "<span>Kopiowanie zakończone!</span>" +
+                                                    "<div class=\"form-group\">" +
+                                                        "<input type=\"button\" value=\"OK\" class=\"btn-custom\" onclick=\"" + removeForm + "\" />" +
+                                                    "</div>" +
+                                                "</form>" +
+                                            "</div>";
+
+                        foreach (var row in addData)
+                        {
+                            _context.Task2.Add(row);
+                            _context.SaveChanges();
+
+                            if (row.Equals(addData.Last()))
+                            {
+                                return Json(new { success = true, messageDiv = Content(messageDiv) });
+                            }
+                        }
+                    }
+                }
+            }
+
+            return Json(false);
+        }
+
+        [HttpGet]
+        public List<DateTime> getDatesInMonth(int year, int month)
+        {
+            var days = DateTime.DaysInMonth(year, month);
+            var dates = new List<DateTime>();
+
+            for (int i = 1; i <= days; i++)
+            {
+                dates.Add(new DateTime(year, month, i));
+            }
+
+            return dates;
+        }
+
         [HttpGet]
         public ActionResult CopyWorkScheduleForm(int? savedYear, int? savedWeek, int? savedDepartment, int? savedMonth)
         {
+            var culture = new CultureInfo("pl-PL");
+
             int month = DateTime.Now.Month;
             int day = DateTime.Now.Day;
-
 
             int year = GetYear(savedYear);
             int week = GetWeek(savedWeek, year, month, day);
@@ -1223,14 +1405,13 @@ namespace TimeTask.Controllers
 
                 copyLabel = "Kopiowany tydzień:";
                 targetLabel = "Docelowy tydzień:";
-                beginCopyButton = "<input disabled type=\"button\" value=\"Kopiuj grafik (" + departmentName + ")\" class=\"btn-custom\" onclick=\"VHWnkLNgLFRzozC(" + department + ")\" />";
+                beginCopyButton = "<input disabled type=\"button\" value=\"Kopiuj grafik\" class=\"btn-custom\" onclick=\"VHWnkLNgLFRzozC(" + department + ")\" />";
             }
             else
             {
                 int months = 12;
                 for (int i = 1; i <= months; i++)
-                {
-                    var culture = new CultureInfo("pl-PL");
+                {                  
                     string monthName = new DateTime(year, i, 1).ToString("MMMM", culture);
                     monthName = char.ToUpper(monthName[0]) + monthName.Substring(1);
 
@@ -1257,8 +1438,19 @@ namespace TimeTask.Controllers
                         }
                     }
                 }
-            }
 
+                for (int i = 1; i <= months; i++)
+                {
+                    string monthName = new DateTime(year, i, 1).ToString("MMMM", culture);
+                    monthName = char.ToUpper(monthName[0]) + monthName.Substring(1);
+
+                    targetOptions += "<option value=\"" + i + "\">" + monthName + "</option>";
+                }
+
+                copyLabel = "Kopiowany miesiąc:";
+                targetLabel = "Docelowy miesiąc:";
+                beginCopyButton = "<input disabled type=\"button\" value=\"Kopiuj grafik\" class=\"btn-custom\" onclick=\"FCpuSdjhJZYSDbe(" + department + ")\" />";
+            }
             
             string removeForm = "$('#pwFBWqdAoChTxAb').remove()";
 
@@ -1937,17 +2129,25 @@ namespace TimeTask.Controllers
             string removeForm = "$('#FMnrCopWCecUjag').remove()";
 
             string powielGrafikButton = "";
+            string ustawGodziny = "";
+            string ustawZadanie = "";
             if (!GetTasksSettings(GetUserId()).Any() || GetTasksSettings(GetUserId()).First().WorkScheduleView == 0)
             {
                 powielGrafikButton = "<div class=\"form-group\">" +
                             "<input type=\"button\" value=\"Powiel grafik\" class=\"btn-download tFlGIOwtMalkfgS WguSTckZVkExEBx\" onclick=\"ZdzFYcenRSIqyJF(" + year + "," + week + "," + department + ")\" />" +
                         "</div>";
+
+                ustawGodziny = "Ustaw godziny dla wszystkich dla wybranego tygodnia";
+                ustawZadanie = "Ustaw zadanie dla wszystkich dla wybranego tygodnia";
             }
             else
             {
                 powielGrafikButton += "<div class=\"form-group\">" +
                             "<input type=\"button\" value=\"Powiel grafik\" class=\"btn-download tFlGIOwtMalkfgS WguSTckZVkExEBx\" onclick=\"wJgypCrmZfsBOCD(" + year + "," + savedMonth_ + "," + department + ")\" />" +
                         "</div>";
+
+                ustawGodziny = "Ustaw godziny dla wszystkich dla wybranego miesiąca";
+                ustawZadanie = "Ustaw zadanie dla wszystkich dla wybranego miesiąca";
             }
 
             string form = "<div id=\"FMnrCopWCecUjag\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
@@ -1958,10 +2158,10 @@ namespace TimeTask.Controllers
                             "<input type=\"button\" value=\"Pobierz grafik\" class=\"btn-download tFlGIOwtMalkfgS WguSTckZVkExEBx\" onclick=\"BgMujOvGVhgxcrK()\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<input type=\"button\" value=\"Ustaw godziny dla wszystkich dla wybranego tygodnia\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"KknXAduygEtFJvn()\" />" +
+                            "<input type=\"button\" value=\"" + ustawGodziny + "\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"KknXAduygEtFJvn()\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<input type=\"button\" value=\"Ustaw zadanie dla wszystkich dla wybranego tygodnia\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"USnvJSnvkJlVGaA()\" />" +
+                            "<input type=\"button\" value=\"" + ustawZadanie + "\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"USnvJSnvkJlVGaA()\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
                             "<a href=\"/Tasks/Settings\" type=\"button\" class=\"btn-download tFlGIOwtMalkfgS WguSTckZVkExEBx\">Przejdź do ustawień</a>" +
@@ -1976,7 +2176,7 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult AssignHoursForAllForm(int? savedYear, int? savedWeek, int? savedDepartment)
+        public ActionResult AssignHoursForAllForm(int? savedYear, int? savedWeek, int? savedDepartment, int? savedMonth)
         {
             int month = DateTime.Now.Month;
             int day = DateTime.Now.Day;
@@ -1985,7 +2185,38 @@ namespace TimeTask.Controllers
             int week = GetWeek(savedWeek, year, month, day);
             int department = GetDepartmentId(savedDepartment);
 
+            int savedMonth_ = GetMonth(savedMonth);
+
             string removeForm = "$('#leJHkkOjgbGLkyn').remove()";
+
+            string select = "";
+            string saveButton = "";
+            if (!GetTasksSettings(GetUserId()).Any() || GetTasksSettings(GetUserId()).First().WorkScheduleView == 0)
+            {
+                select += "<label>Wybierz dni:</label>" +
+                            "<div id=\"rJsRgTkikJFkTVs\" class=\"IVnxgCORpPYL ijBuUPWrdXEngvb STxfpYUfaLUAern\" onclick=\"NDBuqpieiEpridq(this, " + year + ", " + week + ", " + department + ")\">" +
+                                "<div class=\"iNzvwDsTQXDyPIR\">" +
+                                    "<span id=\"dUzUxfaNorqvNMm\" style=\"color: rgba(255, 255, 255, 0.5);\">Wybierz dni</span>" +
+                                    "<div id=\"SBkLZHkCOnzAkgl\"></div>" +
+                                    "<ion-icon name=\"chevron-down-outline\"></ion-icon>" +
+                                "</div>" +
+                            "</div>";
+
+                saveButton += "<input disabled id=\"lcgkhBMDzScROMd\" type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"ksDOTJUbXxnvIKA(" + department + ")\" />";
+            }
+            else
+            {
+                select += "<label>Wybierz tygodnie (do zrobienia?):</label>" +
+                            "<div id=\"rJsRgTkikJFkTVs\" class=\"IVnxgCORpPYL ijBuUPWrdXEngvb STxfpYUfaLUAern\" onclick=\"QtPNydYdZrHKHsk(this, " + year + ", " + savedMonth_ + ", " + department + ")\">" +
+                                "<div class=\"iNzvwDsTQXDyPIR\">" +
+                                    "<span id=\"dUzUxfaNorqvNMm\" style=\"color: rgba(255, 255, 255, 0.5);\">Wybierz tygodnie (do zrobienia?)</span>" +
+                                    "<div id=\"SBkLZHkCOnzAkgl\"></div>" +
+                                    "<ion-icon name=\"chevron-down-outline\"></ion-icon>" +
+                                "</div>" +
+                            "</div>";
+
+                saveButton += "<input disabled id=\"lcgkhBMDzScROMd\" type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"mpnRwAsmEGqDiWO(" + department + ")\" />";
+            }
 
             string form = "<div id=\"leJHkkOjgbGLkyn\" class=\"pGKcZvErUB\">" +
                     "<form class=\"form_\">" +
@@ -2001,14 +2232,7 @@ namespace TimeTask.Controllers
                             "</div>" +
                         "</div>" +
                         "<div class=\"form-group-margin\">" +
-                            "<label>Wybierz dni:</label>" +
-                            "<div id=\"rJsRgTkikJFkTVs\" class=\"IVnxgCORpPYL ijBuUPWrdXEngvb STxfpYUfaLUAern\" onclick=\"NDBuqpieiEpridq(this, " + year + ", " + week + ", " + department + ")\">" +
-                                "<div class=\"iNzvwDsTQXDyPIR\">" +
-                                    "<span id=\"dUzUxfaNorqvNMm\" style=\"color: rgba(255, 255, 255, 0.5);\">Wybierz dni</span>" +
-                                    "<div id=\"SBkLZHkCOnzAkgl\"></div>" +
-                                    "<ion-icon name=\"chevron-down-outline\"></ion-icon>" +
-                                "</div>" +
-                            "</div>" +
+                            select +
                         "</div>" +
                         "<div class=\"form-group\">" +
                             "<input disabled id=\"lcgkhBMDzScROMd\" type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"ksDOTJUbXxnvIKA(" + department + ")\" />" +
