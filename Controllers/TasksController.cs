@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TimeTask.Data;
 using TimeTask.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TimeTask.Controllers
 {
@@ -528,22 +529,22 @@ namespace TimeTask.Controllers
             {
                 if (day_.DayOfWeek == DayOfWeek.Sunday)
                 {
-                    return new Tuple<DateTime, string>(day_, "<td><span style=\"color: orangered;\">" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span></td>");
+                    return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span style=\"color: orangered;\">" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span></td>");
                 }
                 else
                 {
-                    return new Tuple<DateTime, string>(day_, "<td><span style=\"color: orangered;\">" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span></td>");
+                    return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span style=\"color: orangered;\">" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span></td>");
                 }
             }
             else
             {
                 if (day_.DayOfWeek == DayOfWeek.Sunday)
                 {
-                    return new Tuple<DateTime, string>(day_, "<td><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span></td>");
+                    return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span></td>");
                 }
                 else
                 {
-                    return new Tuple<DateTime, string>(day_, "<td><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span></td>");
+                    return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span></td>");
                 }
             }
         }
@@ -563,11 +564,11 @@ namespace TimeTask.Controllers
                     {
                         if (day_.DayOfWeek == DayOfWeek.Sunday)
                         {
-                            daysANew.Add(new Tuple<DateTime, string>(day_, "<td><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span></td>"));
+                            daysANew.Add(new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span></td>"));
                         }
                         else
                         {
-                            daysANew.Add(new Tuple<DateTime, string>(day_, "<td><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span></td>"));
+                            daysANew.Add(new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span></td>"));
                         }
                     }
                 }
@@ -610,12 +611,26 @@ namespace TimeTask.Controllers
             var workersList = _context.Workers2.Where(x => x.DepartmentID == department).OrderBy(x => x.Surname);
             if (workersList.Any())
             {
+                int index = 0;
                 foreach (var worker in workersList)
                 {
+                    //workers += "<th onmouseover=\"IJNleEGFLAdwYcv(this)\" onmouseout=\"KUCZpSmfCwmsGRy(this)\">" +
+                    //        "<div>" +
+                    //            "<span>" + worker.Surname + " " + worker.Name + "</span>" +
+                    //            "<span>" + _context.Department.First(x => x.Id == worker.DepartmentID).Name + "</span>" +
+                    //        "</div>" +
+                    //    "</th>";
+
+                    index++;
+
                     workers += "<th onmouseover=\"IJNleEGFLAdwYcv(this)\" onmouseout=\"KUCZpSmfCwmsGRy(this)\">" +
                             "<div>" +
                                 "<span>" + worker.Surname + " " + worker.Name + "</span>" +
                                 "<span>" + _context.Department.First(x => x.Id == worker.DepartmentID).Name + "</span>" +
+                            "</div>" +
+                            "<div class=\"ZuDsyPKykEasAHr\">" +
+                                "<a onclick=\"diGCunizowsEoCB(" + index + ")\" title=\"Wpisz godziny do kolumny\"><span>1</span></a>" +
+                                "<a onclick=\"WRArjCUppdouTSk(" + index + ")\" title=\"Wpisz zadanie do kolumny\"><span>2</span></a>" +
                             "</div>" +
                         "</th>";
                 }
@@ -727,7 +742,7 @@ namespace TimeTask.Controllers
                         span = "<span>" + date.ToString("dddd", culture) + "</span>";
                     }
 
-                    th += "<th>" +
+                    th += "<th onmouseover=\"IJNleEGFLAdwYcv(this)\" onmouseout=\"KUCZpSmfCwmsGRy(this)\">" +
                             "<div>" +
                                 "<span>" + date.ToShortDateString() + "</span>" +
                                 span +
@@ -754,7 +769,7 @@ namespace TimeTask.Controllers
                     var holiday = _context.Holiday.Select(x => x.Date.ToShortDateString()).ToList();
                     if (holiday.Contains(date.ToShortDateString()))
                     {
-                        th += "<th>" +
+                        th += "<th onmouseover=\"IJNleEGFLAdwYcv(this)\" onmouseout=\"KUCZpSmfCwmsGRy(this)\">" +
                                     "<div>" +
                                         "<span style=\"color: orangered;\">" + date.ToShortDateString() + "</span>" +
                                         span +
@@ -763,7 +778,7 @@ namespace TimeTask.Controllers
                     }
                     else
                     {
-                        th += "<th>" +
+                        th += "<th onmouseover=\"IJNleEGFLAdwYcv(this)\" onmouseout=\"KUCZpSmfCwmsGRy(this)\">" +
                                     "<div>" +
                                         "<span>" + date.ToShortDateString() + "</span>" +
                                         span +
@@ -830,7 +845,7 @@ namespace TimeTask.Controllers
                     }
 
                     tr += "<tr>" +
-                            "<td><span title=\"" + worker.Surname + " " + worker.Name + "\">" + worker.Surname + " " + worker.Name + "</span><br><span title=\"" + _context.Department.FirstOrDefault(x => x.Id == worker.DepartmentID)?.Name + "\">" + _context.Department.FirstOrDefault(x => x.Id == worker.DepartmentID)?.Name + "</span></td>" +
+                            "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span title=\"" + worker.Surname + " " + worker.Name + "\">" + worker.Surname + " " + worker.Name + "</span><br><span title=\"" + _context.Department.FirstOrDefault(x => x.Id == worker.DepartmentID)?.Name + "\">" + _context.Department.FirstOrDefault(x => x.Id == worker.DepartmentID)?.Name + "</span></td>" +
                             td +
                         "</tr>";
                 }
@@ -2520,7 +2535,119 @@ namespace TimeTask.Controllers
             return Json(false);
         }
 
+        //"<a onclick=\"diGCunizowsEoCB(" + index + ")\" title=\"Wpisz godziny do kolumny\"><span>1</span></a>" +
+                                //"<a onclick=\"WRArjCUppdouTSk(" + index + ")\" title=\"Wpisz zadanie do kolumny\"><span>2</span></a>" +
 
+        [HttpGet]
+        public ActionResult HoursToColumnForm(int index)
+        {
+            string removeForm = "$('#wyxojDcioAkwYrI').remove()";
+
+            string form = "<div id=\"wyxojDcioAkwYrI\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form>" +
+                        "<div class=\"form-group fKmurRETigHLDYk form-group-margin\">" +
+                            "<div>" +
+                                "<label>Godzina od:</label>" +
+                                "<input class=\"form-control\" type=\"time\" id=\"eYpvywdCgUdMWFB\" onkeyup=\"FxLotvAUwOrOJjt(event)\" />" +
+                            "</div>" +
+                            "<span>-</span>" +
+                            "<div>" +
+                                "<label>Godzina do:</label>" +
+                                "<input class=\"form-control\" type=\"time\" id=\"AsLyaHDkxjuuiPP\" onkeyup=\"FxLotvAUwOrOJjt(event)\" />" +
+                            "</div>" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input disabled id=\"lcgkhBMDzScROMd\" type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"xRaHudKcDvMHfTo(" + index + ")\" />" +
+                        "</div>" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
+
+            return Content(form);
+        }
+
+        [HttpGet]
+        public ActionResult TasksToColumnForm(int index, int? savedDepartment)
+        {
+            int department = GetDepartmentId(savedDepartment);
+
+            string options = "";
+            foreach (var taskName in _context.TaskName2.Where(x => x.DepartmentID == department))
+            {
+                options += "<option value=\"" + taskName.Id + "\">" + taskName.Name + "</option>";
+            }
+
+            string removeForm = "$('#dCCQeLVOhMFGngh').remove()";
+
+            string form = "<div id=\"dCCQeLVOhMFGngh\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form>" +
+                        "<div class=\"form-group form-group-margin\">" +
+                            "<label>Wybierz zadanie:</label>" +
+                            "<select id=\"DFOtUXAzDWlbzYQ\" class=\"form-control\">" +
+                                options +
+                            "</select>" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<input id=\"lcgkhBMDzScROMd\" type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"gWuJGcgvXfzvSQF(" + index + ")\" />" +
+                        "</div>" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
+
+            return Content(form);
+        }
+
+        public class HoursToColumnObject
+        {
+            public int Worker { get; set; }
+            public DateTime Date { get; set; }
+            public List<int>? Ids { get; set; }
+        }
+
+        [HttpPost]
+        public ActionResult HoursToColumn(List<HoursToColumnObject> list, TimeOnly jobStart, TimeOnly jobEnd)
+        {
+            bool check = false;
+            foreach (var item in list)
+            {
+                ////AddOrEditTime(item.Worker, item.Date, new List<int>(), jobStart, jobEnd);
+
+                //if (item.Ids != null)
+                //{
+                //    AddOrEditTime(item.Worker, item.Date, item.Ids, jobStart, jobEnd);
+                //}
+                //else
+                //{
+                //    AddOrEditTime(item.Worker, item.Date, new List<int>(), jobStart, jobEnd);
+                //}
+
+                //if (item.Equals(list.Last()))
+                //{
+                //    check = true;
+                //}
+
+
+            }
+
+            if (check)
+            {
+                return Json(true);
+            }
+
+            return Json(false);
+        }
+
+        [HttpPost]
+        public ActionResult TasksToColumn()
+        {
+
+
+            return Json(false);
+        }
 
 
     }

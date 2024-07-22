@@ -1242,6 +1242,19 @@ function kBwJoRVnVZFOCVS(e)
     }
 };
 
+function FxLotvAUwOrOJjt() {
+    let hour_input_1 = $('#eYpvywdCgUdMWFB').val();
+    let hour_input_2 = $('#AsLyaHDkxjuuiPP').val();
+    if (hour_input_1 != '' && hour_input_2 != '') 
+    {
+        $('#lcgkhBMDzScROMd').removeAttr('disabled');
+    }
+    if (hour_input_1 == '' && hour_input_2 == '') 
+    {
+        $('#lcgkhBMDzScROMd').attr('disabled', '');
+    }
+};
+
 function ksDOTJUbXxnvIKA(department) 
 {
     let hour_input_1 = $('#eYpvywdCgUdMWFB').val();
@@ -1346,11 +1359,154 @@ function DfqpMwbIHeqYiyR(department)
         });
     }
 };
+
+function xRaHudKcDvMHfTo(index) 
+{
+    let tableTd = document.querySelectorAll('.task_table tbody tr td');
+
+    let array = [];
+    for (let i = 0; i < tableTd.length; i++) 
+    {
+        let tdIndex = $(tableTd[i]).index();
+        if (index == tdIndex) 
+        {
+            let w = $(tableTd[i]).attr('worker');
+            let d = $(tableTd[i]).attr('date');
+
+            var ids = $(tableTd[i]).children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW');
+            let arrayOfIds = [];
+            for (let i = 0; i < ids.length; i++) {
+                let onclick = $(ids[i]).children('a').attr('onclick');
+                var id = onclick.substring(
+                    onclick.indexOf(", ") + 1,
+                    onclick.lastIndexOf(")")
+                );
+                id = id.replace(/\s/g, '');
+
+                arrayOfIds.push(id);
+            }
+
+            array.push({ worker: w, date: d, listOfIds: arrayOfIds });
+        }
+    }
+
+    if (array.length > 0) 
+    {
+        $('.parent').append(createLoader()); //ładowanie
+        $('#wyxojDcioAkwYrI').remove();
+
+        $.ajax({
+            type: 'POST',
+            url: '/Tasks/HoursToColumn',
+            data: {
+                list: array,
+                jobStart: $('#eYpvywdCgUdMWFB').val(),
+                jobEnd: $('#AsLyaHDkxjuuiPP').val()
+            },
+            success: function (response)
+            {
+                if (response != false) {
+                    location.reload();
+                }
+
+                //console.log(response);
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
+};
+
 function IJNleEGFLAdwYcv(t) 
 {
-    let tableRows = document.querySelectorAll('.task_table tbody tr');
+    let tableTd = document.querySelectorAll('.task_table tbody tr td');
     let index = $(t).index();
 
-
-
+    for (let i = 0; i < tableTd.length; i++) 
+    {
+        let tdIndex = $(tableTd[i]).index();
+        if (index == tdIndex) 
+        {
+            $(tableTd[i]).addClass('oXreLkTMikWegJJ');
+        }
+    }
 };
+
+function KUCZpSmfCwmsGRy(t) 
+{
+    let tableTd = document.querySelectorAll('.task_table tbody tr td');
+    let index = $(t).index();
+
+    for (let i = 0; i < tableTd.length; i++) 
+    {
+        let tdIndex = $(tableTd[i]).index();
+        if (index == tdIndex) 
+        {
+            $(tableTd[i]).removeClass('oXreLkTMikWegJJ');
+        }
+    }
+};
+
+function ggIKWisCtZNKFmr(t) 
+{
+    let tr = $(t).parent();
+    for (let i = 0; i < tr.length; i++) 
+    {
+        let td = $(tr[i]).children('td');
+        $(td).addClass('oXreLkTMikWegJJ');
+    }
+};
+
+function teuQPrmdJPHuWLO(t) 
+{
+    let tr = $(t).parent();
+    for (let i = 0; i < tr.length; i++) 
+    {
+        let td = $(tr[i]).children('td');
+        $(td).removeClass('oXreLkTMikWegJJ');
+    }
+};
+
+function diGCunizowsEoCB(index) 
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/HoursToColumnForm',
+        data: {
+            index: index
+        },
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#wyxojDcioAkwYrI').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function WRArjCUppdouTSk(index) 
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/TasksToColumnForm',
+        data: {
+            index: index,
+            savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh')
+        },
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#dCCQeLVOhMFGngh').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
