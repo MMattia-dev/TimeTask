@@ -10,7 +10,7 @@ function gsWnPInTEluayCy_()
     //
 
     var lds = document.createElement('div');
-    lds.className = 'lds-ring-small';
+    lds.className = 'lds-ring-small2';
     lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
     $('#SiNSMVtTKxOjnem').parent().append(lds);
     $(lds).hide();
@@ -46,7 +46,7 @@ function MrQZggFcmaNphIg(t)
     let checkboxStatus = t.checked;
 
     var lds = document.createElement('div');
-    lds.className = 'lds-ring-small';
+    lds.className = 'lds-ring-small2';
     lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
     $(t).parent().parent().parent().append(lds);
     $(lds).hide();
@@ -84,7 +84,7 @@ function YaohyXTjGdIPVHK()
     //
 
     var lds = document.createElement('div');
-    lds.className = 'lds-ring-small';
+    lds.className = 'lds-ring-small2';
     lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
     $(okres_options).parent().append(lds);
     $(lds).hide();
@@ -118,7 +118,7 @@ function YaohyXTjGdIPVHK()
 function IIjDrhHnsJwmqtN(t) 
 {
     var lds = document.createElement('div');
-    lds.className = 'lds-ring-small';
+    lds.className = 'lds-ring-small2';
     lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
     $(t).parent().append(lds);
     $(lds).hide();
@@ -154,7 +154,7 @@ function IIjDrhHnsJwmqtN(t)
 function jShPfjshHZwMBZw(t) 
 {
     var lds = document.createElement('div');
-    lds.className = 'lds-ring-small';
+    lds.className = 'lds-ring-small2';
     lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
     $(t).parent().append(lds);
     $(lds).hide();
@@ -190,7 +190,7 @@ function jShPfjshHZwMBZw(t)
 function XzSwltkFnFZxgQl(t) 
 {
     var lds = document.createElement('div');
-    lds.className = 'lds-ring-small';
+    lds.className = 'lds-ring-small2';
     lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
     $(t).parent().append(lds);
     $(lds).hide();
@@ -226,7 +226,7 @@ function XzSwltkFnFZxgQl(t)
 function bnjRnAOHPyGsOAT(t) 
 {
     var lds = document.createElement('div');
-    lds.className = 'lds-ring-small';
+    lds.className = 'lds-ring-small2';
     lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
     $(t).parent().append(lds);
     $(lds).hide();

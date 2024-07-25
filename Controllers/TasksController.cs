@@ -529,22 +529,54 @@ namespace TimeTask.Controllers
             {
                 if (day_.DayOfWeek == DayOfWeek.Sunday)
                 {
-                    return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span style=\"color: orangered;\">" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span></td>");
+                    //return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span style=\"color: orangered;\">" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span><div class=\"ytSdzNqZbNQpMRK\"><a onclick=\"RMJhcqdQAvuCOYS(this)\" title=\"Wpisz godziny do wiersza\"><span>1</span></a><a onclick=\"WrqTfemPMkDWyql(this)\" title=\"Wpisz zadanie do wiersza\"><span>2</span></a></div></td>");
+                    if (FilterDaysThroughTimeSettings(day_))
+                    {
+						return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span style=\"color: orangered;\">" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span><div class=\"ytSdzNqZbNQpMRK\"><a onclick=\"RMJhcqdQAvuCOYS(this)\" title=\"Wpisz godziny do wiersza\"><span>1</span></a><a onclick=\"WrqTfemPMkDWyql(this)\" title=\"Wpisz zadanie do wiersza\"><span>2</span></a></div></td>");
+					}
+                    else
+                    {
+						return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span style=\"color: orangered;\">" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span></td>");
+					}
                 }
                 else
                 {
-                    return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span style=\"color: orangered;\">" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span></td>");
+                    //return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span style=\"color: orangered;\">" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span><div class=\"ytSdzNqZbNQpMRK\"><a onclick=\"RMJhcqdQAvuCOYS(this)\" title=\"Wpisz godziny do wiersza\"><span>1</span></a><a onclick=\"WrqTfemPMkDWyql(this)\" title=\"Wpisz zadanie do wiersza\"><span>2</span></a></div></td>");
+                    if (FilterDaysThroughTimeSettings(day_))
+                    {
+						return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span style=\"color: orangered;\">" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span><div class=\"ytSdzNqZbNQpMRK\"><a onclick=\"RMJhcqdQAvuCOYS(this)\" title=\"Wpisz godziny do wiersza\"><span>1</span></a><a onclick=\"WrqTfemPMkDWyql(this)\" title=\"Wpisz zadanie do wiersza\"><span>2</span></a></div></td>");
+					}
+                    else
+                    {
+						return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span style=\"color: orangered;\">" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span></td>");
+					}
                 }
             }
             else
             {
                 if (day_.DayOfWeek == DayOfWeek.Sunday)
                 {
-                    return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span></td>");
+                    //return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span><div class=\"ytSdzNqZbNQpMRK\"><a onclick=\"RMJhcqdQAvuCOYS(this)\" title=\"Wpisz godziny do wiersza\"><span>1</span></a><a onclick=\"WrqTfemPMkDWyql(this)\" title=\"Wpisz zadanie do wiersza\"><span>2</span></a></div></td>");
+                    if (FilterDaysThroughTimeSettings(day_))
+                    {
+						return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span><div class=\"ytSdzNqZbNQpMRK\"><a onclick=\"RMJhcqdQAvuCOYS(this)\" title=\"Wpisz godziny do wiersza\"><span>1</span></a><a onclick=\"WrqTfemPMkDWyql(this)\" title=\"Wpisz zadanie do wiersza\"><span>2</span></a></div></td>");
+					}
+                    else
+                    {
+						return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span></td>");
+					}
                 }
                 else
                 {
-                    return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span></td>");
+                    //return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span><div class=\"ytSdzNqZbNQpMRK\"><a onclick=\"RMJhcqdQAvuCOYS(this)\" title=\"Wpisz godziny do wiersza\"><span>1</span></a><a onclick=\"WrqTfemPMkDWyql(this)\" title=\"Wpisz zadanie do wiersza\"><span>2</span></a></div></td>");
+                    if (FilterDaysThroughTimeSettings(day_))
+                    {
+						return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span><div class=\"ytSdzNqZbNQpMRK\"><a onclick=\"RMJhcqdQAvuCOYS(this)\" title=\"Wpisz godziny do wiersza\"><span>1</span></a><a onclick=\"WrqTfemPMkDWyql(this)\" title=\"Wpisz zadanie do wiersza\"><span>2</span></a></div></td>");
+					}
+                    else
+                    {
+						return new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span></td>");
+					}
                 }
             }
         }
@@ -564,11 +596,27 @@ namespace TimeTask.Controllers
                     {
                         if (day_.DayOfWeek == DayOfWeek.Sunday)
                         {
-                            daysANew.Add(new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span></td>"));
+                            //daysANew.Add(new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span><div class=\"ytSdzNqZbNQpMRK\"><a onclick=\"RMJhcqdQAvuCOYS(this)\" title=\"Wpisz godziny do wiersza\"><span>1</span></a><a onclick=\"WrqTfemPMkDWyql(this)\" title=\"Wpisz zadanie do wiersza\"><span>2</span></a></div></td>"));
+                            if (FilterDaysThroughTimeSettings(day_))
+                            {
+								daysANew.Add(new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span><div class=\"ytSdzNqZbNQpMRK\"><a onclick=\"RMJhcqdQAvuCOYS(this)\" title=\"Wpisz godziny do wiersza\"><span>1</span></a><a onclick=\"WrqTfemPMkDWyql(this)\" title=\"Wpisz zadanie do wiersza\"><span>2</span></a></div></td>"));
+							}
+                            else
+                            {
+								daysANew.Add(new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span style=\"color: orangered;\">" + day_.ToString("ddd", culture) + "</span></td>"));
+							}
                         }
                         else
                         {
-                            daysANew.Add(new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span></td>"));
+                            //daysANew.Add(new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span><div class=\"ytSdzNqZbNQpMRK\"><a onclick=\"RMJhcqdQAvuCOYS(this)\" title=\"Wpisz godziny do wiersza\"><span>1</span></a><a onclick=\"WrqTfemPMkDWyql(this)\" title=\"Wpisz zadanie do wiersza\"><span>2</span></a></div></td>"));
+                            if (FilterDaysThroughTimeSettings(day_))
+                            {
+								daysANew.Add(new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span><div class=\"ytSdzNqZbNQpMRK\"><a onclick=\"RMJhcqdQAvuCOYS(this)\" title=\"Wpisz godziny do wiersza\"><span>1</span></a><a onclick=\"WrqTfemPMkDWyql(this)\" title=\"Wpisz zadanie do wiersza\"><span>2</span></a></div></td>"));
+							}
+                            else
+                            {
+								daysANew.Add(new Tuple<DateTime, string>(day_, "<td onmouseover=\"ggIKWisCtZNKFmr(this)\" onmouseout=\"teuQPrmdJPHuWLO(this)\"><span>" + day_.ToString("yyyy-MM-dd") + "</span><br><span>" + day_.ToString("ddd", culture) + "</span></td>"));
+							}
                         }
                     }
                 }
@@ -2172,12 +2220,12 @@ namespace TimeTask.Controllers
                         "<div class=\"form-group\">" +
                             "<input type=\"button\" value=\"Pobierz grafik\" class=\"btn-download tFlGIOwtMalkfgS WguSTckZVkExEBx\" onclick=\"BgMujOvGVhgxcrK()\" />" +
                         "</div>" +
-                        "<div class=\"form-group\">" +
-                            "<input type=\"button\" value=\"" + ustawGodziny + "\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"KknXAduygEtFJvn()\" />" +
-                        "</div>" +
-                        "<div class=\"form-group\">" +
-                            "<input type=\"button\" value=\"" + ustawZadanie + "\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"USnvJSnvkJlVGaA()\" />" +
-                        "</div>" +
+                        //"<div class=\"form-group\">" +
+                        //    "<input type=\"button\" value=\"" + ustawGodziny + "\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"KknXAduygEtFJvn()\" />" +
+                        //"</div>" +
+                        //"<div class=\"form-group\">" +
+                        //    "<input type=\"button\" value=\"" + ustawZadanie + "\" class=\"btn-download tFlGIOwtMalkfgS\" onclick=\"USnvJSnvkJlVGaA()\" />" +
+                        //"</div>" +
                         "<div class=\"form-group\">" +
                             "<a href=\"/Tasks/Settings\" type=\"button\" class=\"btn-download tFlGIOwtMalkfgS WguSTckZVkExEBx\">Przejdź do ustawień</a>" +
                         "</div>" +
@@ -2535,10 +2583,37 @@ namespace TimeTask.Controllers
             return Json(false);
         }
 
-        //"<a onclick=\"diGCunizowsEoCB(" + index + ")\" title=\"Wpisz godziny do kolumny\"><span>1</span></a>" +
-                                //"<a onclick=\"WRArjCUppdouTSk(" + index + ")\" title=\"Wpisz zadanie do kolumny\"><span>2</span></a>" +
-
         [HttpGet]
+        public ActionResult HoursToRowForm(int index)
+        {
+			string removeForm = "$('#mWnCPZgpJsJIdgp').remove()";
+
+			string form = "<div id=\"mWnCPZgpJsJIdgp\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+					"<form>" +
+						"<div class=\"form-group fKmurRETigHLDYk form-group-margin\">" +
+							"<div>" +
+								"<label>Godzina od:</label>" +
+								"<input class=\"form-control\" type=\"time\" id=\"eYpvywdCgUdMWFB\" onkeyup=\"FxLotvAUwOrOJjt(event)\" />" +
+							"</div>" +
+							"<span>-</span>" +
+							"<div>" +
+								"<label>Godzina do:</label>" +
+								"<input class=\"form-control\" type=\"time\" id=\"AsLyaHDkxjuuiPP\" onkeyup=\"FxLotvAUwOrOJjt(event)\" />" +
+							"</div>" +
+						"</div>" +
+						"<div class=\"form-group\">" +
+							"<input disabled id=\"lcgkhBMDzScROMd\" type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"FkcPRLJnRAGwylX(" + index + ")\" />" +
+						"</div>" +
+						"<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+							"<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+						"</div>" +
+					"</form>" +
+				"</div>";
+
+			return Content(form);
+		}
+
+		[HttpGet]
         public ActionResult HoursToColumnForm(int index)
         {
             string removeForm = "$('#wyxojDcioAkwYrI').remove()";
@@ -2568,7 +2643,40 @@ namespace TimeTask.Controllers
             return Content(form);
         }
 
-        [HttpGet]
+		[HttpGet]
+		public ActionResult TasksToRowForm(int index, int? savedDepartment)
+		{
+			int department = GetDepartmentId(savedDepartment);
+
+			string options = "";
+			foreach (var taskName in _context.TaskName2.Where(x => x.DepartmentID == department))
+			{
+				options += "<option value=\"" + taskName.Id + "\">" + taskName.Name + "</option>";
+			}
+
+			string removeForm = "$('#PgFRHpgQidgFCiZ').remove()";
+
+			string form = "<div id=\"PgFRHpgQidgFCiZ\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+					"<form>" +
+						"<div class=\"form-group form-group-margin\">" +
+							"<label>Wybierz zadanie:</label>" +
+							"<select id=\"DFOtUXAzDWlbzYQ\" class=\"form-control\">" +
+								options +
+							"</select>" +
+						"</div>" +
+						"<div class=\"form-group\">" +
+							"<input id=\"lcgkhBMDzScROMd\" type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"epJAFqfLuWUhGtx(" + index + ")\" />" +
+						"</div>" +
+						"<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+							"<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+						"</div>" +
+					"</form>" +
+				"</div>";
+
+			return Content(form);
+		}
+
+		[HttpGet]
         public ActionResult TasksToColumnForm(int index, int? savedDepartment)
         {
             int department = GetDepartmentId(savedDepartment);
@@ -2601,39 +2709,172 @@ namespace TimeTask.Controllers
             return Content(form);
         }
 
-        public class HoursToColumnObject
+        public bool FilterDaysThroughTimeSettings(DateTime day)
         {
-            public int Worker { get; set; }
-            public DateTime Date { get; set; }
-            public List<int>? Ids { get; set; }
-        }
+			var timeSettings = _context.TimeSettings3.FirstOrDefault(x => x.WorkerId == null);
+			if (timeSettings != null)
+			{
+                var dayOfWeek = day.DayOfWeek;
 
-        [HttpPost]
-        public ActionResult HoursToColumn(List<HoursToColumnObject> list, TimeOnly jobStart, TimeOnly jobEnd)
-        {
-            bool check = false;
-            foreach (var item in list)
+				//Poniedziałek
+				if (dayOfWeek == DayOfWeek.Monday)
+                {
+					if (timeSettings.CzyPoniedzialekWolny == true)
+					{
+						return false;
+					}
+					else if (timeSettings.CzyPoniedzialekWolny == false || timeSettings.CzyPoniedzialekWolny == null)
+					{
+						return true;
+					}
+				}
+
+                //Wtorek
+                if (dayOfWeek == DayOfWeek.Tuesday)
+                {
+					if (timeSettings.CzyWtorekWolny == true)
+					{
+						return false;
+					}
+					else if (timeSettings.CzyWtorekWolny == false || timeSettings.CzyWtorekWolny == null)
+					{
+						return true;
+					}
+				}
+
+                //Środa
+                if (dayOfWeek == DayOfWeek.Wednesday)
+                {
+					if (timeSettings.CzySrodaWolny == true)
+					{
+						return false;
+					}
+					else if (timeSettings.CzySrodaWolny == false || timeSettings.CzySrodaWolny == null)
+					{
+						return true;
+					}
+				}
+
+                //Czwartek
+                if (dayOfWeek == DayOfWeek.Thursday)
+                {
+					if (timeSettings.CzyCzwartekWolny == true)
+					{
+						return false;
+					}
+					else if (timeSettings.CzyCzwartekWolny == false || timeSettings.CzyCzwartekWolny == null)
+					{
+						return true;
+					}
+				}
+
+                //Piątek
+                if (dayOfWeek == DayOfWeek.Friday)
+                {
+					if (timeSettings.CzyPiatekWolny == true)
+					{
+						return false;
+					}
+					else if (timeSettings.CzyPiatekWolny == false || timeSettings.CzyPiatekWolny == null)
+					{
+						return true;
+					}
+				}
+
+                //Sobota
+                if (dayOfWeek == DayOfWeek.Saturday)
+                {
+					if (timeSettings.CzySobotaWolny == true)
+					{
+						return false;
+					}
+					else if (timeSettings.CzySobotaWolny == false || timeSettings.CzySobotaWolny == null)
+					{
+						return true;
+					}
+				}
+
+                //Niedziela
+                if (dayOfWeek == DayOfWeek.Sunday)
+                {
+					if (timeSettings.CzyNiedzielaWolny == true)
+					{
+						return false;
+					}
+					else if (timeSettings.CzyNiedzielaWolny == false || timeSettings.CzyNiedzielaWolny == null)
+					{
+						return true;
+					}
+				}
+            }
+			else
             {
-                ////AddOrEditTime(item.Worker, item.Date, new List<int>(), jobStart, jobEnd);
-
-                //if (item.Ids != null)
-                //{
-                //    AddOrEditTime(item.Worker, item.Date, item.Ids, jobStart, jobEnd);
-                //}
-                //else
-                //{
-                //    AddOrEditTime(item.Worker, item.Date, new List<int>(), jobStart, jobEnd);
-                //}
-
-                //if (item.Equals(list.Last()))
-                //{
-                //    check = true;
-                //}
-
-
+                return true;
             }
 
-            if (check)
+			return false;
+        }
+
+		public class HoursToColumnObject
+		{
+			public int Worker { get; set; }
+			public DateTime Date { get; set; }
+		}
+
+		[HttpPost]
+        public ActionResult HoursToColumnOrRow(List<HoursToColumnObject> list, TimeOnly jobStart, TimeOnly jobEnd)
+        {
+            bool isLastIteration = false;
+            foreach (var item in list)
+            {
+                if (FilterDaysThroughTimeSettings(item.Date))
+                {
+					var arrayOfIds = new List<int>();
+
+					var tempTaskArray = _context.Task2.Where(x => x.WorkerID == item.Worker);
+					foreach (var task in tempTaskArray)
+					{
+						if (task.Date.ToShortDateString() == item.Date.ToShortDateString())
+						{
+							arrayOfIds.Add(task.Id);
+						}
+					}
+
+					if (arrayOfIds.Count() > 0)
+					{
+						var taskArray = _context.Task2.ToList();
+						if (taskArray != null)
+						{
+							if (taskArray.Where(x => x.Date.ToShortDateString() == item.Date.ToShortDateString()).Select(x => x.WorkerID).Contains(item.Worker))
+							{
+								var foundRows = taskArray.Where(x => x.Date.ToShortDateString() == item.Date.ToShortDateString() && x.WorkerID == item.Worker);
+								if (foundRows != null)
+								{
+									foreach (var row in foundRows)
+									{
+										EditTask(row.Id, row.TaskName, MergeDateAndTime(row.Date, jobStart), MergeDateAndTime(row.Date, jobEnd));
+									}
+								}
+							}
+							else
+							{
+								AddTasks(item.Worker, null, item.Date, MergeDateAndTime(item.Date, jobStart), MergeDateAndTime(item.Date, jobEnd));
+							}
+						}
+					}
+					else
+					{
+						AddTasks(item.Worker, null, item.Date, MergeDateAndTime(item.Date, jobStart), MergeDateAndTime(item.Date, jobEnd));
+					}
+				}
+
+				if (item.Equals(list.Last()))
+                {
+					isLastIteration = true;
+                }
+            }
+
+            if (isLastIteration)
             {
                 return Json(true);
             }
@@ -2642,11 +2883,79 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult TasksToColumn()
+        public ActionResult TasksToColumnOrRow(List<HoursToColumnObject> list, int taskNameId)
         {
+			var taskName = _context.TaskName2.FirstOrDefault(x => x.Id == taskNameId)?.Name;
 
+			bool isLastIteration = false;
+            foreach (var item in list)
+            {
+                if (FilterDaysThroughTimeSettings(item.Date))
+                {
+					var arrayOfIds = new List<int>();
 
-            return Json(false);
+					var tempTaskArray = _context.Task2.Where(x => x.WorkerID == item.Worker);
+					foreach (var task in tempTaskArray)
+					{
+						if (task.Date.ToShortDateString() == item.Date.ToShortDateString())
+						{
+							arrayOfIds.Add(task.Id);
+						}
+					}
+
+					if (arrayOfIds.Count() > 0)
+					{
+						var taskArray = _context.Task2.ToList();
+						if (taskArray != null)
+						{
+							if (taskArray.Where(x => x.Date.ToShortDateString() == item.Date.ToShortDateString()).Select(x => x.WorkerID).Contains(item.Worker))
+							{
+								var foundRows = taskArray.Where(x => x.Date.ToShortDateString() == item.Date.ToShortDateString() && x.WorkerID == item.Worker);
+								if (foundRows != null)
+								{
+									foreach (var row in foundRows)
+									{
+										if (row != null)
+										{
+											if (row.JobStart.HasValue && row.JobEnd.HasValue)
+											{
+												if (row.TaskName != null)
+												{
+													AddTasks(row.WorkerID, taskName, item.Date, row.JobStart.Value, row.JobEnd.Value);
+												}
+												else
+												{
+													EditTask(row.Id, taskName, row.JobStart.Value, row.JobEnd.Value);
+												}
+											}
+										}
+									}
+								}
+							}
+							else
+							{
+								AddTasks(item.Worker, taskName, item.Date, null, null);
+							}
+						}
+					}
+					else
+					{
+						AddTasks(item.Worker, taskName, item.Date, null, null);
+					}
+				}
+				
+				if (item.Equals(list.Last()))
+				{
+					isLastIteration = true;
+				}
+			}
+
+			if (isLastIteration)
+			{
+				return Json(true);
+			}
+
+			return Json(false);
         }
 
 

@@ -1360,6 +1360,91 @@ function DfqpMwbIHeqYiyR(department)
     }
 };
 
+function epJAFqfLuWUhGtx(index) 
+{
+    let tableTd = $('.task_table tbody tr').eq(index).find('td').not(':first-child');
+
+    let array = [];
+    for (let i = 0; i < tableTd.length; i++) 
+    {
+        let w = $(tableTd[i]).attr('worker');
+        let d = $(tableTd[i]).attr('date');
+        array.push({ worker: w, date: d });
+    }
+
+    if (array.length > 0)
+    {
+        let task = document.getElementById('DFOtUXAzDWlbzYQ').value;
+
+        $('.parent').append(createLoader()); //ładowanie
+        $('#PgFRHpgQidgFCiZ').remove();
+
+        $.ajax({
+            type: 'POST',
+            url: '/Tasks/TasksToColumnOrRow',
+            data: {
+                list: array,
+                taskNameId: task
+            },
+            success: function (response)
+            {
+                if (response != false)
+                {
+                    location.reload();
+                }
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
+};
+ 
+function gWuJGcgvXfzvSQF(index) {
+    let tableTd = document.querySelectorAll('.task_table tbody tr td');
+
+    let array = [];
+    for (let i = 0; i < tableTd.length; i++) 
+    {
+        let tdIndex = $(tableTd[i]).index();
+        if (index == tdIndex) 
+        {
+            let w = $(tableTd[i]).attr('worker');
+            let d = $(tableTd[i]).attr('date');
+
+            array.push({ worker: w, date: d });
+        }
+    }
+
+    if (array.length > 0) {
+        let task = document.getElementById('DFOtUXAzDWlbzYQ').value;
+
+        $('.parent').append(createLoader()); //ładowanie
+        $('#dCCQeLVOhMFGngh').remove();
+
+        $.ajax({
+            type: 'POST',
+            url: '/Tasks/TasksToColumnOrRow',
+            data: {
+                list: array,
+                taskNameId: task
+            },
+            success: function (response)
+            {
+                if (response != false)
+                {
+                    location.reload();
+                }
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
+};
+
 function xRaHudKcDvMHfTo(index) 
 {
     let tableTd = document.querySelectorAll('.task_table tbody tr td');
@@ -1373,43 +1458,74 @@ function xRaHudKcDvMHfTo(index)
             let w = $(tableTd[i]).attr('worker');
             let d = $(tableTd[i]).attr('date');
 
-            var ids = $(tableTd[i]).children('.AQzCKqmlrQJmxzn').children('.ZslufbFdcfCIeaW');
-            let arrayOfIds = [];
-            for (let i = 0; i < ids.length; i++) {
-                let onclick = $(ids[i]).children('a').attr('onclick');
-                var id = onclick.substring(
-                    onclick.indexOf(", ") + 1,
-                    onclick.lastIndexOf(")")
-                );
-                id = id.replace(/\s/g, '');
-
-                arrayOfIds.push(id);
-            }
-
-            array.push({ worker: w, date: d, listOfIds: arrayOfIds });
+            array.push({ worker: w, date: d });
         }
     }
 
     if (array.length > 0) 
     {
+        let from = document.getElementById('eYpvywdCgUdMWFB').value;
+        let to = document.getElementById('AsLyaHDkxjuuiPP').value;
+
         $('.parent').append(createLoader()); //ładowanie
         $('#wyxojDcioAkwYrI').remove();
 
         $.ajax({
             type: 'POST',
-            url: '/Tasks/HoursToColumn',
+            url: '/Tasks/HoursToColumnOrRow',
             data: {
                 list: array,
-                jobStart: $('#eYpvywdCgUdMWFB').val(),
-                jobEnd: $('#AsLyaHDkxjuuiPP').val()
+                jobStart: from,
+                jobEnd: to
             },
             success: function (response)
             {
                 if (response != false) {
                     location.reload();
                 }
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
+};
 
-                //console.log(response);
+function FkcPRLJnRAGwylX(index) 
+{
+    let tableTd = $('.task_table tbody tr').eq(index).find('td').not(':first-child');
+
+    let array = [];
+    for (let i = 0; i < tableTd.length; i++) 
+    {
+        let w = $(tableTd[i]).attr('worker');
+        let d = $(tableTd[i]).attr('date');
+        array.push({ worker: w, date: d });
+    }
+
+    if (array.length > 0) 
+    {
+        let from = document.getElementById('eYpvywdCgUdMWFB').value;
+        let to = document.getElementById('AsLyaHDkxjuuiPP').value;
+
+        $('.parent').append(createLoader()); //ładowanie
+        $('#mWnCPZgpJsJIdgp').remove();
+
+        $.ajax({
+            type: 'POST',
+            url: '/Tasks/HoursToColumnOrRow',
+            data: {
+                list: array,
+                jobStart: from,
+                jobEnd: to
+            },
+            success: function (response)
+            {
+                if (response != false)
+                {
+                    location.reload();
+                }
             },
             error: function (xhr, status, error)
             {
@@ -1489,6 +1605,29 @@ function diGCunizowsEoCB(index)
     });
 };
 
+function RMJhcqdQAvuCOYS(t) 
+{
+    let tr = $(t).parent().parent().parent();
+    let index = $(tr).index();
+
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/HoursToRowForm',
+        data: {
+            index: index
+        },
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#mWnCPZgpJsJIdgp').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
 function WRArjCUppdouTSk(index) 
 {
     $.ajax({
@@ -1510,3 +1649,26 @@ function WRArjCUppdouTSk(index)
     });
 };
 
+function WrqTfemPMkDWyql(t) 
+{
+    let tr = $(t).parent().parent().parent();
+    let index = $(tr).index();
+
+    $.ajax({
+        type: 'GET',
+        url: '/Tasks/TasksToRowForm',
+        data: {
+            index: index,
+            savedDepartment: sessionStorage.getItem('JcvzYoovBpGECWh')
+        },
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#PgFRHpgQidgFCiZ').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};

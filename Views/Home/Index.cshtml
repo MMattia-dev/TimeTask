@@ -1,5 +1,6 @@
 ﻿@using Newtonsoft.Json
 @using System.Security.Claims;
+@using System.Drawing
 
 @{
 	ViewData["Title"] = "Home Page";
@@ -8,21 +9,27 @@
 
 	//userID
 	var claimsIdentity = User.Identity as ClaimsIdentity;
-    var userID = "";
-    if (claimsIdentity != null)
-    {
-        var userIdClaim = claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-        if (userIdClaim != null)
-        {
-            userID = userIdClaim.Value;
-        }
-    }
+	var userID = "";
+	if (claimsIdentity != null)
+	{
+		var userIdClaim = claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+		if (userIdClaim != null)
+		{
+			userID = userIdClaim.Value;
+		}
+	}
 
 	//policz przypomnienia
 	var count_p = ((IEnumerable<Reminders3>)ViewBag.Reminders).Count(x => x.RemindDate != null && x.UserID == userID);
 
 	//policz notatki
 	var count_n = ((IEnumerable<Reminders3>)ViewBag.Reminders).Count(x => x.RemindDate == null && x.UserID == userID);
+
+	//get users from UserIdentity
+	var userIdentity = ((IEnumerable<UserIdentity>)ViewBag.UserIdentity);
+
+	// Random rnd = new Random();
+	// System.Drawing.Color col = System.Drawing.ColorTranslator.FromHtml("#FF2233");
 }
 
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
@@ -42,6 +49,211 @@
 					<span id="clockSpanID">@DateTime.Now.ToString("HH:mm:ss")</span>
 				</div>
 			</div>
+
+			
+
+
+			<!--chat-->
+			<div class="chat" id="chat">
+				<div class="chatUsers">
+					<div class="chatDepartment" title="Filtr">
+						<ion-icon name="filter-outline"></ion-icon>
+					</div>
+					@foreach (var user in userIdentity)
+					{
+						var userRow = ((IEnumerable<Workers2>)ViewBag.Workers).FirstOrDefault(x => x.Id == user.WorkerId);
+						if (userRow != null)
+						{
+							var userName = userRow.Name;
+							var userSurname = userRow.Surname;
+
+							if (user.UserId != userID)
+							{
+								<div class="chatUser" title="Wybierz">
+									<div class="avatar" style="background-color: @user.UserColor;">
+										@{
+											Color col = System.Drawing.ColorTranslator.FromHtml(@user.UserColor);
+										}
+										@if (col.R * 0.2126 + col.G * 0.7152 + col.B * 0.0722 < 255 / 2)
+										{
+											//dark color
+											<span style="color: white;">@userName.FirstOrDefault().ToString()@userSurname.FirstOrDefault().ToString()</span>
+										}
+										else
+										{
+											//light color
+											<span style="color: black;">@userName.FirstOrDefault().ToString()@userSurname.FirstOrDefault().ToString()</span>
+										}
+									</div>
+									<span>@userName</span>
+
+									<div class="chatUserStatus online" title="online"></div>
+									@* <div class="chatUserStatus afk" title="afk"></div> *@
+									@* <div class="chatUserStatus offline" title="offline"></div> *@
+
+								</div>
+							}
+						}
+					}
+				</div>
+
+				<div class="chatParent">
+					<div class="chatMessages">
+						<div class="chatHeader" id="chatheader">
+							<div class="chatMinimizeDiv">
+								<div class="chatStatus">
+									<span class="status online"></span>
+									<span class="statusText">Online</span>
+									@* <span class="status afk"></span>
+									<span class="statusText">AFK</span> *@
+									@* <span class="status offline"></span>
+									<span class="statusText">Offline</span> *@
+								</div>
+							</div>
+							<div class="chatMinimizeDiv">
+								<a class="chatMinimize" onclick="" title="Załącz plik">
+									<ion-icon name="attach-outline"></ion-icon>
+								</a>
+								<a class="chatMinimize" onclick="" title="Ustawienia">
+									<ion-icon name="settings-sharp"></ion-icon>
+								</a>
+								<a class="chatMinimize" onclick="" title="Minimalizuj">
+									<ion-icon name="arrow-down-outline"></ion-icon>
+								</a>
+							</div>
+						</div>
+						<div class="chatMessagesBubbles">
+
+
+							<div class="emptyConversation">
+								<span></span>
+							</div>
+
+
+							@* <div class="chatDateStamp" date="24.07.2024">
+								<div></div><span>24 lipca 2024</span><div></div>
+							</div>
+
+							<div class="chatMessagesBubblesContainer sender">
+								<div class="chatTimeStamp" style="opacity: 0;">
+									<span>09:38</span>
+								</div>
+								<div class="bubble sender">
+									<span>Hej!</span>
+								</div>
+							</div>
+							<div class="chatMessagesBubblesContainer receiver">
+								<div class="bubble receiver">
+									<span>Cześć</span>
+								</div>
+								<div class="chatTimeStamp" style="opacity: 0;">
+									<span>09:55</span>
+								</div>
+							</div>
+							<div class="chatMessagesBubblesContainer sender">
+								<div class="chatTimeStamp" style="opacity: 0;">
+									<span>09:58</span>
+								</div>
+								<div class="bubble sender">
+									<span>Pamiętasz o tym spotkaniu w sali konferencyjnej?</span>
+								</div>
+							</div>
+							<div class="chatMessagesBubblesContainer receiver">
+								<div class="bubble receiver">
+									<span>qwerasdjnsakaksdbaskdankjanjsndaknsdjkadnasndjdnasjksadnasdnadskndassndsakndasdasbhdbashbasdhjasadbhadbjasdbhjdasqwerasdjnsakaksdbaskdankjanjsndaknsdjkadnasndjdnasjksadnasdnadskndassndsakndasdasbhdbashbasdhjasadbhadbjasdbhjdasqwjksadnasdnadskndassndsakndasdasbhdbashbasdhjasadbhadbjasdbhjdas</span>
+								</div>
+								<div class="chatTimeStamp" style="opacity: 0;">
+									<span>10:15</span>
+								</div>
+							</div>
+							<div class="chatMessagesBubblesContainer sender">
+								<div class="chatTimeStamp" style="opacity: 0;">
+									<span>10:25</span>
+								</div>
+								<div class="bubble sender">
+									<span>Lorem ipsum</span>
+								</div>
+							</div>
+							<div class="chatMessagesBubblesContainer sender">
+								<div class="chatTimeStamp" style="opacity: 0;">
+									<span>10:26</span>
+								</div>
+								<div class="bubble sender">
+									<span>wqweqwerqwe</span>
+								</div>
+							</div>
+							<div class="chatMessagesBubblesContainer receiver">
+								<div class="bubble receiver">
+									<span>WWWWWWWWWWWWW</span> <!--13-->
+								</div>
+								<div class="chatTimeStamp" style="opacity: 0;">
+									<span>10:54</span>
+								</div>
+							</div>
+
+
+							<div class="chatDateStamp" date="25.07.2024">
+								<div></div><span>25 lipca 2024</span><div></div>
+							</div>
+
+							<div class="chatMessagesBubblesContainer sender">
+								<div class="chatTimeStamp" style="opacity: 0;">
+									<span>08:16</span>
+								</div>
+								<div class="bubble sender">
+									<span>testtsteetstsetsetsetst</span>
+								</div>
+							</div>
+							<div class="chatMessagesBubblesContainer receiver">
+								<div class="bubble receiver">
+									<span>OK</span> 
+								</div>
+								<div class="chatTimeStamp" style="opacity: 0;">
+									<span>08:18</span>
+								</div>
+							</div> *@
+
+
+
+						</div>
+					</div>
+					<div class="chatText">
+						@* <input type="text" onkeydown="KIKgUMfKkWZJxaI(event, this)" /> *@
+						<textarea style="resize: none;" spellcheck="false"></textarea>
+						<a onclick="" title="Wyślij"><ion-icon name="arrow-up-outline"></ion-icon></a>
+					</div>
+				</div>
+			</div>
+			
+			@* <div class="row p-1">
+				<div class="col-1">User</div>
+				<div class="col-5"><input type="text" id="userInput" /></div>
+			</div>
+			<div class="row p-1">
+				<div class="col-1">Message</div>
+				<div class="col-5"><input type="text" class="w-100" id="messageInput" /></div>
+			</div>
+			<div class="row p-1">
+				<div class="col-6 text-end">
+					<input type="button" id="sendButton" value="Send Message" />
+				</div>
+			</div>
+			<div class="row p-1">
+				<div class="col-6">
+					<hr />
+				</div>
+			</div>
+			<div class="row p-1">
+				<div class="col-6">
+					<ul id="messagesList"></ul>
+				</div>
+			</div> *@
+
+
+
+
+
+
 
 			<div class="YavvRCMQscelhIs tePqkpVdZPYCotv" style="display: none;">
 
@@ -890,3 +1102,5 @@
 </script>
 
 <script type="text/javascript" src="~/js/site_other.js"></script>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/chat.js"></script>

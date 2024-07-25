@@ -36,6 +36,8 @@ namespace TimeTask.Controllers
 			ViewBag.Holiday = _context.Holiday;
             ViewBag.Reminders = _context.Reminders3;
 
+            ViewBag.UserIdentity = _context.UserIdentity;
+
 
             return View();
         }
