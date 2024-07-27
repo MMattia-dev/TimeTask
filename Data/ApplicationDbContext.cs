@@ -45,5 +45,6 @@ namespace TimeTask.Data
         public DbSet<TimeTask.Models.DayTasksLimitExceptionForDepartments> DayTasksLimitExceptionForDepartments { get; set; } = default!;
         public DbSet<TimeTask.Models.AllowedToEditSchedule> AllowedToEditSchedule { get; set; } = default!;
         public DbSet<TimeTask.Models.UserIdentity> UserIdentity { get; set; } = default!;
+        public DbSet<TimeTask.Models.Chat> Chat { get; set; } = default!;
     }
 }

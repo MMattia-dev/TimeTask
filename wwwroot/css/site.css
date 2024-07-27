@@ -6246,11 +6246,114 @@ span#OcoYTyiBrpZJStB {
         left: 34px;
     }
 
+.chatMinimized {
+    position: fixed;
+    bottom: 14px;
+    right: 14px;
+    background-color: rgba(34, 40, 49, 1);
+    border-radius: 50%;
+    width: 54px;
+    height: 54px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+    .chatMinimized:hover {
+        background-color: rgba(54, 60, 69, 1);
+        cursor: pointer;
+    }
+
+    .chatMinimized .chatMinimizedNewMessages {
+        display: inherit;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid black;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        background-color: white;
+        position: absolute;
+        top: -5px;
+        left: -5px;
+    }
+
+        .chatMinimized .chatMinimizedNewMessages span {
+            font-size: 15px;
+            color: black;
+            font-weight: bold;
+        }
+
+.chatFilter {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    /*width: 170px;*/
+    /*width: 250px;*/
+    width: calc(100% - 6px);
+    border-radius: 9px;
+    background-color: rgba(34, 40, 49, 1);
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+    .chatFilter .chatMinimize.filterClose {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 22px;
+        width: 22px;
+    }
+
+        .chatFilter .chatMinimize.filterClose ion-icon {
+            width: 20px;
+            min-width: 20px;
+            max-width: 20px;
+        }
+
+        .chatFilter .chatMinimize.filterClose:hover {
+            cursor: pointer;
+        }
+
+    .chatFilter .chatFilterParent {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 8px;
+        width: 100%;
+        height: 100%;
+        padding: 6px;
+    }
+
+        .chatFilter .chatFilterParent .chatFilterDepartment {
+            display: inherit;
+            flex-direction: column;
+            width: 100%;
+        }
+
+            .chatFilter .chatFilterParent .chatFilterDepartment .chatFilterDates {
+                display: inherit;
+                flex-direction: row;
+                align-items: center;
+                gap: 4px;
+            }
+
+                .chatFilter .chatFilterParent .chatFilterDepartment .chatFilterDates span {
+                    color: rgba(255, 255, 255, 0.8);
+                }       
+
 .chat {
     position: absolute;
     /*right: 14px;*/
-    left: 214px;
-    bottom: 14px;
+    /*left: 214px;
+    bottom: 14px;*/
     width: 370px;
     height: 480px;
     border-radius: 9px;
@@ -6258,10 +6361,11 @@ span#OcoYTyiBrpZJStB {
     backdrop-filter: blur(5px);
     display: flex;
     background-color: rgba(34, 40, 49, 0.3);
-    -webkit-box-shadow: -16px 0px 24px -20px rgba(0, 0, 0, 1);
-    -moz-box-shadow: -16px 0px 24px -20px rgba(0, 0, 0, 1);
-    box-shadow: -16px 0px 24px -20px rgba(0, 0, 0, 1);
     overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    -webkit-box-shadow: 0px 0px 24px -4px rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0px 0px 24px -4px rgba(0, 0, 0, 1);
+    box-shadow: 0px 0px 24px -4px rgba(0, 0, 0, 1);
 }
 
     .chat .chatUsers {
@@ -6273,12 +6377,11 @@ span#OcoYTyiBrpZJStB {
         gap: 6px;
         border-start-start-radius: 9px;
         border-end-start-radius: 9px;
-        /*--mask: linear-gradient(to bottom, rgba(0,0,0, 0) 0, rgba(0, 0, 0, 1) 3%, rgba(0,0,0, 1) 50%, rgba(0,0,0, 1) 70%, rgba(0,0,0, 1) 97%, rgba(0,0,0, 0) 100%, rgba(0,0,0, 0) 0 );*/
-        --mask: linear-gradient(to bottom, rgba(0,0,0, 1) 0, rgba(0,0,0, 1) 50%, rgba(0,0,0, 1) 70%, rgba(0,0,0, 1) 97%, rgba(0,0,0, 0) 100%, rgba(0,0,0, 0) 0 );
+        --mask: linear-gradient(to bottom, rgba(0,0,0, 0) 0, rgba(0, 0, 0, 1) 3%, rgba(0,0,0, 1) 50%, rgba(0,0,0, 1) 70%, rgba(0,0,0, 1) 97%, rgba(0,0,0, 0) 100%, rgba(0,0,0, 0) 0 );
         -webkit-mask: var(--mask);
         mask: var(--mask);
         padding-bottom: 15px;
-        /*padding-top: 7px;*/
+        padding-top: 7px;
         overflow-x: hidden;
         overflow-y: auto;
         -ms-overflow-style: none; /* IE and Edge */
@@ -6294,8 +6397,6 @@ span#OcoYTyiBrpZJStB {
             display: flex;
             height: 38px;
             min-height: 38px;
-            /*height: 40px;
-            min-height: 40px;*/
             width: 100%;
             justify-content: center;
             align-items: center;
@@ -6303,8 +6404,6 @@ span#OcoYTyiBrpZJStB {
 
             .chat .chatUsers .chatDepartment:hover {
                 cursor: pointer;
-                /*filter: brightness(130%);*/
-                /*background-color: rgba(255, 255, 255, 0.1);*/
             }
 
                 .chat .chatUsers .chatDepartment:hover ion-icon {
@@ -6322,6 +6421,25 @@ span#OcoYTyiBrpZJStB {
             padding-top: 4px;
             position: relative;
         }
+
+            .chat .chatUsers .chatUser .chatUserUnreadMessageCount {
+                height: 18px;
+                width: 18px;
+                border: 1px solid black;
+                border-radius: 50%;
+                position: absolute;
+                top: 3px;
+                right: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: white;
+            }
+
+                .chat .chatUsers .chatUser .chatUserUnreadMessageCount span {
+                    font-size: 15px;
+                    color: black;
+                }
 
             .chat .chatUsers .chatUser .chatUserStatus {
                 height: 10px;
@@ -6348,6 +6466,13 @@ span#OcoYTyiBrpZJStB {
             .chat .chatUsers .chatDepartment span, .chat .chatUsers .chatUser span {
                 font-size: 12px;
                 color: rgba(255, 255, 255, 0.8);
+            }
+
+            .chat .chatUsers .chatUser span {
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                max-width: 58px;
             }
 
             .chat .chatUsers .chatUser ion-icon {
@@ -6383,14 +6508,126 @@ span#OcoYTyiBrpZJStB {
                     color: white;
                 }
 
+                .chat .chatUsers .chatUser:hover .chatUserUnreadMessageCountSpan {
+                    color: black;
+                }
+
 .chatParent {
     width: 300px;
     height: 100%;
     border-radius: 9px;
-    -webkit-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 1);
-    -moz-box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 1);
-    box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 1);
+    -webkit-box-shadow: -15px 0px 24px -20px rgba(0, 0, 0, 1);
+    -moz-box-shadow: -15px 0px 24px -20px rgba(0, 0, 0, 1);
+    box-shadow: -15px 0px 24px -20px rgba(0, 0, 0, 1);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
+
+    .chatParent .chatAttach {
+        background-color: rgba(34, 40, 49, 1);
+        /*backdrop-filter: blur(5px);*/
+        width: calc(100% - 76px);
+        height: calc(100% - 6px);
+        position: absolute;
+        border-radius: 9px;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        /**/
+        top: 3px;
+        right: 3px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+        .chatParent .chatAttach .chatAttachheader {
+            width: 100%;
+            height: 38px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-right: 6px;
+            padding-left: 9px;
+        }
+
+            .chatParent .chatAttach .chatAttachheader span {
+                color: rgba(255, 255, 255, 0.8);
+                font-size: 12px;
+            }
+
+            .chatParent .chatAttach .chatAttachheader .chatAttachClose {
+                border-radius: 50%;
+                background-color: #454b54;
+                height: 26px;
+                width: 26px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+                .chatParent .chatAttach .chatAttachheader .chatAttachClose ion-icon {
+                    width: 20px;
+                    min-width: 20px;
+                    max-width: 20px;
+                }
+
+                .chatParent .chatAttach .chatAttachheader .chatAttachClose:hover {
+                    background-color: #5c6470;
+                    cursor: pointer;
+                }
+
+        .chatParent .chatAttach .chatAttachDrop {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+            .chatParent .chatAttach .chatAttachDrop .chatAttachDropText {
+                display: inherit;
+                flex-direction: column;
+                gap: 8px;
+                align-items: center;
+            }
+
+            .chatParent .chatAttach .chatAttachDrop .chatAttachDropText span {
+                font-size: 12px;
+                color: rgba(255, 255, 255, 0.6);
+                text-align: center;
+            }
+
+                .chatParent .chatAttach .chatAttachDrop .chatAttachDropText ion-icon {
+                    width: 26px;
+                    min-width: 26px;
+                    max-width: 26px;
+                }
+
+        .chatParent .chatAttach .chatSettings {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-direction: column;
+            padding: 8px;
+        }
+
+            .chatParent .chatAttach .chatSettings .chatSettingsInner {
+                height: 40px;
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+            }
+
+                .chatParent .chatAttach .chatSettings .chatSettingsInner input {
+                    border: none;
+                    padding: 1px;
+                    background-color: rgba(255, 255, 255, 0.2);
+                }
+
+                .chatParent .chatAttach .chatSettings .chatSettingsInner.ahAhFZDXeuKReLz {
+                    flex-direction: row;
+                    gap: 8px;
+                }
 
     .chatParent .chatMessages {
         height: calc(100% - 55px);
@@ -6413,6 +6650,80 @@ span#OcoYTyiBrpZJStB {
             -ms-overflow-style: none; /* IE and Edge */
             scrollbar-width: none; /* Firefox */
         }
+
+            .chatParent .chatMessages .chatMessagesBubbles .bubbleSettings {
+                position: absolute;
+                /*top: 3px;
+                left: 3px;*/
+                top: 40%;
+                left: 50%;
+                width: 120px;
+                /*height: 192px;*/
+                height: auto;
+                border-radius: 9px;
+                background-color: rgba(34, 40, 49, 1);
+                z-index: 2;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                display: flex;
+                flex-direction: column;
+                -webkit-box-shadow: 0px 0px 24px -4px rgba(0, 0, 0, 1);
+                -moz-box-shadow: 0px 0px 24px -4px rgba(0, 0, 0, 1);
+                box-shadow: 0px 0px 24px -4px rgba(0, 0, 0, 1);
+            }
+
+                .chatParent .chatMessages .chatMessagesBubbles .bubbleSettings .bubbleSettingsInner {
+                    display: inherit;
+                    flex-direction: row;
+                    gap: 8px;
+                    justify-content: flex-start;
+                    align-items: center;
+                    padding-left: 8px;
+                    padding-right: 8px;
+                    width: 100%;
+                    height: 34px;
+                    border-radius: 9px;
+                }
+
+                    .chatParent .chatMessages .chatMessagesBubbles .bubbleSettings .bubbleSettingsInner:hover {
+                        background-color: rgba(54, 60, 69, 1);
+                        cursor: pointer;
+
+                    }
+
+                    .chatParent .chatMessages .chatMessagesBubbles .bubbleSettings .bubbleSettingsInner ion-icon {
+                        width: 24px;
+                        min-width: 24px;
+                        max-width: 24px;
+                        color: orangered;
+                    }
+
+                    .chatParent .chatMessages .chatMessagesBubbles .bubbleSettings .bubbleSettingsInner span {
+                        font-size: 13px;
+                        color: orangered;
+                    }
+
+            .chatParent .chatMessages .chatMessagesBubbles .emptyConversation {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                padding-bottom: 5px;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+                .chatParent .chatMessages .chatMessagesBubbles .emptyConversation span {
+                    font-size: 12px;
+                    color: rgba(255, 255, 255, 0.6);
+                    text-align: center;
+                }
+
+                .chatParent .chatMessages .chatMessagesBubbles .emptyConversation.receiverNotSelected {
+                    justify-content: center;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                }
 
             .chatParent .chatMessages .chatMessagesBubbles .chatDateStamp {
                 height: 30px;
@@ -6444,6 +6755,8 @@ span#OcoYTyiBrpZJStB {
                 width: 100%;
                 padding-bottom: 14px;
                 display: flex;
+                position: relative;
+                gap: 8px;
             }
 
                 .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .chatTimeStamp {
@@ -6457,8 +6770,6 @@ span#OcoYTyiBrpZJStB {
                         font-size: 12px;
                         color: rgba(255, 255, 255, 0.6);
                         white-space: nowrap;
-                        padding-left: 8px;
-                        padding-right: 8px;
                     }
 
                 .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer.sender {
@@ -6474,22 +6785,41 @@ span#OcoYTyiBrpZJStB {
                     padding: 6px 12px 6px 12px;
                     min-height: 27px;
                     width: auto;
+                    min-width: 43px;
                     display: inline-flex;
                     align-items: center;
+                    justify-content: center;
                     max-width: 200px;
                     position: relative;
+                    /**/
+                    /*-webkit-box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);
+                    -moz-box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);
+                    box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);*/
                 }
+
+                    .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.deleted {
+                        background-color: rgb(85, 85, 85) !important;
+                        pointer-events: none;
+                    }
+
+                        .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.deleted:after {
+                            /*border-top-color: rgb(85, 85, 85) !important;*/
+                        }
+
+                        .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.deleted .tail {
+                            border-top-color: rgb(85, 85, 85) !important;
+                        }
 
                     .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.sender {
                         /*background-color: #d63447;*/
                         /*background-color: #962071;*/
                         /*background-color: #9f1e49;*/
-                        background-color: #d65a31;
+                        /*background-color: #d65a31;*/
                         text-align: right;
                     }
 
                         .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.sender:after {
-                            content: '';
+                            /*content: '';
                             position: absolute;
                             bottom: 0;
                             right: 20px;
@@ -6497,6 +6827,21 @@ span#OcoYTyiBrpZJStB {
                             height: 0;
                             border: 7px solid transparent;
                             border-top-color: #d65a31;
+                            border-bottom: 0;
+                            border-right: 0;
+                            margin-left: -4px;
+                            margin-bottom: -7px;*/
+                        }
+
+                        .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.sender .tail {
+                            content: '';
+                            position: absolute;
+                            bottom: 0;
+                            right: 20px;
+                            width: 0;
+                            height: 0;
+                            border: 7px solid transparent;
+                            /*border-top-color: #d65a31;*/
                             border-bottom: 0;
                             border-right: 0;
                             margin-left: -4px;
@@ -6512,6 +6857,21 @@ span#OcoYTyiBrpZJStB {
                     }
 
                         .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.receiver:after {
+                            /*content: '';
+                            position: absolute;
+                            bottom: 0;
+                            left: 20px;
+                            width: 0;
+                            height: 0;
+                            border: 7px solid transparent;
+                            border-top-color: #346357;
+                            border-bottom: 0;
+                            border-left: 0;
+                            margin-left: -4px;
+                            margin-bottom: -7px;*/
+                        }
+
+                        .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.receiver .tail {
                             content: '';
                             position: absolute;
                             bottom: 0;
@@ -6538,6 +6898,7 @@ span#OcoYTyiBrpZJStB {
                         -webkit-box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.6);
                         -moz-box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.6);
                         box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.6);
+                        cursor: pointer;
                     }
 
     .chatParent .chatText {
@@ -6552,8 +6913,60 @@ span#OcoYTyiBrpZJStB {
         gap: 8px;
     }
 
-        .chatParent .chatText textarea {
+        .chatParent .chatText .textAreaDiv {
             width: 238px;
+            height: 34px;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            background-color: transparent;
+            border-radius: 17px;
+            display: inherit;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            padding-right: 3px;
+        }
+
+            .chatParent .chatText .textAreaDiv textarea {
+                width: 210px;
+                height: 34px;
+                outline: none;
+                background-color: transparent;
+                border-radius: 17px;
+                color: white;
+                font-size: 14px;
+                border: none;
+                padding-left: 10px;
+                padding-right: 5px;
+                padding-top: 6px;
+                resize: none;
+                -ms-overflow-style: none; /* IE and Edge */
+                scrollbar-width: none; /* Firefox */
+            }
+
+            .chatParent .chatText .textAreaDiv a {
+                border-radius: 0px;
+                height: 100%;
+                width: 34px;
+                border: none;
+                border-left: 2px solid rgba(255, 255, 255, 0.7);
+                transform: translateX(4px);
+                border-start-end-radius: 50%;
+                border-end-end-radius: 50%;
+            }
+
+                .chatParent .chatText .textAreaDiv a:hover {
+                    border-color: rgba(255, 255, 255, 0.7);
+                }
+
+                .chatParent .chatText .textAreaDiv a ion-icon {
+                    width: 20px;
+                    min-width: 20px;
+                    max-width: 20px;
+                    transform: translateX(-2px);
+                }
+
+        .chatParent .chatText textarea {
+            /*width: 238px;
             height: 34px;
             border: 2px solid rgba(255, 255, 255, 0.7);
             outline: none;
@@ -6563,13 +6976,13 @@ span#OcoYTyiBrpZJStB {
             font-size: 14px;
             padding-left: 10px;
             padding-right: 10px;
-            /*padding-bottom: 2px;*/
-            /**/
-            padding-top: 4px;
+            padding-top: 4px;*/
+            /*resize: none;*/
+
         }
 
             .chatParent .chatText textarea:focus {
-                border-color: white;
+                /*border-color: white;*/
             }
 
         .chatParent .chatText a {
@@ -6613,7 +7026,6 @@ span#OcoYTyiBrpZJStB {
             display: inherit;
             flex-direction: row;
             gap: 6px;
-            /*pointer-events: none;*/ 
         }
 
             .chatParent .chatMessages .chatHeader .chatMinimizeDiv:hover {
@@ -6674,6 +7086,32 @@ span#OcoYTyiBrpZJStB {
                     background-color: #5c6470;
                     cursor: pointer;
                 }
+
+                .chatParent .chatMessages .chatHeader .chatMinimizeDiv .chatMinimize .chatColor {
+                    width: 60%;
+                    height: 60%;
+                    border-radius: 50%;
+                    border: 1px solid white;
+                }
+
+/*.menuAvatar {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    .menuAvatar span {
+        text-transform: uppercase;
+        font-size: 18px;
+    }*/
+
+
+
+
 
 @keyframes blink {
     0% {

@@ -30,6 +30,20 @@
 
 	// Random rnd = new Random();
 	// System.Drawing.Color col = System.Drawing.ColorTranslator.FromHtml("#FF2233");
+
+	var color = userIdentity.First(x => x.UserId == userID).UserColor;
+	Color col_ = System.Drawing.ColorTranslator.FromHtml(color);
+	string spanColor = "";
+	@if (col_.R * 0.2126 + col_.G * 0.7152 + col_.B * 0.0722 < 255 / 2)
+	{
+		//dark color
+		spanColor = "white";
+	}
+	else
+	{
+		//light color
+		spanColor = "black";
+	}
 }
 
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
@@ -50,15 +64,22 @@
 				</div>
 			</div>
 
-			
 
+			<!--chat minimized-->
+			<div class="chatMinimized" id="chatMini" title="Otwórz czat" onclick="ZtMJSUFaxcMCRVo()">
+				<ion-icon name="chatbubbles"></ion-icon>
+				@* <div class="chatMinimizedNewMessages" title="Nieprzeczytane wiadomości">
+					<span>2</span>
+				</div> *@
+			</div>
 
 			<!--chat-->
 			<div class="chat" id="chat">
 				<div class="chatUsers">
-					<div class="chatDepartment" title="Filtr">
+					<div class="chatDepartment" title="Filtry" onclick="YElWMlpiHOvShrB('@userID')">
 						<ion-icon name="filter-outline"></ion-icon>
 					</div>
+
 					@foreach (var user in userIdentity)
 					{
 						var userRow = ((IEnumerable<Workers2>)ViewBag.Workers).FirstOrDefault(x => x.Id == user.WorkerId);
@@ -69,7 +90,7 @@
 
 							if (user.UserId != userID)
 							{
-								<div class="chatUser" title="Wybierz">
+								<div class="chatUser" title="Wybierz" style="display: none;">
 									<div class="avatar" style="background-color: @user.UserColor;">
 										@{
 											Color col = System.Drawing.ColorTranslator.FromHtml(@user.UserColor);
@@ -87,9 +108,13 @@
 									</div>
 									<span>@userName</span>
 
-									<div class="chatUserStatus online" title="online"></div>
-									@* <div class="chatUserStatus afk" title="afk"></div> *@
-									@* <div class="chatUserStatus offline" title="offline"></div> *@
+									@* <div class="chatUserStatus online" title="online"></div> *@
+									@* <div class="chatUserStatus afk" title="Zaraz wracam"></div> *@
+									<div class="chatUserStatus offline" title="offline"></div>
+
+									@* <div class="chatUserUnreadMessageCount" title="Nieprzeczytane rozmowy">
+										<span class="chatUserUnreadMessageCountSpan">1</span>
+									</div> *@
 
 								</div>
 							}
@@ -97,7 +122,67 @@
 					}
 				</div>
 
+				@* <div class="chatFilter">
+					<a class="chatMinimize filterClose" title="Zamknij" onclick="scQisAIXdDGVbXF(this)">
+						<ion-icon name="close-outline"></ion-icon>
+					</a>
+					<div class="chatFilterParent">
+						<div class="chatFilterDepartment">
+							<label>Pokaż osoby z działu:</label>
+							<select class="form-control xNiaHJPRvUxJGBW">
+								<option>Produkcja</option>
+								<option>Ewidencja</option>
+								<option>Dziaj jakości</option>
+								<option>Wszyscy</option>
+							</select>
+						</div>
+						<div style="height: 1px; width: 100%; background-color: rgba(255, 255, 255, 0.1);"></div>
+						<div class="chatFilterDepartment">
+							<label>Pokaż rozmowy w obrębie czasu:</label>
+							<div class="chatFilterDates">
+								<input type="date" class="form-control xNiaHJPRvUxJGBW PZrqDDIccpmCYkx" />
+								<span>-</span>
+								<input type="date" class="form-control xNiaHJPRvUxJGBW PZrqDDIccpmCYkx" />
+							</div>
+						</div>
+					</div>
+				</div> *@
+
 				<div class="chatParent">
+
+					<!--Załącznik-->
+					@* <div class="chatAttach">
+						<div class="chatAttachheader">
+							<span>Prześlij plik do &lt;osoba&gt;</span>
+							<div class="chatAttachClose" title="Zamknij" onclick="kTsAoyADkoTcMgH(this)">
+								<ion-icon name="close-outline"></ion-icon>
+							</div>
+						</div>
+						<div class="chatAttachDrop">
+							<div class="chatAttachDropText">
+								<ion-icon name="share-outline"></ion-icon>
+								<span>...Upuść plik tutaj...</span>
+							</div>
+							<input type="file" hidden />
+						</div>
+					</div> *@
+
+					<!--Ustawienia-->
+					@* <div class="chatAttach">
+						<div class="chatAttachheader">
+							<span>Ustawienia</span>
+							<div class="chatAttachClose" title="Zamknij" onclick="kTsAoyADkoTcMgH(this)">
+								<ion-icon name="close-outline"></ion-icon>
+							</div>
+						</div>
+						<div class="chatSettings">
+							<div class="chatSettingsInner ahAhFZDXeuKReLz">
+								<label>Wybierz swój kolor:</label>
+								<input type="color" />
+							</div>
+						</div>
+					</div> *@
+
 					<div class="chatMessages">
 						<div class="chatHeader" id="chatheader">
 							<div class="chatMinimizeDiv">
@@ -105,122 +190,178 @@
 									<span class="status online"></span>
 									<span class="statusText">Online</span>
 									@* <span class="status afk"></span>
-									<span class="statusText">AFK</span> *@
+									<span class="statusText">Zaraz wracam</span> *@
 									@* <span class="status offline"></span>
 									<span class="statusText">Offline</span> *@
 								</div>
 							</div>
 							<div class="chatMinimizeDiv">
-								<a class="chatMinimize" onclick="" title="Załącz plik">
+								@* <a class="chatMinimize" onclick="" title="Załącz plik">
 									<ion-icon name="attach-outline"></ion-icon>
-								</a>
-								<a class="chatMinimize" onclick="" title="Ustawienia">
+								</a> *@
+								@* <a class="chatMinimize" onclick="" title="Ustawienia">
 									<ion-icon name="settings-sharp"></ion-icon>
-								</a>
-								<a class="chatMinimize" onclick="" title="Minimalizuj">
-									<ion-icon name="arrow-down-outline"></ion-icon>
+								</a> *@
+								@* <a class="chatMinimize" onclick="" title="Zmień kolor wiadomości">
+									<div class="chatColor" style="background-color: @color;"></div>
+								</a> *@
+								<a class="chatMinimize" onclick="tqMrMyJEPoAgJSW()" title="Minimalizuj">
+									<ion-icon name="chevron-down"></ion-icon>
 								</a>
 							</div>
 						</div>
 						<div class="chatMessagesBubbles">
 
 
-							<div class="emptyConversation">
-								<span></span>
+							<div class="emptyConversation receiverNotSelected">
+								<span>W celu rozpoczęcia rozmowy, kliknij na jedną z osób po lewej stronie.</span>
 							</div>
 
 
-							@* <div class="chatDateStamp" date="24.07.2024">
-								<div></div><span>24 lipca 2024</span><div></div>
-							</div>
-
-							<div class="chatMessagesBubblesContainer sender">
-								<div class="chatTimeStamp" style="opacity: 0;">
-									<span>09:38</span>
-								</div>
-								<div class="bubble sender">
-									<span>Hej!</span>
-								</div>
-							</div>
-							<div class="chatMessagesBubblesContainer receiver">
-								<div class="bubble receiver">
-									<span>Cześć</span>
-								</div>
-								<div class="chatTimeStamp" style="opacity: 0;">
-									<span>09:55</span>
-								</div>
-							</div>
-							<div class="chatMessagesBubblesContainer sender">
-								<div class="chatTimeStamp" style="opacity: 0;">
-									<span>09:58</span>
-								</div>
-								<div class="bubble sender">
-									<span>Pamiętasz o tym spotkaniu w sali konferencyjnej?</span>
-								</div>
-							</div>
-							<div class="chatMessagesBubblesContainer receiver">
-								<div class="bubble receiver">
-									<span>qwerasdjnsakaksdbaskdankjanjsndaknsdjkadnasndjdnasjksadnasdnadskndassndsakndasdasbhdbashbasdhjasadbhadbjasdbhjdasqwerasdjnsakaksdbaskdankjanjsndaknsdjkadnasndjdnasjksadnasdnadskndassndsakndasdasbhdbashbasdhjasadbhadbjasdbhjdasqwjksadnasdnadskndassndsakndasdasbhdbashbasdhjasadbhadbjasdbhjdas</span>
-								</div>
-								<div class="chatTimeStamp" style="opacity: 0;">
-									<span>10:15</span>
-								</div>
-							</div>
-							<div class="chatMessagesBubblesContainer sender">
-								<div class="chatTimeStamp" style="opacity: 0;">
-									<span>10:25</span>
-								</div>
-								<div class="bubble sender">
-									<span>Lorem ipsum</span>
-								</div>
-							</div>
-							<div class="chatMessagesBubblesContainer sender">
-								<div class="chatTimeStamp" style="opacity: 0;">
-									<span>10:26</span>
-								</div>
-								<div class="bubble sender">
-									<span>wqweqwerqwe</span>
-								</div>
-							</div>
-							<div class="chatMessagesBubblesContainer receiver">
-								<div class="bubble receiver">
-									<span>WWWWWWWWWWWWW</span> <!--13-->
-								</div>
-								<div class="chatTimeStamp" style="opacity: 0;">
-									<span>10:54</span>
-								</div>
-							</div>
-
-
-							<div class="chatDateStamp" date="25.07.2024">
-								<div></div><span>25 lipca 2024</span><div></div>
-							</div>
-
-							<div class="chatMessagesBubblesContainer sender">
-								<div class="chatTimeStamp" style="opacity: 0;">
-									<span>08:16</span>
-								</div>
-								<div class="bubble sender">
-									<span>testtsteetstsetsetsetst</span>
-								</div>
-							</div>
-							<div class="chatMessagesBubblesContainer receiver">
-								<div class="bubble receiver">
-									<span>OK</span> 
-								</div>
-								<div class="chatTimeStamp" style="opacity: 0;">
-									<span>08:18</span>
-								</div>
+							@* <div class="emptyConversation">
+								<span>Napisz wiadomość i kliknij wyślij, aby rozpocząć rozmowę.</span>
+								<ion-icon name="arrow-down-outline"></ion-icon>
 							</div> *@
 
+
+							@* <div date="24.07.2024">
+								<div class="chatDateStamp">
+									<div></div><span>24 lipca 2024</span><div></div>
+								</div>
+
+								<div class="chatMessagesBubblesContainer sender">
+									<div class="chatTimeStamp" style="display: none;">
+										<span>09:38</span>
+									</div>
+									<div class="bubble sender" style="background-color: @color;">
+										<span style="color: @spanColor;">Hej!</span>
+										<div class="tail" style="border-top-color: @color;"></div>
+									</div>
+								</div>
+								<div class="chatMessagesBubblesContainer receiver">
+									<div class="bubble receiver">
+										<span>Cześć</span>
+										<div class="tail"></div>
+									</div>
+									<div class="chatTimeStamp" style="display: none;">
+										<span>09:55</span>
+									</div>
+								</div>
+								<div class="chatMessagesBubblesContainer sender">
+									<div class="chatTimeStamp" style="display: none;">
+										<span>09:58</span>
+									</div>
+									<div class="bubble sender" style="background-color: @color;">
+										<span style="color: @spanColor;">Pamiętasz o tym spotkaniu w sali konferencyjnej?</span>
+										<div class="tail" style="border-top-color: @color;"></div>
+									</div>
+								</div>
+								<div class="chatMessagesBubblesContainer receiver">
+									<div class="bubble receiver">
+										<span>qwerasdjnsakaksdbaskdankjanjsndaknsdjkadnasndjdnasjksadnasdnadskndassndsakndasdasbhdbashbasdhjasadbhadbjasdbhjdasqwerasdjnsakaksdbaskdankjanjsndaknsdjkadnasndjdnasjksadnasdnadskndassndsakndasdasbhdbashbasdhjasadbhadbjasdbhjdasqwjksadnasdnadskndassndsakndasdasbhdbashbasdhjasadbhadbjasdbhjdas</span>
+										<div class="tail"></div>
+									</div>
+									<div class="chatTimeStamp" style="display: none;">
+										<span>10:15</span>
+									</div>
+								</div>
+								<div class="chatMessagesBubblesContainer sender">
+									<div class="chatTimeStamp" style="display: none;">
+										<span>10:25</span>
+									</div>
+									<div class="bubble sender" style="background-color: @color;">
+										<span style="color: @spanColor;">Lorem ipsum</span>
+										<div class="tail" style="border-top-color: @color;"></div>
+									</div>
+								</div>
+								<div class="chatMessagesBubblesContainer sender">
+									<div class="chatTimeStamp" style="display: none;">
+										<span>10:26</span>
+									</div>
+									<div class="bubble sender" style="background-color: @color;">
+										<span style="color: @spanColor;">wqweqwerqwe</span>
+										<div class="tail" style="border-top-color: @color;"></div>
+									</div>
+								</div>
+								<div class="chatMessagesBubblesContainer receiver">
+									<div class="bubble receiver">
+										<span>WWWWWWWWWWWWW</span> <!--13-->
+										<div class="tail"></div>
+									</div>
+									<div class="chatTimeStamp" style="display: none;">
+										<span>10:54</span>
+									</div>
+								</div>
+							</div>
+
+
+							<div date="25.07.2024">
+								<div class="chatDateStamp">
+									<div></div><span>25 lipca 2024</span><div></div>
+								</div>
+
+								<div class="chatMessagesBubblesContainer sender">
+									<div class="chatTimeStamp" style="display: none;">
+										<span>08:16</span>
+									</div>
+									<div class="bubble sender" style="background-color: @color;">
+										<span style="color: @spanColor;">testtsteetstsetsetsetst</span>
+										<div class="tail" style="border-top-color: @color;"></div>
+									</div>
+								</div>
+								<div class="chatMessagesBubblesContainer sender">
+									<div class="chatTimeStamp" style="display: none;">
+										<span>08:16</span>
+									</div>
+									<div class="bubble sender" style="background-color: @color;">
+										<span style="color: @spanColor;">a</span>
+										<div class="tail" style="border-top-color: @color;"></div>
+									</div>
+								</div>
+								<div class="chatMessagesBubblesContainer receiver">
+									<div class="bubble receiver">
+										<span>OK</span>
+										<div class="tail"></div>
+									</div>
+									<div class="chatTimeStamp" style="display: none;">
+										<span>08:18</span>
+									</div>
+								</div> *@
+								
+								@* <div class="bubbleSettings">
+									<div class="bubbleSettingsInner" onclick="">
+										<ion-icon name="close"></ion-icon>
+										<span>Usuń</span>
+									</div>
+								</div> *@
+
+							@* </div> *@
+							@* <div date="26.07.2024">
+								<div class="chatDateStamp">
+									<div></div><span>26 lipca 2024</span><div></div>
+								</div>
+
+								<div class="chatMessagesBubblesContainer sender">
+									<div class="bubble deleted sender">
+										<span>Wiadomość usunięta</span>
+										<div class="tail"></div>
+									</div>
+								</div>
+							</div> *@
+							
 
 
 						</div>
 					</div>
 					<div class="chatText">
-						@* <input type="text" onkeydown="KIKgUMfKkWZJxaI(event, this)" /> *@
-						<textarea style="resize: none;" spellcheck="false"></textarea>
-						<a onclick="" title="Wyślij"><ion-icon name="arrow-up-outline"></ion-icon></a>
+						@* <textarea style="resize: none;" spellcheck="false" onkeydown="KIKgUMfKkWZJxaI(event, this)"></textarea> *@
+						<div class="textAreaDiv" style="display: none;">
+							<textarea placeholder="..."></textarea>
+							<a title="Załącz plik">
+								<ion-icon name="attach-outline"></ion-icon>
+							</a>
+						</div>
+						<a style="display: none;" onclick="" title="Wyślij"><ion-icon name="arrow-up-outline"></ion-icon></a>
 					</div>
 				</div>
 			</div>

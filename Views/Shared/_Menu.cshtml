@@ -14,6 +14,10 @@
             userID = userIdClaim.Value;
         }
     }
+
+    //get users from UserIdentity
+    var userIdentity = ((IEnumerable<UserIdentity>)ViewBag.UserIdentity);
+    var workers = ((IEnumerable<Workers2>)ViewBag.Workers);
 }
 
 <div class="loader_div iXYXpnpgGMALUNG" style="display: none;">
@@ -241,6 +245,27 @@
 
     <a class="settings_a" asp-area="Identity" asp-page="/Account/Manage/Index">
         <ion-icon name="person-outline"></ion-icon>
+        @* @{
+            string firstLetterOfName = "";
+            string firstLetterOfSurname = "";
+            string color = "";
+
+            var u = userIdentity.FirstOrDefault(x => x.UserId == userID);
+            if (u != null)
+            {
+                var w = workers.FirstOrDefault(x => x.Id == u.WorkerId);
+                if (w != null)
+                {
+                    firstLetterOfName = w.Name.FirstOrDefault().ToString();
+                    firstLetterOfSurname = w.Surname.FirstOrDefault().ToString();
+                    color = u.UserColor;
+                }
+            }
+        }
+        <div class="menuAvatar" style="background-color: @color;">
+            <span>@firstLetterOfName@firstLetterOfSurname</span>
+        </div> *@
+
         <div class="OxavFctgPAvYCMk">
             <span>@User.Identity?.Name?.Split('@')[0]</span>
             <span>Ustawienia konta</span>

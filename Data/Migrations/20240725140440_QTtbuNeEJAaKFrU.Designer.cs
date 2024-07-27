@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TimeTask.Data;
 
@@ -11,9 +12,11 @@ using TimeTask.Data;
 namespace TimeTask.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240725140440_QTtbuNeEJAaKFrU")]
+    partial class QTtbuNeEJAaKFrU
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,43 +244,6 @@ namespace TimeTask.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AllowedToEditSchedule");
-                });
-
-            modelBuilder.Entity("TimeTask.Models.Chat", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IfDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IfMessageRead")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("MessageSentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("MessageText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReceiverUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SenderUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SentFileLocation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Chat");
                 });
 
             modelBuilder.Entity("TimeTask.Models.DayTasksLimitExceptionForDepartments", b =>

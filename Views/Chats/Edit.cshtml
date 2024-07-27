@@ -1,0 +1,59 @@
+﻿@model TimeTask.Models.Chat
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Chat</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="SenderUserId" class="control-label"></label>
+                <input asp-for="SenderUserId" class="form-control" />
+                <span asp-validation-for="SenderUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReceiverUserId" class="control-label"></label>
+                <input asp-for="ReceiverUserId" class="form-control" />
+                <span asp-validation-for="ReceiverUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MessageText" class="control-label"></label>
+                <input asp-for="MessageText" class="form-control" />
+                <span asp-validation-for="MessageText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MessageSentDate" class="control-label"></label>
+                <input asp-for="MessageSentDate" class="form-control" />
+                <span asp-validation-for="MessageSentDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SentFileLocation" class="control-label"></label>
+                <input asp-for="SentFileLocation" class="form-control" />
+                <span asp-validation-for="SentFileLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IfMessageRead" /> @Html.DisplayNameFor(model => model.IfMessageRead)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
