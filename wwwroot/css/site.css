@@ -6288,10 +6288,8 @@ span#OcoYTyiBrpZJStB {
 .chatFilter {
     position: absolute;
     top: 3px;
-    left: 3px;
-    /*width: 170px;*/
-    /*width: 250px;*/
-    width: calc(100% - 6px);
+    right: 3px;
+    width: calc(100% - 76px);
     border-radius: 9px;
     background-color: rgba(34, 40, 49, 1);
     z-index: 2;
@@ -6351,9 +6349,6 @@ span#OcoYTyiBrpZJStB {
 
 .chat {
     position: absolute;
-    /*right: 14px;*/
-    /*left: 214px;
-    bottom: 14px;*/
     width: 370px;
     height: 480px;
     border-radius: 9px;
@@ -6389,6 +6384,11 @@ span#OcoYTyiBrpZJStB {
         position: relative;
     }
 
+        .chat .chatUsers.TYZimWgKPSymTgA {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
         .chat .chatUsers::-webkit-scrollbar {
             display: none;
         }
@@ -6401,6 +6401,11 @@ span#OcoYTyiBrpZJStB {
             justify-content: center;
             align-items: center;
         }
+
+            .chat .chatUsers .chatDepartment.IZWhZbrsteKalXF {
+                background-color: rgb(34, 40, 49);
+                transition: background-color 0.1s ease-in-out;
+            }
 
             .chat .chatUsers .chatDepartment:hover {
                 cursor: pointer;
@@ -6421,6 +6426,10 @@ span#OcoYTyiBrpZJStB {
             padding-top: 4px;
             position: relative;
         }
+
+            .chat .chatUsers .chatUser.userSelected {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
 
             .chat .chatUsers .chatUser .chatUserUnreadMessageCount {
                 height: 18px;
@@ -6524,7 +6533,6 @@ span#OcoYTyiBrpZJStB {
 
     .chatParent .chatAttach {
         background-color: rgba(34, 40, 49, 1);
-        /*backdrop-filter: blur(5px);*/
         width: calc(100% - 76px);
         height: calc(100% - 6px);
         position: absolute;
@@ -6652,55 +6660,32 @@ span#OcoYTyiBrpZJStB {
         }
 
             .chatParent .chatMessages .chatMessagesBubbles .bubbleSettings {
-                position: absolute;
-                /*top: 3px;
-                left: 3px;*/
-                top: 40%;
-                left: 50%;
-                width: 120px;
-                /*height: 192px;*/
-                height: auto;
+                width: 32px;
+                height: 32px;
                 border-radius: 9px;
                 background-color: rgba(34, 40, 49, 1);
                 z-index: 2;
-                border: 1px solid rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.3);
                 display: flex;
                 flex-direction: column;
+                justify-content: center;
+                align-items: center;
                 -webkit-box-shadow: 0px 0px 24px -4px rgba(0, 0, 0, 1);
                 -moz-box-shadow: 0px 0px 24px -4px rgba(0, 0, 0, 1);
                 box-shadow: 0px 0px 24px -4px rgba(0, 0, 0, 1);
             }
 
-                .chatParent .chatMessages .chatMessagesBubbles .bubbleSettings .bubbleSettingsInner {
-                    display: inherit;
-                    flex-direction: row;
-                    gap: 8px;
-                    justify-content: flex-start;
-                    align-items: center;
-                    padding-left: 8px;
-                    padding-right: 8px;
-                    width: 100%;
-                    height: 34px;
-                    border-radius: 9px;
+                .chatParent .chatMessages .chatMessagesBubbles .bubbleSettings:hover {
+                    background-color: rgba(54, 60, 69, 1);
+                    cursor: pointer;
                 }
 
-                    .chatParent .chatMessages .chatMessagesBubbles .bubbleSettings .bubbleSettingsInner:hover {
-                        background-color: rgba(54, 60, 69, 1);
-                        cursor: pointer;
-
-                    }
-
-                    .chatParent .chatMessages .chatMessagesBubbles .bubbleSettings .bubbleSettingsInner ion-icon {
-                        width: 24px;
-                        min-width: 24px;
-                        max-width: 24px;
-                        color: orangered;
-                    }
-
-                    .chatParent .chatMessages .chatMessagesBubbles .bubbleSettings .bubbleSettingsInner span {
-                        font-size: 13px;
-                        color: orangered;
-                    }
+                .chatParent .chatMessages .chatMessagesBubbles .bubbleSettings ion-icon {
+                    width: 22px;
+                    min-width: 22px;
+                    max-width: 22px;
+                    color: orangered;
+                }
 
             .chatParent .chatMessages .chatMessagesBubbles .emptyConversation {
                 display: flex;
@@ -6750,11 +6735,17 @@ span#OcoYTyiBrpZJStB {
                     background-color: rgba(255, 255, 255, 0.4);
                 }
 
+                .chatParent .chatMessages .chatMessagesBubbles .chatDateStamp:hover {
+                    background-color: rgba(255, 255, 255, 0.1);
+                    cursor: pointer;
+                }
+
             .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer {
                 min-height: 27px;
                 width: 100%;
                 padding-bottom: 14px;
                 display: flex;
+                align-items: center;
                 position: relative;
                 gap: 8px;
             }
@@ -6791,10 +6782,6 @@ span#OcoYTyiBrpZJStB {
                     justify-content: center;
                     max-width: 200px;
                     position: relative;
-                    /**/
-                    /*-webkit-box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);
-                    -moz-box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);
-                    box-shadow: 0px 0px 24px -7px rgba(0, 0, 0, 1);*/
                 }
 
                     .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.deleted {
@@ -6802,36 +6789,13 @@ span#OcoYTyiBrpZJStB {
                         pointer-events: none;
                     }
 
-                        .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.deleted:after {
-                            /*border-top-color: rgb(85, 85, 85) !important;*/
-                        }
-
                         .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.deleted .tail {
                             border-top-color: rgb(85, 85, 85) !important;
                         }
 
                     .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.sender {
-                        /*background-color: #d63447;*/
-                        /*background-color: #962071;*/
-                        /*background-color: #9f1e49;*/
-                        /*background-color: #d65a31;*/
                         text-align: right;
                     }
-
-                        .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.sender:after {
-                            /*content: '';
-                            position: absolute;
-                            bottom: 0;
-                            right: 20px;
-                            width: 0;
-                            height: 0;
-                            border: 7px solid transparent;
-                            border-top-color: #d65a31;
-                            border-bottom: 0;
-                            border-right: 0;
-                            margin-left: -4px;
-                            margin-bottom: -7px;*/
-                        }
 
                         .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.sender .tail {
                             content: '';
@@ -6841,7 +6805,6 @@ span#OcoYTyiBrpZJStB {
                             width: 0;
                             height: 0;
                             border: 7px solid transparent;
-                            /*border-top-color: #d65a31;*/
                             border-bottom: 0;
                             border-right: 0;
                             margin-left: -4px;
@@ -6849,27 +6812,8 @@ span#OcoYTyiBrpZJStB {
                         }
 
                     .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.receiver {
-                        /*background-color: #5f6caf;*/
-                        background-color: #346357;
-                        /*background-color: #22559c;*/
-                        /*background-color: #c13131;*/
                         text-align: left;
                     }
-
-                        .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.receiver:after {
-                            /*content: '';
-                            position: absolute;
-                            bottom: 0;
-                            left: 20px;
-                            width: 0;
-                            height: 0;
-                            border: 7px solid transparent;
-                            border-top-color: #346357;
-                            border-bottom: 0;
-                            border-left: 0;
-                            margin-left: -4px;
-                            margin-bottom: -7px;*/
-                        }
 
                         .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.receiver .tail {
                             content: '';
@@ -6964,26 +6908,6 @@ span#OcoYTyiBrpZJStB {
                     max-width: 20px;
                     transform: translateX(-2px);
                 }
-
-        .chatParent .chatText textarea {
-            /*width: 238px;
-            height: 34px;
-            border: 2px solid rgba(255, 255, 255, 0.7);
-            outline: none;
-            background-color: transparent;
-            border-radius: 17px;
-            color: white;
-            font-size: 14px;
-            padding-left: 10px;
-            padding-right: 10px;
-            padding-top: 4px;*/
-            /*resize: none;*/
-
-        }
-
-            .chatParent .chatText textarea:focus {
-                /*border-color: white;*/
-            }
 
         .chatParent .chatText a {
             border-radius: 50%;
@@ -7094,20 +7018,20 @@ span#OcoYTyiBrpZJStB {
                     border: 1px solid white;
                 }
 
-/*.menuAvatar {
-    width: 40px;
-    min-width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@keyframes message {
+    0% {
+        transform: scale(0);
+    }
+
+    80% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
-    .menuAvatar span {
-        text-transform: uppercase;
-        font-size: 18px;
-    }*/
 
 
 

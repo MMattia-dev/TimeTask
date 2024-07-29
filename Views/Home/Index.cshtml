@@ -66,17 +66,18 @@
 
 
 			<!--chat minimized-->
-			<div class="chatMinimized" id="chatMini" title="Otwórz czat" onclick="ZtMJSUFaxcMCRVo()">
+			@* <div class="chatMinimized" id="chatMini" title="Otwórz czat" onclick="ZtMJSUFaxcMCRVo()">
 				<ion-icon name="chatbubbles"></ion-icon>
-				@* <div class="chatMinimizedNewMessages" title="Nieprzeczytane wiadomości">
+				<div class="chatMinimizedNewMessages" title="Nieprzeczytane wiadomości">
 					<span>2</span>
-				</div> *@
-			</div>
+				</div>
+			</div> *@
 
 			<!--chat-->
-			<div class="chat" id="chat">
+			<div class="" id="" style="display: none;">
+				<!--id = chat--><!--class = chat-->
 				<div class="chatUsers">
-					<div class="chatDepartment" title="Filtry" onclick="YElWMlpiHOvShrB('@userID')">
+					<div class="chatDepartment" title="Filtry" onclick="YElWMlpiHOvShrB(this)">
 						<ion-icon name="filter-outline"></ion-icon>
 					</div>
 
@@ -90,7 +91,8 @@
 
 							if (user.UserId != userID)
 							{
-								<div class="chatUser" title="Wybierz" style="display: none;">
+								<div class="" title="Wybierz" style="display: none;">
+									<!--class = chatUser-->
 									<div class="avatar" style="background-color: @user.UserColor;">
 										@{
 											Color col = System.Drawing.ColorTranslator.FromHtml(@user.UserColor);
@@ -184,7 +186,8 @@
 					</div> *@
 
 					<div class="chatMessages">
-						<div class="chatHeader" id="chatheader">
+						<div class="chatHeader" id="">
+							<!--chatheader-->
 							<div class="chatMinimizeDiv">
 								<div class="chatStatus">
 									<span class="status online"></span>
@@ -210,8 +213,8 @@
 								</a>
 							</div>
 						</div>
-						<div class="chatMessagesBubbles">
-
+						<div class="">
+							<!--chatMessagesBubbles-->
 
 							<div class="emptyConversation receiverNotSelected">
 								<span>W celu rozpoczęcia rozmowy, kliknij na jedną z osób po lewej stronie.</span>
@@ -353,10 +356,11 @@
 
 						</div>
 					</div>
-					<div class="chatText">
+					<div class="">
+						<!--chatText-->
 						@* <textarea style="resize: none;" spellcheck="false" onkeydown="KIKgUMfKkWZJxaI(event, this)"></textarea> *@
 						<div class="textAreaDiv" style="display: none;">
-							<textarea placeholder="..."></textarea>
+							<textarea placeholder="..." spellcheck="false"></textarea>
 							<a title="Załącz plik">
 								<ion-icon name="attach-outline"></ion-icon>
 							</a>
@@ -369,8 +373,8 @@
 			@* <div class="row p-1">
 				<div class="col-1">User</div>
 				<div class="col-5"><input type="text" id="userInput" /></div>
-			</div>
-			<div class="row p-1">
+			</div> *@
+			@* <div class="row p-1">
 				<div class="col-1">Message</div>
 				<div class="col-5"><input type="text" class="w-100" id="messageInput" /></div>
 			</div>

@@ -1,72 +1,6 @@
-﻿//var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-
-////Disable the send button until connection is established.
-//document.getElementById("sendButton").disabled = true;
-
-//connection.on("ReceiveMessage", function (user, message)
-//{
-//    var li = document.createElement("li");
-//    document.getElementById("messagesList").appendChild(li);
-//    // We can assign user-supplied strings to an element's textContent because it
-//    // is not interpreted as markup. If you're assigning in any other way, you 
-//    // should be aware of possible script injection concerns.
-//    li.textContent = `${user} says ${message}`;
-//});
-
-//connection.start().then(function ()
-//{
-//    document.getElementById("sendButton").disabled = false;
-//}).catch(function (err)
-//{
-//    return console.error(err.toString());
-//});
-
-//document.getElementById("sendButton").addEventListener("click", function (event)
-//{
-//    var user = document.getElementById("userInput").value;
-//    var message = document.getElementById("messageInput").value;
-//    connection.invoke("SendMessage", user, message).catch(function (err)
-//    {
-//        return console.error(err.toString());
-//    });
-//    event.preventDefault();
-//});
-
-function KIKgUMfKkWZJxaI(e, t) 
-{
-    let text = t.value;
-
-    if (text.length > 0) 
-    {
-        //if (e.key === "Enter")
-        //{
-        //    //$('.btn-custom').trigger('click');
-        //    alert(text);
-        //}
-
-
-    }
-    
+﻿function bubbleOutReceiver(t) {
+    $(t).parent().children('.chatTimeStamp').hide();
 };
-
-$('.bubble').on('mouseover', function (e)
-{
-    if ($(e.target).hasClass('bubble'))
-    {
-        $(e.target).parent().children('.chatTimeStamp').show();
-    }
-});
-
-$('.bubble').on('mouseout', function (e)
-{
-    if ($(e.target).hasClass('bubble'))
-    {
-        $(e.target).parent().children('.chatTimeStamp').hide();
-    }
-});
-
-let chatmessages = document.querySelector('.chatMessagesBubbles');
-chatmessages.scrollTo(0, chatmessages.scrollHeight);
 
 function kTsAoyADkoTcMgH(t) {
     $(t).parent().parent().remove();
@@ -76,7 +10,22 @@ function scQisAIXdDGVbXF(t) {
     $(t).parent().remove();
 };
 
-dragElement(document.getElementById("chat"));
+$(document).on('click', function (event)
+{
+    if (!$(event.target).closest('.chatFilter').length)
+    {
+        $('.chatFilter').remove();
+    }
+});
+
+$(document).on('mousedown', function (event)
+{
+    if (!$(event.target).closest('.bubbleSettings').length)
+    {
+        $('.bubbleSettings').remove();
+        $('.chatTimeStamp').hide();
+    }
+});
 
 function dragElement(elmnt)
 {
@@ -144,64 +93,105 @@ function dragElement(elmnt)
 function loadChat() {
     if (sessionStorage.getItem('XaWDHywDpyvadHP') != null) //czy chat nie jest zminimalizowany 
     {
-        $('#chatMini').hide();
-        $('#chat').show();
-
-        if (sessionStorage.getItem('chatBoxTop') == null) 
-        {
-            document.getElementById('chat').style.top = "calc(50% - 240px)";
-        }
-
-        if (sessionStorage.getItem('chatBoxLeft') == null)
-        {
-            document.getElementById('chat').style.left = "calc(50% - 185px)";
-        }
+        ZtMJSUFaxcMCRVo();
     }
     else {
-        $('#chatMini').show();
-        $('#chat').hide();
+        tqMrMyJEPoAgJSW();
     }
 };
 loadChat();
 
-//show chat
 function ZtMJSUFaxcMCRVo() 
 {
-    let chat = document.getElementById('chat');
-    let chatMini = document.getElementById('chatMini');
+    if (!document.getElementById('chat')) {
+        $.ajax({
+            type: 'GET',
+            url: '/Chats/ShowChat',
+            data: {
+                savedDepartment: sessionStorage.getItem('JOZPzFDGsWEEzIY')
+            },
+            success: function (response)
+            {
+                $('.ATKLsxSduWPahPh').append(response);
+                $('.chatMinimized').remove();
 
-    sessionStorage.setItem('XaWDHywDpyvadHP', 'true');
-    $('#chatMini').hide();
-    $('#chat').show();
+                sessionStorage.setItem('XaWDHywDpyvadHP', 'true');
 
+                if (sessionStorage.getItem('chatBoxTop') == null)
+                {
+                    document.getElementById('chat').style.top = "calc(50% - 240px)";
+                }
 
-    if (sessionStorage.getItem('chatBoxTop') == null) 
-    {
-        document.getElementById('chat').style.top = "calc(50% - 240px)";
-    }
+                if (sessionStorage.getItem('chatBoxLeft') == null)
+                {
+                    document.getElementById('chat').style.left = "calc(50% - 185px)";
+                }
 
-    if (sessionStorage.getItem('chatBoxLeft') == null)
-    {
-        document.getElementById('chat').style.left = "calc(50% - 185px)";
+                dragElement(document.getElementById("chat"));      
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
     }
 };
 
-//minimize
+function WkFMnZKWUdhpbzo() 
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Chats/ReceiveUsers',
+        data: {
+            savedDepartment: sessionStorage.getItem('JOZPzFDGsWEEzIY')
+        },
+        success: function (response)
+        {
+            let elements = document.querySelectorAll('.chatUser');
+            for (let i = 0; i < elements.length; i++) {
+                $(elements[i]).remove();
+            }
+
+            $('.chatUsers').append(response.contentResult.content);
+
+            $('.chatMessagesBubbles').html(response.div);
+
+            $('.chatText').children().remove();
+
+            $('.chatFilter').remove();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
 function tqMrMyJEPoAgJSW() 
 {
-    sessionStorage.removeItem('XaWDHywDpyvadHP');
-    $('#chatMini').show();
-    $('#chat').hide();
-
+    $.ajax({
+        type: 'GET',
+        url: '/Chats/ShowChatMinimized',
+        success: function (response)
+        {
+            sessionStorage.removeItem('XaWDHywDpyvadHP');
+            $('.ATKLsxSduWPahPh').append(response);
+            $('#chat').remove();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
 };
 
-function YElWMlpiHOvShrB(u) 
+function YElWMlpiHOvShrB(t)
 {
     $.ajax({
         type: 'GET',
         url: '/Chats/FilterDiv',
         data: {
-            u: u
+            savedDepartment: sessionStorage.getItem('JOZPzFDGsWEEzIY')
         },
         success: function (response)
         {
@@ -213,3 +203,271 @@ function YElWMlpiHOvShrB(u)
         }
     });
 };
+
+function zpUZfWoTJUsolOJ(t) 
+{
+    sessionStorage.setItem('JOZPzFDGsWEEzIY', t.value); //departmentId dla selecta w filtrze
+
+    //dodaj użytkowników po lewej stronie
+    WkFMnZKWUdhpbzo(sessionStorage.getItem('JOZPzFDGsWEEzIY'));
+};
+
+function ltmkkPVQpNisKCP(t, r) {
+    $.ajax({
+        type: 'GET',
+        url: '/Chats/ShowChatMessages',
+        data: {
+            receiverUserId: r
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                $('.chatMessagesBubbles').children().remove();
+                $('.emptyConversation').remove();
+                $('.receiverNotSelected').remove();
+                $('.chatText').html(response.textDiv);
+
+                let elements = document.querySelectorAll('.chatUser');
+                for (let i = 0; i < elements.length; i++)
+                {
+                    $(elements[i]).removeClass('userSelected');
+                }
+
+                $(t).addClass('userSelected');
+
+                if (response.arrayNotEmpty == false)
+                {
+                    $('.chatMessagesBubbles').append(response.div);
+                }
+                else
+                {
+                    $('.chatMessagesBubbles').append(response.messages);
+                    let chatmessages = document.querySelector('.chatMessagesBubbles');
+                    chatmessages.scrollTo(0, chatmessages.scrollHeight);
+                }
+
+                connect();
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+async function vKbmXcDAKBSEZqf(r) {
+    //let messageText = document.getElementById('textAreaMessage').value;
+
+    //if (messageText.length > 0)
+    //{
+    //    await $.ajax({
+    //        type: 'POST',
+    //        url: '/Chats/AddToChat',
+    //        data: {
+    //            receiver: r,
+    //            message: messageText
+    //        },
+    //        success: function (response)
+    //        {
+    //            if (response != false)
+    //            {
+    //                if (response.firstConversation)
+    //                {
+    //                    $('.chatMessagesBubbles').html(response.messages);
+    //                }
+    //                else 
+    //                {
+    //                    if (response.dateCheck)
+    //                    {
+    //                        let div = $('#dateParent[date="' + response.today + '"]');
+    //                        $(div).append(response.bubble);
+    //                    }
+    //                    else 
+    //                    {
+    //                        $('.chatMessagesBubbles').append(response.messages);
+    //                    }
+    //                }
+
+    //                $('.chatMessagesBubbles').animate({ scrollTop: document.body.scrollHeight }, "fast");
+    //                $('#textAreaMessage').val("");
+    //            }
+    //        },
+    //        error: function (xhr, status, error)
+    //        {
+    //            console.log('Error:', error);
+    //        }
+    //    });
+    //}
+
+    
+};
+
+function sendMessageEnter(e) {
+    if (e.key === "Enter")
+    {
+        //$('#sendMessage').trigger('click');
+    }
+};
+
+function bubbleClickReceiver(t) {
+    $(t).parent().children('.chatTimeStamp').show();
+};
+
+function bubbleClick(t, event, id) {
+    $.ajax({
+        type: 'GET',
+        url: '/Chats/DeleteButton',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            $('.bubbleSettings').remove();
+            $(response).insertBefore(t);
+            $(t).parent().children('.chatTimeStamp').show();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+async function removeMessage(t, id)
+{
+    await $.ajax({
+        type: 'POST',
+        url: '/Chats/RemoveMessage',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            $(t).parent().html(response.messageRemovedDiv);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+}
+
+async function sendMessage_(sender, receiver, message) 
+{
+    await $.ajax({
+        type: 'POST',
+        //url: '/Chats/AddToChat',
+        url: '/Chats/AddToChat_',
+        data: {
+            sender: sender,
+            receiver: receiver,
+            message: message
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                console.log(response);
+            }
+
+            //if (response != false)
+            //{
+            //    if (response.firstConversation)
+            //    {
+            //        $('.chatMessagesBubbles').html(response.messages);
+            //    }
+            //    else 
+            //    {
+            //        if (response.dateCheck)
+            //        {
+            //            let div = $('#dateParent[date="' + response.today + '"]');
+            //            $(div).append(response.bubble);
+            //        }
+            //        else 
+            //        {
+            //            $('.chatMessagesBubbles').append(response.messages);
+            //        }
+            //    }
+
+            //    $('.chatMessagesBubbles').animate({ scrollTop: document.body.scrollHeight }, "fast");
+            //    $('#textAreaMessage').val("");
+            //}
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function connect() 
+{
+    var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+
+    //
+
+    //
+
+
+    ////Disable the send button until connection is established.
+    //document.getElementById("sendMessage").disabled = true;
+    //$('#sendMessage').addClass('disabled');
+
+    //connection.start().then(function ()
+    //{
+    //    document.getElementById("sendMessage").disabled = false;
+    //}).catch(function (err)
+    //{
+    //    return console.error(err.toString());
+    //});
+
+    connection.start().catch(function (err)
+    {
+        return console.error(err.toString());
+    });
+
+    connection.on("ReceiveMessage", function (sender, receiver, message) //user, 
+    {
+        //var li = document.createElement("li");
+        //document.getElementById("messagesList").appendChild(li);
+        //// We can assign user-supplied strings to an element's textContent because it
+        //// is not interpreted as markup. If you're assigning in any other way, you
+        //// should be aware of possible script injection concerns.
+        //li.textContent = `${user} says ${message}`;
+
+        sendMessage_(sender, receiver, message);
+
+    });
+
+    //document.getElementById("sendButton").addEventListener("click", function (event)
+    //{
+    //    var user = document.getElementById("userInput").value;
+    //    var message = document.getElementById("messageInput").value;
+    //    connection.invoke("SendMessage", user, message).catch(function (err)
+    //    {
+    //        return console.error(err.toString());
+    //    });
+    //    event.preventDefault();
+    //});
+
+    document.getElementById('sendMessage').addEventListener('click', function (event)
+    {
+        var receiver = this.getAttribute('r');
+        var message = document.getElementById('textAreaMessage').value;
+
+        if (message.length > 0) 
+        {
+            connection.invoke("SendMessage", receiver, message).catch(function (err)
+            {
+                return console.error(err.toString());
+            });
+        }
+    });
+
+    
+};
+/*connect();*/
+
