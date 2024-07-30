@@ -354,7 +354,7 @@ async function removeMessage(t, id)
     });
 }
 
-async function sendMessage_(sender, receiver, message) 
+async function sendMessage_(sender, receiver, message) //sender, 
 {
     await $.ajax({
         type: 'POST',
@@ -370,7 +370,9 @@ async function sendMessage_(sender, receiver, message)
             if (response != false) 
             {
                 console.log(response);
+
             }
+
 
             //if (response != false)
             //{
@@ -402,19 +404,45 @@ async function sendMessage_(sender, receiver, message)
     });
 };
 
+
+
+var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+function disconnect_()
+{
+    connection.stop().catch(function () 
+    { 
+        return console.error(err.toString());
+    });
+};
+
+function connect_() 
+{
+    connection.start().catch(function (err)
+    {
+        return console.error(err.toString());
+    });
+};
+connect_();
+
+//sprawdzaj połączenie co 1 sekunde
+//function checkConnectionState() {
+//    setInterval(function ()
+//    {
+//        //console.log(connection.state);
+//        return connection.state;
+//    }, 1000);
+//};
+//checkConnectionState();
+
+var handlerRegistered = false;
 function connect() 
 {
-    var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-
-
-    //
-
-    //
-
+    //var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
     ////Disable the send button until connection is established.
     //document.getElementById("sendMessage").disabled = true;
-    //$('#sendMessage').addClass('disabled');
+    //$('.chatText').addClass('disabled');
 
     //connection.start().then(function ()
     //{
@@ -424,24 +452,31 @@ function connect()
     //    return console.error(err.toString());
     //});
 
-    connection.start().catch(function (err)
-    {
-        return console.error(err.toString());
-    });
+    //connection.start().then(function ()
+    //{
+    //    //$('.chatText').removeClass('disabled');
+    //}).catch(function (err)
+    //{
+    //    return console.error(err.toString());
+    //});
 
-    connection.on("ReceiveMessage", function (sender, receiver, message) //user, 
-    {
-        //var li = document.createElement("li");
-        //document.getElementById("messagesList").appendChild(li);
-        //// We can assign user-supplied strings to an element's textContent because it
-        //// is not interpreted as markup. If you're assigning in any other way, you
-        //// should be aware of possible script injection concerns.
-        //li.textContent = `${user} says ${message}`;
+    if (!handlerRegistered) {
+        connection.on("ReceiveMessage", function (sender, receiver, message) //user, 
+        {
+            //var li = document.createElement("li");
+            //document.getElementById("messagesList").appendChild(li);
+            //// We can assign user-supplied strings to an element's textContent because it
+            //// is not interpreted as markup. If you're assigning in any other way, you
+            //// should be aware of possible script injection concerns.
+            //li.textContent = `${user} says ${message}`;
 
-        sendMessage_(sender, receiver, message);
+            sendMessage_(sender, receiver, message);
+            //console.log(sender, receiver, message);
 
-    });
-
+            handlerRegistered = true;
+        });
+    }
+    
     //document.getElementById("sendButton").addEventListener("click", function (event)
     //{
     //    var user = document.getElementById("userInput").value;
@@ -458,9 +493,12 @@ function connect()
         var receiver = this.getAttribute('r');
         var message = document.getElementById('textAreaMessage').value;
 
-        if (message.length > 0) 
+        if (message.length > 0)
         {
-            connection.invoke("SendMessage", receiver, message).catch(function (err)
+            connection.invoke("SendMessage", receiver, message).then(function () 
+            {
+                //console.log('wysłane signalR');
+            }).catch(function (err)
             {
                 return console.error(err.toString());
             });

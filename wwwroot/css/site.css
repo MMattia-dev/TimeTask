@@ -6857,6 +6857,30 @@ span#OcoYTyiBrpZJStB {
         gap: 8px;
     }
 
+        .chatParent .chatText.disabled {
+            pointer-events: none;
+            /*opacity: 0.7;*/
+            /*position: relative;*/
+        }
+
+            /*.chatParent .chatText.disabled:after {
+                content: "Connection error. Chat disabled.";
+                position: absolute;
+                color: rgba(255, 255, 255, 0.8);
+                font-size: 12px;
+                height: 22px;
+                left: 20px;
+                top: 18px;
+            }
+
+            .chatParent .chatText.disabled .textAreaDiv textarea {
+                opacity: 0;
+            }
+
+            .chatParent .chatText.disabled ion-icon {
+                opacity: 0.7;
+            }*/
+
         .chatParent .chatText .textAreaDiv {
             width: 238px;
             height: 34px;

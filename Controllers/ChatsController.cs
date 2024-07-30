@@ -33,8 +33,8 @@ namespace TimeTask.Controllers
                           Problem("Entity set 'ApplicationDbContext.Chat'  is null.");
         }
 
-        // GET: Chats/Details/5
-        public async Task<IActionResult> Details(int? id)
+		// GET: Chats/Details/5
+		public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Chat == null)
             {
@@ -278,7 +278,26 @@ namespace TimeTask.Controllers
 			return Json(new { contentResult = Content(UsersDiv(savedDepartment)), div = replacement });
         }
 
-        public string UsersDiv(int? savedDepartment)
+		public string SpanColor(string color)
+		{
+			string spanColor = "";
+
+			Color col_ = ColorTranslator.FromHtml(color);
+			if (col_.R * 0.2126 + col_.G * 0.7152 + col_.B * 0.0722 < 255 / 2)
+			{
+				//dark color
+				spanColor = "white";
+			}
+			else
+			{
+				//light color
+				spanColor = "black";
+			}
+
+			return spanColor;
+		}
+
+		public string UsersDiv(int? savedDepartment)
         {
 			string div = "";
 
@@ -317,19 +336,7 @@ namespace TimeTask.Controllers
 
 					if (user.UserId != GetUserId())
 					{
-						Color col = ColorTranslator.FromHtml(user.UserColor);
-
-						string span = "";
-						if (col.R * 0.2126 + col.G * 0.7152 + col.B * 0.0722 < 255 / 2)
-						{
-							//dark color
-							span = "<span style=\"color: white;\">" + userName.FirstOrDefault().ToString() + userSurname.FirstOrDefault().ToString() + "</span>";
-						}
-						else
-						{
-							//light color
-							span = "<span style=\"color: black;\">" + userName.FirstOrDefault().ToString() + userSurname.FirstOrDefault().ToString() + "</span>";
-						}
+						string span = "<span style=\"color: " + SpanColor(user.UserColor) + ";\">" + userName.FirstOrDefault().ToString() + userSurname.FirstOrDefault().ToString() + "</span>";
 
 						div += "<div class=\"chatUser\" title=\"Wybierz\" onclick=\"ltmkkPVQpNisKCP(this, '" + user.UserId + "')\">" +
 									"<div class=\"avatar\" style=\"background-color:" + user.UserColor + ";\">" +
@@ -435,32 +442,10 @@ namespace TimeTask.Controllers
 			var senderUserId = GetUserId();
 
 			var senderColor = _context.UserIdentity.First(x => x.UserId == senderUserId).UserColor;
-			Color col_ = ColorTranslator.FromHtml(senderColor);
-			string spanSenderColor = "";
-			if(col_.R * 0.2126 + col_.G * 0.7152 + col_.B * 0.0722 < 255 / 2)
-	{
-				//dark color
-				spanSenderColor = "white";
-			}
-	        else
-			{
-				//light color
-				spanSenderColor = "black";
-			}
+			string spanSenderColor = SpanColor(senderColor);
 
 			var receiverColor = _context.UserIdentity.First(x => x.UserId == receiverUserId).UserColor;
-			Color col_2 = ColorTranslator.FromHtml(receiverColor);
-			string spanReceiverColor = "";
-			if (col_2.R * 0.2126 + col_2.G * 0.7152 + col_2.B * 0.0722 < 255 / 2)
-			{
-				//dark color
-				spanReceiverColor = "white";
-			}
-			else
-			{
-				//light color
-				spanReceiverColor = "black";
-			}
+			string spanReceiverColor = SpanColor(receiverColor);
 
 			string div = "<div class=\"emptyConversation\">" +
 								"<span>Napisz wiadomość i kliknij wyślij, aby rozpocząć rozmowę.</span>" +
@@ -565,37 +550,70 @@ namespace TimeTask.Controllers
 			}
         }
 
-		[HttpPost]
-		async public Task<ActionResult> AddToChat_(string sender, string receiver, string message)
+		public string BubbleSender()
 		{
+			string bubble = "";
 
+			return bubble;
+		}
+
+		public string BubbleReceiver()
+		{
+			string bubble = "";
+
+			return bubble;
+		}
+
+		[HttpPost]
+		public async Task<ActionResult> AddToChat_(string sender, string receiver, string message)
+		{
+			if (GetUserId() == sender)
+			{
+				return Json("jesteś nadawcą");
+			}
+			if (GetUserId() == receiver)
+			{
+				return Json("jesteś odbiorcą");
+			}
+
+			//var culture = new CultureInfo("pl-PL");
+
+			////kolor
+			//var senderColor = _context.UserIdentity.First(x => x.UserId == sender).UserColor;
+			//string spanSenderColor = SpanColor(senderColor);
+
+			////var receiverColor = _context.UserIdentity.First(x => x.UserId == receiver).UserColor;
+			////string spanReceiverColor = SpanColor(receiverColor);
+			////
+
+			////dzisiejsza data
+			//var date = DateTime.Now;
+
+			//var chatArray = _context.Chat.Where(x => x.SenderUserId == sender && x.ReceiverUserId == receiver || x.SenderUserId == receiver && x.ReceiverUserId == sender);
+			//if (chatArray.Any())
+			//{
+
+			//}
+			//else
+			//{
+
+			//}
 
 			return Json(false);
 		}
 
         [HttpPost]
-        async public Task<ActionResult> AddToChat(string sender, string receiver, string message)
+        public async Task<ActionResult> AddToChat(string receiver, string message)
         {
 			var culture = new CultureInfo("pl-PL");
 
 			//kolor
-			var senderColor = _context.UserIdentity.First(x => x.UserId == sender).UserColor;
-			Color col_ = ColorTranslator.FromHtml(senderColor);
-			string spanSenderColor = "";
-			if (col_.R * 0.2126 + col_.G * 0.7152 + col_.B * 0.0722 < 255 / 2)
-			{
-				//dark color
-				spanSenderColor = "white";
-			}
-			else
-			{
-				//light color
-				spanSenderColor = "black";
-			}
+			var senderColor = _context.UserIdentity.First(x => x.UserId == GetUserId()).UserColor;
+			string spanSenderColor = SpanColor(senderColor);
 			//
 
 			var date = DateTime.Now;
-            var chatArray = _context.Chat.Where(x => x.SenderUserId == sender && x.ReceiverUserId == receiver || x.SenderUserId == receiver && x.ReceiverUserId == GetUserId());
+            var chatArray = _context.Chat.Where(x => x.SenderUserId == GetUserId() && x.ReceiverUserId == receiver || x.SenderUserId == receiver && x.ReceiverUserId == GetUserId());
             if (chatArray.Any())
             {
                 List<Chat> chats = new List<Chat>();
@@ -614,7 +632,7 @@ namespace TimeTask.Controllers
 					//dodaj do bazy
 					var newData = new Chat()
 					{
-						SenderUserId = sender,
+						SenderUserId = GetUserId(),
 						ReceiverUserId = receiver,
 						MessageText = message,
 						MessageSentDate = date,
@@ -645,7 +663,7 @@ namespace TimeTask.Controllers
 					//dodaj do bazy
 					var newData = new Chat()
 					{
-						SenderUserId = sender,
+						SenderUserId = GetUserId(),
 						ReceiverUserId = receiver,
 						MessageText = message,
 						MessageSentDate = date,
@@ -684,7 +702,7 @@ namespace TimeTask.Controllers
 				//dodaj do bazy
 				var newData = new Chat()
 				{
-					SenderUserId = sender,
+					SenderUserId = GetUserId(),
 					ReceiverUserId = receiver,
 					MessageText = message,
 					MessageSentDate = date,

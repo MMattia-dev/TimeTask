@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.SignalR;
+using NuGet.Protocol.Plugins;
 using System.Security.Claims;
 
 namespace TimeTask.Hubs
@@ -26,9 +27,13 @@ namespace TimeTask.Hubs
 		{
 			//await Clients.All.SendAsync("ReceiveMessage", user, message);
 
-
 			//await Clients.All.SendAsync("ReceiveMessage", receiver, message);
-			await Clients.All.SendAsync("ReceiveMessage", GetUserId(), receiver, message);
+
+			//await Clients.All.SendAsync("ReceiveMessage", GetUserId(), receiver, message);
+
+			await Clients.Users(GetUserId(), receiver).SendAsync("ReceiveMessage", GetUserId(), receiver, message);
+
+
 		}
 	}
 }
