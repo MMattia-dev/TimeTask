@@ -257,70 +257,65 @@ function ltmkkPVQpNisKCP(t, r) {
     });
 };
 
-async function vKbmXcDAKBSEZqf(r) {
-    //let messageText = document.getElementById('textAreaMessage').value;
+async function vKbmXcDAKBSEZqf(r) 
+{
+    var receiver = r;
+    var message = document.getElementById('textAreaMessage').value;
 
-    //if (messageText.length > 0)
-    //{
-    //    await $.ajax({
-    //        type: 'POST',
-    //        url: '/Chats/AddToChat',
-    //        data: {
-    //            receiver: r,
-    //            message: messageText
-    //        },
-    //        success: function (response)
-    //        {
-    //            if (response != false)
-    //            {
-    //                if (response.firstConversation)
-    //                {
-    //                    $('.chatMessagesBubbles').html(response.messages);
-    //                }
-    //                else 
-    //                {
-    //                    if (response.dateCheck)
-    //                    {
-    //                        let div = $('#dateParent[date="' + response.today + '"]');
-    //                        $(div).append(response.bubble);
-    //                    }
-    //                    else 
-    //                    {
-    //                        $('.chatMessagesBubbles').append(response.messages);
-    //                    }
-    //                }
-
-    //                $('.chatMessagesBubbles').animate({ scrollTop: document.body.scrollHeight }, "fast");
-    //                $('#textAreaMessage').val("");
-    //            }
-    //        },
-    //        error: function (xhr, status, error)
-    //        {
-    //            console.log('Error:', error);
-    //        }
-    //    });
-    //}
-
-    
+    if (message.length > 0)
+    {
+        connection.invoke("SendMessage", receiver, message).then(function () 
+        {
+            //
+        }).catch(function (err)
+        {
+            return console.error(err.toString());
+        });
+    }
 };
 
-function sendMessageEnter(e) {
-    if (e.key === "Enter")
+async function removeMessage(id, sender, receiver)
+{
+    connection.invoke("RemoveMessage", id, sender, receiver).catch(function (err)
     {
-        //$('#sendMessage').trigger('click');
-    }
+        return console.error(err.toString());
+    });
+};
+
+async function DeleteMessage_(id, sender, receiver) {
+    await $.ajax({
+        type: 'POST',
+        url: '/Chats/RemoveMessage',
+        data: {
+            id: id,
+            sender: sender,
+            receiver: receiver
+        },
+        success: function (response)
+        {
+            //$(t).parent().html(response.messageRemovedDiv);
+            //$('#bubbleSettingsId_' + id).parent().html(response.messageRemovedDiv);
+            $('#bubbleId_' + id).parent().html(response.messageRemovedDiv);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
 };
 
 function bubbleClickReceiver(t) {
     $(t).parent().children('.chatTimeStamp').show();
 };
 
-function bubbleClick(t, event, id) {
+function bubbleClick(t, id, sender, receiver) {
     $.ajax({
         type: 'GET',
         url: '/Chats/DeleteButton',
         data: {
-            id: id
+            id: id,
+            sender: sender,
+            receiver: receiver
         },
         success: function (response)
         {
@@ -335,30 +330,10 @@ function bubbleClick(t, event, id) {
     });
 };
 
-async function removeMessage(t, id)
+async function sendMessage_(sender, receiver, message)
 {
     await $.ajax({
         type: 'POST',
-        url: '/Chats/RemoveMessage',
-        data: {
-            id: id
-        },
-        success: function (response)
-        {
-            $(t).parent().html(response.messageRemovedDiv);
-        },
-        error: function (xhr, status, error)
-        {
-            console.log('Error:', error);
-        }
-    });
-}
-
-async function sendMessage_(sender, receiver, message) //sender, 
-{
-    await $.ajax({
-        type: 'POST',
-        //url: '/Chats/AddToChat',
         url: '/Chats/AddToChat_',
         data: {
             sender: sender,
@@ -367,35 +342,28 @@ async function sendMessage_(sender, receiver, message) //sender,
         },
         success: function (response)
         {
-            if (response != false) 
-            {
-                console.log(response);
+            console.log(response);
 
+
+            if (response.firstConversation)
+            {
+                $('.chatMessagesBubbles').html(response.messages);
+            }
+            else 
+            {
+                if (response.dateCheck)
+                {
+                    let div = $('#dateParent[date="' + response.today + '"]');
+                    $(div).append(response.bubble);
+                }
+                else 
+                {
+                    $('.chatMessagesBubbles').append(response.messages);
+                }
             }
 
-
-            //if (response != false)
-            //{
-            //    if (response.firstConversation)
-            //    {
-            //        $('.chatMessagesBubbles').html(response.messages);
-            //    }
-            //    else 
-            //    {
-            //        if (response.dateCheck)
-            //        {
-            //            let div = $('#dateParent[date="' + response.today + '"]');
-            //            $(div).append(response.bubble);
-            //        }
-            //        else 
-            //        {
-            //            $('.chatMessagesBubbles').append(response.messages);
-            //        }
-            //    }
-
-            //    $('.chatMessagesBubbles').animate({ scrollTop: document.body.scrollHeight }, "fast");
-            //    $('#textAreaMessage').val("");
-            //}
+            $('.chatMessagesBubbles').animate({ scrollTop: document.body.scrollHeight }, "fast");
+            $('#textAreaMessage').val("");
         },
         error: function (xhr, status, error)
         {
@@ -435,77 +403,30 @@ connect_();
 //};
 //checkConnectionState();
 
+function sendMessageEnter(e)
+{
+    if (e.key === "Enter")
+    {
+        $('#sendMessage').trigger('click');
+    }
+};
+
 var handlerRegistered = false;
 function connect() 
 {
-    //var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-
-    ////Disable the send button until connection is established.
-    //document.getElementById("sendMessage").disabled = true;
-    //$('.chatText').addClass('disabled');
-
-    //connection.start().then(function ()
-    //{
-    //    document.getElementById("sendMessage").disabled = false;
-    //}).catch(function (err)
-    //{
-    //    return console.error(err.toString());
-    //});
-
-    //connection.start().then(function ()
-    //{
-    //    //$('.chatText').removeClass('disabled');
-    //}).catch(function (err)
-    //{
-    //    return console.error(err.toString());
-    //});
-
     if (!handlerRegistered) {
         connection.on("ReceiveMessage", function (sender, receiver, message) //user, 
         {
-            //var li = document.createElement("li");
-            //document.getElementById("messagesList").appendChild(li);
-            //// We can assign user-supplied strings to an element's textContent because it
-            //// is not interpreted as markup. If you're assigning in any other way, you
-            //// should be aware of possible script injection concerns.
-            //li.textContent = `${user} says ${message}`;
-
             sendMessage_(sender, receiver, message);
-            //console.log(sender, receiver, message);
+
+            handlerRegistered = true;
+        });
+
+        connection.on("MessageRemoved", function (id, sender, receiver)
+        {
+            DeleteMessage_(id, sender, receiver);
 
             handlerRegistered = true;
         });
     }
-    
-    //document.getElementById("sendButton").addEventListener("click", function (event)
-    //{
-    //    var user = document.getElementById("userInput").value;
-    //    var message = document.getElementById("messageInput").value;
-    //    connection.invoke("SendMessage", user, message).catch(function (err)
-    //    {
-    //        return console.error(err.toString());
-    //    });
-    //    event.preventDefault();
-    //});
-
-    document.getElementById('sendMessage').addEventListener('click', function (event)
-    {
-        var receiver = this.getAttribute('r');
-        var message = document.getElementById('textAreaMessage').value;
-
-        if (message.length > 0)
-        {
-            connection.invoke("SendMessage", receiver, message).then(function () 
-            {
-                //console.log('wysłane signalR');
-            }).catch(function (err)
-            {
-                return console.error(err.toString());
-            });
-        }
-    });
-
-    
 };
-/*connect();*/
-

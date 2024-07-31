@@ -23,17 +23,15 @@ namespace TimeTask.Hubs
 			return userID;
 		}
 
-		public async Task SendMessage(string receiver, string message) //string user, 
+		public async Task SendMessage(string receiver, string message)
 		{
-			//await Clients.All.SendAsync("ReceiveMessage", user, message);
-
-			//await Clients.All.SendAsync("ReceiveMessage", receiver, message);
-
-			//await Clients.All.SendAsync("ReceiveMessage", GetUserId(), receiver, message);
-
 			await Clients.Users(GetUserId(), receiver).SendAsync("ReceiveMessage", GetUserId(), receiver, message);
+		}
 
-
+		public async Task RemoveMessage(int id, string sender, string receiver)
+		{
+			//await Clients.All.SendAsync("MessageRemoved", id);
+			await Clients.Users(sender, receiver).SendAsync("MessageRemoved", id, sender, receiver);
 		}
 	}
 }

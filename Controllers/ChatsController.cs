@@ -458,7 +458,7 @@ namespace TimeTask.Controllers
 						"<ion-icon name=\"attach-outline\"></ion-icon>" +
 					"</a>" +
 				"</div>" +
-				"<a id=\"sendMessage\" r=\"" + receiverUserId + "\" onclick=\"vKbmXcDAKBSEZqf('" + receiverUserId + "')\" title=\"Wyślij\"><ion-icon name=\"arrow-up-outline\"></ion-icon></a>";
+				"<a id=\"sendMessage\" onclick=\"vKbmXcDAKBSEZqf('" + receiverUserId + "')\" title=\"Wyślij\"><ion-icon name=\"arrow-up-outline\"></ion-icon></a>";
 
             string messages = "";
 
@@ -500,7 +500,7 @@ namespace TimeTask.Controllers
 							else
 							{
 								bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-									"<div class=\"bubble receiver\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+									"<div id=\"bubbleId_" + row.Id +"\" class=\"bubble receiver\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
 										"<span style=\"color:" + spanReceiverColor + ";\">" + row.MessageText + "</span>" +
 										"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 									"</div>" +
@@ -528,7 +528,7 @@ namespace TimeTask.Controllers
 									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 										"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 									"</div>" +
-									"<div class=\"bubble sender\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this, event, " + row.Id + ")\">" +
+									"<div id=\"bubbleId_" + row.Id +"\" class=\"bubble sender\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
 										"<span style=\"color:" + spanSenderColor + ";\">" + row.MessageText + "</span>" +
 										"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 									"</div>" +
@@ -550,16 +550,32 @@ namespace TimeTask.Controllers
 			}
         }
 
-		public string BubbleSender()
+		public string BubbleSender(string senderColor, string spanSenderColor, string message, string hour, int id, string senderUserId, string receiverUserId)
 		{
-			string bubble = "";
+			string bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
+									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+										"<span>" + hour + "</span>" +
+									"</div>" +
+									"<div id=\"bubbleId_" + id +"\" class=\"bubble sender\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+										"<span style=\"color:" + spanSenderColor + ";\">" + message + "</span>" +
+										"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+									"</div>" +
+								"</div>";
 
 			return bubble;
 		}
 
-		public string BubbleReceiver()
+		public string BubbleReceiver(string senderColor, string spanSenderColor, string message, string hour, int id)
 		{
-			string bubble = "";
+			string bubble = "<div class=\"chatMessagesBubblesContainer receiver\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
+									"<div id=\"bubbleId_" + id +"\" class=\"bubble receiver\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+										"<span style=\"color:" + spanSenderColor + ";\">" + message + "</span>" +
+										"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+									"</div>" +
+									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+										"<span>" + hour + "</span>" +
+									"</div>" +
+								"</div>";
 
 			return bubble;
 		}
@@ -567,69 +583,34 @@ namespace TimeTask.Controllers
 		[HttpPost]
 		public async Task<ActionResult> AddToChat_(string sender, string receiver, string message)
 		{
-			if (GetUserId() == sender)
-			{
-				return Json("jesteś nadawcą");
-			}
-			if (GetUserId() == receiver)
-			{
-				return Json("jesteś odbiorcą");
-			}
+			bool handler = false;
 
-			//var culture = new CultureInfo("pl-PL");
-
-			////kolor
-			//var senderColor = _context.UserIdentity.First(x => x.UserId == sender).UserColor;
-			//string spanSenderColor = SpanColor(senderColor);
-
-			////var receiverColor = _context.UserIdentity.First(x => x.UserId == receiver).UserColor;
-			////string spanReceiverColor = SpanColor(receiverColor);
-			////
-
-			////dzisiejsza data
-			//var date = DateTime.Now;
-
-			//var chatArray = _context.Chat.Where(x => x.SenderUserId == sender && x.ReceiverUserId == receiver || x.SenderUserId == receiver && x.ReceiverUserId == sender);
-			//if (chatArray.Any())
-			//{
-
-			//}
-			//else
-			//{
-
-			//}
-
-			return Json(false);
-		}
-
-        [HttpPost]
-        public async Task<ActionResult> AddToChat(string receiver, string message)
-        {
 			var culture = new CultureInfo("pl-PL");
 
 			//kolor
-			var senderColor = _context.UserIdentity.First(x => x.UserId == GetUserId()).UserColor;
+			var senderColor = _context.UserIdentity.First(x => x.UserId == sender).UserColor;
 			string spanSenderColor = SpanColor(senderColor);
 			//
 
+			//dzisiejsza data
 			var date = DateTime.Now;
-            var chatArray = _context.Chat.Where(x => x.SenderUserId == GetUserId() && x.ReceiverUserId == receiver || x.SenderUserId == receiver && x.ReceiverUserId == GetUserId());
-            if (chatArray.Any())
-            {
-                List<Chat> chats = new List<Chat>();
-                foreach (var row in chatArray)
-                {
+
+			var chatArray = _context.Chat.Where(x => x.SenderUserId == sender && x.ReceiverUserId == receiver || x.SenderUserId == receiver && x.ReceiverUserId == sender);
+			if (chatArray.Any())
+			{
+				List<Chat> chats = new List<Chat>();
+				foreach (var row in chatArray)
+				{
 					if (row.MessageSentDate.ToShortDateString() == date.ToShortDateString())
 					{
 						chats.Add(row);
 					}
 				}
 
-                if (chats.Any())
-                {
+				if (chats.Any())
+				{
 					//data dzisiejsza już istnieje
 
-					//dodaj do bazy
 					var newData = new Chat()
 					{
 						SenderUserId = GetUserId(),
@@ -641,26 +622,35 @@ namespace TimeTask.Controllers
 						IfDeleted = false,
 					};
 
-					_context.Chat.Add(newData);
-					await _context.SaveChangesAsync();
+					//
+					if (!handler)
+					{
+						_context.Chat.Add(newData);
+						handler = true;
+					}
+					//
 
-					string bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
-							"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-                                "<span>" + newData.MessageSentDate.ToString("HH:mm") + "</span>" +
-							"</div>" +
-                            "<div class=\"bubble sender\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this, event, " + newData.Id + ")\">" +
-                                "<span style=\"color:" + spanSenderColor + ";\">" + newData.MessageText + "</span>" +
-                                "<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
-                            "</div>" +
-                        "</div>";
+					string bubble = "";
+					if (GetUserId() == sender)
+					{
+						//jesteś nadawcą
 
-                    return Json(new { dateCheck = true, bubble, firstConversation = false, today = date.ToShortDateString() });
-                }
-                else
-                {
+						await _context.SaveChangesAsync();
+
+						bubble = BubbleSender(senderColor, spanSenderColor, newData.MessageText, newData.MessageSentDate.ToString("HH:mm"), newData.Id, sender, receiver);
+					}
+					if (GetUserId() == receiver)
+					{
+						//jesteś odbiorcą
+						bubble = BubbleReceiver(senderColor, spanSenderColor, message, date.ToString("HH:mm"), newData.Id); //newData.id = 0 BUG!!!!
+					}
+
+					return Json(new { dateCheck = true, bubble, firstConversation = false, today = date.ToShortDateString() });
+				}
+				else
+				{
 					//data dzisiejsza nie istnieje
 
-					//dodaj do bazy
 					var newData = new Chat()
 					{
 						SenderUserId = GetUserId(),
@@ -672,18 +662,29 @@ namespace TimeTask.Controllers
 						IfDeleted = false,
 					};
 
-					_context.Chat.Add(newData);
-					await _context.SaveChangesAsync();
+					//
+					if (!handler)
+					{
+						_context.Chat.Add(newData);
+						await _context.SaveChangesAsync();
+						handler = true;
+					}
+					//
 
-					string bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
-							"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-								"<span>" + newData.MessageSentDate.ToString("HH:mm") + "</span>" +
-							"</div>" +
-							"<div class=\"bubble sender\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this, event, " + newData.Id + ")\">" +
-								"<span style=\"color:" + spanSenderColor + ";\">" + newData.MessageText + "</span>" +
-								"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
-							"</div>" +
-						"</div>";
+					string bubble = "";
+					if (GetUserId() == sender)
+					{
+						//jesteś nadawcą
+
+						//await _context.SaveChangesAsync();
+						
+						bubble = BubbleSender(senderColor, spanSenderColor, newData.MessageText, newData.MessageSentDate.ToString("HH:mm"), newData.Id, sender, receiver);
+					}
+					if (GetUserId() == receiver)
+					{
+						//jesteś odbiorcą
+						bubble = BubbleReceiver(senderColor, spanSenderColor, message, date.ToString("HH:mm"), newData.Id);
+					}
 
 					string messages = "<div id=\"dateParent\" date=\"" + date.ToShortDateString() + "\">" +
 					   "<div class=\"chatDateStamp\">" +
@@ -694,12 +695,11 @@ namespace TimeTask.Controllers
 
 					return Json(new { dateCheck = false, firstConversation = false, messages });
 				}
-            }
-            else
-            {
+			}
+			else
+			{
 				//nie istnieje w bazie (użytkownicy nie czatowali)
 
-				//dodaj do bazy
 				var newData = new Chat()
 				{
 					SenderUserId = GetUserId(),
@@ -711,18 +711,28 @@ namespace TimeTask.Controllers
 					IfDeleted = false,
 				};
 
-				_context.Chat.Add(newData);
-				await _context.SaveChangesAsync();
+				//
+				if (!handler)
+				{
+					_context.Chat.Add(newData);
+					handler = true;
+				}
+				//
 
-				string bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
-						"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-							"<span>" + newData.MessageSentDate.ToString("HH:mm") + "</span>" +
-						"</div>" +
-						"<div class=\"bubble sender\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this, event, " + newData.Id + ")\">" +
-							"<span style=\"color:" + spanSenderColor + ";\">" + newData.MessageText + "</span>" +
-							"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
-						"</div>" +
-					"</div>";
+				string bubble = "";
+				if (GetUserId() == sender)
+				{
+					//jesteś nadawcą
+
+					await _context.SaveChangesAsync();
+
+					bubble = BubbleSender(senderColor, spanSenderColor, newData.MessageText, newData.MessageSentDate.ToString("HH:mm"), newData.Id, sender, receiver);
+				}
+				if (GetUserId() == receiver)
+				{
+					//jesteś odbiorcą
+					bubble = BubbleReceiver(senderColor, spanSenderColor, message, date.ToString("HH:mm"), newData.Id);
+				}
 
 				string messages = "<div id=\"dateParent\" date=\"" + date.ToShortDateString() + "\">" +
 					   "<div class=\"chatDateStamp\">" +
@@ -736,9 +746,9 @@ namespace TimeTask.Controllers
 		}
 
 		[HttpGet]
-		public ActionResult DeleteButton(int id)
+		public ActionResult DeleteButton(int id, string sender, string receiver)
 		{
-			string button = "<div title=\"Usuń wiadomość\" class=\"bubbleSettings\" id=\"bubbleSettingsId\" onclick=\"removeMessage(this, " + id + ")\">" +
+			string button = "<div title=\"Usuń wiadomość\" class=\"bubbleSettings\" onclick=\"removeMessage(" + id + ", '" + sender + "', '" + receiver + "')\">" +
 					"<ion-icon name=\"trash-outline\"></ion-icon>" +
 				"</div>";
 
@@ -746,18 +756,30 @@ namespace TimeTask.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> RemoveMessage(int id)
+		public async Task<ActionResult> RemoveMessage(int id, string sender, string receiver)
 		{
 			var row = _context.Chat.FirstOrDefault(e => e.Id == id);
 			if (row != null)
 			{
+				row.MessageText = null;
 				row.IfDeleted = true;
 				await _context.SaveChangesAsync();
 
-				string messageRemovedDiv = "<div class=\"bubble deleted sender\">" +
+				string messageRemovedDiv = "";
+				if (GetUserId() == sender)
+				{
+					messageRemovedDiv = "<div class=\"bubble deleted sender\">" +
 							"<span>Wiadomość usunięta</span>" +
 							"<div class=\"tail\"></div>" +
 						"</div>";
+				}
+				if (GetUserId() == receiver)
+				{
+					messageRemovedDiv = "<div class=\"bubble deleted receiver\">" +
+							"<span>Wiadomość usunięta</span>" +
+							"<div class=\"tail\"></div>" +
+						"</div>";
+				}
 
 				return Json(new { success = true, messageRemovedDiv });
 			}
