@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.SignalR;
 using NuGet.Protocol.Plugins;
 using System.Security.Claims;
+using TimeTask.Controllers;
 
 namespace TimeTask.Hubs
 {
@@ -25,7 +26,10 @@ namespace TimeTask.Hubs
 
 		public async Task SendMessage(string receiver, string message)
 		{
+			
+
 			await Clients.Users(GetUserId(), receiver).SendAsync("ReceiveMessage", GetUserId(), receiver, message);
+			//await Clients.Users(GetUserId(), receiver).SendAsync("ReceiveMessage", receiver, message);
 		}
 
 		public async Task RemoveMessage(int id, string sender, string receiver)

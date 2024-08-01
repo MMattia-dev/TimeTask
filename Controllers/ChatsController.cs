@@ -567,6 +567,8 @@ namespace TimeTask.Controllers
 
 		public string BubbleReceiver(string senderColor, string spanSenderColor, string message, string hour, int id)
 		{
+
+
 			string bubble = "<div class=\"chatMessagesBubblesContainer receiver\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
 									"<div id=\"bubbleId_" + id +"\" class=\"bubble receiver\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
 										"<span style=\"color:" + spanSenderColor + ";\">" + message + "</span>" +
@@ -580,17 +582,56 @@ namespace TimeTask.Controllers
 			return bubble;
 		}
 
-		[HttpPost]
-		public async Task<ActionResult> AddToChat_(string sender, string receiver, string message)
+		public async Task<string> Bubble(string loggedInUser, string sender, string receiver, string message, DateTime date, string? fileLocation, bool ifMessageRead, bool ifDeleted)
 		{
 			bool handler = false;
 
-			var culture = new CultureInfo("pl-PL");
-
-			//kolor
 			var senderColor = _context.UserIdentity.First(x => x.UserId == sender).UserColor;
 			string spanSenderColor = SpanColor(senderColor);
-			//
+
+			var newData = new Chat()
+			{
+				SenderUserId = sender,
+				ReceiverUserId = receiver,
+				MessageText = message,
+				MessageSentDate = date,
+				SentFileLocation = fileLocation,
+				IfMessageRead = ifMessageRead,
+				IfDeleted = ifDeleted
+			};
+
+			//int id = 0;
+
+			string bubble = "";
+			if (loggedInUser == sender)
+			{
+
+				if (!handler)
+				{
+					_context.Chat.Add(newData);
+					await _context.SaveChangesAsync();
+
+					handler = true;
+				}
+				
+
+				//id = newData.Id;
+
+				bubble = BubbleSender(senderColor, spanSenderColor, newData.MessageText, newData.MessageSentDate.ToString("HH:mm"), newData.Id, sender, receiver);
+			}
+			if (loggedInUser == receiver)
+			{
+				//bubble = BubbleReceiver(senderColor, spanSenderColor, message, date.ToString("HH:mm"), id);
+				bubble = BubbleReceiver(senderColor, spanSenderColor, message, date.ToString("HH:mm"), newData.Id);
+			}
+
+			return bubble;
+		}
+
+		[HttpPost]
+		public async Task<ActionResult> AddToChat_(string sender, string receiver, string message)
+		{
+			var culture = new CultureInfo("pl-PL");
 
 			//dzisiejsza data
 			var date = DateTime.Now;
@@ -611,80 +652,14 @@ namespace TimeTask.Controllers
 				{
 					//data dzisiejsza już istnieje
 
-					var newData = new Chat()
-					{
-						SenderUserId = GetUserId(),
-						ReceiverUserId = receiver,
-						MessageText = message,
-						MessageSentDate = date,
-						SentFileLocation = null,
-						IfMessageRead = false,
-						IfDeleted = false,
-					};
-
-					//
-					if (!handler)
-					{
-						_context.Chat.Add(newData);
-						handler = true;
-					}
-					//
-
-					string bubble = "";
-					if (GetUserId() == sender)
-					{
-						//jesteś nadawcą
-
-						await _context.SaveChangesAsync();
-
-						bubble = BubbleSender(senderColor, spanSenderColor, newData.MessageText, newData.MessageSentDate.ToString("HH:mm"), newData.Id, sender, receiver);
-					}
-					if (GetUserId() == receiver)
-					{
-						//jesteś odbiorcą
-						bubble = BubbleReceiver(senderColor, spanSenderColor, message, date.ToString("HH:mm"), newData.Id); //newData.id = 0 BUG!!!!
-					}
-
+					string bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
 					return Json(new { dateCheck = true, bubble, firstConversation = false, today = date.ToShortDateString() });
 				}
 				else
 				{
 					//data dzisiejsza nie istnieje
 
-					var newData = new Chat()
-					{
-						SenderUserId = GetUserId(),
-						ReceiverUserId = receiver,
-						MessageText = message,
-						MessageSentDate = date,
-						SentFileLocation = null,
-						IfMessageRead = false,
-						IfDeleted = false,
-					};
-
-					//
-					if (!handler)
-					{
-						_context.Chat.Add(newData);
-						await _context.SaveChangesAsync();
-						handler = true;
-					}
-					//
-
-					string bubble = "";
-					if (GetUserId() == sender)
-					{
-						//jesteś nadawcą
-
-						//await _context.SaveChangesAsync();
-						
-						bubble = BubbleSender(senderColor, spanSenderColor, newData.MessageText, newData.MessageSentDate.ToString("HH:mm"), newData.Id, sender, receiver);
-					}
-					if (GetUserId() == receiver)
-					{
-						//jesteś odbiorcą
-						bubble = BubbleReceiver(senderColor, spanSenderColor, message, date.ToString("HH:mm"), newData.Id);
-					}
+					string bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
 
 					string messages = "<div id=\"dateParent\" date=\"" + date.ToShortDateString() + "\">" +
 					   "<div class=\"chatDateStamp\">" +
@@ -700,39 +675,7 @@ namespace TimeTask.Controllers
 			{
 				//nie istnieje w bazie (użytkownicy nie czatowali)
 
-				var newData = new Chat()
-				{
-					SenderUserId = GetUserId(),
-					ReceiverUserId = receiver,
-					MessageText = message,
-					MessageSentDate = date,
-					SentFileLocation = null,
-					IfMessageRead = false,
-					IfDeleted = false,
-				};
-
-				//
-				if (!handler)
-				{
-					_context.Chat.Add(newData);
-					handler = true;
-				}
-				//
-
-				string bubble = "";
-				if (GetUserId() == sender)
-				{
-					//jesteś nadawcą
-
-					await _context.SaveChangesAsync();
-
-					bubble = BubbleSender(senderColor, spanSenderColor, newData.MessageText, newData.MessageSentDate.ToString("HH:mm"), newData.Id, sender, receiver);
-				}
-				if (GetUserId() == receiver)
-				{
-					//jesteś odbiorcą
-					bubble = BubbleReceiver(senderColor, spanSenderColor, message, date.ToString("HH:mm"), newData.Id);
-				}
+				string bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
 
 				string messages = "<div id=\"dateParent\" date=\"" + date.ToShortDateString() + "\">" +
 					   "<div class=\"chatDateStamp\">" +

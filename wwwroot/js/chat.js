@@ -257,29 +257,8 @@ function ltmkkPVQpNisKCP(t, r) {
     });
 };
 
-async function vKbmXcDAKBSEZqf(r) 
-{
-    var receiver = r;
-    var message = document.getElementById('textAreaMessage').value;
+function refreshMessages() {
 
-    if (message.length > 0)
-    {
-        connection.invoke("SendMessage", receiver, message).then(function () 
-        {
-            //
-        }).catch(function (err)
-        {
-            return console.error(err.toString());
-        });
-    }
-};
-
-async function removeMessage(id, sender, receiver)
-{
-    connection.invoke("RemoveMessage", id, sender, receiver).catch(function (err)
-    {
-        return console.error(err.toString());
-    });
 };
 
 async function DeleteMessage_(id, sender, receiver) {
@@ -342,9 +321,6 @@ async function sendMessage_(sender, receiver, message)
         },
         success: function (response)
         {
-            console.log(response);
-
-
             if (response.firstConversation)
             {
                 $('.chatMessagesBubbles').html(response.messages);
@@ -369,6 +345,8 @@ async function sendMessage_(sender, receiver, message)
         {
             console.log('Error:', error);
         }
+    }).then(function () {
+        //$('.userSelected').trigger('click'); //odśwież, aby dostać id do bubbles
     });
 };
 
@@ -405,10 +383,34 @@ connect_();
 
 function sendMessageEnter(e)
 {
-    if (e.key === "Enter")
+    if (e.key === "Enter") 
     {
         $('#sendMessage').trigger('click');
     }
+};
+
+async function vKbmXcDAKBSEZqf(receiver) 
+{
+    var message = document.getElementById('textAreaMessage').value;
+
+    if (message.length > 0)
+    {
+        connection.invoke("SendMessage", receiver, message).then(function () 
+        {
+            //
+        }).catch(function (err)
+        {
+            return console.error(err.toString());
+        });
+    }
+};
+
+async function removeMessage(id, sender, receiver)
+{
+    connection.invoke("RemoveMessage", id, sender, receiver).catch(function (err)
+    {
+        return console.error(err.toString());
+    });
 };
 
 var handlerRegistered = false;
