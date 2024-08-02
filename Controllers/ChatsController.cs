@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Plugins;
 using TimeTask.Data;
 using TimeTask.Models;
 using static System.Net.Mime.MediaTypeNames;
@@ -434,12 +435,200 @@ namespace TimeTask.Controllers
             //return Json(new { chat = Content(chat), chatMinimized = Content(chatMinimized) });
         }
 
+		[HttpGet]
+		public async Task<ActionResult> ShowChatMessages_(string sender, string receiver)
+		{
+			var culture = new CultureInfo("pl-PL");
+
+			string? senderColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == sender)?.UserColor;
+			string spanSenderColor = SpanColor(senderColor);
+
+			string? receiverColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == receiver)?.UserColor;
+			string spanReceiverColor = SpanColor(receiverColor);
+
+			string textDiv = "";
+
+			var loggedUser = GetUserId();
+			if (loggedUser == sender)
+			{
+				//return Json("jesteś wysyłającym");
+				textDiv = "<div class=\"textAreaDiv\">" +
+						"<textarea placeholder=\"...\" id=\"textAreaMessage\" spellcheck=\"false\" onkeydown=\"sendMessageEnter(event)\"></textarea>" +
+						"<a title=\"Załącz plik (Maks. 5 MB)\" onclick=\"MiOzrGaouyRUWPc('" + receiver + "')\">" +
+							"<ion-icon name=\"attach-outline\"></ion-icon>" +
+						"</a>" +
+					"</div>" +
+					"<a id=\"sendMessage\" onclick=\"vKbmXcDAKBSEZqf('" + receiver + "')\" title=\"Wyślij\"><ion-icon name=\"arrow-up-outline\"></ion-icon></a>";
+			}
+			if (loggedUser == receiver)
+			{
+				//return Json("jesteś odbierającym");
+				textDiv = "<div class=\"textAreaDiv\">" +
+						"<textarea placeholder=\"...\" id=\"textAreaMessage\" spellcheck=\"false\" onkeydown=\"sendMessageEnter(event)\"></textarea>" +
+						"<a title=\"Załącz plik (Maks. 5 MB)\" onclick=\"MiOzrGaouyRUWPc('" + sender + "')\">" +
+							"<ion-icon name=\"attach-outline\"></ion-icon>" +
+						"</a>" +
+					"</div>" +
+					"<a id=\"sendMessage\" onclick=\"vKbmXcDAKBSEZqf('" + sender + "')\" title=\"Wyślij\"><ion-icon name=\"arrow-up-outline\"></ion-icon></a>";
+			}
+
+			string messages = "";
+
+			var chatArray = _context.Chat.Where(x => x.ReceiverUserId == receiver && x.SenderUserId == sender || x.ReceiverUserId == sender && x.SenderUserId == receiver);
+
+			if (chatArray.Count() > 0)
+			{
+				//musi wyjść większe niż zero, jeżeli dodanie do bazy się powiodło
+
+				var dates = chatArray.Select(x => x.MessageSentDate.Date);
+				var dates_ = dates.Distinct();
+				foreach (var date in dates_.OrderBy(x => x))
+				{
+					messages += "<div id=\"dateParent\" date=\"" + date.ToShortDateString() + "\">" +
+					   "<div class=\"chatDateStamp\">" +
+							"<div></div><span>" + date.ToString("dd MMMM yyyy", culture) + "</span><div></div>" +
+						"</div>"; // + </div>
+
+					List<Chat> chats = new List<Chat>();
+					foreach (var row in chatArray)
+					{
+						if (row.MessageSentDate.ToShortDateString() == date.ToShortDateString())
+						{
+							chats.Add(row);
+
+							//jeżeli ma więcej niż 30 dni -> nie pokazuj ale stwórz przycisk do pokazania tych wiadomości (podobny do daty )
+						}
+					}
+
+					foreach (var row in chats.OrderBy(x => x.MessageSentDate))
+					{
+						string bubbles = "";
+
+						if (loggedUser == sender)
+						{
+							//return Json("wysyłajacy");
+							if (row.ReceiverUserId == sender)
+							{
+								if (row.IfDeleted)
+								{
+									bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
+											"<div class=\"bubble deleted receiver\">" +
+											"<span>Wiadomość usunięta</span>" +
+											"<div class=\"tail\"></div>" +
+										"</div>" +
+									"</div>";
+								}
+								else
+								{
+									bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
+										"<div id=\"bubbleId_" + row.Id + "\" class=\"bubble receiver\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+											"<span style=\"color:" + spanReceiverColor + ";\">" + row.MessageText + "</span>" +
+											"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
+										"</div>" +
+										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+										"</div>" +
+									"</div>";
+								}
+							}
+							if (row.SenderUserId == sender)
+							{
+								if (row.IfDeleted)
+								{
+									bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
+											"<div class=\"bubble deleted sender\">" +
+											"<span>Wiadomość usunięta</span>" +
+											"<div class=\"tail\"></div>" +
+										"</div>" +
+									"</div>";
+								}
+								else
+								{
+									bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
+										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+										"</div>" +
+										"<div id=\"bubbleId_" + row.Id + "\" class=\"bubble sender\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+											"<span style=\"color:" + spanSenderColor + ";\">" + row.MessageText + "</span>" +
+											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+										"</div>" +
+									"</div>";
+								}
+							}
+						}
+						if (loggedUser == receiver)
+						{
+							//return Json("odbierający");
+							if (row.ReceiverUserId == receiver)
+							{
+								if (row.IfDeleted)
+								{
+									bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
+											"<div class=\"bubble deleted receiver\">" +
+											"<span>Wiadomość usunięta</span>" +
+											"<div class=\"tail\"></div>" +
+										"</div>" +
+									"</div>";
+								}
+								else
+								{
+									bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
+										"<div id=\"bubbleId_" + row.Id + "\" class=\"bubble receiver\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+											"<span style=\"color:" + spanSenderColor + ";\">" + row.MessageText + "</span>" +
+											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+										"</div>" +
+										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+										"</div>" +
+									"</div>";
+								}
+							}
+							if (row.SenderUserId == receiver)
+							{
+								if (row.IfDeleted)
+								{
+									bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
+											"<div class=\"bubble deleted sender\">" +
+											"<span>Wiadomość usunięta</span>" +
+											"<div class=\"tail\"></div>" +
+										"</div>" +
+									"</div>";
+								}
+								else
+								{
+									bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
+										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+										"</div>" +
+										"<div id=\"bubbleId_" + row.Id + "\" class=\"bubble sender\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+											"<span style=\"color:" + spanReceiverColor + ";\">" + row.MessageText + "</span>" +
+											"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
+										"</div>" +
+									"</div>";
+								}
+							}
+						}
+
+						messages += bubbles;
+					}
+
+					messages += "</div>";
+				}
+
+				return Json(new { messages, textDiv, loggedUser, senderId = sender });
+			}
+			else
+			{
+				return Json("dodanie do bazy nie powiodło się");
+			}
+		}
+
         [HttpGet]
         public ActionResult ShowChatMessages(string receiverUserId)
         {
 			var culture = new CultureInfo("pl-PL");
 
-			var senderUserId = GetUserId();
+			var senderUserId = GetUserId(); //currently logged in user!!!
 
 			var senderColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == senderUserId)?.UserColor;
 			string spanSenderColor = SpanColor(senderColor);
@@ -552,7 +741,6 @@ namespace TimeTask.Controllers
 
 		public string BubbleSender(string senderColor, string spanSenderColor, string message, string hour, int id, string senderUserId, string receiverUserId)
 		{
-			//style=\"animation: message 0.15s ease-out 0s forwards;\"
 			string bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
 									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 										"<span>" + hour + "</span>" +
@@ -568,9 +756,8 @@ namespace TimeTask.Controllers
 
 		public string BubbleReceiver(string senderColor, string spanSenderColor, string message, string hour, int id)
 		{
-			//style=\"animation: message 0.15s ease-out 0s forwards;\"
 			string bubble = "<div class=\"chatMessagesBubblesContainer receiver\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
-									"<div id=\"bubbleId_" + id +"\" class=\"bubble receiver\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+									"<div id=\"bubbleId_" + id + "\" class=\"bubble receiver\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
 										"<span style=\"color:" + spanSenderColor + ";\">" + message + "</span>" +
 										"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 									"</div>" +
@@ -600,8 +787,6 @@ namespace TimeTask.Controllers
 				IfDeleted = ifDeleted
 			};
 
-			//int id = 0;
-
 			string bubble = "";
 			if (loggedInUser == sender)
 			{
@@ -614,14 +799,10 @@ namespace TimeTask.Controllers
 					handler = true;
 				}
 				
-
-				//id = newData.Id;
-
 				bubble = BubbleSender(senderColor, spanSenderColor, newData.MessageText, newData.MessageSentDate.ToString("HH:mm"), newData.Id, sender, receiver);
 			}
 			if (loggedInUser == receiver)
 			{
-				//bubble = BubbleReceiver(senderColor, spanSenderColor, message, date.ToString("HH:mm"), id);
 				bubble = BubbleReceiver(senderColor, spanSenderColor, message, date.ToString("HH:mm"), newData.Id);
 			}
 
@@ -651,40 +832,38 @@ namespace TimeTask.Controllers
 				if (chats.Any())
 				{
 					//data dzisiejsza już istnieje
-
 					string bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
-					return Json(new { dateCheck = true, bubble, firstConversation = false, today = date.ToShortDateString() });
+
+					return Json(new { dateCheck = true, bubble, firstConversation = false, today = date.ToShortDateString(), receiver = false, loggedUser = GetUserId(), senderId = sender });
 				}
 				else
 				{
 					//data dzisiejsza nie istnieje
-
 					string bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
 
 					string messages = "<div id=\"dateParent\" date=\"" + date.ToShortDateString() + "\">" +
-					   "<div class=\"chatDateStamp\">" +
-							"<div></div><span>" + date.ToString("dd MMMM yyyy", culture) + "</span><div></div>" +
-						"</div>" +
-						bubble +
-						"</div>";
+						   "<div class=\"chatDateStamp\">" +
+								"<div></div><span>" + date.ToString("dd MMMM yyyy", culture) + "</span><div></div>" +
+							"</div>" +
+							bubble +
+							"</div>";
 
-					return Json(new { dateCheck = false, firstConversation = false, messages });
+					return Json(new { dateCheck = false, firstConversation = false, messages, receiver = false, loggedUser = GetUserId(), senderId = sender });
 				}
 			}
 			else
 			{
 				//nie istnieje w bazie (użytkownicy nie czatowali)
-
 				string bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
 
 				string messages = "<div id=\"dateParent\" date=\"" + date.ToShortDateString() + "\">" +
-					   "<div class=\"chatDateStamp\">" +
-							"<div></div><span>" + date.ToString("dd MMMM yyyy", culture) + "</span><div></div>" +
-						"</div>" +
-						bubble +
-						"</div>";
+						   "<div class=\"chatDateStamp\">" +
+								"<div></div><span>" + date.ToString("dd MMMM yyyy", culture) + "</span><div></div>" +
+							"</div>" +
+							bubble +
+							"</div>";
 
-				return Json(new { dateCheck = false, firstConversation = true, messages });
+				return Json(new { dateCheck = false, firstConversation = true, messages, receiver = false, loggedUser = GetUserId(), senderId = sender });
 			}
 		}
 

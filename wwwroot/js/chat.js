@@ -297,91 +297,31 @@ function findDiv(targetUserId)
 
     return null; // Return null if no matching div is found
 };
-
-//function refreshMessages()
-//{
-//    $.ajax({
-//        type: 'GET',
-//        url: '/Chats/ShowChatMessages',
-//        data: {
-//            receiverUserId: sessionStorage.getItem('userSelected')
-//        },
-//        success: function (response)
-//        {
-//            if (response != false) 
-//            {
-//                $('.chatMessagesBubbles').children().remove();
-//                $('.emptyConversation').remove();
-//                $('.receiverNotSelected').remove();
-//                $('.chatText').html(response.textDiv);
-
-//                let elements = document.querySelectorAll('.chatUser');
-//                for (let i = 0; i < elements.length; i++)
-//                {
-//                    $(elements[i]).removeClass('userSelected');
-//                }
-
-//                //$(t).addClass('userSelected');
-
-//                if (response.arrayNotEmpty == false)
-//                {
-//                    $('.chatMessagesBubbles').append(response.div);
-//                }
-//                else
-//                {
-//                    $('.chatMessagesBubbles').append(response.messages);
-//                    let chatmessages = document.querySelector('.chatMessagesBubbles');
-//                    chatmessages.scrollTo(0, chatmessages.scrollHeight);
-//                }
-
-//                //connect();
-//                $(findDiv(sessionStorage.getItem('userSelected'))).addClass('userSelected');
-//            }
-//        },
-//        error: function (xhr, status, error)
-//        {
-//            console.log('Error:', error);
-//        }
-//    });
-//};
-function refreshMessages(r)
+function refreshMessages(s, r)
 {
     $.ajax({
         type: 'GET',
-        url: '/Chats/ShowChatMessages',
+        url: '/Chats/ShowChatMessages_',
         data: {
-            receiverUserId: r
+            sender: s,
+            receiver: r
         },
         success: function (response)
         {
             if (response != false) 
             {
-                $('.chatMessagesBubbles').children().remove();
-                $('.emptyConversation').remove();
-                $('.receiverNotSelected').remove();
-                $('.chatText').html(response.textDiv);
+                let onclick = $('.userSelected').attr('onclick');
+                var id = onclick.substring(
+                    onclick.indexOf(", ") + 1,
+                    onclick.lastIndexOf(")")
+                );
+                id = id.replace(/\s/g, '');
+                id = id.slice(1,-1);
 
-                let elements = document.querySelectorAll('.chatUser');
-                for (let i = 0; i < elements.length; i++)
+                if (response.senderId == id || response.senderId == response.loggedUser)
                 {
-                    $(elements[i]).removeClass('userSelected');
+                    $('.chatMessagesBubbles').html(response.messages);
                 }
-
-                //$(t).addClass('userSelected');
-
-                if (response.arrayNotEmpty == false)
-                {
-                    $('.chatMessagesBubbles').append(response.div);
-                }
-                else
-                {
-                    $('.chatMessagesBubbles').append(response.messages);
-                    let chatmessages = document.querySelector('.chatMessagesBubbles');
-                    chatmessages.scrollTo(0, chatmessages.scrollHeight);
-                }
-
-                //connect();
-                $(findDiv(r)).addClass('userSelected');
             }
         },
         error: function (xhr, status, error)
@@ -402,8 +342,6 @@ async function DeleteMessage_(id, sender, receiver) {
         },
         success: function (response)
         {
-            //$(t).parent().html(response.messageRemovedDiv);
-            //$('#bubbleSettingsId_' + id).parent().html(response.messageRemovedDiv);
             $('#bubbleId_' + id).parent().html(response.messageRemovedDiv);
         },
         error: function (xhr, status, error)
@@ -451,31 +389,44 @@ async function sendMessage_(sender, receiver, message)
         },
         success: function (response)
         {
-            if (response.firstConversation)
+            let onclick = $('.userSelected').attr('onclick');
+            var id = onclick.substring(
+                onclick.indexOf(", ") + 1,
+                onclick.lastIndexOf(")")
+            );
+            id = id.replace(/\s/g, '');
+            id = id.slice(1, -1);
+
+            if (response.senderId == id || response.senderId == response.loggedUser)
             {
-                $('.chatMessagesBubbles').html(response.messages);
-            }
-            else 
-            {
-                if (response.dateCheck)
+                $('.emptyConversation').remove();
+                $('.receiverNotSelected').remove();
+
+                if (response.firstConversation)
                 {
-                    let div = $('#dateParent[date="' + response.today + '"]');
-                    $(div).append(response.bubble);
+                    $('.chatMessagesBubbles').html(response.messages);
                 }
-                else 
+                else
                 {
-                    $('.chatMessagesBubbles').append(response.messages);
+                    if (response.dateCheck)
+                    {
+                        let div = $('#dateParent[date="' + response.today + '"]');
+                        $(div).append(response.bubble);
+                    }
+                    else
+                    {
+                        $('.chatMessagesBubbles').append(response.messages);
+                    }
                 }
             }
 
-            $('.chatMessagesBubbles').animate({ scrollTop: document.body.scrollHeight }, "fast");
+            setTimeout(function ()
+            {
+                refreshMessages(sender, receiver);
+            },150);
+
+            $('.chatMessagesBubbles').animate({ scrollTop: document.querySelector('.chatMessagesBubbles').scrollHeight }, "fast");
             $('#textAreaMessage').val("");
-
-            //setTimeout(function ()
-            //{
-            //    refreshMessages();
-            //}, 150);
-            //refreshMessages();
         },
         error: function (xhr, status, error)
         {
@@ -554,7 +505,6 @@ function connect()
         connection.on("ReceiveMessage", function (sender, receiver, message) //user, 
         {
             sendMessage_(sender, receiver, message);
-            //refreshMessages(receiver);
 
             handlerRegistered = true;
         });
