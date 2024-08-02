@@ -278,7 +278,7 @@ namespace TimeTask.Controllers
 			return Json(new { contentResult = Content(UsersDiv(savedDepartment)), div = replacement });
         }
 
-		public string SpanColor(string color)
+		public string SpanColor(string? color)
 		{
 			string spanColor = "";
 
@@ -441,10 +441,10 @@ namespace TimeTask.Controllers
 
 			var senderUserId = GetUserId();
 
-			var senderColor = _context.UserIdentity.First(x => x.UserId == senderUserId).UserColor;
+			var senderColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == senderUserId)?.UserColor;
 			string spanSenderColor = SpanColor(senderColor);
 
-			var receiverColor = _context.UserIdentity.First(x => x.UserId == receiverUserId).UserColor;
+			var receiverColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == receiverUserId)?.UserColor;
 			string spanReceiverColor = SpanColor(receiverColor);
 
 			string div = "<div class=\"emptyConversation\">" +
@@ -552,6 +552,7 @@ namespace TimeTask.Controllers
 
 		public string BubbleSender(string senderColor, string spanSenderColor, string message, string hour, int id, string senderUserId, string receiverUserId)
 		{
+			//style=\"animation: message 0.15s ease-out 0s forwards;\"
 			string bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
 									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 										"<span>" + hour + "</span>" +
@@ -567,8 +568,7 @@ namespace TimeTask.Controllers
 
 		public string BubbleReceiver(string senderColor, string spanSenderColor, string message, string hour, int id)
 		{
-
-
+			//style=\"animation: message 0.15s ease-out 0s forwards;\"
 			string bubble = "<div class=\"chatMessagesBubblesContainer receiver\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
 									"<div id=\"bubbleId_" + id +"\" class=\"bubble receiver\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
 										"<span style=\"color:" + spanSenderColor + ";\">" + message + "</span>" +

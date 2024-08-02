@@ -212,7 +212,8 @@ function zpUZfWoTJUsolOJ(t)
     WkFMnZKWUdhpbzo(sessionStorage.getItem('JOZPzFDGsWEEzIY'));
 };
 
-function ltmkkPVQpNisKCP(t, r) {
+function ltmkkPVQpNisKCP(t, r) 
+{
     $.ajax({
         type: 'GET',
         url: '/Chats/ShowChatMessages',
@@ -247,6 +248,8 @@ function ltmkkPVQpNisKCP(t, r) {
                     chatmessages.scrollTo(0, chatmessages.scrollHeight);
                 }
 
+                //sessionStorage.setItem('userSelected', r);
+
                 connect();
             }
         },
@@ -257,8 +260,135 @@ function ltmkkPVQpNisKCP(t, r) {
     });
 };
 
-function refreshMessages() {
+function findDiv(targetUserId)
+{
+    // Get all div elements in the document
+    const divElements = document.querySelectorAll('.chatUser');
 
+    // Iterate over each div element
+    for (let i = 0; i < divElements.length; i++)
+    {
+        const div = divElements[i];
+        const onclick = div.onclick;
+
+        // Check if the element has an onclick attribute and it's a function
+        if (typeof onclick === 'function')
+        {
+            // Convert the function to a string and extract the parameters
+            const functionString = onclick.toString();
+
+            // Define a regular expression to match the (this, userId) pattern
+            const pattern = /\(([^,]+),\s*'([^']+)'\)/;
+            const match = pattern.exec(functionString);
+
+            if (match && match[2])
+            {
+                // Remove any trailing spaces and comments from the extracted userId parameter
+                const userId = match[2].trim().replace(/\/\/.*$/, '').replace(/\/\*.*\*\//, '');
+
+                // Check if the extracted userId matches the target userId
+                if (userId === targetUserId)
+                {
+                    return div; // Return the matching div element
+                }
+            }
+        }
+    }
+
+    return null; // Return null if no matching div is found
+};
+
+//function refreshMessages()
+//{
+//    $.ajax({
+//        type: 'GET',
+//        url: '/Chats/ShowChatMessages',
+//        data: {
+//            receiverUserId: sessionStorage.getItem('userSelected')
+//        },
+//        success: function (response)
+//        {
+//            if (response != false) 
+//            {
+//                $('.chatMessagesBubbles').children().remove();
+//                $('.emptyConversation').remove();
+//                $('.receiverNotSelected').remove();
+//                $('.chatText').html(response.textDiv);
+
+//                let elements = document.querySelectorAll('.chatUser');
+//                for (let i = 0; i < elements.length; i++)
+//                {
+//                    $(elements[i]).removeClass('userSelected');
+//                }
+
+//                //$(t).addClass('userSelected');
+
+//                if (response.arrayNotEmpty == false)
+//                {
+//                    $('.chatMessagesBubbles').append(response.div);
+//                }
+//                else
+//                {
+//                    $('.chatMessagesBubbles').append(response.messages);
+//                    let chatmessages = document.querySelector('.chatMessagesBubbles');
+//                    chatmessages.scrollTo(0, chatmessages.scrollHeight);
+//                }
+
+//                //connect();
+//                $(findDiv(sessionStorage.getItem('userSelected'))).addClass('userSelected');
+//            }
+//        },
+//        error: function (xhr, status, error)
+//        {
+//            console.log('Error:', error);
+//        }
+//    });
+//};
+function refreshMessages(r)
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Chats/ShowChatMessages',
+        data: {
+            receiverUserId: r
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                $('.chatMessagesBubbles').children().remove();
+                $('.emptyConversation').remove();
+                $('.receiverNotSelected').remove();
+                $('.chatText').html(response.textDiv);
+
+                let elements = document.querySelectorAll('.chatUser');
+                for (let i = 0; i < elements.length; i++)
+                {
+                    $(elements[i]).removeClass('userSelected');
+                }
+
+                //$(t).addClass('userSelected');
+
+                if (response.arrayNotEmpty == false)
+                {
+                    $('.chatMessagesBubbles').append(response.div);
+                }
+                else
+                {
+                    $('.chatMessagesBubbles').append(response.messages);
+                    let chatmessages = document.querySelector('.chatMessagesBubbles');
+                    chatmessages.scrollTo(0, chatmessages.scrollHeight);
+                }
+
+                //connect();
+                $(findDiv(r)).addClass('userSelected');
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
 };
 
 async function DeleteMessage_(id, sender, receiver) {
@@ -340,13 +470,17 @@ async function sendMessage_(sender, receiver, message)
 
             $('.chatMessagesBubbles').animate({ scrollTop: document.body.scrollHeight }, "fast");
             $('#textAreaMessage').val("");
+
+            //setTimeout(function ()
+            //{
+            //    refreshMessages();
+            //}, 150);
+            //refreshMessages();
         },
         error: function (xhr, status, error)
         {
             console.log('Error:', error);
         }
-    }).then(function () {
-        //$('.userSelected').trigger('click'); //odśwież, aby dostać id do bubbles
     });
 };
 
@@ -420,6 +554,7 @@ function connect()
         connection.on("ReceiveMessage", function (sender, receiver, message) //user, 
         {
             sendMessage_(sender, receiver, message);
+            //refreshMessages(receiver);
 
             handlerRegistered = true;
         });
