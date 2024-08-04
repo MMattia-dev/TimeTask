@@ -1,4 +1,6 @@
-﻿function bubbleOutReceiver(t) {
+﻿//const { signalR } = require("../lib/microsoft/signalr/dist/browser/signalr");
+
+function bubbleOutReceiver(t) {
     $(t).parent().children('.chatTimeStamp').hide();
 };
 
@@ -127,7 +129,13 @@ function ZtMJSUFaxcMCRVo()
                     document.getElementById('chat').style.left = "calc(50% - 185px)";
                 }
 
-                dragElement(document.getElementById("chat"));      
+                dragElement(document.getElementById("chat"));
+
+                if (sessionStorage.getItem('userSelected') != null)
+                {
+                    let r = sessionStorage.getItem('userSelected');
+                    ltmkkPVQpNisKCP(findDiv(r), r);
+                }
             },
             error: function (xhr, status, error)
             {
@@ -159,6 +167,8 @@ function WkFMnZKWUdhpbzo()
             $('.chatText').children().remove();
 
             $('.chatFilter').remove();
+
+            sessionStorage.removeItem('userSelected');
         },
         error: function (xhr, status, error)
         {
@@ -235,7 +245,9 @@ function ltmkkPVQpNisKCP(t, r)
                     $(elements[i]).removeClass('userSelected');
                 }
 
+                //
                 $(t).addClass('userSelected');
+                //
 
                 if (response.arrayNotEmpty == false)
                 {
@@ -248,9 +260,9 @@ function ltmkkPVQpNisKCP(t, r)
                     chatmessages.scrollTo(0, chatmessages.scrollHeight);
                 }
 
-                //sessionStorage.setItem('userSelected', r);
+                sessionStorage.setItem('userSelected', r);
 
-                connect();
+                //connect();
             }
         },
         error: function (xhr, status, error)
@@ -301,7 +313,7 @@ function refreshMessages(s, r)
 {
     $.ajax({
         type: 'GET',
-        url: '/Chats/ShowChatMessages_',
+        url: '/Chats/ShowChatMessages_Refresh',
         data: {
             sender: s,
             receiver: r
@@ -310,13 +322,16 @@ function refreshMessages(s, r)
         {
             if (response != false) 
             {
-                let onclick = $('.userSelected').attr('onclick');
-                var id = onclick.substring(
-                    onclick.indexOf(", ") + 1,
-                    onclick.lastIndexOf(")")
-                );
-                id = id.replace(/\s/g, '');
-                id = id.slice(1,-1);
+                if (document.getElementById('chat'))
+                {
+                    let onclick = $('.userSelected').attr('onclick');
+                    id = onclick.substring(
+                        onclick.indexOf(", ") + 1,
+                        onclick.lastIndexOf(")")
+                    );
+                    id = id.replace(/\s/g, '');
+                    id = id.slice(1, -1);
+                }
 
                 if (response.senderId == id || response.senderId == response.loggedUser)
                 {
@@ -389,44 +404,115 @@ async function sendMessage_(sender, receiver, message)
         },
         success: function (response)
         {
-            let onclick = $('.userSelected').attr('onclick');
-            var id = onclick.substring(
-                onclick.indexOf(", ") + 1,
-                onclick.lastIndexOf(")")
-            );
-            id = id.replace(/\s/g, '');
-            id = id.slice(1, -1);
-
-            if (response.senderId == id || response.senderId == response.loggedUser)
+            var id_ = "";
+            if (document.getElementById('chat'))
             {
-                $('.emptyConversation').remove();
-                $('.receiverNotSelected').remove();
+                let onclick = $('.userSelected').attr('onclick');
+                id = onclick.substring(
+                    onclick.indexOf(", ") + 1,
+                    onclick.lastIndexOf(")")
+                );
+                id = id.replace(/\s/g, '');
+                id = id.slice(1, -1);
 
-                if (response.firstConversation)
+                id_ = id;
+            }
+            
+            if (response.anyDuplicates)
+            {
+                Rem(response.duplicates);
+                
+                if (response.senderId == id_ || response.senderId == response.loggedUser)
                 {
-                    $('.chatMessagesBubbles').html(response.messages);
-                }
-                else
-                {
-                    if (response.dateCheck)
+                    $('.emptyConversation').remove();
+                    $('.receiverNotSelected').remove();
+
+                    if (response.firstConversation)
                     {
-                        let div = $('#dateParent[date="' + response.today + '"]');
-                        $(div).append(response.bubble);
+                        setTimeout(function () { 
+                            $('.chatMessagesBubbles').html(response.messages);
+                        }, 100);
                     }
                     else
                     {
-                        $('.chatMessagesBubbles').append(response.messages);
+                        if (response.dateCheck)
+                        {
+                            let div = $('#dateParent[date="' + response.today + '"]');
+
+                            setTimeout(function ()
+                            {
+                                $(div).append(response.bubble);
+                            }, 100);
+                        }
+                        else
+                        {
+                            setTimeout(function ()
+                            {
+                                $('.chatMessagesBubbles').append(response.messages);
+                            }, 100);
+                        }
                     }
+
+                    refreshMessages(sender, receiver);
+
+                    if (response.senderId == response.loggedUser)
+                    {
+                        $('#textAreaMessage').val("");
+                    }
+                    
+                    $('.chatMessagesBubbles').animate({ scrollTop: document.querySelector('.chatMessagesBubbles').scrollHeight }, "fast");
+
+                    disconnect_();
+                    setTimeout(function ()
+                    {
+                        if (connection.state == signalR.HubConnectionState.Disconnected) {
+                            connection.start().catch(function (err)
+                            {
+                                return console.error(err.toString());
+                            });
+                        }
+                    }, 100);
+                }
+            }
+            else 
+            {
+                if (response.senderId == id_ || response.senderId == response.loggedUser)
+                {
+                    $('.emptyConversation').remove();
+                    $('.receiverNotSelected').remove();
+
+                    if (response.firstConversation)
+                    {
+                        $('.chatMessagesBubbles').html(response.messages);
+                    }
+                    else
+                    {
+                        if (response.dateCheck)
+                        {
+                            let div = $('#dateParent[date="' + response.today + '"]');
+                            $(div).append(response.bubble);
+                        }
+                        else
+                        {
+                            $('.chatMessagesBubbles').append(response.messages);
+                        }
+                    }
+
+                    setTimeout(function ()
+                    {
+                        refreshMessages(sender, receiver);
+                    }, 150);
+
+                    if (response.senderId == response.loggedUser)
+                    {
+                        $('#textAreaMessage').val("");
+                    }
+
+                    $('.chatMessagesBubbles').animate({ scrollTop: document.querySelector('.chatMessagesBubbles').scrollHeight }, "fast");
                 }
             }
 
-            setTimeout(function ()
-            {
-                refreshMessages(sender, receiver);
-            },150);
-
-            $('.chatMessagesBubbles').animate({ scrollTop: document.querySelector('.chatMessagesBubbles').scrollHeight }, "fast");
-            $('#textAreaMessage').val("");
+            notifyReceiver(response.senderId, response.receiverId, response.date, response.message);
         },
         error: function (xhr, status, error)
         {
@@ -435,6 +521,48 @@ async function sendMessage_(sender, receiver, message)
     });
 };
 
+async function notifyReceiver(senderId, receiverId, date, message) 
+{
+    await $.ajax({
+        type: 'GET',
+        url: '/Chats/NotifyReceiver',
+        data: {
+            messageId: null,
+            senderId: senderId,
+            receiverId: receiverId,
+            date: date,
+            message: message
+        },
+        success: function (response)
+        {
+            console.log(response);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+async function Rem(a) {
+    if (a.length > 0) {
+        await $.ajax({
+            type: 'POST',
+            url: '/Chats/Rem',
+            data: {
+                array: a
+            },
+            success: function (response)
+            {
+                //
+            },
+            error: function (xhr, status, error)
+            {
+                //
+            }
+        });
+    }
+};
 
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
@@ -504,6 +632,15 @@ function connect()
     if (!handlerRegistered) {
         connection.on("ReceiveMessage", function (sender, receiver, message) //user, 
         {
+            //for (let i = 0; i < 2; i++) {
+            //    sendMessage_(sender, receiver, message);
+            //}
+
+            //notifyReceiver
+            //notifyReceiver(getMessageDetails());
+
+            //var messageId = sendMessage_(sender, receiver, message);
+
             sendMessage_(sender, receiver, message);
 
             handlerRegistered = true;
@@ -517,3 +654,4 @@ function connect()
         });
     }
 };
+connect();

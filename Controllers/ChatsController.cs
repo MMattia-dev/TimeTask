@@ -4,10 +4,12 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Plugins;
 using TimeTask.Data;
@@ -306,8 +308,8 @@ namespace TimeTask.Controllers
 			if (savedDepartment == null)
 			{
 				//wybierz dział zalogowanego usera
-				var userWorkerId = _context.UserIdentity.First(x => x.UserId == GetUserId()).WorkerId;
-				var userDepartmentId = _context.Workers2.First(x => x.Id == userWorkerId).DepartmentID;
+				var userWorkerId = _context.UserIdentity.FirstOrDefault(x => x.UserId == GetUserId())?.WorkerId;
+				var userDepartmentId = _context.Workers2.FirstOrDefault(x => x.Id == userWorkerId)?.DepartmentID;
 
 				workers = _context.Workers2.Where(x => x.DepartmentID == userDepartmentId).ToList();
 			}
@@ -436,7 +438,7 @@ namespace TimeTask.Controllers
         }
 
 		[HttpGet]
-		public async Task<ActionResult> ShowChatMessages_(string sender, string receiver)
+		public async Task<ActionResult> ShowChatMessages_Refresh(string sender, string receiver)
 		{
 			var culture = new CultureInfo("pl-PL");
 
@@ -520,9 +522,17 @@ namespace TimeTask.Controllers
 								}
 								else
 								{
+									string decryptedMessage = "";
+									byte[] byteMessage = new byte[0];
+									if (row.MessageText != null)
+									{
+										byteMessage = Convert.FromBase64String(row.MessageText);
+									}
+									decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
+
 									bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
 										"<div id=\"bubbleId_" + row.Id + "\" class=\"bubble receiver\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
-											"<span style=\"color:" + spanReceiverColor + ";\">" + row.MessageText + "</span>" +
+											"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 										"</div>" +
 										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
@@ -544,12 +554,20 @@ namespace TimeTask.Controllers
 								}
 								else
 								{
+									string decryptedMessage = "";
+									byte[] byteMessage = new byte[0];
+									if (row.MessageText != null)
+									{
+										byteMessage = Convert.FromBase64String(row.MessageText);
+									}
+									decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
+
 									bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
 										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 										"</div>" +
 										"<div id=\"bubbleId_" + row.Id + "\" class=\"bubble sender\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
-											"<span style=\"color:" + spanSenderColor + ";\">" + row.MessageText + "</span>" +
+											"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 										"</div>" +
 									"</div>";
@@ -572,9 +590,17 @@ namespace TimeTask.Controllers
 								}
 								else
 								{
+									string decryptedMessage = "";
+									byte[] byteMessage = new byte[0];
+									if (row.MessageText != null)
+									{
+										byteMessage = Convert.FromBase64String(row.MessageText);
+									}
+									decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
+
 									bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
 										"<div id=\"bubbleId_" + row.Id + "\" class=\"bubble receiver\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
-											"<span style=\"color:" + spanSenderColor + ";\">" + row.MessageText + "</span>" +
+											"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 										"</div>" +
 										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
@@ -596,12 +622,20 @@ namespace TimeTask.Controllers
 								}
 								else
 								{
+									string decryptedMessage = "";
+									byte[] byteMessage = new byte[0];
+									if (row.MessageText != null)
+									{
+										byteMessage = Convert.FromBase64String(row.MessageText);
+									}
+									decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
+
 									bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
 										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 										"</div>" +
 										"<div id=\"bubbleId_" + row.Id + "\" class=\"bubble sender\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
-											"<span style=\"color:" + spanReceiverColor + ";\">" + row.MessageText + "</span>" +
+											"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 										"</div>" +
 									"</div>";
@@ -674,58 +708,77 @@ namespace TimeTask.Controllers
 
                     foreach (var row in chats.OrderBy(x => x.MessageSentDate))
                     {
-						string bubbles = "";
-						if (row.ReceiverUserId == senderUserId)
+						if (row != null)
 						{
-							if (row.IfDeleted)
+							string bubbles = "";
+							if (row.ReceiverUserId == senderUserId)
 							{
-								bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-										"<div class=\"bubble deleted receiver\">" +
-										"<span>Wiadomość usunięta</span>" +
-										"<div class=\"tail\"></div>" +
-									"</div>" +
-								"</div>";
-							}
-							else
-							{
-								bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-									"<div id=\"bubbleId_" + row.Id +"\" class=\"bubble receiver\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
-										"<span style=\"color:" + spanReceiverColor + ";\">" + row.MessageText + "</span>" +
-										"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
-									"</div>" +
-									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-										"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-									"</div>" +
-								"</div>";
-							}
-                        }
+								if (row.IfDeleted)
+								{
+									bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
+											"<div class=\"bubble deleted receiver\">" +
+											"<span>Wiadomość usunięta</span>" +
+											"<div class=\"tail\"></div>" +
+										"</div>" +
+									"</div>";
+								}
+								else
+								{
+									string decryptedMessage = "";
+									byte[] byteMessage = new byte[0];
+									if (row.MessageText != null)
+									{
+										byteMessage = Convert.FromBase64String(row.MessageText);
+									}
+									decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
 
-						if (row.SenderUserId == senderUserId)
-						{
-							if (row.IfDeleted)
-							{
-								bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
-										"<div class=\"bubble deleted sender\">" +
-										"<span>Wiadomość usunięta</span>" +
-										"<div class=\"tail\"></div>" +
-									"</div>" +
-								"</div>";
+									bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
+										"<div id=\"bubbleId_" + row.Id + "\" class=\"bubble receiver\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+											"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
+											"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
+										"</div>" +
+										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+										"</div>" +
+									"</div>";
+								}
 							}
-							else
-							{
-								bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
-									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-										"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-									"</div>" +
-									"<div id=\"bubbleId_" + row.Id +"\" class=\"bubble sender\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
-										"<span style=\"color:" + spanSenderColor + ";\">" + row.MessageText + "</span>" +
-										"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
-									"</div>" +
-								"</div>";
-							}
-                        }
 
-                        messages += bubbles;
+							if (row.SenderUserId == senderUserId)
+							{
+								if (row.IfDeleted)
+								{
+									bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
+											"<div class=\"bubble deleted sender\">" +
+											"<span>Wiadomość usunięta</span>" +
+											"<div class=\"tail\"></div>" +
+										"</div>" +
+									"</div>";
+								}
+								else
+								{
+									string decryptedMessage = "";
+									byte[] byteMessage = new byte[0];
+									if (row.MessageText != null)
+									{
+										byteMessage = Convert.FromBase64String(row.MessageText);
+									}
+									decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
+
+									bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
+										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+										"</div>" +
+										"<div id=\"bubbleId_" + row.Id + "\" class=\"bubble sender\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+											"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
+											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+										"</div>" +
+									"</div>";
+								}
+							}
+
+							messages += bubbles;
+						}
                     }
 
                     messages += "</div>";
@@ -741,12 +794,15 @@ namespace TimeTask.Controllers
 
 		public string BubbleSender(string senderColor, string spanSenderColor, string message, string hour, int id, string senderUserId, string receiverUserId)
 		{
+			byte[] byteMessage = Convert.FromBase64String(message);
+			string decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
+
 			string bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
 									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 										"<span>" + hour + "</span>" +
 									"</div>" +
 									"<div id=\"bubbleId_" + id +"\" class=\"bubble sender\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
-										"<span style=\"color:" + spanSenderColor + ";\">" + message + "</span>" +
+										"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 										"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 									"</div>" +
 								"</div>";
@@ -756,9 +812,12 @@ namespace TimeTask.Controllers
 
 		public string BubbleReceiver(string senderColor, string spanSenderColor, string message, string hour, int id)
 		{
+			byte[] byteMessage = Convert.FromBase64String(message);
+			string decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
+
 			string bubble = "<div class=\"chatMessagesBubblesContainer receiver\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
 									"<div id=\"bubbleId_" + id + "\" class=\"bubble receiver\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
-										"<span style=\"color:" + spanSenderColor + ";\">" + message + "</span>" +
+										"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 										"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 									"</div>" +
 									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
@@ -769,44 +828,65 @@ namespace TimeTask.Controllers
 			return bubble;
 		}
 
-		public async Task<string> Bubble(string loggedInUser, string sender, string receiver, string message, DateTime date, string? fileLocation, bool ifMessageRead, bool ifDeleted)
+		public async Task<Tuple<string, bool, List<int>, DateTime, string>> Bubble(string loggedInUser, string sender, string receiver, string message, DateTime date, string? fileLocation, bool ifMessageRead, bool ifDeleted)
 		{
 			bool handler = false;
 
 			var senderColor = _context.UserIdentity.First(x => x.UserId == sender).UserColor;
 			string spanSenderColor = SpanColor(senderColor);
 
-			var newData = new Chat()
-			{
-				SenderUserId = sender,
-				ReceiverUserId = receiver,
-				MessageText = message,
-				MessageSentDate = date,
-				SentFileLocation = fileLocation,
-				IfMessageRead = ifMessageRead,
-				IfDeleted = ifDeleted
-			};
+			//
 
 			string bubble = "";
 			if (loggedInUser == sender)
 			{
-
+				string text_ = "";
+				string date_ = "";
+				int id = 0;
 				if (!handler)
 				{
+					var newData = new Chat()
+					{
+						SenderUserId = sender,
+						ReceiverUserId = receiver,
+						MessageText = Data.Encryption.EncryptionHelper.Encrypt(message),
+						MessageSentDate = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second),
+						SentFileLocation = fileLocation,
+						IfMessageRead = ifMessageRead,
+						IfDeleted = ifDeleted
+					};
+
 					_context.Chat.Add(newData);
 					await _context.SaveChangesAsync();
+
+					text_ = newData.MessageText;
+					date_ = newData.MessageSentDate.ToString("HH:mm");
+					id = newData.Id;
 
 					handler = true;
 				}
 				
-				bubble = BubbleSender(senderColor, spanSenderColor, newData.MessageText, newData.MessageSentDate.ToString("HH:mm"), newData.Id, sender, receiver);
+				bubble = BubbleSender(senderColor, spanSenderColor, text_, date_, id, sender, receiver);
 			}
 			if (loggedInUser == receiver)
 			{
-				bubble = BubbleReceiver(senderColor, spanSenderColor, message, date.ToString("HH:mm"), newData.Id);
+				bubble = BubbleReceiver(senderColor, spanSenderColor, Data.Encryption.EncryptionHelper.Encrypt(message), date.ToString("HH:mm"), 0);
 			}
 
-			return bubble;
+			//
+			var duplicates = CheckForDuplicates(sender, receiver, Data.Encryption.EncryptionHelper.Encrypt(message), new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second), fileLocation);
+
+			bool areThereAnyDuplicates = false;
+			if (duplicates.Count > 1)
+			{
+				areThereAnyDuplicates = true;
+
+				return new Tuple<string, bool, List<int>, DateTime, string>(bubble, areThereAnyDuplicates, duplicates, new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second), Data.Encryption.EncryptionHelper.Encrypt(message));
+			}
+			//
+
+			//return bubble;
+			return new Tuple<string, bool, List<int>, DateTime, string>(bubble, areThereAnyDuplicates, duplicates, new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second), Data.Encryption.EncryptionHelper.Encrypt(message));
 		}
 
 		[HttpPost]
@@ -832,39 +912,78 @@ namespace TimeTask.Controllers
 				if (chats.Any())
 				{
 					//data dzisiejsza już istnieje
-					string bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
+					Tuple<string, bool, List<int>, DateTime, string> bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
 
-					return Json(new { dateCheck = true, bubble, firstConversation = false, today = date.ToShortDateString(), receiver = false, loggedUser = GetUserId(), senderId = sender });
+					return Json(new { dateCheck = true, bubble = bubble.Item1, anyDuplicates = bubble.Item2, firstConversation = false, today = date.ToShortDateString(), receiver = false, loggedUser = GetUserId(), senderId = sender, duplicates = bubble.Item3, receiverId = receiver, date = bubble.Item4, message = bubble.Item5 });
 				}
 				else
 				{
 					//data dzisiejsza nie istnieje
-					string bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
+					Tuple<string, bool, List<int>, DateTime, string> bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
 
 					string messages = "<div id=\"dateParent\" date=\"" + date.ToShortDateString() + "\">" +
 						   "<div class=\"chatDateStamp\">" +
 								"<div></div><span>" + date.ToString("dd MMMM yyyy", culture) + "</span><div></div>" +
 							"</div>" +
-							bubble +
+							bubble.Item1 +
 							"</div>";
 
-					return Json(new { dateCheck = false, firstConversation = false, messages, receiver = false, loggedUser = GetUserId(), senderId = sender });
+					return Json(new { dateCheck = false, firstConversation = false, messages, anyDuplicates = bubble.Item2, receiver = false, loggedUser = GetUserId(), senderId = sender, duplicates = bubble.Item3, receiverId = receiver, date = bubble.Item4, message = bubble.Item5 });
 				}
 			}
 			else
 			{
 				//nie istnieje w bazie (użytkownicy nie czatowali)
-				string bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
+				Tuple<string, bool, List<int>, DateTime, string> bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
 
 				string messages = "<div id=\"dateParent\" date=\"" + date.ToShortDateString() + "\">" +
 						   "<div class=\"chatDateStamp\">" +
 								"<div></div><span>" + date.ToString("dd MMMM yyyy", culture) + "</span><div></div>" +
 							"</div>" +
-							bubble +
+							bubble.Item1 +
 							"</div>";
 
-				return Json(new { dateCheck = false, firstConversation = true, messages, receiver = false, loggedUser = GetUserId(), senderId = sender });
+				return Json(new { dateCheck = false, firstConversation = true, messages, anyDuplicates = bubble.Item2, receiver = false, loggedUser = GetUserId(), senderId = sender, duplicates = bubble.Item3, receiverId = receiver, date = bubble.Item4, message = bubble.Item5 });				
 			}
+		}
+
+		public List<int> CheckForDuplicates(string sender, string receiver, string? message, DateTime date, string? sentFileLocation)
+		{
+			var duplicates = _context.Chat
+			.Where(g => g.SenderUserId == sender && g.ReceiverUserId == receiver && g.MessageText == message && g.MessageSentDate == date && g.SentFileLocation == sentFileLocation)
+			.Select(x => x.Id)
+			.ToList();
+
+			return duplicates;
+		}
+
+		[HttpPost]
+		public async Task<ActionResult> Rem(List<int> array)
+		{
+			try
+			{
+				if (array.Count > 1)
+				{
+					array.RemoveAt(0);
+					foreach (var id in array)
+					{
+						var row = _context.Chat.FirstOrDefault(x => x.Id == id);
+						if (row != null)
+						{
+							_context.Chat.Remove(row);
+							await _context.SaveChangesAsync();
+						}
+					}
+
+					return Json(true);
+				}
+			}
+			catch (Exception ex)
+			{
+				//return Json(ex);
+			}
+
+			return Json(false);
 		}
 
 		[HttpGet]
@@ -909,6 +1028,53 @@ namespace TimeTask.Controllers
 			return Json(false);
 		}
 
+		[HttpGet]
+		public async Task<ActionResult> NotifyReceiver(int? messageId, string senderId, string receiverId, DateTime date, string message) //int messageId, 
+		{
+			var loggedUser = GetUserId();
+			if (loggedUser == receiverId)
+			{
+				if (messageId == null)
+				{
+					//var row = _context.Chat.FirstOrDefault(x => x.MessageText == message && x.SenderUserId == senderId && x.ReceiverUserId == receiverId && x.MessageSentDate == new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second) && x.SentFileLocation == null);
+					var rows = _context.Chat.Where(x => x.ReceiverUserId == receiverId && x.MessageSentDate == new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second) && x.SentFileLocation == null);
+					if (rows != null)
+					{
+						List<Chat> messages = new List<Chat>();
+
+						//if (row.IfMessageRead == false)
+						//{
+
+						//}
+						foreach (var row in rows)
+						{
+							if (row.IfMessageRead == false)
+							{
+								messages.Add(row);
+							}
+						}
+
+						if (messages.Count > 0)
+						{
+							return Json(messages);
+						}
+					}
+				}
+				else
+				{
+					var row = _context.Chat.FirstOrDefault(x => x.Id == messageId);
+					if (row != null)
+					{
+						if (row.IfMessageRead == false)
+						{
+
+						}
+					}
+				}
+			}
+
+			return Json(false);
+		}
 
 
 

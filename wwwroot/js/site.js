@@ -736,8 +736,8 @@ function lhkKNaastOkkmMh(t)
 //let source = "";
 //let poi = `<video autoplay loop id="myVideo"><source src="` + source + `" type="video/mp4"></video>`;
 //$('.parent').append(poi);
-//let poi2 = `<label style="position: absolute; top: 10px; left: 10px; z-index: 1;"><input type="checkbox" id="asdfgh" /></label>`;
-//$('body').append(poi2);
+////let poi2 = `<label style="position: absolute; top: 10px; left: 10px; z-index: 1;"><input type="checkbox" id="asdfgh" /></label>`;
+////$('body').append(poi2);
 
 //var video = document.getElementById("myVideo");
 //$(window).on("beforeunload", function ()
@@ -747,15 +747,17 @@ function lhkKNaastOkkmMh(t)
 //    localStorage.setItem('video_', currentTime);
 //    return;
 //});
-//if (localStorage.getItem('video_') != null) {
+//if (localStorage.getItem('video_') != null)
+//{
 //    var vid = document.getElementById("myVideo");
 //    vid.currentTime = localStorage.getItem('video_');
 //}
+//else {
+//    video.currentTime = 485;
+//}
 
-
-////video.currentTime = 600;
 //video.playbackRate = 1;
-//video.volume = 0.5;
+//video.volume = 0.2;
 
 //$('#asdfgh').on('change', function ()
 //{

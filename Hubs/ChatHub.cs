@@ -26,15 +26,11 @@ namespace TimeTask.Hubs
 
 		public async Task SendMessage(string receiver, string message)
 		{
-			
-
 			await Clients.Users(GetUserId(), receiver).SendAsync("ReceiveMessage", GetUserId(), receiver, message);
-			//await Clients.Users(GetUserId(), receiver).SendAsync("ReceiveMessage", receiver, message);
 		}
 
 		public async Task RemoveMessage(int id, string sender, string receiver)
 		{
-			//await Clients.All.SendAsync("MessageRemoved", id);
 			await Clients.Users(sender, receiver).SendAsync("MessageRemoved", id, sender, receiver);
 		}
 	}
