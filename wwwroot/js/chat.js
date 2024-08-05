@@ -136,6 +136,8 @@ function ZtMJSUFaxcMCRVo()
                     let r = sessionStorage.getItem('userSelected');
                     ltmkkPVQpNisKCP(findDiv(r), r);
                 }
+
+                notifyReceiverChatIsOpen();
             },
             error: function (xhr, status, error)
             {
@@ -169,6 +171,8 @@ function WkFMnZKWUdhpbzo()
             $('.chatFilter').remove();
 
             sessionStorage.removeItem('userSelected');
+
+            notifyReceiverChatIsOpen();
         },
         error: function (xhr, status, error)
         {
@@ -187,6 +191,8 @@ function tqMrMyJEPoAgJSW()
             sessionStorage.removeItem('XaWDHywDpyvadHP');
             $('.ATKLsxSduWPahPh').append(response);
             $('#chat').remove();
+
+            GetCurrentlyLoggedUserId().then(response => { notifyReceiver(response) });
         },
         error: function (xhr, status, error)
         {
@@ -220,6 +226,7 @@ function zpUZfWoTJUsolOJ(t)
 
     //dodaj użytkowników po lewej stronie
     WkFMnZKWUdhpbzo(sessionStorage.getItem('JOZPzFDGsWEEzIY'));
+    
 };
 
 function ltmkkPVQpNisKCP(t, r) 
@@ -322,15 +329,21 @@ function refreshMessages(s, r)
         {
             if (response != false) 
             {
+                var id_ = "";
                 if (document.getElementById('chat'))
                 {
-                    let onclick = $('.userSelected').attr('onclick');
-                    id = onclick.substring(
-                        onclick.indexOf(", ") + 1,
-                        onclick.lastIndexOf(")")
-                    );
-                    id = id.replace(/\s/g, '');
-                    id = id.slice(1, -1);
+                    if (document.querySelector('.userSelected'))
+                    {
+                        let onclick = $('.userSelected').attr('onclick');
+                        id = onclick.substring(
+                            onclick.indexOf(", ") + 1,
+                            onclick.lastIndexOf(")")
+                        );
+                        id = id.replace(/\s/g, '');
+                        id = id.slice(1, -1);
+
+                        id_ = id;
+                    }
                 }
 
                 if (response.senderId == id || response.senderId == response.loggedUser)
@@ -407,15 +420,17 @@ async function sendMessage_(sender, receiver, message)
             var id_ = "";
             if (document.getElementById('chat'))
             {
-                let onclick = $('.userSelected').attr('onclick');
-                id = onclick.substring(
-                    onclick.indexOf(", ") + 1,
-                    onclick.lastIndexOf(")")
-                );
-                id = id.replace(/\s/g, '');
-                id = id.slice(1, -1);
+                if (document.querySelector('.userSelected')) {
+                    let onclick = $('.userSelected').attr('onclick');
+                    id = onclick.substring(
+                        onclick.indexOf(", ") + 1,
+                        onclick.lastIndexOf(")")
+                    );
+                    id = id.replace(/\s/g, '');
+                    id = id.slice(1, -1);
 
-                id_ = id;
+                    id_ = id;
+                }
             }
             
             if (response.anyDuplicates)
@@ -512,7 +527,19 @@ async function sendMessage_(sender, receiver, message)
                 }
             }
 
-            notifyReceiver(response.senderId, response.receiverId, response.date, response.message);
+            GetCurrentlyLoggedUserId().then(response_ => {
+                if (response_ == response.receiverId) {
+                    if (sessionStorage.getItem('XaWDHywDpyvadHP') != null)
+                    {
+
+                    }
+                    else 
+                    {
+                        notifyReceiver(response.receiverId);
+                        playReceivedMessageSound();
+                    }
+                }
+            });
         },
         error: function (xhr, status, error)
         {
@@ -521,26 +548,84 @@ async function sendMessage_(sender, receiver, message)
     });
 };
 
-async function notifyReceiver(senderId, receiverId, date, message) 
+function playReceivedMessageSound() 
 {
-    await $.ajax({
+    var audio = new Audio("../../audio/message-incoming.mp3");
+    audio.muted = false;
+    audio.volume = 1.0;
+    audio.play();
+    console.log('odebrano wiadomość');
+};
+
+function notifyReceiver(receiverId) 
+{
+    $.ajax({
         type: 'GET',
         url: '/Chats/NotifyReceiver',
         data: {
-            messageId: null,
-            senderId: senderId,
-            receiverId: receiverId,
-            date: date,
-            message: message
+            receiverId: receiverId
         },
         success: function (response)
         {
-            console.log(response);
+            if (response != false) {
+                $('.chatMinimized').html(response.contentResult.content);
+            }
         },
         error: function (xhr, status, error)
         {
             console.log('Error:', error);
         }
+    });
+};
+
+function notifyReceiverChatIsOpen()
+{
+    GetCurrentlyLoggedUserId().then(response_ => { 
+        $.ajax({
+            type: 'GET',
+            url: '/Chats/NotifyReceiverWhenChatIsOpen',
+            data: {
+                receiverId: response_,
+                savedDepartment: sessionStorage.getItem('JOZPzFDGsWEEzIY') //departmentId dla selecta w filtrze
+            },
+            success: function (response)
+            {
+                if (response.count > 0 && response.receiverId == response_)
+                {
+                    $('.unreadMessagesFilterParent').html(response.filterUnreadMessagesCounter.content);
+                }
+                if (response.count == 0 && response.receiverId == response_)
+                {
+                    $('.unreadMessagesFilterParent').html("");
+                }
+                
+                //console.log(response);
+                
+                
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    });
+};
+
+function GetCurrentlyLoggedUserId() {
+    return new Promise((resolve, reject) =>
+    {
+        $.ajax({
+            type: 'GET',
+            url: '/Chats/GetCurrentlyLoggedUserId',
+            success: function (response)
+            {
+                resolve(response);
+            },
+            error: function (xhr, status, error)
+            {
+                reject(error);
+            }
+        });
     });
 };
 
@@ -635,9 +720,6 @@ function connect()
             //for (let i = 0; i < 2; i++) {
             //    sendMessage_(sender, receiver, message);
             //}
-
-            //notifyReceiver
-            //notifyReceiver(getMessageDetails());
 
             //var messageId = sendMessage_(sender, receiver, message);
 

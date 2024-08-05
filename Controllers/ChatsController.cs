@@ -346,6 +346,11 @@ namespace TimeTask.Controllers
 										span +
 									"</div>" +
 									"<span> " + userName + " </span>" +
+									"<div class=\"chatUserUnreadMessageCountParent\">" +
+										//"<div class=\"chatUserUnreadMessageCount\">" +
+										//	"<span>1</span>" +
+										//"</div>" +
+									"</div>" +
 									"<div class=\"chatUserStatus online\" title=\"online\"></div>" + //detect if user is online or not
 									//"<div class=\"chatUserStatus afk\" title=\"Zaraz wracam\"></div>" +
 									//"<div class=\"chatUserStatus offline\" title=\"offline\"></div>" +
@@ -377,6 +382,11 @@ namespace TimeTask.Controllers
 					"<div class=\"chatUsers\">" +
 						"<div class=\"chatDepartment\" title=\"Wybierz dział\" onclick=\"YElWMlpiHOvShrB(this)\">" +
 							"<ion-icon name=\"filter-outline\"></ion-icon>" +
+							"<div class=\"unreadMessagesFilterParent\">" +
+								//"<div class=\"unreadMessagesFilter\">" +
+								//	"<span>1</span>" +
+								//"</div>" +
+							"</div>" +
 						"</div>" +
 						UsersDiv(savedDepartment) +
 					"</div>" +
@@ -828,7 +838,7 @@ namespace TimeTask.Controllers
 			return bubble;
 		}
 
-		public async Task<Tuple<string, bool, List<int>, DateTime, string>> Bubble(string loggedInUser, string sender, string receiver, string message, DateTime date, string? fileLocation, bool ifMessageRead, bool ifDeleted)
+		public async Task<Tuple<string, bool, List<int>>> Bubble(string loggedInUser, string sender, string receiver, string message, DateTime date, string? fileLocation, bool ifMessageRead, bool ifDeleted)
 		{
 			bool handler = false;
 
@@ -881,12 +891,12 @@ namespace TimeTask.Controllers
 			{
 				areThereAnyDuplicates = true;
 
-				return new Tuple<string, bool, List<int>, DateTime, string>(bubble, areThereAnyDuplicates, duplicates, new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second), Data.Encryption.EncryptionHelper.Encrypt(message));
+				return new Tuple<string, bool, List<int>>(bubble, areThereAnyDuplicates, duplicates);
 			}
 			//
 
 			//return bubble;
-			return new Tuple<string, bool, List<int>, DateTime, string>(bubble, areThereAnyDuplicates, duplicates, new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second), Data.Encryption.EncryptionHelper.Encrypt(message));
+			return new Tuple<string, bool, List<int>>(bubble, areThereAnyDuplicates, duplicates);
 		}
 
 		[HttpPost]
@@ -912,14 +922,14 @@ namespace TimeTask.Controllers
 				if (chats.Any())
 				{
 					//data dzisiejsza już istnieje
-					Tuple<string, bool, List<int>, DateTime, string> bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
+					Tuple<string, bool, List<int>> bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
 
-					return Json(new { dateCheck = true, bubble = bubble.Item1, anyDuplicates = bubble.Item2, firstConversation = false, today = date.ToShortDateString(), receiver = false, loggedUser = GetUserId(), senderId = sender, duplicates = bubble.Item3, receiverId = receiver, date = bubble.Item4, message = bubble.Item5 });
+					return Json(new { dateCheck = true, bubble = bubble.Item1, anyDuplicates = bubble.Item2, firstConversation = false, today = date.ToShortDateString(), receiver = false, loggedUser = GetUserId(), senderId = sender, duplicates = bubble.Item3, receiverId = receiver });
 				}
 				else
 				{
 					//data dzisiejsza nie istnieje
-					Tuple<string, bool, List<int>, DateTime, string> bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
+					Tuple<string, bool, List<int>> bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
 
 					string messages = "<div id=\"dateParent\" date=\"" + date.ToShortDateString() + "\">" +
 						   "<div class=\"chatDateStamp\">" +
@@ -928,13 +938,13 @@ namespace TimeTask.Controllers
 							bubble.Item1 +
 							"</div>";
 
-					return Json(new { dateCheck = false, firstConversation = false, messages, anyDuplicates = bubble.Item2, receiver = false, loggedUser = GetUserId(), senderId = sender, duplicates = bubble.Item3, receiverId = receiver, date = bubble.Item4, message = bubble.Item5 });
+					return Json(new { dateCheck = false, firstConversation = false, messages, anyDuplicates = bubble.Item2, receiver = false, loggedUser = GetUserId(), senderId = sender, duplicates = bubble.Item3, receiverId = receiver });
 				}
 			}
 			else
 			{
 				//nie istnieje w bazie (użytkownicy nie czatowali)
-				Tuple<string, bool, List<int>, DateTime, string> bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
+				Tuple<string, bool, List<int>> bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
 
 				string messages = "<div id=\"dateParent\" date=\"" + date.ToShortDateString() + "\">" +
 						   "<div class=\"chatDateStamp\">" +
@@ -943,7 +953,7 @@ namespace TimeTask.Controllers
 							bubble.Item1 +
 							"</div>";
 
-				return Json(new { dateCheck = false, firstConversation = true, messages, anyDuplicates = bubble.Item2, receiver = false, loggedUser = GetUserId(), senderId = sender, duplicates = bubble.Item3, receiverId = receiver, date = bubble.Item4, message = bubble.Item5 });				
+				return Json(new { dateCheck = false, firstConversation = true, messages, anyDuplicates = bubble.Item2, receiver = false, loggedUser = GetUserId(), senderId = sender, duplicates = bubble.Item3, receiverId = receiver });				
 			}
 		}
 
@@ -1029,51 +1039,111 @@ namespace TimeTask.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult> NotifyReceiver(int? messageId, string senderId, string receiverId, DateTime date, string message) //int messageId, 
+		public ActionResult NotifyReceiverWhenChatIsOpen(string receiverId, int? savedDepartment)
 		{
 			var loggedUser = GetUserId();
 			if (loggedUser == receiverId)
 			{
-				if (messageId == null)
+				var userWorkerId = _context.UserIdentity.FirstOrDefault(x => x.UserId == receiverId)?.WorkerId;
+
+				//get receiver departmentID
+				var userDepartmentId = _context.Workers2.FirstOrDefault(x => x.Id == userWorkerId)?.DepartmentID;
+				int? department = null;
+				if (savedDepartment != null)
 				{
-					//var row = _context.Chat.FirstOrDefault(x => x.MessageText == message && x.SenderUserId == senderId && x.ReceiverUserId == receiverId && x.MessageSentDate == new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second) && x.SentFileLocation == null);
-					var rows = _context.Chat.Where(x => x.ReceiverUserId == receiverId && x.MessageSentDate == new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second) && x.SentFileLocation == null);
-					if (rows != null)
-					{
-						List<Chat> messages = new List<Chat>();
+					//user picked another department
 
-						//if (row.IfMessageRead == false)
-						//{
+					int filterUnreadMessagesCounter = 0; //counter text of unread messages right next to Department Filter button with the exception of department already selected.
 
-						//}
-						foreach (var row in rows)
-						{
-							if (row.IfMessageRead == false)
-							{
-								messages.Add(row);
-							}
-						}
+					//each Sender needs their own counter, which will be displayed right next to their avatar.
+					//find all Senders with the exception of selected department, and find only those messages that are unread.
+					var workersForFilterButton = _context.Workers2.Where(x => x.DepartmentID != savedDepartment);
+					var users = _context.UserIdentity.Where(user => workersForFilterButton.Any(worker => worker.Id == user.WorkerId));
+					var chat = _context.Chat.Where(message => users.Any(user => message.SenderUserId == user.UserId && message.IfMessageRead == false) && message.ReceiverUserId == receiverId);
+					filterUnreadMessagesCounter = chat.Count();
+					string filterUnreadMessagesCounterDiv = "<div class=\"unreadMessagesFilter\"><span>" + filterUnreadMessagesCounter + "</span></div>";
 
-						if (messages.Count > 0)
-						{
-							return Json(messages);
-						}
-					}
+					//find all Senders within chosen department, whose messages have not been read yet.
+					var workersForChosenDepartment = _context.Workers2.Where(x => x.DepartmentID == savedDepartment);
+
+
+
+					return Json(new { filterUnreadMessagesCounter = Content(filterUnreadMessagesCounterDiv), count = filterUnreadMessagesCounter, receiverId });
 				}
 				else
 				{
-					var row = _context.Chat.FirstOrDefault(x => x.Id == messageId);
-					if (row != null)
+					//user picked or stayed where their own department is
+
+					int filterUnreadMessagesCounter = 0; //counter text of unread messages right next to Department Filter button with the exception of department already selected, which in this case, is Receiver's own department.
+
+					//each Sender needs their own counter, which will be displayed right next to their avatar.
+					//find all Senders with the exception of selected department, and find only those messages that are unread.
+
+					//find all Senders within chosen department, whose messages have not been read yet.
+					var workersForFilterButton = _context.Workers2.Where(x => x.DepartmentID != userDepartmentId);
+					var users = _context.UserIdentity.Where(user => workersForFilterButton.Any(worker => worker.Id == user.WorkerId));
+					var chat = _context.Chat.Where(message => users.Any(user => message.SenderUserId == user.UserId && message.IfMessageRead == false) && message.ReceiverUserId == receiverId);
+					filterUnreadMessagesCounter = chat.Count();
+					string filterUnreadMessagesCounterDiv = "<div class=\"unreadMessagesFilter\"><span>" + filterUnreadMessagesCounter + "</span></div>";
+
+					//find all Senders within chosen department, whose messages have not been read yet.
+					var workersForChosenDepartment = _context.Workers2.Where(x => x.DepartmentID == userDepartmentId);
+
+
+					//"<div class=\"chatUserUnreadMessageCountParent\">" +
+					//				//"<div class=\"chatUserUnreadMessageCount\">" +
+					//				//	"<span>1</span>" +
+					//				//"</div>" +
+					//				"</div>" +
+
+					//return Json(workersForChosenDepartment);
+					return Json(new { filterUnreadMessagesCounter = Content(filterUnreadMessagesCounterDiv), count = filterUnreadMessagesCounter, receiverId });
+				}
+			}
+
+			return Json(false);
+		}
+
+		[HttpGet]
+		public  ActionResult NotifyReceiver(string receiverId)
+		{
+			var loggedUser = GetUserId();
+			if (loggedUser == receiverId)
+			{
+				var rows = _context.Chat.Where(x => x.ReceiverUserId == receiverId);
+				if (rows != null)
+				{
+					List<Chat> messages = new List<Chat>();
+
+					foreach (var row in rows)
 					{
 						if (row.IfMessageRead == false)
 						{
-
+							messages.Add(row);
 						}
+					}
+
+					if (messages.Count > 0)
+					{
+						string chatMinimizedUnreadMessagesCount = "<ion-icon name=\"chatbubbles\"></ion-icon>" +
+							"<div class=\"chatMinimizedNewMessages\" title=\"Nieprzeczytane wiadomości\">" +
+								"<span>" + messages.Count + "</span>" +
+							"</div>";
+
+						return Json(new { messages, contentResult = Content(chatMinimizedUnreadMessagesCount) });
 					}
 				}
 			}
 
 			return Json(false);
+		}
+
+		[HttpGet]
+		public string GetCurrentlyLoggedUserId()
+		{
+			var loggedUser = GetUserId();
+
+			return loggedUser;
 		}
 
 

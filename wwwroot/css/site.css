@@ -6402,6 +6402,29 @@ span#OcoYTyiBrpZJStB {
             align-items: center;
         }
 
+            .chat .chatUsers .chatDepartment .unreadMessagesFilterParent {
+                
+            }
+
+                .chat .chatUsers .chatDepartment .unreadMessagesFilterParent .unreadMessagesFilter {
+                    height: 18px;
+                    width: 18px;
+                    border: 1px solid black;
+                    border-radius: 50%;
+                    position: absolute;
+                    top: 26px;
+                    left: 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: white;
+                }
+
+                    .chat .chatUsers .chatDepartment .unreadMessagesFilterParent .unreadMessagesFilter span {
+                        font-size: 14px;
+                        color: black;
+                    }
+
             .chat .chatUsers .chatDepartment.IZWhZbrsteKalXF {
                 background-color: rgb(34, 40, 49);
                 transition: background-color 0.1s ease-in-out;
@@ -6513,7 +6536,7 @@ span#OcoYTyiBrpZJStB {
                 background-color: rgba(255, 255, 255, 0.1);
             }
 
-                .chat .chatUsers .chatUser:hover span, .chat .chatUsers .chatUser:hover ion-icon {
+                .chat .chatUsers .chatUser:hover ion-icon {
                     color: white;
                 }
 

@@ -47,5 +47,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 app.MapHub<ChatHub>("/chatHub"); //22.07.2024
+app.UseStaticFiles(); //04.08.2024
 
 app.Run();
