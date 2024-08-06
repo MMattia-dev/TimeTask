@@ -10,6 +10,7 @@ function kTsAoyADkoTcMgH(t) {
 
 function scQisAIXdDGVbXF(t) {
     $(t).parent().remove();
+    $('.chatDepartment').removeClass('disabled');
 };
 
 $(document).on('click', function (event)
@@ -17,6 +18,7 @@ $(document).on('click', function (event)
     if (!$(event.target).closest('.chatFilter').length)
     {
         $('.chatFilter').remove();
+        $('.chatDepartment').removeClass('disabled');
     }
 });
 
@@ -192,7 +194,8 @@ function tqMrMyJEPoAgJSW()
             $('.ATKLsxSduWPahPh').append(response);
             $('#chat').remove();
 
-            GetCurrentlyLoggedUserId().then(response => { notifyReceiver(response) });
+            //GetCurrentlyLoggedUserId().then(response => { notifyReceiver(response) });
+            notifyReceiver();
         },
         error: function (xhr, status, error)
         {
@@ -211,7 +214,10 @@ function YElWMlpiHOvShrB(t)
         },
         success: function (response)
         {
-            $('#chat').append(response);
+            //$('#chat').append(response);
+            //$(t).addClass('disabled');
+
+            console.log(response);
         },
         error: function (xhr, status, error)
         {
@@ -226,7 +232,7 @@ function zpUZfWoTJUsolOJ(t)
 
     //dodaj użytkowników po lewej stronie
     WkFMnZKWUdhpbzo(sessionStorage.getItem('JOZPzFDGsWEEzIY'));
-    
+    $('.chatDepartment').removeClass('disabled');
 };
 
 function ltmkkPVQpNisKCP(t, r) 
@@ -531,11 +537,13 @@ async function sendMessage_(sender, receiver, message)
                 if (response_ == response.receiverId) {
                     if (sessionStorage.getItem('XaWDHywDpyvadHP') != null)
                     {
-
+                        notifyReceiverChatIsOpen();
+                        playReceivedMessageSound();
                     }
                     else 
                     {
-                        notifyReceiver(response.receiverId);
+                        //notifyReceiver(response.receiverId);
+                        notifyReceiver();
                         playReceivedMessageSound();
                     }
                 }
@@ -557,24 +565,27 @@ function playReceivedMessageSound()
     console.log('odebrano wiadomość');
 };
 
-function notifyReceiver(receiverId) 
+function notifyReceiver() 
 {
-    $.ajax({
-        type: 'GET',
-        url: '/Chats/NotifyReceiver',
-        data: {
-            receiverId: receiverId
-        },
-        success: function (response)
-        {
-            if (response != false) {
-                $('.chatMinimized').html(response.contentResult.content);
+    GetCurrentlyLoggedUserId().then(response_ => {
+        $.ajax({
+            type: 'GET',
+            url: '/Chats/NotifyReceiver',
+            data: {
+                receiverId: response_
+            },
+            success: function (response)
+            {
+                if (response != false)
+                {
+                    $('.chatMinimized').html(response.contentResult.content);
+                }
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
             }
-        },
-        error: function (xhr, status, error)
-        {
-            console.log('Error:', error);
-        }
+        });
     });
 };
 
@@ -586,22 +597,46 @@ function notifyReceiverChatIsOpen()
             url: '/Chats/NotifyReceiverWhenChatIsOpen',
             data: {
                 receiverId: response_,
-                savedDepartment: sessionStorage.getItem('JOZPzFDGsWEEzIY') //departmentId dla selecta w filtrze
+                savedDepartment: sessionStorage.getItem('JOZPzFDGsWEEzIY')
             },
             success: function (response)
             {
-                if (response.count > 0 && response.receiverId == response_)
+                if (response != false) 
                 {
-                    $('.unreadMessagesFilterParent').html(response.filterUnreadMessagesCounter.content);
+                    if (response.count > 0 && response.receiverId == response_)
+                    {
+                        $('.unreadMessagesFilterParent').html(response.filterUnreadMessagesCounter.content);
+                    }
+                    if (response.count == 0 && response.receiverId == response_)
+                    {
+                        $('.unreadMessagesFilterParent').html("");
+                    }
+
+                    if (document.querySelector('.chatUser'))
+                    {
+                        let elements = document.querySelectorAll('.chatUser');
+                        for (let i = 0; i < elements.length; i++)
+                        {
+                            let onclick = $(elements[i]).attr('onclick');
+                            id = onclick.substring(
+                                onclick.indexOf(", ") + 1,
+                                onclick.lastIndexOf(")")
+                            );
+                            id = id.replace(/\s/g, '');
+                            id = id.slice(1, -1);
+
+                            let chatUserId = id;
+
+                            for (let j = 0; j < response.array.length; j++) 
+                            {
+                                if (response.array[j].item1 == chatUserId) 
+                                {
+                                    $(elements[i]).children('.chatUserUnreadMessageCountParent').html(response.array[j].item2);
+                                }
+                            }
+                        }
+                    }
                 }
-                if (response.count == 0 && response.receiverId == response_)
-                {
-                    $('.unreadMessagesFilterParent').html("");
-                }
-                
-                //console.log(response);
-                
-                
             },
             error: function (xhr, status, error)
             {
@@ -720,8 +755,6 @@ function connect()
             //for (let i = 0; i < 2; i++) {
             //    sendMessage_(sender, receiver, message);
             //}
-
-            //var messageId = sendMessage_(sender, receiver, message);
 
             sendMessage_(sender, receiver, message);
 

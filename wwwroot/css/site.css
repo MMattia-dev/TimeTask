@@ -6402,6 +6402,11 @@ span#OcoYTyiBrpZJStB {
             align-items: center;
         }
 
+            .chat .chatUsers .chatDepartment.disabled {
+                pointer-events: none;
+                opacity: 0.7;
+            }
+
             .chat .chatUsers .chatDepartment .unreadMessagesFilterParent {
                 
             }
@@ -6469,7 +6474,7 @@ span#OcoYTyiBrpZJStB {
             }
 
                 .chat .chatUsers .chatUser .chatUserUnreadMessageCount span {
-                    font-size: 15px;
+                    font-size: 14px;
                     color: black;
                 }
 

@@ -201,45 +201,50 @@ namespace TimeTask.Controllers
 			return userID;
 		}
 
+		
+
 		[HttpGet]
         public ActionResult FilterDiv(int? savedDepartment)
         {
-            //var departmentid = GetDepartmentId(savedDepartment);
+			var loggedUser = GetUserId();
+			var receiverId = loggedUser;
 
 			var departmentsOptions = "";
+
+			int? department = null;
 			if (savedDepartment != null)
-            {
-                //departmentsOptions += "<option value\"0\">Wszyscy</option>";
-
-				foreach (var department in _context.Department.OrderBy(x => x.Name))
-				{
-					if (savedDepartment == department.Id)
-					{
-						departmentsOptions += "<option selected value=\"" + department.Id + "\">" + department.Name + "</option>";
-					}
-					else
-					{
-						departmentsOptions += "<option value=\"" + department.Id + "\">" + department.Name + "</option>";
-					}
-				}
+			{
+				department = savedDepartment;
 			}
-            else
-            {
-				var userWorkerId = _context.UserIdentity.FirstOrDefault(x => x.UserId == GetUserId())?.WorkerId;
+			else
+			{
+				var userWorkerId = _context.UserIdentity.FirstOrDefault(x => x.UserId == loggedUser)?.WorkerId;
 				var userDepartmentId = _context.Workers2.FirstOrDefault(x => x.Id == userWorkerId)?.DepartmentID;
+				department = userDepartmentId;
+			}
 
-				//departmentsOptions += "<option value\"0\">Wszyscy</option>";
-
-				foreach (var department in _context.Department.OrderBy(x => x.Name))
+			foreach (var dep in _context.Department.OrderBy(x => x.Name))
+			{
+				//
+				var workers = _context.Workers2.Where(x => x.DepartmentID == dep.Id);
+				var users = _context.UserIdentity.Where(user => workers.Any(worker => worker.Id == user.WorkerId));
+				var chat = _context.Chat.Where(message => users.Any(user => message.SenderUserId == user.UserId && message.IfMessageRead == false) && message.ReceiverUserId == receiverId);
+				//find which department do users belong to in "chat"
+				foreach (var user in chat)
 				{
-					if (userDepartmentId == department.Id)
-					{
-						departmentsOptions += "<option selected value=\"" + department.Id + "\">" + department.Name + "</option>";
-					}
-					else
-					{
-						departmentsOptions += "<option value=\"" + department.Id + "\">" + department.Name + "</option>";
-					}
+					var userWorkerId = _context.UserIdentity.FirstOrDefault(x => x.UserId == user.SenderUserId)?.WorkerId;
+					var userDepartmentId = _context.Workers2.FirstOrDefault(x => x.Id == userWorkerId)?.DepartmentID;
+
+				}
+				//
+
+				if (department == dep.Id)
+				{
+					departmentsOptions += "<option selected value=\"" + dep.Id + "\">" + dep.Name + "</option>";
+				}
+				else
+				{
+					departmentsOptions += "<option value=\"" + dep.Id + "\">" + dep.Name + "</option>";
 				}
 			}
 
@@ -267,7 +272,6 @@ namespace TimeTask.Controllers
                 "</div>";
 
             return Content(div);
-            //return Json(savedDepartment);
         }
 
         [HttpGet]
@@ -1045,60 +1049,39 @@ namespace TimeTask.Controllers
 			if (loggedUser == receiverId)
 			{
 				var userWorkerId = _context.UserIdentity.FirstOrDefault(x => x.UserId == receiverId)?.WorkerId;
-
-				//get receiver departmentID
 				var userDepartmentId = _context.Workers2.FirstOrDefault(x => x.Id == userWorkerId)?.DepartmentID;
+				
 				int? department = null;
 				if (savedDepartment != null)
 				{
-					//user picked another department
-
-					int filterUnreadMessagesCounter = 0; //counter text of unread messages right next to Department Filter button with the exception of department already selected.
-
-					//each Sender needs their own counter, which will be displayed right next to their avatar.
-					//find all Senders with the exception of selected department, and find only those messages that are unread.
-					var workersForFilterButton = _context.Workers2.Where(x => x.DepartmentID != savedDepartment);
-					var users = _context.UserIdentity.Where(user => workersForFilterButton.Any(worker => worker.Id == user.WorkerId));
-					var chat = _context.Chat.Where(message => users.Any(user => message.SenderUserId == user.UserId && message.IfMessageRead == false) && message.ReceiverUserId == receiverId);
-					filterUnreadMessagesCounter = chat.Count();
-					string filterUnreadMessagesCounterDiv = "<div class=\"unreadMessagesFilter\"><span>" + filterUnreadMessagesCounter + "</span></div>";
-
-					//find all Senders within chosen department, whose messages have not been read yet.
-					var workersForChosenDepartment = _context.Workers2.Where(x => x.DepartmentID == savedDepartment);
-
-
-
-					return Json(new { filterUnreadMessagesCounter = Content(filterUnreadMessagesCounterDiv), count = filterUnreadMessagesCounter, receiverId });
+					department = savedDepartment;
 				}
 				else
 				{
-					//user picked or stayed where their own department is
-
-					int filterUnreadMessagesCounter = 0; //counter text of unread messages right next to Department Filter button with the exception of department already selected, which in this case, is Receiver's own department.
-
-					//each Sender needs their own counter, which will be displayed right next to their avatar.
-					//find all Senders with the exception of selected department, and find only those messages that are unread.
-
-					//find all Senders within chosen department, whose messages have not been read yet.
-					var workersForFilterButton = _context.Workers2.Where(x => x.DepartmentID != userDepartmentId);
-					var users = _context.UserIdentity.Where(user => workersForFilterButton.Any(worker => worker.Id == user.WorkerId));
-					var chat = _context.Chat.Where(message => users.Any(user => message.SenderUserId == user.UserId && message.IfMessageRead == false) && message.ReceiverUserId == receiverId);
-					filterUnreadMessagesCounter = chat.Count();
-					string filterUnreadMessagesCounterDiv = "<div class=\"unreadMessagesFilter\"><span>" + filterUnreadMessagesCounter + "</span></div>";
-
-					//find all Senders within chosen department, whose messages have not been read yet.
-					var workersForChosenDepartment = _context.Workers2.Where(x => x.DepartmentID == userDepartmentId);
-
-
-					//"<div class=\"chatUserUnreadMessageCountParent\">" +
-					//				//"<div class=\"chatUserUnreadMessageCount\">" +
-					//				//	"<span>1</span>" +
-					//				//"</div>" +
-					//				"</div>" +
-
-					//return Json(workersForChosenDepartment);
-					return Json(new { filterUnreadMessagesCounter = Content(filterUnreadMessagesCounterDiv), count = filterUnreadMessagesCounter, receiverId });
+					department = userDepartmentId;
 				}
+
+				var workersForFilterButton = _context.Workers2.Where(x => x.DepartmentID != department);
+				var users = _context.UserIdentity.Where(user => workersForFilterButton.Any(worker => worker.Id == user.WorkerId));
+				var chat = _context.Chat.Where(message => users.Any(user => message.SenderUserId == user.UserId && message.IfMessageRead == false) && message.ReceiverUserId == receiverId);
+				int filterUnreadMessagesCounter = chat.Count();
+				string filterUnreadMessagesCounterDiv = "<div class=\"unreadMessagesFilter\"><span>" + filterUnreadMessagesCounter + "</span></div>";
+
+				var workersForChosenDepartment = _context.Workers2.Where(x => x.DepartmentID == department);
+				var users_ = _context.UserIdentity.Where(user => workersForChosenDepartment.Any(worker => worker.Id == user.WorkerId));
+				var chat_ = _context.Chat.Where(message => users_.Any(user => message.SenderUserId == user.UserId && message.IfMessageRead == false) && message.ReceiverUserId == receiverId);
+
+				var senderCounts = chat_
+					.GroupBy(x => x.SenderUserId)
+					.Select(y => new { SenderId = y.Key, Count = y.Count() }).ToArray();
+
+				List<Tuple<string, string>> array = new List<Tuple<string, string>>();
+				foreach (var row in senderCounts)
+				{
+					array.Add(new Tuple<string, string>(row.SenderId, "<div class=\"chatUserUnreadMessageCount\"><span>" + row.Count + "</span></div>"));
+				}
+
+				return Json(new { filterUnreadMessagesCounter = Content(filterUnreadMessagesCounterDiv), count = filterUnreadMessagesCounter, receiverId, array });
 			}
 
 			return Json(false);
