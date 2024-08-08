@@ -72,6 +72,18 @@ function createLoader()
     return loader;
 };
 
+function createLoader2() 
+{
+    var loader = document.createElement('div');
+    loader.className = 'loader_div chat';
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+    loader.appendChild(lds);
+
+    return loader;
+}
+
 function createSmallLoader2() 
 {
     var lds = document.createElement('div');
@@ -89,6 +101,17 @@ function createSmallLoader3()
 
     return lds;
 };
+
+function createSmallLoader_center() 
+{
+    var lds = document.createElement('div');
+    lds.className = 'lds-ring-small';
+    lds.style.cssText = 'position: absolute; top: calc(50% - 13px); left: calc(50% - 13px); z-index: 50;';
+    lds.innerHTML += `<div></div><div></div><div></div><div></div>`;
+
+    return lds;
+};
+
 
 //wallpaper
 var defaultWallpaper_ = localStorage.getItem('wallpaper');

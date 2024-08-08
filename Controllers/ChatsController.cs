@@ -1,16 +1,20 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.Intrinsics.Arm;
 using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using NuGet.Protocol.Plugins;
 using TimeTask.Data;
 using TimeTask.Models;
@@ -23,13 +27,13 @@ namespace TimeTask.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public ChatsController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+		public ChatsController(ApplicationDbContext context)
+		{
+			_context = context;
+		}
 
-        // GET: Chats
-        public async Task<IActionResult> Index()
+		// GET: Chats
+		public async Task<IActionResult> Index()
         {
               return _context.Chat != null ? 
                           View(await _context.Chat.ToListAsync()) :
@@ -201,16 +205,43 @@ namespace TimeTask.Controllers
 			return userID;
 		}
 
-		
+		public async Task<string> WriteOptionsForSelectFilterDiv(IOrderedQueryable<Department> departments, string receiverId)
+		{
+			//var departmentsOptions = "";
+
+			var options = new ConcurrentBag<string>();
+
+			await System.Threading.Tasks.Task.Run(() =>
+			{
+				var workers = _context.Workers2;
+				var users = _context.UserIdentity.Where(user => workers.Any(worker => worker.Id == user.WorkerId));
+				var chat = _context.Chat.Where(message => users.Any(user => message.SenderUserId == user.UserId && message.IfMessageRead == false) && message.ReceiverUserId == receiverId);
+
+				foreach (var dep in departments)
+				{
+					List<int?> departments = new List<int?>();
+					foreach (var user in chat)
+					{
+						var userWorkerId = _context.UserIdentity.FirstOrDefault(x => x.UserId == user.SenderUserId)?.WorkerId;
+						var userDepartmentId = _context.Workers2.FirstOrDefault(x => x.Id == userWorkerId)?.DepartmentID;
+
+						departments.Add(userDepartmentId);
+					}
+					var departmentsCount = departments.GroupBy(x => x).Select(y => new { DepartmentId = y.Key, Count = y.Count() }).ToArray();
+
+
+
+				}
+
+
+			});
+
+			return string.Join("", options);
+		}
 
 		[HttpGet]
-        public ActionResult FilterDiv(int? savedDepartment)
-        {
-			var loggedUser = GetUserId();
-			var receiverId = loggedUser;
-
-			var departmentsOptions = "";
-
+		public async Task<string> AddOptionsForFilterDiv(int? savedDepartment, string receiverId)
+		{
 			int? department = null;
 			if (savedDepartment != null)
 			{
@@ -218,37 +249,66 @@ namespace TimeTask.Controllers
 			}
 			else
 			{
-				var userWorkerId = _context.UserIdentity.FirstOrDefault(x => x.UserId == loggedUser)?.WorkerId;
+				var userWorkerId = _context.UserIdentity.FirstOrDefault(x => x.UserId == receiverId)?.WorkerId;
 				var userDepartmentId = _context.Workers2.FirstOrDefault(x => x.Id == userWorkerId)?.DepartmentID;
 				department = userDepartmentId;
 			}
 
-			foreach (var dep in _context.Department.OrderBy(x => x.Name))
+			var departmentsOptions = "";
+			var departments1 = _context.Department.OrderBy(x => x.Name);
+
+			var workers = _context.Workers2;
+			var users = _context.UserIdentity.Where(user => workers.Any(worker => worker.Id == user.WorkerId));
+			var chat = _context.Chat.Where(message => users.Any(user => message.SenderUserId == user.UserId && message.IfMessageRead == false) && message.ReceiverUserId == receiverId);
+
+			foreach (var dep in departments1)
 			{
-				//
-				var workers = _context.Workers2.Where(x => x.DepartmentID == dep.Id);
-				var users = _context.UserIdentity.Where(user => workers.Any(worker => worker.Id == user.WorkerId));
-				var chat = _context.Chat.Where(message => users.Any(user => message.SenderUserId == user.UserId && message.IfMessageRead == false) && message.ReceiverUserId == receiverId);
-				//find which department do users belong to in "chat"
+				List<int?> departments = new List<int?>();
 				foreach (var user in chat)
 				{
 					var userWorkerId = _context.UserIdentity.FirstOrDefault(x => x.UserId == user.SenderUserId)?.WorkerId;
 					var userDepartmentId = _context.Workers2.FirstOrDefault(x => x.Id == userWorkerId)?.DepartmentID;
 
+					departments.Add(userDepartmentId);
 				}
-				//
+				var departmentsCount = departments.GroupBy(x => x).Select(y => new { DepartmentId = y.Key, Count = y.Count() }).ToArray();
 
 				if (department == dep.Id)
 				{
-					departmentsOptions += "<option selected value=\"" + dep.Id + "\">" + dep.Name + "</option>";
+					var count = departmentsCount.FirstOrDefault(x => x.DepartmentId == dep.Id)?.Count;
+					if (count > 0)
+					{
+						departmentsOptions += "<option selected value=\"" + dep.Id + "\">" + dep.Name + " (" + count + ")</option>";
+					}
+					else
+					{
+						departmentsOptions += "<option selected value=\"" + dep.Id + "\">" + dep.Name + "</option>";
+					}
 				}
 				else
 				{
-					departmentsOptions += "<option value=\"" + dep.Id + "\">" + dep.Name + "</option>";
+					var count = departmentsCount.FirstOrDefault(x => x.DepartmentId == dep.Id)?.Count;
+					if (count > 0)
+					{
+						departmentsOptions += "<option value=\"" + dep.Id + "\">" + dep.Name + " (" + count + ")</option>";
+					}
+					else
+					{
+						departmentsOptions += "<option value=\"" + dep.Id + "\">" + dep.Name + "</option>";
+					}
 				}
 			}
 
-            string div = "<div class=\"chatFilter\">" +
+			return departmentsOptions;
+		}
+
+		[HttpGet]
+		public async Task<ActionResult> FilterDiv() //int? savedDepartment
+		{
+			var loggedUser = GetUserId();
+			var receiverId = loggedUser;
+
+			string div = "<div class=\"chatFilter\">" +
                     "<a class=\"chatMinimize filterClose\" title=\"Zamknij\" onclick=\"scQisAIXdDGVbXF(this)\">" +
                         "<ion-icon name=\"close-outline\"></ion-icon>" +
                     "</a>" +
@@ -256,22 +316,12 @@ namespace TimeTask.Controllers
 						"<div class=\"chatFilterDepartment\">" +
 							"<label>Pokaż osoby z działu:</label>" +
 							"<select class=\"form-control xNiaHJPRvUxJGBW\" onchange=\"zpUZfWoTJUsolOJ(this)\">" +
-								departmentsOptions +
-                            "</select>" +
+							"</select>" +
                         "</div>" +
-                        //"<div style=\"height: 1px; width: 100%; background-color: rgba(255, 255, 255, 0.1);\"></div>" +
-                        //"<div class=\"chatFilterDepartment\">" +
-                        //    "<label>Pokaż rozmowy w obrębie czasu:</label>" +
-                        //    "<div class=\"chatFilterDates\">" +
-                        //        "<input type=\"date\" class=\"form-control xNiaHJPRvUxJGBW PZrqDDIccpmCYkx\" onchange=\"qXzbjsbQuevQnyh()\" id=\"qXzbjsbQuevQnyh_\" />" +
-                        //        "<span>-</span>" +
-                        //        "<input type=\"date\" class=\"form-control xNiaHJPRvUxJGBW PZrqDDIccpmCYkx\" onchange=\"hAAYoQIiJMwDFCV()\" id=\"hAAYoQIiJMwDFCV_\" />" +
-                        //    "</div>" +
-                        //"</div>" +
                     "</div>" +
                 "</div>";
 
-            return Content(div);
+			return Json(new { contentResult = Content(div), receiverId });
         }
 
         [HttpGet]
@@ -1065,7 +1115,16 @@ namespace TimeTask.Controllers
 				var users = _context.UserIdentity.Where(user => workersForFilterButton.Any(worker => worker.Id == user.WorkerId));
 				var chat = _context.Chat.Where(message => users.Any(user => message.SenderUserId == user.UserId && message.IfMessageRead == false) && message.ReceiverUserId == receiverId);
 				int filterUnreadMessagesCounter = chat.Count();
-				string filterUnreadMessagesCounterDiv = "<div class=\"unreadMessagesFilter\"><span>" + filterUnreadMessagesCounter + "</span></div>";
+
+				string filterUnreadMessagesCounterDiv = "";
+				if (filterUnreadMessagesCounter > 9)
+				{
+					filterUnreadMessagesCounterDiv = "<div class=\"unreadMessagesFilter\"><span>" + "9+" + "</span></div>";
+				}
+				else
+				{
+					filterUnreadMessagesCounterDiv = "<div class=\"unreadMessagesFilter\"><span>" + filterUnreadMessagesCounter + "</span></div>";
+				}
 
 				var workersForChosenDepartment = _context.Workers2.Where(x => x.DepartmentID == department);
 				var users_ = _context.UserIdentity.Where(user => workersForChosenDepartment.Any(worker => worker.Id == user.WorkerId));
@@ -1078,7 +1137,14 @@ namespace TimeTask.Controllers
 				List<Tuple<string, string>> array = new List<Tuple<string, string>>();
 				foreach (var row in senderCounts)
 				{
-					array.Add(new Tuple<string, string>(row.SenderId, "<div class=\"chatUserUnreadMessageCount\"><span>" + row.Count + "</span></div>"));
+					if (row.Count > 9)
+					{
+						array.Add(new Tuple<string, string>(row.SenderId, "<div class=\"chatUserUnreadMessageCount\"><span>" + "9+" + "</span></div>"));
+					}
+					else
+					{
+						array.Add(new Tuple<string, string>(row.SenderId, "<div class=\"chatUserUnreadMessageCount\"><span>" + row.Count + "</span></div>"));
+					}
 				}
 
 				return Json(new { filterUnreadMessagesCounter = Content(filterUnreadMessagesCounterDiv), count = filterUnreadMessagesCounter, receiverId, array });
@@ -1108,10 +1174,21 @@ namespace TimeTask.Controllers
 
 					if (messages.Count > 0)
 					{
-						string chatMinimizedUnreadMessagesCount = "<ion-icon name=\"chatbubbles\"></ion-icon>" +
+						string chatMinimizedUnreadMessagesCount = "";
+						if (messages.Count > 9)
+						{
+							chatMinimizedUnreadMessagesCount = "<ion-icon name=\"chatbubbles\"></ion-icon>" +
+							"<div class=\"chatMinimizedNewMessages\" title=\"Nieprzeczytane wiadomości\">" +
+								"<span>" + "9+" + "</span>" +
+							"</div>";
+						}
+						else
+						{
+							chatMinimizedUnreadMessagesCount = "<ion-icon name=\"chatbubbles\"></ion-icon>" +
 							"<div class=\"chatMinimizedNewMessages\" title=\"Nieprzeczytane wiadomości\">" +
 								"<span>" + messages.Count + "</span>" +
 							"</div>";
+						}
 
 						return Json(new { messages, contentResult = Content(chatMinimizedUnreadMessagesCount) });
 					}
@@ -1129,7 +1206,30 @@ namespace TimeTask.Controllers
 			return loggedUser;
 		}
 
+		[HttpPost]
+		public async Task<ActionResult> UpdateIfMessageRead(List<int> arrayOfMessageIds)
+		{
+			//foreach (var messageId in arrayOfMessageIds)
+			//{
+			//	var row = _context.Chat.FirstOrDefault(e => e.Id == messageId);
+			//	if (row != null)
+			//	{
+			//		if(row.IfMessageRead == false)
+			//		{
+			//			//row.IfMessageRead = true;
+			//			//await _context.SaveChangesAsync();
 
+			//			return Json(true);
+			//		}
+			//	}
+
+			//	return Json(false);
+			//}
+
+
+
+			return Json(false);
+		}
 
 
 	}

@@ -11,6 +11,7 @@ function kTsAoyADkoTcMgH(t) {
 function scQisAIXdDGVbXF(t) {
     $(t).parent().remove();
     $('.chatDepartment').removeClass('disabled');
+    $('.chatMessagesBubbles').removeClass('disabled');
 };
 
 $(document).on('click', function (event)
@@ -19,6 +20,7 @@ $(document).on('click', function (event)
     {
         $('.chatFilter').remove();
         $('.chatDepartment').removeClass('disabled');
+        $('.chatMessagesBubbles').removeClass('disabled');
     }
 });
 
@@ -204,20 +206,43 @@ function tqMrMyJEPoAgJSW()
     });
 };
 
-function YElWMlpiHOvShrB(t)
+async function addOptionsForFilterDiv(savedDepartment, receiverId) 
 {
-    $.ajax({
+    await $.ajax({
         type: 'GET',
-        url: '/Chats/FilterDiv',
+        url: '/Chats/AddOptionsForFilterDiv',
         data: {
-            savedDepartment: sessionStorage.getItem('JOZPzFDGsWEEzIY')
+            savedDepartment: sessionStorage.getItem('JOZPzFDGsWEEzIY'),
+            receiverId: receiverId
         },
         success: function (response)
         {
-            //$('#chat').append(response);
-            //$(t).addClass('disabled');
+            $('.chatFilterDepartment').children('select').html(response);
+            $('.chatFilterDepartment').children('select').removeAttr('disabled');
+            $('.lds-ring-small').remove();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
 
-            console.log(response);
+async function YElWMlpiHOvShrB(t)
+{
+    await $.ajax({
+        type: 'GET',
+        url: '/Chats/FilterDiv',
+        success: function (response)
+        {
+            $('#chat').append(response.contentResult.content);
+            $(t).addClass('disabled');
+
+            $('.chatFilter').append(createSmallLoader_center());
+            $('.chatFilterDepartment').children('select').attr('disabled', '');
+            $('.chatMessagesBubbles').addClass('disabled');
+
+            addOptionsForFilterDiv(sessionStorage.getItem('JOZPzFDGsWEEzIY'), response.receiverId);
         },
         error: function (xhr, status, error)
         {
@@ -233,6 +258,7 @@ function zpUZfWoTJUsolOJ(t)
     //dodaj użytkowników po lewej stronie
     WkFMnZKWUdhpbzo(sessionStorage.getItem('JOZPzFDGsWEEzIY'));
     $('.chatDepartment').removeClass('disabled');
+    $('.chatMessagesBubbles').removeClass('disabled');
 };
 
 function ltmkkPVQpNisKCP(t, r) 
@@ -276,6 +302,8 @@ function ltmkkPVQpNisKCP(t, r)
                 sessionStorage.setItem('userSelected', r);
 
                 //connect();
+
+                chatMessagesBubblesScroll();
             }
         },
         error: function (xhr, status, error)
@@ -683,6 +711,81 @@ async function Rem(a) {
         });
     }
 };
+
+let stareTimeout;
+
+function getVisibleBubbles()
+{
+    const chatContainer = document.querySelector('.chatMessagesBubbles');
+    if (!chatContainer) return [];
+
+    const containerRect = chatContainer.getBoundingClientRect();
+    const bubbles = chatContainer.querySelectorAll('.bubble.receiver');
+    const visibleBubbles = [];
+
+    for (let bubble of bubbles)
+    {
+        const bubbleRect = bubble.getBoundingClientRect();
+
+        // Check if the bubble is within the visible area of the container
+        if (bubbleRect.top >= containerRect.top - bubbleRect.height + 50 &&
+            bubbleRect.bottom <= containerRect.bottom + bubbleRect.height - 50)
+        {
+            visibleBubbles.push(bubble.id.split('_')[1]);
+        }
+    }
+
+    return visibleBubbles;
+};
+
+function handleScroll()
+{
+    clearTimeout(stareTimeout);
+
+    stareTimeout = setTimeout(() =>
+    {
+        const staredBubbles = getVisibleBubbles();
+        if (staredBubbles.length > 0)
+        {
+            updateIfMessageRead(staredBubbles);
+        }
+    }, 2000);
+};
+handleScroll();
+
+function chatMessagesBubblesScroll()
+{
+    let chatContainer = document.querySelector('.chatMessagesBubbles');
+    if ($(chatContainer).find('.bubble.receiver').length > 0) 
+    {
+        chatContainer.addEventListener('scroll', handleScroll);
+    }
+};
+
+async function updateIfMessageRead(messagesIdsArray) 
+{
+    //console.log(messagesIdsArray);
+
+    await $.ajax({
+        type: 'POST',
+        url: '/Chats/UpdateIfMessageRead',
+        data: {
+            arrayOfMessageIds: messagesIdsArray
+        },
+        success: function (response)
+        {
+            console.log(response);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+
+
+
 
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();

@@ -16,9 +16,10 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 //builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddSignalR(); //22.07.2024
-
-
-//
+//builder.Services.AddAuthentication(); //06.08.2024
+//builder.Services.AddAuthorization();  //06.08.2024
+//builder.Services.AddTransient<ApplicationDbContext>();
+builder.Services.AddLogging(); //07.08.2024
 
 
 var app = builder.Build();

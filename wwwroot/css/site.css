@@ -86,6 +86,12 @@ html {
             transform: translateY(-25px);
         }
 
+    .loader_div.chat {
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: unset; 
+    }
+
 .lds-ring {
     display: inline-block;
     position: relative;
@@ -6287,7 +6293,8 @@ span#OcoYTyiBrpZJStB {
 
 .chatFilter {
     position: absolute;
-    top: 3px;
+    /*top: 3px;*/
+    top: 41px;
     right: 3px;
     width: calc(100% - 76px);
     border-radius: 9px;
@@ -6334,18 +6341,7 @@ span#OcoYTyiBrpZJStB {
             display: inherit;
             flex-direction: column;
             width: 100%;
-        }
-
-            .chatFilter .chatFilterParent .chatFilterDepartment .chatFilterDates {
-                display: inherit;
-                flex-direction: row;
-                align-items: center;
-                gap: 4px;
-            }
-
-                .chatFilter .chatFilterParent .chatFilterDepartment .chatFilterDates span {
-                    color: rgba(255, 255, 255, 0.8);
-                }       
+        }  
 
 .chat {
     position: absolute;
@@ -6428,6 +6424,7 @@ span#OcoYTyiBrpZJStB {
                     .chat .chatUsers .chatDepartment .unreadMessagesFilterParent .unreadMessagesFilter span {
                         font-size: 14px;
                         color: black;
+                        font-weight: bold;
                     }
 
             .chat .chatUsers .chatDepartment.IZWhZbrsteKalXF {
@@ -6557,6 +6554,7 @@ span#OcoYTyiBrpZJStB {
     -moz-box-shadow: -15px 0px 24px -20px rgba(0, 0, 0, 1);
     box-shadow: -15px 0px 24px -20px rgba(0, 0, 0, 1);
     border-left: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
 }
 
     .chatParent .chatAttach {
@@ -6686,6 +6684,19 @@ span#OcoYTyiBrpZJStB {
             -ms-overflow-style: none; /* IE and Edge */
             scrollbar-width: none; /* Firefox */
         }
+
+            /*.chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesDisabled {
+                pointer-events: none;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-color: ;
+            }*/
+
+            .chatParent .chatMessages .chatMessagesBubbles.disabled {
+                pointer-events: none;
+                opacity: 0.6;
+            }
 
             .chatParent .chatMessages .chatMessagesBubbles .bubbleSettings {
                 width: 32px;
