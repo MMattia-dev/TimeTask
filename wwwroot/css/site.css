@@ -6410,7 +6410,7 @@ span#OcoYTyiBrpZJStB {
                 .chat .chatUsers .chatDepartment .unreadMessagesFilterParent .unreadMessagesFilter {
                     height: 18px;
                     width: 18px;
-                    border: 1px solid black;
+                    /*border: 1px solid black;*/
                     border-radius: 50%;
                     position: absolute;
                     top: 26px;
@@ -6459,7 +6459,7 @@ span#OcoYTyiBrpZJStB {
             .chat .chatUsers .chatUser .chatUserUnreadMessageCount {
                 height: 18px;
                 width: 18px;
-                border: 1px solid black;
+                /*border: 1px solid black;*/
                 border-radius: 50%;
                 position: absolute;
                 top: 3px;
@@ -6473,6 +6473,7 @@ span#OcoYTyiBrpZJStB {
                 .chat .chatUsers .chatUser .chatUserUnreadMessageCount span {
                     font-size: 14px;
                     color: black;
+                    font-weight: bold;
                 }
 
             .chat .chatUsers .chatUser .chatUserStatus {
@@ -6525,6 +6526,7 @@ span#OcoYTyiBrpZJStB {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                border: 1px solid white;
             }
 
                 .chat .chatUsers .chatUser .avatar span {
@@ -6823,6 +6825,19 @@ span#OcoYTyiBrpZJStB {
                     position: relative;
                 }
 
+                    .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble .messageReadStatusIcon {
+                        position: absolute;
+                        top: -14px;
+                        left: -8px;
+                    }
+
+                        .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble .messageReadStatusIcon ion-icon {
+                            width: 14px;
+                            max-width: 14px;
+                            min-width: 14px;
+                            color: white;
+                        }
+
                     .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.deleted {
                         background-color: rgb(85, 85, 85) !important;
                         pointer-events: none;
@@ -6867,6 +6882,10 @@ span#OcoYTyiBrpZJStB {
                             border-left: 0;
                             margin-left: -4px;
                             margin-bottom: -7px;
+                        }
+
+                        .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.receiver.unread {
+                            filter: contrast(75%);
                         }
 
                     .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble span {

@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Logging;
 using NuGet.Protocol.Plugins;
 using TimeTask.Data;
 using TimeTask.Models;
@@ -449,8 +450,8 @@ namespace TimeTask.Controllers
 								"<div class=\"chatHeader\" id=\"chatheader\">" +
 									"<div class=\"chatMinimizeDiv\">" +
 										"<div class=\"chatStatus\">" +
-											"<span class=\"status online\"></span>" +
-											"<span class=\"statusText\">Online</span>" +
+											//"<span class=\"status online\"></span>" +
+											//"<span class=\"statusText\">Online</span>" +
 										//"<span class=\"status afk\"></span>" +
 										//                                 "<span class=\"statusText\">Zaraz wracam</span>" +
 										//"<span class=\"status offline\"></span>" +
@@ -594,8 +595,16 @@ namespace TimeTask.Controllers
 									}
 									decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
 
+
+									string classes = "";
+									if (row.IfMessageRead)
+										classes = "bubble receiver";
+									else
+										classes = "bubble receiver unread";
+									
+
 									bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-										"<div id=\"bubbleId_" + row.Id + "\" class=\"bubble receiver\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
 											"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 										"</div>" +
@@ -626,13 +635,33 @@ namespace TimeTask.Controllers
 									}
 									decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
 
+
+									string classes = "";
+									string messageReadStatusIcon = "";
+									string title = "";
+									if (row.IfMessageRead)
+									{
+										//messageReadStatusIcon = "<div class=\"messageReadStatusIcon\"><ion-icon name=\"eye\"></ion-icon></div>";
+										messageReadStatusIcon = "";
+										classes = "bubble sender";
+										title = "";
+									}
+									else
+									{
+										messageReadStatusIcon = "<div class=\"messageReadStatusIcon\"><ion-icon name=\"eye-off\"></ion-icon></div>";
+										classes = "bubble sender unread";
+										title = "Wiadomość nie została jeszcze przeczytana";
+									}
+
+
 									bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
 										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 										"</div>" +
-										"<div id=\"bubbleId_" + row.Id + "\" class=\"bubble sender\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\" title=\"" + title + "\">" +
 											"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+											messageReadStatusIcon +
 										"</div>" +
 									"</div>";
 								}
@@ -662,8 +691,16 @@ namespace TimeTask.Controllers
 									}
 									decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
 
+
+									string classes = "";
+									if (row.IfMessageRead)
+										classes = "bubble receiver";
+									else
+										classes = "bubble receiver unread";
+
+
 									bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-										"<div id=\"bubbleId_" + row.Id + "\" class=\"bubble receiver\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
 											"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 										"</div>" +
@@ -694,13 +731,33 @@ namespace TimeTask.Controllers
 									}
 									decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
 
+
+									string classes = "";
+									string messageReadStatusIcon = "";
+									string title = "";
+									if (row.IfMessageRead)
+									{
+										//messageReadStatusIcon = "<div class=\"messageReadStatusIcon\"><ion-icon name=\"eye\"></ion-icon></div>";
+										messageReadStatusIcon = "";
+										classes = "bubble sender";
+										title = "";
+									}
+									else
+									{
+										messageReadStatusIcon = "<div class=\"messageReadStatusIcon\"><ion-icon name=\"eye-off\"></ion-icon></div>";
+										classes = "bubble sender unread";
+										title = "Wiadomość nie została jeszcze przeczytana";
+									}
+
+
 									bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
 										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 										"</div>" +
-										"<div id=\"bubbleId_" + row.Id + "\" class=\"bubble sender\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\" title=\"" + title + "\">" +
 											"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
+											messageReadStatusIcon +
 										"</div>" +
 									"</div>";
 								}
@@ -796,8 +853,16 @@ namespace TimeTask.Controllers
 									}
 									decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
 
+
+									string classes = "";
+									if (row.IfMessageRead)
+										classes = "bubble receiver";
+									else
+										classes = "bubble receiver unread";
+
+
 									bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-										"<div id=\"bubbleId_" + row.Id + "\" class=\"bubble receiver\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
 											"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 										"</div>" +
@@ -829,13 +894,33 @@ namespace TimeTask.Controllers
 									}
 									decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
 
+
+									string classes = "";
+									string messageReadStatusIcon = "";
+									string title = "";
+									if (row.IfMessageRead)
+									{
+										//messageReadStatusIcon = "<div class=\"messageReadStatusIcon\"><ion-icon name=\"eye\"></ion-icon></div>";
+										messageReadStatusIcon = "";
+										classes = "bubble sender";
+										title = "";
+									}
+									else
+									{
+										messageReadStatusIcon = "<div class=\"messageReadStatusIcon\"><ion-icon name=\"eye-off\"></ion-icon></div>";
+										classes = "bubble sender unread";
+										title = "Wiadomość nie została jeszcze przeczytana";
+									}
+
+
 									bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
 										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 										"</div>" +
-										"<div id=\"bubbleId_" + row.Id + "\" class=\"bubble sender\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\" title=\"" + title + "\">" +
 											"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+											messageReadStatusIcon +
 										"</div>" +
 									"</div>";
 								}
@@ -848,11 +933,11 @@ namespace TimeTask.Controllers
                     messages += "</div>";
                 }
 
-                return Json(new { messages, arrayNotEmpty = true, textDiv });
+                return Json(new { messages, arrayNotEmpty = true, textDiv, senderUserId });
             }
             else
             {
-                return Json(new { div, arrayNotEmpty = false, textDiv });
+                return Json(new { div, arrayNotEmpty = false, textDiv, senderUserId });
 			}
         }
 
@@ -861,13 +946,17 @@ namespace TimeTask.Controllers
 			byte[] byteMessage = Convert.FromBase64String(message);
 			string decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
 
+			string messageReadStatusIcon = "<div class=\"messageReadStatusIcon\"><ion-icon name=\"eye-off\"></ion-icon></div>";
+			string title = "Wiadomość nie została jeszcze przeczytana";
+
 			string bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
 									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 										"<span>" + hour + "</span>" +
 									"</div>" +
-									"<div id=\"bubbleId_" + id +"\" class=\"bubble sender\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+									"<div id=\"bubbleId_" + id +"\" class=\"bubble sender unread\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\" title=\"" + title + "\">" +
 										"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 										"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+										messageReadStatusIcon +
 									"</div>" +
 								"</div>";
 
@@ -880,7 +969,7 @@ namespace TimeTask.Controllers
 			string decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
 
 			string bubble = "<div class=\"chatMessagesBubblesContainer receiver\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
-									"<div id=\"bubbleId_" + id + "\" class=\"bubble receiver\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+									"<div id=\"bubbleId_" + id + "\" class=\"bubble receiver unread\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
 										"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 										"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 									"</div>" +
@@ -1209,27 +1298,53 @@ namespace TimeTask.Controllers
 		[HttpPost]
 		public async Task<ActionResult> UpdateIfMessageRead(List<int> arrayOfMessageIds)
 		{
-			//foreach (var messageId in arrayOfMessageIds)
-			//{
-			//	var row = _context.Chat.FirstOrDefault(e => e.Id == messageId);
-			//	if (row != null)
-			//	{
-			//		if(row.IfMessageRead == false)
-			//		{
-			//			//row.IfMessageRead = true;
-			//			//await _context.SaveChangesAsync();
+			//List<Chat> notifySenderArray = new List<Chat>();
+			string senderId = "";
+			string receiverId = "";
+			var array = _context.Chat.Where(x => arrayOfMessageIds.Any(y => y == x.Id) && x.IfMessageRead == false);
+			foreach (var item in array)
+			{
+				//notifySenderArray.Add(item);
+				senderId = item.SenderUserId;
+				receiverId = item.ReceiverUserId;
+				item.IfMessageRead = true;
+			}
+			await _context.SaveChangesAsync();
 
-			//			return Json(true);
-			//		}
-			//	}
+			//return Json(new { success = true, array = arrayOfMessageIds, notifySenderArray  });
+			return Json(new { success = true, array = arrayOfMessageIds, senderId, receiverId  });
+		}
 
-			//	return Json(false);
-			//}
-
-
+		[HttpGet]
+		public ActionResult CheckIfMessageWasRead(int id)
+		{
+			var row = _context.Chat.FirstOrDefault(x => x.Id == id);
+			if (row != null)
+			{
+				if (row.IfMessageRead)
+				{
+					return Json(true);
+				}
+			}
 
 			return Json(false);
 		}
+
+		[HttpGet]
+		public ActionResult GetSender(string id)
+		{
+			if (id != null)
+			{
+				int? workerId = _context.UserIdentity.FirstOrDefault(x => x.UserId == id)?.WorkerId;
+				string? name = _context.Workers2.FirstOrDefault(x => x.Id == workerId)?.Name + " " + _context.Workers2.FirstOrDefault(x => x.Id == workerId)?.Surname;
+
+				return Json("<span>" + name + "</span>");
+			}
+
+			return Json(false);
+		}
+
+
 
 
 	}

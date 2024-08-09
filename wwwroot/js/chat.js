@@ -142,6 +142,8 @@ function ZtMJSUFaxcMCRVo()
                 }
 
                 notifyReceiverChatIsOpen();
+
+                
             },
             error: function (xhr, status, error)
             {
@@ -196,7 +198,6 @@ function tqMrMyJEPoAgJSW()
             $('.ATKLsxSduWPahPh').append(response);
             $('#chat').remove();
 
-            //GetCurrentlyLoggedUserId().then(response => { notifyReceiver(response) });
             notifyReceiver();
         },
         error: function (xhr, status, error)
@@ -304,6 +305,36 @@ function ltmkkPVQpNisKCP(t, r)
                 //connect();
 
                 chatMessagesBubblesScroll();
+
+                updateChatStatus(t.getAttribute('onclick'));
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function updateChatStatus(att) {
+    var id = att.substring(
+        att.indexOf(", ") + 1,
+        att.lastIndexOf(")")
+    );
+    id = id.replace(/\s/g, '');
+    id = id.slice(1, -1);
+
+    $.ajax({
+        type: 'GET',
+        url: '/Chats/GetSender',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            if (response != false) 
+            {
+                $('.chatStatus').html(response);
             }
         },
         error: function (xhr, status, error)
@@ -384,6 +415,10 @@ function refreshMessages(s, r)
                 {
                     $('.chatMessagesBubbles').html(response.messages);
                 }
+                setTimeout(function ()
+                {
+                    notifySender();
+                }, 2500);
             }
         },
         error: function (xhr, status, error)
@@ -562,19 +597,25 @@ async function sendMessage_(sender, receiver, message)
             }
 
             GetCurrentlyLoggedUserId().then(response_ => {
-                if (response_ == response.receiverId) {
+                if (response_ == response.receiverId) 
+                {
                     if (sessionStorage.getItem('XaWDHywDpyvadHP') != null)
                     {
                         notifyReceiverChatIsOpen();
                         playReceivedMessageSound();
+
+                        chatMessagesBubblesScroll();
                     }
                     else 
                     {
-                        //notifyReceiver(response.receiverId);
                         notifyReceiver();
                         playReceivedMessageSound();
                     }
                 }
+                //if (response_ == response.senderId) 
+                //{
+                //    chatMessagesBubblesScroll();
+                //}
             });
         },
         error: function (xhr, status, error)
@@ -584,9 +625,9 @@ async function sendMessage_(sender, receiver, message)
     });
 };
 
-function playReceivedMessageSound() 
+function playReceivedMessageSound()
 {
-    var audio = new Audio("../../audio/message-incoming.mp3");
+    var audio = new Audio("../../audio/new-positive-notice.mp3");
     audio.muted = false;
     audio.volume = 1.0;
     audio.play();
@@ -657,7 +698,7 @@ function notifyReceiverChatIsOpen()
 
                             for (let j = 0; j < response.array.length; j++) 
                             {
-                                if (response.array[j].item1 == chatUserId) 
+                                if (response.array[j].item1 == chatUserId)
                                 {
                                     $(elements[i]).children('.chatUserUnreadMessageCountParent').html(response.array[j].item2);
                                 }
@@ -728,8 +769,8 @@ function getVisibleBubbles()
         const bubbleRect = bubble.getBoundingClientRect();
 
         // Check if the bubble is within the visible area of the container
-        if (bubbleRect.top >= containerRect.top - bubbleRect.height + 50 &&
-            bubbleRect.bottom <= containerRect.bottom + bubbleRect.height - 50)
+        if (bubbleRect.top >= containerRect.top - bubbleRect.height + 0 &&
+            bubbleRect.bottom <= containerRect.bottom + bubbleRect.height - 0)
         {
             visibleBubbles.push(bubble.id.split('_')[1]);
         }
@@ -751,21 +792,23 @@ function handleScroll()
         }
     }, 2000);
 };
-handleScroll();
 
 function chatMessagesBubblesScroll()
 {
     let chatContainer = document.querySelector('.chatMessagesBubbles');
-    if ($(chatContainer).find('.bubble.receiver').length > 0) 
+    
+    if ($(chatContainer).find('.bubble.receiver.unread').length > 0) 
     {
-        chatContainer.addEventListener('scroll', handleScroll);
+        chatContainer.addEventListener('scroll', () =>
+        {
+            handleScroll();
+        });
+        handleScroll();
     }
 };
 
 async function updateIfMessageRead(messagesIdsArray) 
 {
-    //console.log(messagesIdsArray);
-
     await $.ajax({
         type: 'POST',
         url: '/Chats/UpdateIfMessageRead',
@@ -774,7 +817,7 @@ async function updateIfMessageRead(messagesIdsArray)
         },
         success: function (response)
         {
-            console.log(response);
+            updateIfMessageReadCounters(messagesIdsArray);
         },
         error: function (xhr, status, error)
         {
@@ -783,6 +826,76 @@ async function updateIfMessageRead(messagesIdsArray)
     });
 };
 
+function updateIfMessageReadCounters(array) 
+{
+    //zaktualizuj bubbles
+    var receivedMessagesDivs = document.querySelectorAll('.bubble.receiver.unread');
+    for (let i = 0; i < receivedMessagesDivs.length; i++) {
+        let id = receivedMessagesDivs[i].id.split('_')[1];
+        for (let j = 0; j < array.length; j++) {
+            if (array[j] == id) {
+                $(receivedMessagesDivs[i]).removeClass('unread');
+            }
+        }
+    }
+
+    //zaktualizuj Countery w .chatUser.userSelected
+    var userSelected = document.querySelector('.chatUser.userSelected');
+    var counterSpan = $(userSelected).children('.chatUserUnreadMessageCountParent').children('.chatUserUnreadMessageCount').children('span');
+    var counter = $(counterSpan).html();
+    var counterInt = parseInt(counter);
+
+    var result = counterInt - array.length;
+    if (!result.isNaN) 
+    {
+        if (result == 0 || result < 0)
+        {
+            $(userSelected).children('.chatUserUnreadMessageCountParent').remove();
+        }
+        else 
+        {
+            $(counterSpan).html(result);
+        }
+    }
+};
+
+const checkMessagesTimeout = setInterval(() =>
+{
+    notifySender();
+}, 1000);
+
+function notifySender()
+{
+    var sentMessagesDivs = document.querySelectorAll('.bubble.sender.unread');
+    if (sentMessagesDivs.length > 0)
+    {
+        for (let i = 0; i < sentMessagesDivs.length; i++)
+        {
+            let id = sentMessagesDivs[i].id.split('_')[1];
+
+            $.ajax({
+                type: 'GET',
+                url: '/Chats/CheckIfMessageWasRead',
+                data: {
+                    id: parseInt(id)
+                },
+                success: function (response)
+                {
+                    if (response != false)
+                    {
+                        $(sentMessagesDivs[i]).removeClass('unread');
+                        //$(sentMessagesDivs[i]).children('.messageReadStatusIcon').html('<ion-icon name="eye"></ion-icon>');
+                        $(sentMessagesDivs[i]).children('.messageReadStatusIcon').html("");
+                    }
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error:', error);
+                }
+            });
+        }
+    }
+};
 
 
 
@@ -806,16 +919,6 @@ function connect_()
     });
 };
 connect_();
-
-//sprawdzaj połączenie co 1 sekunde
-//function checkConnectionState() {
-//    setInterval(function ()
-//    {
-//        //console.log(connection.state);
-//        return connection.state;
-//    }, 1000);
-//};
-//checkConnectionState();
 
 function sendMessageEnter(e)
 {
