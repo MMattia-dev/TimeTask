@@ -20,6 +20,8 @@ using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NuGet.Protocol.Plugins;
 using TimeTask.Data;
 using TimeTask.Data.FTP;
@@ -1025,7 +1027,7 @@ namespace TimeTask.Controllers
 			return bubble;
 		}
 
-		public async Task<Tuple<string, bool, List<int>>> Bubble(string loggedInUser, string sender, string receiver, string message, DateTime date, string? fileLocation, bool ifMessageRead, bool ifDeleted)
+		public async Task<Tuple<string, bool, List<int>>> Bubble(string loggedInUser, string sender, string receiver, string message, DateTime date, string? attachmentName, bool ifMessageRead, bool ifDeleted)
 		{
 			bool handler = false;
 
@@ -1048,7 +1050,7 @@ namespace TimeTask.Controllers
 						ReceiverUserId = receiver,
 						MessageText = Data.Encryption.EncryptionHelper.Encrypt(message),
 						MessageSentDate = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second),
-						SentFileLocation = fileLocation,
+						AttachmentName = attachmentName,
 						IfMessageRead = ifMessageRead,
 						IfDeleted = ifDeleted
 					};
@@ -1071,7 +1073,7 @@ namespace TimeTask.Controllers
 			}
 
 			//
-			var duplicates = CheckForDuplicates(sender, receiver, Data.Encryption.EncryptionHelper.Encrypt(message), new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second), fileLocation);
+			var duplicates = CheckForDuplicates(sender, receiver, Data.Encryption.EncryptionHelper.Encrypt(message), new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second), attachmentName);
 
 			bool areThereAnyDuplicates = false;
 			if (duplicates.Count > 1)
@@ -1144,10 +1146,10 @@ namespace TimeTask.Controllers
 			}
 		}
 
-		public List<int> CheckForDuplicates(string sender, string receiver, string? message, DateTime date, string? sentFileLocation)
+		public List<int> CheckForDuplicates(string sender, string receiver, string? message, DateTime date, string? attachmentName)
 		{
 			var duplicates = _context.Chat
-			.Where(g => g.SenderUserId == sender && g.ReceiverUserId == receiver && g.MessageText == message && g.MessageSentDate == date && g.SentFileLocation == sentFileLocation)
+			.Where(g => g.SenderUserId == sender && g.ReceiverUserId == receiver && g.MessageText == message && g.MessageSentDate == date && g.AttachmentName == attachmentName)
 			.Select(x => x.Id)
 			.ToList();
 
@@ -1397,6 +1399,8 @@ namespace TimeTask.Controllers
 		[HttpGet]
 		public ActionResult AttachForm(string receiver)
 		{
+			string sender = GetUserId();
+
 			string div = "<div class=\"chatAttach\" style=\"display: none;\">" +
 					"<div class=\"chatAttachheader\">" +
 						"<span>Wyślij plik</span>" +
@@ -1409,7 +1413,7 @@ namespace TimeTask.Controllers
 							"<ion-icon name=\"download-outline\"></ion-icon>" +
 							"<span>...kliknij, lub przeciągnij i upuść plik...<br />(Maks. 5 MB)</span>" +
 						"</div>" +
-						"<input type=\"file\" onchange=\"fileAttach(event)\" />" +
+						"<input type=\"file\" onchange=\"fileAttach(event, '" + sender + "', '" + receiver + "')\" />" +
 					"</div>" +
 				"</div>";
 
@@ -1417,8 +1421,8 @@ namespace TimeTask.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult AttachSendButton(IFormFile file)
-		{
+		public ActionResult AttachSendButton() //string sender, string receiver
+        {
 			string button = "<div class=\"chatAttachDrop\" id=\"sendButtonAttach\">" +
 						"<div class=\"sendAttachButton\" title=\"Wyślij\" id=\"sendAttach\">" + //onclick=\"sendAttach()\"
 						"<ion-icon name=\"arrow-up-outline\"></ion-icon>" +
@@ -1428,18 +1432,6 @@ namespace TimeTask.Controllers
 			return Json(new { button });
 		}
 
-		public static void ZipFile(string sourceFilePath, string zipFilePath)
-		{
-			using (FileStream zipToCreate = new FileStream(zipFilePath, FileMode.Create))
-			{
-				using (ZipArchive archive = new ZipArchive(zipToCreate, ZipArchiveMode.Create))
-				{
-					string fileName = Path.GetFileName(sourceFilePath);
-					archive.CreateEntryFromFile(sourceFilePath, fileName);
-				}
-			}
-		}
-
 		[HttpPost]
 		public async Task<IActionResult> UploadFile(IFormFile file)
 		{
@@ -1447,12 +1439,27 @@ namespace TimeTask.Controllers
 			{
 				try
 				{
-					string newFileName = Data.Encryption.EncryptionHelper.Encrypt(file.Name);
+					var date = DateTime.Now;
+					var date_ = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
+
+					string additionalDataJson = Request.Headers["X-Additional-Data"];
+					var additionalData = JsonConvert.DeserializeObject<Dictionary<string, object>>(additionalDataJson);
+
+					string sender = additionalData["senderId"].ToString();
+					string receiver = additionalData["receiverId"].ToString();
+
+					string newFileName = Data.Encryption.EncryptionFiles.Encrypt(file.Name);
 
 					string originalExtension = Path.GetExtension(file.FileName);
 					string fileName = ChangeFileName(file.FileName, newFileName, originalExtension);
 
 					var localFilePath = Path.Combine(Path.GetTempPath(), fileName);
+
+
+
+					
+
+
 
 					// Save the uploaded file temporarily
 					using (var stream = new FileStream(localFilePath, FileMode.Create))
@@ -1460,17 +1467,34 @@ namespace TimeTask.Controllers
 						await file.CopyToAsync(stream);
 					}
 
-					// Define your remote file path
-					var remoteFilePath = "/chat/" + fileName;
+					// See if there is receiver folder
+					var receiverFolderPath = "C:/Users/Kromolski/FTP/chat/" + receiver;
+					if (!Directory.Exists(receiverFolderPath))
+					{
+						Directory.CreateDirectory(receiverFolderPath);
+					}
+
+					// See if there is a date folder within receiver folder
+					var dateFolder = receiverFolderPath + "/" + date.ToString("yyyyMMddHHmmss");
+                    if (!Directory.Exists(dateFolder))
+					{
+						Directory.CreateDirectory(dateFolder);
+					}
+
+					//Define your remote file path
+					//var remoteFilePath = "/chat/" + fileName;
+					var remoteFilePath = "/chat/" + receiver + "/" + date.ToString("yyyyMMddHHmmss") + "/" + fileName;
 
 					// Call your UploadFileAsync method
 					await _ftpService.UploadFileAsync(localFilePath, remoteFilePath);
 
-					// Clean up the temporary file
-					System.IO.File.Delete(localFilePath);
+                    // Clean up the temporary file
+                    System.IO.File.Delete(localFilePath);
+
+					// After uploading file, save relevant data into database
+					SaveFileNameToDatabase(sender, receiver, fileName, date_);
 
 					return Json(new { success = true, message = "File uploaded successfully" });
-
 				}
 				catch (Exception ex)
 				{
@@ -1480,6 +1504,30 @@ namespace TimeTask.Controllers
 
 			return Json(new { success = false, message = "No file was uploaded" });
 		}
+
+		private void SaveFileNameToDatabase(string sender, string receiver, string attachmentName, DateTime date)
+		{
+			try
+			{
+                var newData = new Chat()
+                {
+                    SenderUserId = sender,
+                    ReceiverUserId = receiver,
+                    MessageText = null,
+                    MessageSentDate = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second),
+                    AttachmentName = attachmentName,
+                    IfMessageRead = false,
+                    IfDeleted = false
+                };
+
+                _context.Chat.Add(newData);
+                _context.SaveChanges();
+            }
+			catch(Exception ex)
+			{
+                StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
 
 		private string ChangeFileName(string originalFileName, string newFileName, string originalExtension)
 		{
@@ -1495,6 +1543,8 @@ namespace TimeTask.Controllers
 				return $"{newFileName}{originalExtension}";
 			}
 		}
+
+
 
 
 

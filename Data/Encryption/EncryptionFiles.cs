@@ -3,9 +3,9 @@ using System.Text;
 
 namespace TimeTask.Data.Encryption
 {
-    public class EncryptionHelper
+    public class EncryptionFiles
     {
-        public static readonly string Key = "+kgWDKA7pkn4+VVbUjJa+A==";
+        public static readonly string Key = "ljtHvkDbUqStrbGaqXq/0g==";
 
         public static string Encrypt(string plainText)
         {

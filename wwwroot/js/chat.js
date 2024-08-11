@@ -725,7 +725,7 @@ function notifyReceiverChatIsOpen()
                                 {
                                     $(elements[i]).children('.chatUserUnreadMessageCountParent').html(response.array[j].item2);
                                 }
-                                refreshMessages();
+                                //refreshMessages();
                             }
                         }
                     }
@@ -1027,7 +1027,7 @@ function MiOzrGaouyRUWPc(receiver)
     });
 };
 
-function fileAttach(e) 
+function fileAttach(e, sender, receiver) 
 {
     $('#sendButtonAttach').remove();
 
@@ -1039,6 +1039,13 @@ function fileAttach(e)
     {
         const formData = new FormData();
         formData.append('file', file);
+
+        //
+        var additionalData = {
+            senderId: sender,
+            receiverId: receiver,
+        };
+        //
 
         $.ajax({
             type: 'POST',
@@ -1070,9 +1077,21 @@ function fileAttach(e)
                         //    }, false);
                         //    return xhr;
                         //},
+                        headers: {
+                            'X-Additional-Data': JSON.stringify(additionalData)
+                        },
                         success: function (result)
                         {
-                            console.log(result);
+                            refreshMessages(sender, receiver);
+                            $('.chatAttach').fadeOut(200);
+                            setTimeout(() => { 
+                                $('.chatAttach').remove();
+                                $('.chatUsers').removeClass('TYZimWgKPSymTgA');
+
+                                let chatmessages = document.querySelector('.chatMessagesBubbles');
+                                chatmessages.scrollTo(0, chatmessages.scrollHeight);
+                            }, 200);
+                            
                         },
                         error: function (xhr, status, error)
                         {
