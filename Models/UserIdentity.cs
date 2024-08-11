@@ -6,7 +6,7 @@ namespace TimeTask.Models
     {
         //model służący do zidentyfikowania pracownika w "dbo.AspNetUsers"
         //służy również do identyfikacji do czatu
-        //linkowanie kont itd. //osobna strona w ustawieniach
+        //linkowanie kont itd. //osobna strona będzie w ustawieniach
         public int Id { get; set; }
 
         [MaxLength(450)]
@@ -15,5 +15,6 @@ namespace TimeTask.Models
         public int? GroupId { get; set; } //id grupy do której należy użytkownik, opcjonalne. (więcej w modelu Groups)
         public string? UserAvatar { get; set; } //awatar usera
         public required string UserColor { get; set; } //kolor domyślnego awatara
+        public string? SenderColor { get; set; } //kolor nadawcy (opcjonalny)
     }
 }

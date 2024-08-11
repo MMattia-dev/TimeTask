@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 using TimeTask.Data;
+using TimeTask.Data.FTP;
 using TimeTask.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,10 +18,18 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 //builder.Services.AddControllersWithViews();
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddSignalR(); //22.07.2024
-//builder.Services.AddAuthentication(); //06.08.2024
-//builder.Services.AddAuthorization();  //06.08.2024
-//builder.Services.AddTransient<ApplicationDbContext>();
 builder.Services.AddLogging(); //07.08.2024
+builder.Services.AddSingleton<TimeTask.UserTrackerService>(); //09.08.2024
+builder.Services.AddScoped(typeof(SignInManager<>), typeof(TimeTask.CustomSignInManager<>)); //09.08.2024
+builder.Services.AddSingleton(sp =>
+{
+    var config = sp.GetRequiredService<IConfiguration>();
+    return new FtpService(
+        config["FtpSettings:Host"],
+        config["FtpSettings:Username"],
+        config["FtpSettings:Password"]
+    );
+}); //10.08.2024
 
 
 var app = builder.Build();

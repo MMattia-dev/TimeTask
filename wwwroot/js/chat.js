@@ -110,6 +110,9 @@ loadChat();
 function ZtMJSUFaxcMCRVo() 
 {
     if (!document.getElementById('chat')) {
+        $('.statusText').html("");
+        $('.status').removeClass('offline').removeClass('online');
+
         $.ajax({
             type: 'GET',
             url: '/Chats/ShowChat',
@@ -143,7 +146,7 @@ function ZtMJSUFaxcMCRVo()
 
                 notifyReceiverChatIsOpen();
 
-                
+                checkLoggedInUsers();
             },
             error: function (xhr, status, error)
             {
@@ -179,6 +182,8 @@ function WkFMnZKWUdhpbzo()
             sessionStorage.removeItem('userSelected');
 
             notifyReceiverChatIsOpen();
+
+            checkLoggedInUsers();
         },
         error: function (xhr, status, error)
         {
@@ -260,6 +265,8 @@ function zpUZfWoTJUsolOJ(t)
     WkFMnZKWUdhpbzo(sessionStorage.getItem('JOZPzFDGsWEEzIY'));
     $('.chatDepartment').removeClass('disabled');
     $('.chatMessagesBubbles').removeClass('disabled');
+    $('.statusText').html("");
+    $('.status').removeClass('offline').removeClass('online');
 };
 
 function ltmkkPVQpNisKCP(t, r) 
@@ -307,6 +314,8 @@ function ltmkkPVQpNisKCP(t, r)
                 chatMessagesBubblesScroll();
 
                 updateChatStatus(t.getAttribute('onclick'));
+
+                checkLoggedInUsers();
             }
         },
         error: function (xhr, status, error)
@@ -334,7 +343,20 @@ function updateChatStatus(att) {
         {
             if (response != false) 
             {
-                $('.chatStatus').html(response);
+                if (response.logged)
+                {
+                    $('.status').removeClass('offline').addClass('online');
+                    $('.statusText').html('Online' + ' - ' + response.name);
+
+                    $('.userSelected').children('.chatUserStatus').removeClass('offline').addClass('online');
+                }
+                else 
+                {
+                    $('.status').removeClass('online').addClass('offline');
+                    $('.statusText').html('Offline' + ' - ' + response.name);
+
+                    $('.userSelected').children('.chatUserStatus').removeClass('online').addClass('offline');
+                }
             }
         },
         error: function (xhr, status, error)
@@ -500,6 +522,7 @@ async function sendMessage_(sender, receiver, message)
 
                     id_ = id;
                 }
+                //notifyReceiverChatIsOpen();
             }
             
             if (response.anyDuplicates)
@@ -702,6 +725,7 @@ function notifyReceiverChatIsOpen()
                                 {
                                     $(elements[i]).children('.chatUserUnreadMessageCountParent').html(response.array[j].item2);
                                 }
+                                refreshMessages();
                             }
                         }
                     }
@@ -864,6 +888,11 @@ const checkMessagesTimeout = setInterval(() =>
     notifySender();
 }, 1000);
 
+const checkLoggedUsers = setInterval(() =>
+{
+    checkLoggedInUsers();
+}, 10000);
+
 function notifySender()
 {
     var sentMessagesDivs = document.querySelectorAll('.bubble.sender.unread');
@@ -884,7 +913,6 @@ function notifySender()
                     if (response != false)
                     {
                         $(sentMessagesDivs[i]).removeClass('unread');
-                        //$(sentMessagesDivs[i]).children('.messageReadStatusIcon').html('<ion-icon name="eye"></ion-icon>');
                         $(sentMessagesDivs[i]).children('.messageReadStatusIcon').html("");
                     }
                 },
@@ -897,6 +925,190 @@ function notifySender()
     }
 };
 
+function updateStatusForUsersInChat() 
+{
+    let elements = document.querySelectorAll('.chatUser');
+    if (elements.length > 0) 
+    {
+        for (let i = 0; i < elements.length; i++) 
+        {
+            let onclick = $(elements[i]).attr('onclick');
+            let id = onclick.substring(
+                onclick.indexOf(", ") + 1,
+                onclick.lastIndexOf(")")
+            );
+            id = id.replace(/\s/g, '');
+            id = id.slice(1, -1);
+
+            $.ajax({
+                type: 'GET',
+                url: '/Chats/GetSender',
+                data: {
+                    id: id
+                },
+                success: function (response)
+                {
+                    if (response != false) 
+                    {
+                        if (response.logged)
+                        {
+                            if ($(elements[i]).hasClass('userSelected')) {
+                                $('.status').removeClass('offline').addClass('online');
+                                $('.statusText').html('Online' + ' - ' + response.name);
+                            }
+                            
+                            $(elements[i]).children('.chatUserStatus').removeClass('offline').addClass('online');
+                        }
+                        else 
+                        {
+                            if ($(elements[i]).hasClass('userSelected')) {
+                                $('.status').removeClass('online').addClass('offline');
+                                $('.statusText').html('Offline' + ' - ' + response.name);
+                            }
+                            
+                            $(elements[i]).children('.chatUserStatus').removeClass('online').addClass('offline');
+                        }
+                    }
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error:', error);
+                }
+            });
+        }
+    }
+};
+
+function bubblesAccordion(t) 
+{
+    var acc = $(t).parent().children().not(t);
+
+    for (let i = 0; i < acc.length; i++) 
+    {
+        $(acc[i]).toggleClass('hidden');
+    }
+};
+
+function showChatSettings() 
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Chats/SettingsDiv',
+        success: function (response)
+        {
+            $('#chat').append(response);
+            $('.chatMessagesBubbles').addClass('disabled');
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function MiOzrGaouyRUWPc(receiver)
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Chats/AttachForm',
+        data: {
+            receiver: receiver
+        },
+        success: function (response)
+        {
+            $('.chatParent').append(response);
+            $('.chatAttach').fadeIn(200);
+            $('.chatUsers').addClass('TYZimWgKPSymTgA');
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function fileAttach(e) 
+{
+    $('#sendButtonAttach').remove();
+
+    let file = e.target.files[0];
+
+    var sizeInMB = (file.size / (1024 * 1024)).toFixed(2);
+
+    if (sizeInMB <= 5)
+    {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        $.ajax({
+            type: 'POST',
+            url: '/Chats/AttachSendButton',
+            success: function (response)
+            {
+                $('.chatAttachDropText ion-icon').replaceWith('<ion-icon name="document-attach-outline"></ion-icon>');
+                $('.chatAttachDropText span').html(file.name);
+                $('.chatAttach').append(response.button);
+
+                document.getElementById('sendAttach').addEventListener('click', function ()
+                {
+                    $.ajax({
+                        url: '/Chats/UploadFile',
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        //xhr: function ()
+                        //{
+                        //    var xhr = new window.XMLHttpRequest();
+                        //    xhr.upload.addEventListener("progress", function (evt)
+                        //    {
+                        //        if (evt.lengthComputable)
+                        //        {
+                        //            var percentComplete = (evt.loaded / evt.total) * 100;
+                        //            $('#uploadStatus').text('Upload progress: ' + percentComplete.toFixed(2) + '%');
+                        //        }
+                        //    }, false);
+                        //    return xhr;
+                        //},
+                        success: function (result)
+                        {
+                            console.log(result);
+                        },
+                        error: function (xhr, status, error)
+                        {
+                            console.log('Error:', error);
+                        }
+                    });
+                });
+            },
+            error: function (xhr, status, error)
+            {
+                console.log('Error:', error);
+            }
+        });
+    }
+    else 
+    {
+        $('.chatAttachDropText ion-icon').replaceWith('<ion-icon name="close-circle-outline"></ion-icon>');
+        $('.chatAttachDropText span').html('Wybrany plik jest za duży!<br />(Wybierz nowy)');
+    }
+};
+
+function closeAttachForm() 
+{
+    $('.chatAttach').remove();
+    $('.chatUsers').removeClass('TYZimWgKPSymTgA');
+};
+
+function changeUserColor() 
+{
+
+};
+
+function changeReceiversColor() 
+{
+
+};
 
 
 
@@ -913,7 +1125,10 @@ function disconnect_()
 
 function connect_() 
 {
-    connection.start().catch(function (err)
+    connection.start().then(function () 
+    { 
+        checkLoggedInUsers();
+    }).catch(function (err)
     {
         return console.error(err.toString());
     });
@@ -952,6 +1167,21 @@ async function removeMessage(id, sender, receiver)
     });
 };
 
+async function checkLoggedInUsers() //execute after connection.start
+{
+    setTimeout(function ()
+    {
+        connection.invoke("CheckUsersLoggedIn").then(function () 
+        {
+            //
+        }).catch(function (err)
+        {
+            return console.error(err.toString());
+        });
+    }, 100);   
+};
+
+
 var handlerRegistered = false;
 function connect() 
 {
@@ -972,6 +1202,11 @@ function connect()
             DeleteMessage_(id, sender, receiver);
 
             handlerRegistered = true;
+        });
+
+        connection.on("LoggedInUsers", function ()
+        {
+            updateStatusForUsersInChat();
         });
     }
 };

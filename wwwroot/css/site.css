@@ -6297,7 +6297,8 @@ span#OcoYTyiBrpZJStB {
     top: 41px;
     right: 3px;
     width: calc(100% - 76px);
-    border-radius: 9px;
+    /*border-radius: 9px;*/
+    border-radius: 6px;
     background-color: rgba(34, 40, 49, 1);
     z-index: 2;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -6337,11 +6338,87 @@ span#OcoYTyiBrpZJStB {
         padding: 6px;
     }
 
+        .chatFilter .chatFilterParent .line {
+            height: 1px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
         .chatFilter .chatFilterParent .chatFilterDepartment {
             display: inherit;
             flex-direction: column;
             width: 100%;
         }  
+
+        .chatFilter .chatFilterParent .chatSetting {
+            display: inherit;
+            flex-direction: row;
+            width: 100%;
+            align-items: center;
+            gap: 8px;
+            height: 32px;
+        }
+
+            .chatFilter .chatFilterParent .chatSetting label {
+                display: inherit;
+                align-items: center;
+                gap: 8px;
+            }
+
+                .chatFilter .chatFilterParent .chatSetting label div {
+                    /*-webkit-appearance: none;
+                    border: none;
+                    padding: 0;*/
+                    border-radius: 5px;
+                    width: 32px;
+                    height: 32px;
+                    border: 1px solid rgba(255, 255, 255, 0.4);
+                }
+
+                    .chatFilter .chatFilterParent .chatSetting label div:hover {
+                        cursor: pointer;
+                    }
+
+                .chatFilter .chatFilterParent .chatSetting label span {
+                    font-size: 12px;
+                    color: rgb(0, 152, 255);
+                }
+
+                .chatFilter .chatFilterParent .chatSetting label:hover {
+                    color: rgb(0, 92, 230);
+                    cursor: pointer;
+                }
+
+                    .chatFilter .chatFilterParent .chatSetting label:hover span {
+                        color: rgb(0, 92, 230);
+                    }
+
+            .chatFilter .chatFilterParent .chatSetting .link {
+                padding-left: 4px;
+            }
+
+                .chatFilter .chatFilterParent .chatSetting .link:hover {                  
+                    cursor: pointer;
+                }
+
+                    .chatFilter .chatFilterParent .chatSetting .link:hover span {
+                        color: rgb(0, 92, 230);
+                    }
+
+                .chatFilter .chatFilterParent .chatSetting .link span {
+                    font-size: 12px;
+                    color: rgb(0, 152, 255);
+                }
+
+            .chatFilter .chatFilterParent .chatSetting ion-icon {
+                width: 20px;
+                min-width: 20px;
+                max-width: 20px;
+            }
+
+                .chatFilter .chatFilterParent .chatSetting ion-icon:hover {
+                    color: white;
+                }
 
 .chat {
     position: absolute;
@@ -6453,7 +6530,7 @@ span#OcoYTyiBrpZJStB {
         }
 
             .chat .chatUsers .chatUser.userSelected {
-                background-color: rgba(255, 255, 255, 0.1);
+                background-color: rgba(255, 255, 255, 0.2);
             }
 
             .chat .chatUsers .chatUser .chatUserUnreadMessageCount {
@@ -6484,10 +6561,13 @@ span#OcoYTyiBrpZJStB {
                 position: absolute;
                 bottom: 22px;
                 left: 15px;
+                background-color: black;
+                transition: background-color 0.15s ease-out;
             }
 
                 .chat .chatUsers .chatUser .chatUserStatus.online {
                     background-color: #62bd19;
+                    
                 }
 
                 .chat .chatUsers .chatUser .chatUserStatus.afk {
@@ -6527,6 +6607,9 @@ span#OcoYTyiBrpZJStB {
                 justify-content: center;
                 align-items: center;
                 border: 1px solid white;
+                /**/
+                /*background-color: transparent;*/
+                
             }
 
                 .chat .chatUsers .chatUser .avatar span {
@@ -6534,10 +6617,17 @@ span#OcoYTyiBrpZJStB {
                     font-size: 18px;
                 }
 
+                .chat .chatUsers .chatUser .avatar ion-icon {
+                    /*width: 40px;
+                    max-width: 40px;
+                    min-width: 40px;*/
+                    /*transform: scale(120%);*/
+                }
+
             .chat .chatUsers .chatUser:hover {
                 cursor: pointer;
                 filter: brightness(130%);
-                background-color: rgba(255, 255, 255, 0.1);
+                background-color: rgba(255, 255, 255, 0.2);
             }
 
                 .chat .chatUsers .chatUser:hover ion-icon {
@@ -6561,7 +6651,9 @@ span#OcoYTyiBrpZJStB {
 
     .chatParent .chatAttach {
         background-color: rgba(34, 40, 49, 1);
-        width: calc(100% - 76px);
+        /*width: calc(100% - 76px);
+        height: calc(100% - 6px);*/
+        width: calc(100% - 6px);
         height: calc(100% - 6px);
         position: absolute;
         border-radius: 9px;
@@ -6615,9 +6707,40 @@ span#OcoYTyiBrpZJStB {
             height: 100%;
             width: 100%;
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
+            position: relative;
+            transition: background-color 0.1s ease-out;
+            flex-direction: column;
         }
+
+            .chatParent .chatAttach .chatAttachDrop .sendAttachButton {
+                /*position: absolute;*/
+                z-index: 2;
+                bottom: 30px;
+                cursor: pointer;
+                height: 42px;
+                width: 42px;
+                border: 2px solid rgba(255, 255, 255, 0.6);
+                border-radius: 50%;
+                display: inherit;
+                justify-content: center;
+                align-items: center;
+            }
+
+                .chatParent .chatAttach .chatAttachDrop .sendAttachButton ion-icon {
+                    width: 24px;
+                    min-width: 24px;
+                    max-width: 24px;
+                }
+
+                .chatParent .chatAttach .chatAttachDrop .sendAttachButton:hover {
+                    background-color: rgba(255, 255, 255, 0.8);
+                }
+
+                    .chatParent .chatAttach .chatAttachDrop .sendAttachButton:hover ion-icon {
+                        color: black;
+                    }
 
             .chatParent .chatAttach .chatAttachDrop .chatAttachDropText {
                 display: inherit;
@@ -6626,19 +6749,42 @@ span#OcoYTyiBrpZJStB {
                 align-items: center;
             }
 
-            .chatParent .chatAttach .chatAttachDrop .chatAttachDropText span {
-                font-size: 12px;
-                color: rgba(255, 255, 255, 0.6);
-                text-align: center;
-            }
-
-                .chatParent .chatAttach .chatAttachDrop .chatAttachDropText ion-icon {
-                    width: 26px;
-                    min-width: 26px;
-                    max-width: 26px;
+                .chatParent .chatAttach .chatAttachDrop .chatAttachDropText span {
+                    font-size: 12px;
+                    color: rgba(255, 255, 255, 0.6);
+                    text-align: center;
+                    max-width: 250px;
+                    word-break: break-word;
                 }
 
-        .chatParent .chatAttach .chatSettings {
+                .chatParent .chatAttach .chatAttachDrop .chatAttachDropText ion-icon {
+                    width: 30px;
+                    min-width: 30px;
+                    max-width: 30px;
+                }
+
+            .chatParent .chatAttach .chatAttachDrop input {
+                position: absolute;
+                z-index: 1;
+                height: 100%;
+                width: 100%;
+                color: white;
+                opacity: 0;
+            }
+
+            .chatParent .chatAttach .chatAttachDrop:hover {
+                background-color: rgba(44, 50, 59, 1);
+                transition: background-color 0.1s ease-out;
+            }
+
+            .chatParent .chatAttach .chatAttachDrop#sendButtonAttach {
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .chatParent .chatAttach .chatAttachDrop#sendButtonAttach:hover {
+                background-color: unset;
+            }
+            /*.chatParent .chatAttach .chatSettings {
             display: flex;
             justify-content: flex-start;
             align-items: flex-start;
@@ -6663,16 +6809,15 @@ span#OcoYTyiBrpZJStB {
                 .chatParent .chatAttach .chatSettings .chatSettingsInner.ahAhFZDXeuKReLz {
                     flex-direction: row;
                     gap: 8px;
-                }
-
-    .chatParent .chatMessages {
-        height: calc(100% - 55px);
-        width: 100%;
-        background-color: rgba(34, 40, 49, 0.3);
-        border-start-start-radius: 9px;
-        border-start-end-radius: 9px;
-        overflow: hidden;
-    }
+                }*/
+            .chatParent .chatMessages {
+                height: calc(100% - 55px);
+                width: 100%;
+                background-color: rgba(34, 40, 49, 0.3);
+                border-start-start-radius: 9px;
+                border-start-end-radius: 9px;
+                overflow: hidden;
+            }
 
         .chatParent .chatMessages .chatMessagesBubbles {
             padding: 10px 10px 0 10px;
@@ -6791,6 +6936,10 @@ span#OcoYTyiBrpZJStB {
                 gap: 8px;
             }
 
+                .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer.hidden {
+                    display: none;
+                }
+
                 .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .chatTimeStamp {
                     display: inherit;
                     justify-content: center;
@@ -6841,6 +6990,9 @@ span#OcoYTyiBrpZJStB {
                     .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.deleted {
                         background-color: rgb(85, 85, 85) !important;
                         pointer-events: none;
+                        -webkit-box-shadow: 0px 8px 20px -9px rgba(0, 0, 0, 0.7);
+                        -moz-box-shadow: 0px 8px 20px -9px rgba(0, 0, 0, 0.7);
+                        box-shadow: 0px 8px 20px -9px rgba(0, 0, 0, 0.7);
                     }
 
                         .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.deleted .tail {
@@ -6849,6 +7001,9 @@ span#OcoYTyiBrpZJStB {
 
                     .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.sender {
                         text-align: right;
+                        -webkit-box-shadow: -8px 8px 20px -9px rgba(0, 0, 0, 0.7);
+                        -moz-box-shadow: -8px 8px 20px -9px rgba(0, 0, 0, 0.7);
+                        box-shadow: -8px 8px 20px -9px rgba(0, 0, 0, 0.7);
                     }
 
                         .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.sender .tail {
@@ -6867,6 +7022,9 @@ span#OcoYTyiBrpZJStB {
 
                     .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.receiver {
                         text-align: left;
+                        -webkit-box-shadow: 8px 8px 20px -9px rgba(0, 0, 0, 0.7);
+                        -moz-box-shadow: 8px 8px 20px -9px rgba(0, 0, 0, 0.7);
+                        box-shadow: 8px 8px 20px -9px rgba(0, 0, 0, 0.7);
                     }
 
                         .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.receiver .tail {
@@ -7032,6 +7190,7 @@ span#OcoYTyiBrpZJStB {
             display: inherit;
             flex-direction: row;
             gap: 6px;
+            position: relative;
         }
 
             .chatParent .chatMessages .chatHeader .chatMinimizeDiv:hover {
@@ -7046,13 +7205,16 @@ span#OcoYTyiBrpZJStB {
                 width: auto;
                 gap: 8px;
                 margin-left: 3px;
-                
+                pointer-events: none;
+                position: absolute;
+                top: -13px;
             }
 
                 .chatParent .chatMessages .chatHeader .chatMinimizeDiv .chatStatus span.status {
                     border-radius: 50%;
                     width: 8px;
                     height: 8px;
+                    /*transition: background-color 0.15s ease-out;*/
                 }
 
                     .chatParent .chatMessages .chatHeader .chatMinimizeDiv .chatStatus span.status.online {
@@ -7068,8 +7230,14 @@ span#OcoYTyiBrpZJStB {
                     }
 
                 .chatParent .chatMessages .chatHeader .chatMinimizeDiv .chatStatus span.statusText {
-                    font-size: 13px;
+                    font-size: 12px;
                     color: rgba(255, 255, 255, 0.8);
+                    /*pointer-events: none;*/
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    /*max-width: 230px;*/
+                    max-width: 200px;
                 }
 
             .chatParent .chatMessages .chatHeader .chatMinimizeDiv .chatMinimize {

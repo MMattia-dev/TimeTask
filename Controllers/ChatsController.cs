@@ -3,12 +3,16 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using System.IO.Compression;
 using System.Linq;
+using System.Net;
 using System.Runtime.Intrinsics.Arm;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using FluentFTP;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,19 +22,25 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
 using NuGet.Protocol.Plugins;
 using TimeTask.Data;
+using TimeTask.Data.FTP;
 using TimeTask.Models;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using static TimeTask.Data.FTP.FtpService;
 
 namespace TimeTask.Controllers
 {
     public class ChatsController : Controller
     {
         private readonly ApplicationDbContext _context;
+		private readonly UserTrackerService _userTrackerService;
+		private readonly FtpService _ftpService;
 
-		public ChatsController(ApplicationDbContext context)
+		public ChatsController(ApplicationDbContext context, UserTrackerService userTrackerService, FtpService ftpService)
 		{
 			_context = context;
+			_userTrackerService = userTrackerService;	
+			_ftpService = ftpService;
 		}
 
 		// GET: Chats
@@ -325,6 +335,45 @@ namespace TimeTask.Controllers
 			return Json(new { contentResult = Content(div), receiverId });
         }
 
+		[HttpGet]
+		public ActionResult SettingsDiv()
+		{
+			var loggedUser = GetUserId();
+			var userColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == loggedUser)?.UserColor;
+
+			string div = "<div class=\"chatFilter\">" +
+					"<a class=\"chatMinimize filterClose\" title=\"Zamknij\" onclick=\"scQisAIXdDGVbXF(this)\">" +
+						"<ion-icon name=\"close-outline\"></ion-icon>" +
+					"</a>" +
+					"<div class=\"chatFilterParent\">" +
+						"<div class=\"chatSetting\">" +
+							"<div class=\"link\" onclick=\"\"><span>Wybierz tło czatu</span></div>" +
+						"</div>" +
+						"<div class=\"line\"></div>" +
+						"<div class=\"chatSetting\">" +
+							"<label>" +
+								//"<input type=\"color\" value=\"" + userColor + "\" onchange=\"changeUserColor(this, event)\" />" +
+								"<div style=\"background-color: " + userColor + ";\"></div>" +
+								"<span>Twój kolor czatu</span>" +
+							"</label>" +
+						"</div>" +
+						"<div class=\"line\"></div>" +
+						"<div class=\"chatSetting\">" +
+							"<label>" +
+								//"<input type=\"color\" value=\"\" onchange=\"changeReceiversColor(this, event)\" />" +
+								"<div style=\"background-color: transparent;\"></div>" +
+								"<span>Kolor czatu nadawcy</span>" +
+							"</label>" +
+							"<ion-icon name=\"help-circle\" title=\"Ustaw odpowiedni dla siebie kolor dla wszystkich nadawców\"></ion-icon>" +
+						"</div>" +
+
+
+					"</div>" +
+				"</div>";
+
+			return Json(div);
+		}
+
         [HttpGet]
         public ActionResult ReceiveUsers(int? savedDepartment)
         {
@@ -398,15 +447,14 @@ namespace TimeTask.Controllers
 
 						div += "<div class=\"chatUser\" title=\"Wybierz\" onclick=\"ltmkkPVQpNisKCP(this, '" + user.UserId + "')\">" +
 									"<div class=\"avatar\" style=\"background-color:" + user.UserColor + ";\">" +
+										//"<div class=\"avatar\">" +
 										span +
+										//"<ion-icon name=\"person-circle-outline\"></ion-icon>" +
 									"</div>" +
 									"<span> " + userName + " </span>" +
-									"<div class=\"chatUserUnreadMessageCountParent\">" +
-										//"<div class=\"chatUserUnreadMessageCount\">" +
-										//	"<span>1</span>" +
-										//"</div>" +
-									"</div>" +
-									"<div class=\"chatUserStatus online\" title=\"online\"></div>" + //detect if user is online or not
+									"<div class=\"chatUserUnreadMessageCountParent\"></div>" +
+									"<div class=\"chatUserStatus\"></div>" +
+									//"<div class=\"chatUserStatus online\" title=\"online\"></div>" + //detect if user is online or not
 									//"<div class=\"chatUserStatus afk\" title=\"Zaraz wracam\"></div>" +
 									//"<div class=\"chatUserStatus offline\" title=\"offline\"></div>" +
 								"</div>";
@@ -450,8 +498,11 @@ namespace TimeTask.Controllers
 								"<div class=\"chatHeader\" id=\"chatheader\">" +
 									"<div class=\"chatMinimizeDiv\">" +
 										"<div class=\"chatStatus\">" +
-											//"<span class=\"status online\"></span>" +
-											//"<span class=\"statusText\">Online</span>" +
+											"<span class=\"status\"></span>" +
+											"<span class=\"statusText\"></span>" +
+
+										//"<span class=\"status online\"></span>" +
+										//"<span class=\"statusText\">Online</span>" +
 										//"<span class=\"status afk\"></span>" +
 										//                                 "<span class=\"statusText\">Zaraz wracam</span>" +
 										//"<span class=\"status offline\"></span>" +
@@ -462,12 +513,12 @@ namespace TimeTask.Controllers
 										//"<a class=\"chatMinimize\" onclick=\"\" title=\"Załącz plik\">" +
 										//                                  "<ion-icon name=\"attach-outline\"></ion-icon>" +
 										//                              "</a>" +
-										//"<a class=\"chatMinimize\" onclick=\"\" title=\"Ustawienia\">" +
-										//                                  "<ion-icon name=\"settings-sharp\"></ion-icon>" +
-										//                              "</a>" +
+										"<a class=\"chatMinimize\" onclick=\"showChatSettings()\" title=\"Ustawienia\">" +
+											"<ion-icon name=\"settings-sharp\"></ion-icon>" +
+										"</a>" +
 										//"<a class=\"chatMinimize\" onclick=\"\" title=\"Zmień kolor wiadomości\">" +
-										//                                  "<div class=\"chatColor\" style=\"background-color: @color;\"></div>" +
-										//                              "</a>" +
+										//	"<div class=\"chatColor\" style=\"background-color: @color;\"></div>" +
+										//"</a>" +
 										"<a class=\"chatMinimize\" onclick=\"tqMrMyJEPoAgJSW()\" title=\"Minimalizuj\">" +
 											"<ion-icon name=\"chevron-down\"></ion-icon>" +
 										"</a>" +
@@ -524,6 +575,7 @@ namespace TimeTask.Controllers
 						"<a title=\"Załącz plik (Maks. 5 MB)\" onclick=\"MiOzrGaouyRUWPc('" + receiver + "')\">" +
 							"<ion-icon name=\"attach-outline\"></ion-icon>" +
 						"</a>" +
+						//"<input type=\"file\" style=\"display: none;\" id=\"xVAsGpOGwCDwhAc\" onclick=\"MiOzrGaouyRUWPc_(event, this, '" + receiver + "')\" />" +
 					"</div>" +
 					"<a id=\"sendMessage\" onclick=\"vKbmXcDAKBSEZqf('" + receiver + "')\" title=\"Wyślij\"><ion-icon name=\"arrow-up-outline\"></ion-icon></a>";
 			}
@@ -535,6 +587,7 @@ namespace TimeTask.Controllers
 						"<a title=\"Załącz plik (Maks. 5 MB)\" onclick=\"MiOzrGaouyRUWPc('" + sender + "')\">" +
 							"<ion-icon name=\"attach-outline\"></ion-icon>" +
 						"</a>" +
+						//"<input type=\"file\" style=\"display: none;\" id=\"xVAsGpOGwCDwhAc\" onclick=\"MiOzrGaouyRUWPc_(event, this, '" + sender + "')\" />" +
 					"</div>" +
 					"<a id=\"sendMessage\" onclick=\"vKbmXcDAKBSEZqf('" + sender + "')\" title=\"Wyślij\"><ion-icon name=\"arrow-up-outline\"></ion-icon></a>";
 			}
@@ -552,7 +605,7 @@ namespace TimeTask.Controllers
 				foreach (var date in dates_.OrderBy(x => x))
 				{
 					messages += "<div id=\"dateParent\" date=\"" + date.ToShortDateString() + "\">" +
-					   "<div class=\"chatDateStamp\">" +
+					   "<div class=\"chatDateStamp\" onclick=\"bubblesAccordion(this)\">" +
 							"<div></div><span>" + date.ToString("dd MMMM yyyy", culture) + "</span><div></div>" +
 						"</div>"; // + </div>
 
@@ -638,19 +691,16 @@ namespace TimeTask.Controllers
 
 									string classes = "";
 									string messageReadStatusIcon = "";
-									string title = "";
 									if (row.IfMessageRead)
 									{
 										//messageReadStatusIcon = "<div class=\"messageReadStatusIcon\"><ion-icon name=\"eye\"></ion-icon></div>";
 										messageReadStatusIcon = "";
 										classes = "bubble sender";
-										title = "";
 									}
 									else
 									{
 										messageReadStatusIcon = "<div class=\"messageReadStatusIcon\"><ion-icon name=\"eye-off\"></ion-icon></div>";
 										classes = "bubble sender unread";
-										title = "Wiadomość nie została jeszcze przeczytana";
 									}
 
 
@@ -658,7 +708,7 @@ namespace TimeTask.Controllers
 										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 										"</div>" +
-										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\" title=\"" + title + "\">" +
+										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
 											"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 											messageReadStatusIcon +
@@ -734,19 +784,16 @@ namespace TimeTask.Controllers
 
 									string classes = "";
 									string messageReadStatusIcon = "";
-									string title = "";
 									if (row.IfMessageRead)
 									{
 										//messageReadStatusIcon = "<div class=\"messageReadStatusIcon\"><ion-icon name=\"eye\"></ion-icon></div>";
 										messageReadStatusIcon = "";
 										classes = "bubble sender";
-										title = "";
 									}
 									else
 									{
 										messageReadStatusIcon = "<div class=\"messageReadStatusIcon\"><ion-icon name=\"eye-off\"></ion-icon></div>";
 										classes = "bubble sender unread";
-										title = "Wiadomość nie została jeszcze przeczytana";
 									}
 
 
@@ -754,7 +801,7 @@ namespace TimeTask.Controllers
 										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 										"</div>" +
-										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\" title=\"" + title + "\">" +
+										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
 											"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 											messageReadStatusIcon +
@@ -801,6 +848,7 @@ namespace TimeTask.Controllers
 					"<a title=\"Załącz plik (Maks. 5 MB)\" onclick=\"MiOzrGaouyRUWPc('" + receiverUserId + "')\">" +
 						"<ion-icon name=\"attach-outline\"></ion-icon>" +
 					"</a>" +
+					//"<input type=\"file\" style=\"display: none;\" id=\"xVAsGpOGwCDwhAc\" onclick=\"MiOzrGaouyRUWPc_(event, this, '" + receiverUserId + "')\" />" +
 				"</div>" +
 				"<a id=\"sendMessage\" onclick=\"vKbmXcDAKBSEZqf('" + receiverUserId + "')\" title=\"Wyślij\"><ion-icon name=\"arrow-up-outline\"></ion-icon></a>";
 
@@ -814,7 +862,7 @@ namespace TimeTask.Controllers
                 foreach (var date in dates_.OrderBy(x => x))
                 {
                     messages += "<div id=\"dateParent\" date=\"" + date.ToShortDateString() + "\">" +
-                       "<div class=\"chatDateStamp\">" +
+					   "<div class=\"chatDateStamp\" onclick=\"bubblesAccordion(this)\">" +
                             "<div></div><span>" + date.ToString("dd MMMM yyyy", culture) + "</span><div></div>" +
                         "</div>"; // + </div>
 
@@ -897,19 +945,16 @@ namespace TimeTask.Controllers
 
 									string classes = "";
 									string messageReadStatusIcon = "";
-									string title = "";
 									if (row.IfMessageRead)
 									{
 										//messageReadStatusIcon = "<div class=\"messageReadStatusIcon\"><ion-icon name=\"eye\"></ion-icon></div>";
 										messageReadStatusIcon = "";
 										classes = "bubble sender";
-										title = "";
 									}
 									else
 									{
 										messageReadStatusIcon = "<div class=\"messageReadStatusIcon\"><ion-icon name=\"eye-off\"></ion-icon></div>";
 										classes = "bubble sender unread";
-										title = "Wiadomość nie została jeszcze przeczytana";
 									}
 
 
@@ -917,7 +962,7 @@ namespace TimeTask.Controllers
 										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 										"</div>" +
-										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\" title=\"" + title + "\">" +
+										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
 											"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 											messageReadStatusIcon +
@@ -947,13 +992,12 @@ namespace TimeTask.Controllers
 			string decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
 
 			string messageReadStatusIcon = "<div class=\"messageReadStatusIcon\"><ion-icon name=\"eye-off\"></ion-icon></div>";
-			string title = "Wiadomość nie została jeszcze przeczytana";
 
 			string bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
 									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 										"<span>" + hour + "</span>" +
 									"</div>" +
-									"<div id=\"bubbleId_" + id +"\" class=\"bubble sender unread\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\" title=\"" + title + "\">" +
+									"<div id=\"bubbleId_" + id +"\" class=\"bubble sender unread\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
 										"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 										"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 										messageReadStatusIcon +
@@ -1075,7 +1119,7 @@ namespace TimeTask.Controllers
 					Tuple<string, bool, List<int>> bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
 
 					string messages = "<div id=\"dateParent\" date=\"" + date.ToShortDateString() + "\">" +
-						   "<div class=\"chatDateStamp\">" +
+						   "<div class=\"chatDateStamp\" onclick=\"bubblesAccordion(this)\">" +
 								"<div></div><span>" + date.ToString("dd MMMM yyyy", culture) + "</span><div></div>" +
 							"</div>" +
 							bubble.Item1 +
@@ -1090,7 +1134,7 @@ namespace TimeTask.Controllers
 				Tuple<string, bool, List<int>> bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
 
 				string messages = "<div id=\"dateParent\" date=\"" + date.ToShortDateString() + "\">" +
-						   "<div class=\"chatDateStamp\">" +
+						   "<div class=\"chatDateStamp\" onclick=\"bubblesAccordion(this)\">" +
 								"<div></div><span>" + date.ToString("dd MMMM yyyy", culture) + "</span><div></div>" +
 							"</div>" +
 							bubble.Item1 +
@@ -1298,20 +1342,17 @@ namespace TimeTask.Controllers
 		[HttpPost]
 		public async Task<ActionResult> UpdateIfMessageRead(List<int> arrayOfMessageIds)
 		{
-			//List<Chat> notifySenderArray = new List<Chat>();
 			string senderId = "";
 			string receiverId = "";
 			var array = _context.Chat.Where(x => arrayOfMessageIds.Any(y => y == x.Id) && x.IfMessageRead == false);
 			foreach (var item in array)
 			{
-				//notifySenderArray.Add(item);
 				senderId = item.SenderUserId;
 				receiverId = item.ReceiverUserId;
 				item.IfMessageRead = true;
 			}
 			await _context.SaveChangesAsync();
 
-			//return Json(new { success = true, array = arrayOfMessageIds, notifySenderArray  });
 			return Json(new { success = true, array = arrayOfMessageIds, senderId, receiverId  });
 		}
 
@@ -1333,15 +1374,126 @@ namespace TimeTask.Controllers
 		[HttpGet]
 		public ActionResult GetSender(string id)
 		{
+			string[] loggedInUsers = _userTrackerService.GetLoggedInUsersArray();
+
 			if (id != null)
 			{
 				int? workerId = _context.UserIdentity.FirstOrDefault(x => x.UserId == id)?.WorkerId;
 				string? name = _context.Workers2.FirstOrDefault(x => x.Id == workerId)?.Name + " " + _context.Workers2.FirstOrDefault(x => x.Id == workerId)?.Surname;
 
-				return Json("<span>" + name + "</span>");
+				if (loggedInUsers.Contains(id))
+				{
+					return Json(new { name, logged = true });
+				}
+				else
+				{
+					return Json(new { name, logged = false });
+				}
 			}
 
 			return Json(false);
+		}
+
+		[HttpGet]
+		public ActionResult AttachForm(string receiver)
+		{
+			string div = "<div class=\"chatAttach\" style=\"display: none;\">" +
+					"<div class=\"chatAttachheader\">" +
+						"<span>Wyślij plik</span>" +
+						"<div class=\"chatAttachClose\" onclick=\"closeAttachForm()\">" +
+							"<ion-icon name=\"close-outline\"></ion-icon>" +
+						"</div>" +
+					"</div>" +
+					"<div class=\"chatAttachDrop\">" +
+						"<div class=\"chatAttachDropText\">" +
+							"<ion-icon name=\"download-outline\"></ion-icon>" +
+							"<span>...kliknij, lub przeciągnij i upuść plik...<br />(Maks. 5 MB)</span>" +
+						"</div>" +
+						"<input type=\"file\" onchange=\"fileAttach(event)\" />" +
+					"</div>" +
+				"</div>";
+
+			return Json(div);
+		}
+
+		[HttpPost]
+		public ActionResult AttachSendButton(IFormFile file)
+		{
+			string button = "<div class=\"chatAttachDrop\" id=\"sendButtonAttach\">" +
+						"<div class=\"sendAttachButton\" title=\"Wyślij\" id=\"sendAttach\">" + //onclick=\"sendAttach()\"
+						"<ion-icon name=\"arrow-up-outline\"></ion-icon>" +
+					"</div>" +
+				"</div>";
+
+			return Json(new { button });
+		}
+
+		public static void ZipFile(string sourceFilePath, string zipFilePath)
+		{
+			using (FileStream zipToCreate = new FileStream(zipFilePath, FileMode.Create))
+			{
+				using (ZipArchive archive = new ZipArchive(zipToCreate, ZipArchiveMode.Create))
+				{
+					string fileName = Path.GetFileName(sourceFilePath);
+					archive.CreateEntryFromFile(sourceFilePath, fileName);
+				}
+			}
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> UploadFile(IFormFile file)
+		{
+			if (file != null && file.Length > 0)
+			{
+				try
+				{
+					string newFileName = Data.Encryption.EncryptionHelper.Encrypt(file.Name);
+
+					string originalExtension = Path.GetExtension(file.FileName);
+					string fileName = ChangeFileName(file.FileName, newFileName, originalExtension);
+
+					var localFilePath = Path.Combine(Path.GetTempPath(), fileName);
+
+					// Save the uploaded file temporarily
+					using (var stream = new FileStream(localFilePath, FileMode.Create))
+					{
+						await file.CopyToAsync(stream);
+					}
+
+					// Define your remote file path
+					var remoteFilePath = "/chat/" + fileName;
+
+					// Call your UploadFileAsync method
+					await _ftpService.UploadFileAsync(localFilePath, remoteFilePath);
+
+					// Clean up the temporary file
+					System.IO.File.Delete(localFilePath);
+
+					return Json(new { success = true, message = "File uploaded successfully" });
+
+				}
+				catch (Exception ex)
+				{
+					return StatusCode(500, $"Internal server error: {ex.Message}");
+				}
+			}
+
+			return Json(new { success = false, message = "No file was uploaded" });
+		}
+
+		private string ChangeFileName(string originalFileName, string newFileName, string originalExtension)
+		{
+			if (string.IsNullOrEmpty(newFileName))
+			{
+				// If no new filename is provided, generate one
+				string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(originalFileName);
+				return $"{fileNameWithoutExtension}_{DateTime.Now:yyyyMMddHHmmss}{originalExtension}";
+			}
+			else
+			{
+				// If a new filename is provided, use it but keep the original extension
+				return $"{newFileName}{originalExtension}";
+			}
 		}
 
 
