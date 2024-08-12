@@ -13,6 +13,8 @@ using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using FluentFTP;
+using ICSharpCode.SharpZipLib.Core;
+using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -1455,20 +1457,37 @@ namespace TimeTask.Controllers
 
 					var localFilePath = Path.Combine(Path.GetTempPath(), fileName);
 
+                    var localZipPath = Path.ChangeExtension(fileName, ".zip");
 
-
-					
-
-
-
-					// Save the uploaded file temporarily
-					using (var stream = new FileStream(localFilePath, FileMode.Create))
+                    // Save the uploaded file temporarily
+                    using (var stream = new FileStream(localFilePath, FileMode.Create))
 					{
 						await file.CopyToAsync(stream);
 					}
 
-					// See if there is receiver folder
-					var receiverFolderPath = "C:/Users/Kromolski/FTP/chat/" + receiver;
+                    // Zip the file with password
+                    using (var fsOut = System.IO.File.Create(localZipPath))
+                    using (var zipOutputStream = new ZipOutputStream(fsOut))
+                    {
+                        zipOutputStream.SetLevel(9); // 0-9, 9 being the highest compression
+                        zipOutputStream.Password = "12345";
+
+                        //var zipEntry = new ZipEntry(fileName);
+                        //zipOutputStream.PutNextEntry(zipEntry);
+                        var zipEntry = new ZipEntry(fileName);
+                        zipEntry.AESKeySize = 256; // Use AES-256 encryption
+                        zipOutputStream.PutNextEntry(zipEntry);
+
+                        using (var fsInput = System.IO.File.OpenRead(localFilePath))
+                        {
+                            //fsInput.CopyTo(zipOutputStream);
+                            StreamUtils.Copy(fsInput, zipOutputStream, new byte[4096]);
+                        }
+                        zipOutputStream.CloseEntry();
+                    }
+
+                    // See if there is receiver folder
+                    var receiverFolderPath = "C:/Users/Kromolski/FTP/chat/" + receiver;
 					if (!Directory.Exists(receiverFolderPath))
 					{
 						Directory.CreateDirectory(receiverFolderPath);
@@ -1483,18 +1502,21 @@ namespace TimeTask.Controllers
 
 					//Define your remote file path
 					//var remoteFilePath = "/chat/" + fileName;
-					var remoteFilePath = "/chat/" + receiver + "/" + date.ToString("yyyyMMddHHmmss") + "/" + fileName;
+					//var remoteFilePath = "/chat/" + receiver + "/" + date.ToString("yyyyMMddHHmmss") + "/" + fileName;
+					var remoteFilePath = "/chat/" + receiver + "/" + date.ToString("yyyyMMddHHmmss") + "/" + localZipPath;
 
 					// Call your UploadFileAsync method
-					await _ftpService.UploadFileAsync(localFilePath, remoteFilePath);
+					//await _ftpService.UploadFileAsync(localFilePath, remoteFilePath);
+					await _ftpService.UploadFileAsync(localZipPath, remoteFilePath);
 
-                    // Clean up the temporary file
+                    // Clean up the temporary files
                     System.IO.File.Delete(localFilePath);
+                    System.IO.File.Delete(localZipPath);
 
-					// After uploading file, save relevant data into database
-					SaveFileNameToDatabase(sender, receiver, fileName, date_);
+                    // After uploading file, save relevant data into database
+                    //SaveFileNameToDatabase(sender, receiver, fileName, date_);
 
-					return Json(new { success = true, message = "File uploaded successfully" });
+					return Json(new { success = true, message = "File uploaded successfully", fileName });
 				}
 				catch (Exception ex)
 				{

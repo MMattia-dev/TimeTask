@@ -1082,6 +1082,9 @@ function fileAttach(e, sender, receiver)
                         },
                         success: function (result)
                         {
+                            console.log(result);
+
+
                             refreshMessages(sender, receiver);
                             $('.chatAttach').fadeOut(200);
                             setTimeout(() => { 
