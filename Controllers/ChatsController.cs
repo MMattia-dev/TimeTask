@@ -1029,7 +1029,7 @@ namespace TimeTask.Controllers
 			return bubble;
 		}
 
-		public async Task<Tuple<string, bool, List<int>>> Bubble(string loggedInUser, string sender, string receiver, string message, DateTime date, string? attachmentName, bool ifMessageRead, bool ifDeleted)
+		public async Task<Tuple<string, bool, List<int>>> Bubble(string loggedInUser, string sender, string receiver, string message, DateTime date, string? attachmentName, bool ifMessageRead, bool ifDeleted, string? attachmentFileType)
 		{
 			bool handler = false;
 
@@ -1053,7 +1053,8 @@ namespace TimeTask.Controllers
 						MessageText = Data.Encryption.EncryptionHelper.Encrypt(message),
 						MessageSentDate = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second),
 						AttachmentName = attachmentName,
-						IfMessageRead = ifMessageRead,
+						AttachmentFileType = attachmentFileType,
+                        IfMessageRead = ifMessageRead,
 						IfDeleted = ifDeleted
 					};
 
@@ -1075,7 +1076,7 @@ namespace TimeTask.Controllers
 			}
 
 			//
-			var duplicates = CheckForDuplicates(sender, receiver, Data.Encryption.EncryptionHelper.Encrypt(message), new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second), attachmentName);
+			var duplicates = CheckForDuplicates(sender, receiver, Data.Encryption.EncryptionHelper.Encrypt(message), new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second), attachmentName, attachmentFileType);
 
 			bool areThereAnyDuplicates = false;
 			if (duplicates.Count > 1)
@@ -1113,14 +1114,14 @@ namespace TimeTask.Controllers
 				if (chats.Any())
 				{
 					//data dzisiejsza już istnieje
-					Tuple<string, bool, List<int>> bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
+					Tuple<string, bool, List<int>> bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false, null);
 
 					return Json(new { dateCheck = true, bubble = bubble.Item1, anyDuplicates = bubble.Item2, firstConversation = false, today = date.ToShortDateString(), receiver = false, loggedUser = GetUserId(), senderId = sender, duplicates = bubble.Item3, receiverId = receiver });
 				}
 				else
 				{
 					//data dzisiejsza nie istnieje
-					Tuple<string, bool, List<int>> bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
+					Tuple<string, bool, List<int>> bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false, null);
 
 					string messages = "<div id=\"dateParent\" date=\"" + date.ToShortDateString() + "\">" +
 						   "<div class=\"chatDateStamp\" onclick=\"bubblesAccordion(this)\">" +
@@ -1135,7 +1136,7 @@ namespace TimeTask.Controllers
 			else
 			{
 				//nie istnieje w bazie (użytkownicy nie czatowali)
-				Tuple<string, bool, List<int>> bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false);
+				Tuple<string, bool, List<int>> bubble = await Bubble(GetUserId(), sender, receiver, message, date, null, false, false, null);
 
 				string messages = "<div id=\"dateParent\" date=\"" + date.ToShortDateString() + "\">" +
 						   "<div class=\"chatDateStamp\" onclick=\"bubblesAccordion(this)\">" +
@@ -1148,10 +1149,10 @@ namespace TimeTask.Controllers
 			}
 		}
 
-		public List<int> CheckForDuplicates(string sender, string receiver, string? message, DateTime date, string? attachmentName)
+		public List<int> CheckForDuplicates(string sender, string receiver, string? message, DateTime date, string? attachmentName, string? attachmentFileType)
 		{
 			var duplicates = _context.Chat
-			.Where(g => g.SenderUserId == sender && g.ReceiverUserId == receiver && g.MessageText == message && g.MessageSentDate == date && g.AttachmentName == attachmentName)
+			.Where(g => g.SenderUserId == sender && g.ReceiverUserId == receiver && g.MessageText == message && g.MessageSentDate == date && g.AttachmentName == attachmentName && g.AttachmentFileType == attachmentFileType)
 			.Select(x => x.Id)
 			.ToList();
 
@@ -1450,12 +1451,14 @@ namespace TimeTask.Controllers
 					string sender = additionalData["senderId"].ToString();
 					string receiver = additionalData["receiverId"].ToString();
 
-					string newFileName = Data.Encryption.EncryptionFiles.Encrypt(file.Name);
-
 					string originalExtension = Path.GetExtension(file.FileName);
-					string fileName = ChangeFileName(file.FileName, newFileName, originalExtension);
 
-					var localFilePath = Path.Combine(Path.GetTempPath(), fileName);
+                    string newFileName = Data.Encryption.EncryptionFiles.Encrypt(Path.GetFileNameWithoutExtension(file.FileName));
+
+                    //string fileName = ChangeFileName(file.FileName, newFileName, originalExtension);
+                    string fileName = ChangeFileName(file.FileName, newFileName, ""); // Strip away extension, store it in database
+
+                    var localFilePath = Path.Combine(Path.GetTempPath(), fileName);
 
                     var localZipPath = Path.ChangeExtension(fileName, ".zip");
 
@@ -1470,7 +1473,8 @@ namespace TimeTask.Controllers
                     using (var zipOutputStream = new ZipOutputStream(fsOut))
                     {
                         zipOutputStream.SetLevel(9); // 0-9, 9 being the highest compression
-                        zipOutputStream.Password = "12345";
+                        //zipOutputStream.Password = "12345"; // Testing only
+                        zipOutputStream.Password = Data.Encryption.EncryptionFiles.Encrypt(newFileName);
 
                         //var zipEntry = new ZipEntry(fileName);
                         //zipOutputStream.PutNextEntry(zipEntry);
@@ -1494,7 +1498,8 @@ namespace TimeTask.Controllers
 					}
 
 					// See if there is a date folder within receiver folder
-					var dateFolder = receiverFolderPath + "/" + date.ToString("yyyyMMddHHmmss");
+					//var dateFolder = receiverFolderPath + "/" + date.ToString("yyyyMMddHHmmss");
+					var dateFolder = receiverFolderPath + "/" + date.ToString("yyyyMMddHHmm");
                     if (!Directory.Exists(dateFolder))
 					{
 						Directory.CreateDirectory(dateFolder);
@@ -1503,7 +1508,8 @@ namespace TimeTask.Controllers
 					//Define your remote file path
 					//var remoteFilePath = "/chat/" + fileName;
 					//var remoteFilePath = "/chat/" + receiver + "/" + date.ToString("yyyyMMddHHmmss") + "/" + fileName;
-					var remoteFilePath = "/chat/" + receiver + "/" + date.ToString("yyyyMMddHHmmss") + "/" + localZipPath;
+					//var remoteFilePath = "/chat/" + receiver + "/" + date.ToString("yyyyMMddHHmmss") + "/" + localZipPath;
+					var remoteFilePath = "/chat/" + receiver + "/" + date.ToString("yyyyMMddHHmm") + "/" + localZipPath;
 
 					// Call your UploadFileAsync method
 					//await _ftpService.UploadFileAsync(localFilePath, remoteFilePath);
@@ -1513,10 +1519,12 @@ namespace TimeTask.Controllers
                     System.IO.File.Delete(localFilePath);
                     System.IO.File.Delete(localZipPath);
 
-                    // After uploading file, save relevant data into database
-                    //SaveFileNameToDatabase(sender, receiver, fileName, date_);
+                    string attachmentFileType = Data.Encryption.EncryptionFiles.Encrypt(originalExtension);
 
-					return Json(new { success = true, message = "File uploaded successfully", fileName });
+                    // After uploading file, save relevant data into database
+                    //SaveFileNameToDatabase(sender, receiver, fileName, date_, attachmentFileType);
+
+                    return Json(new { success = true, message = "File uploaded successfully" });
 				}
 				catch (Exception ex)
 				{
@@ -1527,7 +1535,7 @@ namespace TimeTask.Controllers
 			return Json(new { success = false, message = "No file was uploaded" });
 		}
 
-		private void SaveFileNameToDatabase(string sender, string receiver, string attachmentName, DateTime date)
+		private void SaveFileNameToDatabase(string sender, string receiver, string attachmentName, DateTime date, string attachmentFileType)
 		{
 			try
 			{
@@ -1538,6 +1546,7 @@ namespace TimeTask.Controllers
                     MessageText = null,
                     MessageSentDate = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second),
                     AttachmentName = attachmentName,
+					AttachmentFileType = attachmentFileType,
                     IfMessageRead = false,
                     IfDeleted = false
                 };

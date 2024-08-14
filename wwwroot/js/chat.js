@@ -1033,87 +1033,99 @@ function fileAttach(e, sender, receiver)
 
     let file = e.target.files[0];
 
-    var sizeInMB = (file.size / (1024 * 1024)).toFixed(2);
-
-    if (sizeInMB <= 5)
+    if (!file.name.endsWith('svg')) 
     {
-        const formData = new FormData();
-        formData.append('file', file);
+        var sizeInMB = (file.size / (1024 * 1024)).toFixed(2);
 
-        //
-        var additionalData = {
-            senderId: sender,
-            receiverId: receiver,
-        };
-        //
+        if (sizeInMB <= 5)
+        {
+            const formData = new FormData();
+            formData.append('file', file);
 
-        $.ajax({
-            type: 'POST',
-            url: '/Chats/AttachSendButton',
-            success: function (response)
-            {
-                $('.chatAttachDropText ion-icon').replaceWith('<ion-icon name="document-attach-outline"></ion-icon>');
-                $('.chatAttachDropText span').html(file.name);
-                $('.chatAttach').append(response.button);
+            //
+            var additionalData = {
+                senderId: sender,
+                receiverId: receiver,
+            };
+            //
 
-                document.getElementById('sendAttach').addEventListener('click', function ()
+            $.ajax({
+                type: 'POST',
+                url: '/Chats/AttachSendButton',
+                success: function (response)
                 {
-                    $.ajax({
-                        url: '/Chats/UploadFile',
-                        type: 'POST',
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        //xhr: function ()
-                        //{
-                        //    var xhr = new window.XMLHttpRequest();
-                        //    xhr.upload.addEventListener("progress", function (evt)
-                        //    {
-                        //        if (evt.lengthComputable)
-                        //        {
-                        //            var percentComplete = (evt.loaded / evt.total) * 100;
-                        //            $('#uploadStatus').text('Upload progress: ' + percentComplete.toFixed(2) + '%');
-                        //        }
-                        //    }, false);
-                        //    return xhr;
-                        //},
-                        headers: {
-                            'X-Additional-Data': JSON.stringify(additionalData)
-                        },
-                        success: function (result)
-                        {
-                            console.log(result);
+                    $('.chatAttachDropText ion-icon').replaceWith('<ion-icon name="document-attach-outline"></ion-icon>');
+                    $('.chatAttachDropText span').html(file.name);
+                    $('.chatAttach').append(response.button);
+
+                    document.getElementById('sendAttach').addEventListener('click', function ()
+                    {
+                        $.ajax({
+                            url: '/Chats/UploadFile',
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            //xhr: function ()
+                            //{
+                            //    var xhr = new window.XMLHttpRequest();
+                            //    xhr.upload.addEventListener("progress", function (evt)
+                            //    {
+                            //        if (evt.lengthComputable)
+                            //        {
+                            //            var percentComplete = (evt.loaded / evt.total) * 100;
+                            //            $('#uploadStatus').text('Upload progress: ' + percentComplete.toFixed(2) + '%');
+                            //        }
+                            //    }, false);
+                            //    return xhr;
+                            //},
+                            headers: {
+                                'X-Additional-Data': JSON.stringify(additionalData)
+                            },
+                            success: function (result)
+                            {
+                                refreshMessages(sender, receiver);
+                                $('.chatAttach').fadeOut(200);
+                                setTimeout(() =>
+                                {
+                                    $('.chatAttach').remove();
+                                    $('.chatUsers').removeClass('TYZimWgKPSymTgA');
+
+                                    let chatmessages = document.querySelector('.chatMessagesBubbles');
+                                    chatmessages.scrollTo(0, chatmessages.scrollHeight);
+                                }, 200);
+
+                                //console.log(result);
 
 
-                            refreshMessages(sender, receiver);
-                            $('.chatAttach').fadeOut(200);
-                            setTimeout(() => { 
-                                $('.chatAttach').remove();
-                                $('.chatUsers').removeClass('TYZimWgKPSymTgA');
 
-                                let chatmessages = document.querySelector('.chatMessagesBubbles');
-                                chatmessages.scrollTo(0, chatmessages.scrollHeight);
-                            }, 200);
-                            
-                        },
-                        error: function (xhr, status, error)
-                        {
-                            console.log('Error:', error);
-                        }
+
+
+                            },
+                            error: function (xhr, status, error)
+                            {
+                                console.log('Error:', error);
+                            }
+                        });
                     });
-                });
-            },
-            error: function (xhr, status, error)
-            {
-                console.log('Error:', error);
-            }
-        });
+                },
+                error: function (xhr, status, error)
+                {
+                    console.log('Error:', error);
+                }
+            });
+        }
+        else 
+        {
+            $('.chatAttachDropText ion-icon').replaceWith('<ion-icon name="close-circle-outline"></ion-icon>');
+            $('.chatAttachDropText span').html('Wybrany plik jest za duży!<br />(Wybierz nowy)');
+        }
     }
-    else 
-    {
+    else {
         $('.chatAttachDropText ion-icon').replaceWith('<ion-icon name="close-circle-outline"></ion-icon>');
-        $('.chatAttachDropText span').html('Wybrany plik jest za duży!<br />(Wybierz nowy)');
+        $('.chatAttachDropText span').html('Nieobsługiwany typ pliku!<br />(Wybierz nowy)');
     }
+    
 };
 
 function closeAttachForm() 
