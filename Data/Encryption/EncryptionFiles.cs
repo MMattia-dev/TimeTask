@@ -5,7 +5,7 @@ namespace TimeTask.Data.Encryption
 {
     public class EncryptionFiles
     {
-        public static readonly string Key = "ljtHvkDbUqStrbGaqXq/0g==";
+        public static readonly string Key = "lGv0zbb8hr4r4vw+c1snAg==";
 
         public static string Encrypt(string plainText)
         {
@@ -33,11 +33,28 @@ namespace TimeTask.Data.Encryption
                 }
             }
 
-            return Convert.ToBase64String(array);
+            //return Convert.ToBase64String(array);
+
+            // Convert to Base64
+            string base64Encrypted = Convert.ToBase64String(array);
+
+            // Replace / and \ with safe characters
+            string safeEncrypted = base64Encrypted.Replace('/', '_').Replace('\\', '-');
+
+            return safeEncrypted;
         }
 
         public static string Decrypt(byte[] ciphertext)
         {
+            // Convert byte array to string to replace back safe characters
+            string base64Encrypted = Encoding.UTF8.GetString(ciphertext);
+
+            // Revert the custom replacements back to original / and \
+            base64Encrypted = base64Encrypted.Replace('_', '/').Replace('-', '\\');
+
+            // Convert the safe Base64 string back to original byte array
+            byte[] originalCiphertext = Convert.FromBase64String(base64Encrypted);
+
             byte[] iv = new byte[16];
 
             using (Aes aes = Aes.Create())

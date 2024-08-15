@@ -1052,9 +1052,23 @@ function fileAttach(e, sender, receiver)
             $.ajax({
                 type: 'POST',
                 url: '/Chats/AttachSendButton',
+                data: formData,
+                processData: false,
+                contentType: false,
                 success: function (response)
                 {
-                    $('.chatAttachDropText ion-icon').replaceWith('<ion-icon name="document-attach-outline"></ion-icon>');
+                    console.log(response);
+
+                    if (file.type.includes("image"))
+                    {
+                        $('.chatAttachDropText ion-icon').replaceWith('<img src="' + response.localFilePath + '" />');
+                    }
+                    else 
+                    {
+                        $('.chatAttachDropText ion-icon').replaceWith('<ion-icon name="document-attach-outline"></ion-icon>');
+                    }
+
+                    
                     $('.chatAttachDropText span').html(file.name);
                     $('.chatAttach').append(response.button);
 
@@ -1096,10 +1110,6 @@ function fileAttach(e, sender, receiver)
                                 }, 200);
 
                                 //console.log(result);
-
-
-
-
 
                             },
                             error: function (xhr, status, error)

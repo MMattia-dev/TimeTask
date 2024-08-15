@@ -1424,15 +1424,25 @@ namespace TimeTask.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult AttachSendButton() //string sender, string receiver
+		public IActionResult AttachSendButton(IFormFile file) //string sender, string receiver
         {
+			//var localFilePath = Path.Combine(Path.GetTempPath(), file.FileName).Replace("/", "\\");
+			var localFilePath = "~/images/" + file.FileName;
+
+			// Save the uploaded file temporarily
+			using (var stream = new FileStream(localFilePath, FileMode.Create))
+			{
+				file.CopyToAsync(stream);
+			}
+
 			string button = "<div class=\"chatAttachDrop\" id=\"sendButtonAttach\">" +
 						"<div class=\"sendAttachButton\" title=\"Wyślij\" id=\"sendAttach\">" + //onclick=\"sendAttach()\"
 						"<ion-icon name=\"arrow-up-outline\"></ion-icon>" +
 					"</div>" +
 				"</div>";
 
-			return Json(new { button });
+
+            return Json(new { button, localFilePath });
 		}
 
 		[HttpPost]
@@ -1455,12 +1465,11 @@ namespace TimeTask.Controllers
 
                     string newFileName = Data.Encryption.EncryptionFiles.Encrypt(Path.GetFileNameWithoutExtension(file.FileName));
 
-                    //string fileName = ChangeFileName(file.FileName, newFileName, originalExtension);
-                    string fileName = ChangeFileName(file.FileName, newFileName, ""); // Strip away extension, store it in database
+					string fileName = newFileName;
 
-                    var localFilePath = Path.Combine(Path.GetTempPath(), fileName);
+                    var localFilePath = Path.Combine(Path.GetTempPath(), fileName).Replace("/", "\\");
 
-                    var localZipPath = Path.ChangeExtension(fileName, ".zip");
+					var localZipPath = Path.ChangeExtension(fileName, ".zip");
 
                     // Save the uploaded file temporarily
                     using (var stream = new FileStream(localFilePath, FileMode.Create))
@@ -1468,23 +1477,20 @@ namespace TimeTask.Controllers
 						await file.CopyToAsync(stream);
 					}
 
-                    // Zip the file with password
+                    // Zip the file with AES encryption
                     using (var fsOut = System.IO.File.Create(localZipPath))
                     using (var zipOutputStream = new ZipOutputStream(fsOut))
                     {
                         zipOutputStream.SetLevel(9); // 0-9, 9 being the highest compression
-                        //zipOutputStream.Password = "12345"; // Testing only
-                        zipOutputStream.Password = Data.Encryption.EncryptionFiles.Encrypt(newFileName);
+													 //zipOutputStream.Password = "12345";
+						zipOutputStream.Password = Data.Encryption.EncryptionFiles.Encrypt(fileName);
 
-                        //var zipEntry = new ZipEntry(fileName);
-                        //zipOutputStream.PutNextEntry(zipEntry);
                         var zipEntry = new ZipEntry(fileName);
                         zipEntry.AESKeySize = 256; // Use AES-256 encryption
                         zipOutputStream.PutNextEntry(zipEntry);
 
                         using (var fsInput = System.IO.File.OpenRead(localFilePath))
                         {
-                            //fsInput.CopyTo(zipOutputStream);
                             StreamUtils.Copy(fsInput, zipOutputStream, new byte[4096]);
                         }
                         zipOutputStream.CloseEntry();
@@ -1498,31 +1504,26 @@ namespace TimeTask.Controllers
 					}
 
 					// See if there is a date folder within receiver folder
-					//var dateFolder = receiverFolderPath + "/" + date.ToString("yyyyMMddHHmmss");
 					var dateFolder = receiverFolderPath + "/" + date.ToString("yyyyMMddHHmm");
                     if (!Directory.Exists(dateFolder))
 					{
 						Directory.CreateDirectory(dateFolder);
 					}
 
-					//Define your remote file path
-					//var remoteFilePath = "/chat/" + fileName;
-					//var remoteFilePath = "/chat/" + receiver + "/" + date.ToString("yyyyMMddHHmmss") + "/" + fileName;
-					//var remoteFilePath = "/chat/" + receiver + "/" + date.ToString("yyyyMMddHHmmss") + "/" + localZipPath;
-					var remoteFilePath = "/chat/" + receiver + "/" + date.ToString("yyyyMMddHHmm") + "/" + localZipPath;
+                    //Define your remote file path
+                    var remoteFilePath = "/chat/" + receiver + "/" + date.ToString("yyyyMMddHHmm") + "/" + localZipPath.Split("\\").LastOrDefault();
 
 					// Call your UploadFileAsync method
-					//await _ftpService.UploadFileAsync(localFilePath, remoteFilePath);
 					await _ftpService.UploadFileAsync(localZipPath, remoteFilePath);
 
-                    // Clean up the temporary files
-                    System.IO.File.Delete(localFilePath);
-                    System.IO.File.Delete(localZipPath);
+					// Clean up the temporary files
+					System.IO.File.Delete(localFilePath);
+					System.IO.File.Delete(localZipPath);
 
-                    string attachmentFileType = Data.Encryption.EncryptionFiles.Encrypt(originalExtension);
+					string attachmentFileType = Data.Encryption.EncryptionFiles.Encrypt(originalExtension);
 
                     // After uploading file, save relevant data into database
-                    //SaveFileNameToDatabase(sender, receiver, fileName, date_, attachmentFileType);
+                    SaveFileNameToDatabase(sender, receiver, fileName, date_, attachmentFileType);
 
                     return Json(new { success = true, message = "File uploaded successfully" });
 				}
@@ -1560,20 +1561,7 @@ namespace TimeTask.Controllers
             }
         }
 
-		private string ChangeFileName(string originalFileName, string newFileName, string originalExtension)
-		{
-			if (string.IsNullOrEmpty(newFileName))
-			{
-				// If no new filename is provided, generate one
-				string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(originalFileName);
-				return $"{fileNameWithoutExtension}_{DateTime.Now:yyyyMMddHHmmss}{originalExtension}";
-			}
-			else
-			{
-				// If a new filename is provided, use it but keep the original extension
-				return $"{newFileName}{originalExtension}";
-			}
-		}
+		
 
 
 
