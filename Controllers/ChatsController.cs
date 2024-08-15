@@ -39,12 +39,14 @@ namespace TimeTask.Controllers
         private readonly ApplicationDbContext _context;
 		private readonly UserTrackerService _userTrackerService;
 		private readonly FtpService _ftpService;
+		private readonly IWebHostEnvironment _environment;
 
-		public ChatsController(ApplicationDbContext context, UserTrackerService userTrackerService, FtpService ftpService)
+		public ChatsController(ApplicationDbContext context, UserTrackerService userTrackerService, FtpService ftpService, IWebHostEnvironment environment)
 		{
 			_context = context;
-			_userTrackerService = userTrackerService;	
+			_userTrackerService = userTrackerService;
 			_ftpService = ftpService;
+			_environment = environment;
 		}
 
 		// GET: Chats
@@ -1427,7 +1429,8 @@ namespace TimeTask.Controllers
 		public IActionResult AttachSendButton(IFormFile file) //string sender, string receiver
         {
 			//var localFilePath = Path.Combine(Path.GetTempPath(), file.FileName).Replace("/", "\\");
-			var localFilePath = "~/images/" + file.FileName;
+			//var localFilePath = "~/images/" + file.FileName;
+			var localFilePath = Path.Combine(_environment.WebRootPath + "\\images\\", file.FileName);
 
 			// Save the uploaded file temporarily
 			using (var stream = new FileStream(localFilePath, FileMode.Create))
@@ -1442,7 +1445,7 @@ namespace TimeTask.Controllers
 				"</div>";
 
 
-            return Json(new { button, localFilePath });
+			return Json(new { button, localFilePath = "\\images\\" + file.FileName });
 		}
 
 		[HttpPost]
@@ -1525,7 +1528,14 @@ namespace TimeTask.Controllers
                     // After uploading file, save relevant data into database
                     SaveFileNameToDatabase(sender, receiver, fileName, date_, attachmentFileType);
 
-                    return Json(new { success = true, message = "File uploaded successfully" });
+					// Remove all images in "wwwroot/images" folder
+					string[] files = Directory.GetFiles("~/images/");
+					foreach (string f in files)
+					{
+						System.IO.File.Delete(f);
+					}
+
+					return Json(new { success = true, message = "File uploaded successfully" });
 				}
 				catch (Exception ex)
 				{
