@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Runtime.Intrinsics.Arm;
 using System.Security.Claims;
 using System.Text;
@@ -990,25 +991,76 @@ namespace TimeTask.Controllers
             {
                 return Json(new { div, arrayNotEmpty = false, textDiv, senderUserId });
 			}
-        }
+		}
 
-		public string BubbleSender(string senderColor, string spanSenderColor, string message, string hour, int id, string senderUserId, string receiverUserId)
+		public bool IfImage(string fileType)
 		{
-			byte[] byteMessage = Convert.FromBase64String(message);
-			string decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
+			string[] imageArray = { "png", "jpg", "jpeg", "gif", "bmp", "tiff", "tif" };
+			if (imageArray.Contains(fileType))
+			{
+				return true;
+			}
 
+			return false;
+		}
+
+		public string BubbleSender(string senderColor, string spanSenderColor, string? message, string hour, int id, string senderUserId, string receiverUserId, string? attachmentName, string? attachmentFileType)
+		{
 			string messageReadStatusIcon = "<div class=\"messageReadStatusIcon\"><ion-icon name=\"eye-off\"></ion-icon></div>";
 
-			string bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
+			string bubble = "";
+			if (attachmentName == null)
+			{
+				byte[] byteMessage = Convert.FromBase64String(message);
+				string decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
+
+				bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
 									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 										"<span>" + hour + "</span>" +
 									"</div>" +
-									"<div id=\"bubbleId_" + id +"\" class=\"bubble sender unread\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+									"<div id=\"bubbleId_" + id + "\" class=\"bubble sender unread\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
 										"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 										"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 										messageReadStatusIcon +
 									"</div>" +
 								"</div>";
+			}
+			else
+			{
+				byte[] byteAttachmentName = Convert.FromBase64String(attachmentName);
+				byte[] byteAttachmentFielType = Convert.FromBase64String(attachmentFileType);
+
+				string decryptedAttachmentName = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentName);
+				string decryptedAttachmentFielType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFielType);
+
+				string div = "";
+				if (IfImage(decryptedAttachmentFielType))
+				{
+					//div = "<img src=\"\" />";
+
+					string fileName = decryptedAttachmentName + "." + decryptedAttachmentFielType;
+
+					div = "<span>" + fileName + "</span>";
+				}
+				else
+				{
+					string fileName = decryptedAttachmentName + "." + decryptedAttachmentFielType;
+
+					div = "<span>" + fileName + "</span>";
+				}
+
+				bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
+									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+										"<span>" + hour + "</span>" +
+									"</div>" +
+									"<div id=\"bubbleId_" + id + "\" class=\"bubble sender unread\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+										//"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
+										div +
+										"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+										messageReadStatusIcon +
+									"</div>" +
+								"</div>";
+			}			
 
 			return bubble;
 		}
@@ -1070,7 +1122,7 @@ namespace TimeTask.Controllers
 					handler = true;
 				}
 				
-				bubble = BubbleSender(senderColor, spanSenderColor, text_, date_, id, sender, receiver);
+				bubble = BubbleSender(senderColor, spanSenderColor, text_, date_, id, sender, receiver, attachmentName, attachmentFileType);
 			}
 			if (loggedInUser == receiver)
 			{
@@ -1426,26 +1478,15 @@ namespace TimeTask.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult AttachSendButton(IFormFile file) //string sender, string receiver
+		public ActionResult AttachSendButton() //string sender, string receiver
         {
-			//var localFilePath = Path.Combine(Path.GetTempPath(), file.FileName).Replace("/", "\\");
-			//var localFilePath = "~/images/" + file.FileName;
-			var localFilePath = Path.Combine(_environment.WebRootPath + "\\images\\", file.FileName);
-
-			// Save the uploaded file temporarily
-			using (var stream = new FileStream(localFilePath, FileMode.Create))
-			{
-				file.CopyToAsync(stream);
-			}
-
 			string button = "<div class=\"chatAttachDrop\" id=\"sendButtonAttach\">" +
 						"<div class=\"sendAttachButton\" title=\"Wyślij\" id=\"sendAttach\">" + //onclick=\"sendAttach()\"
 						"<ion-icon name=\"arrow-up-outline\"></ion-icon>" +
 					"</div>" +
 				"</div>";
 
-
-			return Json(new { button, localFilePath = "\\images\\" + file.FileName });
+			return Json(new { button });
 		}
 
 		[HttpPost]
@@ -1527,13 +1568,6 @@ namespace TimeTask.Controllers
 
                     // After uploading file, save relevant data into database
                     SaveFileNameToDatabase(sender, receiver, fileName, date_, attachmentFileType);
-
-					// Remove all images in "wwwroot/images" folder
-					string[] files = Directory.GetFiles("~/images/");
-					foreach (string f in files)
-					{
-						System.IO.File.Delete(f);
-					}
 
 					return Json(new { success = true, message = "File uploaded successfully" });
 				}
