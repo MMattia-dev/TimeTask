@@ -1047,6 +1047,7 @@ namespace TimeTask.Controllers
 					string fileName = decryptedAttachmentName + "." + decryptedAttachmentFielType;
 
 					div = "<span>" + fileName + "</span>";
+
 				}
 
 				bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
