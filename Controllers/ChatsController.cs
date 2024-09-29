@@ -717,6 +717,7 @@ namespace TimeTask.Controllers
 										"</div>" +
 										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
 											"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
+											//"<span style=\"color:" + spanSenderColor + ";\">" + "asd" + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 											messageReadStatusIcon +
 										"</div>" +
@@ -971,6 +972,7 @@ namespace TimeTask.Controllers
 										"</div>" +
 										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
 											"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
+											//"<span style=\"color:" + spanSenderColor + ";\">" + "asd" + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 											messageReadStatusIcon +
 										"</div>" +
@@ -1025,29 +1027,28 @@ namespace TimeTask.Controllers
 									"</div>" +
 								"</div>";
 			}
-			else
+			else 
 			{
 				byte[] byteAttachmentName = Convert.FromBase64String(attachmentName);
-				byte[] byteAttachmentFielType = Convert.FromBase64String(attachmentFileType);
+				byte[] byteAttachmentFileType = Convert.FromBase64String(attachmentFileType);
 
 				string decryptedAttachmentName = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentName);
-				string decryptedAttachmentFielType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFielType);
+				string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
 
 				string div = "";
-				if (IfImage(decryptedAttachmentFielType))
+				if (IfImage(decryptedAttachmentFileType))
 				{
 					//div = "<img src=\"\" />";
 
-					string fileName = decryptedAttachmentName + "." + decryptedAttachmentFielType;
+					string fileName = decryptedAttachmentName + "." + decryptedAttachmentFileType;
 
 					div = "<span>" + fileName + "</span>";
 				}
 				else
 				{
-					string fileName = decryptedAttachmentName + "." + decryptedAttachmentFielType;
+					string fileName = decryptedAttachmentName + "." + decryptedAttachmentFileType;
 
 					div = "<span>" + fileName + "</span>";
-
 				}
 
 				bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
