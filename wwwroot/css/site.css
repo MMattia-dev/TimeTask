@@ -7062,6 +7062,11 @@ span#OcoYTyiBrpZJStB {
                         cursor: pointer;
                     }
 
+                    .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.file span {
+                        text-decoration: underline;
+                        text-decoration-color: white;
+                    }
+
     .chatParent .chatText {
         height: 55px;
         width: 100%;

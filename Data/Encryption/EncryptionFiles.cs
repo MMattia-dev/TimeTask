@@ -53,7 +53,7 @@ namespace TimeTask.Data.Encryption
             base64Encrypted = base64Encrypted.Replace('_', '/').Replace('-', '\\');
 
             // Convert the safe Base64 string back to original byte array
-            byte[] originalCiphertext = Convert.FromBase64String(base64Encrypted);
+            //byte[] originalCiphertext = Convert.FromBase64String(base64Encrypted);
 
             byte[] iv = new byte[16];
 
@@ -79,5 +79,47 @@ namespace TimeTask.Data.Encryption
                 return Encoding.UTF8.GetString(decryptedBytes);
             }
         }
-    }
+
+		//public static byte[] FromBase64Url(string base64Url)
+		//{
+		//	string padded = base64Url.Length % 4 == 0
+		//		? base64Url
+		//		: base64Url + "====".Substring(base64Url.Length % 4);
+		//	string base64 = padded.Replace("_", "/").Replace("-", "+");
+		//	return Convert.FromBase64String(base64);
+		//}
+
+		//public static byte[] TryDecrypt(byte[] cipherBytes, byte[] keyBytes, byte[] iv, CipherMode mode, PaddingMode padding)
+		//{
+		//	try
+		//	{
+		//		using (Aes aes = Aes.Create())
+		//		{
+		//			aes.Key = keyBytes;
+		//			aes.IV = iv;
+		//			aes.Mode = mode;
+		//			aes.Padding = padding;
+
+		//			ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+		//			using (MemoryStream ms = new MemoryStream(cipherBytes))
+		//			using (CryptoStream cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+		//			using (MemoryStream resultStream = new MemoryStream())
+		//			{
+		//				cs.CopyTo(resultStream);
+		//				return resultStream.ToArray();
+		//			}
+		//		}
+		//	}
+		//	catch (CryptographicException)
+		//	{
+		//		return null;
+		//	}
+		//}
+
+
+
+
+
+	}
 }

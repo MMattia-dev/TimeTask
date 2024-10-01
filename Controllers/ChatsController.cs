@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Runtime.Intrinsics.Arm;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
@@ -21,6 +22,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
 using Newtonsoft.Json;
@@ -661,17 +663,56 @@ namespace TimeTask.Controllers
 										classes = "bubble receiver";
 									else
 										classes = "bubble receiver unread";
-									
 
-									bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
-											"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
-											"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
-										"</div>" +
-										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-										"</div>" +
-									"</div>";
+
+
+									if (row.AttachmentName == null && row.AttachmentFileType == null)
+									{
+										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+												"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
+												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
+											"</div>" +
+											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											"</div>" +
+										"</div>";
+									}
+									if (row.AttachmentName != null && row.AttachmentFileType != null)
+									{
+										string base64Encrypted_AttachmentName = row.AttachmentName.Replace('_', '/').Replace('-', '\\');
+										string base64Encrypted_AttachmentFileType = row.AttachmentFileType.Replace('_', '/').Replace('-', '\\');
+
+										byte[] byteAttachmentName = Convert.FromBase64String(base64Encrypted_AttachmentName);
+										byte[] byteAttachmentFileType = Convert.FromBase64String(base64Encrypted_AttachmentFileType);
+
+										string decryptedAttachmentName = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentName);
+										string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
+
+										string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
+
+										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+												"<span>" + fileName + "</span>" +
+												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
+											"</div>" +
+											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											"</div>" +
+										"</div>";
+									}
+
+
+
+									//bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
+									//	"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+									//		"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
+									//		"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
+									//	"</div>" +
+									//	"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+									//		"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+									//	"</div>" +
+									//"</div>";
 								}
 							}
 							if (row.SenderUserId == sender)
@@ -711,17 +752,57 @@ namespace TimeTask.Controllers
 									}
 
 
-									bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
-										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-										"</div>" +
-										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
-											"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
-											//"<span style=\"color:" + spanSenderColor + ";\">" + "asd" + "</span>" +
-											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
-											messageReadStatusIcon +
-										"</div>" +
-									"</div>";
+
+									if (row.AttachmentName == null && row.AttachmentFileType == null)
+									{
+										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
+											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											"</div>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+												"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
+												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+												messageReadStatusIcon +
+											"</div>" +
+										"</div>";
+									}
+									if (row.AttachmentName != null && row.AttachmentFileType != null)
+									{
+										string base64Encrypted_AttachmentName = row.AttachmentName.Replace('_', '/').Replace('-', '\\');
+										string base64Encrypted_AttachmentFileType = row.AttachmentFileType.Replace('_', '/').Replace('-', '\\');
+
+										byte[] byteAttachmentName = Convert.FromBase64String(base64Encrypted_AttachmentName);
+										byte[] byteAttachmentFileType = Convert.FromBase64String(base64Encrypted_AttachmentFileType);
+
+										string decryptedAttachmentName = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentName);
+										string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
+
+										string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
+
+										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
+											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											"</div>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+												//"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
+												"<span>" + fileName + "</span>" +
+												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+												messageReadStatusIcon +
+											"</div>" +
+										"</div>";
+									}
+
+
+									//bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
+									//	"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+									//		"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+									//	"</div>" +
+									//	"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+									//		"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
+									//		"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+									//		messageReadStatusIcon +
+									//	"</div>" +
+									//"</div>";
 								}
 							}
 						}
@@ -757,15 +838,56 @@ namespace TimeTask.Controllers
 										classes = "bubble receiver unread";
 
 
-									bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
-											"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
-											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
-										"</div>" +
-										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-										"</div>" +
-									"</div>";
+
+
+									if (row.AttachmentName == null && row.AttachmentFileType == null)
+									{
+										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+												"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
+												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+											"</div>" +
+											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											"</div>" +
+										"</div>";
+									}
+									if (row.AttachmentName != null && row.AttachmentFileType != null)
+									{
+										string base64Encrypted_AttachmentName = row.AttachmentName.Replace('_', '/').Replace('-', '\\');
+										string base64Encrypted_AttachmentFileType = row.AttachmentFileType.Replace('_', '/').Replace('-', '\\');
+
+										byte[] byteAttachmentName = Convert.FromBase64String(base64Encrypted_AttachmentName);
+										byte[] byteAttachmentFileType = Convert.FromBase64String(base64Encrypted_AttachmentFileType);
+
+										string decryptedAttachmentName = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentName);
+										string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
+
+										string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
+
+										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+												"<span>" + fileName + "</span>" +
+												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+											"</div>" +
+											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											"</div>" +
+										"</div>";
+									}
+
+
+
+
+									//bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
+									//	"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+									//		"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
+									//		"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+									//	"</div>" +
+									//	"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+									//		"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+									//	"</div>" +
+									//"</div>";
 								}
 							}
 							if (row.SenderUserId == receiver)
@@ -805,16 +927,57 @@ namespace TimeTask.Controllers
 									}
 
 
-									bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
-										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-										"</div>" +
-										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
-											"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
-											"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
-											messageReadStatusIcon +
-										"</div>" +
-									"</div>";
+
+									if (row.AttachmentName == null && row.AttachmentFileType == null)
+									{
+										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
+											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											"</div>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+												"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
+												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
+												messageReadStatusIcon +
+											"</div>" +
+										"</div>";
+									}
+									if (row.AttachmentName != null && row.AttachmentFileType != null)
+									{
+										string base64Encrypted_AttachmentName = row.AttachmentName.Replace('_', '/').Replace('-', '\\');
+										string base64Encrypted_AttachmentFileType = row.AttachmentFileType.Replace('_', '/').Replace('-', '\\');
+
+										byte[] byteAttachmentName = Convert.FromBase64String(base64Encrypted_AttachmentName);
+										byte[] byteAttachmentFileType = Convert.FromBase64String(base64Encrypted_AttachmentFileType);
+
+										string decryptedAttachmentName = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentName);
+										string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
+
+										string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
+
+										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
+											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											"</div>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+												"<span>" + fileName + "</span>" +
+												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
+												messageReadStatusIcon +
+											"</div>" +
+										"</div>";
+									}
+
+
+
+									//bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
+									//	"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+									//		"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+									//	"</div>" +
+									//	"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+									//		"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
+									//		"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
+									//		messageReadStatusIcon +
+									//	"</div>" +
+									//"</div>";
 								}
 							}
 						}
@@ -917,15 +1080,54 @@ namespace TimeTask.Controllers
 										classes = "bubble receiver unread";
 
 
-									bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
-											"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
-											"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
-										"</div>" +
-										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-										"</div>" +
-									"</div>";
+
+									if (row.AttachmentName == null && row.AttachmentFileType == null)
+									{
+										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+												"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
+												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
+											"</div>" +
+											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											"</div>" +
+										"</div>";
+									}
+									if (row.AttachmentName != null && row.AttachmentFileType != null)
+									{
+										string base64Encrypted_AttachmentName = row.AttachmentName.Replace('_', '/').Replace('-', '\\');
+										string base64Encrypted_AttachmentFileType = row.AttachmentFileType.Replace('_', '/').Replace('-', '\\');
+
+										byte[] byteAttachmentName = Convert.FromBase64String(base64Encrypted_AttachmentName);
+										byte[] byteAttachmentFileType = Convert.FromBase64String(base64Encrypted_AttachmentFileType);
+
+										string decryptedAttachmentName = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentName);
+										string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
+
+										string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
+
+										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+												"<span>" + fileName + "</span>" +
+												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
+											"</div>" +
+											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											"</div>" +
+										"</div>";
+									}
+
+
+
+									//bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
+									//	"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+									//		"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
+									//		"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
+									//	"</div>" +
+									//	"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+									//		"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+									//	"</div>" +
+									//"</div>";
 								}
 							}
 
@@ -966,17 +1168,57 @@ namespace TimeTask.Controllers
 									}
 
 
-									bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
-										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-											"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-										"</div>" +
-										"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
-											"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
-											//"<span style=\"color:" + spanSenderColor + ";\">" + "asd" + "</span>" +
-											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
-											messageReadStatusIcon +
-										"</div>" +
-									"</div>";
+
+
+									if (row.AttachmentName == null && row.AttachmentFileType == null)
+									{
+										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
+											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											"</div>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+												"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
+												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+												messageReadStatusIcon +
+											"</div>" +
+										"</div>";
+									}
+									if (row.AttachmentName != null && row.AttachmentFileType != null)
+									{
+										string base64Encrypted_AttachmentName = row.AttachmentName.Replace('_', '/').Replace('-', '\\');
+										string base64Encrypted_AttachmentFileType = row.AttachmentFileType.Replace('_', '/').Replace('-', '\\');
+
+										byte[] byteAttachmentName = Convert.FromBase64String(base64Encrypted_AttachmentName);
+										byte[] byteAttachmentFileType = Convert.FromBase64String(base64Encrypted_AttachmentFileType);
+
+										string decryptedAttachmentName = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentName);
+										string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
+
+										string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
+
+										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
+											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											"</div>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+												//"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
+												"<span>" + fileName + "</span>" +
+												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+												messageReadStatusIcon +
+											"</div>" +
+										"</div>";
+									}
+
+									//bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
+									//	"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+									//		"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+									//	"</div>" +
+									//	"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+									//		"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
+									//		"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+									//		messageReadStatusIcon +
+									//	"</div>" +
+									//"</div>";
 								}
 							}
 
@@ -1011,7 +1253,7 @@ namespace TimeTask.Controllers
 			string messageReadStatusIcon = "<div class=\"messageReadStatusIcon\"><ion-icon name=\"eye-off\"></ion-icon></div>";
 
 			string bubble = "";
-			if (attachmentName == null)
+			if (attachmentName == null && attachmentFileType == null)
 			{
 				byte[] byteMessage = Convert.FromBase64String(message);
 				string decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
@@ -1027,37 +1269,56 @@ namespace TimeTask.Controllers
 									"</div>" +
 								"</div>";
 			}
-			else 
+			if (attachmentName != null && attachmentFileType != null) 
 			{
-				byte[] byteAttachmentName = Convert.FromBase64String(attachmentName);
-				byte[] byteAttachmentFileType = Convert.FromBase64String(attachmentFileType);
+				string base64Encrypted_AttachmentName = attachmentName.Replace('_', '/').Replace('-', '\\');
+				string base64Encrypted_AttachmentFileType = attachmentFileType.Replace('_', '/').Replace('-', '\\');
+
+				byte[] byteAttachmentName = Convert.FromBase64String(base64Encrypted_AttachmentName);
+				byte[] byteAttachmentFileType = Convert.FromBase64String(base64Encrypted_AttachmentFileType);
 
 				string decryptedAttachmentName = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentName);
 				string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
 
-				string div = "";
-				if (IfImage(decryptedAttachmentFileType))
-				{
-					//div = "<img src=\"\" />";
 
-					string fileName = decryptedAttachmentName + "." + decryptedAttachmentFileType;
+				string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
 
-					div = "<span>" + fileName + "</span>";
-				}
-				else
-				{
-					string fileName = decryptedAttachmentName + "." + decryptedAttachmentFileType;
 
-					div = "<span>" + fileName + "</span>";
-				}
+				////return decryptedAttachmentName;
+
+
+				////byte[] byteAttachmentName = Convert.FromBase64String(attachmentName);
+				////byte[] byteAttachmentFileType = Convert.FromBase64String(attachmentFileType);
+
+				////string decryptedAttachmentName = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentName);
+				////string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
+
+				//string div = "";
+				//if (IfImage(decryptedAttachmentFileType))
+				//{
+				//	//div = "<img src=\"\" />";
+
+				//	//string fileName = decryptedAttachmentName + "." + decryptedAttachmentFileType;
+				//	string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
+
+				//	div = "<span>" + fileName + "</span>";
+				//}
+				//else
+				//{
+				//	//string fileName = decryptedAttachmentName + "." + decryptedAttachmentFileType;
+				//	string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
+
+				//	div = "<span>" + fileName + "</span>";
+				//}
 
 				bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
 									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 										"<span>" + hour + "</span>" +
 									"</div>" +
-									"<div id=\"bubbleId_" + id + "\" class=\"bubble sender unread\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+									"<div id=\"bubbleId_" + id + "\" class=\"bubble sender unread file\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
 										//"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
-										div +
+										//div +
+										fileName +
 										"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 										messageReadStatusIcon +
 									"</div>" +
@@ -1067,20 +1328,61 @@ namespace TimeTask.Controllers
 			return bubble;
 		}
 
-		public string BubbleReceiver(string senderColor, string spanSenderColor, string message, string hour, int id)
+		public string BubbleReceiver(string senderColor, string spanSenderColor, string message, string hour, int id, string? attachmentName, string? attachmentFileType)
 		{
-			byte[] byteMessage = Convert.FromBase64String(message);
-			string decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
+			string bubble = "";
+			if (attachmentName == null && attachmentFileType == null)
+			{
+				byte[] byteMessage = Convert.FromBase64String(message);
+				string decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
 
-			string bubble = "<div class=\"chatMessagesBubblesContainer receiver\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
-									"<div id=\"bubbleId_" + id + "\" class=\"bubble receiver unread\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
-										"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
-										"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
-									"</div>" +
-									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-										"<span>" + hour + "</span>" +
-									"</div>" +
-								"</div>";
+				bubble = "<div class=\"chatMessagesBubblesContainer receiver\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
+										"<div id=\"bubbleId_" + id + "\" class=\"bubble receiver unread\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+											"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
+											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+										"</div>" +
+										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											"<span>" + hour + "</span>" +
+										"</div>" +
+									"</div>";
+			}
+			if (attachmentName != null && attachmentFileType != null)
+			{
+				string base64Encrypted_AttachmentName = attachmentName.Replace('_', '/').Replace('-', '\\');
+				string base64Encrypted_AttachmentFileType = attachmentFileType.Replace('_', '/').Replace('-', '\\');
+
+				byte[] byteAttachmentName = Convert.FromBase64String(base64Encrypted_AttachmentName);
+				byte[] byteAttachmentFileType = Convert.FromBase64String(base64Encrypted_AttachmentFileType);
+
+				string decryptedAttachmentName = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentName);
+				string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
+
+
+				string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
+
+				bubble = "<div class=\"chatMessagesBubblesContainer receiver\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
+										"<div id=\"bubbleId_" + id + "\" class=\"bubble receiver unread file\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+											"<span>" + fileName + "</span>" +
+											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+										"</div>" +
+										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											"<span>" + hour + "</span>" +
+										"</div>" +
+									"</div>";
+			}
+
+			//byte[] byteMessage = Convert.FromBase64String(message);
+			//string decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
+
+			//string bubble = "<div class=\"chatMessagesBubblesContainer receiver\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
+			//						"<div id=\"bubbleId_" + id + "\" class=\"bubble receiver unread\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+			//							"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
+			//							"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+			//						"</div>" +
+			//						"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+			//							"<span>" + hour + "</span>" +
+			//						"</div>" +
+			//					"</div>";
 
 			return bubble;
 		}
@@ -1128,7 +1430,7 @@ namespace TimeTask.Controllers
 			}
 			if (loggedInUser == receiver)
 			{
-				bubble = BubbleReceiver(senderColor, spanSenderColor, Data.Encryption.EncryptionHelper.Encrypt(message), date.ToString("HH:mm"), 0);
+				bubble = BubbleReceiver(senderColor, spanSenderColor, Data.Encryption.EncryptionHelper.Encrypt(message), date.ToString("HH:mm"), 0, attachmentName, attachmentFileType);
 			}
 
 			//

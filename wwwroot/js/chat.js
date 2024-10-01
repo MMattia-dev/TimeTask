@@ -508,6 +508,16 @@ async function sendMessage_(sender, receiver, message)
         },
         success: function (response)
         {
+            //ShowChatMessages_Refresh
+
+            console.log(message);
+
+            console.log(response);
+
+            //nie wykrywa plikow
+
+
+
             var id_ = "";
             if (document.getElementById('chat'))
             {
@@ -654,7 +664,7 @@ function playReceivedMessageSound()
     audio.muted = false;
     audio.volume = 1.0;
     audio.play();
-    console.log('odebrano wiadomość');
+    //console.log('odebrano wiadomość');
 };
 
 function notifyReceiver() 
