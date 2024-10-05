@@ -1460,6 +1460,15 @@ namespace TimeTask.Controllers
 			var chatArray = _context.Chat.Where(x => x.SenderUserId == sender && x.ReceiverUserId == receiver || x.SenderUserId == receiver && x.ReceiverUserId == sender);
 			if (chatArray.Any())
 			{
+
+				//if (message == null || message.Length == 0)
+				//{
+				//	return Json("asd");
+				//}
+
+
+
+
 				List<Chat> chats = new List<Chat>();
 				foreach (var row in chatArray)
 				{

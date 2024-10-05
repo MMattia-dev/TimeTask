@@ -72,5 +72,13 @@ namespace TimeTask.Hubs
 			//await Clients.Caller.SendAsync("LoggedInUsers", loggedInUsers);
 			await Clients.All.SendAsync("LoggedInUsers");
 		}
+
+		public async Task SendAttachment(string receiver, IFormFile file)
+		{
+			string fileName = file.FileName;
+
+			//await Clients.Users(GetUserId(), receiver).SendAsync("ReceiveAttachment", GetUserId(), receiver, file);
+			await Clients.Users(GetUserId(), receiver).SendAsync("ReceiveAttachment", GetUserId(), receiver, fileName);
+		}
 	}
 }

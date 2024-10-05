@@ -1070,49 +1070,94 @@ function fileAttach(e, sender, receiver)
 
                     document.getElementById('sendAttach').addEventListener('click', function ()
                     {
-                        $.ajax({
-                            url: '/Chats/UploadFile',
-                            type: 'POST',
-                            data: formData,
-                            processData: false,
-                            contentType: false,
-                            //xhr: function ()
-                            //{
-                            //    var xhr = new window.XMLHttpRequest();
-                            //    xhr.upload.addEventListener("progress", function (evt)
+
+                        console.log(formData);
+
+                        connection.invoke("SendAttachment", receiver, formData.file).then(function ()
+                        {
+                            
+
+                            //$.ajax({
+                            //    url: '/Chats/UploadFile',
+                            //    type: 'POST',
+                            //    data: formData,
+                            //    processData: false,
+                            //    contentType: false,
+                            //    headers: {
+                            //        'X-Additional-Data': JSON.stringify(additionalData)
+                            //    },
+                            //    success: function (result)
                             //    {
-                            //        if (evt.lengthComputable)
-                            //        {
-                            //            var percentComplete = (evt.loaded / evt.total) * 100;
-                            //            $('#uploadStatus').text('Upload progress: ' + percentComplete.toFixed(2) + '%');
-                            //        }
-                            //    }, false);
-                            //    return xhr;
-                            //},
-                            headers: {
-                                'X-Additional-Data': JSON.stringify(additionalData)
-                            },
-                            success: function (result)
-                            {
-                                refreshMessages(sender, receiver);
-                                $('.chatAttach').fadeOut(200);
-                                setTimeout(() =>
-                                {
-                                    $('.chatAttach').remove();
-                                    $('.chatUsers').removeClass('TYZimWgKPSymTgA');
 
-                                    let chatmessages = document.querySelector('.chatMessagesBubbles');
-                                    chatmessages.scrollTo(0, chatmessages.scrollHeight);
-                                }, 200);
+                            //        console.log(result);
 
-                                //console.log(result);
 
-                            },
-                            error: function (xhr, status, error)
-                            {
-                                console.log('Error:', error);
-                            }
+                            //        //refreshMessages(sender, receiver);
+                            //        //$('.chatAttach').fadeOut(200);
+                            //        //setTimeout(() =>
+                            //        //{
+                            //        //    $('.chatAttach').remove();
+                            //        //    $('.chatUsers').removeClass('TYZimWgKPSymTgA');
+
+                            //        //    let chatmessages = document.querySelector('.chatMessagesBubbles');
+                            //        //    chatmessages.scrollTo(0, chatmessages.scrollHeight);
+                            //        //}, 200);
+                            //    },
+                            //    error: function (xhr, status, error)
+                            //    {
+                            //        console.log('Error:', error);
+                            //    }
+                            //});
+                        }).catch(function (err)
+                        {
+                            return console.error(err.toString());
                         });
+
+
+
+                        //$.ajax({
+                        //    url: '/Chats/UploadFile',
+                        //    type: 'POST',
+                        //    data: formData,
+                        //    processData: false,
+                        //    contentType: false,
+                        //    //xhr: function ()
+                        //    //{
+                        //    //    var xhr = new window.XMLHttpRequest();
+                        //    //    xhr.upload.addEventListener("progress", function (evt)
+                        //    //    {
+                        //    //        if (evt.lengthComputable)
+                        //    //        {
+                        //    //            var percentComplete = (evt.loaded / evt.total) * 100;
+                        //    //            $('#uploadStatus').text('Upload progress: ' + percentComplete.toFixed(2) + '%');
+                        //    //        }
+                        //    //    }, false);
+                        //    //    return xhr;
+                        //    //},
+                        //    headers: {
+                        //        'X-Additional-Data': JSON.stringify(additionalData)
+                        //    },
+                        //    success: function (result)
+                        //    {
+                        //        refreshMessages(sender, receiver);
+                        //        $('.chatAttach').fadeOut(200);
+                        //        setTimeout(() =>
+                        //        {
+                        //            $('.chatAttach').remove();
+                        //            $('.chatUsers').removeClass('TYZimWgKPSymTgA');
+
+                        //            let chatmessages = document.querySelector('.chatMessagesBubbles');
+                        //            chatmessages.scrollTo(0, chatmessages.scrollHeight);
+                        //        }, 200);
+
+                        //        //console.log(result);
+
+                        //    },
+                        //    error: function (xhr, status, error)
+                        //    {
+                        //        console.log('Error:', error);
+                        //    }
+                        //});
                     });
                 },
                 error: function (xhr, status, error)
@@ -1247,6 +1292,12 @@ function connect()
         connection.on("LoggedInUsers", function ()
         {
             updateStatusForUsersInChat();
+        });
+
+        connection.on("ReceiveAttachment", function (sender, receiver, fileName) //file
+        {
+            console.log(fileName);
+
         });
     }
 };
