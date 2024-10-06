@@ -510,9 +510,9 @@ async function sendMessage_(sender, receiver, message)
         {
             //ShowChatMessages_Refresh
 
-            console.log(message);
+            //console.log(message);
 
-            console.log(response);
+            //console.log(response);
 
             //nie wykrywa plikow
 
@@ -1073,7 +1073,7 @@ function fileAttach(e, sender, receiver)
 
                         console.log(formData);
 
-                        connection.invoke("SendAttachment", receiver, formData.file).then(function ()
+                        connection.invoke("SendAttachment", receiver, file.name).then(function ()
                         {
                             
 
@@ -1266,6 +1266,79 @@ async function checkLoggedInUsers() //execute after connection.start
     }, 100);   
 };
 
+async function sendAttachment(sender, receiver, fileName) 
+{
+    ////
+    //var additionalData = {
+    //    senderId: sender,
+    //    receiverId: receiver,
+    //};
+    ////
+
+    await $.ajax({
+        url: '/Chats/UploadFile',
+        type: 'POST',
+        //data: formData,
+        //processData: false,
+        //contentType: false,
+        //headers: {
+        //    'X-Additional-Data': JSON.stringify(additionalData)
+        //},
+        data: {
+            sender: sender,
+            receiver: receiver,
+            fileName_: fileName
+        },
+        success: function (response)
+        {
+            if (response.success != false)
+            {
+                addAttachmentToChat(sender, receiver, fileName);
+
+                //console.log(response.loggedUser);
+            }
+            
+
+
+            //refreshMessages(sender, receiver);
+            //$('.chatAttach').fadeOut(200);
+            //setTimeout(() =>
+            //{
+            //    $('.chatAttach').remove();
+            //    $('.chatUsers').removeClass('TYZimWgKPSymTgA');
+
+            //    let chatmessages = document.querySelector('.chatMessagesBubbles');
+            //    chatmessages.scrollTo(0, chatmessages.scrollHeight);
+            //}, 200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+async function addAttachmentToChat(sender, receiver, fileName) {
+    await $.ajax({
+        url: '/Chats/AddAttachmentToChat',
+        type: 'POST',
+        data: {
+            sender: sender,
+            receiver: receiver,
+            fileName_: fileName
+        },
+        success: function (response)
+        {
+            //refreshMessages(sender, receiver);
+
+            console.log(response);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
 
 var handlerRegistered = false;
 function connect() 
@@ -1294,9 +1367,11 @@ function connect()
             updateStatusForUsersInChat();
         });
 
-        connection.on("ReceiveAttachment", function (sender, receiver, fileName) //file
+        connection.on("ReceiveAttachment", function (sender, receiver, fileName)
         {
-            console.log(fileName);
+            sendAttachment(sender, receiver, fileName);
+
+            //console.log(fileName);
 
         });
     }
