@@ -508,16 +508,6 @@ async function sendMessage_(sender, receiver, message)
         },
         success: function (response)
         {
-            //ShowChatMessages_Refresh
-
-            //console.log(message);
-
-            //console.log(response);
-
-            //nie wykrywa plikow
-
-
-
             var id_ = "";
             if (document.getElementById('chat'))
             {
@@ -1071,11 +1061,19 @@ function fileAttach(e, sender, receiver)
                     document.getElementById('sendAttach').addEventListener('click', function ()
                     {
 
-                        console.log(formData);
+                        //console.log(formData);
 
-                        connection.invoke("SendAttachment", receiver, file.name).then(function ()
+
+
+                        //addAttachmentToChat(sender, receiver, file.name);
+
+
+
+                        connection.invoke("SendAttachment", receiver, file.name).then(function () //formData
                         {
                             
+                            //sendAttachment(sender, receiver, file.name);
+                            sendAttachment(sender, receiver, formData);
 
                             //$.ajax({
                             //    url: '/Chats/UploadFile',
@@ -1266,50 +1264,39 @@ async function checkLoggedInUsers() //execute after connection.start
     }, 100);   
 };
 
-async function sendAttachment(sender, receiver, fileName) 
+async function sendAttachment(sender, receiver, file) //fileName
 {
-    ////
-    //var additionalData = {
-    //    senderId: sender,
-    //    receiverId: receiver,
-    //};
-    ////
+    //
+    var additionalData = {
+        senderId: sender,
+        receiverId: receiver,
+    };
+    //
 
     await $.ajax({
         url: '/Chats/UploadFile',
         type: 'POST',
-        //data: formData,
-        //processData: false,
-        //contentType: false,
-        //headers: {
-        //    'X-Additional-Data': JSON.stringify(additionalData)
-        //},
-        data: {
-            sender: sender,
-            receiver: receiver,
-            fileName_: fileName
+        data: file,
+        processData: false,
+        contentType: false,
+        headers: {
+            'X-Additional-Data': JSON.stringify(additionalData)
         },
+        //data: {
+        //    sender: sender,
+        //    receiver: receiver,
+        //    fileName_: fileName
+        //},
         success: function (response)
         {
             if (response.success != false)
             {
-                addAttachmentToChat(sender, receiver, fileName);
-
-                //console.log(response.loggedUser);
+                
             }
-            
+
+            console.log(response);
 
 
-            //refreshMessages(sender, receiver);
-            //$('.chatAttach').fadeOut(200);
-            //setTimeout(() =>
-            //{
-            //    $('.chatAttach').remove();
-            //    $('.chatUsers').removeClass('TYZimWgKPSymTgA');
-
-            //    let chatmessages = document.querySelector('.chatMessagesBubbles');
-            //    chatmessages.scrollTo(0, chatmessages.scrollHeight);
-            //}, 200);
         },
         error: function (xhr, status, error)
         {
@@ -1318,7 +1305,8 @@ async function sendAttachment(sender, receiver, fileName)
     });
 };
 
-async function addAttachmentToChat(sender, receiver, fileName) {
+async function addAttachmentToChat(sender, receiver, fileName) 
+{
     await $.ajax({
         url: '/Chats/AddAttachmentToChat',
         type: 'POST',
@@ -1330,8 +1318,161 @@ async function addAttachmentToChat(sender, receiver, fileName) {
         success: function (response)
         {
             //refreshMessages(sender, receiver);
+            //$('.chatAttach').fadeOut(200);
+            //setTimeout(() =>
+            //{
+            //    $('.chatAttach').remove();
+            //    $('.chatUsers').removeClass('TYZimWgKPSymTgA');
 
-            console.log(response);
+            //    let chatmessages = document.querySelector('.chatMessagesBubbles');
+            //    chatmessages.scrollTo(0, chatmessages.scrollHeight);
+            //}, 200);
+
+
+
+            var id_ = "";
+            if (document.getElementById('chat')) 
+            {
+                if (document.querySelector('.userSelected')) 
+                {
+                    let onclick = $('.userSelected').attr('onclick');
+                    id = onclick.substring(
+                        onclick.indexOf(", ") + 1,
+                        onclick.lastIndexOf(")")
+                    );
+                    id = id.replace(/\s/g, '');
+                    id = id.slice(1, -1);
+
+                    id_ = id;
+                }
+            }
+
+            if (response.anyDuplicates) 
+            {
+                Rem(response.duplicates);
+
+                if (response.senderId == id_ || response.senderId == response.loggedUser) 
+                {
+                    $('.emptyConversation').remove();
+                    $('.receiverNotSelected').remove();
+
+                    if (response.firstConversation)
+                    {
+                        setTimeout(function ()
+                        {
+                            $('.chatMessagesBubbles').html(response.messages);
+                        }, 100);
+                    }
+                    else
+                    {
+                        if (response.dateCheck)
+                        {
+                            let div = $('#dateParent[date="' + response.today + '"]');
+
+                            setTimeout(function ()
+                            {
+                                $(div).append(response.bubble);
+                            }, 100);
+                        }
+                        else
+                        {
+                            setTimeout(function ()
+                            {
+                                $('.chatMessagesBubbles').append(response.messages);
+                            }, 100);
+                        }
+                    }
+
+                    refreshMessages(sender, receiver);
+
+                    if (response.senderId == response.loggedUser)
+                    {
+                        $('#textAreaMessage').val("");
+                    }
+
+                    $('.chatMessagesBubbles').animate({ scrollTop: document.querySelector('.chatMessagesBubbles').scrollHeight }, "fast");
+
+                    disconnect_();
+                    setTimeout(function ()
+                    {
+                        if (connection.state == signalR.HubConnectionState.Disconnected)
+                        {
+                            connection.start().catch(function (err)
+                            {
+                                return console.error(err.toString());
+                            });
+                        }
+                    }, 100);
+                }
+            }
+            else 
+            {
+                if (response.senderId == id_ || response.senderId == response.loggedUser)
+                {
+                    $('.emptyConversation').remove();
+                    $('.receiverNotSelected').remove();
+
+                    if (response.firstConversation)
+                    {
+                        $('.chatMessagesBubbles').html(response.messages);
+                    }
+                    else
+                    {
+                        if (response.dateCheck)
+                        {
+                            let div = $('#dateParent[date="' + response.today + '"]');
+                            $(div).append(response.bubble);
+                        }
+                        else
+                        {
+                            $('.chatMessagesBubbles').append(response.messages);
+                        }
+                    }
+
+                    setTimeout(function ()
+                    {
+                        refreshMessages(sender, receiver);
+                    }, 150);
+
+                    if (response.senderId == response.loggedUser)
+                    {
+                        $('#textAreaMessage').val("");
+                    }
+
+                    $('.chatMessagesBubbles').animate({ scrollTop: document.querySelector('.chatMessagesBubbles').scrollHeight }, "fast");
+                }
+            }
+
+            GetCurrentlyLoggedUserId().then(response_ =>
+            {
+                if (response_ == response.receiverId) 
+                {
+                    if (sessionStorage.getItem('XaWDHywDpyvadHP') != null)
+                    {
+                        notifyReceiverChatIsOpen();
+                        playReceivedMessageSound();
+
+                        chatMessagesBubblesScroll();
+                    }
+                    else 
+                    {
+                        notifyReceiver();
+                        playReceivedMessageSound();
+                    }
+                }
+                //if (response_ == response.senderId) 
+                //{
+                //    chatMessagesBubblesScroll();
+                //}
+            });
+
+            $('.chatAttach').fadeOut(200);
+            setTimeout(() =>
+            {
+                $('.chatAttach').remove();
+                $('.chatUsers').removeClass('TYZimWgKPSymTgA');
+            }, 200);
+
         },
         error: function (xhr, status, error)
         {
@@ -1369,9 +1510,11 @@ function connect()
 
         connection.on("ReceiveAttachment", function (sender, receiver, fileName)
         {
-            sendAttachment(sender, receiver, fileName);
+            //sendAttachment(sender, receiver, fileName);
 
-            //console.log(fileName);
+            addAttachmentToChat(sender, receiver, fileName);
+
+
 
         });
     }

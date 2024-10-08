@@ -562,6 +562,141 @@ namespace TimeTask.Controllers
             //return Json(new { chat = Content(chat), chatMinimized = Content(chatMinimized) });
         }
 
+		public string GetFileFromZip(string receiver, DateTime messageDate, string encryptedFileName, string decryptedFileName, string decryptedFileType)
+		{
+			//var receiverFolderPath = "C:/Users/Kromolski/FTP/chat/" + receiver;
+			//var receiverFolderPath = "/chat/" + receiver;
+			//var dateFolder = receiverFolderPath + "/" + messageDate.ToString("yyyyMMddHHmm");
+			//var file = dateFolder + "/" + encryptedFileName + "." + decryptedFileType;
+
+			var file = "/chat/" + receiver + "/" + messageDate.ToString("yyyyMMddHHmm") + "/" + encryptedFileName + "." + decryptedFileType;
+
+			return file;
+
+
+
+
+			//var receiverFolderPath = "C:/Users/Kromolski/FTP/chat/" + receiver;
+			//var dateFolder = receiverFolderPath + "/" + messageDate.ToString("yyyyMMddHHmm");
+			//var zipFilePath = dateFolder + "/" + encryptedFileName + ".zip";
+			////var zipFilePath = dateFolder + "/" + decryptedFileName + ".zip";
+
+			//string password = Data.Encryption.EncryptionFiles.Encrypt(Data.Encryption.EncryptionFiles.Encrypt(decryptedFileType));
+			//string tempFolderPath = Path.GetTempPath();
+			////string fileNameInZip = decryptedFileName + "." + decryptedFileType;
+			////string fileNameInZip = encryptedFileName;
+			//string fileNameInZip = encryptedFileName + "." + decryptedFileType;
+			//string tempFilePath = Path.Combine(tempFolderPath, fileNameInZip);
+
+
+
+
+
+
+			//try
+			//{
+			//	using (FileStream fs = System.IO.File.OpenRead(zipFilePath))
+			//	using (ICSharpCode.SharpZipLib.Zip.ZipFile zipFile = new ICSharpCode.SharpZipLib.Zip.ZipFile(fs))
+			//	{
+			//		if (!string.IsNullOrEmpty(password))
+			//		{
+			//			zipFile.Password = password;
+			//		}
+
+			//		ZipEntry entry = zipFile.GetEntry(fileNameInZip);
+			//		if (entry != null)
+			//		{
+			//			using (Stream zipStream = zipFile.GetInputStream(entry))
+			//			using (FileStream tempFile = System.IO.File.Create(tempFilePath))
+			//			{
+			//				zipStream.CopyTo(tempFile);  // Copy file content to the temp location
+
+			//				//byte[] buffer = new byte[4096];
+			//				//int bytesRead;
+			//				//while ((bytesRead = zipStream.Read(buffer, 0, buffer.Length)) > 0)
+			//				//{
+			//				//	tempFile.Write(buffer, 0, bytesRead);
+			//				//}
+
+			//			}
+
+			//			return password;
+			//		}
+			//		else
+			//		{
+			//			return "File not found in the ZIP";
+			//		}
+			//	}
+
+			//	// Process.Start(tempFilePath); // Example: Open file in associated program
+			//}
+			//catch (Exception ex)
+			//{
+			//	return "Error";
+			//}
+
+
+
+
+			//using (FileStream fs = System.IO.File.OpenRead(zipFilePath))
+			//{
+			//	using (ICSharpCode.SharpZipLib.Zip.ZipFile zipFile = new ICSharpCode.SharpZipLib.Zip.ZipFile(fs))
+			//	{
+			//		// Set the password
+			//		zipFile.Password = Data.Encryption.EncryptionFiles.Encrypt(Data.Encryption.EncryptionFiles.Encrypt(decryptedFileType));
+
+			//		// Find the file in the ZIP archive
+			//		ZipEntry entry = zipFile.GetEntry(encryptedFileName);
+
+
+			//		if (entry != null && entry.IsCrypted && entry.AESKeySize == 256)
+			//		{
+			//			// Open the stream for the encrypted file
+			//			using (Stream zipStream = zipFile.GetInputStream(entry))
+			//			using (StreamReader reader = new StreamReader(zipStream))
+			//			{
+			//				// Read and display the file content
+			//				string fileContent = reader.ReadToEnd();
+			//				//Console.WriteLine(fileContent);
+
+			//				return fileContent;
+			//			}
+
+			//		}
+			//		else
+			//		{
+			//			return "Not found";
+			//		}
+
+
+			//	}
+			//}
+
+
+			//return "";
+		}
+
+		//public byte[] GetImgByte(string ftpFilePath)
+		//{
+		//	//WebClient ftpClient = new WebClient();
+		//	//ftpClient.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
+
+		//	//var localFilePath = Path.Combine(Path.GetTempPath(), fileName).Replace("/", "\\");
+
+		//	byte[] imageByte = _ftpService.DownloadFileAsync(ftpFilePath, Path.GetTempPath());
+		//	return imageByte;
+		//}
+
+		//public static Bitmap ByteToImage(byte[] blob)
+		//{
+		//	MemoryStream mStream = new MemoryStream();
+		//	byte[] pData = blob;
+		//	mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
+		//	Bitmap bm = new Bitmap(mStream, false);
+		//	mStream.Dispose();
+		//	return bm;
+		//}
+
 		[HttpGet]
 		public async Task<ActionResult> ShowChatMessages_Refresh(string sender, string receiver)
 		{
@@ -689,11 +824,30 @@ namespace TimeTask.Controllers
 										string decryptedAttachmentName = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentName);
 										string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
 
-										string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
+										string fileName = decryptedAttachmentName + "." + decryptedAttachmentFileType;
+
+										//czy decryptedAttachmentFileType jest obrazem
+										string div = "";
+										string imagePath = GetFileFromZip(receiver, row.MessageSentDate, row.AttachmentName, decryptedAttachmentName, decryptedAttachmentFileType);
+										if (IfImage(Path.GetExtension(imagePath))) //IfImage(decryptedAttachmentFileType)
+										{
+											div = "<img src=\"" + imagePath + "\">";
+										}
+										else
+										{
+											div = "<span>" + fileName + "</span>";
+										}
+
+										 //nie działa
+										_ftpService.DownloadFileAsync(imagePath, Path.GetTempPath());
+
+										//div = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
+										//div = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
 											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
-												"<span>" + fileName + "</span>" +
+												//"<span>" + fileName + "</span>" +
+												div +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 											"</div>" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
@@ -777,15 +931,31 @@ namespace TimeTask.Controllers
 										string decryptedAttachmentName = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentName);
 										string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
 
-										string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
+										string fileName = decryptedAttachmentName + "." + decryptedAttachmentFileType;
+
+										//czy decryptedAttachmentFileType jest obrazem
+										string div = "";
+										string imagePath = GetFileFromZip(receiver, row.MessageSentDate, row.AttachmentName, decryptedAttachmentName, decryptedAttachmentFileType);
+										if (IfImage(Path.GetExtension(imagePath))) //IfImage(decryptedAttachmentFileType)
+										{
+											div = "<img src=\"" + imagePath + "\">";
+										}
+										else
+										{
+											div = "<span>" + fileName + "</span>";
+										}
+										//div = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
+										//div = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
+
+										_ftpService.DownloadFileAsync(imagePath, Path.GetTempPath());
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 											"</div>" +
 											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
-												//"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
-												"<span>" + fileName + "</span>" +
+												//"<span>" + fileName + "</span>" +
+												div +
 												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 												messageReadStatusIcon +
 											"</div>" +
@@ -863,11 +1033,28 @@ namespace TimeTask.Controllers
 										string decryptedAttachmentName = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentName);
 										string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
 
-										string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
+										string fileName = decryptedAttachmentName + "." + decryptedAttachmentFileType;
+
+										//czy decryptedAttachmentFileType jest obrazem
+										string div = "";
+										string imagePath = GetFileFromZip(receiver, row.MessageSentDate, row.AttachmentName, decryptedAttachmentName, decryptedAttachmentFileType);
+										if (IfImage(Path.GetExtension(imagePath))) //IfImage(decryptedAttachmentFileType)
+										{
+											div = "<img src=\"" + imagePath + "\">";
+										}
+										else
+										{
+											div = "<span>" + fileName + "</span>";
+										}
+										//div = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
+										//div = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
+
+										_ftpService.DownloadFileAsync(imagePath, Path.GetTempPath());
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
 											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
-												"<span>" + fileName + "</span>" +
+												//"<span>" + fileName + "</span>" +
+												div +
 												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 											"</div>" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
@@ -952,14 +1139,31 @@ namespace TimeTask.Controllers
 										string decryptedAttachmentName = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentName);
 										string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
 
-										string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
+										string fileName = decryptedAttachmentName + "." + decryptedAttachmentFileType;
+
+										//czy decryptedAttachmentFileType jest obrazem
+										string div = "";
+										string imagePath = GetFileFromZip(receiver, row.MessageSentDate, row.AttachmentName, decryptedAttachmentName, decryptedAttachmentFileType);
+										if (IfImage(Path.GetExtension(imagePath))) //IfImage(decryptedAttachmentFileType)
+										{
+											div = "<img src=\"" + imagePath + "\">";
+										}
+										else
+										{
+											div = "<span>" + fileName + "</span>";
+										}
+										//div = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
+										//div = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
+
+										_ftpService.DownloadFileAsync(imagePath, Path.GetTempPath());
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 											"</div>" +
 											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
-												"<span>" + fileName + "</span>" +
+												//"<span>" + fileName + "</span>" +
+												div +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 												messageReadStatusIcon +
 											"</div>" +
@@ -1104,11 +1308,28 @@ namespace TimeTask.Controllers
 										string decryptedAttachmentName = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentName);
 										string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
 
-										string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
+										string fileName = decryptedAttachmentName + "." + decryptedAttachmentFileType;
+
+										//czy decryptedAttachmentFileType jest obrazem
+										string div_ = "";
+										string imagePath = GetFileFromZip(receiverUserId, row.MessageSentDate, row.AttachmentName, decryptedAttachmentName, decryptedAttachmentFileType);
+										if (IfImage(Path.GetExtension(imagePath))) //IfImage(decryptedAttachmentFileType)
+										{
+											div_ = "<img src=\"" + imagePath + "\">";
+										}
+										else
+										{
+											div_ = "<span>" + fileName + "</span>";
+										}
+										//div_ = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
+										//div_ = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
+
+										_ftpService.DownloadFileAsync(imagePath, Path.GetTempPath());
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
 											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
-												"<span>" + fileName + "</span>" +
+												//"<span>" + fileName + "</span>" +
+												div_ +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 											"</div>" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
@@ -1194,15 +1415,31 @@ namespace TimeTask.Controllers
 										string decryptedAttachmentName = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentName);
 										string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
 
-										string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
+										string fileName = decryptedAttachmentName + "." + decryptedAttachmentFileType;
+
+										//czy decryptedAttachmentFileType jest obrazem
+										string div_ = "";
+										string imagePath = GetFileFromZip(receiverUserId, row.MessageSentDate, row.AttachmentName, decryptedAttachmentName, decryptedAttachmentFileType);
+										if (IfImage(Path.GetExtension(imagePath))) //IfImage(decryptedAttachmentFileType)
+										{
+											div_ = "<img src=\"" + imagePath + "\">";
+										}
+										else
+										{
+											div_ = "<span>" + fileName + "</span>";
+										}
+										//div_ = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
+										//div_ = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
+
+										_ftpService.DownloadFileAsync(imagePath, Path.GetTempPath());
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 											"</div>" +
 											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
-												//"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
-												"<span>" + fileName + "</span>" +
+												//"<span>" + fileName + "</span>" +
+												div_ +
 												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 												messageReadStatusIcon +
 											"</div>" +
@@ -1239,10 +1476,19 @@ namespace TimeTask.Controllers
 
 		public bool IfImage(string fileType)
 		{
-			string[] imageArray = { "png", "jpg", "jpeg", "gif", "bmp", "tiff", "tif" };
-			if (imageArray.Contains(fileType))
+			//string[] imageArray = { "png", "jpg", "jpeg", "gif", "bmp", "tiff", "tif" };
+			string[] imageArray = { ".png", ".jpg", ".jpeg", ".gif", ".bmp", ".tiff", ".tif" };
+			//if (imageArray.Contains(fileType))
+			//{
+			//	return true;
+			//}
+
+			foreach (var image in imageArray)
 			{
-				return true;
+				if (image == fileType)
+				{
+					return true;
+				}
 			}
 
 			return false;
@@ -1281,7 +1527,7 @@ namespace TimeTask.Controllers
 				string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
 
 
-				string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
+				string fileName = decryptedAttachmentName + "." + decryptedAttachmentFileType;
 
 
 				////return decryptedAttachmentName;
@@ -1328,7 +1574,7 @@ namespace TimeTask.Controllers
 			return bubble;
 		}
 
-		public string BubbleReceiver(string senderColor, string spanSenderColor, string message, string hour, int id, string? attachmentName, string? attachmentFileType)
+		public string BubbleReceiver(string senderColor, string spanSenderColor, string? message, string hour, int id, string? attachmentName, string? attachmentFileType)
 		{
 			string bubble = "";
 			if (attachmentName == null && attachmentFileType == null)
@@ -1358,7 +1604,7 @@ namespace TimeTask.Controllers
 				string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
 
 
-				string fileName = decryptedAttachmentName + decryptedAttachmentFileType;
+				string fileName = decryptedAttachmentName + "." + decryptedAttachmentFileType;
 
 				bubble = "<div class=\"chatMessagesBubblesContainer receiver\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
 										"<div id=\"bubbleId_" + id + "\" class=\"bubble receiver unread file\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
@@ -1395,6 +1641,24 @@ namespace TimeTask.Controllers
 			string spanSenderColor = SpanColor(senderColor);
 
 			//
+			//string? messageEncrypted = null;
+			//if (message != null)
+			//{
+			//	messageEncrypted = Data.Encryption.EncryptionHelper.Encrypt(message);
+			//}
+
+			//string? attachmentNameEncrypted = null;
+			//if (attachmentName != null)
+			//{
+			//	attachmentNameEncrypted = Data.Encryption.EncryptionFiles.Encrypt(attachmentName);
+			//}
+
+			//string? attachmentFileTypeEncrypted = null;
+			//if (attachmentFileType != null)
+			//{
+			//	attachmentFileTypeEncrypted = Data.Encryption.EncryptionFiles.Encrypt(attachmentFileType);
+			//}
+			//
 
 			string bubble = "";
 			if (loggedInUser == sender)
@@ -1402,36 +1666,37 @@ namespace TimeTask.Controllers
 				string? text_ = "";
 				string date_ = "";
 				int id = 0;
+
 				if (!handler)
 				{
-					string? messageEncrypted = null;
+					string? messageEncrypted1 = null;
 					if (message != null)
 					{
-						messageEncrypted = Data.Encryption.EncryptionHelper.Encrypt(message);
+						messageEncrypted1 = Data.Encryption.EncryptionHelper.Encrypt(message);
 					}
 
-					string? attachmentNameEncrypted = null;
+					string? attachmentNameEncrypted1 = null;
 					if (attachmentName != null)
 					{
-						attachmentNameEncrypted = Data.Encryption.EncryptionFiles.Encrypt(attachmentName);
+						attachmentNameEncrypted1 = Data.Encryption.EncryptionFiles.Encrypt(attachmentName);
 					}
 
-					string? attachmentFileTypeEncrypted = null;
+					string? attachmentFileTypeEncrypted1 = null;
 					if (attachmentFileType != null)
 					{
-						attachmentFileTypeEncrypted = Data.Encryption.EncryptionFiles.Encrypt(attachmentFileType);
+						attachmentFileTypeEncrypted1 = Data.Encryption.EncryptionFiles.Encrypt(attachmentFileType);
 					}
 
 					var newData = new Chat()
 					{
 						SenderUserId = sender,
 						ReceiverUserId = receiver,
-						MessageText = messageEncrypted,
+						MessageText = messageEncrypted1,
 						MessageSentDate = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second),
 						//AttachmentName = attachmentName,
-						AttachmentName = attachmentNameEncrypted,
+						AttachmentName = attachmentNameEncrypted1,
 						//AttachmentFileType = attachmentFileType,
-						AttachmentFileType = attachmentFileTypeEncrypted,
+						AttachmentFileType = attachmentFileTypeEncrypted1,
 						IfMessageRead = ifMessageRead,
 						IfDeleted = ifDeleted
 					};
@@ -1445,22 +1710,77 @@ namespace TimeTask.Controllers
 
 					handler = true;
 				}
-				
+
+
+				string? attachmentNameEncrypted2 = null;
+				if (attachmentName != null)
+				{
+					attachmentNameEncrypted2 = Data.Encryption.EncryptionFiles.Encrypt(attachmentName);
+				}
+
+				string? attachmentFileTypeEncrypted2 = null;
+				if (attachmentFileType != null)
+				{
+					attachmentFileTypeEncrypted2 = Data.Encryption.EncryptionFiles.Encrypt(attachmentFileType);
+				}
+
 				//bubble = BubbleSender(senderColor, spanSenderColor, text_, date_, id, sender, receiver, attachmentName, attachmentFileType);
-				bubble = BubbleSender(senderColor, spanSenderColor, text_, date_, id, sender, receiver, Data.Encryption.EncryptionFiles.Encrypt(attachmentName), Data.Encryption.EncryptionFiles.Encrypt(attachmentFileType));
+				//bubble = BubbleSender(senderColor, spanSenderColor, text_, date_, id, sender, receiver, Data.Encryption.EncryptionFiles.Encrypt(attachmentName), Data.Encryption.EncryptionFiles.Encrypt(attachmentFileType));
+				bubble = BubbleSender(senderColor, spanSenderColor, text_, date_, id, sender, receiver, attachmentNameEncrypted2, attachmentFileTypeEncrypted2);
 			}
 			if (loggedInUser == receiver)
 			{
+				//if (message != null)
+				//{
+				//	bubble = BubbleReceiver(senderColor, spanSenderColor, Data.Encryption.EncryptionHelper.Encrypt(message), date.ToString("HH:mm"), 0, Data.Encryption.EncryptionFiles.Encrypt(attachmentName), Data.Encryption.EncryptionFiles.Encrypt(attachmentFileType));
+				//}
+
+				//bubble = BubbleReceiver(senderColor, spanSenderColor, Data.Encryption.EncryptionHelper.Encrypt(message), date.ToString("HH:mm"), 0, attachmentName, attachmentFileType);
+
+				string? messageEncrypted3 = null;
 				if (message != null)
 				{
-					bubble = BubbleReceiver(senderColor, spanSenderColor, Data.Encryption.EncryptionHelper.Encrypt(message), date.ToString("HH:mm"), 0, Data.Encryption.EncryptionFiles.Encrypt(attachmentName), Data.Encryption.EncryptionFiles.Encrypt(attachmentFileType));
+					messageEncrypted3 = Data.Encryption.EncryptionHelper.Encrypt(message);
 				}
-				//bubble = BubbleReceiver(senderColor, spanSenderColor, Data.Encryption.EncryptionHelper.Encrypt(message), date.ToString("HH:mm"), 0, attachmentName, attachmentFileType);
+
+				string? attachmentNameEncrypted3 = null;
+				if (attachmentName != null)
+				{
+					attachmentNameEncrypted3 = Data.Encryption.EncryptionFiles.Encrypt(attachmentName);
+				}
+
+				string? attachmentFileTypeEncrypted3 = null;
+				if (attachmentFileType != null)
+				{
+					attachmentFileTypeEncrypted3 = Data.Encryption.EncryptionFiles.Encrypt(attachmentFileType);
+				}
+
+				//bubble = BubbleReceiver(senderColor, spanSenderColor, messageEncrypted, date.ToString("HH:mm"), 0, attachmentName, attachmentFileType);
+				bubble = BubbleReceiver(senderColor, spanSenderColor, messageEncrypted3, date.ToString("HH:mm"), 0, attachmentNameEncrypted3, attachmentFileTypeEncrypted3);
+			}
+
+			string? messageEncrypted = null;
+			if (message != null)
+			{
+				messageEncrypted = Data.Encryption.EncryptionHelper.Encrypt(message);
+			}
+
+			string? attachmentNameEncrypted = null;
+			if (attachmentName != null)
+			{
+				attachmentNameEncrypted = Data.Encryption.EncryptionFiles.Encrypt(attachmentName);
+			}
+
+			string? attachmentFileTypeEncrypted = null;
+			if (attachmentFileType != null)
+			{
+				attachmentFileTypeEncrypted = Data.Encryption.EncryptionFiles.Encrypt(attachmentFileType);
 			}
 
 			//
 			//var duplicates = CheckForDuplicates(sender, receiver, Data.Encryption.EncryptionHelper.Encrypt(message), new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second), attachmentName, attachmentFileType);
-			var duplicates = CheckForDuplicates(sender, receiver, Data.Encryption.EncryptionHelper.Encrypt(message), new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second), Data.Encryption.EncryptionFiles.Encrypt(attachmentName), Data.Encryption.EncryptionFiles.Encrypt(attachmentFileType));
+			//var duplicates = CheckForDuplicates(sender, receiver, Data.Encryption.EncryptionHelper.Encrypt(message), new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second), Data.Encryption.EncryptionFiles.Encrypt(attachmentName), Data.Encryption.EncryptionFiles.Encrypt(attachmentFileType));
+			var duplicates = CheckForDuplicates(sender, receiver, messageEncrypted, new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second), attachmentNameEncrypted, attachmentFileTypeEncrypted);
 
 			bool areThereAnyDuplicates = false;
 			if (duplicates.Count > 1)
@@ -1820,115 +2140,171 @@ namespace TimeTask.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> UploadFile(string sender, string receiver, string fileName_) //Task<IActionResult> UploadFile(IFormFile file)
+		public async Task<ActionResult> UploadFile(IFormFile file) //Task<IActionResult> UploadFile(IFormFile file) //string sender, string receiver, string fileName_
 		{
-			if (fileName_ != null && fileName_.Length > 0) //file != null && file.Length > 0
+			try
 			{
-				try
+				var date = DateTime.Now;
+				var date_ = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
+
+				string additionalDataJson = Request.Headers["X-Additional-Data"];
+				var additionalData = JsonConvert.DeserializeObject<Dictionary<string, object>>(additionalDataJson);
+
+				string sender = additionalData["senderId"].ToString();
+				string receiver = additionalData["receiverId"].ToString();
+
+				// See if there is receiver and date folder
+				var receiverFolderPath = "C:/Users/Kromolski/FTP/chat/" + receiver + "/" + date.ToString("yyyyMMddHHmm");
+				if (!Directory.Exists(receiverFolderPath))
 				{
-					var date = DateTime.Now;
-					var date_ = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
-
-					//string additionalDataJson = Request.Headers["X-Additional-Data"];
-					//var additionalData = JsonConvert.DeserializeObject<Dictionary<string, object>>(additionalDataJson);
-
-					//string sender = additionalData["senderId"].ToString();
-					//string receiver = additionalData["receiverId"].ToString();
-
-					//string originalExtension = Path.GetExtension(file.FileName);
-					string originalExtension = fileName_.Split(".")[1];
-
-                    //string newFileName = Data.Encryption.EncryptionFiles.Encrypt(Path.GetFileNameWithoutExtension(file.FileName));
-                    string newFileName = Data.Encryption.EncryptionFiles.Encrypt(fileName_.Split(".")[0]);
-
-					string fileName = newFileName;
-
-                    var localFilePath = Path.Combine(Path.GetTempPath(), fileName).Replace("/", "\\");
-
-					var localZipPath = Path.ChangeExtension(fileName, ".zip");
-
-					// Save the uploaded file temporarily
-					//using (var stream = new FileStream(localFilePath, FileMode.Create))
-					//{
-					//	await file.CopyToAsync(stream);
-					//}
-					using (var stream = new FileStream(localFilePath, FileMode.Create))
-					{
-						var formFile = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
-
-						if (formFile != null)
-						{
-							await formFile.CopyToAsync(stream);
-						}
-					}
-
-					// Zip the file with AES encryption
-					using (var fsOut = System.IO.File.Create(localZipPath))
-					using (var zipOutputStream = new ZipOutputStream(fsOut))
-					{
-						zipOutputStream.SetLevel(9); // 0-9, 9 being the highest compression
-													 //zipOutputStream.Password = "12345";
-						zipOutputStream.Password = Data.Encryption.EncryptionFiles.Encrypt(fileName);
-
-						var zipEntry = new ZipEntry(fileName);
-						zipEntry.AESKeySize = 256; // Use AES-256 encryption
-						zipOutputStream.PutNextEntry(zipEntry);
-
-						using (var fsInput = System.IO.File.OpenRead(localFilePath))
-						{
-							StreamUtils.Copy(fsInput, zipOutputStream, new byte[4096]);
-						}
-						zipOutputStream.CloseEntry();
-					}
-
-                    // See if there is receiver folder
-                    var receiverFolderPath = "C:/Users/Kromolski/FTP/chat/" + receiver;
-					if (!Directory.Exists(receiverFolderPath))
-					{
-						Directory.CreateDirectory(receiverFolderPath);
-					}
-
-					// See if there is a date folder within receiver folder
-					var dateFolder = receiverFolderPath + "/" + date.ToString("yyyyMMddHHmm");
-                    if (!Directory.Exists(dateFolder))
-					{
-						Directory.CreateDirectory(dateFolder);
-					}
-
-                    //Define your remote file path
-                    var remoteFilePath = "/chat/" + receiver + "/" + date.ToString("yyyyMMddHHmm") + "/" + localZipPath.Split("\\").LastOrDefault();
-
-					//// Call your UploadFileAsync method
-					//await _ftpService.UploadFileAsync(localZipPath, remoteFilePath);
-
-					// Clean up the temporary files
-					System.IO.File.Delete(localFilePath);
-					System.IO.File.Delete(localZipPath);
-
-					//string attachmentFileType = Data.Encryption.EncryptionFiles.Encrypt(originalExtension);
-
-					//// After uploading file, save relevant data into database
-					//SaveFileNameToDatabase(sender, receiver, fileName, date_, attachmentFileType);
-
-					//if (SaveFileNameToDatabase(sender, receiver, fileName, date_, attachmentFileType))
-					//{
-					//	// Call your UploadFileAsync method
-					//	await _ftpService.UploadFileAsync(localZipPath, remoteFilePath);
-
-					//	// Clean up the temporary files
-					//	System.IO.File.Delete(localFilePath);
-					//	System.IO.File.Delete(localZipPath);
-
-					//	return Json(new { success = true, senderId = sender, receiverId = receiver, loggedUser = GetUserId() });
-					//}
-
-					return Json(new { success = true, message = "File uploaded successfully" });
+					Directory.CreateDirectory(receiverFolderPath);
 				}
-				catch (Exception ex)
+
+				string originalExtension = Path.GetExtension(file.FileName);
+				string newFileName = Data.Encryption.EncryptionFiles.Encrypt(Path.GetFileNameWithoutExtension(file.FileName)) + originalExtension;
+
+				string filePath = Path.Combine(receiverFolderPath, newFileName);
+
+				using (var stream = System.IO.File.Create(filePath))
 				{
-					return StatusCode(500, $"Internal server error: {ex.Message}");
+					await file.CopyToAsync(stream);
 				}
+
+
+
+
 			}
+			catch (Exception ex)
+			{
+				return StatusCode(500, $"Internal server error: {ex.Message}");
+			}
+
+
+			//if (fileName_ != null && fileName_.Length > 0) //file != null && file.Length > 0
+			//{
+			//	try
+			//	{
+			//		var date = DateTime.Now;
+			//		var date_ = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
+
+			//		//string additionalDataJson = Request.Headers["X-Additional-Data"];
+			//		//var additionalData = JsonConvert.DeserializeObject<Dictionary<string, object>>(additionalDataJson);
+
+			//		//string sender = additionalData["senderId"].ToString();
+			//		//string receiver = additionalData["receiverId"].ToString();
+
+			//		//string originalExtension = Path.GetExtension(file.FileName);
+			//		//string originalExtension = fileName_.Split(".")[1];
+
+			//		//string newFileName = Data.Encryption.EncryptionFiles.Encrypt(Path.GetFileNameWithoutExtension(file.FileName));
+			//		//string newFileName = Data.Encryption.EncryptionFiles.Encrypt(fileName_.Split(".")[0]);
+			//		//string newFileName = fileName_;
+			//		//string newFileName = Data.Encryption.EncryptionFiles.Encrypt(fileName_.Split(".")[0]) + "." + originalExtension;
+
+			//		//string fileName = newFileName;
+			//		string fileName = fileName_;
+
+			//                 //var localFilePath = Path.Combine(Path.GetTempPath(), fileName).Replace("/", "\\");
+			//                 //var localFilePath = Path.Combine(Path.GetTempPath(), fileName);
+
+			//		//var localZipPath = Path.ChangeExtension(fileName, ".zip");
+
+			//		// Save the uploaded file temporarily
+			//		//using (var stream = new FileStream(localFilePath, FileMode.Create))
+			//		//{
+			//		//	await file.CopyToAsync(stream);
+			//		//}
+
+			//		//using (var stream = new FileStream(localFilePath, FileMode.Create))
+			//		//{
+			//		//	var formFile = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
+
+			//		//	if (formFile != null)
+			//		//	{
+			//		//		await formFile.CopyToAsync(stream);
+			//		//	}
+			//		//}
+
+			//		string wwwPath = _environment.WebRootPath;
+			//		string contentPath = _environment.ContentRootPath;
+
+
+
+
+
+
+
+			//		// Zip the file with AES encryption
+			//		//using (var fsOut = System.IO.File.Create(localZipPath))
+			//		//using (var zipOutputStream = new ZipOutputStream(fsOut))
+			//		//{
+			//		//	zipOutputStream.SetLevel(9); // 0-9, 9 being the highest compression
+			//		//								 //zipOutputStream.Password = Data.Encryption.EncryptionFiles.Encrypt(fileName);
+			//		//								 //zipOutputStream.Password = "12345";
+			//		//	zipOutputStream.Password = Data.Encryption.EncryptionFiles.Encrypt(Data.Encryption.EncryptionFiles.Encrypt(originalExtension));
+
+			//		//	var zipEntry = new ZipEntry(fileName);
+			//		//	zipEntry.AESKeySize = 256; // Use AES-256 encryption
+			//		//	zipOutputStream.PutNextEntry(zipEntry);
+
+			//		//	using (var fsInput = System.IO.File.OpenRead(localFilePath))
+			//		//	{
+			//		//		StreamUtils.Copy(fsInput, zipOutputStream, new byte[4096]);
+			//		//	}
+			//		//	zipOutputStream.CloseEntry();
+			//		//}
+
+			//		// See if there is receiver folder
+			//		var receiverFolderPath = "C:/Users/Kromolski/FTP/chat/" + receiver;
+			//		if (!Directory.Exists(receiverFolderPath))
+			//		{
+			//			Directory.CreateDirectory(receiverFolderPath);
+			//		}
+
+			//		// See if there is a date folder within receiver folder
+			//		var dateFolder = receiverFolderPath + "/" + date.ToString("yyyyMMddHHmm");
+			//                 if (!Directory.Exists(dateFolder))
+			//		{
+			//			Directory.CreateDirectory(dateFolder);
+			//		}
+
+			//                 //Define your remote file path
+			//                 //var remoteFilePath = "/chat/" + receiver + "/" + date.ToString("yyyyMMddHHmm") + "/" + localZipPath.Split("\\").LastOrDefault();
+			//                 var remoteFilePath = "/chat/" + receiver + "/" + date.ToString("yyyyMMddHHmm") + "/" + localFilePath.Split("\\").LastOrDefault();
+
+			//		// Call your UploadFileAsync method
+			//		//await _ftpService.UploadFileAsync(localZipPath, remoteFilePath);
+			//		await _ftpService.UploadFileAsync(localFilePath, remoteFilePath);
+
+			//		// Clean up the temporary files
+			//		System.IO.File.Delete(localFilePath);
+			//		//System.IO.File.Delete(localZipPath);
+			//		System.IO.File.Delete(localFilePath);
+
+			//		//string attachmentFileType = Data.Encryption.EncryptionFiles.Encrypt(originalExtension);
+
+			//		//// After uploading file, save relevant data into database
+			//		//SaveFileNameToDatabase(sender, receiver, fileName, date_, attachmentFileType);
+
+			//		//if (SaveFileNameToDatabase(sender, receiver, fileName, date_, attachmentFileType))
+			//		//{
+			//		//	// Call your UploadFileAsync method
+			//		//	await _ftpService.UploadFileAsync(localZipPath, remoteFilePath);
+
+			//		//	// Clean up the temporary files
+			//		//	System.IO.File.Delete(localFilePath);
+			//		//	System.IO.File.Delete(localZipPath);
+
+			//		//	return Json(new { success = true, senderId = sender, receiverId = receiver, loggedUser = GetUserId() });
+			//		//}
+
+			//		return Json(new { success = true, message = "File uploaded successfully" });
+			//	}
+			//	catch (Exception ex)
+			//	{
+			//		return StatusCode(500, $"Internal server error: {ex.Message}");
+			//	}
+			//}
 
 			//return Json(new { success = false, message = "No file was uploaded" });
 			return Json(new { success = false });
