@@ -15,6 +15,7 @@ using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using FluentFTP;
+using FluentFTP.Rules;
 using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.AspNet.Identity;
@@ -562,6 +563,55 @@ namespace TimeTask.Controllers
             //return Json(new { chat = Content(chat), chatMinimized = Content(chatMinimized) });
         }
 
+		private string GetMimeType(string fileName)
+		{
+			// Extract the file extension
+			string extension = System.IO.Path.GetExtension(fileName).ToLower();
+
+			// Determine the MIME type based on file extension
+			switch (extension)
+			{
+				case ".jpg":
+				case ".jpeg":
+					return "image/jpeg";
+				case ".png":
+					return "image/png";
+				case ".gif":
+					return "image/gif";
+				case ".bmp":
+					return "image/bmp";
+				case ".tiff":
+				case ".tif":
+					return "image/tiff";
+				case ".svg":
+					return "image/svg+xml";
+				default:
+					throw new ArgumentException("Unsupported image format");
+			}
+		}
+
+		//public ActionResult GetImageFromFtp(string receiver, DateTime messageDate, string encryptedFileName, string decryptedFileName, string decryptedFileType)
+		//{
+		//	string ftpUrl = "ftp://127.0.0.1/chat/" + receiver + "/" + messageDate.ToString("yyyyMMddHHmm") + "/" + encryptedFileName + "." + decryptedFileType;
+		//	string ftpUsername = "TimeTaskFTP";
+		//	string ftpPassword = "Kromolski666745!";
+
+		//	// Download image from FTP
+		//	WebClient ftpClient = new WebClient();
+		//	ftpClient.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
+
+		//	// Download the image data as byte array from FTP
+		//	byte[] imageData = ftpClient.DownloadData(ftpUrl);
+
+		//	// Determine the MIME type based on the file extension
+		//	string mimeType = GetMimeType(ftpUrl);
+
+
+		//	// Return the image as a File result with the correct MIME type
+		//	return File(imageData, mimeType);
+
+		//}
+
 		public string GetFileFromZip(string receiver, DateTime messageDate, string encryptedFileName, string decryptedFileName, string decryptedFileType)
 		{
 			//var receiverFolderPath = "C:/Users/Kromolski/FTP/chat/" + receiver;
@@ -569,9 +619,24 @@ namespace TimeTask.Controllers
 			//var dateFolder = receiverFolderPath + "/" + messageDate.ToString("yyyyMMddHHmm");
 			//var file = dateFolder + "/" + encryptedFileName + "." + decryptedFileType;
 
-			var file = "/chat/" + receiver + "/" + messageDate.ToString("yyyyMMddHHmm") + "/" + encryptedFileName + "." + decryptedFileType;
+			//var file = "/chat/" + receiver + "/" + messageDate.ToString("yyyyMMddHHmm") + "/" + encryptedFileName + "." + decryptedFileType;
+			var file = "ftp://127.0.0.1/chat/" + receiver + "/" + messageDate.ToString("yyyyMMddHHmm") + "/" + encryptedFileName + "." + decryptedFileType;
+
+
+
+
+
+			//string ftpServer = "127.0.0.1";
+			//string ftpUsername = "TimeTaskFTP";
+			//string ftpPassword = "Kromolski666745!";
+
+			//var file = $"ftp://{ftpUsername}:{ftpPassword}@{ftpServer}/chat/" + receiver + "/" + messageDate.ToString("yyyyMMddHHmm") + "/" + encryptedFileName + "." + decryptedFileType;
+			//var file = $"ftp://{ftpServer}/chat/" + receiver + "/" + messageDate.ToString("yyyyMMddHHmm") + "/" + encryptedFileName + "." + decryptedFileType;
 
 			return file;
+
+
+
 
 
 
@@ -676,26 +741,26 @@ namespace TimeTask.Controllers
 			//return "";
 		}
 
-		//public byte[] GetImgByte(string ftpFilePath)
-		//{
-		//	//WebClient ftpClient = new WebClient();
-		//	//ftpClient.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
+		public byte[] GetImgByte(string ftpFilePath)
+		{
+			WebClient ftpClient = new WebClient();
+			ftpClient.Credentials = new NetworkCredential("TimeTaskFTP", "Kromolski666745!");
 
-		//	//var localFilePath = Path.Combine(Path.GetTempPath(), fileName).Replace("/", "\\");
+			byte[] imageByte = ftpClient.DownloadData(ftpFilePath);
 
-		//	byte[] imageByte = _ftpService.DownloadFileAsync(ftpFilePath, Path.GetTempPath());
-		//	return imageByte;
-		//}
+			//byte[] imageByte = _ftpClient.DownloadFile(ftpFilePath);
+			return imageByte;
+		}
 
-		//public static Bitmap ByteToImage(byte[] blob)
-		//{
-		//	MemoryStream mStream = new MemoryStream();
-		//	byte[] pData = blob;
-		//	mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
-		//	Bitmap bm = new Bitmap(mStream, false);
-		//	mStream.Dispose();
-		//	return bm;
-		//}
+		public static Bitmap ByteToImage(byte[] blob)
+		{
+			MemoryStream mStream = new MemoryStream();
+			byte[] pData = blob;
+			mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
+			Bitmap bm = new Bitmap(mStream, false);
+			mStream.Dispose();
+			return bm;
+		}
 
 		[HttpGet]
 		public async Task<ActionResult> ShowChatMessages_Refresh(string sender, string receiver)
@@ -831,15 +896,22 @@ namespace TimeTask.Controllers
 										string imagePath = GetFileFromZip(receiver, row.MessageSentDate, row.AttachmentName, decryptedAttachmentName, decryptedAttachmentFileType);
 										if (IfImage(Path.GetExtension(imagePath))) //IfImage(decryptedAttachmentFileType)
 										{
-											div = "<img src=\"" + imagePath + "\">";
+											//div = "<img src=\"" + imagePath + "\">";
+											//div = "<img src=\"" + ByteToImage(GetImgByte(imagePath)) + "\">";
+											//div = "<img a=\"" + ByteToImage(GetImgByte(imagePath)) + "\" src=\"" + ByteToImage(GetImgByte(imagePath)) + "\">";
+
+											//div = "<img src=\"" + GetImgByte(imagePath) + "\">";
+
+
+
 										}
 										else
 										{
 											div = "<span>" + fileName + "</span>";
 										}
 
-										 //nie działa
-										_ftpService.DownloadFileAsync(imagePath, Path.GetTempPath());
+
+
 
 										//div = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
 										//div = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
@@ -939,15 +1011,20 @@ namespace TimeTask.Controllers
 										if (IfImage(Path.GetExtension(imagePath))) //IfImage(decryptedAttachmentFileType)
 										{
 											div = "<img src=\"" + imagePath + "\">";
+											//div = "<img src=\"" + ByteToImage(GetImgByte(imagePath)) + "\">";
+											//div = "<img a=\"" + ByteToImage(GetImgByte(imagePath)) + "\" src=\"" + ByteToImage(GetImgByte(imagePath)) + "\">";
+
+											//div = "<img src=\"" + GetImgByte(imagePath) + "\">";
 										}
 										else
 										{
 											div = "<span>" + fileName + "</span>";
 										}
+
 										//div = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
 										//div = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
 
-										_ftpService.DownloadFileAsync(imagePath, Path.GetTempPath());
+
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
@@ -1041,15 +1118,20 @@ namespace TimeTask.Controllers
 										if (IfImage(Path.GetExtension(imagePath))) //IfImage(decryptedAttachmentFileType)
 										{
 											div = "<img src=\"" + imagePath + "\">";
+											//div = "<img src=\"" + ByteToImage(GetImgByte(imagePath)) + "\">";
+											//div = "<img a=\"" + ByteToImage(GetImgByte(imagePath)) + "\" src=\"" + ByteToImage(GetImgByte(imagePath)) + "\">";
+
+											//div = "<img src=\"" + GetImgByte(imagePath) + "\">";
 										}
 										else
 										{
 											div = "<span>" + fileName + "</span>";
 										}
+
 										//div = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
 										//div = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
 
-										_ftpService.DownloadFileAsync(imagePath, Path.GetTempPath());
+
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
 											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
@@ -1147,15 +1229,20 @@ namespace TimeTask.Controllers
 										if (IfImage(Path.GetExtension(imagePath))) //IfImage(decryptedAttachmentFileType)
 										{
 											div = "<img src=\"" + imagePath + "\">";
+											//div = "<img src=\"" + ByteToImage(GetImgByte(imagePath)) + "\">";
+											//div = "<img a=\"" + ByteToImage(GetImgByte(imagePath)) + "\" src=\"" + ByteToImage(GetImgByte(imagePath)) + "\">";
+
+											//div = "<img src=\"" + GetImgByte(imagePath) + "\">";
 										}
 										else
 										{
 											div = "<span>" + fileName + "</span>";
 										}
+
 										//div = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
 										//div = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
 
-										_ftpService.DownloadFileAsync(imagePath, Path.GetTempPath());
+
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
@@ -1316,15 +1403,20 @@ namespace TimeTask.Controllers
 										if (IfImage(Path.GetExtension(imagePath))) //IfImage(decryptedAttachmentFileType)
 										{
 											div_ = "<img src=\"" + imagePath + "\">";
+											//div_ = "<img src=\"" + ByteToImage(GetImgByte(imagePath)) + "\">";
+											//div_ = "<img a=\"" + ByteToImage(GetImgByte(imagePath)) + "\" src=\"" + ByteToImage(GetImgByte(imagePath)) + "\">";
+
+											//div_ = "<img src=\"" + GetImgByte(imagePath) + "\">";
 										}
 										else
 										{
 											div_ = "<span>" + fileName + "</span>";
 										}
+
 										//div_ = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
 										//div_ = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
 
-										_ftpService.DownloadFileAsync(imagePath, Path.GetTempPath());
+
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
 											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
@@ -1423,15 +1515,20 @@ namespace TimeTask.Controllers
 										if (IfImage(Path.GetExtension(imagePath))) //IfImage(decryptedAttachmentFileType)
 										{
 											div_ = "<img src=\"" + imagePath + "\">";
+											//div_ = "<img src=\"" + ByteToImage(GetImgByte(imagePath)) + "\">";
+											//div_ = "<img a=\"" + ByteToImage(GetImgByte(imagePath)) + "\" src=\"" + ByteToImage(GetImgByte(imagePath)) + "\">";
+
+											//div_ = "<img src=\"" + GetImgByte(imagePath) + "\">";
 										}
 										else
 										{
 											div_ = "<span>" + fileName + "</span>";
 										}
+
 										//div_ = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
 										//div_ = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
 
-										_ftpService.DownloadFileAsync(imagePath, Path.GetTempPath());
+
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
