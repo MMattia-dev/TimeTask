@@ -776,40 +776,40 @@ function lhkKNaastOkkmMh(t)
 //    vid.currentTime = localStorage.getItem('video_');
 //}
 //else {
-//    video.currentTime = 485;
+//    video.currentTime = 1485;
 //}
 
 //video.playbackRate = 1;
 //video.volume = 0.2;
 
-//$('#asdfgh').on('change', function ()
-//{
-//    if (this.checked)
-//    {
-//        //$('.right-nav').fadeOut();
-//        //$('.left-nav').fadeOut();
+////$('#asdfgh').on('change', function ()
+////{
+////    if (this.checked)
+////    {
+////        //$('.right-nav').fadeOut();
+////        //$('.left-nav').fadeOut();
 
-//        setTimeout(function ()
-//        {
-//            //$('.parent').css({ 'position': 'relative', 'height': '80vh', 'width': '80vw', 'transition': 'width 0.2s, height 0.2s', });
-//            //$('.parent').fadeOut();
-//            $(video).fadeIn();
-//            video.play();
+////        setTimeout(function ()
+////        {
+////            //$('.parent').css({ 'position': 'relative', 'height': '80vh', 'width': '80vw', 'transition': 'width 0.2s, height 0.2s', });
+////            //$('.parent').fadeOut();
+////            $(video).fadeIn();
+////            video.play();
             
-//        }, 400);
-//    }
-//    else {
-//        $(video).fadeOut();
+////        }, 400);
+////    }
+////    else {
+////        $(video).fadeOut();
 
-//        setTimeout(function ()
-//        {
-//            //$('.parent').css({ 'position': '', 'height': '', 'width': '', 'transition': 'width 0.2s, height 0.2s', });
-//            //$('.parent').fadeIn();
-//            //$('.right-nav').fadeIn();
-//            //$('.left-nav').fadeIn();
-//            video.pause();
-//            //video.volume = 0;
-//        }, 400);
-//    }
-//});
+////        setTimeout(function ()
+////        {
+////            //$('.parent').css({ 'position': '', 'height': '', 'width': '', 'transition': 'width 0.2s, height 0.2s', });
+////            //$('.parent').fadeIn();
+////            //$('.right-nav').fadeIn();
+////            //$('.left-nav').fadeIn();
+////            video.pause();
+////            //video.volume = 0;
+////        }, 400);
+////    }
+////});
 
