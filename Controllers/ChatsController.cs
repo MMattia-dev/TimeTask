@@ -19,6 +19,7 @@ using FluentFTP.Rules;
 using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
@@ -619,10 +620,30 @@ namespace TimeTask.Controllers
 			//string path = "C:/Users/Kromolski/FTP/chat/" + receiver + "/" + messageDate.ToString("yyyyMMddHHmm");
 
 
-			string sharedFolderPath = Path.Combine(_environment.WebRootPath, "~/Uploads/");
-			var receiverFolderPath = Path.Combine(sharedFolderPath, "/chat/" + receiver + "/" + messageDate.ToString("yyyyMMddHHmm") + "/" + encryptedFileName + "." + decryptedFileType);
+			//string sharedFolderPath = Path.Combine(_environment.WebRootPath, "Uploads");
+			//var receiverFolderPath = Path.Combine(sharedFolderPath, "/chat/" + receiver + "/" + messageDate.ToString("yyyyMMddHHmm") + "/" + encryptedFileName + "." + decryptedFileType);
 
-			return receiverFolderPath;
+
+
+			//string uploadsFolderPath = Path.Combine(_environment.WebRootPath, "Uploads");
+
+			//string chatFolderPath = Path.Combine(uploadsFolderPath, "chat");
+			string chatFolderPath = Path.Combine("Uploads", "chat");
+
+			if (GetUserId() == receiver)
+			{
+				chatFolderPath = Path.Combine("C:\\Users\\Kromolski\\source\\repos\\TimeTask\\wwwroot\\Uploads", "chat");
+			}
+
+			string receiverFolder = Path.Combine(chatFolderPath, receiver);
+
+			string dateFolderName = messageDate.ToString("yyyyMMddHHmmss");
+			string dateFolderPath = Path.Combine(receiverFolder, dateFolderName);
+
+			string fileName = encryptedFileName + "." + decryptedFileType;
+			string filePath = Path.Combine(dateFolderPath, fileName);
+
+			return filePath;
 			//return "C:/Users/Kromolski/FTP/chat/83b749e7-4525-440c-8224-68c36808655d/202410121638/vbQXxR4ucDn_TJASVBhyvteHtRH_SPLDDComlK3+ZJo=.jpg";
 
 
@@ -892,9 +913,22 @@ namespace TimeTask.Controllers
 
 									if (row.AttachmentName == null && row.AttachmentFileType == null)
 									{
+										string div = "";
+										string classes2 = "";
+										if (IfImage("." + decryptedMessage.Split(".").Last()))
+										{
+											div = "<img src='" + decryptedMessage + "'>";
+											classes2 = "picture";
+										}
+										else
+										{
+											div = "<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>";
+											//classes2 = "file";
+										}
+
 										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
-												"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+												div +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 											"</div>" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
@@ -920,15 +954,7 @@ namespace TimeTask.Controllers
 										string imagePath = GetFileFromZip(receiver, row.MessageSentDate, row.AttachmentName, decryptedAttachmentName, decryptedAttachmentFileType);
 										if (IfImage(Path.GetExtension(imagePath))) //IfImage(decryptedAttachmentFileType)
 										{
-											//div = "<img src=\"" + imagePath + "\">";
 											div = "<img src='" + imagePath + "'>";
-											//div = "<img src=\"" + ByteToImage(GetImgByte(imagePath)) + "\">";
-											//div = "<img a=\"" + ByteToImage(GetImgByte(imagePath)) + "\" src=\"" + ByteToImage(GetImgByte(imagePath)) + "\">";
-
-											//div = "<img src=\"" + GetImgByte(imagePath) + "\">";
-
-											
-
 										}
 										else
 										{
@@ -936,13 +962,19 @@ namespace TimeTask.Controllers
 										}
 
 
+										string classes2 = "";
+										if (IfImage("." + decryptedAttachmentFileType))
+										{
+											classes2 = "picture";
+										}
+										else
+										{
+											classes2 = "file";
+										}
 
-
-										//div = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
-										//div = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
 												//"<span>" + fileName + "</span>" +
 												div +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
@@ -1006,12 +1038,25 @@ namespace TimeTask.Controllers
 
 									if (row.AttachmentName == null && row.AttachmentFileType == null)
 									{
+										string div = "";
+										string classes2 = "";
+										if (IfImage("." + decryptedMessage.Split(".").Last()))
+										{
+											div = "<img src='" + decryptedMessage + "'>";
+											classes2 = "picture";
+										}
+										else
+										{
+											div = "<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>";
+											//classes2 = "file";
+										}
+
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 											"</div>" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
-												"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+												div +
 												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 												messageReadStatusIcon +
 											"</div>" +
@@ -1050,13 +1095,21 @@ namespace TimeTask.Controllers
 										//div = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
 										//div = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
 
-
+										string classes2 = "";
+										if (IfImage("." + decryptedAttachmentFileType))
+										{
+											classes2 = "picture";
+										}
+										else
+										{
+											classes2 = "file";
+										}
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 											"</div>" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
 												//"<span>" + fileName + "</span>" +
 												div +
 												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
@@ -1115,9 +1168,22 @@ namespace TimeTask.Controllers
 
 									if (row.AttachmentName == null && row.AttachmentFileType == null)
 									{
+										string div = "";
+										string classes2 = "";
+										if (IfImage("." + decryptedMessage.Split(".").Last()))
+										{
+											div = "<img src='" + decryptedMessage + "'>";
+											classes2 = "picture";
+										}
+										else
+										{
+											div = "<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>";
+											//classes2 = "file";
+										}
+
 										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
-												"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+												div +
 												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 											"</div>" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
@@ -1158,10 +1224,18 @@ namespace TimeTask.Controllers
 										//div = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
 										//div = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
 
-
+										string classes2 = "";
+										if (IfImage("." + decryptedAttachmentFileType))
+										{
+											classes2 = "picture";
+										}
+										else
+										{
+											classes2 = "file";
+										}
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
 												//"<span>" + fileName + "</span>" +
 												div +
 												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
@@ -1226,12 +1300,25 @@ namespace TimeTask.Controllers
 
 									if (row.AttachmentName == null && row.AttachmentFileType == null)
 									{
+										string div = "";
+										string classes2 = "";
+										if (IfImage("." + decryptedMessage.Split(".").Last()))
+										{
+											div = "<img src='" + decryptedMessage + "'>";
+											classes2 = "picture";
+										}
+										else
+										{
+											div = "<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>";
+											//classes2 = "file";
+										}
+
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 											"</div>" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
-												"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+												div +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 												messageReadStatusIcon +
 											"</div>" +
@@ -1270,13 +1357,21 @@ namespace TimeTask.Controllers
 										//div = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
 										//div = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
 
-
+										string classes2 = "";
+										if (IfImage("." + decryptedAttachmentFileType))
+										{
+											classes2 = "picture";
+										}
+										else
+										{
+											classes2 = "file";
+										}
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 											"</div>" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
 												//"<span>" + fileName + "</span>" +
 												div +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
@@ -1402,9 +1497,22 @@ namespace TimeTask.Controllers
 
 									if (row.AttachmentName == null && row.AttachmentFileType == null)
 									{
+										string div_ = "";
+										string classes2 = "";
+										if (IfImage("." + decryptedMessage.Split(".").Last()))
+										{
+											div_ = "<img src='" + decryptedMessage + "'>";
+											classes2 = "picture";
+										}
+										else
+										{
+											div_ = "<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>";
+											//classes2 = "file";
+										}
+
 										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
-												"<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+												div_ +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 											"</div>" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
@@ -1445,10 +1553,18 @@ namespace TimeTask.Controllers
 										//div_ = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
 										//div_ = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
 
-
+										string classes2 = "";
+										if (IfImage("." + decryptedAttachmentFileType))
+										{
+											classes2 = "picture";
+										}
+										else
+										{
+											classes2 = "file";
+										}
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
 												//"<span>" + fileName + "</span>" +
 												div_ +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
@@ -1514,12 +1630,25 @@ namespace TimeTask.Controllers
 
 									if (row.AttachmentName == null && row.AttachmentFileType == null)
 									{
+										string div_ = "";
+										string classes2 = "";
+										if (IfImage("." + decryptedMessage.Split(".").Last()))
+										{
+											div_ = "<img src='" + decryptedMessage + "'>";
+											classes2 = "picture";
+										}
+										else
+										{
+											div_ = "<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>";
+											//classes2 = "file";
+										}
+
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 											"</div>" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
-												"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+												div_ +
 												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 												messageReadStatusIcon +
 											"</div>" +
@@ -1558,13 +1687,21 @@ namespace TimeTask.Controllers
 										//div_ = "<img alt=\"" + Path.GetExtension(imagePath) + "\" src=\"" + imagePath + "\">";
 										//div_ = "<img alt=\"" + row.MessageSentDate.ToString("yyyyMMddHHmm") + "\" src=\"" + imagePath + "\">";
 
-
+										string classes2 = "";
+										if (IfImage("." + decryptedAttachmentFileType))
+										{
+											classes2 = "picture";
+										}
+										else
+										{
+											classes2 = "file";
+										}
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
 											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
 											"</div>" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + "file" + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
 												//"<span>" + fileName + "</span>" +
 												div_ +
 												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
@@ -1605,18 +1742,19 @@ namespace TimeTask.Controllers
 		{
 			//string[] imageArray = { "png", "jpg", "jpeg", "gif", "bmp", "tiff", "tif" };
 			string[] imageArray = { ".png", ".jpg", ".jpeg", ".gif", ".bmp", ".tiff", ".tif" };
-			//if (imageArray.Contains(fileType))
-			//{
-			//	return true;
-			//}
 
-			foreach (var image in imageArray)
+			if (imageArray.Contains(fileType))
 			{
-				if (image == fileType)
-				{
-					return true;
-				}
+				return true;
 			}
+
+			//foreach (var image in imageArray)
+			//{
+			//	if (image == fileType)
+			//	{
+			//		return true;
+			//	}
+			//}
 
 			return false;
 		}
@@ -1684,11 +1822,21 @@ namespace TimeTask.Controllers
 				//	div = "<span>" + fileName + "</span>";
 				//}
 
+				string classes = "";
+				if (IfImage("." + decryptedAttachmentFileType))
+				{
+					classes = "bubble sender unread picture";
+				}
+				else
+				{
+					classes = "bubble sender unread file";
+				}
+
 				bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
 									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 										"<span>" + hour + "</span>" +
 									"</div>" +
-									"<div id=\"bubbleId_" + id + "\" class=\"bubble sender unread file\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+									"<div id=\"bubbleId_" + id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
 										//"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 										//div +
 										fileName +
@@ -1733,8 +1881,18 @@ namespace TimeTask.Controllers
 
 				string fileName = decryptedAttachmentName + "." + decryptedAttachmentFileType;
 
+				string classes = "";
+				if (IfImage("." + decryptedAttachmentFileType))
+				{
+					classes = "bubble receiver unread picture";
+				}
+				else
+				{
+					classes = "bubble receiver unread file";
+				}
+
 				bubble = "<div class=\"chatMessagesBubblesContainer receiver\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
-										"<div id=\"bubbleId_" + id + "\" class=\"bubble receiver unread file\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+										"<div id=\"bubbleId_" + id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
 											"<span>" + fileName + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 										"</div>" +
@@ -2271,6 +2429,11 @@ namespace TimeTask.Controllers
 		{
 			try
 			{
+				if (file == null || file.Length == 0)
+				{
+					return BadRequest("No file was uploaded.");
+				}
+
 				var date = DateTime.Now;
 				var date_ = new DateTime(date.Year, date.Month, date.Day, date.Hour, date.Minute, date.Second);
 
@@ -2302,20 +2465,54 @@ namespace TimeTask.Controllers
 
 				//
 
+
+
 				//
 
+				// Get the physical path of the Uploads folder
+				string uploadsFolderPath = Path.Combine(_environment.WebRootPath, "Uploads");
 
+				// Create "chat" folder inside "Uploads"
+				string chatFolderPath = Path.Combine(uploadsFolderPath, "chat");
 
-				//
-
-
-
-
-
-				if (!Directory.Exists(receiverFolderPath))
+				// Ensure the "chat" folder exists
+				if (!Directory.Exists(chatFolderPath))
 				{
-					Directory.CreateDirectory(receiverFolderPath);
+					Directory.CreateDirectory(chatFolderPath);
 				}
+
+				// Create "receiver" folder inside "chat"
+				string receiverFolder = Path.Combine(chatFolderPath, receiver);
+
+				// Ensure the "receiver" folder exists
+				if (!Directory.Exists(receiverFolder))
+				{
+					Directory.CreateDirectory(receiverFolder);
+				}
+
+				// Create a date-based folder with the format yyyyMMddHHmm inside "chat"
+				//string dateFolderName = date.ToString("yyyyMMddHHmm");
+				string dateFolderName = date.ToString("yyyyMMddHHmmss");
+				string dateFolderPath = Path.Combine(receiverFolder, dateFolderName);
+
+				// Ensure the date folder exists
+				if (!Directory.Exists(dateFolderPath))
+				{
+					Directory.CreateDirectory(dateFolderPath);
+				}
+
+				string receiverFolderPath = dateFolderPath;
+
+				//
+
+
+
+
+
+				//if (!Directory.Exists(receiverFolderPath))
+				//{
+				//	Directory.CreateDirectory(receiverFolderPath);
+				//}
 
 				string originalExtension = Path.GetExtension(file.FileName);
 				string newFileName = Data.Encryption.EncryptionFiles.Encrypt(Path.GetFileNameWithoutExtension(file.FileName)) + originalExtension;
@@ -2328,7 +2525,7 @@ namespace TimeTask.Controllers
 				}
 
 
-
+				return Json(receiverFolderPath);
 
 			}
 			catch (Exception ex)
@@ -2540,8 +2737,8 @@ namespace TimeTask.Controllers
                     IfDeleted = false
                 };
 
-                _context.Chat.Add(newData);
-                _context.SaveChanges();
+				_context.Chat.Add(newData);
+				_context.SaveChanges();
 
 				return true;
             }

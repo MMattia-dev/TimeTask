@@ -130,9 +130,9 @@ if (defaultWallpaper_ != null)
             'background-position': 'center'
         });
     }
-    else
+    else 
     {
-        $('body').append('<video autoplay loop id="myVideo"><source src="' + defaultWallpaper_ + '" type="video/mp4"></video>');
+        $('body').append('<video autoplay loop muted id="myVideo"><source src="' + defaultWallpaper_ + '" type="video/mp4"></video>');
     }
 }
 else {
@@ -758,6 +758,7 @@ function lhkKNaastOkkmMh(t)
 
 //let source = "";
 //let poi = `<video autoplay loop id="myVideo"><source src="` + source + `" type="video/mp4"></video>`;
+////$('body').append(poi);
 //$('.parent').append(poi);
 ////let poi2 = `<label style="position: absolute; top: 10px; left: 10px; z-index: 1;"><input type="checkbox" id="asdfgh" /></label>`;
 ////$('body').append(poi2);
@@ -779,8 +780,8 @@ function lhkKNaastOkkmMh(t)
 //    video.currentTime = 1485;
 //}
 
-//video.playbackRate = 1;
-//video.volume = 0.2;
+//video.playbackRate = 0.8;
+//video.volume = 0.0;
 
 ////$('#asdfgh').on('change', function ()
 ////{

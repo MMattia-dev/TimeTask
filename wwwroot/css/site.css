@@ -6976,6 +6976,20 @@ span#OcoYTyiBrpZJStB {
                     position: relative;
                 }
 
+                    .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.picture {
+                        padding: 0;
+                    }
+
+                        .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.picture img {
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 15px;
+                        }
+
+                        .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.picture .tail {
+                            opacity: 0;
+                        }
+
                     .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble .messageReadStatusIcon {
                         position: absolute;
                         top: -14px;
