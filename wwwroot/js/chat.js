@@ -30,8 +30,24 @@ $(document).on('mousedown', function (event)
     {
         $('.bubbleSettings').remove();
         $('.chatTimeStamp').hide();
+        //$('#chatMessageOptionsId').remove();
     }
+
+    if (!$(event.target).closest('#chatMessageOptionsId').length)
+    {
+        $('#chatMessageOptionsId').remove();
+    }  
 });
+
+function detectScrollEvent() {
+    let chatMessagesBubbles = document.querySelector('.chatMessagesBubbles');
+
+    chatMessagesBubbles.addEventListener('scroll', (event) =>
+    {
+        //console.log(event.target.scrollTop);
+        $('#chatMessageOptionsId').remove();
+    });
+}
 
 function dragElement(elmnt)
 {
@@ -147,6 +163,8 @@ function ZtMJSUFaxcMCRVo()
                 notifyReceiverChatIsOpen();
 
                 checkLoggedInUsers();
+
+                detectScrollEvent();
             },
             error: function (xhr, status, error)
             {
@@ -474,7 +492,30 @@ function bubbleClickReceiver(t) {
     $(t).parent().children('.chatTimeStamp').show();
 };
 
-function bubbleClick(t, id, sender, receiver) {
+function openImage(message) {
+    $.ajax({
+        type: 'GET',
+        url: '/Chats/OpenLink',
+        data: {
+            message: message
+        },
+        success: function (response)
+        {
+            $('#chatMessageOptionsId').remove();
+
+            if (response.length > 0) 
+            {
+                window.open(response, '_blank').focus();
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function bubbleClick(e, id, sender, receiver) {
     $.ajax({
         type: 'GET',
         url: '/Chats/DeleteButton',
@@ -485,9 +526,22 @@ function bubbleClick(t, id, sender, receiver) {
         },
         success: function (response)
         {
-            $('.bubbleSettings').remove();
-            $(response).insertBefore(t);
-            $(t).parent().children('.chatTimeStamp').show();
+            ////$('.bubbleSettings').remove();
+            $('.bubbleSettingsParent').remove();
+            //$(response).insertBefore(t); 
+            //$(t).parent().children('.chatTimeStamp').show();
+            //let time = $(t).parent().children('.chatTimeStamp');
+
+            $('body').append(response);
+
+            let x = e.clientX;
+            let y = e.clientY;
+
+            $('#chatMessageOptionsId').fadeIn(50);
+            $('.chatMessagesBubbles').append('<div class="blur"></div>');
+            document.getElementById("chatMessageOptionsId").style.left = x + "px";
+            document.getElementById("chatMessageOptionsId").style.top = y + "px";
+
         },
         error: function (xhr, status, error)
         {
@@ -1246,6 +1300,7 @@ async function removeMessage(id, sender, receiver)
 {
     connection.invoke("RemoveMessage", id, sender, receiver).catch(function (err)
     {
+        $('#chatMessageOptionsId').remove();
         return console.error(err.toString());
     });
 };

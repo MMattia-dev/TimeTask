@@ -630,10 +630,10 @@ namespace TimeTask.Controllers
 			//string chatFolderPath = Path.Combine(uploadsFolderPath, "chat");
 			string chatFolderPath = Path.Combine("Uploads", "chat");
 
-			if (GetUserId() == receiver)
-			{
-				chatFolderPath = Path.Combine("C:\\Users\\Kromolski\\source\\repos\\TimeTask\\wwwroot\\Uploads", "chat");
-			}
+			//if (GetUserId() == receiver)
+			//{
+			//	chatFolderPath = Path.Combine("C:\\Users\\Kromolski\\source\\repos\\TimeTask\\wwwroot\\Uploads", "chat");
+			//}
 
 			string receiverFolder = Path.Combine(chatFolderPath, receiver);
 
@@ -920,6 +920,11 @@ namespace TimeTask.Controllers
 											div = "<img src='" + decryptedMessage + "'>";
 											classes2 = "picture";
 										}
+										else if (IfVideo("." + decryptedMessage.Split(".").Last()))
+										{
+											div = "<video autoplay loop muted><source src=\"" + decryptedMessage + "\"></video>";
+											classes2 = "picture";
+										}
 										else
 										{
 											div = "<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>";
@@ -931,9 +936,9 @@ namespace TimeTask.Controllers
 												div +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 											"</div>" +
-											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-											"</div>" +
+											//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											//	"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											//"</div>" +
 										"</div>";
 									}
 									if (row.AttachmentName != null && row.AttachmentFileType != null)
@@ -979,9 +984,9 @@ namespace TimeTask.Controllers
 												div +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 											"</div>" +
-											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-											"</div>" +
+											//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											//	"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											//"</div>" +
 										"</div>";
 									}
 
@@ -1045,6 +1050,11 @@ namespace TimeTask.Controllers
 											div = "<img src='" + decryptedMessage + "'>";
 											classes2 = "picture";
 										}
+										else if (IfVideo("." + decryptedMessage.Split(".").Last()))
+										{
+											div = "<video autoplay loop muted><source src=\"" + decryptedMessage + "\"></video>";
+											classes2 = "picture";
+										}
 										else
 										{
 											div = "<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>";
@@ -1052,10 +1062,10 @@ namespace TimeTask.Controllers
 										}
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
-											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-											"</div>" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+											//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											//	"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											//"</div>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(event," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
 												div +
 												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 												messageReadStatusIcon +
@@ -1106,10 +1116,10 @@ namespace TimeTask.Controllers
 										}
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
-											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-											"</div>" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+											//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											//	"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											//"</div>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(event," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
 												//"<span>" + fileName + "</span>" +
 												div +
 												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
@@ -1175,6 +1185,11 @@ namespace TimeTask.Controllers
 											div = "<img src='" + decryptedMessage + "'>";
 											classes2 = "picture";
 										}
+										else if (IfVideo("." + decryptedMessage.Split(".").Last()))
+										{
+											div = "<video autoplay loop muted><source src=\"" + decryptedMessage + "\"></video>";
+											classes2 = "picture";
+										}
 										else
 										{
 											div = "<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>";
@@ -1186,9 +1201,9 @@ namespace TimeTask.Controllers
 												div +
 												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 											"</div>" +
-											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-											"</div>" +
+											//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											//	"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											//"</div>" +
 										"</div>";
 									}
 									if (row.AttachmentName != null && row.AttachmentFileType != null)
@@ -1240,9 +1255,9 @@ namespace TimeTask.Controllers
 												div +
 												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 											"</div>" +
-											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-											"</div>" +
+											//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											//	"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											//"</div>" +
 										"</div>";
 									}
 
@@ -1307,6 +1322,11 @@ namespace TimeTask.Controllers
 											div = "<img src='" + decryptedMessage + "'>";
 											classes2 = "picture";
 										}
+										else if (IfVideo("." + decryptedMessage.Split(".").Last()))
+										{
+											div = "<video autoplay loop muted><source src=\"" + decryptedMessage + "\"></video>";
+											classes2 = "picture";
+										}
 										else
 										{
 											div = "<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>";
@@ -1314,10 +1334,10 @@ namespace TimeTask.Controllers
 										}
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
-											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-											"</div>" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+											//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											//	"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											//"</div>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(event," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
 												div +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 												messageReadStatusIcon +
@@ -1368,10 +1388,10 @@ namespace TimeTask.Controllers
 										}
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
-											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-											"</div>" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
+											//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											//	"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											//"</div>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClick(event," + row.Id + ", '" + sender + "', '" + receiver + "')\">" +
 												//"<span>" + fileName + "</span>" +
 												div +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
@@ -1504,6 +1524,11 @@ namespace TimeTask.Controllers
 											div_ = "<img src='" + decryptedMessage + "'>";
 											classes2 = "picture";
 										}
+										else if (IfVideo("." + decryptedMessage.Split(".").Last()))
+										{
+											div_ = "<video autoplay loop muted><source src=\"" + decryptedMessage + "\"></video>";
+											classes2 = "picture";
+										}
 										else
 										{
 											div_ = "<span style=\"color:" + spanReceiverColor + ";\">" + decryptedMessage + "</span>";
@@ -1515,9 +1540,9 @@ namespace TimeTask.Controllers
 												div_ +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 											"</div>" +
-											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-											"</div>" +
+											//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											//	"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											//"</div>" +
 										"</div>";
 									}
 									if (row.AttachmentName != null && row.AttachmentFileType != null)
@@ -1569,9 +1594,9 @@ namespace TimeTask.Controllers
 												div_ +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 											"</div>" +
-											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-											"</div>" +
+											//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											//	"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											//"</div>" +
 										"</div>";
 									}
 
@@ -1637,6 +1662,11 @@ namespace TimeTask.Controllers
 											div_ = "<img src='" + decryptedMessage + "'>";
 											classes2 = "picture";
 										}
+										else if (IfVideo("." + decryptedMessage.Split(".").Last()))
+										{
+											div_ = "<video autoplay loop muted><source src=\"" + decryptedMessage + "\"></video>";
+											classes2 = "picture";
+										}
 										else
 										{
 											div_ = "<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>";
@@ -1644,10 +1674,10 @@ namespace TimeTask.Controllers
 										}
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
-											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-											"</div>" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+											//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											//	"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											//"</div>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(event," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
 												div_ +
 												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 												messageReadStatusIcon +
@@ -1698,10 +1728,10 @@ namespace TimeTask.Controllers
 										}
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer sender\">" +
-											"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-												"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
-											"</div>" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+											//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+											//	"<span>" + row.MessageSentDate.ToString("HH:mm") + "</span>" +
+											//"</div>" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(event," + row.Id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
 												//"<span>" + fileName + "</span>" +
 												div_ +
 												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
@@ -1738,6 +1768,18 @@ namespace TimeTask.Controllers
 			}
 		}
 
+		public bool IfVideo(string fileType)
+		{
+			string[] imageArray = { ".mp4", ".webm", ".ogg" };
+
+			if (imageArray.Contains(fileType))
+			{
+				return true;
+			}
+
+			return false;
+		}
+
 		public bool IfImage(string fileType)
 		{
 			//string[] imageArray = { "png", "jpg", "jpeg", "gif", "bmp", "tiff", "tif" };
@@ -1770,10 +1812,10 @@ namespace TimeTask.Controllers
 				string decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
 
 				bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
-									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-										"<span>" + hour + "</span>" +
-									"</div>" +
-									"<div id=\"bubbleId_" + id + "\" class=\"bubble sender unread\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+									//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+									//	"<span>" + hour + "</span>" +
+									//"</div>" +
+									"<div id=\"bubbleId_" + id + "\" class=\"bubble sender unread\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(event," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
 										"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 										"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 										messageReadStatusIcon +
@@ -1833,10 +1875,10 @@ namespace TimeTask.Controllers
 				}
 
 				bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
-									"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-										"<span>" + hour + "</span>" +
-									"</div>" +
-									"<div id=\"bubbleId_" + id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(this," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+									//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+									//	"<span>" + hour + "</span>" +
+									//"</div>" +
+									"<div id=\"bubbleId_" + id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(event," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
 										//"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 										//div +
 										fileName +
@@ -1862,9 +1904,9 @@ namespace TimeTask.Controllers
 											"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 										"</div>" +
-										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-											"<span>" + hour + "</span>" +
-										"</div>" +
+										//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+										//	"<span>" + hour + "</span>" +
+										//"</div>" +
 									"</div>";
 			}
 			if (attachmentName != null && attachmentFileType != null)
@@ -1896,9 +1938,9 @@ namespace TimeTask.Controllers
 											"<span>" + fileName + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 										"</div>" +
-										"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
-											"<span>" + hour + "</span>" +
-										"</div>" +
+										//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
+										//	"<span>" + hour + "</span>" +
+										//"</div>" +
 									"</div>";
 			}
 
@@ -2180,11 +2222,69 @@ namespace TimeTask.Controllers
 		[HttpGet]
 		public ActionResult DeleteButton(int id, string sender, string receiver)
 		{
-			string button = "<div title=\"Usuń wiadomość\" class=\"bubbleSettings\" onclick=\"removeMessage(" + id + ", '" + sender + "', '" + receiver + "')\">" +
-					"<ion-icon name=\"trash-outline\"></ion-icon>" +
+			
+			string openButton = "";
+			var chat = _context.Chat.FirstOrDefault(x => x.Id == id);
+			if (chat != null)
+			{
+				if (chat.MessageText != null) // || chat.AttachmentFileType != null
+				{
+					byte[] byteMessage = Convert.FromBase64String(chat.MessageText);
+					string decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
+
+					//string base64Encrypted_AttachmentFileType = chat.AttachmentFileType.Replace('_', '/').Replace('-', '\\');
+					//byte[] byteAttachmentFileType = Convert.FromBase64String(base64Encrypted_AttachmentFileType);
+					//string decryptedAttachmentFileType = Data.Encryption.EncryptionFiles.Decrypt(byteAttachmentFileType);
+
+					if (IfImage("." + decryptedMessage.Split(".").Last()) || IfVideo("." + decryptedMessage.Split(".").Last())) // || IfImage("." + decryptedAttachmentFileType)
+					{
+						//openButton = "<div title=\"Otwórz\" class=\"bubbleSettings\" onclick=\"openImage('" + chat.MessageText + "')\">" +
+						//		"<ion-icon name=\"open-outline\"></ion-icon>" +
+						//	"</div>";
+
+						openButton = "<div title=\"Otwórz\" class=\"chatMessageOptionsOption\" onclick=\"openImage('" + chat.MessageText + "')\">" +
+								"<ion-icon name=\"open-outline\"></ion-icon>" +
+								"<span>Otwórz</span>" +
+							"</div>";
+					}
+				}
+			}
+
+			/*
+			string button = "<div class=\"bubbleSettingsParent\">" + openButton +
+					"<div title=\"Usuń wiadomość\" class=\"bubbleSettings\" onclick=\"removeMessage(" + id + ", '" + sender + "', '" + receiver + "')\">" +
+						"<ion-icon name=\"trash-outline\"></ion-icon>" +
+					"</div>" +
 				"</div>";
 
 			return Content(button);
+			*/
+
+			string deleteButton = "<div title=\"Usuń\" class=\"chatMessageOptionsOption\" onclick=\"removeMessage(" + id + ", '" + sender + "', '" + receiver + "')\">" +
+								"<ion-icon name=\"trash-outline\"></ion-icon>" +
+								"<span style=\"color: orangered;\">Usuń</span>" +
+							"</div>";
+
+			string optionsDiv = "<div style=\"display: none;\" class=\"chatMessageOptions\" id=\"chatMessageOptionsId\">" +
+					openButton +
+					//"<div style=\"width: 100%; height: 1px; background-color: rgba(255, 255, 255, 0.2);\"></div>" +
+					deleteButton +
+				"</div>";
+
+
+
+			return Content(optionsDiv);
+		}
+
+		[HttpGet]
+		public ActionResult OpenLink(string message)
+		{
+			string encryptedMessage = message;
+
+			byte[] byteMessage = Convert.FromBase64String(encryptedMessage);
+			string decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
+
+			return Json(decryptedMessage);
 		}
 
 		[HttpPost]
@@ -2422,6 +2522,12 @@ namespace TimeTask.Controllers
 				"</div>";
 
 			return Json(new { button });
+		}
+
+		[HttpGet]
+		public async Task<ActionResult> DownloadFile()
+		{
+			return Json(false);
 		}
 
 		[HttpPost]
