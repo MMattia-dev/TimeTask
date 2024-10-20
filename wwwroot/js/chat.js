@@ -36,6 +36,8 @@ $(document).on('mousedown', function (event)
     if (!$(event.target).closest('#chatMessageOptionsId').length)
     {
         $('#chatMessageOptionsId').remove();
+        $('.blur').remove();
+        $('.bubble.out').removeClass('out');
     }  
 });
 
@@ -46,6 +48,8 @@ function detectScrollEvent() {
     {
         //console.log(event.target.scrollTop);
         $('#chatMessageOptionsId').remove();
+        $('.blur').remove();
+        $('.bubble.out').removeClass('out');
     });
 }
 
@@ -502,6 +506,8 @@ function openImage(message) {
         success: function (response)
         {
             $('#chatMessageOptionsId').remove();
+            $('.blur').remove();
+            $('.bubble.out').removeClass('out');
 
             if (response.length > 0) 
             {
@@ -537,10 +543,12 @@ function bubbleClick(e, id, sender, receiver) {
             let x = e.clientX;
             let y = e.clientY;
 
-            $('#chatMessageOptionsId').fadeIn(50);
-            $('.chatMessagesBubbles').append('<div class="blur"></div>');
+            $('.chatMessagesBubbles').append('<div style="display: none;" class="blur"></div>'); $('.blur').fadeIn(100);
+            $('#chatMessageOptionsId').fadeIn(100);
             document.getElementById("chatMessageOptionsId").style.left = x + "px";
             document.getElementById("chatMessageOptionsId").style.top = y + "px";
+
+            $(e.target).addClass('out');
 
         },
         error: function (xhr, status, error)
@@ -1301,6 +1309,8 @@ async function removeMessage(id, sender, receiver)
     connection.invoke("RemoveMessage", id, sender, receiver).catch(function (err)
     {
         $('#chatMessageOptionsId').remove();
+        $('.blur').remove();
+        $('.bubble.out').removeClass('out');
         return console.error(err.toString());
     });
 };

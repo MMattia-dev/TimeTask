@@ -6835,23 +6835,14 @@ span#OcoYTyiBrpZJStB {
         }
 
             .chatParent .chatMessages .chatMessagesBubbles .blur {
-                /*backdrop-filter: blur(10px);
-                width: 100%;
-                height: 100%;
-                position: fixed;
-                background-color: rgba(150, 150, 150, 0.192);
-                top: 0;
-                left: 0;*/
-                /*filter: blur(10px);*/
                 width: 100%;
                 height: 100%;
                 position: fixed;
                 overflow: hidden;
                 top: 0;
                 left: 0;
-                /*border: 1px solid rgba(43, 43, 43, 0.568);*/
-                background: rgba(255, 255, 255, 0.05);
-                backdrop-filter: blur(10px);
+                backdrop-filter: blur(5px);
+                
             }
 
             /*.chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesDisabled {
@@ -7016,6 +7007,12 @@ span#OcoYTyiBrpZJStB {
                     max-width: 200px;
                     position: relative;
                 }
+
+                    .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.out {
+                        z-index: 10;
+                        transition: transform 0.05s linear;
+                        transform: scale(105%);
+                    }
 
                     .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.picture {
                         padding: 0;
