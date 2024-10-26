@@ -1,7 +1,10 @@
 ﻿//const { signalR } = require("../lib/microsoft/signalr/dist/browser/signalr");
 
 function bubbleOutReceiver(t) {
-    $(t).parent().children('.chatTimeStamp').hide();
+    //$(t).parent().children('.chatTimeStamp').hide();
+
+
+
 };
 
 function kTsAoyADkoTcMgH(t) {
@@ -493,7 +496,10 @@ async function DeleteMessage_(id, sender, receiver) {
 };
 
 function bubbleClickReceiver(t) {
-    $(t).parent().children('.chatTimeStamp').show();
+    //$(t).parent().children('.chatTimeStamp').show();
+
+
+
 };
 
 function openImage(message) {

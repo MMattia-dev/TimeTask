@@ -7026,13 +7026,14 @@ span#OcoYTyiBrpZJStB {
                             border-radius: 15px;
                             object-fit: cover;
                             object-position: center;
+                            pointer-events: none;
                         }
 
                         .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.picture video {
                             width: 100%;
                             height: 100%;
                             border-radius: 15px;
-
+                            pointer-events: none;
                         }
 
                         .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.picture .tail {
