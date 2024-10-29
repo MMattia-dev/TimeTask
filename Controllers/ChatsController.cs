@@ -932,7 +932,7 @@ namespace TimeTask.Controllers
 										}
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(event, `" + row.MessageSentDate.ToString("dd.MM.yyyy") + "`, `" + row.MessageSentDate.ToString("HH:mm") + "`)\">" +
 												div +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 											"</div>" +
@@ -979,7 +979,7 @@ namespace TimeTask.Controllers
 
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(event, `" + row.MessageSentDate.ToString("dd.MM.yyyy") + "`, `" + row.MessageSentDate.ToString("HH:mm") + "`)\">" +
 												//"<span>" + fileName + "</span>" +
 												div +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
@@ -1197,7 +1197,7 @@ namespace TimeTask.Controllers
 										}
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(event, `" + row.MessageSentDate.ToString("dd.MM.yyyy") + "`, `" + row.MessageSentDate.ToString("HH:mm") + "`)\">" +
 												div +
 												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 											"</div>" +
@@ -1250,7 +1250,7 @@ namespace TimeTask.Controllers
 										}
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(event, `" + row.MessageSentDate.ToString("dd.MM.yyyy") + "`, `" + row.MessageSentDate.ToString("HH:mm") + "`)\">" +
 												//"<span>" + fileName + "</span>" +
 												div +
 												"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
@@ -1536,7 +1536,7 @@ namespace TimeTask.Controllers
 										}
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(event, `" + row.MessageSentDate.ToString("dd.MM.yyyy") + "`, `" + row.MessageSentDate.ToString("HH:mm") + "`)\">" +
 												div_ +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
 											"</div>" +
@@ -1589,7 +1589,7 @@ namespace TimeTask.Controllers
 										}
 
 										bubbles += "<div class=\"chatMessagesBubblesContainer receiver\">" +
-											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+											"<div id=\"bubbleId_" + row.Id + "\" class=\"" + classes + " " + classes2 + "\" style=\"background-color:" + receiverColor + "\" onclick=\"bubbleClickReceiver(event, `" + row.MessageSentDate.ToString("dd.MM.yyyy") + "`, `" + row.MessageSentDate.ToString("HH:mm") + "`)\">" +
 												//"<span>" + fileName + "</span>" +
 												div_ +
 												"<div class=\"tail\" style=\"border-top-color:" + receiverColor + ";\"></div>" +
@@ -1899,8 +1899,10 @@ namespace TimeTask.Controllers
 				byte[] byteMessage = Convert.FromBase64String(message);
 				string decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
 
+				string date = _context.Chat.FirstOrDefault(x => x.Id == id).MessageSentDate.ToString("dd.MM.yyyy");
+
 				bubble = "<div class=\"chatMessagesBubblesContainer receiver\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
-										"<div id=\"bubbleId_" + id + "\" class=\"bubble receiver unread\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+										"<div id=\"bubbleId_" + id + "\" class=\"bubble receiver unread\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(event, `" + date + "`, `" + hour + "`)\">" +
 											"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 										"</div>" +
@@ -1933,8 +1935,10 @@ namespace TimeTask.Controllers
 					classes = "bubble receiver unread file";
 				}
 
+				string date = _context.Chat.FirstOrDefault(x => x.Id == id).MessageSentDate.ToString("dd.MM.yyyy");
+
 				bubble = "<div class=\"chatMessagesBubblesContainer receiver\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
-										"<div id=\"bubbleId_" + id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(this)\" onmouseout=\"bubbleOutReceiver(this)\">" +
+										"<div id=\"bubbleId_" + id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(event, `" + date + "`, `" + hour + "`)\">" +
 											"<span>" + fileName + "</span>" +
 											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
 										"</div>" +
@@ -2224,6 +2228,7 @@ namespace TimeTask.Controllers
 		{
 			
 			string openButton = "";
+			string dateSpan = "";
 			var chat = _context.Chat.FirstOrDefault(x => x.Id == id);
 			if (chat != null)
 			{
@@ -2247,6 +2252,14 @@ namespace TimeTask.Controllers
 								"<span>Otwórz</span>" +
 							"</div>";
 					}
+
+					dateSpan = "<div class=\"chatMessageOptionsOption chatMessageOptionsOptionSpan\">" +
+							"<ion-icon name=\"information-circle-outline\"></ion-icon>" +
+							"<div>" +
+								"<span>" + chat.MessageSentDate.ToString("dd.MM.yyyy") + "</span>" +
+								"<span>" + chat.MessageSentDate.ToString("HH:mm") + "</span>" +
+							"</div>" +
+						"</div>";
 				}
 			}
 
@@ -2266,6 +2279,7 @@ namespace TimeTask.Controllers
 							"</div>";
 
 			string optionsDiv = "<div style=\"display: none;\" class=\"chatMessageOptions\" id=\"chatMessageOptionsId\">" +
+					dateSpan +
 					openButton +
 					//"<div style=\"width: 100%; height: 1px; background-color: rgba(255, 255, 255, 0.2);\"></div>" +
 					deleteButton +
@@ -2274,6 +2288,24 @@ namespace TimeTask.Controllers
 
 
 			return Content(optionsDiv);
+		}
+
+		[HttpGet]
+		public ActionResult Info(string date, string hours)
+		{
+			string dateSpan = "<div class=\"chatMessageOptionsOption chatMessageOptionsOptionSpan\">" +
+							"<ion-icon name=\"information-circle-outline\"></ion-icon>" +
+							"<div>" +
+								"<span>" + date + "</span>" +
+								"<span>" + hours + "</span>" +
+							"</div>" +
+						"</div>";
+
+			string infoDiv = "<div style=\"display: none;\" class=\"chatMessageOptions\" id=\"chatMessageOptionsId\">" +
+					dateSpan +
+				"</div>";
+
+			return Content(infoDiv);
 		}
 
 		[HttpGet]

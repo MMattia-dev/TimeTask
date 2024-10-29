@@ -1,12 +1,5 @@
 ﻿//const { signalR } = require("../lib/microsoft/signalr/dist/browser/signalr");
 
-function bubbleOutReceiver(t) {
-    //$(t).parent().children('.chatTimeStamp').hide();
-
-
-
-};
-
 function kTsAoyADkoTcMgH(t) {
     $(t).parent().parent().remove();
 };
@@ -39,8 +32,10 @@ $(document).on('mousedown', function (event)
     if (!$(event.target).closest('#chatMessageOptionsId').length)
     {
         $('#chatMessageOptionsId').remove();
-        $('.blur').remove();
+        //$('.blur').remove();
         $('.bubble.out').removeClass('out');
+        $('.bubble').removeClass('blur');
+
     }  
 });
 
@@ -51,8 +46,9 @@ function detectScrollEvent() {
     {
         //console.log(event.target.scrollTop);
         $('#chatMessageOptionsId').remove();
-        $('.blur').remove();
+        //$('.blur').remove();
         $('.bubble.out').removeClass('out');
+        $('.bubble').removeClass('blur');
     });
 }
 
@@ -495,13 +491,6 @@ async function DeleteMessage_(id, sender, receiver) {
     });
 };
 
-function bubbleClickReceiver(t) {
-    //$(t).parent().children('.chatTimeStamp').show();
-
-
-
-};
-
 function openImage(message) {
     $.ajax({
         type: 'GET',
@@ -512,13 +501,49 @@ function openImage(message) {
         success: function (response)
         {
             $('#chatMessageOptionsId').remove();
-            $('.blur').remove();
+            //$('.blur').remove();
             $('.bubble.out').removeClass('out');
+            $('.bubble').removeClass('blur');
 
             if (response.length > 0) 
             {
                 window.open(response, '_blank').focus();
             }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function bubbleClickReceiver(e, date, hours)
+{
+    //$(t).parent().children('.chatTimeStamp').show();
+
+    $.ajax({
+        type: 'GET',
+        url: '/Chats/Info',
+        data: {
+            date: date,
+            hours: hours
+        },
+        success: function (response)
+        {
+            $('.bubbleSettingsParent').remove();
+            $('body').append(response);
+
+            let x = e.clientX;
+            let y = e.clientY;
+
+            //$('.chatMessagesBubbles').append('<div style="display: none;" class="blur"></div>'); $('.blur').fadeIn(100);
+            $('.bubble').addClass('blur');
+
+            $('#chatMessageOptionsId').fadeIn(100);
+            document.getElementById("chatMessageOptionsId").style.left = x + "px";
+            document.getElementById("chatMessageOptionsId").style.top = y + "px";
+
+            $(e.target).addClass('out');
         },
         error: function (xhr, status, error)
         {
@@ -538,24 +563,21 @@ function bubbleClick(e, id, sender, receiver) {
         },
         success: function (response)
         {
-            ////$('.bubbleSettings').remove();
             $('.bubbleSettingsParent').remove();
-            //$(response).insertBefore(t); 
-            //$(t).parent().children('.chatTimeStamp').show();
-            //let time = $(t).parent().children('.chatTimeStamp');
 
             $('body').append(response);
 
             let x = e.clientX;
             let y = e.clientY;
 
-            $('.chatMessagesBubbles').append('<div style="display: none;" class="blur"></div>'); $('.blur').fadeIn(100);
+            //$('.chatMessagesBubbles').append('<div style="display: none;" class="blur"></div>'); $('.blur').fadeIn(100);
+            $('.bubble').addClass('blur');
+
             $('#chatMessageOptionsId').fadeIn(100);
             document.getElementById("chatMessageOptionsId").style.left = x + "px";
             document.getElementById("chatMessageOptionsId").style.top = y + "px";
 
             $(e.target).addClass('out');
-
         },
         error: function (xhr, status, error)
         {
@@ -1312,11 +1334,14 @@ async function vKbmXcDAKBSEZqf(receiver)
 
 async function removeMessage(id, sender, receiver)
 {
-    connection.invoke("RemoveMessage", id, sender, receiver).catch(function (err)
-    {
+    connection.invoke("RemoveMessage", id, sender, receiver).then(function () 
+    { 
         $('#chatMessageOptionsId').remove();
-        $('.blur').remove();
+        //$('.blur').remove();
         $('.bubble.out').removeClass('out');
+        $('.bubble').removeClass('blur');
+    }).catch(function (err)
+    {
         return console.error(err.toString());
     });
 };

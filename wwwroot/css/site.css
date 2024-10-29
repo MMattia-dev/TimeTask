@@ -7006,12 +7006,17 @@ span#OcoYTyiBrpZJStB {
                     justify-content: center;
                     max-width: 200px;
                     position: relative;
+                    transition: transform 0.1s ease;
                 }
 
                     .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.out {
                         z-index: 10;
-                        transition: transform 0.05s linear;
+                        transition: transform 0.1s ease;
                         transform: scale(105%);
+                    }
+
+                    .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.blur:not(.out) {
+                        filter: blur(3px);
                     }
 
                     .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.picture {
@@ -7341,13 +7346,14 @@ span#OcoYTyiBrpZJStB {
 
 .chatMessageOptions {
     position: fixed;
-    width: 100px;
+    /*width: 100px;*/
+    width: 150px;
     height: auto;
     border-radius: 8px;
     background-color: #2d2d2d;
     display: flex;
     flex-direction: column;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    /*border: 1px solid rgba(255, 255, 255, 0.2);*/
     -webkit-box-shadow: 0px 0px 24px -4px rgba(0, 0, 0, 1);
     -moz-box-shadow: 0px 0px 24px -4px rgba(0, 0, 0, 1);
     box-shadow: 0px 0px 24px -4px rgba(0, 0, 0, 1);
@@ -7378,7 +7384,7 @@ span#OcoYTyiBrpZJStB {
             border-top: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .chatMessageOptions .chatMessageOptionsOption:hover {
+        .chatMessageOptions .chatMessageOptionsOption:hover:not(.chatMessageOptionsOptionSpan) {
             cursor: pointer;
             background-color: #404040;
         }
@@ -7400,6 +7406,16 @@ span#OcoYTyiBrpZJStB {
         .chatMessageOptions .chatMessageOptionsOption span {
             color: rgba(255, 255, 255, 0.8);
             font-size: 12px;
+        }
+
+    .chatMessageOptions .chatMessageOptionsOptionSpan {
+        background-color: rgb(60, 60, 60);
+    }
+
+        .chatMessageOptions .chatMessageOptionsOptionSpan div {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
         }
 
     @keyframes message {
