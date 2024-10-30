@@ -1,0 +1,48 @@
+﻿@model TimeTask.Models.ChatSettings
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ChatSettings</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="chatBackground" class="control-label"></label>
+                <input asp-for="chatBackground" class="form-control" />
+                <span asp-validation-for="chatBackground" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="userChatColor" class="control-label"></label>
+                <input asp-for="userChatColor" class="form-control" />
+                <span asp-validation-for="userChatColor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="senderChatColor" class="control-label"></label>
+                <input asp-for="senderChatColor" class="form-control" />
+                <span asp-validation-for="senderChatColor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

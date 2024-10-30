@@ -426,11 +426,11 @@ namespace TimeTask.Controllers
 				var userWorkerId = _context.UserIdentity.FirstOrDefault(x => x.UserId == GetUserId())?.WorkerId;
 				var userDepartmentId = _context.Workers2.FirstOrDefault(x => x.Id == userWorkerId)?.DepartmentID;
 
-				workers = _context.Workers2.Where(x => x.DepartmentID == userDepartmentId).ToList();
+				workers = _context.Workers2.Where(x => x.DepartmentID == userDepartmentId).OrderBy(x => x.Name).ToList();
 			}
 			else
 			{
-				workers = _context.Workers2.Where(x => x.DepartmentID == savedDepartment).ToList();
+				workers = _context.Workers2.Where(x => x.DepartmentID == savedDepartment).OrderBy(x => x.Name).ToList();
 			}
 
 			List<UserIdentity> users = new List<UserIdentity>();
