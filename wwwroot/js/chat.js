@@ -1,5 +1,4 @@
 ﻿//const { signalR } = require("../lib/microsoft/signalr/dist/browser/signalr");
-
 function kTsAoyADkoTcMgH(t) {
     $(t).parent().parent().remove();
 };
@@ -462,6 +461,33 @@ function refreshMessages(s, r)
                 {
                     notifySender();
                 }, 2500);
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function chatBackground(loggedUser) 
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Chats/ChatBackground',
+        data: loggedUser,
+        success: function (response)
+        {
+            if (response != false) {
+                $('.chatFilter').remove();
+                $('#chat').append(response);
+                $('.chatMessagesBubbles').addClass('disabled');
+
+                /**/ 
+                
+                
+
+                /**/
             }
         },
         error: function (xhr, status, error)
