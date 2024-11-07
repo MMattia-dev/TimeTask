@@ -13,10 +13,33 @@ $(document).on('click', function (event)
 {
     if (!$(event.target).closest('.chatFilter').length)
     {
-        $('.chatFilter').remove();
-        $('.chatDepartment').removeClass('disabled');
-        $('.chatMessagesBubbles').removeClass('disabled');
+        //$('.chatFilter').remove();
+
+        //$('.chatDepartment').removeClass('disabled');
+        //$('.chatMessagesBubbles').removeClass('disabled');
     }
+
+    //alwan__palette
+    //alwan__marker
+
+    const colorPickerElement = document.querySelector('.alwan');
+    const paletteElement = document.querySelector('.alwan__palette');
+    const containerElement = document.querySelector('.alwan__container');
+
+    if (colorPickerElement) {
+        if (!paletteElement.contains(event.target) || !containerElement.contains(event.target)) //&& !paletteElement.contains(event.target) && !containerElement.contains(event.target)
+        {
+            console.log('asd');
+
+
+        }
+        else {
+            //$('.chatFilter').remove();
+
+        }
+    }
+    
+
 });
 
 $(document).on('mousedown', function (event)
@@ -470,6 +493,8 @@ function refreshMessages(s, r)
     });
 };
 
+
+
 function chatBackground(loggedUser) 
 {
     $.ajax({
@@ -484,8 +509,79 @@ function chatBackground(loggedUser)
                 $('.chatMessagesBubbles').addClass('disabled');
 
                 /**/ 
-                
-                
+
+                const alwan = new Alwan('', {
+                    id: 'colorPickerInner',
+                    classname: '',
+                    theme: 'dark',
+                    toggle: false,
+                    popover: false,
+                    position: 'bottom-start',
+                    margin: 8,
+                    preset: false,
+                    color: '#000',
+                    default: '#000',
+                    target: '#colorPicker',
+                    disabled: false,
+                    format: 'rgb',
+                    singleInput: false,
+                    inputs: {
+                        rgb: false,
+                        hex: false,
+                        hsl: false,
+                    },
+                    opacity: false,
+                    preview: true,
+                    closeOnScroll: false,
+                    copy: false,
+                    swatches: [],
+                    toggleSwatches: false,
+                    shared: false,
+                });
+
+                alwan.on('open', function ()
+                {
+                    // do something
+                });
+                alwan.on('close', function ()
+                {
+                    // do something
+                });
+                alwan.on('change', function (colorObject, source)
+                {
+                    // do something
+
+                    //console.log(colorObject);
+                });
+                alwan.on('color', function (colorObject, source)
+                {
+                    // do something
+
+                    //console.log(colorObject);
+                });
+
+                //alwan.on('change', function (color)
+                //{
+                //    // output: { r: 0, g: 0, b: 0, a: 1}
+                //    color.rgb()
+                //    // output: [0, 0, 0, 0]     
+                //    color.rgb(true)
+                //    // output: rgba(0, 0, 0, 1)            
+                //    color.rgb().toString()
+
+                //    // output: #000000
+                //    color.hex()
+
+                //    // output: { h: 0, s: 0, l: 0, a: 1 }
+                //    color.hsl()
+                //    // output: [0, 0, 0, 0]          
+                //    color.hsl(true)
+                //    // output: hsla(0, 0%, 0%, 1)  
+                //    color.hsl().toString()
+
+                //    //console.log(color);
+
+                //});
 
                 /**/
             }

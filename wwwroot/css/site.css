@@ -6422,6 +6422,11 @@ span#OcoYTyiBrpZJStB {
                     color: white;
                 }
 
+    .chatFilter#colorPicker {
+        background-color: transparent;
+        border-color: transparent;
+    }
+
 .chat {
     position: absolute;
     width: 370px;
@@ -7434,7 +7439,28 @@ span#OcoYTyiBrpZJStB {
     }
 }
 
+/*color-picker {
+    --modal-shadow: 0 3px 5px #00000020;
+    --bg-primary: #fff;
+    --bg-secondary: #fff;
+    --border-color-primary: #d0d1e4;
+    --border-color-secondary: #6d7bff;
+    --bg-header: #f7f8ff;
+    --txt-color-primary: #000;
+    --bg-transparent: repeating-conic-gradient(from 0,#fff 0% 25%,#eee 25% 50%) 0 0 /1rem 1rem;
+    --area-shadow: 0 0 0 1px rgba(0,0,0,0.1) inset;
+    --thumb-shadow: 0 0 0 1px rgb(0 0 0 / 5%), 0 3px 10px 0 rgb(0 0 0 / 15%);
+    --thumb-border: 0.5rem solid #fff;
+    --hue: 0;
+}*/
 
+#colorPickerInner {
+    /*position: relative;
+    width: 100%;*/
+    border: none;
+    border-radius: 6px;
+
+}
 
 
 
