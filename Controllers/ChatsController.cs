@@ -378,9 +378,42 @@ namespace TimeTask.Controllers
 		//}
 
 		[HttpPost]
-		public ActionResult ChangeChatBackground(string loggedUser)
+		public ActionResult ChangeChatBackground(string loggedUser, string backgroundColor)
 		{
+			var row = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedUser);
+			if (row != null)
+			{
+				row.chatBackground = backgroundColor;
+				_context.SaveChanges();
+			}
+			else
+			{
+				var newData = new ChatSettings()
+				{
+					UserId = loggedUser,
+					chatBackground = backgroundColor,
+					userChatColor = null,
+					senderChatColor = null
+				};
 
+				_context.ChatSettings.Add(newData);
+				_context.SaveChanges();
+			}
+
+			return Json(new { rgb = HexToRgba(backgroundColor), resetButton = "<a id=\"resetChatBackground\" onclick=\"resetChatBackground(this, `" + loggedUser + "`)\">Reset</a>" });
+		}
+
+		[HttpPost]
+		public ActionResult RemoveChatBackground(string loggedUser)
+		{
+			var row = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedUser);
+			if (row != null)
+			{
+				_context.ChatSettings.Remove(row);
+				_context.SaveChanges();
+
+				return Json(true);
+			}
 
 			return Json(false);
 		}
@@ -390,6 +423,19 @@ namespace TimeTask.Controllers
 		{
 			var loggedUser = GetUserId();
 			var userColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == loggedUser)?.UserColor;
+			var userBackgroundColor = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedUser)?.chatBackground;
+
+			string chatBackground = "";
+			string resetChatBackground = "";
+			if (userBackgroundColor != null)
+			{
+				chatBackground = userBackgroundColor;
+				resetChatBackground = "<a id=\"resetChatBackground\" onclick=\"resetChatBackground(this, `" + loggedUser + "`)\">Reset</a>";
+			}
+			else
+			{
+				chatBackground = "#fdffff";
+			}
 
 			string div = "<div class=\"chatFilter\">" +
 					"<a class=\"chatMinimize filterClose\" title=\"Zamknij\" onclick=\"scQisAIXdDGVbXF(this)\">" +
@@ -399,10 +445,11 @@ namespace TimeTask.Controllers
 						"<div class=\"chatSetting\">" +
 							"<label>" + //onclick=\"chatBackground(`" + loggedUser + "`)\"
 										//"<div style=\"background-color: transparent;\"></div>" +
-								"<input type=\"color\" onchange=\"chatBackground(`" + loggedUser + "`)\" />" +
+								"<input type=\"color\" id=\"chatBackgroundColorPicker\" value=\"" + chatBackground + "\" onchange=\"chatBackground(this, `" + loggedUser + "`)\" />" +
 								"<span>Wybierz tło czatu</span>" +
 							"</label>" +
 							//"<div class=\"link\" onclick=\"chatBackground(`" + loggedUser + "`)\"><span>Wybierz tło czatu</span></div>" +
+							resetChatBackground +
 						"</div>" +
 						"<div class=\"line\"></div>" +
 						"<div class=\"chatSetting\">" +
@@ -426,7 +473,7 @@ namespace TimeTask.Controllers
 					"</div>" +
 				"</div>";
 
-			return Json(div);
+			return Json(new { div, loggedUser });
 		}
 
         [HttpGet]
@@ -533,10 +580,36 @@ namespace TimeTask.Controllers
             return Content(chatMinimized);
 		}
 
-        [HttpGet]
+		public static string HexToRgba(string hexColor)
+		{
+			if (hexColor.StartsWith("#"))
+				hexColor = hexColor.Substring(1);
+
+			int r = Convert.ToInt32(hexColor.Substring(0, 2), 16);
+			int g = Convert.ToInt32(hexColor.Substring(2, 2), 16);
+			int b = Convert.ToInt32(hexColor.Substring(4, 2), 16);
+
+			float opacity = 0.2f; // 50% opacity
+
+			return $"rgba({r}, {g}, {b}, {opacity.ToString(CultureInfo.InvariantCulture)})";
+		}
+
+		[HttpGet]
         public ActionResult ShowChat(int? savedDepartment)
         {
-			string chat = "<div class=\"chat\" id=\"chat\">" +
+			string chatBackground = "";
+			var row = _context.ChatSettings.FirstOrDefault(x => x.UserId == GetUserId());
+			if (row != null)
+			{
+				if (row.chatBackground != null)
+				{
+					chatBackground = row.chatBackground;
+				}
+			}
+
+			string chatBackgroundRGBA = HexToRgba(chatBackground);
+
+			string chat = "<div class=\"chat\" id=\"chat\" style=\"background-color:" + chatBackgroundRGBA + ";\">" +
 					"<div class=\"chatUsers\">" +
 						"<div class=\"chatDepartment\" title=\"Wybierz dział\" onclick=\"YElWMlpiHOvShrB(this)\">" +
 							"<ion-icon name=\"filter-outline\"></ion-icon>" +
@@ -603,8 +676,9 @@ namespace TimeTask.Controllers
 				"</div>";
 
 
+			//return Json(new { chat, chatBackgroundRGBA });
+			return Content(chat);
 
-            return Content(chat);
             //return Json(new { chat = Content(chat), chatMinimized = Content(chatMinimized) });
         }
 

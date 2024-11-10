@@ -505,26 +505,51 @@ function refreshMessages(s, r)
     });
 };
 
-
-
-function chatBackground(loggedUser) 
-{
+function changeChatBackground(user, color) {
     $.ajax({
         type: 'POST',
         url: '/Chats/ChangeChatBackground',
-        data: loggedUser,
+        data: {
+            loggedUser: user,
+            backgroundColor: color
+        },
         success: function (response)
         {
-            if (response != false)
-            {
+            $('#chat').css('background-color', response.rgb);
 
-            }
+            $('#resetChatBackground').remove();
+            $('#chatBackgroundColorPicker').parent().parent().append(response.resetButton);
         },
         error: function (xhr, status, error)
         {
             console.log('Error:', error);
         }
     });
+};
+
+function resetChatBackground(t, loggedUser) {
+    $.ajax({
+        type: 'POST',
+        url: '/Chats/RemoveChatBackground',
+        data: {
+            loggedUser: loggedUser
+        },
+        success: function (response)
+        {
+            $(t).remove();
+            document.getElementById('chatBackgroundColorPicker').value = '#fdffff';
+            $('#chat').css('background-color', '');
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function chatBackground(t, loggedUser) 
+{
+    changeChatBackground(loggedUser, t.value);
 
     //$.ajax({
     //    type: 'GET',
@@ -1242,8 +1267,15 @@ function showChatSettings()
         url: '/Chats/SettingsDiv',
         success: function (response)
         {
-            $('#chat').append(response);
+            $('#chat').append(response.div);
             $('.chatMessagesBubbles').addClass('disabled');
+
+            var chatBackgroundColorPicker = document.getElementById('chatBackgroundColorPicker');
+            chatBackgroundColorPicker.addEventListener('input', (event) =>
+            {
+                const selectedColor = event.target.value;
+                changeChatBackground(response.loggedUser, selectedColor);
+            });
         },
         error: function (xhr, status, error)
         {
