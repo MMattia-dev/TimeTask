@@ -6381,6 +6381,15 @@ span#OcoYTyiBrpZJStB {
                         cursor: pointer;
                     }
 
+                .chatFilter .chatFilterParent .chatSetting label input {
+                    border: none;
+                    padding: 0;
+                    border-radius: 5px;
+                    width: 32px;
+                    height: 32px;
+                    
+                }
+
                 .chatFilter .chatFilterParent .chatSetting label span {
                     font-size: 12px;
                     color: rgb(0, 152, 255);
@@ -7454,13 +7463,13 @@ span#OcoYTyiBrpZJStB {
     --hue: 0;
 }*/
 
-#colorPickerInner {
+/*#colorPickerInner {*/
     /*position: relative;
     width: 100%;*/
-    border: none;
+    /*border: none;
     border-radius: 6px;
 
-}
+}*/
 
 
 
