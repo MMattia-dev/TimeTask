@@ -510,97 +510,14 @@ function refreshMessages(s, r)
 function chatBackground(loggedUser) 
 {
     $.ajax({
-        type: 'GET',
-        url: '/Chats/ChatBackground',
+        type: 'POST',
+        url: '/Chats/ChangeChatBackground',
         data: loggedUser,
         success: function (response)
         {
-            if (response != false) {
-                //$('.chatFilter').remove();
-                //$('#chat').append(response);
-                $('.chatMessagesBubbles').addClass('disabled');
+            if (response != false)
+            {
 
-
-
-
-
-
-                /**/ 
-
-                //const alwan = new Alwan('', {
-                //    id: 'colorPickerInner',
-                //    classname: '',
-                //    theme: 'dark',
-                //    toggle: false,
-                //    popover: false,
-                //    position: 'bottom-start',
-                //    margin: 8,
-                //    preset: false,
-                //    color: '#000',
-                //    default: '#000',
-                //    target: '#colorPicker',
-                //    disabled: false,
-                //    format: 'rgb',
-                //    singleInput: false,
-                //    inputs: {
-                //        rgb: false,
-                //        hex: false,
-                //        hsl: false,
-                //    },
-                //    opacity: false,
-                //    preview: true,
-                //    closeOnScroll: false,
-                //    copy: false,
-                //    swatches: [],
-                //    toggleSwatches: false,
-                //    shared: false,
-                //});
-
-                //alwan.on('open', function ()
-                //{
-                //    // do something
-                //});
-                //alwan.on('close', function ()
-                //{
-                //    // do something
-                //});
-                //alwan.on('change', function (colorObject, source)
-                //{
-                //    // do something
-
-                //    //console.log(colorObject);
-                //});
-                //alwan.on('color', function (colorObject, source)
-                //{
-                //    // do something
-
-                //    //console.log(colorObject);
-                //});
-
-                ////alwan.on('change', function (color)
-                ////{
-                ////    // output: { r: 0, g: 0, b: 0, a: 1}
-                ////    color.rgb()
-                ////    // output: [0, 0, 0, 0]     
-                ////    color.rgb(true)
-                ////    // output: rgba(0, 0, 0, 1)            
-                ////    color.rgb().toString()
-
-                ////    // output: #000000
-                ////    color.hex()
-
-                ////    // output: { h: 0, s: 0, l: 0, a: 1 }
-                ////    color.hsl()
-                ////    // output: [0, 0, 0, 0]          
-                ////    color.hsl(true)
-                ////    // output: hsla(0, 0%, 0%, 1)  
-                ////    color.hsl().toString()
-
-                ////    //console.log(color);
-
-                ////});
-
-                /**/
             }
         },
         error: function (xhr, status, error)
@@ -608,6 +525,106 @@ function chatBackground(loggedUser)
             console.log('Error:', error);
         }
     });
+
+    //$.ajax({
+    //    type: 'GET',
+    //    url: '/Chats/ChatBackground',
+    //    data: loggedUser,
+    //    success: function (response)
+    //    {
+    //        if (response != false) {
+    //            //$('.chatFilter').remove();
+    //            //$('#chat').append(response);
+    //            $('.chatMessagesBubbles').addClass('disabled');
+
+
+
+
+
+
+    //            /**/ 
+
+    //            //const alwan = new Alwan('', {
+    //            //    id: 'colorPickerInner',
+    //            //    classname: '',
+    //            //    theme: 'dark',
+    //            //    toggle: false,
+    //            //    popover: false,
+    //            //    position: 'bottom-start',
+    //            //    margin: 8,
+    //            //    preset: false,
+    //            //    color: '#000',
+    //            //    default: '#000',
+    //            //    target: '#colorPicker',
+    //            //    disabled: false,
+    //            //    format: 'rgb',
+    //            //    singleInput: false,
+    //            //    inputs: {
+    //            //        rgb: false,
+    //            //        hex: false,
+    //            //        hsl: false,
+    //            //    },
+    //            //    opacity: false,
+    //            //    preview: true,
+    //            //    closeOnScroll: false,
+    //            //    copy: false,
+    //            //    swatches: [],
+    //            //    toggleSwatches: false,
+    //            //    shared: false,
+    //            //});
+
+    //            //alwan.on('open', function ()
+    //            //{
+    //            //    // do something
+    //            //});
+    //            //alwan.on('close', function ()
+    //            //{
+    //            //    // do something
+    //            //});
+    //            //alwan.on('change', function (colorObject, source)
+    //            //{
+    //            //    // do something
+
+    //            //    //console.log(colorObject);
+    //            //});
+    //            //alwan.on('color', function (colorObject, source)
+    //            //{
+    //            //    // do something
+
+    //            //    //console.log(colorObject);
+    //            //});
+
+    //            ////alwan.on('change', function (color)
+    //            ////{
+    //            ////    // output: { r: 0, g: 0, b: 0, a: 1}
+    //            ////    color.rgb()
+    //            ////    // output: [0, 0, 0, 0]     
+    //            ////    color.rgb(true)
+    //            ////    // output: rgba(0, 0, 0, 1)            
+    //            ////    color.rgb().toString()
+
+    //            ////    // output: #000000
+    //            ////    color.hex()
+
+    //            ////    // output: { h: 0, s: 0, l: 0, a: 1 }
+    //            ////    color.hsl()
+    //            ////    // output: [0, 0, 0, 0]          
+    //            ////    color.hsl(true)
+    //            ////    // output: hsla(0, 0%, 0%, 1)  
+    //            ////    color.hsl().toString()
+
+    //            ////    //console.log(color);
+
+    //            ////});
+
+    //            /**/
+    //        }
+    //    },
+    //    error: function (xhr, status, error)
+    //    {
+    //        console.log('Error:', error);
+    //    }
+    //});
 };
 
 async function DeleteMessage_(id, sender, receiver) {
