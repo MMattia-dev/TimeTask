@@ -378,6 +378,32 @@ namespace TimeTask.Controllers
 		//}
 
 		[HttpPost]
+		public ActionResult ChangeUserChatBackground(string loggedUser, string userChatColor)
+		{
+			var row = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedUser);
+			if (row != null)
+			{
+				row.userChatColor = userChatColor;
+				_context.SaveChanges();
+			}
+			else
+			{
+				var newData = new ChatSettings()
+				{
+					UserId = loggedUser,
+					chatBackground = null,
+					userChatColor = userChatColor,
+					senderChatColor = null
+				};
+
+				_context.ChatSettings.Add(newData);
+				_context.SaveChanges();
+			}
+
+			return Json(new { rgb = HexToRgba(userChatColor), resetButton = "<a id=\"resetUserChatColor\" onclick=\"resetUserChatColor(this, `" + loggedUser + "`)\">Reset</a>" });
+		}
+
+		[HttpPost]
 		public ActionResult ChangeChatBackground(string loggedUser, string backgroundColor)
 		{
 			var row = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedUser);
@@ -455,7 +481,8 @@ namespace TimeTask.Controllers
 						"<div class=\"chatSetting\">" +
 							"<label>" +
 								//"<input type=\"color\" value=\"" + userColor + "\" onchange=\"changeUserColor(this, event)\" />" +
-								"<div style=\"background-color: " + userColor + ";\"></div>" +
+								//"<div style=\"background-color: " + userColor + ";\"></div>" +
+								"<input type=\"color\" id=\"userChatColor\" value=\"" + userColor + "\" onchange=\"userChatColor(this, `" + loggedUser + "`)\" />" +
 								"<span>Twój kolor czatu</span>" +
 							"</label>" +
 						"</div>" +
@@ -598,16 +625,16 @@ namespace TimeTask.Controllers
         public ActionResult ShowChat(int? savedDepartment)
         {
 			string chatBackground = "";
+			string chatBackgroundRGBA = "";
 			var row = _context.ChatSettings.FirstOrDefault(x => x.UserId == GetUserId());
 			if (row != null)
 			{
 				if (row.chatBackground != null)
 				{
 					chatBackground = row.chatBackground;
+					chatBackgroundRGBA = HexToRgba(chatBackground);
 				}
 			}
-
-			string chatBackgroundRGBA = HexToRgba(chatBackground);
 
 			string chat = "<div class=\"chat\" id=\"chat\" style=\"background-color:" + chatBackgroundRGBA + ";\">" +
 					"<div class=\"chatUsers\">" +
