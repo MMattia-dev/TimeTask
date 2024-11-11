@@ -547,6 +547,30 @@ function resetChatBackground(t, loggedUser) {
     });
 };
 
+function resetUserChatColor(t, loggedUser) {
+    $.ajax({
+        type: 'POST',
+        url: '/Chats/RemoveUserChatColor',
+        data: {
+            loggedUser: loggedUser
+        },
+        success: function (response)
+        {
+            //$(t).remove();
+            //document.getElementById('chatBackgroundColorPicker').value = '#fdffff';
+            //$('#chat').css('background-color', '');
+
+
+            document.getElementById('userChatColor').value = '#fdffff';
+
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
 function chatBackground(t, loggedUser) 
 {
     changeChatBackground(loggedUser, t.value);
@@ -569,6 +593,9 @@ function changeUserChatColor(user, color)
             //$('#resetChatBackground').remove();
             //$('#chatBackgroundColorPicker').parent().parent().append(response.resetButton);
 
+
+
+            $('#userChatColor').parent().parent().append(response.resetButton);
         },
         error: function (xhr, status, error)
         {
@@ -578,7 +605,7 @@ function changeUserChatColor(user, color)
 };
 function userChatColor(t, loggedUser) 
 {
-
+    changeUserChatColor(loggedUser, t.value);
 };
 
 async function DeleteMessage_(id, sender, receiver) {
@@ -1204,6 +1231,13 @@ function showChatSettings()
             {
                 const selectedColor = event.target.value;
                 changeChatBackground(response.loggedUser, selectedColor);
+            });
+
+            var userChatColorColorPicker = document.getElementById('userChatColor');
+            userChatColorColorPicker.addEventListener('input', (event) =>
+            {
+                const selectedColor = event.target.value;
+                changeUserChatColor(response.loggedUser, selectedColor);
             });
         },
         error: function (xhr, status, error)

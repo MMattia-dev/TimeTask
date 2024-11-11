@@ -430,15 +430,60 @@ namespace TimeTask.Controllers
 		}
 
 		[HttpPost]
+		public ActionResult RemoveUserChatColor(string loggedUser)
+		{
+			var userColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == loggedUser)?.UserColor;
+
+			var row = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedUser);
+			if (row != null)
+			{
+				//_context.ChatSettings.Remove(row);
+				//_context.SaveChanges();
+
+				//return Json(true);
+
+				if (row.userChatColor != null)
+				{
+					row.userChatColor = null;
+					_context.SaveChanges();
+
+					return Json(true);
+				}
+
+				if (row.chatBackground == null && row.userChatColor == null && row.senderChatColor == null)
+				{
+					_context.ChatSettings.Remove(row);
+					_context.SaveChanges();
+				}
+			}
+
+			return Json(false);
+		}
+
+		[HttpPost]
 		public ActionResult RemoveChatBackground(string loggedUser)
 		{
 			var row = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedUser);
 			if (row != null)
 			{
-				_context.ChatSettings.Remove(row);
-				_context.SaveChanges();
+				//_context.ChatSettings.Remove(row);
+				//_context.SaveChanges();
 
-				return Json(true);
+				//return Json(true);
+
+				if (row.chatBackground != null)
+				{
+					row.chatBackground = null;
+					_context.SaveChanges();
+
+					return Json(true);
+				}
+
+				if (row.chatBackground == null && row.userChatColor == null && row.senderChatColor == null)
+				{
+					_context.ChatSettings.Remove(row);
+					_context.SaveChanges();
+				}
 			}
 
 			return Json(false);
@@ -450,6 +495,7 @@ namespace TimeTask.Controllers
 			var loggedUser = GetUserId();
 			var userColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == loggedUser)?.UserColor;
 			var userBackgroundColor = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedUser)?.chatBackground;
+			var userChatColor = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedUser)?.userChatColor;
 
 			string chatBackground = "";
 			string resetChatBackground = "";
@@ -461,6 +507,18 @@ namespace TimeTask.Controllers
 			else
 			{
 				chatBackground = "#fdffff";
+			}
+
+			string userChatColor_ = "";
+			string resetUserChatColor = "<a id=\"resetUserChatColor\" onclick=\"resetUserChatColor(this, `" + loggedUser + "`)\">Reset</a>";
+			if (userChatColor != null)
+			{
+				userChatColor_ = userChatColor;
+				resetUserChatColor = "";
+			}
+			else
+			{
+				userChatColor_ = userColor;
 			}
 
 			string div = "<div class=\"chatFilter\">" +
@@ -482,7 +540,7 @@ namespace TimeTask.Controllers
 							"<label>" +
 								//"<input type=\"color\" value=\"" + userColor + "\" onchange=\"changeUserColor(this, event)\" />" +
 								//"<div style=\"background-color: " + userColor + ";\"></div>" +
-								"<input type=\"color\" id=\"userChatColor\" value=\"" + userColor + "\" onchange=\"userChatColor(this, `" + loggedUser + "`)\" />" +
+								"<input type=\"color\" id=\"userChatColor\" value=\"" + userChatColor_ + "\" onchange=\"userChatColor(this, `" + loggedUser + "`)\" />" +
 								"<span>Twój kolor czatu</span>" +
 							"</label>" +
 						"</div>" +
