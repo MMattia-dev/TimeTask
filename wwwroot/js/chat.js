@@ -560,9 +560,11 @@ function resetUserChatColor(t, loggedUser) {
             //document.getElementById('chatBackgroundColorPicker').value = '#fdffff';
             //$('#chat').css('background-color', '');
 
-
-            document.getElementById('userChatColor').value = '#fdffff';
-
+            $(t).remove();
+            document.getElementById('userChatColor').value = response.userColor;
+            $('.bubble.sender').css('background-color', response.userColor);
+            $('.bubble.sender span').css('color', response.spanColor);
+            $('.bubble.sender .tail').css('border-top-color', response.userColor);
         },
         error: function (xhr, status, error)
         {
@@ -576,12 +578,11 @@ function chatBackground(t, loggedUser)
     changeChatBackground(loggedUser, t.value);
 };
 
-
 function changeUserChatColor(user, color)
 {
     $.ajax({
         type: 'POST',
-        url: '/Chats/ChangeUserChatBackground',
+        url: '/Chats/ChangeUserChatColor',
         data: {
             loggedUser: user,
             userChatColor: color
@@ -593,8 +594,11 @@ function changeUserChatColor(user, color)
             //$('#resetChatBackground').remove();
             //$('#chatBackgroundColorPicker').parent().parent().append(response.resetButton);
 
+            $('.bubble.sender').css('background-color', response.rgb);
+            $('.bubble.sender span').css('color', response.spanColor);
+            $('.bubble.sender .tail').css('border-top-color', response.rgb);
 
-
+            $('#resetUserChatColor').remove();
             $('#userChatColor').parent().parent().append(response.resetButton);
         },
         error: function (xhr, status, error)

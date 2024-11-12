@@ -378,7 +378,7 @@ namespace TimeTask.Controllers
 		//}
 
 		[HttpPost]
-		public ActionResult ChangeUserChatBackground(string loggedUser, string userChatColor)
+		public ActionResult ChangeUserChatColor(string loggedUser, string userChatColor)
 		{
 			var row = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedUser);
 			if (row != null)
@@ -400,7 +400,9 @@ namespace TimeTask.Controllers
 				_context.SaveChanges();
 			}
 
-			return Json(new { rgb = HexToRgba(userChatColor), resetButton = "<a id=\"resetUserChatColor\" onclick=\"resetUserChatColor(this, `" + loggedUser + "`)\">Reset</a>" });
+			var spanColor = SpanColor(userChatColor);
+
+			return Json(new { rgb = HexToRgb(userChatColor), spanColor, resetButton = "<a id=\"resetUserChatColor\" onclick=\"resetUserChatColor(this, `" + loggedUser + "`)\">Reset</a>" });
 		}
 
 		[HttpPost]
@@ -447,17 +449,21 @@ namespace TimeTask.Controllers
 					row.userChatColor = null;
 					_context.SaveChanges();
 
-					return Json(true);
+					//return Json(new { success = true });
 				}
 
 				if (row.chatBackground == null && row.userChatColor == null && row.senderChatColor == null)
 				{
 					_context.ChatSettings.Remove(row);
 					_context.SaveChanges();
+
+					//return Json(new { success = true, userColor });
 				}
 			}
 
-			return Json(false);
+			var spanColor = SpanColor(userColor);
+
+			return Json(new { success = true, spanColor, userColor });
 		}
 
 		[HttpPost]
@@ -476,7 +482,7 @@ namespace TimeTask.Controllers
 					row.chatBackground = null;
 					_context.SaveChanges();
 
-					return Json(true);
+					//return Json(true);
 				}
 
 				if (row.chatBackground == null && row.userChatColor == null && row.senderChatColor == null)
@@ -510,11 +516,11 @@ namespace TimeTask.Controllers
 			}
 
 			string userChatColor_ = "";
-			string resetUserChatColor = "<a id=\"resetUserChatColor\" onclick=\"resetUserChatColor(this, `" + loggedUser + "`)\">Reset</a>";
+			string resetUserChatColor = "";
 			if (userChatColor != null)
 			{
 				userChatColor_ = userChatColor;
-				resetUserChatColor = "";
+				resetUserChatColor = "<a id=\"resetUserChatColor\" onclick=\"resetUserChatColor(this, `" + loggedUser + "`)\">Reset</a>";
 			}
 			else
 			{
@@ -543,6 +549,7 @@ namespace TimeTask.Controllers
 								"<input type=\"color\" id=\"userChatColor\" value=\"" + userChatColor_ + "\" onchange=\"userChatColor(this, `" + loggedUser + "`)\" />" +
 								"<span>Twój kolor czatu</span>" +
 							"</label>" +
+							resetUserChatColor +
 						"</div>" +
 						"<div class=\"line\"></div>" +
 						"<div class=\"chatSetting\">" +
@@ -622,6 +629,18 @@ namespace TimeTask.Controllers
 
 			foreach (var user in users)
 			{
+				var row = _context.ChatSettings.FirstOrDefault(x => x.UserId == user.UserId);
+				var userChatColor = "";
+				if (row != null)
+				{
+					userChatColor = row.userChatColor;
+				}
+				else
+				{
+					userChatColor = user.UserColor;
+				}
+
+
 				var worker = _context.Workers2.OrderBy(x => x.Surname).FirstOrDefault(x => x.Id == user.WorkerId);
 				if (worker != null)
 				{
@@ -630,10 +649,10 @@ namespace TimeTask.Controllers
 
 					if (user.UserId != GetUserId())
 					{
-						string span = "<span style=\"color: " + SpanColor(user.UserColor) + ";\">" + userName.FirstOrDefault().ToString() + userSurname.FirstOrDefault().ToString() + "</span>";
+						string span = "<span style=\"color: " + SpanColor(userChatColor) + ";\">" + userName.FirstOrDefault().ToString() + userSurname.FirstOrDefault().ToString() + "</span>";
 
 						div += "<div class=\"chatUser\" title=\"Wybierz\" onclick=\"ltmkkPVQpNisKCP(this, '" + user.UserId + "')\">" +
-									"<div class=\"avatar\" style=\"background-color:" + user.UserColor + ";\">" +
+									"<div class=\"avatar\" style=\"background-color:" + userChatColor + ";\">" +
 										//"<div class=\"avatar\">" +
 										span +
 										//"<ion-icon name=\"person-circle-outline\"></ion-icon>" +
@@ -677,6 +696,18 @@ namespace TimeTask.Controllers
 			float opacity = 0.2f; // 50% opacity
 
 			return $"rgba({r}, {g}, {b}, {opacity.ToString(CultureInfo.InvariantCulture)})";
+		}
+
+		public static string HexToRgb(string hexColor)
+		{
+			if (hexColor.StartsWith("#"))
+				hexColor = hexColor.Substring(1);
+
+			int r = Convert.ToInt32(hexColor.Substring(0, 2), 16);
+			int g = Convert.ToInt32(hexColor.Substring(2, 2), 16);
+			int b = Convert.ToInt32(hexColor.Substring(4, 2), 16);
+
+			return $"rgb({r}, {g}, {b})";
 		}
 
 		[HttpGet]
@@ -2172,6 +2203,16 @@ namespace TimeTask.Controllers
 			bool handler = false;
 
 			var senderColor = _context.UserIdentity.First(x => x.UserId == sender).UserColor;
+			/**/
+			//var chatSettings = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedInUser);
+			//if (chatSettings != null)
+			//{
+			//	if (chatSettings.userChatColor != null)
+			//	{
+			//		senderColor = chatSettings.userChatColor;
+			//	}
+			//}
+			/**/
 			string spanSenderColor = SpanColor(senderColor);
 
 			//
