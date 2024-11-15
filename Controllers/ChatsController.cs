@@ -7,6 +7,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Reflection;
 using System.Runtime.Intrinsics.Arm;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -1049,8 +1050,32 @@ namespace TimeTask.Controllers
 			string? senderColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == sender)?.UserColor;
 			string spanSenderColor = SpanColor(senderColor);
 
+			/**/
+			var chatSettings = _context.ChatSettings.FirstOrDefault(x => x.UserId == sender);
+			if (chatSettings != null)
+			{
+				if (chatSettings.userChatColor != null)
+				{
+					senderColor = chatSettings.userChatColor;
+				}
+
+			}
+			/**/
+
 			string? receiverColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == receiver)?.UserColor;
 			string spanReceiverColor = SpanColor(receiverColor);
+
+			/**/
+			var chatSettings_ = _context.ChatSettings.FirstOrDefault(x => x.UserId == receiver);
+			if (chatSettings_ != null)
+			{
+				if (chatSettings_.userChatColor != null)
+				{
+					receiverColor = chatSettings_.userChatColor;
+				}
+
+			}
+			/**/
 
 			string textDiv = "";
 
@@ -1674,8 +1699,32 @@ namespace TimeTask.Controllers
 			var senderColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == senderUserId)?.UserColor;
 			string spanSenderColor = SpanColor(senderColor);
 
+			/**/
+			var chatSettings = _context.ChatSettings.FirstOrDefault(x => x.UserId == senderUserId);
+			if (chatSettings != null)
+			{
+				if (chatSettings.userChatColor != null)
+				{
+					senderColor = chatSettings.userChatColor;
+				}
+
+			}
+			/**/
+
 			var receiverColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == receiverUserId)?.UserColor;
 			string spanReceiverColor = SpanColor(receiverColor);
+
+			/**/
+			var chatSettings_ = _context.ChatSettings.FirstOrDefault(x => x.UserId == receiverUserId);
+			if (chatSettings_ != null)
+			{
+				if (chatSettings_.userChatColor != null)
+				{
+					receiverColor = chatSettings_.userChatColor;
+				}
+
+			}
+			/**/
 
 			string div = "<div class=\"emptyConversation\">" +
 								"<span>Napisz wiadomość i kliknij wyślij, aby rozpocząć rozmowę.</span>" +
@@ -2039,6 +2088,17 @@ namespace TimeTask.Controllers
 		{
 			string messageReadStatusIcon = "<div class=\"messageReadStatusIcon\"><ion-icon name=\"eye-off\"></ion-icon></div>";
 
+			/**/
+			//var row = _context.ChatSettings.FirstOrDefault(x => x.UserId == senderUserId);
+			//if (row != null)
+			//{
+			//	if (row.userChatColor != null)
+			//	{
+			//		senderColor = row.userChatColor;
+			//	}
+			//}
+			/**/
+
 			string bubble = "";
 			if (attachmentName == null && attachmentFileType == null)
 			{
@@ -2099,24 +2159,27 @@ namespace TimeTask.Controllers
 				//}
 
 				string classes = "";
+				string backgroundColor = "";
 				if (IfImage("." + decryptedAttachmentFileType))
 				{
 					classes = "bubble sender unread picture";
+					backgroundColor = "transparent";
 				}
 				else
 				{
 					classes = "bubble sender unread file";
+					backgroundColor = senderColor;
 				}
 
 				bubble = "<div class=\"chatMessagesBubblesContainer sender\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
 									//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 									//	"<span>" + hour + "</span>" +
 									//"</div>" +
-									"<div id=\"bubbleId_" + id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClick(event," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
+									"<div id=\"bubbleId_" + id + "\" class=\"" + classes + "\" style=\"background-color:" + backgroundColor + "\" onclick=\"bubbleClick(event," + id + ", '" + senderUserId + "', '" + receiverUserId + "')\">" +
 										//"<span style=\"color:" + spanSenderColor + ";\">" + decryptedMessage + "</span>" +
 										//div +
 										fileName +
-										"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+										"<div class=\"tail\" style=\"border-top-color:" + backgroundColor + ";\"></div>" +
 										messageReadStatusIcon +
 									"</div>" +
 								"</div>";
@@ -2127,13 +2190,25 @@ namespace TimeTask.Controllers
 
 		public string BubbleReceiver(string senderColor, string spanSenderColor, string? message, string hour, int id, string? attachmentName, string? attachmentFileType)
 		{
+			/**/
+			//var row = _context.ChatSettings.FirstOrDefault(x => x.UserId == GetUserId());
+			//if (row != null)
+			//{
+			//	if (row.userChatColor != null)
+			//	{
+			//		senderColor = row.userChatColor;
+			//	}
+			//}
+			/**/
+
 			string bubble = "";
 			if (attachmentName == null && attachmentFileType == null)
 			{
 				byte[] byteMessage = Convert.FromBase64String(message);
 				string decryptedMessage = Data.Encryption.EncryptionHelper.Decrypt(byteMessage);
 
-				string date = _context.Chat.FirstOrDefault(x => x.Id == id).MessageSentDate.ToString("dd.MM.yyyy");
+				//string date = _context.Chat.FirstOrDefault(x => x.Id == id).MessageSentDate.ToString("dd.MM.yyyy");
+				string? date = _context.Chat.FirstOrDefault(x => x.Id == id)?.MessageSentDate.ToString("dd.MM.yyyy");
 
 				bubble = "<div class=\"chatMessagesBubblesContainer receiver\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
 										"<div id=\"bubbleId_" + id + "\" class=\"bubble receiver unread\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(event, `" + date + "`, `" + hour + "`)\">" +
@@ -2160,21 +2235,25 @@ namespace TimeTask.Controllers
 				string fileName = decryptedAttachmentName + "." + decryptedAttachmentFileType;
 
 				string classes = "";
+				string backgroundColor = "";
 				if (IfImage("." + decryptedAttachmentFileType))
 				{
 					classes = "bubble receiver unread picture";
+					backgroundColor = "transparent";
 				}
 				else
 				{
 					classes = "bubble receiver unread file";
+					backgroundColor = senderColor;
 				}
 
-				string date = _context.Chat.FirstOrDefault(x => x.Id == id).MessageSentDate.ToString("dd.MM.yyyy");
+				//string date = _context.Chat.FirstOrDefault(x => x.Id == id).MessageSentDate.ToString("dd.MM.yyyy");
+				string? date = _context.Chat.FirstOrDefault(x => x.Id == id)?.MessageSentDate.ToString("dd.MM.yyyy");
 
 				bubble = "<div class=\"chatMessagesBubblesContainer receiver\" style=\"animation: message 0.15s ease-out 0s forwards;\">" +
-										"<div id=\"bubbleId_" + id + "\" class=\"" + classes + "\" style=\"background-color:" + senderColor + "\" onclick=\"bubbleClickReceiver(event, `" + date + "`, `" + hour + "`)\">" +
+										"<div id=\"bubbleId_" + id + "\" class=\"" + classes + "\" style=\"background-color:" + backgroundColor + "\" onclick=\"bubbleClickReceiver(event, `" + date + "`, `" + hour + "`)\">" +
 											"<span>" + fileName + "</span>" +
-											"<div class=\"tail\" style=\"border-top-color:" + senderColor + ";\"></div>" +
+											"<div class=\"tail\" style=\"border-top-color:" + backgroundColor + ";\"></div>" +
 										"</div>" +
 										//"<div class=\"chatTimeStamp\" style=\"display: none;\">" +
 										//	"<span>" + hour + "</span>" +
@@ -2204,14 +2283,14 @@ namespace TimeTask.Controllers
 
 			var senderColor = _context.UserIdentity.First(x => x.UserId == sender).UserColor;
 			/**/
-			//var chatSettings = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedInUser);
-			//if (chatSettings != null)
-			//{
-			//	if (chatSettings.userChatColor != null)
-			//	{
-			//		senderColor = chatSettings.userChatColor;
-			//	}
-			//}
+			var chatSettings = _context.ChatSettings.FirstOrDefault(x => x.UserId == sender);
+			if (chatSettings != null)
+			{
+				if (chatSettings.userChatColor != null)
+				{
+					senderColor = chatSettings.userChatColor;
+				}
+			}
 			/**/
 			string spanSenderColor = SpanColor(senderColor);
 
