@@ -573,6 +573,49 @@ function resetUserChatColor(t, loggedUser) {
     });
 };
 
+function resetSenderChatColor(t, loggedUser)
+{
+    var id_ = null;
+
+    if (document.querySelector('.userSelected'))
+    {
+        let onclick = $('.userSelected').attr('onclick');
+        id = onclick.substring(
+            onclick.indexOf(", ") + 1,
+            onclick.lastIndexOf(")")
+        );
+        id = id.replace(/\s/g, '');
+        id = id.slice(1, -1);
+
+        id_ = id;
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: '/Chats/RemoveSenderChatColor',
+        data: {
+            loggedUser: loggedUser,
+            receiverId: id_
+        },
+        success: function (response)
+        {
+            $(t).remove();
+            document.getElementById('senderChatColor').value = '#fdffff';
+
+            if (document.querySelector('.userSelected')) {                
+                $('.bubble.receiver:not(".deleted")').css('background-color', response.userColor);
+                $('.bubble.receiver:not(".deleted") span').css('color', response.spanColor);
+                $('.bubble.receiver:not(".deleted") .tail').css('border-top-color', response.userColor);
+            }
+            
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
 function chatBackground(t, loggedUser) 
 {
     changeChatBackground(loggedUser, t.value);
@@ -610,6 +653,36 @@ function changeUserChatColor(user, color)
 function userChatColor(t, loggedUser) 
 {
     changeUserChatColor(loggedUser, t.value);
+};
+
+function changeSenderChatColor(user, color) 
+{
+    $.ajax({
+        type: 'POST',
+        url: '/Chats/ChangeSenderChatColor',
+        data: {
+            loggedUser: user,
+            senderChatColor: color
+        },
+        success: function (response)
+        {
+            $('.bubble.receiver:not(".deleted")').css('background-color', response.rgb);
+            $('.bubble.receiver:not(".deleted") span').css('color', response.spanColor);
+            $('.bubble.receiver:not(".deleted") .tail').css('border-top-color', response.rgb);
+
+            $('#resetSenderChatColor').remove();
+            $('#senderChatColor').parent().parent().append(response.resetButton);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function senderChatColor(t, loggedUser) 
+{
+    changeSenderChatColor(loggedUser, t.value);
 };
 
 async function DeleteMessage_(id, sender, receiver) {
@@ -1242,6 +1315,13 @@ function showChatSettings()
             {
                 const selectedColor = event.target.value;
                 changeUserChatColor(response.loggedUser, selectedColor);
+            });
+
+            var senderChatColorColorPicker = document.getElementById('senderChatColor');
+            senderChatColorColorPicker.addEventListener('input', (event) =>
+            {
+                const selectedColor = event.target.value;
+                changeSenderChatColor(response.loggedUser, selectedColor);
             });
         },
         error: function (xhr, status, error)

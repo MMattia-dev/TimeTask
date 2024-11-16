@@ -379,6 +379,34 @@ namespace TimeTask.Controllers
 		//}
 
 		[HttpPost]
+		public ActionResult ChangeSenderChatColor(string loggedUser, string senderChatColor)
+		{
+			var row = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedUser);
+			if (row != null)
+			{
+				row.senderChatColor = senderChatColor;
+				_context.SaveChanges();
+			}
+			else
+			{
+				var newData = new ChatSettings()
+				{ 
+					UserId = loggedUser,
+					chatBackground = null,
+					userChatColor = null,
+					senderChatColor = senderChatColor
+				};
+
+				_context.ChatSettings.Add(newData);
+				_context.SaveChanges();
+			}
+
+			var spanColor = SpanColor(senderChatColor);
+
+			return Json(new { rgb = HexToRgb(senderChatColor), spanColor, resetButton = "<a id=\"resetSenderChatColor\" onclick=\"resetSenderChatColor(this, `" + loggedUser + "`)\">Reset</a>" });
+		}
+
+		[HttpPost]
 		public ActionResult ChangeUserChatColor(string loggedUser, string userChatColor)
 		{
 			var row = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedUser);
@@ -430,6 +458,46 @@ namespace TimeTask.Controllers
 			}
 
 			return Json(new { rgb = HexToRgba(backgroundColor), resetButton = "<a id=\"resetChatBackground\" onclick=\"resetChatBackground(this, `" + loggedUser + "`)\">Reset</a>" });
+		}
+
+		[HttpPost]
+		public ActionResult RemoveSenderChatColor(string loggedUser, string receiverId)
+		{
+			//var userColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == loggedUser)?.UserColor;
+			//var userColor = "";
+
+			string receiverColor = "";
+			if (receiverId != null)
+			{
+				var row_ = _context.UserIdentity.FirstOrDefault(x => x.UserId == receiverId);
+				if (row_ != null)
+				{
+					receiverColor = row_.UserColor;
+				}
+			}			
+
+			var row = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedUser);
+			if (row != null)
+			{
+				if (row.senderChatColor != null)
+				{
+					row.senderChatColor = null;
+					_context.SaveChanges();
+				}
+
+				if (row.chatBackground == null && row.userChatColor == null && row.senderChatColor == null)
+				{
+					_context.ChatSettings.Remove(row);
+					_context.SaveChanges();
+				}
+
+				//userColor = "#fdffff";
+			}
+
+			var userColor = receiverColor;
+			var spanColor = SpanColor(userColor);
+
+			return Json(new { success = true, spanColor, userColor });
 		}
 
 		[HttpPost]
@@ -503,17 +571,18 @@ namespace TimeTask.Controllers
 			var userColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == loggedUser)?.UserColor;
 			var userBackgroundColor = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedUser)?.chatBackground;
 			var userChatColor = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedUser)?.userChatColor;
+			var senderChatColor = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedUser)?.senderChatColor;
 
-			string chatBackground = "";
-			string resetChatBackground = "";
-			if (userBackgroundColor != null)
+			string senderChatColor_ = "";
+			string resetSenderChatColor = "";
+			if (senderChatColor != null)
 			{
-				chatBackground = userBackgroundColor;
-				resetChatBackground = "<a id=\"resetChatBackground\" onclick=\"resetChatBackground(this, `" + loggedUser + "`)\">Reset</a>";
+				senderChatColor_ = senderChatColor;
+				resetSenderChatColor = "<a id=\"resetSenderChatColor\" onclick=\"resetSenderChatColor(this, `" + loggedUser + "`)\">Reset</a>";
 			}
 			else
 			{
-				chatBackground = "#fdffff";
+				senderChatColor_ = "#fdffff";
 			}
 
 			string userChatColor_ = "";
@@ -528,21 +597,23 @@ namespace TimeTask.Controllers
 				userChatColor_ = userColor;
 			}
 
+			string chatBackground = "";
+			string resetChatBackground = "";
+			if (userBackgroundColor != null)
+			{
+				chatBackground = userBackgroundColor;
+				resetChatBackground = "<a id=\"resetChatBackground\" onclick=\"resetChatBackground(this, `" + loggedUser + "`)\">Reset</a>";
+			}
+			else
+			{
+				chatBackground = "#fdffff";
+			}
+
 			string div = "<div class=\"chatFilter\">" +
 					"<a class=\"chatMinimize filterClose\" title=\"Zamknij\" onclick=\"scQisAIXdDGVbXF(this)\">" +
 						"<ion-icon name=\"close-outline\"></ion-icon>" +
 					"</a>" +
 					"<div class=\"chatFilterParent\">" +
-						"<div class=\"chatSetting\">" +
-							"<label>" + //onclick=\"chatBackground(`" + loggedUser + "`)\"
-										//"<div style=\"background-color: transparent;\"></div>" +
-								"<input type=\"color\" id=\"chatBackgroundColorPicker\" value=\"" + chatBackground + "\" onchange=\"chatBackground(this, `" + loggedUser + "`)\" />" +
-								"<span>Wybierz tło czatu</span>" +
-							"</label>" +
-							//"<div class=\"link\" onclick=\"chatBackground(`" + loggedUser + "`)\"><span>Wybierz tło czatu</span></div>" +
-							resetChatBackground +
-						"</div>" +
-						"<div class=\"line\"></div>" +
 						"<div class=\"chatSetting\">" +
 							"<label>" +
 								//"<input type=\"color\" value=\"" + userColor + "\" onchange=\"changeUserColor(this, event)\" />" +
@@ -556,13 +627,23 @@ namespace TimeTask.Controllers
 						"<div class=\"chatSetting\">" +
 							"<label>" +
 								//"<input type=\"color\" value=\"\" onchange=\"changeReceiversColor(this, event)\" />" +
-								"<div style=\"background-color: transparent;\"></div>" +
+								//"<div style=\"background-color: transparent;\"></div>" +
+								"<input type=\"color\" id=\"senderChatColor\" value=\"" + senderChatColor_ + "\" onchange=\"senderChatColor(this, `" + loggedUser + "`)\" />" +
 								"<span>Kolor czatu nadawcy</span>" +
 							"</label>" +
+							resetSenderChatColor +
 							"<ion-icon name=\"help-circle\" title=\"Ustaw odpowiedni dla siebie kolor dla wszystkich nadawców\"></ion-icon>" +
 						"</div>" +
-
-
+						"<div class=\"line\"></div>" +
+						"<div class=\"chatSetting\">" +
+							"<label>" + //onclick=\"chatBackground(`" + loggedUser + "`)\"
+										//"<div style=\"background-color: transparent;\"></div>" +
+								"<input type=\"color\" id=\"chatBackgroundColorPicker\" value=\"" + chatBackground + "\" onchange=\"chatBackground(this, `" + loggedUser + "`)\" />" +
+								"<span>Wybierz tło czatu</span>" +
+							"</label>" +
+							//"<div class=\"link\" onclick=\"chatBackground(`" + loggedUser + "`)\"><span>Wybierz tło czatu</span></div>" +
+							resetChatBackground +
+						"</div>" +	
 					"</div>" +
 				"</div>";
 
@@ -635,11 +716,27 @@ namespace TimeTask.Controllers
 				if (row != null)
 				{
 					userChatColor = row.userChatColor;
+
+					if (row.userChatColor == null)
+					{
+						userChatColor = user.UserColor;
+					}
 				}
 				else
 				{
 					userChatColor = user.UserColor;
 				}
+
+				//var row_ = _context.ChatSettings.FirstOrDefault(x => x.UserId == user.UserId);
+				//var senderChatColor = "";
+				//if (row_ != null)
+				//{
+				//	senderChatColor = row_.senderChatColor;
+				//}
+				//else
+				//{
+				//	senderChatColor = user.UserColor;
+				//}
 
 
 				var worker = _context.Workers2.OrderBy(x => x.Surname).FirstOrDefault(x => x.Id == user.WorkerId);
@@ -1048,8 +1145,8 @@ namespace TimeTask.Controllers
 			var culture = new CultureInfo("pl-PL");
 
 			string? senderColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == sender)?.UserColor;
+			string? receiverColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == receiver)?.UserColor;
 
-			/**/
 			var chatSettings = _context.ChatSettings.FirstOrDefault(x => x.UserId == sender);
 			if (chatSettings != null)
 			{
@@ -1058,12 +1155,12 @@ namespace TimeTask.Controllers
 					senderColor = chatSettings.userChatColor;
 				}
 
+				//if (chatSettings.senderChatColor != null)
+				//{
+				//	sender = chatSettings.senderChatColor;
+				//}
 			}
-			/**/
-			string spanSenderColor = SpanColor(senderColor);
-
-			string? receiverColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == receiver)?.UserColor;
-			/**/
+			
 			var chatSettings_ = _context.ChatSettings.FirstOrDefault(x => x.UserId == receiver);
 			if (chatSettings_ != null)
 			{
@@ -1072,9 +1169,18 @@ namespace TimeTask.Controllers
 					receiverColor = chatSettings_.userChatColor;
 				}
 
+				//if (chatSettings_.senderChatColor != null)
+				//{
+				//	receiverColor = chatSettings_.senderChatColor;
+				//}
+
+				
 			}
-			/**/
+
+			string spanSenderColor = SpanColor(senderColor);
 			string spanReceiverColor = SpanColor(receiverColor);
+
+
 
 			string textDiv = "";
 
@@ -1171,6 +1277,18 @@ namespace TimeTask.Controllers
 
 									if (row.AttachmentName == null && row.AttachmentFileType == null)
 									{
+										/**/
+										var chatSettings__ = _context.ChatSettings.FirstOrDefault(x => x.UserId == sender);
+										if (chatSettings__ != null)
+										{
+											if (chatSettings__.senderChatColor != null)
+											{
+												receiverColor = chatSettings__.senderChatColor;
+											}
+										}
+										spanReceiverColor = SpanColor(receiverColor);
+										/**/
+
 										string div = "";
 										string classes2 = "";
 										if (IfImage("." + decryptedMessage.Split(".").Last()))
@@ -1436,6 +1554,18 @@ namespace TimeTask.Controllers
 
 									if (row.AttachmentName == null && row.AttachmentFileType == null)
 									{
+										/**/
+										var chatSettings__ = _context.ChatSettings.FirstOrDefault(x => x.UserId == loggedUser);
+										if (chatSettings__ != null)
+										{
+											if (chatSettings__.senderChatColor != null)
+											{
+												senderColor = chatSettings__.senderChatColor;
+											}
+										}
+										spanSenderColor = SpanColor(senderColor);
+										/**/
+
 										string div = "";
 										string classes2 = "";
 										if (IfImage("." + decryptedMessage.Split(".").Last()))
@@ -1696,7 +1826,8 @@ namespace TimeTask.Controllers
 			var senderUserId = GetUserId(); //currently logged in user!!!
 
 			var senderColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == senderUserId)?.UserColor;
-			/**/
+			var receiverColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == receiverUserId)?.UserColor;
+
 			var chatSettings = _context.ChatSettings.FirstOrDefault(x => x.UserId == senderUserId);
 			if (chatSettings != null)
 			{
@@ -1705,13 +1836,12 @@ namespace TimeTask.Controllers
 					senderColor = chatSettings.userChatColor;
 				}
 
+				//if (chatSettings.senderChatColor != null)
+				//{
+				//	senderColor = chatSettings.senderChatColor;
+				//}
 			}
-			/**/
-			string spanSenderColor = SpanColor(senderColor);
 
-			var receiverColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == receiverUserId)?.UserColor;
-
-			/**/
 			var chatSettings_ = _context.ChatSettings.FirstOrDefault(x => x.UserId == receiverUserId);
 			if (chatSettings_ != null)
 			{
@@ -1720,9 +1850,18 @@ namespace TimeTask.Controllers
 					receiverColor = chatSettings_.userChatColor;
 				}
 
+				//if (chatSettings_.senderChatColor != null)
+				//{
+				//	receiverColor = chatSettings_.senderChatColor;
+				//}
+
+				
 			}
-			/**/
+
+			string spanSenderColor = SpanColor(senderColor);
 			string spanReceiverColor = SpanColor(receiverColor);
+
+
 
 			string div = "<div class=\"emptyConversation\">" +
 								"<span>Napisz wiadomość i kliknij wyślij, aby rozpocząć rozmowę.</span>" +
@@ -1798,6 +1937,18 @@ namespace TimeTask.Controllers
 
 									if (row.AttachmentName == null && row.AttachmentFileType == null)
 									{
+										/**/
+										var chatSettings__ = _context.ChatSettings.FirstOrDefault(x => x.UserId == senderUserId);
+										if (chatSettings__ != null)
+										{
+											if (chatSettings__.senderChatColor != null)
+											{
+												receiverColor = chatSettings__.senderChatColor;
+											}
+										}
+										spanReceiverColor = SpanColor(receiverColor);
+										/**/
+
 										string div_ = "";
 										string classes2 = "";
 										if (IfImage("." + decryptedMessage.Split(".").Last()))
@@ -2197,6 +2348,18 @@ namespace TimeTask.Controllers
 			//		senderColor = row.userChatColor;
 			//	}
 			//}
+			/**/
+
+			/**/
+			var chatSettings__ = _context.ChatSettings.FirstOrDefault(x => x.UserId == GetUserId());
+			if (chatSettings__ != null)
+			{
+				if (chatSettings__.senderChatColor != null)
+				{
+					senderColor = chatSettings__.senderChatColor;
+				}
+			}
+			spanSenderColor = SpanColor(senderColor);
 			/**/
 
 			string bubble = "";
@@ -2856,7 +3019,7 @@ namespace TimeTask.Controllers
 					"<div class=\"chatAttachDrop\">" +
 						"<div class=\"chatAttachDropText\">" +
 							"<ion-icon name=\"download-outline\"></ion-icon>" +
-							"<span>...kliknij, lub przeciągnij i upuść plik...<br />(Maks. 5 MB)</span>" +
+							"<span>...kliknij i wybierz, lub przeciągnij i upuść plik...<br />(Maks. 5 MB)</span>" +
 						"</div>" +
 						"<input type=\"file\" onchange=\"fileAttach(event, '" + sender + "', '" + receiver + "')\" />" +
 					"</div>" +
