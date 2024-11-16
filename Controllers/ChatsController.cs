@@ -1048,7 +1048,6 @@ namespace TimeTask.Controllers
 			var culture = new CultureInfo("pl-PL");
 
 			string? senderColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == sender)?.UserColor;
-			string spanSenderColor = SpanColor(senderColor);
 
 			/**/
 			var chatSettings = _context.ChatSettings.FirstOrDefault(x => x.UserId == sender);
@@ -1061,10 +1060,9 @@ namespace TimeTask.Controllers
 
 			}
 			/**/
+			string spanSenderColor = SpanColor(senderColor);
 
 			string? receiverColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == receiver)?.UserColor;
-			string spanReceiverColor = SpanColor(receiverColor);
-
 			/**/
 			var chatSettings_ = _context.ChatSettings.FirstOrDefault(x => x.UserId == receiver);
 			if (chatSettings_ != null)
@@ -1076,6 +1074,7 @@ namespace TimeTask.Controllers
 
 			}
 			/**/
+			string spanReceiverColor = SpanColor(receiverColor);
 
 			string textDiv = "";
 
@@ -1697,8 +1696,6 @@ namespace TimeTask.Controllers
 			var senderUserId = GetUserId(); //currently logged in user!!!
 
 			var senderColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == senderUserId)?.UserColor;
-			string spanSenderColor = SpanColor(senderColor);
-
 			/**/
 			var chatSettings = _context.ChatSettings.FirstOrDefault(x => x.UserId == senderUserId);
 			if (chatSettings != null)
@@ -1710,9 +1707,9 @@ namespace TimeTask.Controllers
 
 			}
 			/**/
+			string spanSenderColor = SpanColor(senderColor);
 
 			var receiverColor = _context.UserIdentity.FirstOrDefault(x => x.UserId == receiverUserId)?.UserColor;
-			string spanReceiverColor = SpanColor(receiverColor);
 
 			/**/
 			var chatSettings_ = _context.ChatSettings.FirstOrDefault(x => x.UserId == receiverUserId);
@@ -1725,6 +1722,7 @@ namespace TimeTask.Controllers
 
 			}
 			/**/
+			string spanReceiverColor = SpanColor(receiverColor);
 
 			string div = "<div class=\"emptyConversation\">" +
 								"<span>Napisz wiadomość i kliknij wyślij, aby rozpocząć rozmowę.</span>" +

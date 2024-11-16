@@ -562,9 +562,9 @@ function resetUserChatColor(t, loggedUser) {
 
             $(t).remove();
             document.getElementById('userChatColor').value = response.userColor;
-            $('.bubble.sender').css('background-color', response.userColor);
-            $('.bubble.sender span').css('color', response.spanColor);
-            $('.bubble.sender .tail').css('border-top-color', response.userColor);
+            $('.bubble.sender:not(".deleted")').css('background-color', response.userColor);
+            $('.bubble.sender:not(".deleted") span').css('color', response.spanColor);
+            $('.bubble.sender:not(".deleted") .tail').css('border-top-color', response.userColor);
         },
         error: function (xhr, status, error)
         {
@@ -594,9 +594,9 @@ function changeUserChatColor(user, color)
             //$('#resetChatBackground').remove();
             //$('#chatBackgroundColorPicker').parent().parent().append(response.resetButton);
 
-            $('.bubble.sender').css('background-color', response.rgb);
-            $('.bubble.sender span').css('color', response.spanColor);
-            $('.bubble.sender .tail').css('border-top-color', response.rgb);
+            $('.bubble.sender:not(".deleted")').css('background-color', response.rgb);
+            $('.bubble.sender:not(".deleted") span').css('color', response.spanColor);
+            $('.bubble.sender:not(".deleted") .tail').css('border-top-color', response.rgb);
 
             $('#resetUserChatColor').remove();
             $('#userChatColor').parent().parent().append(response.resetButton);
