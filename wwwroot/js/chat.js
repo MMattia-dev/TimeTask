@@ -607,7 +607,6 @@ function resetSenderChatColor(t, loggedUser)
                 $('.bubble.receiver:not(".deleted") span').css('color', response.spanColor);
                 $('.bubble.receiver:not(".deleted") .tail').css('border-top-color', response.userColor);
             }
-            
         },
         error: function (xhr, status, error)
         {
