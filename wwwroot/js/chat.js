@@ -1289,6 +1289,7 @@ function bubblesAccordion(t)
     for (let i = 0; i < acc.length; i++) 
     {
         $(acc[i]).toggleClass('hidden');
+        //$(acc[i]).fadeToggle();
     }
 };
 

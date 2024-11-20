@@ -849,6 +849,7 @@ namespace TimeTask.Controllers
 										//                                 "<span class=\"statusText\">Zaraz wracam</span>" +
 										//"<span class=\"status offline\"></span>" +
 										//                                 "<span class=\"statusText\">Offline</span>" +
+
 										"</div>" +
 									"</div>" +
 									"<div class=\"chatMinimizeDiv\">" +
@@ -864,6 +865,7 @@ namespace TimeTask.Controllers
 										"<a class=\"chatMinimize\" onclick=\"tqMrMyJEPoAgJSW()\" title=\"Minimalizuj\">" +
 											"<ion-icon name=\"chevron-down\"></ion-icon>" +
 										"</a>" +
+										
 									"</div>" +
 								"</div>" +
 								"<div class=\"chatMessagesBubbles\">" +

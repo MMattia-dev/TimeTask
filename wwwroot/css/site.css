@@ -6659,7 +6659,6 @@ span#OcoYTyiBrpZJStB {
             .chat .chatUsers .chatUser:hover {
                 cursor: pointer;
                 filter: brightness(130%);
-                background-color: rgba(255, 255, 255, 0.2);
             }
 
                 .chat .chatUsers .chatUser:hover ion-icon {
@@ -6668,6 +6667,12 @@ span#OcoYTyiBrpZJStB {
 
                 .chat .chatUsers .chatUser:hover .chatUserUnreadMessageCountSpan {
                     color: black;
+                }
+
+                .chat .chatUsers .chatUser:hover:not(.userSelected) {
+                    cursor: pointer;
+                    background-color: rgba(255, 255, 255, 0.1);
+                    
                 }
 
 .chatParent {
