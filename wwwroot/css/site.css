@@ -4132,6 +4132,13 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         cursor: pointer;
     }
 
+    .msdgExEZCpefgcL.msdgExEZCpefgcL_ {
+        position: absolute;
+        bottom: 25px;
+        /*left: 14px;*/
+
+    }
+
 .eEwwYSDbqyMdghL {
     overflow-y: auto;
     overflow-x: hidden;
@@ -4300,9 +4307,9 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     background-color: rgba(34, 36, 48, 0.3);
     width: 100%;
     /*border-radius: 10px;*/
-    -webkit-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.2);
+    /*-webkit-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.2);
-    box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 0.2);*/
 }
 
     .YavvRCMQscelhIs.riqhWBvtFoKacNt {
@@ -5209,6 +5216,10 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     gap: 10px;
     flex-wrap: wrap;
 }
+
+    .miDoCHDzMtfgfwJ.UerVekGrigzHetD {
+        justify-content: right;
+    }
 
 /*#ITnLhNHsrVsLMlU {
     max-height: 200px;
