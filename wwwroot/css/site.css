@@ -1829,6 +1829,11 @@ ion-icon {
         max-height: 35px;
     }
 
+    .IVnxgCORpPYL.ijBuUPWrdXEngvb.zJhewVNxzHJvocN {
+        pointer-events: none;
+        min-width: 280px;
+    }
+
     .IVnxgCORpPYL svg {
         fill: rgba(255, 255, 255, 0.8);
     }
@@ -3403,6 +3408,8 @@ ion-icon {
     display: table;
     border-collapse: separate;
     border-spacing: 0 8px;
+    /**/
+    table-layout: fixed;
 }
 
     .VUXahzbNUTWtiZa .MSqNklVuATDPbHk {
@@ -3419,6 +3426,7 @@ ion-icon {
         height: 52px;
         max-height: 52px;
         min-height: 52px;
+        
     }
 
         .VUXahzbNUTWtiZa thead tr th {
@@ -3470,7 +3478,7 @@ ion-icon {
     }
 
     .VUXahzbNUTWtiZa tr td {
-        border-right: 4px double rgba(255, 255, 255, 0.3);
+        border-right: 4px double rgba(255, 255, 255, 0.2);
     }
 
         .VUXahzbNUTWtiZa tr td:last-child {
@@ -3485,11 +3493,11 @@ ion-icon {
         }
 
         .VUXahzbNUTWtiZa tr td:nth-last-child(2) {
-            border-right: 1px solid rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
         }
 
 .arrow {
-    border: solid rgba(255, 255, 255, 0.4);
+    border: solid rgba(255, 255, 255, 0.3);
     border-width: 0 2px 2px 0;
     display: inline-block;
     padding: 2px;
@@ -3534,7 +3542,7 @@ ion-icon {
     }
 
 #GRgYMQCkHWKDuyb:hover .lines{
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.4);
 }
 
 #GRgYMQCkHWKDuyb:hover .arrow {
@@ -4369,7 +4377,9 @@ input:checked + .HsRFJWiSLmrJcoG:before {
         gap: 10px;
         flex-wrap: wrap;
         /**/
-        flex-direction: column;
+        /*flex-direction: column;*/
+        /**/
+        justify-content: right;
     }
 
 .quickNotepad {
@@ -5215,10 +5225,12 @@ input:checked + .HsRFJWiSLmrJcoG:before {
     flex-direction: row;
     gap: 10px;
     flex-wrap: wrap;
+    
 }
 
     .miDoCHDzMtfgfwJ.UerVekGrigzHetD {
-        justify-content: right;
+        /*justify-content: right;*/
+        flex-direction: column;
     }
 
 /*#ITnLhNHsrVsLMlU {

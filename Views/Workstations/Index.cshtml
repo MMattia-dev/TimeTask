@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TimeTask.Models.Workstations>
+
+@{
+    ViewData["Title"] = "Index";
+
+    //czy są jakiekolwiek działy
+    var departmentsLength = ((IEnumerable<Department>)ViewBag.Department).Count();
+}
+
+<link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
+
+<div class="parent">
+    <section class="left-nav">
+        <partial name="_Settings" />
+    </section>
+    <section class="right-nav">
+        <div class="kxOMhDZFzkDb">
+            <div class="ECTosDyufuTqvBV">
+                @if (departmentsLength > 0)
+                {
+                    @if (Model.Count() > 0)
+                    {
+                        <div class="IVnxgCORpPYL ijBuUPWrdXEngvb RlREsSaJYGSFniA" onclick="" title="Dodaj nowe stanowisko">
+                            <ion-icon name="add-outline"></ion-icon>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" onclick="">
+                            <ion-icon name="add-outline"></ion-icon>
+                            <span>Dodaj nowe stanowisko</span>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="IVnxgCORpPYL ijBuUPWrdXEngvb zJhewVNxzHJvocN">
+                        <span>Dodaj działy, aby móc dodać stanowiska</span>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="YUPrikbkYzkc"></div>
+
+    </section>
+</div>
+
+<script type="text/javascript" src="~/js/site.js"></script>
+<script type="text/javascript" src="~/js/WorkstationsJS.js"></script>
+<script type="text/javascript" src="~/js/sorttable2.js"></script>

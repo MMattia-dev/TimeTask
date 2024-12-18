@@ -403,13 +403,31 @@ namespace TimeTask.Controllers
                             "<label>Nazwisko:</label>" +
                             "<input class=\"form-control\" autocomplete=\"off\" id=\"toPdQnPuvH\" />" +
                         "</div>" +
-                        "<div class=\"form-group form-group-margin\">" +
+                        "<div class=\"form-group\">" +
                             "<label>Dział:</label>" +
                             "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"OyRfwpeqzbeyVEW\">" +
                                 departments +
                             "</select>" +
                         "</div>" +
-                        "<div class=\"form-group\">" +
+
+
+						"<div class=\"form-group\">" +
+							"<label>Stanowisko (opcjonalne):</label>" +
+							"<select class=\"form-control bYwPpsleuVCBkPv\" id=\"\">" +
+								 "<option>-</option>" +
+                                
+							"</select>" +
+						"</div>" +
+						"<div class=\"form-group form-group-margin\">" +
+							"<label>Zmiana (opcjonalne):</label>" +
+							"<select class=\"form-control bYwPpsleuVCBkPv\" id=\"\">" +
+								"<option>-</option>" +
+
+							"</select>" +
+						"</div>" +
+
+
+						"<div class=\"form-group\">" +
                             "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"TEqGSwRYnu()\" />" +
                         "</div>" +
                         "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
@@ -592,6 +610,10 @@ namespace TimeTask.Controllers
                                 "<td>" + item.Surname + "</td>" +
                                 "<td>" + item.Name + "</td>" +
                                 "<td>" + departmentName + "</td>" +
+
+                                "<td>" + "</td>" +
+                                "<td>" + "</td>" +
+
                                 "<td>" +
                                     "<a onclick=\"IxsCvPIuWwZw(" + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>" +
                                     "<a onclick=\"deleteWorker(" + item.Id + ")\" title=\"Usuń\"><ion-icon class=\"delete urlop\" name=\"trash-outline\"></ion-icon></a>" +
@@ -605,10 +627,14 @@ namespace TimeTask.Controllers
                     "<thead>" +
                         "<tr>" +
                             "<th style=\"width: 100px;\"><span>ID</span></th>" +
-                            "<th style=\"width: 30%;\"><span>Nazwisko</span></th>" +
-                            "<th><span>Imię</span></th>" +
+                            "<th><span>Nazwisko</span></th>" + // style=\"width: 30%;\"
+							"<th><span>Imię</span></th>" +
                             "<th><span>Dział</span></th>" +
-                            "<th><span>Opcje</span></th>" +
+
+							"<th><span>Stanowisko</span></th>" +
+							"<th><span>Zmiana</span></th>" +
+
+							"<th style=\"width: 100px;\"><span>Opcje</span></th>" +
                         "</tr>" +
                     "</thead>" +
                     info +
@@ -654,7 +680,11 @@ namespace TimeTask.Controllers
                             "<td>" + item.Surname + "</td>" +
                             "<td>" + item.Name + "</td>" +
                             "<td style=\"color: orangered;\">Brak</td>" +
-                            "<td>" +
+
+							"<td>" + "</td>" +
+							"<td>" + "</td>" +
+
+							"<td>" +
                                 "<a onclick=\"IxsCvPIuWwZw(" + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>" +
                                 "<a onclick=\"deleteWorker(" + item.Id + ")\" title=\"Usuń\"><ion-icon class=\"delete urlop\" name=\"trash-outline\"></ion-icon></a>" +
                             "</td>" +
@@ -669,7 +699,11 @@ namespace TimeTask.Controllers
                                 "<th style=\"width: 30%;\"><span>Nazwisko</span></th>" +
                                 "<th><span>Imię</span></th>" +
                                 "<th><span>Dział</span></th>" +
-                                "<th><span>Opcje</span></th>" +
+
+								"<th><span>Stanowisko</span></th>" +
+							    "<th><span>Zmiana</span></th>" +
+
+								"<th><span>Opcje</span></th>" +
                             "</tr>" +
                         "</thead>" +
                         info +
