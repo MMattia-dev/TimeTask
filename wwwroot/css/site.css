@@ -1763,6 +1763,10 @@ ion-icon {
                 cursor: unset;
             }*/
 
+            .IVnxgCORpPYL.ijBuUPWrdXEngvb.pKKeaPLlODAnOgN.fetDyOODTumSTzB {
+                left: 99px;
+            }
+
     .IVnxgCORpPYL.GcatEFOlNEfZNtE {
         opacity: 0.7;
         border-left-color: grey;
@@ -3436,6 +3440,7 @@ ion-icon {
             /*border-right: 4px double rgba(255, 255, 255, 0.2);*/
             white-space: nowrap;
             /*transition: color 0.2s;*/
+            min-width: 120px;
         }
 
             .VUXahzbNUTWtiZa thead tr th.qDIGovQQrGkMAIm {
@@ -3470,6 +3475,10 @@ ion-icon {
                     /*transition: color 0.2s;*/
                     cursor: pointer;
                 }
+
+            /*.VUXahzbNUTWtiZa thead tr th:not(:first-child) {
+                min-width: 120px;
+            }*/
 
     .VUXahzbNUTWtiZa tr th, .VUXahzbNUTWtiZa tr td {
         padding-left: 20px;

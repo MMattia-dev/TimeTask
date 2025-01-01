@@ -39,16 +39,43 @@ $('#toPdQnPuvH').on('keydown', function (e)
 
 function OwCEPCelyFSecWQ(name_) 
 {
+    let OyRfwpeqzbeyVEW = document.getElementById('OyRfwpeqzbeyVEW').value;
+
     $.ajax({
         type: 'POST',
         url: '/Workstations/AddNewWorkstation',
         data: {
-            name: name_,
+            departmentId: OyRfwpeqzbeyVEW,
+            name: name_
         },
         success: function (response)
         {
             //sessionStorage.setItem('qbMvtjjezfxSFsv', response);
             location.reload();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function nGgUoVSOQmbYyoD()
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Workstations/CreateDepartmentSelect',
+        success: function (response)
+        {
+            $('.kxOMhDZFzkDb').append(response);
+            $('#rJsRgTkikJFkTVs').attr('onclick', 'PHXgTRqEbNEfYsk()');
+            $('.iNzvwDsTQXDyPIR ion-icon').addClass('zwyAWlfnleMVUJu');
+
+            if (sessionStorage.getItem('RTqrydCjXBjinzd') != null) 
+            {
+                $('.oJeaEVIeaFrjGFz[id="' + sessionStorage.getItem('RTqrydCjXBjinzd') + '"]').addClass('iFbPgrXjzGigaCA');
+                $('.iFbPgrXjzGigaCA')[0].scrollIntoView();
+            }
         },
         error: function (xhr, status, error)
         {
