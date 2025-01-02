@@ -122,7 +122,7 @@ if (defaultWallpaper_ != null)
     //    'background-size': 'cover',
     //    'background-position': 'center'
     //});
-    if (defaultWallpaper_.indexOf("jpg") >= 0 || defaultWallpaper_.indexOf("jpeg") >= 0 || defaultWallpaper_.indexOf("gif") >= 0)
+    if (defaultWallpaper_.indexOf("jpg") >= 0 || defaultWallpaper_.indexOf("jpeg") >= 0 || defaultWallpaper_.indexOf("gif") >= 0 || defaultWallpaper_.indexOf("png") >= 0)
     {
         $('html').css({
             'background': 'url(' + defaultWallpaper_ + ')',

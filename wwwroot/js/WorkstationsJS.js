@@ -3,18 +3,21 @@ selected.classList.add('settings_a_selected');
 
 function XmVztKczNCaTbJt() 
 {
-    if (sessionStorage.getItem('RTqrydCjXBjinzd') != null) 
+    if (sessionStorage.getItem('wnxkBzHZyNkxFOg') != null) 
     {
-        if (sessionStorage.getItem('RTqrydCjXBjinzd') == 'null') 
+        if (sessionStorage.getItem('wnxkBzHZyNkxFOg') == 'null') 
         {
             WAknWoEDCgnvjyY(null);
             $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo()');
         }
         else 
         {
-            WAknWoEDCgnvjyY(sessionStorage.getItem('RTqrydCjXBjinzd'));
-            $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + sessionStorage.getItem('RTqrydCjXBjinzd') + ')');
+            WAknWoEDCgnvjyY(sessionStorage.getItem('wnxkBzHZyNkxFOg'));
+            $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + sessionStorage.getItem('wnxkBzHZyNkxFOg') + ')');
         }
+    }
+    else {
+        WAknWoEDCgnvjyY(null);
     }
 };
 XmVztKczNCaTbJt();
@@ -92,10 +95,14 @@ function nGgUoVSOQmbYyoD()
             $('#rJsRgTkikJFkTVs').attr('onclick', 'PHXgTRqEbNEfYsk()');
             $('.iNzvwDsTQXDyPIR ion-icon').addClass('zwyAWlfnleMVUJu');
 
-            if (sessionStorage.getItem('RTqrydCjXBjinzd') != null) 
+            if (sessionStorage.getItem('wnxkBzHZyNkxFOg') != null) 
             {
-                $('.oJeaEVIeaFrjGFz[id="' + sessionStorage.getItem('RTqrydCjXBjinzd') + '"]').addClass('iFbPgrXjzGigaCA');
+                $('.oJeaEVIeaFrjGFz[id="' + sessionStorage.getItem('wnxkBzHZyNkxFOg') + '"]').addClass('iFbPgrXjzGigaCA');
                 $('.iFbPgrXjzGigaCA')[0].scrollIntoView();
+            }
+            else 
+            {
+                $('.oJeaEVIeaFrjGFz:first-child').addClass('iFbPgrXjzGigaCA');
             }
         },
         error: function (xhr, status, error)
@@ -119,44 +126,83 @@ $('body').on('click', function ()
 
 function WAknWoEDCgnvjyY(id) 
 {
-    if (id != null && id != "null") 
-    {
-        $.ajax({
-            type: 'GET',
-            url: '/Workers2/ChangeDepartment',
-            data: {
-                id: id
-            },
-            success: function (response)
+    $.ajax({
+        type: 'GET',
+        url: '/Workstations/ChangeDepartment',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            $('.YUPrikbkYzkc').html(response.contentResult.content);
+            var tables = document.getElementsByTagName('table');
+            for (var i = 0; i < tables.length; i++)
             {
-                $('.YUPrikbkYzkc').html(response.contentResult.content);
-                var tables = document.getElementsByTagName('table');
-                for (var i = 0; i < tables.length; i++)
-                {
-                    resizableGrid(tables[i]);
-                }
-
-                let THs = $('#tableId thead tr th:not(:last)');
-                for (let i = 0; i < THs.length; i++)
-                {
-                    $(THs[i]).attr('onclick', 'sortTable(' + i + ')');
-                }
-
-                $('.iNzvwDsTQXDyPIR span').html(response.departmentName).removeAttr('style');
-                $('.iNzvwDsTQXDyPIR ion-icon').removeClass('zwyAWlfnleMVUJu');
-
-                sessionStorage.setItem('RTqrydCjXBjinzd', id);
-                $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + id + ')');
-
-                $('#vTGalpVxnhKxENh').remove();
-                $('.ECTosDyufuTqvBV').append('<div id="vTGalpVxnhKxENh" class="MReEOONwmHpPyvX">' + response.editDeleteButton.content + '</div>');
-            },
-            error: function (xhr, status, error)
-            {
-                console.log('Error:', error);
+                resizableGrid(tables[i]);
             }
-        });
-    }
+
+            let THs = $('#tableId thead tr th:not(:last)');
+            for (let i = 0; i < THs.length; i++)
+            {
+                $(THs[i]).attr('onclick', 'sortTable(' + i + ')');
+            }
+
+            $('.iNzvwDsTQXDyPIR span').html(response.departmentName).removeAttr('style');
+            $('.iNzvwDsTQXDyPIR ion-icon').removeClass('zwyAWlfnleMVUJu');
+
+            sessionStorage.setItem('wnxkBzHZyNkxFOg', response.departmentId);
+            $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + response.departmentId + ')');
+
+            //$('#vTGalpVxnhKxENh').remove();
+            //$('.ECTosDyufuTqvBV').append('<div id="vTGalpVxnhKxENh" class="MReEOONwmHpPyvX">' + response.editDeleteButton.content + '</div>');
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+
+    //if (id != null && id != "null") 
+    //{
+    //    $.ajax({
+    //        type: 'GET',
+    //        url: '/Workstations/ChangeDepartment',
+    //        data: {
+    //            id: id
+    //        },
+    //        success: function (response)
+    //        {
+    //            $('.YUPrikbkYzkc').html(response.contentResult.content);
+    //            var tables = document.getElementsByTagName('table');
+    //            for (var i = 0; i < tables.length; i++)
+    //            {
+    //                resizableGrid(tables[i]);
+    //            }
+
+    //            let THs = $('#tableId thead tr th:not(:last)');
+    //            for (let i = 0; i < THs.length; i++)
+    //            {
+    //                $(THs[i]).attr('onclick', 'sortTable(' + i + ')');
+    //            }
+
+    //            $('.iNzvwDsTQXDyPIR span').html(response.departmentName).removeAttr('style');
+    //            $('.iNzvwDsTQXDyPIR ion-icon').removeClass('zwyAWlfnleMVUJu');
+
+    //            sessionStorage.setItem('wnxkBzHZyNkxFOg', id);
+    //            $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + id + ')');
+
+    //            //$('#vTGalpVxnhKxENh').remove();
+    //            //$('.ECTosDyufuTqvBV').append('<div id="vTGalpVxnhKxENh" class="MReEOONwmHpPyvX">' + response.editDeleteButton.content + '</div>');
+    //        },
+    //        error: function (xhr, status, error)
+    //        {
+    //            console.log('Error:', error);
+    //        }
+    //    });
+    //}
+    //else {
+    //    console.log('asd');
+    //}
 };
 
 function resizableGrid(table)
@@ -269,3 +315,104 @@ function resizableGrid(table)
     }
 };
 
+function kEDVBzpHnAzOqpp(t, e)
+{
+    e.stopPropagation();
+};
+
+function ZKHOrDgJBDHOpmW(t)
+{
+    if ($(t).attr('id') == 'GRgYMQCkHWKDuyb')
+    {
+        $(t).parent().addClass('qDIGovQQrGkMAIm');
+    }
+};
+
+function pNxCxvPIUtCbSHM(t)
+{
+    if ($(t).attr('id') == 'GRgYMQCkHWKDuyb')
+    {
+        $(t).parent().removeClass('qDIGovQQrGkMAIm');
+    }
+}
+
+function IxsCvPIuWwZw(id)
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Workstations/EditWorkstation',
+        data: {
+            id: id
+        },
+        success: function (response) 
+        {
+            $('body').append(response);
+            $('#jwOsncySQjwD').fadeIn(200);
+        },
+        error: function (xhr, status, error) 
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function KfdhlqmDXEsR(id)
+{
+    let name = document.getElementById('xEjLBIPqUXLK').value;
+
+    $.ajax({
+        type: 'POST',
+        url: '/Workstations/EditWorkstation',
+        data: {
+            id: id,
+            name: name,
+        },
+        success: function (response)
+        {
+            location.reload();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function kZINYLFZdSai(id)
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Workstations/DeleteWorkstationForm',
+        data: {
+            id: id
+        },
+        success: function (response) 
+        {
+            $('body').append(response);
+            $('#UwCmLRqIRSZM').fadeIn(200);
+        },
+        error: function (xhr, status, error) 
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function dDlRcSCJZAuO(id)
+{
+    $.ajax({
+        type: 'POST',
+        url: '/Workstations/DeleteWorkstation',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            location.reload();
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};

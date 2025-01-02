@@ -376,6 +376,19 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
+        public ActionResult ChangeWorkstations(int id)
+        {
+            var workstations = _context.Workstations.Where(x => x.DepartmentId == id);
+            string workstationsOptions = "<option selected></option>";
+            foreach (var item in workstations)
+            {
+                workstationsOptions += "<option value=" + item.Id + ">" + item.Name + "</option>";
+            }
+
+            return Content(workstationsOptions);
+        }
+
+        [HttpGet]
         public ActionResult AddNewWorkerForm(int id)
         {
             var departments = "";
@@ -391,6 +404,17 @@ namespace TimeTask.Controllers
                 }
             }
 
+            //
+            var workstations = _context.Workstations.Where(x => x.DepartmentId == id);
+            string workstationsOptions = "";
+            foreach (var item in workstations)
+            {
+                workstationsOptions += "<option value=" + item.Id + ">" + item.Name + "</option>";
+            }
+
+            //var zmiany = _context.Shifts;
+            //
+
             string removeForm = "$('#QmRrlOQPQW').remove()";
 
             string form = "<div id=\"QmRrlOQPQW\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
@@ -405,7 +429,7 @@ namespace TimeTask.Controllers
                         "</div>" +
                         "<div class=\"form-group\">" +
                             "<label>Dział:</label>" +
-                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"OyRfwpeqzbeyVEW\">" +
+                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"OyRfwpeqzbeyVEW\" onchange=\"KHpqBjUFdnnaWxq(this)\">" +
                                 departments +
                             "</select>" +
                         "</div>" +
@@ -413,15 +437,15 @@ namespace TimeTask.Controllers
 
 						"<div class=\"form-group\">" +
 							"<label>Stanowisko (opcjonalne):</label>" +
-							"<select class=\"form-control bYwPpsleuVCBkPv\" id=\"\">" +
-								 "<option>-</option>" +
-                                
-							"</select>" +
+                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"cWSWdChjLlkqTlQ\">" +
+							    "<option selected></option>" +
+                                workstationsOptions +
+                            "</select>" +
 						"</div>" +
 						"<div class=\"form-group form-group-margin\">" +
 							"<label>Zmiana (opcjonalne):</label>" +
-							"<select class=\"form-control bYwPpsleuVCBkPv\" id=\"\">" +
-								"<option>-</option>" +
+                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"VcVGBJCedKJagyX\">" +
+							    "<option></option>" +
 
 							"</select>" +
 						"</div>" +

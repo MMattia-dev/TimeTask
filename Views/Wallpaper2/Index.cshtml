@@ -78,7 +78,7 @@
                         @{ int i = 1; }
                         @foreach (var item in Model.OrderBy(x => x.Id))
                         {
-                            if (item.Link.EndsWith(".jpg") || item.Link.EndsWith(".jpeg") || item.Link.EndsWith(".gif"))
+                            if (item.Link.EndsWith(".jpg") || item.Link.EndsWith(".jpeg") || item.Link.EndsWith(".gif") || item.Link.EndsWith(".png"))
                             {
                                 <label>
                                     <input type="radio" name="same" id="customWallpaper_@i" onchange="changeWallpaper(this)">
@@ -204,7 +204,7 @@
         //     'background-size': 'cover',
         //     'background-position': 'center'
         // });
-        if ($(t).parent().children().eq(2).attr('src').indexOf("jpg") >= 0 || $(t).parent().children().eq(2).attr('src').indexOf("jpeg") >= 0 || $(t).parent().children().eq(2).attr('src').indexOf("gif") >= 0)
+        if ($(t).parent().children().eq(2).attr('src').indexOf("jpg") >= 0 || $(t).parent().children().eq(2).attr('src').indexOf("jpeg") >= 0 || $(t).parent().children().eq(2).attr('src').indexOf("gif") >= 0 || $(t).parent().children().eq(2).attr('src').indexOf("png") >= 0)
         {
             $('html').css({
                 'background': 'url(' + $(t).parent().children().eq(2).attr('src') + ')',
@@ -213,7 +213,7 @@
             });
         }
         else {
-            $('body').append('<video autoplay loop id="myVideo"><source src="' + $(t).parent().children().eq(2).attr('src') + '" type="video/mp4"></video>');
+            $('body').append('<video autoplay muted loop id="myVideo"><source src="' + $(t).parent().children().eq(2).attr('src') + '" type="video/mp4"></video>');
         }
     };
 

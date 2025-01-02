@@ -35,6 +35,10 @@ function nGgUoVSOQmbYyoD()
                 $('.oJeaEVIeaFrjGFz[id="' + sessionStorage.getItem('RTqrydCjXBjinzd') + '"]').addClass('iFbPgrXjzGigaCA');
                 $('.iFbPgrXjzGigaCA')[0].scrollIntoView();
             }
+            else
+            {
+                $('.oJeaEVIeaFrjGFz:first-child').addClass('iFbPgrXjzGigaCA');
+            }
         },
         error: function (xhr, status, error)
         {
@@ -450,8 +454,32 @@ function TEqGSwRYnu()
         let dep_id_ = e.options[e.selectedIndex].value;
         let employed_ = true;
 
-        KOxtvRcBmzeo(name_, surname_, dep_id_, employed_);
+        let workstation_ = document.getElementById('cWSWdChjLlkqTlQ').value;
+        let shift_ = document.getElementById('VcVGBJCedKJagyX').value;
+
+        console.log(workstation_);
+
+        //KOxtvRcBmzeo(name_, surname_, dep_id_, employed_);
     }
+};
+
+function KHpqBjUFdnnaWxq(t) 
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Workers2/ChangeWorkstations',
+        data: {
+            id: t.value
+        },
+        success: function (response) 
+        {
+            $('#cWSWdChjLlkqTlQ').html(response);
+        },
+        error: function (xhr, status, error) 
+        {
+            console.log('Error:', error);
+        }
+    });
 };
 
 $('#GVegODKbEh').on('keydown', function (e)
