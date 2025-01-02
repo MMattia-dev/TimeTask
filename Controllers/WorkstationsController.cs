@@ -165,17 +165,24 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult NewWorkstationForm()
+        public ActionResult NewWorkstationForm(int id)
         {
             var departments = "";
             foreach (var item in ((IEnumerable<Department>)_context.Department).OrderBy(x => x.Name))
             {
-                departments += "<option value=" + item.Id + ">" + item.Name + "</option>";
+                if (item.Id == id)
+                {
+                    departments += "<option selected value=" + item.Id + ">" + item.Name + "</option>";
+                }
+                else
+                {
+                    departments += "<option value=" + item.Id + ">" + item.Name + "</option>";
+                }
             }
 
-            string removeForm = "$('#LHalxdaASJOOxrL').remove()";
+            string removeForm = "$('#QmRrlOQPQW').remove()";
 
-            string form = "<div id=\"LHalxdaASJOOxrL\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+            string form = "<div id=\"QmRrlOQPQW\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
                     "<form class=\"form_\">" +
                         "<div class=\"form-group\">" +
                             "<label>Dział:</label>" +
@@ -253,6 +260,46 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
+        [HttpGet]
+        public ActionResult ChangeDepartment(int id)
+        {
+            var departmentName = (_context.Department).FirstOrDefault(x => x.Id == id)?.Name;
+
+            var workstations = ((IEnumerable<Workstations>)_context.Workstations).Where(x => x.DepartmentId == id);
+            var info = "";
+            var table = "";
+
+            foreach (var item in workstations)
+            {
+                info += "<tr class=\"EmRSNqsShbDnTsE\">" +
+                                "<td>" + item.Id + "</td>" +
+                                "<td>" + item.Name + "</td>" +
+                                "<td>" + departmentName + "</td>" +
+                                "<td>" +
+                                    "<a onclick=\"IxsCvPIuWwZw(" + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>" +
+                                    "<a onclick=\"deleteWorker(" + item.Id + ")\" title=\"Usuń\"><ion-icon class=\"delete urlop\" name=\"trash-outline\"></ion-icon></a>" +
+                                "</td>" +
+                            "</tr>";
+            }
+
+            if (workstations.Count() > 0)
+            {
+                table = "<table class=\"VUXahzbNUTWtiZa sortable\" id=\"tableId\">" +
+                    "<thead>" +
+                        "<tr>" +
+                            "<th style=\"width: 100px;\"><span>ID</span></th>" +
+                            "<th><span>Nazwa</span></th>" + 
+                            "<th><span>Dział</span></th>" + 
+                            "<th style=\"width: 100px;\"><span>Opcje</span></th>" +
+                        "</tr>" +
+                    "</thead>" +
+                    info +
+                "</table>";
+            }
+
+
+
+        }
 
 
     }
