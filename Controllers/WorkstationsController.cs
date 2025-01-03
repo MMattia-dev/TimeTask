@@ -272,12 +272,30 @@ namespace TimeTask.Controllers
 
             foreach (var item in workstations)
             {
+                var workersCount = _context.Workers2.Where(x => x.WorkstationId == item.Id).Count();
+                string workersCountString = "";
+                //string workersCountButton = "";
+                if (workersCount > 0)
+                {
+                    workersCountString = "<td class=\"yugskfKlqlbDqRC\">" + "<span>" +  workersCount + "</span>" +
+                            //"<button class=\"CbpyAeWiFNJLdQx\" onclick=\"koiuvVVEqnkXgDC(" + item.Id + ")\">Pokaż pracowników</button>" +
+                            "<button class=\"CbpyAeWiFNJLdQx\" title=\"Pokaż pracowników\" onclick=\"koiuvVVEqnkXgDC(" + item.Id + ")\"><ion-icon name=\"people-outline\"></ion-icon></button>" +
+                        "</td>";
+
+                    //workersCountButton = "<a onclick=\"footviUcDRlr(" + item.Id + ")\" title=\"Pokaż pracowników\"><ion-icon name=\"search-outline\"></ion-icon></a>";
+                }
+                else
+                {
+                    workersCountString = "<td style=\"color: orangered;\">" + workersCount + "</td>";
+                }           
+
                 info += "<tr class=\"EmRSNqsShbDnTsE\">" +
                                 "<td>" + item.Id + "</td>" +
                                 "<td>" + item.Name + "</td>" +
                                 "<td>" + departmentName + "</td>" +
-                                "<td>" + "" + "</td>" +
+                                workersCountString +
                                 "<td>" +
+                                    //workersCountButton +
                                     "<a onclick=\"IxsCvPIuWwZw(" + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>" +
                                     "<a onclick=\"kZINYLFZdSai(" + item.Id + ")\" title=\"Usuń\"><ion-icon class=\"delete urlop\" name=\"trash-outline\"></ion-icon></a>" +
                                 "</td>" +
@@ -291,8 +309,8 @@ namespace TimeTask.Controllers
                         "<tr>" +
                             "<th style=\"width: 100px;\"><span>ID</span></th>" +
                             "<th><span>Nazwa</span></th>" + 
-                            "<th><span>Dział</span></th>" + 
-                            "<th><span>Liczba pracowników</span></th>" + 
+                            "<th><span>Dział</span></th>" +
+                            "<th style=\"min-width: 200px;\"><span>Liczba pracowników</span></th>" + 
                             "<th style=\"width: 100px;\"><span>Opcje</span></th>" +
                         "</tr>" +
                     "</thead>" +
@@ -397,7 +415,58 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
+        public ActionResult ShowWorkstationMembers(int id)
+        {
+            string removeForm = "$('#WnlkUXBVyfUSVNt').remove()";
 
+            var privateScheduleList = _context.PrivateScheduleList;
+            string tr = "";
+            foreach (var row in privateScheduleList)
+            {
+                var workersArray = _context.Workers2.First(x => x.Id == row.WorkerId);
+                var departmentName = _context.Department.First(x => x.Id == workersArray.DepartmentID).Name;
+                var name = workersArray.Surname + " " + workersArray.Name;
+
+                tr += "<tr>" +
+                        "<td title=\"" + row.Id + "\">" + row.Id + "</td>" +
+                        "<td title=\"" + departmentName + "\">" + departmentName + "</td>" +
+                        "<td title=\"" + name + "\">" + name + "</td>" +
+                        "<td>" +
+                            "<a onclick=\"GAQosyFmQwieNft(this, " + row.Id + ")\">Usuń</a>" +
+                        "</td>" +
+                    "</tr>";
+            }
+
+            string table = "<div class=\"eEwwYSDbqyMdghL\">" +
+                "<table class=\"rHIpYUaJfTsSFHO\">" +
+                    "<thead>" +
+                        "<tr>" +
+                            "<th title=\"id\"><ion-icon name=\"key\"></ion-icon></th>" +
+                            "<th>Dział</th>" +
+                            "<th>Nazwisko i Imię</th>" +
+                            "<th></th>" +
+                        "<tr>" +
+                    "</thead>" +
+                    "<tbody>" +
+                        tr +
+                        AddTr() +
+                    "</tbody>" +
+                "</table>" +
+                "</div>";
+
+
+            string form = "<div id=\"WnlkUXBVyfUSVNt\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form class=\"AdMcjKPGypQwFuM\">" +
+                        "<span class=\"hFzZLqJdsEqdlrx phzshsahNeRSjfT wbxnvJGiIuXUOzi\">Prywatne grafiki - lista</span>" +
+                        table +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
+
+            return Content(form);
+        }
 
 
 

@@ -416,3 +416,23 @@ function dDlRcSCJZAuO(id)
         }
     });
 };
+
+function koiuvVVEqnkXgDC(id) 
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Workstations/ShowWorkstationMembers',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#WnlkUXBVyfUSVNt').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error adding data:', error);
+        }
+    });
+};
