@@ -1,32 +1,11 @@
-﻿let selected = document.getElementById('settings_workstations_id');
+﻿let selected = document.getElementById('settings_shifts_id');
 selected.classList.add('settings_a_selected');
-
-function XmVztKczNCaTbJt() 
-{
-    if (sessionStorage.getItem('wnxkBzHZyNkxFOg') != null) 
-    {
-        if (sessionStorage.getItem('wnxkBzHZyNkxFOg') == 'null') 
-        {
-            WAknWoEDCgnvjyY(null);
-            $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo()');
-        }
-        else 
-        {
-            WAknWoEDCgnvjyY(sessionStorage.getItem('wnxkBzHZyNkxFOg'));
-            $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + sessionStorage.getItem('wnxkBzHZyNkxFOg') + ')');
-        }
-    }
-    else {
-        WAknWoEDCgnvjyY(null);
-    }
-};
-XmVztKczNCaTbJt();
 
 function YENAVVQWwo(id)
 {
     $.ajax({
         type: 'GET',
-        url: '/Workstations/NewWorkstationForm',
+        url: '/Shifts/NewShiftForm',
         data: {
             id: id
         },
@@ -63,18 +42,14 @@ $('#toPdQnPuvH').on('keydown', function (e)
 
 function OwCEPCelyFSecWQ(name_) 
 {
-    let OyRfwpeqzbeyVEW = document.getElementById('OyRfwpeqzbeyVEW').value;
-
     $.ajax({
         type: 'POST',
-        url: '/Workstations/AddNewWorkstation',
+        url: '/Shifts/AddNewShift',
         data: {
-            departmentId: OyRfwpeqzbeyVEW,
             name: name_
         },
         success: function (response)
         {
-            //sessionStorage.setItem('qbMvtjjezfxSFsv', response);
             location.reload();
         },
         error: function (xhr, status, error)
@@ -84,126 +59,20 @@ function OwCEPCelyFSecWQ(name_)
     });
 };
 
-function nGgUoVSOQmbYyoD()
+$(document).ready(function ()
 {
-    $.ajax({
-        type: 'GET',
-        url: '/Workstations/CreateDepartmentSelect',
-        success: function (response)
-        {
-            $('.kxOMhDZFzkDb').append(response);
-            $('#rJsRgTkikJFkTVs').attr('onclick', 'PHXgTRqEbNEfYsk()');
-            $('.iNzvwDsTQXDyPIR ion-icon').addClass('zwyAWlfnleMVUJu');
+    var tables = document.getElementsByTagName('table');
+    for (var i = 0; i < tables.length; i++)
+    {
+        resizableGrid(tables[i]);
+    }
 
-            if (sessionStorage.getItem('wnxkBzHZyNkxFOg') != null) 
-            {
-                $('.oJeaEVIeaFrjGFz[id="' + sessionStorage.getItem('wnxkBzHZyNkxFOg') + '"]').addClass('iFbPgrXjzGigaCA');
-                $('.iFbPgrXjzGigaCA')[0].scrollIntoView();
-            }
-            else 
-            {
-                $('.oJeaEVIeaFrjGFz:first-child').addClass('iFbPgrXjzGigaCA');
-            }
-        },
-        error: function (xhr, status, error)
-        {
-            console.log('Error:', error);
-        }
-    });
-};
-
-function PHXgTRqEbNEfYsk() 
-{
-    $('#shwJrqmCKCOdpeV').remove();
-    $('#rJsRgTkikJFkTVs').attr('onclick', 'nGgUoVSOQmbYyoD()');
-    $('.iNzvwDsTQXDyPIR ion-icon').removeClass('zwyAWlfnleMVUJu');
-};
-
-$('body').on('click', function ()
-{
-    PHXgTRqEbNEfYsk();
+    let THs = $('#tableId thead tr th:not(:last)');
+    for (let i = 0; i < THs.length; i++)
+    {
+        $(THs[i]).attr('onclick', 'sortTable(' + i + ')');
+    }
 });
-
-function WAknWoEDCgnvjyY(id) 
-{
-    $.ajax({
-        type: 'GET',
-        url: '/Workstations/ChangeDepartment',
-        data: {
-            id: id
-        },
-        success: function (response)
-        {
-            $('.YUPrikbkYzkc').html(response.contentResult.content);
-            var tables = document.getElementsByTagName('table');
-            for (var i = 0; i < tables.length; i++)
-            {
-                resizableGrid(tables[i]);
-            }
-
-            let THs = $('#tableId thead tr th:not(:last)');
-            for (let i = 0; i < THs.length; i++)
-            {
-                $(THs[i]).attr('onclick', 'sortTable(' + i + ')');
-            }
-
-            $('.iNzvwDsTQXDyPIR span').html(response.departmentName).removeAttr('style');
-            $('.iNzvwDsTQXDyPIR ion-icon').removeClass('zwyAWlfnleMVUJu');
-
-            sessionStorage.setItem('wnxkBzHZyNkxFOg', response.departmentId);
-            $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + response.departmentId + ')');
-
-            //$('#vTGalpVxnhKxENh').remove();
-            //$('.ECTosDyufuTqvBV').append('<div id="vTGalpVxnhKxENh" class="MReEOONwmHpPyvX">' + response.editDeleteButton.content + '</div>');
-        },
-        error: function (xhr, status, error)
-        {
-            console.log('Error:', error);
-        }
-    });
-
-    //if (id != null && id != "null") 
-    //{
-    //    $.ajax({
-    //        type: 'GET',
-    //        url: '/Workstations/ChangeDepartment',
-    //        data: {
-    //            id: id
-    //        },
-    //        success: function (response)
-    //        {
-    //            $('.YUPrikbkYzkc').html(response.contentResult.content);
-    //            var tables = document.getElementsByTagName('table');
-    //            for (var i = 0; i < tables.length; i++)
-    //            {
-    //                resizableGrid(tables[i]);
-    //            }
-
-    //            let THs = $('#tableId thead tr th:not(:last)');
-    //            for (let i = 0; i < THs.length; i++)
-    //            {
-    //                $(THs[i]).attr('onclick', 'sortTable(' + i + ')');
-    //            }
-
-    //            $('.iNzvwDsTQXDyPIR span').html(response.departmentName).removeAttr('style');
-    //            $('.iNzvwDsTQXDyPIR ion-icon').removeClass('zwyAWlfnleMVUJu');
-
-    //            sessionStorage.setItem('wnxkBzHZyNkxFOg', id);
-    //            $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + id + ')');
-
-    //            //$('#vTGalpVxnhKxENh').remove();
-    //            //$('.ECTosDyufuTqvBV').append('<div id="vTGalpVxnhKxENh" class="MReEOONwmHpPyvX">' + response.editDeleteButton.content + '</div>');
-    //        },
-    //        error: function (xhr, status, error)
-    //        {
-    //            console.log('Error:', error);
-    //        }
-    //    });
-    //}
-    //else {
-    //    console.log('asd');
-    //}
-};
 
 function resizableGrid(table)
 {
@@ -340,7 +209,7 @@ function IxsCvPIuWwZw(id)
 {
     $.ajax({
         type: 'GET',
-        url: '/Workstations/EditWorkstation',
+        url: '/Shifts/EditShiftForm',
         data: {
             id: id
         },
@@ -362,7 +231,7 @@ function KfdhlqmDXEsR(id)
 
     $.ajax({
         type: 'POST',
-        url: '/Workstations/EditWorkstation',
+        url: '/Shifts/EditShift',
         data: {
             id: id,
             name: name,
@@ -382,7 +251,7 @@ function kZINYLFZdSai(id)
 {
     $.ajax({
         type: 'GET',
-        url: '/Workstations/DeleteWorkstationForm',
+        url: '/Shifts/DeleteShiftForm',
         data: {
             id: id
         },
@@ -402,7 +271,7 @@ function dDlRcSCJZAuO(id)
 {
     $.ajax({
         type: 'POST',
-        url: '/Workstations/DeleteWorkstation',
+        url: '/Shifts/DeleteShift',
         data: {
             id: id
         },
@@ -421,7 +290,7 @@ function koiuvVVEqnkXgDC(id)
 {
     $.ajax({
         type: 'GET',
-        url: '/Workstations/ShowWorkstationMembers',
+        url: '/Shifts/ShowShiftMembers',
         data: {
             id: id
         },
@@ -436,4 +305,3 @@ function koiuvVVEqnkXgDC(id)
         }
     });
 };
-

@@ -1,0 +1,84 @@
+﻿@model IEnumerable<TimeTask.Models.Shifts>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
+
+<div class="parent">
+    <section class="left-nav">
+        <partial name="_Settings" />
+    </section>
+    <section class="right-nav">
+        <div class="kxOMhDZFzkDb">
+            <div class="ECTosDyufuTqvBV">
+                @* @if (Model.Count() > 0)
+                {
+                    <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" id="rJsRgTkikJFkTVs" onclick="nGgUoVSOQmbYyoD()">
+                        <ion-icon name="briefcase-outline"></ion-icon>
+                        <div class="iNzvwDsTQXDyPIR">
+                            <span>@Model.OrderBy(x => x.Id).FirstOrDefault()?.Name</span>
+                            <ion-icon name="chevron-down-outline"></ion-icon>
+                        </div>
+                    </div>
+                } *@
+            </div>
+
+            <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" id="MyRfivjxPqfhHQr" onclick="YENAVVQWwo()">
+                <ion-icon name="add-outline"></ion-icon>
+                <span>Dodaj nową zmianę</span>
+            </div>
+
+        </div>
+
+        <div class="YUPrikbkYzkc">
+
+            <table class="VUXahzbNUTWtiZa sortable" id="tableId">
+                <thead>
+                    <tr>
+                        <th style="width: 100px;"><span>ID</span></th>
+                        <th>Nazwa</th>
+                        <th>Liczba pracowników</th>
+                        <th style="width: 100px;"><span>Opcje</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderBy(x => x.Id))
+                    {
+                        var number = ((IEnumerable<Workers2>)ViewBag.Workers).Where(x => x.ShiftId == item.Id).Count();
+
+                        <tr class="EmRSNqsShbDnTsE">
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
+                            @if (number > 0)
+                            {
+                                <td class="yugskfKlqlbDqRC">
+                                    <span>@number</span>
+                                    <button class="CbpyAeWiFNJLdQx" title="Wyświetl pracowników" onclick="koiuvVVEqnkXgDC(@item.Id)"><ion-icon name="people-outline"></ion-icon></button>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <span>@number</span>
+                                </td>
+                            }
+                            <td>
+                                <a onclick="IxsCvPIuWwZw(@item.Id)" title="Edytuj"><ion-icon class="edit urlop" name="create-outline"></ion-icon></a>
+                                <a onclick="kZINYLFZdSai(@item.Id)" title="Usuń"><ion-icon class="delete urlop" name="trash-outline"></ion-icon></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+    </section>
+</div>
+
+<script type="text/javascript" src="~/js/site.js"></script>
+<script type="text/javascript" src="~/js/ShiftsJS.js"></script>
+<script type="text/javascript" src="~/js/sorttable2.js"></script>
+<script type="text/javascript" src="~/js/sorttable3.js"></script>

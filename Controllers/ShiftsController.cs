@@ -12,91 +12,89 @@ using TimeTask.Models;
 namespace TimeTask.Controllers
 {
     [Authorize]
-    public class WorkstationsController : Controller
+    public class ShiftsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public WorkstationsController(ApplicationDbContext context)
+        public ShiftsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Workstations
+        // GET: Shifts
         public async Task<IActionResult> Index()
         {
-            ViewBag.Department = _context.Department;
             ViewBag.Workers = _context.Workers2;
-            ViewBag.Workstations = _context.Workstations;
 
-            return _context.Workstations != null ? 
-                          View(await _context.Workstations.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Workstations'  is null.");
+              return _context.Shifts != null ? 
+                          View(await _context.Shifts.ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Shifts'  is null.");
         }
 
-        // GET: Workstations/Details/5
+        // GET: Shifts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Workstations == null)
+            if (id == null || _context.Shifts == null)
             {
                 return NotFound();
             }
 
-            var workstations = await _context.Workstations
+            var shifts = await _context.Shifts
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (workstations == null)
+            if (shifts == null)
             {
                 return NotFound();
             }
 
-            return View(workstations);
+            return View(shifts);
         }
 
-        // GET: Workstations/Create
+        // GET: Shifts/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Workstations/Create
+        // POST: Shifts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DepartmentId,Name")] Workstations workstations)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Shifts shifts)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(workstations);
+                _context.Add(shifts);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(workstations);
+            return View(shifts);
         }
 
-        // GET: Workstations/Edit/5
+        // GET: Shifts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Workstations == null)
+            if (id == null || _context.Shifts == null)
             {
                 return NotFound();
             }
 
-            var workstations = await _context.Workstations.FindAsync(id);
-            if (workstations == null)
+            var shifts = await _context.Shifts.FindAsync(id);
+            if (shifts == null)
             {
                 return NotFound();
             }
-            return View(workstations);
+            return View(shifts);
         }
 
-        // POST: Workstations/Edit/5
+        // POST: Shifts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,DepartmentId,Name")] Workstations workstations)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Shifts shifts)
         {
-            if (id != workstations.Id)
+            if (id != shifts.Id)
             {
                 return NotFound();
             }
@@ -105,12 +103,12 @@ namespace TimeTask.Controllers
             {
                 try
                 {
-                    _context.Update(workstations);
+                    _context.Update(shifts);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!WorkstationsExists(workstations.Id))
+                    if (!ShiftsExists(shifts.Id))
                     {
                         return NotFound();
                     }
@@ -121,79 +119,60 @@ namespace TimeTask.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(workstations);
+            return View(shifts);
         }
 
-        // GET: Workstations/Delete/5
+        // GET: Shifts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Workstations == null)
+            if (id == null || _context.Shifts == null)
             {
                 return NotFound();
             }
 
-            var workstations = await _context.Workstations
+            var shifts = await _context.Shifts
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (workstations == null)
+            if (shifts == null)
             {
                 return NotFound();
             }
 
-            return View(workstations);
+            return View(shifts);
         }
 
-        // POST: Workstations/Delete/5
+        // POST: Shifts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Workstations == null)
+            if (_context.Shifts == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Workstations'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Shifts'  is null.");
             }
-            var workstations = await _context.Workstations.FindAsync(id);
-            if (workstations != null)
+            var shifts = await _context.Shifts.FindAsync(id);
+            if (shifts != null)
             {
-                _context.Workstations.Remove(workstations);
+                _context.Shifts.Remove(shifts);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool WorkstationsExists(int id)
+        private bool ShiftsExists(int id)
         {
-          return (_context.Workstations?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Shifts?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
         [HttpGet]
-        public ActionResult NewWorkstationForm(int id)
+        public ActionResult NewShiftForm(int id)
         {
-            var departments = "";
-            foreach (var item in ((IEnumerable<Department>)_context.Department).OrderBy(x => x.Name))
-            {
-                if (item.Id == id)
-                {
-                    departments += "<option selected value=" + item.Id + ">" + item.Name + "</option>";
-                }
-                else
-                {
-                    departments += "<option value=" + item.Id + ">" + item.Name + "</option>";
-                }
-            }
-
             string removeForm = "$('#QmRrlOQPQW').remove()";
 
             string form = "<div id=\"QmRrlOQPQW\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
                     "<form class=\"form_\">" +
-                        "<div class=\"form-group\">" +
-                            "<label>Dział:</label>" +
-                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"OyRfwpeqzbeyVEW\">" +
-                                departments +
-                            "</select>" +
-                        "</div>" +
                         "<div class=\"form-group form-group-margin\">" +
-                            "<label>Nazwa stanowiska:</label>" +
+                            "<label>Nazwa zmiany:</label>" +
                             "<input class=\"form-control\" autocomplete=\"off\" id=\"toPdQnPuvH\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
@@ -209,137 +188,30 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddNewWorkstation(int departmentId, string name)
+        public ActionResult AddNewShift(string name)
         {
-            var newData = new Workstations()
+            var newData = new Shifts()
             {
-                DepartmentId = departmentId,
                 Name = name
             };
 
-            _context.Workstations.Add(newData);
+            _context.Shifts.Add(newData);
             _context.SaveChanges();
             return Json(new { success = true });
         }
 
         [HttpGet]
-        public ActionResult CreateDepartmentSelect()
+        public ActionResult EditShiftForm(int id)
         {
-            var departments = (_context.Department).Select(x => x.Id);
-
-            string departments_string = "";
-            foreach (var item in (_context.Department).OrderBy(x => x.Name))
-            {
-                departments_string += "<div class=\"oJeaEVIeaFrjGFz\" id=\"" + item.Id + "\" onclick=\"WAknWoEDCgnvjyY(" + item.Id + ")\"><span>" + item.Name + "</span></div>";
-            }
-
-            string div = "<div class=\"IVnxgCORpPYL ijBuUPWrdXEngvb pKKeaPLlODAnOgN fetDyOODTumSTzB\" id=\"shwJrqmCKCOdpeV\">" +
-                    departments_string +
-                "</div>";
-
-            if (div != "")
-            {
-                return Content(div);
-            }
-
-            return Json(new { success = false });
-        }
-
-        [HttpGet]
-        public ActionResult ChangeDepartment(int? id)
-        {
-            var firstDepartmentID = ((IEnumerable<Department>)_context.Department).OrderBy(x => x.Name).FirstOrDefault()?.Id;
-            int? departmentId = null;
-
-            string? departmentName = "";
-            List<Workstations> workstations = new List<Workstations>();
-
-            if (id != null)
-            {
-                departmentName = (_context.Department).FirstOrDefault(x => x.Id == id)?.Name;
-                workstations = ((IEnumerable<Workstations>)_context.Workstations).Where(x => x.DepartmentId == id).ToList();
-                departmentId = id;
-            }
-            else
-            {
-                departmentName = (_context.Department).FirstOrDefault(x => x.Id == firstDepartmentID)?.Name;
-                workstations = ((IEnumerable<Workstations>)_context.Workstations).Where(x => x.DepartmentId == firstDepartmentID).ToList();
-                departmentId = firstDepartmentID;
-            }
-
-            var info = "";
-            var table = "";
-
-            foreach (var item in workstations)
-            {
-                var workersCount = _context.Workers2.Where(x => x.WorkstationId == item.Id).Count();
-                string workersCountString = "";
-                //string workersCountButton = "";
-                if (workersCount > 0)
-                {
-                    workersCountString = "<td class=\"yugskfKlqlbDqRC\">" + "<span>" +  workersCount + "</span>" +
-                            //"<button class=\"CbpyAeWiFNJLdQx\" onclick=\"koiuvVVEqnkXgDC(" + item.Id + ")\">Wyświetl pracowników</button>" +
-                            "<button class=\"CbpyAeWiFNJLdQx\" title=\"Wyświetl pracowników\" onclick=\"koiuvVVEqnkXgDC(" + item.Id + ")\"><ion-icon name=\"people-outline\"></ion-icon></button>" +
-                        "</td>";
-
-                    //workersCountButton = "<a onclick=\"footviUcDRlr(" + item.Id + ")\" title=\"Wyświetl pracowników\"><ion-icon name=\"search-outline\"></ion-icon></a>";
-                }
-                else
-                {
-                    workersCountString = "<td style=\"color: orangered;\">" + workersCount + "</td>";
-                }           
-
-                info += "<tr class=\"EmRSNqsShbDnTsE\">" +
-                                "<td>" + item.Id + "</td>" +
-                                "<td>" + item.Name + "</td>" +
-                                "<td>" + departmentName + "</td>" +
-                                workersCountString +
-                                "<td>" +
-                                    //workersCountButton +
-                                    "<a onclick=\"IxsCvPIuWwZw(" + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>" +
-                                    "<a onclick=\"kZINYLFZdSai(" + item.Id + ")\" title=\"Usuń\"><ion-icon class=\"delete urlop\" name=\"trash-outline\"></ion-icon></a>" +
-                                "</td>" +
-                            "</tr>";
-            }
-
-            if (workstations.Count() > 0)
-            {
-                table = "<table class=\"VUXahzbNUTWtiZa sortable\" id=\"tableId\">" +
-                    "<thead>" +
-                        "<tr>" +
-                            "<th style=\"width: 100px;\"><span>ID</span></th>" +
-                            "<th><span>Nazwa</span></th>" + 
-                            "<th><span>Dział</span></th>" +
-                            "<th style=\"min-width: 200px;\"><span>Liczba pracowników</span></th>" + 
-                            "<th style=\"width: 100px;\"><span>Opcje</span></th>" +
-                        "</tr>" +
-                    "</thead>" +
-                    info +
-                "</table>";
-            }
-
-            return Json(new { ContentResult = Content(table), DepartmentName = departmentName, DepartmentId = departmentId });
-        }
-
-        [HttpGet]
-        public ActionResult EditWorkstation(int id)
-        {
-            var departmentId = ((IEnumerable<Workstations>)_context.Workstations).FirstOrDefault(x => x.Id == id)?.DepartmentId;
-            var departmentName = ((IEnumerable<Department>)_context.Department).FirstOrDefault(x => x.Id == departmentId)?.Name;
-
-            var workstationName = _context.Workstations.FirstOrDefault(x => x.Id == id)?.Name;
+            var shiftName = _context.Shifts.FirstOrDefault(x => x.Id == id)?.Name;
 
             string removeForm = "$('#jwOsncySQjwD').remove()";
 
             string form = "<div id=\"jwOsncySQjwD\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
                     "<form class=\"form_\">" +
-                        "<div class=\"form-group\">" +
-                            "<label>Dział:</label>" +
-                            "<input disabled class=\"form-control\" value=\"" + departmentName + "\" autocomplete=\"off\" id=\"qxZnTneGdrVW\" />" +
-                        "</div>" +
                         "<div class=\"form-group form-group-margin\">" +
-                            "<label>Nazwa stanowiska:</label>" +
-                            "<input class=\"form-control\" value=\"" + workstationName + "\" autocomplete=\"off\" id=\"xEjLBIPqUXLK\" />" +
+                            "<label>Nazwa:</label>" +
+                            "<input class=\"form-control\" value=\"" + shiftName + "\" autocomplete=\"off\" id=\"xEjLBIPqUXLK\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
                             "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"KfdhlqmDXEsR(" + id + ")\" />" +
@@ -354,9 +226,9 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditWorkstation(int id, string name)
+        public ActionResult EditShift(int id, string name)
         {
-            var row = _context.Workstations.FirstOrDefault(e => e.Id == id);
+            var row = _context.Shifts.FirstOrDefault(e => e.Id == id);
             if (row != null)
             {
                 row.Name = name;
@@ -369,24 +241,17 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult DeleteWorkstationForm(int id)
+        public ActionResult DeleteShiftForm(int id)
         {
-            var departmentId = ((IEnumerable<Workstations>)_context.Workstations).FirstOrDefault(x => x.Id == id)?.DepartmentId;
-            var departmentName = ((IEnumerable<Department>)_context.Department).FirstOrDefault(x => x.Id == departmentId)?.Name;
-
-            var workstationName = _context.Workstations.FirstOrDefault(x => x.Id == id)?.Name;
+            var shiftName = _context.Shifts.FirstOrDefault(x => x.Id == id)?.Name;
 
             string removeForm = "$('#UwCmLRqIRSZM').remove()";
 
             string form = "<div id=\"UwCmLRqIRSZM\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
                     "<form class=\"form_\">" +
-                        "<div class=\"form-group\">" +
-                            "<label>Dział:</label>" +
-                            "<input class=\"form-control\" disabled value=\"" + departmentName + "\" />" +
-                        "</div>" +
                         "<div class=\"form-group form-group-margin\">" +
-                            "<label>Nazwa stanowiska:</label>" +
-                            "<input class=\"form-control\" disabled value=\"" + workstationName + "\" />" +
+                            "<label>Nazwa:</label>" +
+                            "<input class=\"form-control\" disabled value=\"" + shiftName + "\" />" +
                         "</div>" +
                         "<div class=\"btn-danger-div\">" +
                             "<input type=\"button\" value=\"Usuń\" onclick=\"dDlRcSCJZAuO(" + id + ")\" />" +
@@ -401,12 +266,12 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult DeleteWorkstation(int id)
+        public ActionResult DeleteShift(int id)
         {
-            var row = _context.Workstations.FirstOrDefault(e => e.Id == id);
+            var row = _context.Shifts.FirstOrDefault(e => e.Id == id);
             if (row != null)
             {
-                _context.Workstations.Remove(row);
+                _context.Shifts.Remove(row);
                 _context.SaveChanges();
 
                 return Json(new { success = true });
@@ -416,12 +281,12 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult ShowWorkstationMembers(int id)
+        public ActionResult ShowShiftMembers(int id)
         {
             string removeForm = "$('#WnlkUXBVyfUSVNt').remove()";
 
             string tr = "";
-            foreach (var row in _context.Workers2.Where(x => x.WorkstationId == id))
+            foreach (var row in _context.Workers2.Where(x => x.ShiftId == id))
             {
                 var departmentName = _context.Department.First(x => x.Id == row.DepartmentID).Name;
                 var name = row.Surname + " " + row.Name;
@@ -457,7 +322,7 @@ namespace TimeTask.Controllers
 
             string form = "<div id=\"WnlkUXBVyfUSVNt\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
                     "<form class=\"AdMcjKPGypQwFuM\">" +
-                        "<span class=\"hFzZLqJdsEqdlrx phzshsahNeRSjfT wbxnvJGiIuXUOzi\">" + _context.Workstations.FirstOrDefault(x => x.Id == id)?.Name + "</span>" +
+                        "<span class=\"hFzZLqJdsEqdlrx phzshsahNeRSjfT wbxnvJGiIuXUOzi\">" + _context.Shifts.FirstOrDefault(x => x.Id == id)?.Name + "</span>" +
                         table +
                         "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
                             "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +

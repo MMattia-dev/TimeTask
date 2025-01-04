@@ -312,7 +312,8 @@ function filterWorkersInDepartment(a, b, c)
     }
 };
 
-function KOxtvRcBmzeo(name_, surname_, dep_id_, employed_) {
+function KOxtvRcBmzeo(name_, surname_, dep_id_, workstation_, shift_) //employed_
+{ 
     $.ajax({
         type: 'POST',
         url: '/Workers2/AddNewWorker',
@@ -320,7 +321,9 @@ function KOxtvRcBmzeo(name_, surname_, dep_id_, employed_) {
             name: name_,
             surname: surname_,
             departmentID: dep_id_,
-            employed: employed_
+            //employed: employed_,
+            workstation: workstation_,
+            shift: shift_
         },
         success: function (response)
         {

@@ -452,14 +452,13 @@ function TEqGSwRYnu()
         let surname_ = document.getElementById('toPdQnPuvH').value;
         let e = document.getElementById('OyRfwpeqzbeyVEW');
         let dep_id_ = e.options[e.selectedIndex].value;
-        let employed_ = true;
+        //let employed_ = true;
 
         let workstation_ = document.getElementById('cWSWdChjLlkqTlQ').value;
         let shift_ = document.getElementById('VcVGBJCedKJagyX').value;
 
-        console.log(workstation_);
-
-        //KOxtvRcBmzeo(name_, surname_, dep_id_, employed_);
+        //KOxtvRcBmzeo(name_, surname_, dep_id_, employed_, workstation_, shift_);
+        KOxtvRcBmzeo(name_, surname_, dep_id_, workstation_, shift_);
     }
 };
 
@@ -531,7 +530,9 @@ function KfdhlqmDXEsR(id)
     let id_ = id;
     let name_ = document.getElementById('qxZnTneGdrVW').value;
     let surname_ = document.getElementById('xEjLBIPqUXLK').value;
-    let dep_ = document.getElementById('ZRfCdgttdnOCfXF').value;
+    let dep_ = document.getElementById('OyRfwpeqzbeyVEW').value;
+    let workstation_ = document.getElementById('cWSWdChjLlkqTlQ').value;
+    let shift_ = document.getElementById('VcVGBJCedKJagyX').value;
 
     $.ajax({
         type: 'POST',
@@ -540,7 +541,9 @@ function KfdhlqmDXEsR(id)
             id: id_,
             name: name_,
             surname: surname_,
-            departmentID: dep_
+            departmentID: dep_,
+            workstation: workstation_,
+            shift: shift_
         },
         success: function (response)
         {

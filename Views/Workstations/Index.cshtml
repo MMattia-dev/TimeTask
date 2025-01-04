@@ -22,20 +22,6 @@
             <div class="ECTosDyufuTqvBV">
                 @if (departmentsLength > 0)
                 {
-                    @* @if (Model.Count() > 0)
-                    {
-                        <div class="IVnxgCORpPYL ijBuUPWrdXEngvb RlREsSaJYGSFniA" onclick="" title="Dodaj nowe stanowisko">
-                            <ion-icon name="add-outline"></ion-icon>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" onclick="xUSjAWmxFhkCiAD()">
-                            <ion-icon name="add-outline"></ion-icon>
-                            <span>Dodaj nowe stanowisko</span>
-                        </div>
-                    } *@
-
                     <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" id="rJsRgTkikJFkTVs" onclick="nGgUoVSOQmbYyoD()">
                         <ion-icon name="briefcase-outline"></ion-icon>
                         <div class="iNzvwDsTQXDyPIR">
@@ -59,31 +45,9 @@
                     <span>Dodaj nowe stanowisko</span>
                 </div>
             }
-
         </div>
 
-        <div class="YUPrikbkYzkc">
-
-            @* @if (departmentsLength > 0)
-            {
-                <table class="VUXahzbNUTWtiZa sortable" id="tableId">
-                    <thead>
-                        <tr>
-                            <th style="width: 100px;"><span>ID</span></th>
-                            <th><span>Nazwa</span></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var row in ((IEnumerable<Workstations>)ViewBag.Workstations).OrderBy(x => x.Name))
-                        {
-
-                        }
-                    </tbody>
-                </table>
-            } *@
-
-            
-        </div>
+        <div class="YUPrikbkYzkc"></div>
 
     </section>
 </div>
@@ -91,3 +55,4 @@
 <script type="text/javascript" src="~/js/site.js"></script>
 <script type="text/javascript" src="~/js/WorkstationsJS.js"></script>
 <script type="text/javascript" src="~/js/sorttable2.js"></script>
+<script type="text/javascript" src="~/js/sorttable3.js"></script>

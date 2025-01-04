@@ -200,7 +200,13 @@ namespace TimeTask.Controllers
             string departments_string = "";
             foreach (var item in (_context.Department).OrderBy(x => x.Name))
             {
+                //var workerCountInDepartment = _context.Workers2.Where(x => x.DepartmentID == item.Id).Count();
+
                 departments_string += "<div class=\"oJeaEVIeaFrjGFz\" id=\"" + item.Id + "\" onclick=\"WAknWoEDCgnvjyY(" + item.Id + ")\"><span>" + item.Name + "</span></div>";
+                //departments_string += "<div class=\"oJeaEVIeaFrjGFz\" id=\"" + item.Id + "\" onclick=\"WAknWoEDCgnvjyY(" + item.Id + ")\">" +
+                //        "<span>" + item.Name + "</span>" +
+                //        "<span>(" + workerCountInDepartment + ")</span>" +
+                //    "</div>";
             }
 
             string div = "<div class=\"IVnxgCORpPYL ijBuUPWrdXEngvb pKKeaPLlODAnOgN\" id=\"shwJrqmCKCOdpeV\">" +
@@ -320,14 +326,16 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddNewWorker(string name, string surname, int departmentID, bool employed)
+        public ActionResult AddNewWorker(string name, string surname, int departmentID, int? workstation, int? shift) //bool employed
         {
             var newData = new Workers2()
             {
                 Name = name,
                 Surname = surname,
                 DepartmentID = departmentID,
-                Employed = employed
+                //Employed = employed,
+                WorkstationId = workstation,
+                ShiftId = shift
             };
 
             _context.Workers2.Add(newData);
@@ -336,7 +344,7 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditWorker(int id, string name, string surname, int departmentID)
+        public ActionResult EditWorker(int id, string name, string surname, int departmentID, int? workstation, int? shift)
         {
             var row = _context.Workers2.FirstOrDefault(e => e.Id == id);
             if (row != null)
@@ -344,6 +352,8 @@ namespace TimeTask.Controllers
                 row.Name = name;
                 row.Surname = surname;
                 row.DepartmentID = departmentID;
+                row.WorkstationId = workstation;
+                row.ShiftId = shift;
                 _context.SaveChanges();
 
                 return Json(new { success = true });
@@ -412,7 +422,11 @@ namespace TimeTask.Controllers
                 workstationsOptions += "<option value=" + item.Id + ">" + item.Name + "</option>";
             }
 
-            //var zmiany = _context.Shifts;
+            string shiftOptions = "";
+            foreach (var item in _context.Shifts)
+            {
+                shiftOptions += "<option value=" + item.Id + ">" + item.Name + "</option>";
+            }
             //
 
             string removeForm = "$('#QmRrlOQPQW').remove()";
@@ -445,9 +459,9 @@ namespace TimeTask.Controllers
 						"<div class=\"form-group form-group-margin\">" +
 							"<label>Zmiana (opcjonalne):</label>" +
                             "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"VcVGBJCedKJagyX\">" +
-							    "<option></option>" +
-
-							"</select>" +
+							    "<option selected></option>" +
+                                shiftOptions +
+                            "</select>" +
 						"</div>" +
 
 
@@ -470,6 +484,9 @@ namespace TimeTask.Controllers
             var workerName = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.Name;
             var workersDepartment = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.DepartmentID;
 
+            var workstationId = _context.Workers2.FirstOrDefault(x => x.Id == id)?.WorkstationId;
+            var shiftId = _context.Workers2.FirstOrDefault(x => x.Id == id)?.ShiftId;
+
             string departments = "";
             foreach (var item in ((IEnumerable<Department>)_context.Department).OrderBy(x => x.Name))
             {
@@ -482,6 +499,35 @@ namespace TimeTask.Controllers
                     departments += "<option value=" + item.Id + ">" + item.Name + "</option>";
                 }
             }
+
+            //
+            var workstations = _context.Workstations.Where(x => x.DepartmentId == workersDepartment);
+            string workstationsOptions = "";
+            foreach (var item in workstations)
+            {
+                if (item.Id == workstationId)
+                {
+                    workstationsOptions += "<option selected value=" + item.Id + ">" + item.Name + "</option>";
+                }
+                else
+                {
+                    workstationsOptions += "<option value=" + item.Id + ">" + item.Name + "</option>";
+                }       
+            }
+
+            string shiftOptions = "";
+            foreach (var item in _context.Shifts)
+            {
+                if (item.Id == shiftId)
+                {
+                    shiftOptions += "<option selected value=" + item.Id + ">" + item.Name + "</option>";
+                }
+                else
+                {
+                    shiftOptions += "<option value=" + item.Id + ">" + item.Name + "</option>";
+                }
+            }
+            //
 
             string removeForm = "$('#jwOsncySQjwD').remove()";
 
@@ -497,10 +543,29 @@ namespace TimeTask.Controllers
                         "</div>" +
                         "<div class=\"form-group form-group-margin\">" +
                             "<label>Dział:</label>" +
-                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"ZRfCdgttdnOCfXF\">" +
+                            //"<select class=\"form-control bYwPpsleuVCBkPv\" id=\"ZRfCdgttdnOCfXF\">" +
+                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"OyRfwpeqzbeyVEW\" onchange=\"KHpqBjUFdnnaWxq(this)\">" +
                                 departments +
                             "</select>" +
                         "</div>" +
+
+
+                        "<div class=\"form-group\">" +
+                            "<label>Stanowisko (opcjonalne):</label>" +
+                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"cWSWdChjLlkqTlQ\">" +
+                                "<option selected></option>" +
+                                workstationsOptions +
+                            "</select>" +
+                        "</div>" +
+                        "<div class=\"form-group form-group-margin\">" +
+                            "<label>Zmiana (opcjonalne):</label>" +
+                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"VcVGBJCedKJagyX\">" +
+                                "<option selected></option>" +
+                                shiftOptions +
+                            "</select>" +
+                        "</div>" +
+
+
                         "<div class=\"form-group\">" +
                             "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"KfdhlqmDXEsR(" + id + ")\" />" +
                         "</div>" +
@@ -521,6 +586,14 @@ namespace TimeTask.Controllers
             var workersDepartment = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.DepartmentID;
             var departmentName = ((IEnumerable<Department>)_context.Department).FirstOrDefault(x => x.Id == workersDepartment)?.Name;
 
+            //
+            var workerWorkstationId = _context.Workers2.FirstOrDefault(x => x.Id == id)?.WorkstationId;
+            var workstationName = _context.Workstations.FirstOrDefault(x => x.Id == workerWorkstationId)?.Name;
+
+            var workerShiftId = _context.Workers2.FirstOrDefault(x => x.Id == id)?.ShiftId;
+            var shiftName = _context.Shifts.FirstOrDefault(x => x.Id == workerShiftId)?.Name;
+            //
+
             string removeForm = "$('#UwCmLRqIRSZM').remove()";
 
             string form = "<div id=\"UwCmLRqIRSZM\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
@@ -533,10 +606,22 @@ namespace TimeTask.Controllers
                             "<label>Nazwisko:</label>" +
                             "<input class=\"form-control\" disabled value=\"" + workerSurname + "\" />" +
                         "</div>" +
-                        "<div class=\"form-group form-group-margin\">" +
+                        "<div class=\"form-group\">" +
                             "<label>Dział:</label>" +
                             "<input class=\"form-control\" disabled value=\"" + departmentName + "\" />" +
                         "</div>" +
+
+
+                        "<div class=\"form-group\">" +
+                            "<label>Stanowisko:</label>" +
+                            "<input class=\"form-control\" disabled value=\"" + workstationName + "\" />" +
+                        "</div>" +
+                        "<div class=\"form-group form-group-margin\">" +
+                            "<label>Zmiana:</label>" +
+                            "<input class=\"form-control\" disabled value=\"" + shiftName + "\" />" +
+                        "</div>" +
+
+
                         "<div class=\"btn-danger-div\">" +
                             "<input type=\"button\" value=\"Usuń\" onclick=\"dDlRcSCJZAuO(" + id + ")\" />" +
                         "</div>" +
@@ -630,7 +715,7 @@ namespace TimeTask.Controllers
             foreach (var item in workers)
             {
                 var workstationName = _context.Workstations.FirstOrDefault(x => x.Id == item.WorkstationId)?.Name;
-
+                var shiftName = _context.Shifts.FirstOrDefault(x => x.Id == item.ShiftId)?.Name;
 
                 info += "<tr class=\"EmRSNqsShbDnTsE\">" +
                                 "<td>" + item.Id + "</td>" +
@@ -639,7 +724,7 @@ namespace TimeTask.Controllers
                                 "<td>" + departmentName + "</td>" +
 
                                 "<td>" + workstationName + "</td>" +
-                                "<td>" + "</td>" +
+                                "<td>" + shiftName + "</td>" +
 
                                 "<td>" +
                                     "<a onclick=\"IxsCvPIuWwZw(" + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>" +
