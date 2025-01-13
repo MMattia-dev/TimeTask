@@ -16,16 +16,40 @@ function XmVztKczNCaTbJt()
             $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + sessionStorage.getItem('RTqrydCjXBjinzd') + ')');
         }
     }
+
+    //$('.iNzvwDsTQXDyPIR').hide();
+    $('#rJsRgTkikJFkTVs').addClass('dJzyfkFHogdGSAY').children().hide();
+    $('#rJsRgTkikJFkTVs').append(createSmallLoader2());
 };
 XmVztKczNCaTbJt();
 
+$(document).ready(function ()
+{
+    //$('#rJsRgTkikJFkTVs').children().remove('.lds-ring-small');
+    setTimeout(function ()
+    {
+        $('#rJsRgTkikJFkTVs').removeClass('dJzyfkFHogdGSAY').children().show();
+        $('.lds-ring-small').remove();
+    }, 200);
+
+    console.log(typeof sessionStorage.getItem('RTqrydCjXBjinzd'));
+});
+
 function nGgUoVSOQmbYyoD()
 {
+    //$('#rJsRgTkikJFkTVs').addClass('dJzyfkFHogdGSAY').children().hide();
+    //$('#rJsRgTkikJFkTVs').append(createSmallLoader2());
+
+
+    $('.kxOMhDZFzkDb').append('<div class="IVnxgCORpPYL ijBuUPWrdXEngvb pKKeaPLlODAnOgN" id="shwJrqmCKCOdpeV_"><div class="lds-ring-small" style="position: absolute; top: calc(50% - 13px); left: calc(50% - 13px); z-index: 50;"><div></div><div></div><div></div><div></div></div></div>');
+    
+
     $.ajax({
         type: 'GET',
         url: '/Workers2/CreateDepartmentSelect',
         success: function (response)
         {
+            $('#shwJrqmCKCOdpeV_').remove();
             $('.kxOMhDZFzkDb').append(response);
             $('#rJsRgTkikJFkTVs').attr('onclick', 'PHXgTRqEbNEfYsk()');
             $('.iNzvwDsTQXDyPIR ion-icon').addClass('zwyAWlfnleMVUJu');
@@ -39,6 +63,9 @@ function nGgUoVSOQmbYyoD()
             {
                 $('.oJeaEVIeaFrjGFz:first-child').addClass('iFbPgrXjzGigaCA');
             }
+
+            //$('#rJsRgTkikJFkTVs').removeClass('dJzyfkFHogdGSAY').children().show();
+            //$('.lds-ring-small').remove();
         },
         error: function (xhr, status, error)
         {
@@ -59,8 +86,12 @@ $('body').on('click', function ()
     PHXgTRqEbNEfYsk();
 });
 
+//usun dzial z pracownikiem, potem usun pracownika z nieprzypisanych i refresh page
+
 function WAknWoEDCgnvjyY(id) 
 {
+    $('.parent').append(createLoader());
+
     if (id != null && id != "null") 
     {
         $.ajax({
@@ -92,6 +123,10 @@ function WAknWoEDCgnvjyY(id)
 
                 $('#vTGalpVxnhKxENh').remove();
                 $('.ECTosDyufuTqvBV').append('<div id="vTGalpVxnhKxENh" class="MReEOONwmHpPyvX">' + response.editDeleteButton.content + '</div>');
+
+                $('.loader_div').remove();
+                $('#loaderID_').remove();
+                $('#loaderID').remove();
             },
             error: function (xhr, status, error)
             {
@@ -126,6 +161,10 @@ function WAknWoEDCgnvjyY(id)
                 $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(null)');
 
                 $('#vTGalpVxnhKxENh').remove();
+
+                $('.loader_div').remove();
+                $('#loaderID_').remove();
+                $('#loaderID').remove();
             },
             error: function (xhr, status, error)
             {

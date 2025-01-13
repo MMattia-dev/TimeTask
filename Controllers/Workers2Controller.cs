@@ -739,7 +739,7 @@ namespace TimeTask.Controllers
                     "<thead>" +
                         "<tr>" +
                             "<th style=\"width: 100px;\"><span>ID</span></th>" +
-                            "<th><span>Nazwisko</span></th>" + // style=\"width: 30%;\"
+                            "<th style=\"width: 30%;\"><span>Nazwisko</span></th>" + // style=\"width: 30%;\"
 							"<th><span>Imię</span></th>" +
                             "<th><span>Dział</span></th>" +
 
@@ -787,14 +787,17 @@ namespace TimeTask.Controllers
                     var workers = ((IEnumerable<Workers2>)_context.Workers2).Where(x => x.Id == id_);
                     foreach (var item in workers)
                     {
+                        var workstationName = _context.Workstations.FirstOrDefault(x => x.Id == item.WorkstationId)?.Name;
+                        var shiftName = _context.Shifts.FirstOrDefault(x => x.Id == item.ShiftId)?.Name;
+
                         info += "<tr class=\"EmRSNqsShbDnTsE\">" +
                             "<td>" + item.Id + "</td>" +
                             "<td>" + item.Surname + "</td>" +
                             "<td>" + item.Name + "</td>" +
                             "<td style=\"color: orangered;\">Brak</td>" +
 
-							"<td>" + "</td>" +
-							"<td>" + "</td>" +
+							"<td>" + workstationName + "</td>" +
+							"<td>" + shiftName + "</td>" +
 
 							"<td>" +
                                 "<a onclick=\"IxsCvPIuWwZw(" + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>" +
@@ -815,7 +818,7 @@ namespace TimeTask.Controllers
 								"<th><span>Stanowisko</span></th>" +
 							    "<th><span>Zmiana</span></th>" +
 
-								"<th><span>Opcje</span></th>" +
+                                "<th style=\"width: 100px;\"><span>Opcje</span></th>" +
                             "</tr>" +
                         "</thead>" +
                         info +
