@@ -32,7 +32,7 @@ $(document).ready(function ()
         $('.lds-ring-small').remove();
     }, 200);
 
-    console.log(typeof sessionStorage.getItem('RTqrydCjXBjinzd'));
+    //console.log(typeof sessionStorage.getItem('RTqrydCjXBjinzd'));
 });
 
 function nGgUoVSOQmbYyoD()
@@ -85,8 +85,6 @@ $('body').on('click', function ()
 {
     PHXgTRqEbNEfYsk();
 });
-
-//usun dzial z pracownikiem, potem usun pracownika z nieprzypisanych i refresh page
 
 function WAknWoEDCgnvjyY(id) 
 {
@@ -141,6 +139,13 @@ function WAknWoEDCgnvjyY(id)
             url: '/Workers2/WorkersWithoutDepartment',
             success: function (response)
             {
+                //
+                if (response.success == false) {
+                    sessionStorage.removeItem('RTqrydCjXBjinzd');
+                    location.reload();
+                }
+                //
+                
                 $('.YUPrikbkYzkc').html(response.contentResult.content);
                 var tables = document.getElementsByTagName('table');
                 for (var i = 0; i < tables.length; i++)
@@ -499,6 +504,66 @@ function TEqGSwRYnu()
         //KOxtvRcBmzeo(name_, surname_, dep_id_, employed_, workstation_, shift_);
         KOxtvRcBmzeo(name_, surname_, dep_id_, workstation_, shift_);
     }
+};
+
+function addOpening(id) 
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Opening2/NewOpeningForm',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#QmRrlOQPQW_').fadeIn(200);
+        },
+        Error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function isNumberKey(event)
+{
+    var charCode = (event.which) ? event.which : event.keyCode;
+
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+function KOxtvRcBmzeo(name_, surname_, dep_id_, workstation_, shift_) //employed_
+{
+    $.ajax({
+        type: 'POST',
+        url: '/Workers2/AddNewWorker',
+        data: {
+            name: name_,
+            surname: surname_,
+            departmentID: dep_id_,
+            //employed: employed_,
+            workstation: workstation_,
+            shift: shift_
+        },
+        success: function (response)
+        {
+            //location.reload();
+            $('#QmRrlOQPQW').remove();
+            addOpening(response);
+        },
+        Error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
 };
 
 function KHpqBjUFdnnaWxq(t) 

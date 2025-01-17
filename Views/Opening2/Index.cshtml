@@ -1,78 +1,59 @@
 ﻿@model IEnumerable<TimeTask.Models.Opening2>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Bilans otwarcia";
+
+    //pierwszy dział
+    var firstDepartment = ((IEnumerable<Department>)ViewBag.Department).OrderBy(x => x.Name).FirstOrDefault()?.Name;
+    var firstDepartmentID = ((IEnumerable<Department>)ViewBag.Department).OrderBy(x => x.Name).FirstOrDefault()?.Id;
+
+    //czy są jakiekolwiek działy
+    var departmentsLength = ((IEnumerable<Department>)ViewBag.Department).Count();
 }
 
-@*<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.WorkerID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Year)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DaysVacation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DaysOpening)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OvertimeOpening)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.WorkerID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DaysVacation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DaysOpening)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OvertimeOpening)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>*@
+<link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
 
 <div class="parent">
     <section class="left-nav">
-        @Html.Partial("_Settings");
+        <partial name="_Settings" />
     </section>
     <section class="right-nav">
-        <!---->
+        
+        <div class="kxOMhDZFzkDb">
+            <div class="ECTosDyufuTqvBV">
+                @if (departmentsLength > 0)
+                {
+                    <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" id="rJsRgTkikJFkTVs" onclick="nGgUoVSOQmbYyoD()">
+                        <ion-icon name="briefcase-outline"></ion-icon>
+                        <div class="iNzvwDsTQXDyPIR">
+                            <span>@firstDepartment</span>
+                            <ion-icon name="chevron-down-outline"></ion-icon>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @if (departmentsLength > 0)
+            {
+                <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" id="MyRfivjxPqfhHQr" onclick="YENAVVQWwo(@firstDepartmentID)">
+                    <ion-icon name="add-outline"></ion-icon>
+                    <span>Nowy wpis</span>
+                </div>
+            }
+
+        </div>
+
+        <div class="YUPrikbkYzkc"></div>
+
     </section>
 </div>
 
 <script type="text/javascript" src="~/js/site.js"></script>
+<script type="text/javascript" src="~/js/OpeningJS.js"></script>
+<script type="text/javascript" src="~/js/sorttable2.js"></script>
 
 <script type="text/javascript">
-    //let selected = document.querySelectorAll('.IdRKPExyAQSewBL a')[2];
-    //selected.classList.add('settings_a_selected');
 
-    let selected = document.getElementById('settings_openings_id');
-    selected.classList.add('settings_a_selected');
+    
+
 </script>

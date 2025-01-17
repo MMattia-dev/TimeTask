@@ -379,11 +379,15 @@ namespace TimeTask.Controllers
                             "<th style=\"width: 100px;\"><span>ID</span></th>" +
                             "<th><span>Nazwa zadania</span></th>" +
                             "<th><span>Dział</span></th>" +
-                            "<th><span>Opcje</span></th>" +
+                            "<th style=\"width: 100px;\"><span>Opcje</span></th>" +
                         "</tr>" +
                     "</thead>" +
                     info +
                 "</table>";
+            }
+            else
+            {
+                table = "<div class=\"nothing\"><span>Nie ma jeszcze dodanych żadnych zadań dla \"" + departmentName + "\"</span></div>";
             }
 
             return Json(new { ContentResult = Content(table), DepartmentName = departmentName });

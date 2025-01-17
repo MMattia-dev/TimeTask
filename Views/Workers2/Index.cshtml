@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<TimeTask.Models.Workers2>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Pracownicy";
 
     //czy są pracownicy nieprzypisani
     var departments = ((IEnumerable<Department>)ViewBag.Department).Select(x => x.Id);

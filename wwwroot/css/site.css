@@ -1511,6 +1511,12 @@ ion-icon {
         background-color: transparent;
     }
 
+    .pGKcZvErUB form span {
+        font-size: 19px;
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: bold;
+    }
+
 .idCoFonIOIZS {
     height: 25px;
     width: 100%;
@@ -1919,7 +1925,25 @@ ion-icon {
     gap: 8px;
     border-top: 1px solid rgba(255, 255, 255, 0.15);
     /*border-bottom: 1px solid rgba(255, 255, 255, 0.15);*/
+    
 }
+
+    .YUPrikbkYzkc .nothing {
+        display: inherit;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        height: calc(100% - 83px);
+        width: calc(100% - 75px);
+        top: 83px;
+        left: 75px;
+        /*background-color: rgba(255, 255, 255, 0.2);*/
+    }
+
+        .YUPrikbkYzkc .nothing span {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
 
 .fQOipKjlgeboVkZ {
     justify-content: space-between;

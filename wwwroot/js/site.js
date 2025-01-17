@@ -312,30 +312,6 @@ function filterWorkersInDepartment(a, b, c)
     }
 };
 
-function KOxtvRcBmzeo(name_, surname_, dep_id_, workstation_, shift_) //employed_
-{ 
-    $.ajax({
-        type: 'POST',
-        url: '/Workers2/AddNewWorker',
-        data: {
-            name: name_,
-            surname: surname_,
-            departmentID: dep_id_,
-            //employed: employed_,
-            workstation: workstation_,
-            shift: shift_
-        },
-        success: function (response)
-        {
-            location.reload();
-        },
-        Error: function (xhr, status, error)
-        {
-            console.log('Error adding data:', error);
-        }
-    });
-};
-
 function CiSEfkVgdGdf(worker_id, newDepartment) {
     $.ajax({
         type: 'POST',
