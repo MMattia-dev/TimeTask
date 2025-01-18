@@ -86,11 +86,14 @@ function OwCEPCelyFSecWQ(name_)
 
 function nGgUoVSOQmbYyoD()
 {
+    $('.kxOMhDZFzkDb').append('<div class="IVnxgCORpPYL ijBuUPWrdXEngvb pKKeaPLlODAnOgN fetDyOODTumSTzB" id="shwJrqmCKCOdpeV_"><div class="lds-ring-small" style="position: absolute; top: calc(50% - 13px); left: calc(50% - 13px); z-index: 50;"><div></div><div></div><div></div><div></div></div></div>');
+
     $.ajax({
         type: 'GET',
         url: '/Workstations/CreateDepartmentSelect',
         success: function (response)
         {
+            $('#shwJrqmCKCOdpeV_').remove();
             $('.kxOMhDZFzkDb').append(response);
             $('#rJsRgTkikJFkTVs').attr('onclick', 'PHXgTRqEbNEfYsk()');
             $('.iNzvwDsTQXDyPIR ion-icon').addClass('zwyAWlfnleMVUJu');

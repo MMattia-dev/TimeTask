@@ -506,7 +506,7 @@ function TEqGSwRYnu()
     }
 };
 
-function addOpening(id) 
+function addOpeningForm(id) 
 {
     $.ajax({
         type: 'GET',
@@ -518,6 +518,55 @@ function addOpening(id)
         {
             $('body').append(response);
             $('#QmRrlOQPQW_').fadeIn(200);
+        },
+        Error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function addOpening(id) 
+{
+    $.ajax({
+        type: 'POST',
+        url: '/Opening2/AddOpening',
+        data: {
+            workerId: id,
+            daysVacation: document.getElementById('oSfYytwpicNlVxj').value,
+            daysOpening: document.getElementById('haOXJCFEeWknOmK').value,
+            dateFrom: document.getElementById('auECyYKCzTAUilw').value
+        },
+        success: function (response)
+        {
+            location.reload();
+        },
+        Error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function KOxtvRcBmzeo(name_, surname_, dep_id_, workstation_, shift_) //employed_
+{
+    $.ajax({
+        type: 'POST',
+        url: '/Workers2/AddNewWorker',
+        data: {
+            name: name_,
+            surname: surname_,
+            departmentID: dep_id_,
+            //employed: employed_,
+            workstation: workstation_,
+            shift: shift_
+        },
+        success: function (response)
+        {
+            //location.reload();
+
+            $('#QmRrlOQPQW').remove();
+            addOpeningForm(response);
         },
         Error: function (xhr, status, error)
         {
@@ -539,32 +588,6 @@ function isNumberKey(event)
         return true;
     }
 }
-
-function KOxtvRcBmzeo(name_, surname_, dep_id_, workstation_, shift_) //employed_
-{
-    $.ajax({
-        type: 'POST',
-        url: '/Workers2/AddNewWorker',
-        data: {
-            name: name_,
-            surname: surname_,
-            departmentID: dep_id_,
-            //employed: employed_,
-            workstation: workstation_,
-            shift: shift_
-        },
-        success: function (response)
-        {
-            //location.reload();
-            $('#QmRrlOQPQW').remove();
-            addOpening(response);
-        },
-        Error: function (xhr, status, error)
-        {
-            console.log('Error:', error);
-        }
-    });
-};
 
 function KHpqBjUFdnnaWxq(t) 
 {

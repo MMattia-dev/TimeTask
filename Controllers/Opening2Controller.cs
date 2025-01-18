@@ -168,12 +168,12 @@ namespace TimeTask.Controllers
         {
             var workerSurname = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.Surname;
             var workerName = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.Name;
-            var workersDepartment = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.DepartmentID;
-            var departmentName = ((IEnumerable<Department>)_context.Department).FirstOrDefault(x => x.Id == workersDepartment)?.Name;
+            //var workersDepartment = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.DepartmentID;
+            //var departmentName = ((IEnumerable<Department>)_context.Department).FirstOrDefault(x => x.Id == workersDepartment)?.Name;
 
 
 
-            string removeForm = "$('#QmRrlOQPQW_').remove()";
+            //string removeForm = "$('#QmRrlOQPQW_').remove()";
 
             string form = "<div id=\"QmRrlOQPQW_\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
                     "<form class=\"form_ ZOVrPTgSspFJBET_\">" +
@@ -221,12 +221,12 @@ namespace TimeTask.Controllers
                             "<input class=\"form-control\" disabled value=\"" + workerSurname + "\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<label>Ilość przysługującego urlopu:</label>" +
-                            "<input class=\"form-control\" autocomplete=\"off\" id=\"\" maxlength=\"2\" onkeypress=\"return isNumberKey(event)\" />" +
+                            "<label>Ilość przysługującego urlopu wypoczynkowego:</label>" +
+                            "<input class=\"form-control\" autocomplete=\"off\" id=\"oSfYytwpicNlVxj\" maxlength=\"2\" onkeypress=\"return isNumberKey(event)\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<label>Ilość pozostałego do wykorzystania urlopu:</label>" +
-                            "<input class=\"form-control\" autocomplete=\"off\" id=\"\" maxlength=\"2\" onkeypress=\"return isNumberKey(event)\" />" +
+                            "<label>Ilość pozostałego do wykorzystania urlopu wypoczynkowego:</label>" +
+                            "<input class=\"form-control\" autocomplete=\"off\" id=\"haOXJCFEeWknOmK\" maxlength=\"2\" onkeypress=\"return isNumberKey(event)\" />" +
                         "</div>" +
                         //"<div class=\"form-group\">" +
                         //    "<label>Stan na rok:</label>" +
@@ -234,26 +234,147 @@ namespace TimeTask.Controllers
                         //"</div>" +
                         "<div class=\"form-group form-group-margin\">" +
                             "<label>Stan na dzień:</label>" +
-                            "<input class=\"form-control\" type=\"date\" id=\"\" />" +
+                            "<input class=\"form-control\" type=\"date\" id=\"auECyYKCzTAUilw\" />" +
                         "</div>" +
 
 
 
 
                         "<div class=\"form-group\">" +
-                            "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"\" />" +
+                            "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening(" + id + ")\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<input type=\"button\" value=\"Dodaj później\" class=\"btn-custom_\" onclick=\"" + removeForm + "\" />" +
+                            //"<input type=\"button\" value=\"Dodaj później\" class=\"btn-custom_\" onclick=\"" + removeForm + "\" />" +
+                            "<input type=\"button\" value=\"Dodaj później\" class=\"btn-custom_\" onclick=\"location.reload()\" />" +
                         "</div>" +
-                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
-                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
-                        "</div>" +
+                        //"<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                        //    "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        //"</div>" +
                     "</form>" +
                 "</div>";
 
             return Content(form);
         }
+
+        [HttpPost]
+        public ActionResult AddOpening(int workerId, int daysVacation, int daysOpening, DateTime dateFrom)
+        {
+            var newData = new Opening2()
+            {
+                WorkerID = workerId,
+                DaysVacation = daysVacation,
+                DaysOpening = daysOpening,
+                DateFrom = dateFrom,
+                Year = dateFrom.Year,
+            };
+
+            _context.Opening2.Add(newData);
+            _context.SaveChanges();
+
+            return Json(new { success = true });
+        }
+
+        [HttpGet]
+        public ActionResult CreateDepartmentSelect()
+        {
+            var departments = (_context.Department).Select(x => x.Id);
+
+            string departments_string = "";
+            foreach (var item in (_context.Department).OrderBy(x => x.Name))
+            {
+                departments_string += "<div class=\"oJeaEVIeaFrjGFz\" id=\"" + item.Id + "\" onclick=\"WAknWoEDCgnvjyY(" + item.Id + ")\"><span>" + item.Name + "</span></div>";
+            }
+
+            string div = "<div class=\"IVnxgCORpPYL ijBuUPWrdXEngvb pKKeaPLlODAnOgN fetDyOODTumSTzB\" id=\"shwJrqmCKCOdpeV\">" +
+                    departments_string +
+                "</div>";
+
+            if (div != "")
+            {
+                return Content(div);
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpGet]
+        public ActionResult ChangeDepartment(int? id)
+        {
+            var firstDepartmentID = ((IEnumerable<Department>)_context.Department).OrderBy(x => x.Name).FirstOrDefault()?.Id;
+
+            //var departmentName = _context.Department.FirstOrDefault(x => x.Id == id)?.Name;
+
+            string? departmentName = "";
+            List<Workers2> workers = new List<Workers2>();
+
+            //var workers = _context.Workers2.Where(x => x.DepartmentID == id);
+
+
+            if (id != null)
+            {
+                departmentName = _context.Department.FirstOrDefault(x => x.Id == id)?.Name;
+                workers = _context.Workers2.Where(x => x.DepartmentID == id).ToList();
+            }
+            else
+            {
+                departmentName = _context.Department.FirstOrDefault(x => x.Id == firstDepartmentID)?.Name;
+                workers = _context.Workers2.Where(x => x.DepartmentID == firstDepartmentID).ToList();
+            }
+
+
+            var info = "";
+            var table = "";
+
+            foreach (var item in workers)
+            {
+                var row = _context.Opening2.FirstOrDefault(x => x.WorkerID == item.Id);
+
+                info += "<tr class=\"EmRSNqsShbDnTsE\">" +
+                                "<td>" + item.Id + "</td>" +
+                                "<td>" + item.Surname + "</td>" +
+                                "<td>" + item.Name + "</td>" +
+                                //"<td>" + departmentName + "</td>" +
+
+                                "<td>" + row?.Year + "</td>" + 
+                                "<td>" + row?.DaysVacation + "</td>" +
+                                "<td>" + row?.DaysOpening + "</td>" +
+                                "<td>" + row?.DateFrom.Value.ToShortDateString() + "</td>" +
+
+                                "<td>" +
+                                    "<a onclick=\"agQTCWLxrsnLWDc(" + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>" +
+                                    "<a onclick=\"lmxraVfmGFtpSWV(" + item.Id + ")\" title=\"Usuń\"><ion-icon class=\"delete urlop\" name=\"trash-outline\"></ion-icon></a>" +
+                                "</td>" +
+                            "</tr>";
+            }
+
+
+            if (workers.Count() > 0)
+            {
+                table = "<table class=\"VUXahzbNUTWtiZa sortable\" id=\"tableId\">" +
+                    "<thead>" +
+                        "<tr>" +
+                            "<th style=\"width: 100px;\"><span>ID</span></th>" +
+                            "<th><span>Nazwisko</span></th>" +
+                            "<th><span>Imię</span></th>" +
+                            "<th><span>Rok</span></th>" +
+                            "<th><span>Ilość UW</span></th>" +
+                            "<th><span>Pozostały UW</span></th>" +
+                            "<th><span>Stan na dzień</span></th>" +
+                            "<th style=\"width: 100px;\"><span>Opcje</span></th>" +
+                        "</tr>" +
+                    "</thead>" +
+                    info +
+                "</table>";
+            }
+
+            return Json(new { ContentResult = Content(table), DepartmentName = departmentName, DepartmentId = id });
+
+
+
+        }
+
+
+
 
 
 

@@ -256,14 +256,14 @@ namespace TimeTask.Controllers
 
             if (id != null)
             {
-                departmentName = (_context.Department).FirstOrDefault(x => x.Id == id)?.Name;
-                workstations = ((IEnumerable<Workstations>)_context.Workstations).Where(x => x.DepartmentId == id).ToList();
+                departmentName = _context.Department.FirstOrDefault(x => x.Id == id)?.Name;
+                workstations = _context.Workstations.Where(x => x.DepartmentId == id).ToList();
                 departmentId = id;
             }
             else
             {
-                departmentName = (_context.Department).FirstOrDefault(x => x.Id == firstDepartmentID)?.Name;
-                workstations = ((IEnumerable<Workstations>)_context.Workstations).Where(x => x.DepartmentId == firstDepartmentID).ToList();
+                departmentName = _context.Department.FirstOrDefault(x => x.Id == firstDepartmentID)?.Name;
+                workstations = _context.Workstations.Where(x => x.DepartmentId == firstDepartmentID).ToList();
                 departmentId = firstDepartmentID;
             }
 
