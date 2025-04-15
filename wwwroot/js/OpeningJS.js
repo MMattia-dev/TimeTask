@@ -23,6 +23,26 @@ function XmVztKczNCaTbJt()
 };
 XmVztKczNCaTbJt();
 
+function YENAVVQWwo(id)
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Opening2/NewOpeningForm',
+        data: {
+            id: id
+        },
+        success: function (response) 
+        {
+            $('body').append(response);
+            $('#QmRrlOQPQW').fadeIn(200);
+        },
+        error: function (xhr, status, error) 
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
 function nGgUoVSOQmbYyoD() 
 {
     $('.kxOMhDZFzkDb').append('<div class="IVnxgCORpPYL ijBuUPWrdXEngvb pKKeaPLlODAnOgN fetDyOODTumSTzB" id="shwJrqmCKCOdpeV_"><div class="lds-ring-small" style="position: absolute; top: calc(50% - 13px); left: calc(50% - 13px); z-index: 50;"><div></div><div></div><div></div><div></div></div></div>');

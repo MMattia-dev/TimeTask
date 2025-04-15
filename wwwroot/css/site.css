@@ -7214,6 +7214,13 @@ span#OcoYTyiBrpZJStB {
                             opacity: 0;
                         }
 
+                        .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble.picture:hover {
+                            filter: unset;
+                            -webkit-box-shadow: unset;
+                            -moz-box-shadow: unset;
+                            box-shadow: unset;
+                        }
+
                     .chatParent .chatMessages .chatMessagesBubbles .chatMessagesBubblesContainer .bubble .messageReadStatusIcon {
                         position: absolute;
                         top: -14px;

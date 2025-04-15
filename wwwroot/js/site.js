@@ -759,8 +759,8 @@ function lhkKNaastOkkmMh(t)
 //    video.currentTime = 1485;
 //}
 
-//video.playbackRate = 0.8;
-//video.volume = 0.0;
+//video.playbackRate = 1.0;
+//video.volume = 0.2;
 
 ////$('#asdfgh').on('change', function ()
 ////{
