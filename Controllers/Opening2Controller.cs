@@ -166,12 +166,13 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult NewOpeningForm(int id)
+        public ActionResult NewOpeningForm() //int id
         {
-            var workerSurname = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.Surname;
-            var workerName = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.Name;
-            //var workersDepartment = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.DepartmentID;
-            //var departmentName = ((IEnumerable<Department>)_context.Department).FirstOrDefault(x => x.Id == workersDepartment)?.Name;
+            //var workerSurname = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.Surname;
+            //var workerName = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.Name;
+
+            ////var workersDepartment = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.DepartmentID;
+            ////var departmentName = ((IEnumerable<Department>)_context.Department).FirstOrDefault(x => x.Id == workersDepartment)?.Name;
 
 
 
@@ -216,11 +217,11 @@ namespace TimeTask.Controllers
 
                         "<div class=\"form-group\">" +
                             "<label>Imię:</label>" +
-                            "<input class=\"form-control\" disabled value=\"" + workerName + "\" />" +
+                            //"<input class=\"form-control\" disabled value=\"" + workerName + "\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
                             "<label>Nazwisko:</label>" +
-                            "<input class=\"form-control\" disabled value=\"" + workerSurname + "\" />" +
+                            //"<input class=\"form-control\" disabled value=\"" + workerSurname + "\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
                             "<label>Ilość przysługującego urlopu wypoczynkowego:</label>" +
@@ -243,7 +244,8 @@ namespace TimeTask.Controllers
 
 
                         "<div class=\"form-group\">" +
-                            "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening(" + id + ")\" />" +
+                            //"<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening(" + id + ")\" />" +
+                            "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening()\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
                             //"<input type=\"button\" value=\"Dodaj później\" class=\"btn-custom_\" onclick=\"" + removeForm + "\" />" +

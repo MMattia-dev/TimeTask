@@ -28,9 +28,9 @@ function YENAVVQWwo(id)
     $.ajax({
         type: 'GET',
         url: '/Opening2/NewOpeningForm',
-        data: {
-            id: id
-        },
+        //data: {
+        //    id: id
+        //},
         success: function (response) 
         {
             $('body').append(response);
