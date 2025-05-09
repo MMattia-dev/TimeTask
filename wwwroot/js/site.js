@@ -747,7 +747,7 @@ function lhkKNaastOkkmMh(t)
 //{
 //    var vid = document.getElementById("myVideo");
 //    var currentTime = vid.currentTime;
-//    localStorage.setItem('video_', currentTime);
+//    localStorage.setItem('video_', currentTime);gm
 //    return;
 //});
 //if (localStorage.getItem('video_') != null)

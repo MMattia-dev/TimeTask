@@ -3,27 +3,29 @@ selected.classList.add('settings_a_selected');
 
 function XmVztKczNCaTbJt() 
 {
-    if (sessionStorage.getItem('NDuKGqQvpviZysu') != null) 
-    {
-        if (sessionStorage.getItem('NDuKGqQvpviZysu') == 'null') 
-        {
-            WAknWoEDCgnvjyY(null);
-            $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo()');
-        }
-        else 
-        {
-            WAknWoEDCgnvjyY(sessionStorage.getItem('NDuKGqQvpviZysu'));
-            $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + sessionStorage.getItem('NDuKGqQvpviZysu') + ')');
-        }
-    }
-    else
-    {
-        WAknWoEDCgnvjyY(null);
-    }
+    //if (sessionStorage.getItem('NDuKGqQvpviZysu') != null) 
+    //{
+    //    if (sessionStorage.getItem('NDuKGqQvpviZysu') == 'null') 
+    //    {
+    //        WAknWoEDCgnvjyY(null);
+    //        $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo()');
+    //    }
+    //    else 
+    //    {
+    //        WAknWoEDCgnvjyY(sessionStorage.getItem('NDuKGqQvpviZysu'));
+    //        $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + sessionStorage.getItem('NDuKGqQvpviZysu') + ')');
+    //    }
+    //}
+    //else
+    //{
+    //    WAknWoEDCgnvjyY(null);
+    //}
+
+    WAknWoEDCgnvjyY(null);
 };
 XmVztKczNCaTbJt();
 
-function YENAVVQWwo(id)
+function YENAVVQWwo() //id
 {
     $.ajax({
         type: 'GET',
@@ -34,7 +36,7 @@ function YENAVVQWwo(id)
         success: function (response) 
         {
             $('body').append(response);
-            $('#QmRrlOQPQW').fadeIn(200);
+            $('#QmRrlOQPQW_').fadeIn(200);
         },
         error: function (xhr, status, error) 
         {
@@ -113,7 +115,8 @@ function WAknWoEDCgnvjyY(id)
             $('.iNzvwDsTQXDyPIR ion-icon').removeClass('zwyAWlfnleMVUJu');
 
             sessionStorage.setItem('NDuKGqQvpviZysu', response.departmentId);
-            $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + response.departmentId + ')');
+            //$('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + response.departmentId + ')');
+            $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo()');
 
             //$('#vTGalpVxnhKxENh').remove();
             //$('.ECTosDyufuTqvBV').append('<div id="vTGalpVxnhKxENh" class="MReEOONwmHpPyvX">' + response.editDeleteButton.content + '</div>');
