@@ -179,8 +179,8 @@ namespace TimeTask.Controllers
             string removeForm = "$('#QmRrlOQPQW_').remove()";
 
             string form = "<div id=\"QmRrlOQPQW_\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
-                    "<form class=\"form_ ZOVrPTgSspFJBET_\">" +
-                        /*
+                    "<form class=\"form_\">" + //ZOVrPTgSspFJBET_
+						/*
                         "<div class=\"form-group\">" +
                             "<label>Imię:</label>" +
                             "<input class=\"form-control\" autocomplete=\"off\" id=\"GVegODKbEh\" />" +
@@ -213,9 +213,9 @@ namespace TimeTask.Controllers
                         "</div>" +
                         */
 
-                        "<span>Bilans otwarcia</span>" +
+						//"<span>Bilans otwarcia</span>" +
 
-                        "<div class=\"form-group\">" +
+						"<div class=\"form-group\">" +
                             "<label>Imię:</label>" +
                             //"<input class=\"form-control\" disabled value=\"" + workerName + "\" />" +
                             "<input class=\"form-control\" />" +
@@ -226,11 +226,13 @@ namespace TimeTask.Controllers
                             "<input class=\"form-control\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<label>Ilość przysługującego urlopu wypoczynkowego:</label>" +
+                            //"<label>Ilość przysługującego urlopu wypoczynkowego:</label>" +
+                            "<label>Ilość przysługującego UW:</label>" +
                             "<input class=\"form-control\" autocomplete=\"off\" id=\"oSfYytwpicNlVxj\" maxlength=\"2\" onkeypress=\"return isNumberKey(event)\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
-                            "<label>Ilość pozostałego do wykorzystania urlopu wypoczynkowego:</label>" +
+                            //"<label>Ilość pozostałego do wykorzystania urlopu wypoczynkowego:</label>" +
+                            "<label>Ilość pozostałego do wykorzystania UW:</label>" +
                             "<input class=\"form-control\" autocomplete=\"off\" id=\"haOXJCFEeWknOmK\" maxlength=\"2\" onkeypress=\"return isNumberKey(event)\" />" +
                         "</div>" +
                         //"<div class=\"form-group\">" +
