@@ -16,7 +16,8 @@ function XmVztKczNCaTbJt()
             $('#MyRfivjxPqfhHQr').attr('onclick', 'YENAVVQWwo(' + sessionStorage.getItem('wnxkBzHZyNkxFOg') + ')');
         }
     }
-    else {
+    else 
+    {
         WAknWoEDCgnvjyY(null);
     }
 };

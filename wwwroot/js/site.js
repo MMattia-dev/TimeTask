@@ -129,6 +129,11 @@ if (defaultWallpaper_ != null)
             'background-size': 'cover',
             'background-position': 'center'
         });
+
+
+        if (defaultWallpaper_.lastIndexOf("mp4")) {
+            $('body').append('<video autoplay loop muted id="myVideo"><source src="' + defaultWallpaper_ + '" type="video/mp4"></video>');
+        }
     }
     else 
     {
@@ -144,6 +149,42 @@ else {
     
 }
 //
+
+function changeWallpaper(t, link)
+{
+    let w = document.querySelectorAll('.uPITXoaTMJUxLzR');
+    for (let i = 0; i < w.length; i++)
+    {
+        $(w[i]).removeClass('cOAjaWuJVPBGngI');
+    }
+
+    $(t).parent().children().eq(2).addClass('cOAjaWuJVPBGngI');
+
+
+    localStorage.setItem('wallpaper', $(t).parent().children().eq(2).attr('src'));
+    // $('html').css({
+    //     'background': 'url(' + $(t).parent().children().eq(2).attr('src') + ')',
+    //     'background-size': 'cover',
+    //     'background-position': 'center'
+    // });
+    if ($(t).parent().children().eq(2).attr('src').indexOf("jpg") >= 0 || $(t).parent().children().eq(2).attr('src').indexOf("jpeg") >= 0 || $(t).parent().children().eq(2).attr('src').indexOf("gif") >= 0 || $(t).parent().children().eq(2).attr('src').indexOf("png") >= 0)
+    {
+        $('html').css({
+            'background': 'url(' + $(t).parent().children().eq(2).attr('src') + ')',
+            'background-size': 'cover',
+            'background-position': 'center'
+        });
+
+        if (defaultWallpaper_.lastIndexOf("mp4"))
+        {
+            $('body').append('<video autoplay loop muted id="myVideo"><source src="' + defaultWallpaper_ + '" type="video/mp4"></video>');
+        }
+    }
+    else
+    {
+        $('body').append('<video autoplay muted loop id="myVideo"><source src="' + $(t).parent().children().eq(2).attr('src') + '" type="video/mp4"></video>');
+    }
+};
 
 function sortArrayDefault(array)
 {

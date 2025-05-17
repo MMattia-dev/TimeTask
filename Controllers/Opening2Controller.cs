@@ -166,10 +166,10 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult NewOpeningForm() //int id
+        public ActionResult NewOpeningForm(int id) //
         {
-            //var workerSurname = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.Surname;
-            //var workerName = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.Name;
+            var workerSurname = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.Surname;
+            var workerName = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.Name;
 
             ////var workersDepartment = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.DepartmentID;
             ////var departmentName = ((IEnumerable<Department>)_context.Department).FirstOrDefault(x => x.Id == workersDepartment)?.Name;
@@ -217,13 +217,13 @@ namespace TimeTask.Controllers
 
 						"<div class=\"form-group\">" +
                             "<label>Imię:</label>" +
-                            //"<input class=\"form-control\" disabled value=\"" + workerName + "\" />" +
-                            "<input class=\"form-control\" />" +
+                            "<input class=\"form-control\" disabled value=\"" + workerName + "\" />" +
+                        //"<input class=\"form-control\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
                             "<label>Nazwisko:</label>" +
-                            //"<input class=\"form-control\" disabled value=\"" + workerSurname + "\" />" +
-                            "<input class=\"form-control\" />" +
+                            "<input class=\"form-control\" disabled value=\"" + workerSurname + "\" />" +
+                        //"<input class=\"form-control\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
                             //"<label>Ilość przysługującego urlopu wypoczynkowego:</label>" +
@@ -250,7 +250,7 @@ namespace TimeTask.Controllers
                         "<div class=\"form-group\">" +
                             ////"<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening(" + id + ")\" />" +
                             //"<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening()\" />" +
-                            "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening()\" />" +
+                            "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening(" + id + ")\" />" +
                         "</div>" +
                         //"<div class=\"form-group\">" +
                         //    ////"<input type=\"button\" value=\"Dodaj później\" class=\"btn-custom_\" onclick=\"" + removeForm + "\" />" +
@@ -286,10 +286,10 @@ namespace TimeTask.Controllers
         [HttpGet]
         public ActionResult CreateDepartmentSelect()
         {
-            var departments = (_context.Department).Select(x => x.Id);
+            var departments = _context.Department.Select(x => x.Id);
 
             string departments_string = "";
-            foreach (var item in (_context.Department).OrderBy(x => x.Name))
+            foreach (var item in _context.Department.OrderBy(x => x.Name))
             {
                 departments_string += "<div class=\"oJeaEVIeaFrjGFz\" id=\"" + item.Id + "\" onclick=\"WAknWoEDCgnvjyY(" + item.Id + ")\"><span>" + item.Name + "</span></div>";
             }
@@ -307,13 +307,41 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult ChangeDepartment(int? id)
+        public ActionResult CreateYearSelect()
+        {
+            //var openingsYears = _context.Opening2.GroupBy(x => x.DateFrom.Value.Year).Select(y => y.First()).ToList();
+            //var openingsYears = _context.Opening2.Select(x => x.DateFrom.Value.Year).Distinct().ToList();
+            //var openingsYears = _context.Opening2.Select(x => x.DateFrom.Value.Year).Distinct().ToList();
+
+            List<int> years = _context.Opening2.Where(row => row.Year.HasValue).Select(row => row.Year.Value).Distinct().ToList();
+
+            string openingsYears_string = "";
+            foreach (var item in years)
+            {
+                openingsYears_string = "<div class=\"oJeaEVIeaFrjGFz\" onclick=\"\"><span>" + item + "</span></div>";
+            }
+
+            string div = "<div class=\"IVnxgCORpPYL ijBuUPWrdXEngvb pKKeaPLlODAnOgN OnnUOwBPRvtMqeH\" id=\"shwJrqmCKCOdpeV\">" +
+                    openingsYears_string +
+                "</div>";
+
+            if (div != "")
+            {
+                return Content(div);
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpGet]
+        public ActionResult ChangeDepartment(int? id, int? year)
         {
             var firstDepartmentID = ((IEnumerable<Department>)_context.Department).OrderBy(x => x.Name).FirstOrDefault()?.Id;
+			int? departmentId = null;
 
-            //var departmentName = _context.Department.FirstOrDefault(x => x.Id == id)?.Name;
+			//var departmentName = _context.Department.FirstOrDefault(x => x.Id == id)?.Name;
 
-            string? departmentName = "";
+			string? departmentName = "";
             List<Workers2> workers = new List<Workers2>();
 
             //var workers = _context.Workers2.Where(x => x.DepartmentID == id);
@@ -323,12 +351,14 @@ namespace TimeTask.Controllers
             {
                 departmentName = _context.Department.FirstOrDefault(x => x.Id == id)?.Name;
                 workers = _context.Workers2.Where(x => x.DepartmentID == id).ToList();
-            }
+				departmentId = id;
+			}
             else
             {
                 departmentName = _context.Department.FirstOrDefault(x => x.Id == firstDepartmentID)?.Name;
                 workers = _context.Workers2.Where(x => x.DepartmentID == firstDepartmentID).ToList();
-            }
+				departmentId = firstDepartmentID;
+			}
 
 
             var info = "";
@@ -336,7 +366,7 @@ namespace TimeTask.Controllers
 
             foreach (var item in workers)
             {
-                var row = _context.Opening2.FirstOrDefault(x => x.WorkerID == item.Id);
+                var row = _context.Opening2.FirstOrDefault(x => x.WorkerID == item.Id && x.DateFrom.Value.Year == year);
 
                 info += "<tr class=\"EmRSNqsShbDnTsE\">" +
                                 "<td>" + item.Id + "</td>" +
@@ -344,7 +374,7 @@ namespace TimeTask.Controllers
                                 "<td>" + item.Name + "</td>" +
                                 //"<td>" + departmentName + "</td>" +
 
-                                "<td>" + row?.Year + "</td>" + 
+                                //"<td>" + row?.Year + "</td>" + 
                                 "<td>" + row?.DaysVacation + "</td>" +
                                 "<td>" + row?.DaysOpening + "</td>" +
                                 "<td>" + row?.DateFrom.Value.ToShortDateString() + "</td>" +
@@ -365,7 +395,7 @@ namespace TimeTask.Controllers
                             "<th style=\"width: 100px;\"><span>ID</span></th>" +
                             "<th><span>Nazwisko</span></th>" +
                             "<th><span>Imię</span></th>" +
-                            "<th><span>Rok</span></th>" +
+                            //"<th><span>Rok</span></th>" +
                             "<th><span>Ilość UW</span></th>" +
                             "<th><span>Pozostały UW</span></th>" +
                             "<th><span>Stan na dzień</span></th>" +
@@ -376,11 +406,11 @@ namespace TimeTask.Controllers
                 "</table>";
             }
 
-            return Json(new { ContentResult = Content(table), DepartmentName = departmentName, DepartmentId = id });
-
-
-
+            return Json(new { ContentResult = Content(table), DepartmentName = departmentName, DepartmentId = departmentId });
         }
+
+
+
 
 
 
