@@ -166,13 +166,21 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
-        public ActionResult NewOpeningForm(int id) //
+        public ActionResult OpeningForm(int id, int workerId) //
         {
-            var workerSurname = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.Surname;
-            var workerName = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.Name;
+            var workerSurname = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == workerId)?.Surname;
+            var workerName = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == workerId)?.Name;
 
             ////var workersDepartment = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.DepartmentID;
             ////var departmentName = ((IEnumerable<Department>)_context.Department).FirstOrDefault(x => x.Id == workersDepartment)?.Name;
+
+
+
+
+
+            //jezeli id = 0 to wpis nie istnieje
+
+
 
 
 
@@ -180,40 +188,6 @@ namespace TimeTask.Controllers
 
             string form = "<div id=\"QmRrlOQPQW_\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
                     "<form class=\"form_\">" + //ZOVrPTgSspFJBET_
-						/*
-                        "<div class=\"form-group\">" +
-                            "<label>Imię:</label>" +
-                            "<input class=\"form-control\" autocomplete=\"off\" id=\"GVegODKbEh\" />" +
-                        "</div>" +
-                        "<div class=\"form-group\">" +
-                            "<label>Nazwisko:</label>" +
-                            "<input class=\"form-control\" autocomplete=\"off\" id=\"toPdQnPuvH\" />" +
-                        "</div>" +
-                        "<div class=\"form-group\">" +
-                            "<label>Dział:</label>" +
-                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"OyRfwpeqzbeyVEW\" onchange=\"KHpqBjUFdnnaWxq(this)\">" +
-                                departments +
-                            "</select>" +
-                        "</div>" +
-
-
-                        "<div class=\"form-group\">" +
-                            "<label>Stanowisko (opcjonalne):</label>" +
-                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"cWSWdChjLlkqTlQ\">" +
-                                "<option selected></option>" +
-                                workstationsOptions +
-                            "</select>" +
-                        "</div>" +
-                        "<div class=\"form-group form-group-margin\">" +
-                            "<label>Zmiana (opcjonalne):</label>" +
-                            "<select class=\"form-control bYwPpsleuVCBkPv\" id=\"VcVGBJCedKJagyX\">" +
-                                "<option selected></option>" +
-                                shiftOptions +
-                            "</select>" +
-                        "</div>" +
-                        */
-
-						//"<span>Bilans otwarcia</span>" +
 
 						"<div class=\"form-group\">" +
                             "<label>Imię:</label>" +
@@ -250,7 +224,7 @@ namespace TimeTask.Controllers
                         "<div class=\"form-group\">" +
                             ////"<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening(" + id + ")\" />" +
                             //"<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening()\" />" +
-                            "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening(" + id + ")\" />" +
+                            "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening(" + workerId + ")\" />" +
                         "</div>" +
                         //"<div class=\"form-group\">" +
                         //    ////"<input type=\"button\" value=\"Dodaj później\" class=\"btn-custom_\" onclick=\"" + removeForm + "\" />" +
@@ -291,7 +265,8 @@ namespace TimeTask.Controllers
             string departments_string = "";
             foreach (var item in _context.Department.OrderBy(x => x.Name))
             {
-                departments_string += "<div class=\"oJeaEVIeaFrjGFz\" id=\"" + item.Id + "\" onclick=\"WAknWoEDCgnvjyY(" + item.Id + ")\"><span>" + item.Name + "</span></div>";
+                //departments_string += "<div class=\"oJeaEVIeaFrjGFz\" id=\"" + item.Id + "\" onclick=\"WAknWoEDCgnvjyY(" + item.Id + ")\"><span>" + item.Name + "</span></div>";
+                departments_string += "<div class=\"oJeaEVIeaFrjGFz\" id=\"" + item.Id + "\" onclick=\"chooseDepartment(" + item.Id + ")\"><span>" + item.Name + "</span></div>";
             }
 
             string div = "<div class=\"IVnxgCORpPYL ijBuUPWrdXEngvb pKKeaPLlODAnOgN fetDyOODTumSTzB\" id=\"shwJrqmCKCOdpeV\">" +
@@ -309,16 +284,12 @@ namespace TimeTask.Controllers
         [HttpGet]
         public ActionResult CreateYearSelect()
         {
-            //var openingsYears = _context.Opening2.GroupBy(x => x.DateFrom.Value.Year).Select(y => y.First()).ToList();
-            //var openingsYears = _context.Opening2.Select(x => x.DateFrom.Value.Year).Distinct().ToList();
-            //var openingsYears = _context.Opening2.Select(x => x.DateFrom.Value.Year).Distinct().ToList();
-
             List<int> years = _context.Opening2.Where(row => row.Year.HasValue).Select(row => row.Year.Value).Distinct().ToList();
 
             string openingsYears_string = "";
-            foreach (var item in years)
+            foreach (var item in years.OrderDescending())
             {
-                openingsYears_string = "<div class=\"oJeaEVIeaFrjGFz\" onclick=\"\"><span>" + item + "</span></div>";
+                openingsYears_string += "<div class=\"oJeaEVIeaFrjGFz\" id=\"" + item + "\" onclick=\"chooseBilansYear(" + item + ")\"><span>" + item + "</span></div>";
             }
 
             string div = "<div class=\"IVnxgCORpPYL ijBuUPWrdXEngvb pKKeaPLlODAnOgN OnnUOwBPRvtMqeH\" id=\"shwJrqmCKCOdpeV\">" +
@@ -332,6 +303,14 @@ namespace TimeTask.Controllers
 
             return Json(new { success = false });
         }
+
+        //[HttpGet]
+        //public ActionResult SelectYear()
+        //{
+
+
+        //    return Json(new { success = false });
+        //}
 
         [HttpGet]
         public ActionResult ChangeDepartment(int? id, int? year)
@@ -368,6 +347,18 @@ namespace TimeTask.Controllers
             {
                 var row = _context.Opening2.FirstOrDefault(x => x.WorkerID == item.Id && x.DateFrom.Value.Year == year);
 
+                string add_OR_edit = "";
+                string deleteButton = "";
+                if (row == null)
+                {
+                    add_OR_edit = "<a onclick=\"agQTCWLxrsnLWDc(" + 0 + ", " + item.Id + ")\" title=\"Dodaj\" style=\"margin-right: 5px;\"><ion-icon class=\"edit urlop\" name=\"add-circle-outline\"></ion-icon></a>";
+                }
+                else
+                {
+                    add_OR_edit = "<a onclick=\"agQTCWLxrsnLWDc(" + row.Id + ", " + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>";
+                    deleteButton = "<a onclick=\"lmxraVfmGFtpSWV(" + row.Id + ")\" title=\"Usuń\"><ion-icon class=\"delete urlop\" name=\"trash-outline\"></ion-icon></a>";
+                }
+
                 info += "<tr class=\"EmRSNqsShbDnTsE\">" +
                                 "<td>" + item.Id + "</td>" +
                                 "<td>" + item.Surname + "</td>" +
@@ -378,10 +369,9 @@ namespace TimeTask.Controllers
                                 "<td>" + row?.DaysVacation + "</td>" +
                                 "<td>" + row?.DaysOpening + "</td>" +
                                 "<td>" + row?.DateFrom.Value.ToShortDateString() + "</td>" +
-
                                 "<td>" +
-                                    "<a onclick=\"agQTCWLxrsnLWDc(" + item.Id + ")\" title=\"Edytuj\"><ion-icon class=\"edit urlop\" name=\"create-outline\"></ion-icon></a>" +
-                                    "<a onclick=\"lmxraVfmGFtpSWV(" + item.Id + ")\" title=\"Usuń\"><ion-icon class=\"delete urlop\" name=\"trash-outline\"></ion-icon></a>" +
+                                    add_OR_edit +
+                                    deleteButton +
                                 "</td>" +
                             "</tr>";
             }
@@ -406,7 +396,7 @@ namespace TimeTask.Controllers
                 "</table>";
             }
 
-            return Json(new { ContentResult = Content(table), DepartmentName = departmentName, DepartmentId = departmentId });
+            return Json(new { ContentResult = Content(table), DepartmentName = departmentName, DepartmentId = departmentId }); //, ChosenYear = year
         }
 
 
