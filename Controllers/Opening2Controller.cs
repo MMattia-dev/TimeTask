@@ -171,18 +171,15 @@ namespace TimeTask.Controllers
             var workerSurname = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == workerId)?.Surname;
             var workerName = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == workerId)?.Name;
 
-            ////var workersDepartment = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == id)?.DepartmentID;
-            ////var departmentName = ((IEnumerable<Department>)_context.Department).FirstOrDefault(x => x.Id == workersDepartment)?.Name;
-
-
-
-
-
-            //jezeli id = 0 to wpis nie istnieje
-
-
-
-
+            string? przyslugujacy_uw = "";
+            string? pozostaly_uw = "";//jeżeli pracownik pracuje dłużej w firmie (nie można przenieść urlopu z innej firmy)
+            string? stan = "";
+            if (id != 0)
+            {
+                przyslugujacy_uw = _context.Opening2.Where(x => x.Id == id).FirstOrDefault()?.DaysVacation.ToString();
+                pozostaly_uw = _context.Opening2.Where(x => x.Id == id).FirstOrDefault()?.DaysOpening.ToString();
+                stan = _context.Opening2.Where(x => x.Id == id).FirstOrDefault()?.DateFrom?.ToString("yyyy-MM-dd");
+            }
 
             string removeForm = "$('#QmRrlOQPQW_').remove()";
 
@@ -192,7 +189,6 @@ namespace TimeTask.Controllers
 						"<div class=\"form-group\">" +
                             "<label>Imię:</label>" +
                             "<input class=\"form-control\" disabled value=\"" + workerName + "\" />" +
-                        //"<input class=\"form-control\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
                             "<label>Nazwisko:</label>" +
@@ -202,29 +198,24 @@ namespace TimeTask.Controllers
                         "<div class=\"form-group\">" +
                             //"<label>Ilość przysługującego urlopu wypoczynkowego:</label>" +
                             "<label>Ilość przysługującego UW:</label>" +
-                            "<input class=\"form-control\" autocomplete=\"off\" id=\"oSfYytwpicNlVxj\" maxlength=\"2\" onkeypress=\"return isNumberKey(event)\" />" +
+                            "<input value=\"" + przyslugujacy_uw + "\" class=\"form-control\" autocomplete=\"off\" id=\"oSfYytwpicNlVxj\" maxlength=\"2\" onkeypress=\"return isNumberKey(event)\" />" +
                         "</div>" +
                         "<div class=\"form-group\">" +
                             //"<label>Ilość pozostałego do wykorzystania urlopu wypoczynkowego:</label>" +
                             "<label>Ilość pozostałego do wykorzystania UW:</label>" +
-                            "<input class=\"form-control\" autocomplete=\"off\" id=\"haOXJCFEeWknOmK\" maxlength=\"2\" onkeypress=\"return isNumberKey(event)\" />" +
+                            "<input value=\"" + pozostaly_uw + "\" placeholder=\"opcjonalne\" class=\"form-control\" autocomplete=\"off\" id=\"haOXJCFEeWknOmK\" maxlength=\"2\" onkeypress=\"return isNumberKey(event)\" />" +
                         "</div>" +
-                        //"<div class=\"form-group\">" +
-                        //    "<label>Stan na rok:</label>" +
-                        //    "<input class=\"form-control\" value=\"" + DateTime.Now.Year + "\" autocomplete=\"off\" id=\"\" maxlength=\"4\" onkeypress=\"return isNumberKey(event)\" />" +
-                        //"</div>" +
                         "<div class=\"form-group form-group-margin\">" +
                             "<label>Stan na dzień:</label>" +
-                            "<input class=\"form-control\" type=\"date\" id=\"auECyYKCzTAUilw\" />" +
+                            "<input value=\"" + stan + "\" class=\"form-control\" type=\"date\" id=\"auECyYKCzTAUilw\" />" +
                         "</div>" +
-
 
 
 
                         "<div class=\"form-group\">" +
                             ////"<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening(" + id + ")\" />" +
                             //"<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening()\" />" +
-                            "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening(" + workerId + ")\" />" +
+                            "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening(" + id + ", " + workerId + ")\" />" +
                         "</div>" +
                         //"<div class=\"form-group\">" +
                         //    ////"<input type=\"button\" value=\"Dodaj później\" class=\"btn-custom_\" onclick=\"" + removeForm + "\" />" +
@@ -239,23 +230,23 @@ namespace TimeTask.Controllers
             return Content(form);
         }
 
-        [HttpPost]
-        public ActionResult AddOpening(int workerId, int daysVacation, int daysOpening, DateTime dateFrom)
-        {
-            var newData = new Opening2()
-            {
-                WorkerID = workerId,
-                DaysVacation = daysVacation,
-                DaysOpening = daysOpening,
-                DateFrom = dateFrom,
-                Year = dateFrom.Year,
-            };
+        //[HttpPost]
+        //public ActionResult AddOpening(int workerId, int daysVacation, int daysOpening, DateTime dateFrom)
+        //{
+        //    var newData = new Opening2()
+        //    {
+        //        WorkerID = workerId,
+        //        DaysVacation = daysVacation,
+        //        DaysOpening = daysOpening,
+        //        DateFrom = dateFrom,
+        //        Year = dateFrom.Year,
+        //    };
 
-            _context.Opening2.Add(newData);
-            _context.SaveChanges();
+        //    _context.Opening2.Add(newData);
+        //    _context.SaveChanges();
 
-            return Json(new { success = true });
-        }
+        //    return Json(new { success = true });
+        //}
 
         [HttpGet]
         public ActionResult CreateDepartmentSelect()
@@ -304,14 +295,6 @@ namespace TimeTask.Controllers
             return Json(new { success = false });
         }
 
-        //[HttpGet]
-        //public ActionResult SelectYear()
-        //{
-
-
-        //    return Json(new { success = false });
-        //}
-
         [HttpGet]
         public ActionResult ChangeDepartment(int? id, int? year)
         {
@@ -324,7 +307,6 @@ namespace TimeTask.Controllers
             List<Workers2> workers = new List<Workers2>();
 
             //var workers = _context.Workers2.Where(x => x.DepartmentID == id);
-
 
             if (id != null)
             {
@@ -399,12 +381,41 @@ namespace TimeTask.Controllers
             return Json(new { ContentResult = Content(table), DepartmentName = departmentName, DepartmentId = departmentId }); //, ChosenYear = year
         }
 
+        [HttpPost]
+        public ActionResult AddEditOpening(int id, int workerId, int daysVacation, int daysOpening, DateTime dateFrom)
+        {
+            if (id == 0) //wpisz nie istnieje
+            {
+                var newData = new Opening2()
+                {
+                    WorkerID = workerId,
+                    Year = dateFrom.Year,
+                    DaysVacation = daysVacation,
+                    DaysOpening = daysOpening,
+                    DateFrom = dateFrom
+                };
 
+                _context.Opening2.Add(newData);
+                _context.SaveChanges();
 
+                return Json(new { success = true });
+            }
+            else //wpis istnieje
+            {
+                var row = _context.Opening2.FirstOrDefault(e => e.Id == id);
+                if (row != null)
+                {
+                    row.DaysVacation = daysVacation;
+                    row.DaysOpening = daysOpening;
+                    row.DateFrom = dateFrom;
 
+                    return Json(new { success = true });
+                }
 
-
-
+                return Json(new { success = false });
+            }
+        }
+        
 
 
     }
