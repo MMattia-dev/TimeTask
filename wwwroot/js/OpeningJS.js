@@ -182,7 +182,7 @@ function WAknWoEDCgnvjyY(id, year)
     });
 };
 
-function addOpening(id, workerId) 
+function editOpening(id) 
 {
     let oSfYytwpicNlVxj = document.getElementById('oSfYytwpicNlVxj').value;
     let haOXJCFEeWknOmK = document.getElementById('haOXJCFEeWknOmK').value;
@@ -190,9 +190,37 @@ function addOpening(id, workerId)
 
     $.ajax({
         type: 'POST',
-        url: '/Opening2/AddEditOpening',
+        url: '/Opening2/EditOpening',
         data: {
             id: id,
+            daysVacation: parseInt(oSfYytwpicNlVxj),
+            daysOpening: parseInt(haOXJCFEeWknOmK),
+            dateFrom: auECyYKCzTAUilw
+        },
+        success: function (response)
+        {
+            if (response == true) 
+            {
+                location.reload();
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function addOpening(workerId) //id, 
+{
+    let oSfYytwpicNlVxj = document.getElementById('oSfYytwpicNlVxj').value;
+    let haOXJCFEeWknOmK = document.getElementById('haOXJCFEeWknOmK').value;
+    let auECyYKCzTAUilw = document.getElementById('auECyYKCzTAUilw').value;
+
+    $.ajax({
+        type: 'POST',
+        url: '/Opening2/AddOpening',
+        data: {
             workerId: workerId,
             daysVacation: parseInt(oSfYytwpicNlVxj),
             daysOpening: parseInt(haOXJCFEeWknOmK),
@@ -200,14 +228,48 @@ function addOpening(id, workerId)
         },
         success: function (response)
         {
-            //location.reload();
-            console.log(response);
+            if (response == true) 
+            {
+                location.reload();
+            }
         },
         error: function (xhr, status, error)
         {
             console.log('Error:', error);
         }
     });
+
+
+    //$.ajax({
+    //    type: 'POST',
+    //    url: '/Opening2/AddEditOpening',
+    //    data: {
+    //        id: id,
+    //        workerId: workerId,
+    //        daysVacation: parseInt(oSfYytwpicNlVxj),
+    //        daysOpening: parseInt(haOXJCFEeWknOmK),
+    //        dateFrom: auECyYKCzTAUilw
+    //    },
+    //    success: function (response)
+    //    {
+    //        //location.reload();
+    //        //console.log(response);
+
+    //        if (response == true)
+    //        {
+    //            location.reload();
+    //        }
+    //        else 
+    //        {
+    //            console.log('asd');
+    //        }
+            
+    //    },
+    //    error: function (xhr, status, error)
+    //    {
+    //        console.log('Error:', error);
+    //    }
+    //});
 };
 
 function resizableGrid(table)
@@ -341,4 +403,16 @@ function pNxCxvPIUtCbSHM(t)
     }
 }
 
+function isNumberKey(event)
+{
+    var charCode = (event.which) ? event.which : event.keyCode;
 
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}

@@ -174,11 +174,18 @@ namespace TimeTask.Controllers
             string? przyslugujacy_uw = "";
             string? pozostaly_uw = "";//jeżeli pracownik pracuje dłużej w firmie (nie można przenieść urlopu z innej firmy)
             string? stan = "";
+            string add_or_edit_button = "";
             if (id != 0)
             {
                 przyslugujacy_uw = _context.Opening2.Where(x => x.Id == id).FirstOrDefault()?.DaysVacation.ToString();
                 pozostaly_uw = _context.Opening2.Where(x => x.Id == id).FirstOrDefault()?.DaysOpening.ToString();
-                stan = _context.Opening2.Where(x => x.Id == id).FirstOrDefault()?.DateFrom?.ToString("yyyy-MM-dd");
+                stan = _context.Opening2.Where(x => x.Id == id).FirstOrDefault()?.DateFrom.ToString("yyyy-MM-dd");
+
+                add_or_edit_button = "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"editOpening(" + id + ")\" />";
+            }
+            else
+            {
+                add_or_edit_button = "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening(" + workerId + ")\" />";
             }
 
             string removeForm = "$('#QmRrlOQPQW_').remove()";
@@ -213,9 +220,8 @@ namespace TimeTask.Controllers
 
 
                         "<div class=\"form-group\">" +
-                            ////"<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening(" + id + ")\" />" +
-                            //"<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening()\" />" +
-                            "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening(" + id + ", " + workerId + ")\" />" +
+                            //"<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addOpening(" + id + ", " + workerId + ")\" />" +
+                            add_or_edit_button +
                         "</div>" +
                         //"<div class=\"form-group\">" +
                         //    ////"<input type=\"button\" value=\"Dodaj później\" class=\"btn-custom_\" onclick=\"" + removeForm + "\" />" +
@@ -229,24 +235,6 @@ namespace TimeTask.Controllers
 
             return Content(form);
         }
-
-        //[HttpPost]
-        //public ActionResult AddOpening(int workerId, int daysVacation, int daysOpening, DateTime dateFrom)
-        //{
-        //    var newData = new Opening2()
-        //    {
-        //        WorkerID = workerId,
-        //        DaysVacation = daysVacation,
-        //        DaysOpening = daysOpening,
-        //        DateFrom = dateFrom,
-        //        Year = dateFrom.Year,
-        //    };
-
-        //    _context.Opening2.Add(newData);
-        //    _context.SaveChanges();
-
-        //    return Json(new { success = true });
-        //}
 
         [HttpGet]
         public ActionResult CreateDepartmentSelect()
@@ -275,7 +263,8 @@ namespace TimeTask.Controllers
         [HttpGet]
         public ActionResult CreateYearSelect()
         {
-            List<int> years = _context.Opening2.Where(row => row.Year.HasValue).Select(row => row.Year.Value).Distinct().ToList();
+            //List<int> years = _context.Opening2.Where(row => row.Year.HasValue).Select(row => row.Year.Value).Distinct().ToList();
+            List<int> years = _context.Opening2.Select(row => row.Year).Distinct().ToList();
 
             string openingsYears_string = "";
             foreach (var item in years.OrderDescending())
@@ -327,7 +316,7 @@ namespace TimeTask.Controllers
 
             foreach (var item in workers)
             {
-                var row = _context.Opening2.FirstOrDefault(x => x.WorkerID == item.Id && x.DateFrom.Value.Year == year);
+                var row = _context.Opening2.FirstOrDefault(x => x.WorkerID == item.Id && x.DateFrom.Year == year);
 
                 string add_OR_edit = "";
                 string deleteButton = "";
@@ -350,7 +339,7 @@ namespace TimeTask.Controllers
                                 //"<td>" + row?.Year + "</td>" + 
                                 "<td>" + row?.DaysVacation + "</td>" +
                                 "<td>" + row?.DaysOpening + "</td>" +
-                                "<td>" + row?.DateFrom.Value.ToShortDateString() + "</td>" +
+                                "<td>" + row?.DateFrom.ToShortDateString() + "</td>" +
                                 "<td>" +
                                     add_OR_edit +
                                     deleteButton +
@@ -382,9 +371,9 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddEditOpening(int id, int workerId, int daysVacation, int daysOpening, DateTime dateFrom)
+        public ActionResult AddOpening(int workerId, int daysVacation, int daysOpening, DateTime dateFrom)
         {
-            if (id == 0) //wpisz nie istnieje
+            if (daysVacation > 0 && dateFrom != DateTime.MinValue)
             {
                 var newData = new Opening2()
                 {
@@ -398,23 +387,76 @@ namespace TimeTask.Controllers
                 _context.Opening2.Add(newData);
                 _context.SaveChanges();
 
-                return Json(new { success = true });
+                return Json(true);
             }
-            else //wpis istnieje
-            {
-                var row = _context.Opening2.FirstOrDefault(e => e.Id == id);
-                if (row != null)
-                {
-                    row.DaysVacation = daysVacation;
-                    row.DaysOpening = daysOpening;
-                    row.DateFrom = dateFrom;
 
-                    return Json(new { success = true });
-                }
-
-                return Json(new { success = false });
-            }
+            return Json(false);
         }
+
+        [HttpPost]
+        public ActionResult EditOpening(int id, int daysVacation, int daysOpening, DateTime dateFrom)
+        {
+            var row = _context.Opening2.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                row.DaysVacation = daysVacation;
+                row.DaysOpening = daysOpening;
+                row.DateFrom = dateFrom;
+
+                return Json(true);
+            }
+
+            return Json(false);
+        }
+
+
+
+
+        //zrobić "usuń" wpis i edytowanie nie działa
+
+
+
+
+
+        //[HttpPost]
+        //public ActionResult AddEditOpening(int id, int workerId, int daysVacation, int daysOpening, DateTime dateFrom)
+        //{
+        //    if (daysVacation > 0 && dateFrom != DateTime.MinValue)
+        //    {
+        //        if (id == 0) //wpisz nie istnieje
+        //        {
+        //            var newData = new Opening2()
+        //            {
+        //                WorkerID = workerId,
+        //                Year = dateFrom.Year,
+        //                DaysVacation = daysVacation,
+        //                DaysOpening = daysOpening,
+        //                DateFrom = dateFrom
+        //            };
+
+        //            _context.Opening2.Add(newData);
+        //            _context.SaveChanges();
+
+        //            return Json(true);
+        //        }
+        //        else //wpis istnieje
+        //        {
+        //            var row = _context.Opening2.FirstOrDefault(e => e.Id == id);
+        //            if (row != null)
+        //            {
+        //                row.DaysVacation = daysVacation;
+        //                row.DaysOpening = daysOpening;
+        //                row.DateFrom = dateFrom;
+
+        //                return Json(true);
+        //            }
+
+        //            return Json(false);
+        //        }
+        //    }
+
+        //    return Json(false);
+        //}
         
 
 

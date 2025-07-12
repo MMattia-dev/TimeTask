@@ -5,13 +5,13 @@ namespace TimeTask.Models
     public class Opening2
     {
         public int Id { get; set; }
-        public int WorkerID { get; set; }
-        public int? Year { get; set; }
-        public int? DaysVacation { get; set; }
-        public int? DaysOpening { get; set; }
-        public float? OvertimeOpening { get; set; } //Nadgodziny pod koniec roku -> na początku następnego
+        public required int WorkerID { get; set; }
+        public required int Year { get; set; }
+        public required int DaysVacation { get; set; }
+        public int? DaysOpening { get; set; } //opcjonalne
+        public float? OvertimeOpening { get; set; } //Nadgodziny pod koniec roku -> na początku następnego // opcjonalne
 
         [DataType(DataType.Date)]
-        public DateTime? DateFrom { get; set; } //stan na dzień
+        public required DateTime DateFrom { get; set; } //stan na dzień
     }
 }
