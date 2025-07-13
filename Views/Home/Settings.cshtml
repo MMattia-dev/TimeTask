@@ -9,7 +9,66 @@
         @Html.Partial("_Settings")
     </section>
     <section class="right-nav SHNVXqYepsFyCsw">
-        <div class="PeEkAugENvBHbuG">Ustawienia</div>
+        @* <div class="PeEkAugENvBHbuG">Ustawienia</div> *@
+
+        <div class="settings">
+
+            @* <div></div>
+            <div></div>
+            <div></div>
+
+            <div></div>
+            <div></div>
+            <div></div>
+
+            <div></div>
+            <div></div>
+            <div></div> *@
+
+            <div class="settings_">
+                <a href="@Url.Action("Index", "Workers2")">
+                    <ion-icon name="people-outline"></ion-icon>
+                    <span>Pracownicy</span>
+                </a>
+                <a>
+                    <ion-icon name="briefcase-outline"></ion-icon>
+                    <span>Stanowiska</span>
+                </a>
+                <a>
+                    <ion-icon name="git-compare-outline"></ion-icon>
+                    <span>Grupy zmianowe</span>
+                </a>
+            </div>
+            <div class="settings_">
+                <a>
+                    <ion-icon name="time-outline"></ion-icon>
+                    <span>Czas pracy i Urlopy</span>
+                </a>
+                <a>
+                    <ion-icon name="calendar-outline"></ion-icon>
+                    <span>Grafik</span>
+                </a>
+                <a>
+                    <ion-icon name="id-card-outline"></ion-icon>
+                    <span>Bilans</span>
+                </a>
+            </div>
+            <div class="settings_">
+                <a>
+                    <ion-icon name="snow-outline"></ion-icon>
+                    <span>Święta</span>
+                </a>
+                <a>
+                    <ion-icon name="person-add-outline"></ion-icon>
+                    <span>Konta i uprawnienia</span>
+                </a>
+                <a>
+                    <ion-icon name="options-outline"></ion-icon>
+                    <span>Inne ustawienia</span>
+                </a>
+            </div>
+        </div>
+
     </section>
 </div>
 

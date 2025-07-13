@@ -51,6 +51,26 @@ function agQTCWLxrsnLWDc(id, workerId)
     });
 };
 
+function lmxraVfmGFtpSWV(id) 
+{
+    $.ajax({
+        type: 'GET',
+        url: '/Opening2/DeleteForm',
+        data: {
+            id: id
+        },
+        success: function (response) 
+        {
+            $('body').append(response);
+            $('#QmRrlOQPQW_').fadeIn(200);
+        },
+        error: function (xhr, status, error) 
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
 function nGgUoVSOQmbYyoD_() 
 {
     $('.kxOMhDZFzkDb').append('<div class="IVnxgCORpPYL ijBuUPWrdXEngvb pKKeaPLlODAnOgN OnnUOwBPRvtMqeH" id="shwJrqmCKCOdpeV__"><div class="lds-ring-small" style="position: absolute; top: calc(50% - 13px); left: calc(50% - 13px); z-index: 50;"><div></div><div></div><div></div><div></div></div></div>');
@@ -182,6 +202,28 @@ function WAknWoEDCgnvjyY(id, year)
     });
 };
 
+function removeRow(id)
+{
+    $.ajax({
+        type: 'POST',
+        url: '/Opening2/DeleteOpening',
+        data: {
+            id: id
+        },
+        success: function (response)
+        {
+            if (response == true) 
+            {
+                location.reload();
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
 function editOpening(id) 
 {
     let oSfYytwpicNlVxj = document.getElementById('oSfYytwpicNlVxj').value;
@@ -238,38 +280,6 @@ function addOpening(workerId) //id,
             console.log('Error:', error);
         }
     });
-
-
-    //$.ajax({
-    //    type: 'POST',
-    //    url: '/Opening2/AddEditOpening',
-    //    data: {
-    //        id: id,
-    //        workerId: workerId,
-    //        daysVacation: parseInt(oSfYytwpicNlVxj),
-    //        daysOpening: parseInt(haOXJCFEeWknOmK),
-    //        dateFrom: auECyYKCzTAUilw
-    //    },
-    //    success: function (response)
-    //    {
-    //        //location.reload();
-    //        //console.log(response);
-
-    //        if (response == true)
-    //        {
-    //            location.reload();
-    //        }
-    //        else 
-    //        {
-    //            console.log('asd');
-    //        }
-            
-    //    },
-    //    error: function (xhr, status, error)
-    //    {
-    //        console.log('Error:', error);
-    //    }
-    //});
 };
 
 function resizableGrid(table)

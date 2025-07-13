@@ -166,6 +166,54 @@ namespace TimeTask.Controllers
         }
 
         [HttpGet]
+        public ActionResult DeleteForm(int id)
+        {
+            var row = _context.Opening2.FirstOrDefault(e => e.Id == id);
+
+            if (row != null)
+            {
+                var workerSurname = _context.Workers2.FirstOrDefault(x => x.Id == row.WorkerID)?.Surname;
+                var workerName = _context.Workers2.FirstOrDefault(x => x.Id == row.WorkerID)?.Name;
+
+                string removeForm = "$('#QmRrlOQPQW_').remove()";
+                string form = "<div id=\"QmRrlOQPQW_\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
+                    "<form class=\"form_\">" +
+                        "<div class=\"form-group\">" +
+                            "<label>Imię:</label>" +
+                            "<input class=\"form-control\" disabled value=\"" + workerName + "\" />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<label>Nazwisko:</label>" +
+                            "<input class=\"form-control\" disabled value=\"" + workerSurname + "\" />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<label>Ilość przysługującego UW:</label>" +
+                            "<input disabled value=\"" + row.DaysVacation + "\" class=\"form-control\" autocomplete=\"off\" id=\"oSfYytwpicNlVxj\" maxlength=\"2\" onkeypress=\"return isNumberKey(event)\" />" +
+                        "</div>" +
+                        "<div class=\"form-group\">" +
+                            "<label>Ilość pozostałego do wykorzystania UW:</label>" +
+                            "<input disabled value=\"" + row.DaysOpening + "\" placeholder=\"opcjonalne\" class=\"form-control\" autocomplete=\"off\" id=\"haOXJCFEeWknOmK\" maxlength=\"2\" onkeypress=\"return isNumberKey(event)\" />" +
+                        "</div>" +
+                        "<div class=\"form-group form-group-margin\">" +
+                            "<label>Stan na dzień:</label>" +
+                            "<input disabled value=\"" + row.DateFrom.ToString("yyyy-MM-dd") + "\" class=\"form-control\" type=\"date\" id=\"auECyYKCzTAUilw\" />" +
+                        "</div>" +
+                        "<div class=\"btn-danger-div\">" +
+                            "<input type=\"button\" value=\"Usuń\" onclick=\"removeRow(" + row.Id +")\" />" +
+                        "</div>" +
+                        "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
+                            "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
+                        "</div>" +
+                    "</form>" +
+                "</div>";
+
+                return Content(form);
+            }
+
+            return Json(false);
+        }
+
+        [HttpGet]
         public ActionResult OpeningForm(int id, int workerId) //
         {
             var workerSurname = ((IEnumerable<Workers2>)_context.Workers2).FirstOrDefault(x => x.Id == workerId)?.Surname;
@@ -347,7 +395,6 @@ namespace TimeTask.Controllers
                             "</tr>";
             }
 
-
             if (workers.Count() > 0)
             {
                 table = "<table class=\"VUXahzbNUTWtiZa sortable\" id=\"tableId\">" +
@@ -402,6 +449,7 @@ namespace TimeTask.Controllers
                 row.DaysVacation = daysVacation;
                 row.DaysOpening = daysOpening;
                 row.DateFrom = dateFrom;
+                _context.SaveChanges();
 
                 return Json(true);
             }
@@ -409,56 +457,20 @@ namespace TimeTask.Controllers
             return Json(false);
         }
 
+        [HttpPost]
+        public ActionResult DeleteOpening(int id)
+        {
+            var row = _context.Opening2.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.Opening2.Remove(row);
+                _context.SaveChanges();
 
+                return Json(true);
+            }
 
-
-        //zrobić "usuń" wpis i edytowanie nie działa
-
-
-
-
-
-        //[HttpPost]
-        //public ActionResult AddEditOpening(int id, int workerId, int daysVacation, int daysOpening, DateTime dateFrom)
-        //{
-        //    if (daysVacation > 0 && dateFrom != DateTime.MinValue)
-        //    {
-        //        if (id == 0) //wpisz nie istnieje
-        //        {
-        //            var newData = new Opening2()
-        //            {
-        //                WorkerID = workerId,
-        //                Year = dateFrom.Year,
-        //                DaysVacation = daysVacation,
-        //                DaysOpening = daysOpening,
-        //                DateFrom = dateFrom
-        //            };
-
-        //            _context.Opening2.Add(newData);
-        //            _context.SaveChanges();
-
-        //            return Json(true);
-        //        }
-        //        else //wpis istnieje
-        //        {
-        //            var row = _context.Opening2.FirstOrDefault(e => e.Id == id);
-        //            if (row != null)
-        //            {
-        //                row.DaysVacation = daysVacation;
-        //                row.DaysOpening = daysOpening;
-        //                row.DateFrom = dateFrom;
-
-        //                return Json(true);
-        //            }
-
-        //            return Json(false);
-        //        }
-        //    }
-
-        //    return Json(false);
-        //}
-        
-
+            return Json(false);
+        }
 
     }
 }
