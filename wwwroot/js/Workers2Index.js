@@ -563,10 +563,10 @@ function KOxtvRcBmzeo(name_, surname_, dep_id_, workstation_, shift_) //employed
         },
         success: function (response)
         {
-            //location.reload();
+            location.reload();
 
-            $('#QmRrlOQPQW').remove();
-            addOpeningForm(response);
+            //$('#QmRrlOQPQW').remove();
+            //addOpeningForm(response);
         },
         Error: function (xhr, status, error)
         {

@@ -2,6 +2,10 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    var workers = ((IEnumerable<Workers2>)ViewBag.Workers);
+    var departments = ((IEnumerable<Department>)ViewBag.Department);
+    var workstations = ((IEnumerable<Workstations>)ViewBag.Workstation);
+    var shifts = ((IEnumerable<Shifts>)ViewBag.Shift);
 }
 
 <div class="parent">
@@ -12,19 +16,122 @@
         @* <div class="PeEkAugENvBHbuG">Ustawienia</div> *@
 
         <div class="settings">
+            <div class="settings_">
+                <div class="settings__">
+                    <div>
+                        <div>
+                            <ion-icon name="people-outline"></ion-icon>
+                            <span>Pracownicy</span>
+                        </div>
+                        <div>
+                            <span>Ilość</span>
+                            @if (workers.Count() > 0)
+                            {
+                                <span>@workers.Count()</span>
+                            }
+                            else
+                            {
+                                <span style="color: red;">@workers.Count()</span>
+                            }                        
+                        </div>                     
+                    </div>
+                    <div>
+                        <div>
+                            <ion-icon name="cube-outline"></ion-icon>
+                            <span>Działy</span>
+                        </div>
+                        <div>
+                            <span>Ilość</span>
+                            @if (departments.Count() > 0)
+                            {
+                                <span>@departments.Count()</span>
+                            }
+                            else
+                            {
+                                <span style="color: red;">@departments.Count()</span>
+                            }
+                        </div>
+                    </div>
+                </div>
 
-            @* <div></div>
-            <div></div>
-            <div></div>
+                <div class="settings__">
+                    <div>
+                        <div>
+                            <ion-icon name="briefcase-outline"></ion-icon>
+                            <span>Stanowiska</span>
+                        </div>
+                        <div>
+                            <span>Ilość</span>
+                            <span>@workstations.Count()</span>
+                        </div>
+                    </div>
 
-            <div></div>
-            <div></div>
-            <div></div>
+                    @* <div style="height: 8px;"></div> *@
 
-            <div></div>
-            <div></div>
-            <div></div> *@
+                    @* @if (workstations.Count() > 0)
+                    {
+                        @foreach (var row in workstations.OrderBy(e => e.Name))
+                        {
+                            <div>
+                                <div>
+                                    <span title="@row.Name">@row.Name</span>
+                                </div>
+                                <div>
+                                    <span style="font-size: 16px;">
+                                        @workers.Where(e => e.WorkstationId == row.Id).Count()
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    } *@
 
+
+                </div>
+
+                <div class="settings__">
+                    <div>
+                        <div>
+                            <ion-icon name="git-compare-outline"></ion-icon>
+                            <span>Grupy zmianowe</span>
+                        </div>
+                        <div>
+                            <span>Ilość</span>
+                            <span>@shifts.Count()</span>
+                        </div>
+                    </div>
+
+                    @if (shifts.Count() > 0)
+                    {
+                        @foreach (var row in shifts)
+                        {
+                            <div>
+                                <div>
+                                    <span>@row.Name</span>
+                                </div>
+                                <div>
+                                    <span style="font-size: 16px;">
+                                        @workers.Where(e => e.ShiftId == row.Id).Count()
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                    
+
+
+                </div>
+
+            </div>
+            <div class="settings_">
+
+            </div>
+            <div class="settings_">
+
+            </div>
+        </div>
+
+        @* <div class="settings">
             <div class="settings_">
                 <a href="@Url.Action("Index", "Workers2")">
                     <ion-icon name="people-outline"></ion-icon>
@@ -67,7 +174,7 @@
                     <span>Inne ustawienia</span>
                 </a>
             </div>
-        </div>
+        </div> *@
 
     </section>
 </div>

@@ -28,6 +28,11 @@
     <a class="settings_a" href="@Url.Action("Settings", "Home")">
         <ion-icon name="build-outline"></ion-icon>
         <span>Ustawienia</span>
+
+        @* jeżeli nie ma dodanych pracowników, czasu pracy i urlopów, bilansu, świąt, pokaż wykrzyknik przy Ustawieniach  *@
+        <ion-icon name="alert-circle"></ion-icon>
+
+
     </a>
     @* <a class="settings_a" href="#" id="">
         <ion-icon name="git-compare-outline"></ion-icon>

@@ -55,6 +55,12 @@ namespace TimeTask.Controllers
 
         public IActionResult Settings()
         {
+            ViewBag.Workers = _context.Workers2;
+            ViewBag.Department = _context.Department;
+            ViewBag.Workstation = _context.Workstations;
+            ViewBag.Shift = _context.Shifts;
+            
+
             return View();
         }
 

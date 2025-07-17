@@ -525,6 +525,8 @@ ion-icon {
         /*justify-content: right;*/
         align-items: start;
         flex-direction: column;
+        
+        
     }
 
         .right-nav.SHNVXqYepsFyCsw .PeEkAugENvBHbuG {
@@ -1053,6 +1055,13 @@ ion-icon {
     .settings_a.settings_a_selected {
         background-color: rgba(64, 66, 78, 1);
         pointer-events: none;
+    }
+
+    .settings_a ion-icon[name="alert-circle"] {
+        position: absolute;
+        left: 20px;
+        transform: translateX(-14px) translateY(12px) scale(60%);
+        color: orangered;
     }
 
 .settings_a_select {
@@ -7620,6 +7629,105 @@ span#OcoYTyiBrpZJStB {
     height: 100%;
     position: relative;
     display: flex;
+    flex-direction: row;
+}
+
+    .settings .settings_ {
+        width: 400px;
+        height: 100%;
+        padding: 10px;
+        display: flex;
+        padding: 10px 10px;
+        justify-content: start;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+        .settings .settings_ .settings__ {
+            height: auto;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+            /*.settings .settings_ .settings__:hover {
+                cursor: pointer;
+                background-color: rgba(0, 0, 0, 0.4);
+            }*/
+
+            .settings .settings_ .settings__ div {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+                .settings .settings_ .settings__ div div:nth-child(2) {
+                    align-items: end;
+                    justify-content: start;
+                    gap: 0;
+                }
+
+
+                    .settings .settings_ .settings__ div div:nth-child(2) span {
+                        color: rgba(255, 255, 255, 0.8);
+                        white-space: nowrap;
+                        overflow: hidden;
+                    }
+
+                        .settings .settings_ .settings__ div div:nth-child(2) span:nth-child(1) {
+                            font-size: 14px;
+                            font-weight: normal;
+                        }
+
+                        .settings .settings_ .settings__ div div:nth-child(2) span:nth-child(2) {
+                            font-size: 24px;
+                            font-weight: bold;
+                        }
+
+                .settings .settings_ .settings__ div div {
+                    flex-direction: column;
+                    gap: 5px;
+                }
+
+                    .settings .settings_ .settings__ div div ion-icon {
+                        width: 36px;
+                        height: 36px;
+                        min-width: 36px;
+                        min-height: 36px;
+                    }
+
+                    .settings .settings_ .settings__ div div span {
+                        font-size: 15px;
+                        color: rgba(255, 255, 255, 0.8);
+                        /*white-space: nowrap;*/
+                        /*overflow: hidden;*/
+                        font-weight: normal;
+                        /**/
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        max-width: 290px;
+                    }
+
+            
+
+
+
+
+
+
+
+
+
+            /*.settings {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
     flex-direction: column;
 }
     .settings .settings_ {
@@ -7665,10 +7773,8 @@ span#OcoYTyiBrpZJStB {
                 cursor: pointer;
                 transition: 0.2s ease;
                 background-color: rgba(0, 0, 0, 0.5);
-                /*border: 1px solid rgba(255, 255, 255, 0.1);*/
-            }
-
-/*color-picker {
+            }*/
+            /*color-picker {
     --modal-shadow: 0 3px 5px #00000020;
     --bg-primary: #fff;
     --bg-secondary: #fff;
@@ -7682,20 +7788,15 @@ span#OcoYTyiBrpZJStB {
     --thumb-border: 0.5rem solid #fff;
     --hue: 0;
 }*/
-
-/*#colorPickerInner {*/
-    /*position: relative;
+            /*#colorPickerInner {*/
+            /*position: relative;
     width: 100%;*/
-    /*border: none;
+            /*border: none;
     border-radius: 6px;
 
 }*/
-
-
-
-
-@keyframes blink {
-    0% {
+            @keyframes blink {
+                0% {
         -webkit-box-shadow: inset 0px 0px 0px 1px transparent;
         -moz-box-shadow: inset 0px 0px 0px 1px transparent;
         box-shadow: inset 0px 0px 0px 1px transparent;
