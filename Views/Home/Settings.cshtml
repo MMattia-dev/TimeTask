@@ -1,12 +1,12 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
+@* @{
     var workers = ((IEnumerable<Workers2>)ViewBag.Workers);
     var departments = ((IEnumerable<Department>)ViewBag.Department);
     var workstations = ((IEnumerable<Workstations>)ViewBag.Workstation);
     var shifts = ((IEnumerable<Shifts>)ViewBag.Shift);
-}
+} *@
 
 <div class="parent">
     <section class="left-nav">
@@ -15,7 +15,7 @@
     <section class="right-nav SHNVXqYepsFyCsw">
         @* <div class="PeEkAugENvBHbuG">Ustawienia</div> *@
 
-        <div class="settings">
+        @* <div class="settings">
             <div class="settings_">
                 <div class="settings__">
                     <div>
@@ -65,27 +65,6 @@
                             <span>@workstations.Count()</span>
                         </div>
                     </div>
-
-                    @* <div style="height: 8px;"></div> *@
-
-                    @* @if (workstations.Count() > 0)
-                    {
-                        @foreach (var row in workstations.OrderBy(e => e.Name))
-                        {
-                            <div>
-                                <div>
-                                    <span title="@row.Name">@row.Name</span>
-                                </div>
-                                <div>
-                                    <span style="font-size: 16px;">
-                                        @workers.Where(e => e.WorkstationId == row.Id).Count()
-                                    </span>
-                                </div>
-                            </div>
-                        }
-                    } *@
-
-
                 </div>
 
                 <div class="settings__">
@@ -116,12 +95,7 @@
                             </div>
                         }
                     }
-
-                    
-
-
                 </div>
-
             </div>
             <div class="settings_">
 
@@ -129,7 +103,7 @@
             <div class="settings_">
 
             </div>
-        </div>
+        </div> *@
 
         @* <div class="settings">
             <div class="settings_">

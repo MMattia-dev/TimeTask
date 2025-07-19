@@ -44,6 +44,11 @@
 		//light color
 		spanColor = "black";
 	}
+
+	var workers = ((IEnumerable<Workers2>)ViewBag.Workers);
+	var departments = ((IEnumerable<Department>)ViewBag.Department);
+	var workstations = ((IEnumerable<Workstations>)ViewBag.Workstation);
+	var shifts = ((IEnumerable<Shifts>)ViewBag.Shift);
 }
 
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
@@ -57,6 +62,7 @@
 
 	<section class="right-nav">
 		<div class="ATKLsxSduWPahPh">
+
 			<div class="kfVQjJnCTNjZlgW" style="display: none;">
 				<div class="TOBgPdZDnrCaJEf">@DateTime.Now.ToString("dd MMMM yyyy")</div>
 				<div class="nLnyXKLeDWgYvPh">
@@ -86,7 +92,167 @@
 			<div class="YavvRCMQscelhIs tePqkpVdZPYCotv">
 
 
-				<div class="miDoCHDzMtfgfwJ UerVekGrigzHetD">
+
+
+				<div class="settings">
+					<div class="settings_">
+						<div class="settings__">
+							<div>
+								<div>
+									<ion-icon name="people-outline"></ion-icon>
+									<span>Pracownicy</span>
+								</div>
+								<div>
+									<span>Ilość</span>
+									@if (workers.Count() > 0)
+									{
+										<span>@workers.Count()</span>
+									}
+									else
+									{
+										<span style="color: red;">@workers.Count()</span>
+									}
+								</div>
+							</div>
+							<div>
+								<div>
+									<ion-icon name="cube-outline"></ion-icon>
+									<span>Działy</span>
+								</div>
+								<div>
+									<span>Ilość</span>
+									@if (departments.Count() > 0)
+									{
+										<span>@departments.Count()</span>
+									}
+									else
+									{
+										<span style="color: red;">@departments.Count()</span>
+									}
+								</div>
+							</div>
+						</div>
+
+						<div class="settings__">
+							<div>
+								<div>
+									<ion-icon name="briefcase-outline"></ion-icon>
+									<span>Stanowiska</span>
+								</div>
+								<div>
+									<span>Ilość</span>
+									<span>@workstations.Count()</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="settings__">
+							<div>
+								<div>
+									<ion-icon name="git-compare-outline"></ion-icon>
+									<span>Grupy zmianowe</span>
+								</div>
+								<div>
+									<span>Ilość</span>
+									<span>@shifts.Count()</span>
+								</div>
+							</div>
+
+							@if (shifts.Count() > 0)
+							{
+								@foreach (var row in shifts)
+								{
+									<div>
+										<div>
+											<span>@row.Name</span>
+										</div>
+										<div>
+											<span style="font-size: 16px;">
+												@workers.Where(e => e.ShiftId == row.Id).Count()
+											</span>
+										</div>
+									</div>
+								}
+							}
+						</div>
+					</div>
+					<div class="settings_">
+						<div class="settings__">
+							<div>
+								<div>
+									<ion-icon name="notifications-outline"></ion-icon>
+									<span>Przypomnienia</span>
+								</div>
+								<div>
+									<span>Ilość</span>
+									@* <span>@workstations.Count()</span> *@
+									<span>0</span>
+								</div>
+							</div>
+
+
+
+							<div class="settings__inner">
+								<div>
+									<span>test2</span>
+								</div>
+								<div>
+									<span>16.08.2025</span>
+									<span>za 12 dni</span>
+								</div>
+							</div>
+							<div class="settings__inner">
+								<div>
+									<span>test3fdgdfnvb hfdbsgvjfdbgfdsdf;.d''absdfhjbsdjf</span>
+								</div>
+								<div>
+									<span>02.09.2025</span>
+									<span>za 2 dni</span>
+								</div>
+								
+								
+							</div>
+
+						</div>
+					</div>
+					<div class="settings_">
+						<div class="clock clockAnalog" id="widg4" style="">
+							<img src="~/css/img/clock4.png" width="200" height="200" />
+							<span id="hour"></span>
+							<span id="minute"></span>
+							<span id="second"></span>
+						</div>
+
+						<div class="AipWiPstniVIhkC" id="widg5" style="">
+							<div class="iEJFylzLAwnEGbD">
+								<div class="laelGSoQzzZzzxU">
+									<span>@monthName @DateTime.Now.Year</span>
+								</div>
+								<div class="QUDSzRKLukXdIRq">
+									<div class="calendar_widg" id="calendar_id_widg">
+										<div class="month_widg">
+											<div class="weekdays_widg">
+												<div>Pon</div>
+												<div>Wto</div>
+												<div>Śro</div>
+												<div>Czw</div>
+												<div>Pią</div>
+												<div>Sob</div>
+												<div>Nie</div>
+											</div>
+											<div class="days_widg"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+				<div class="miDoCHDzMtfgfwJ UerVekGrigzHetD" style="display: none;">
 					
 					<!--zegar-->
 					<div class="clock clockAnalog" id="widg4" style="">

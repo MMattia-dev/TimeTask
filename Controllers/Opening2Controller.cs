@@ -26,6 +26,7 @@ namespace TimeTask.Controllers
         {
             ViewBag.Department = _context.Department;
             ViewBag.Workers = _context.Workers2;
+            ViewBag.Opening = _context.Opening2;
 
             return _context.Opening2 != null ? 
                           View(await _context.Opening2.ToListAsync()) :

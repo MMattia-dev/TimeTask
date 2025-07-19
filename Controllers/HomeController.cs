@@ -38,6 +38,8 @@ namespace TimeTask.Controllers
 
             ViewBag.UserIdentity = _context.UserIdentity;
 
+            ViewBag.Workstation = _context.Workstations;
+            ViewBag.Shift = _context.Shifts;
 
             return View();
         }
@@ -57,8 +59,8 @@ namespace TimeTask.Controllers
         {
             ViewBag.Workers = _context.Workers2;
             ViewBag.Department = _context.Department;
-            ViewBag.Workstation = _context.Workstations;
-            ViewBag.Shift = _context.Shifts;
+            //ViewBag.Workstation = _context.Workstations;
+            //ViewBag.Shift = _context.Shifts;
             
 
             return View();

@@ -5,10 +5,13 @@
 
     //pierwszy dział
     var firstDepartment = ((IEnumerable<Department>)ViewBag.Department).OrderBy(x => x.Name).FirstOrDefault()?.Name;
-    var firstDepartmentID = ((IEnumerable<Department>)ViewBag.Department).OrderBy(x => x.Name).FirstOrDefault()?.Id;
+    //var firstDepartmentID = ((IEnumerable<Department>)ViewBag.Department).OrderBy(x => x.Name).FirstOrDefault()?.Id;
 
     //czy są jakiekolwiek działy
     var departmentsLength = ((IEnumerable<Department>)ViewBag.Department).Count();
+
+    var opening = (IEnumerable<Opening2>)ViewBag.Opening;
+    //var years = opening.Select(row => row.Year).Distinct().ToList();
 }
 
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
@@ -31,13 +34,16 @@
                         </div>
                     </div>
                     
-                    <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" id="rJsRgTkikJFkTVs_" onclick="nGgUoVSOQmbYyoD_()">
-                        <ion-icon name="calendar-outline"></ion-icon>
-                        <div class="iNzvwDsTQXDyPIR" id="OOqVcKNeQkUsMLk_">
-                            <span id="XyEmZnuZzlHkmKi">@DateTime.Now.Year</span>
-                            <ion-icon name="chevron-down-outline"></ion-icon>
+                    if (opening.Count() > 0)
+                    {
+                        <div class="IVnxgCORpPYL ijBuUPWrdXEngvb" id="rJsRgTkikJFkTVs_" onclick="nGgUoVSOQmbYyoD_()">
+                            <ion-icon name="calendar-outline"></ion-icon>
+                            <div class="iNzvwDsTQXDyPIR" id="OOqVcKNeQkUsMLk_">
+                                <span id="XyEmZnuZzlHkmKi">@DateTime.Now.Year</span>
+                                <ion-icon name="chevron-down-outline"></ion-icon>
+                            </div>
                         </div>
-                    </div>
+                    }
                 }
             </div>
         </div>
