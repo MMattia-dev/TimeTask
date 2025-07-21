@@ -49,6 +49,10 @@
 	var departments = ((IEnumerable<Department>)ViewBag.Department);
 	var workstations = ((IEnumerable<Workstations>)ViewBag.Workstation);
 	var shifts = ((IEnumerable<Shifts>)ViewBag.Shift);
+	var reminders = ((IEnumerable<Reminders3>)ViewBag.Reminders).Where(x => x.UserID == userID).OrderBy(e => e.RemindDate);
+
+
+
 }
 
 <link rel="stylesheet" href="~/css/site_form.css" asp-append-version="true" />
@@ -97,7 +101,7 @@
 				<div class="settings">
 					<div class="settings_">
 						<div class="settings__">
-							<div>
+							<div style="padding-bottom: 10px;">
 								<div>
 									<ion-icon name="people-outline"></ion-icon>
 									<span>Pracownicy</span>
@@ -147,7 +151,7 @@
 						</div>
 
 						<div class="settings__">
-							<div>
+							<div style="padding-bottom: 10px;">
 								<div>
 									<ion-icon name="git-compare-outline"></ion-icon>
 									<span>Grupy zmianowe</span>
@@ -178,41 +182,73 @@
 					</div>
 					<div class="settings_">
 						<div class="settings__">
-							<div>
+							<div style="padding-bottom: 10px;">
 								<div>
 									<ion-icon name="notifications-outline"></ion-icon>
 									<span>Przypomnienia</span>
 								</div>
 								<div>
-									<span>Ilość</span>
-									@* <span>@workstations.Count()</span> *@
-									<span>0</span>
+									@* <span>Ilość</span> *@
+									@* <span>0</span> *@
+									<button title="Dodaj przypomnienie" onclick="addReminder(@userID)"><ion-icon name="add-outline"></ion-icon></button>
 								</div>
 							</div>
 
+							@foreach (var row in reminders)
+							{
+								<div class="settings__inner">
+									<div>
+										<span>@row.Title</span>
+									</div>
+									<div>
+										@if (row.RemindDate != null)
+										{
+											var diff = (row.RemindDate.Value - DateTime.Now.Date).TotalDays;
 
+											if (diff > 0)
+											{												
+												if (diff == 1)
+												{
+													<span style="color: orangered;">@row.RemindDate.Value.ToShortDateString()</span>
+													<span style="color: orangered;">jutro</span>
+												}
+												else
+												{
+													<span>@row.RemindDate.Value.ToShortDateString()</span>
+													<span>za @diff dni</span>
+												}
+											}
+											else
+											{
+												<span style="color: orangered;">@row.RemindDate.Value.ToShortDateString()</span>
+												if (diff == 0)
+												{
+													<span style="color: orangered;">dziś</span>
+												}
+												if (diff < 0)
+												{
+													@* <span style="color: orangered;">upłynęło</span> *@
+												}
+											}
+										}
+									</div>
+								</div>
+							}
+						</div>
+						<div class="settings__">
+							<div style="padding-bottom: 10px;">
+								<div>
+									<ion-icon name="book-outline"></ion-icon>
+									<span>Notatki</span>
+								</div>
+								<div>
+									<button title="Dodaj notatkę" onclick="addNote(@userID)"><ion-icon name="add-outline"></ion-icon></button>
+								</div>
+							</div>
 
 							<div class="settings__inner">
-								<div>
-									<span>test2</span>
-								</div>
-								<div>
-									<span>16.08.2025</span>
-									<span>za 12 dni</span>
-								</div>
-							</div>
-							<div class="settings__inner">
-								<div>
-									<span>test3fdgdfnvb hfdbsgvjfdbgfdsdf;.d''absdfhjbsdjf</span>
-								</div>
-								<div>
-									<span>02.09.2025</span>
-									<span>za 2 dni</span>
-								</div>
-								
-								
-							</div>
 
+							</div>
 						</div>
 					</div>
 					<div class="settings_">

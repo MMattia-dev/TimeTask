@@ -7633,11 +7633,9 @@ span#OcoYTyiBrpZJStB {
 }
 
     .settings .settings_ {
-        /*width: 400px;
-        min-width: 400px;*/
         width: 100%;
+        min-width: 400px;
         height: 100%;
-        padding: 10px;
         display: flex;
         padding: 10px 10px;
         justify-content: start;
@@ -7645,29 +7643,26 @@ span#OcoYTyiBrpZJStB {
         gap: 16px;
     }
 
+        .settings .settings_:not(:last-child) {
+            max-width: 400px;
+        }
+
         .settings .settings_:last-child {
-            /*width: 100%;*/
             align-items: end;
         }
 
         .settings .settings_ .settings__ {
             height: auto;
-            /*width: 100%;*/
-            width: 400px;
-            /*background-color: rgba(0, 0, 0, 0.3);*/
+            width: 100%;
             background-color: rgba(34, 36, 48, 0.5);
             border-radius: 10px;
             display: flex;
             flex-direction: column;
             padding: 20px;
             justify-content: space-between;
-            gap: 16px;
+            /*gap: 16px;*/
+            gap: 8px;
         }
-
-            /*.settings .settings_ .settings__:hover {
-                cursor: pointer;
-                background-color: rgba(0, 0, 0, 0.4);
-            }*/
 
             .settings .settings_ .settings__ div {
                 display: flex;
@@ -7675,12 +7670,25 @@ span#OcoYTyiBrpZJStB {
                 justify-content: space-between;
             }
 
+                .settings .settings_ .settings__ div button {
+                    width: 42px;
+                    height: 42px;
+                    border-radius: 5px;
+                    background-color: rgba(34, 36, 48, 0.6);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                    .settings .settings_ .settings__ div button:hover {
+                        background-color: rgba(34, 36, 48, 1);
+                    }
+
                 .settings .settings_ .settings__ div div:nth-child(2) {
                     align-items: end;
                     justify-content: start;
                     gap: 0;
                 }
-
 
                     .settings .settings_ .settings__ div div:nth-child(2) span {
                         color: rgba(255, 255, 255, 0.8);
@@ -7713,10 +7721,7 @@ span#OcoYTyiBrpZJStB {
                     .settings .settings_ .settings__ div div span {
                         font-size: 15px;
                         color: rgba(255, 255, 255, 0.8);
-                        /*white-space: nowrap;*/
-                        /*overflow: hidden;*/
                         font-weight: normal;
-                        /**/
                         text-overflow: ellipsis;
                         white-space: nowrap;
                         overflow: hidden;
@@ -7762,7 +7767,7 @@ span#OcoYTyiBrpZJStB {
                     display: flex;
                 }
 
-
+            
 
 
 

@@ -59,6 +59,8 @@ namespace TimeTask.Controllers
         {
             ViewBag.Workers = _context.Workers2;
             ViewBag.Department = _context.Department;
+            
+
             //ViewBag.Workstation = _context.Workstations;
             //ViewBag.Shift = _context.Shifts;
             
