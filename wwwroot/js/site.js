@@ -775,6 +775,48 @@ function lhkKNaastOkkmMh(t)
     }
 };
 
+function showReminderForm(userid) {
+    $.ajax({
+        type: 'GET',
+        url: '/Reminders3/ReminderForm',
+        data: {
+            userId: userid
+        },
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#QmRrlOQPQW_').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function addReminder(userId) 
+{
+    $.ajax({
+        type: 'POST',
+        url: '/Reminders3/AddReminder',
+        data: {
+            userId: userId,
+            title: $('#eukQhRRxfSOLpnw').val(),
+            description: $('#jDThjzzlsljpHvT').val(),
+            reminderDate: $('#XJUMGizHzectesQ').val(),
+        },
+        success: function (response)
+        {
+            if (response == true) {
+                location.reload();
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
 
 //let source = "";
 //let poi = `<video autoplay loop id="myVideo"><source src="` + source + `" type="video/mp4"></video>`;

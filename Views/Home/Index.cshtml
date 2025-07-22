@@ -188,9 +188,7 @@
 									<span>Przypomnienia</span>
 								</div>
 								<div>
-									@* <span>Ilość</span> *@
-									@* <span>0</span> *@
-									<button title="Dodaj przypomnienie" onclick="addReminder(@userID)"><ion-icon name="add-outline"></ion-icon></button>
+									<button title="Dodaj przypomnienie" onclick="showReminderForm('@userID')"><ion-icon name="add-outline"></ion-icon></button>
 								</div>
 							</div>
 
@@ -242,13 +240,13 @@
 									<span>Notatki</span>
 								</div>
 								<div>
-									<button title="Dodaj notatkę" onclick="addNote(@userID)"><ion-icon name="add-outline"></ion-icon></button>
+									<button title="Dodaj notatkę" onclick="showNoteForm('@userID')"><ion-icon name="add-outline"></ion-icon></button>
 								</div>
 							</div>
 
-							<div class="settings__inner">
+							@* <div class="settings__inner">
 
-							</div>
+							</div> *@
 						</div>
 					</div>
 					<div class="settings_">

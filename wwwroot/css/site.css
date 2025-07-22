@@ -7644,12 +7644,30 @@ span#OcoYTyiBrpZJStB {
     }
 
         .settings .settings_:not(:last-child) {
+            /*max-width: 400px;*/
+
+        }
+        
+        .settings .settings_:first-child {
             max-width: 400px;
+        }
+
+        .settings .settings_:nth-child(2) {
+            width: 100%;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin-right: 20px;
         }
 
         .settings .settings_:last-child {
             align-items: end;
+            /*width: 100%;*/
+            width: 220px;
+            max-width: 220px;
+            min-width: 220px;
         }
+
+
 
         .settings .settings_ .settings__ {
             height: auto;
@@ -7662,6 +7680,13 @@ span#OcoYTyiBrpZJStB {
             justify-content: space-between;
             /*gap: 16px;*/
             gap: 8px;
+        }
+
+        .settings .settings_:nth-child(2) .settings__ {
+            max-width: 400px;
+            min-width: 400px;
+            flex: 1 1 400px;
+            height: 100%;
         }
 
             .settings .settings_ .settings__ div {
