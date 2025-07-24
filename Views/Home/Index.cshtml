@@ -188,13 +188,13 @@
 									<span>Przypomnienia</span>
 								</div>
 								<div>
-									<button title="Dodaj przypomnienie" onclick="showReminderForm('@userID')"><ion-icon name="add-outline"></ion-icon></button>
+									<button title="Dodaj przypomnienie" onclick="showReminderForm(0, '@userID')"><ion-icon name="add-outline"></ion-icon></button>
 								</div>
 							</div>
 
 							@foreach (var row in reminders)
 							{
-								<div class="settings__inner">
+								<div class="settings__inner" onclick="showReminderForm(@row.Id, '@row.UserID')">
 									<div>
 										<span>@row.Title</span>
 									</div>

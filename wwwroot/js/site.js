@@ -775,11 +775,12 @@ function lhkKNaastOkkmMh(t)
     }
 };
 
-function showReminderForm(userid) {
+function showReminderForm(id, userid) {
     $.ajax({
         type: 'GET',
         url: '/Reminders3/ReminderForm',
         data: {
+            id: id,
             userId: userid
         },
         success: function (response)
@@ -808,6 +809,40 @@ function addReminder(userId)
         success: function (response)
         {
             if (response == true) {
+                location.reload();
+            }
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function enableEditing(t, id) 
+{
+    $(t).remove();
+    document.getElementById('eukQhRRxfSOLpnw').disabled = false;
+    document.getElementById('jDThjzzlsljpHvT').disabled = false;
+    document.getElementById('XJUMGizHzectesQ').disabled = false;
+
+    $('#ZCgKNAepuiycabt').html('<input type="button" value="Edytuj" class="btn-custom" onclick="editReminder(' + id + ')" />');
+};
+
+function editReminder(id) {
+    $.ajax({
+        type: 'POST',
+        url: '/Reminders3/EditReminder',
+        data: {
+            id: id,
+            title: $('#eukQhRRxfSOLpnw').val(),
+            description: $('#jDThjzzlsljpHvT').val(),
+            reminderDate: $('#XJUMGizHzectesQ').val(),
+        },
+        success: function (response)
+        {
+            if (response == true)
+            {
                 location.reload();
             }
         },
