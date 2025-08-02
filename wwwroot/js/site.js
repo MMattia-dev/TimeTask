@@ -775,6 +775,26 @@ function lhkKNaastOkkmMh(t)
     }
 };
 
+function showNoteForm(id, userid) {
+    $.ajax({
+        type: 'GET',
+        url: '/Notes/NoteForm',
+        data: {
+            id: id,
+            userId: userid
+        },
+        success: function (response)
+        {
+            $('body').append(response);
+            $('#QmRrlOQPQW_').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
 function showReminderForm(id, userid) {
     $.ajax({
         type: 'GET',
@@ -826,7 +846,8 @@ function enableEditing(t, id)
     document.getElementById('jDThjzzlsljpHvT').disabled = false;
     document.getElementById('XJUMGizHzectesQ').disabled = false;
 
-    $('#ZCgKNAepuiycabt').html('<input type="button" value="Edytuj" class="btn-custom" onclick="editReminder(' + id + ')" />');
+    $('#ZCgKNAepuiycabt').html('<input type="button" value="Zapisz" class="btn-custom" onclick="editReminder(' + id + ')" />');
+    $('#wRuWInrLLyzEnrp').html('<div class="btn-danger-div"><input type="button" value="Usuń" onclick="removeReminder(' + id + ')" /></div>');
 };
 
 function editReminder(id) {
@@ -847,6 +868,25 @@ function editReminder(id) {
             }
         },
         error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function removeReminder(id) 
+{
+    $.ajax({
+        type: 'POST',
+        url: '/Reminders3/DeleteReminder',
+        data: {
+            id: id
+        },
+        success: function (response) 
+        {
+            location.reload();
+        },
+        error: function (xhr, status, error) 
         {
             console.log('Error:', error);
         }

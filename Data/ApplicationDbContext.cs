@@ -49,5 +49,6 @@ namespace TimeTask.Data
         public DbSet<TimeTask.Models.ChatSettings> ChatSettings { get; set; } = default!;
         public DbSet<TimeTask.Models.Workstations> Workstations { get; set; } = default!;
         public DbSet<TimeTask.Models.Shifts> Shifts { get; set; } = default!;
+        public DbSet<TimeTask.Models.Note> Note { get; set; } = default!;
     }
 }

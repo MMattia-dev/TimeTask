@@ -170,6 +170,7 @@ namespace TimeTask.Controllers
             //DateTime? reminderDate = null;
             string reminderDate = "";
             string edit = "";
+            //string delete = "";
 
             if (id == 0)
             {
@@ -194,6 +195,8 @@ namespace TimeTask.Controllers
                 
                 //button = "<input disabled type=\"button\" value=\"Edytuj\" class=\"btn-custom\" onclick=\"editReminder('" + id + "')\" />";
                 edit = "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk XyrCtgZmYtYrOIv\" onclick=\"enableEditing(this, " + id + ")\" title=\"Edytuj\"><ion-icon name=\"create\"></ion-icon></div>";
+                //delete = "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk lgriXAbOLSnthqr\" onclick=\"delete(" + id + ")\" title=\"Usuń\"><ion-icon name=\"trash\"></ion-icon></div>";
+                
             }
 
             string removeForm = "$('#QmRrlOQPQW_').remove()";
@@ -215,7 +218,11 @@ namespace TimeTask.Controllers
                         "<div class=\"form-group\" id=\"ZCgKNAepuiycabt\">" +
                             button +
                         "</div>" +
+                        "<div class=\"form-group\" id=\"wRuWInrLLyzEnrp\">" +
+                            //
+                        "</div>" +
                         edit +
+                        //delete +
                         "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
                             "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
                         "</div>" +
@@ -268,7 +275,20 @@ namespace TimeTask.Controllers
             return Json(false);
         }
 
+        [HttpPost]
+        public ActionResult DeleteReminder(int id)
+        {
+            var row = _context.Reminders3.FirstOrDefault(e => e.Id == id);
+            if (row != null)
+            {
+                _context.Reminders3.Remove(row);
+                _context.SaveChanges();
 
+                return Json(true);
+            }
+
+            return Json(false);
+        }
 
 
 

@@ -4968,6 +4968,11 @@ input:checked + .HsRFJWiSLmrJcoG:before {
             left: 10px;
         }
 
+        /*.BnDZmDEehCCybzG.LPbaczkZTGFbIBk.lgriXAbOLSnthqr {
+            right: unset;
+            left: 40px;
+        }*/
+
         .BnDZmDEehCCybzG.LPbaczkZTGFbIBk ion-icon:hover {
             color: white;
         } 
@@ -6414,7 +6419,7 @@ span#OcoYTyiBrpZJStB {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    /*border: 1px solid rgba(255, 255, 255, 0.3);*/
 }
 
     .chatMinimized:hover {

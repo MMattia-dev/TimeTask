@@ -68,54 +68,54 @@ namespace TimeTask.Controllers
             return View();
         }
 
-		[HttpPost]
-		public ActionResult AddReminder(string userID, string title, string? reminderDescription, DateTime createdDate, DateTime? remindDate)
-		{
-			var newData = new Reminders3()
-			{
-				UserID = userID,
-                Title = title,
-				ReminderDescription = reminderDescription,
-				CreatedDate = DateTime.Now.Date,
-				RemindDate = remindDate
-			};
+		//[HttpPost]
+		//public ActionResult AddReminder(string userID, string title, string? reminderDescription, DateTime createdDate, DateTime? remindDate)
+		//{
+		//	var newData = new Reminders3()
+		//	{
+		//		UserID = userID,
+  //              Title = title,
+		//		ReminderDescription = reminderDescription,
+		//		CreatedDate = DateTime.Now.Date,
+		//		RemindDate = remindDate
+		//	};
 
-			_context.Reminders3.Add(newData);
-			_context.SaveChanges();
-			return Json(new { success = true });
-		}
+		//	_context.Reminders3.Add(newData);
+		//	_context.SaveChanges();
+		//	return Json(new { success = true });
+		//}
 
-        [HttpPost]
-        public ActionResult EditReminder(int id, string userID, string title, string? reminderDescription, DateTime createdDate, DateTime? remindDate)
-        {
-            var row = _context.Reminders3.FirstOrDefault(e => e.Id == id);
-            if (row != null) 
-            { 
-                row.Title = title;
-                row.ReminderDescription = reminderDescription;
-                row.RemindDate = remindDate;
-                _context.SaveChanges();
+  //      [HttpPost]
+  //      public ActionResult EditReminder(int id, string userID, string title, string? reminderDescription, DateTime createdDate, DateTime? remindDate)
+  //      {
+  //          var row = _context.Reminders3.FirstOrDefault(e => e.Id == id);
+  //          if (row != null) 
+  //          { 
+  //              row.Title = title;
+  //              row.ReminderDescription = reminderDescription;
+  //              row.RemindDate = remindDate;
+  //              _context.SaveChanges();
 
-                return Json(new { success = true });
-            }
+  //              return Json(new { success = true });
+  //          }
 
-            return Json(new { success = false });
-        }
+  //          return Json(new { success = false });
+  //      }
 
-        [HttpPost]
-        public ActionResult DeleteReminder(int id) 
-        { 
-            var row = _context.Reminders3.FirstOrDefault(e => e.Id == id);
-            if (row != null)
-            {
-                _context.Reminders3.Remove(row);
-                _context.SaveChanges();
+  //      [HttpPost]
+  //      public ActionResult DeleteReminder(int id) 
+  //      { 
+  //          var row = _context.Reminders3.FirstOrDefault(e => e.Id == id);
+  //          if (row != null)
+  //          {
+  //              _context.Reminders3.Remove(row);
+  //              _context.SaveChanges();
 
-                return Json(new { success = true });
-            }
+  //              return Json(new { success = true });
+  //          }
 
-            return Json(new { success = false });
-        }
+  //          return Json(new { success = false });
+  //      }
 
         
 

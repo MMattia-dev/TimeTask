@@ -182,7 +182,16 @@
 					</div>
 					<div class="settings_">
 						<div class="settings__">
-							<div style="padding-bottom: 10px;">
+							@* <div> *@
+								@if (reminders.Count() > 0)
+								{
+									@:<div style="padding-bottom: 10px;">
+								}
+								else
+								{
+									@:<div>
+								}
+								@* style="padding-bottom: 10px;" *@
 								<div>
 									<ion-icon name="notifications-outline"></ion-icon>
 									<span>Przypomnienia</span>
@@ -234,13 +243,14 @@
 							}
 						</div>
 						<div class="settings__">
-							<div style="padding-bottom: 10px;">
+							<div>
+								@* style="padding-bottom: 10px;" *@
 								<div>
 									<ion-icon name="book-outline"></ion-icon>
 									<span>Notatki</span>
 								</div>
 								<div>
-									<button title="Dodaj notatkę" onclick="showNoteForm('@userID')"><ion-icon name="add-outline"></ion-icon></button>
+									<button title="Dodaj notatkę" onclick="showNoteForm(0, '@userID')"><ion-icon name="add-outline"></ion-icon></button>
 								</div>
 							</div>
 
