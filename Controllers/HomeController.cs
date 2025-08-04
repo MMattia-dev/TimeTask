@@ -35,6 +35,7 @@ namespace TimeTask.Controllers
             ViewBag.Wallpaper = _context.Wallpaper2;
 			ViewBag.Holiday = _context.Holiday;
             ViewBag.Reminders = _context.Reminders3;
+            ViewBag.Notes = _context.Note;
 
             ViewBag.UserIdentity = _context.UserIdentity;
 

@@ -208,6 +208,34 @@ namespace TimeTask.Controllers
             return Content(form);
         }
 
+        [HttpPost]
+        public ActionResult AddNote(string userId, string description)
+        {
+            if (userId.Length > 0 && description != null)
+            {
+                var newData = new Note()
+                {
+                    UserID = userId,
+                    NoteDescription = description,
+                    CreatedDate = DateTime.Now.Date,
+                };
+
+                _context.Note.Add(newData);
+                _context.SaveChanges();
+
+                return Json(true);
+            }
+
+            return Json(false);
+
+
+            //return Json(userId);
+
+
+
+        }
+
+
 
 
 

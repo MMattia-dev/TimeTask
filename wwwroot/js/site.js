@@ -775,7 +775,8 @@ function lhkKNaastOkkmMh(t)
     }
 };
 
-function showNoteForm(id, userid) {
+function showNoteForm(id, userid) 
+{
     $.ajax({
         type: 'GET',
         url: '/Notes/NoteForm',
@@ -795,7 +796,8 @@ function showNoteForm(id, userid) {
     });
 };
 
-function showReminderForm(id, userid) {
+function showReminderForm(id, userid) 
+{
     $.ajax({
         type: 'GET',
         url: '/Reminders3/ReminderForm',
@@ -807,6 +809,32 @@ function showReminderForm(id, userid) {
         {
             $('body').append(response);
             $('#QmRrlOQPQW_').fadeIn(200);
+        },
+        error: function (xhr, status, error)
+        {
+            console.log('Error:', error);
+        }
+    });
+};
+
+function addNote(userId) 
+{
+    $.ajax({
+        type: 'POST',
+        url: '/Notes/AddNote',
+        data: {
+            userId: userId,
+            description: $('#jDThjzzlsljpHvT').val()
+        },
+        success: function (response)
+        {
+            //if (response == true)
+            //{
+            //    location.reload();
+            //}
+
+            console.log(response);
+
         },
         error: function (xhr, status, error)
         {
@@ -850,7 +878,8 @@ function enableEditing(t, id)
     $('#wRuWInrLLyzEnrp').html('<div class="btn-danger-div"><input type="button" value="Usuń" onclick="removeReminder(' + id + ')" /></div>');
 };
 
-function editReminder(id) {
+function editReminder(id)
+{
     $.ajax({
         type: 'POST',
         url: '/Reminders3/EditReminder',
