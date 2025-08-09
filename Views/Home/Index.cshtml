@@ -268,7 +268,12 @@
 							@foreach (var row in notes)
 							{
 								<div class="settings__inner" onclick="showNoteForm(@row.Id, '@row.UserID')">
+									<div>
+										<span>@row.Title</span>
+									</div>
+									<div>
 
+									</div>
 								</div>
 							}
 

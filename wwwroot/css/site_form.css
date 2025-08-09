@@ -122,6 +122,13 @@
             padding-left: 5px;
         }
 
+    /*.form-control.showOnly {
+        width: 290px;
+        border: none;
+        
+    }*/
+
+      
 
 
 .form-floating.CvFOfCxRqEKEFvM {
@@ -247,6 +254,12 @@
 
 form#account {
     background-color: rgba(34, 36, 48, 1);
+}
+
+.form_.form_s {
+    align-items: start;
+    padding: 15px;
+    
 }
 
 form:not(.logOut) {
@@ -438,6 +451,13 @@ form:not(.logOut) {
     align-items: center;
     gap: 15px;
 }
+
+.form-group-title, .form-group-description {
+    color: rgba(255, 255, 255, 0.8);
+    
+}
+
+
 
 .right-nav-forms {
     display: flex;

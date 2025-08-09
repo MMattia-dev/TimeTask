@@ -824,17 +824,15 @@ function addNote(userId)
         url: '/Notes/AddNote',
         data: {
             userId: userId,
+            title: $('#eukQhRRxfSOLpnw').val(),
             description: $('#jDThjzzlsljpHvT').val()
         },
         success: function (response)
         {
-            //if (response == true)
-            //{
-            //    location.reload();
-            //}
-
-            console.log(response);
-
+            if (response == true)
+            {
+                location.reload();
+            }
         },
         error: function (xhr, status, error)
         {

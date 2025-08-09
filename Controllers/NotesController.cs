@@ -163,35 +163,63 @@ namespace TimeTask.Controllers
         [HttpGet]
         public ActionResult NoteForm(int id, string userId)
         {
+            string title = "";
             string description = "";
             string button = "";
             string edit = "";
+            string formClass = "";
 
             if (id == 0)
             {
                 //nowa notatka
-                description = "<textarea class=\"form-control\" id=\"jDThjzzlsljpHvT\"></textarea>";
+                //title = "<input class=\"form-control\" id=\"eukQhRRxfSOLpnw\" />";
+                title = "<div class=\"form-group\">" +
+                            "<label>Tytuł:</label>" +
+                            "<input class=\"form-control\" id=\"eukQhRRxfSOLpnw\" />" +
+                        "</div>";
+
+                //description = "<textarea class=\"form-control\" id=\"jDThjzzlsljpHvT\"></textarea>";
+
+                description = "<div class=\"form-group form-group-margin\">" +
+                                "<label>Notatka:</label>" +
+                                "<textarea class=\"form-control\" id=\"jDThjzzlsljpHvT\"></textarea>" +
+                              "</div>";
+
                 button = "<input type=\"button\" value=\"Zapisz\" class=\"btn-custom\" onclick=\"addNote('" + userId + "')\" />";
             }
             else
             {
                 //edytuj notatkę
+                //title = "<input disabled class=\"form-control showOnly\" id=\"eukQhRRxfSOLpnw\" value=\"" + _context.Note.First(x => x.Id == id).Title + "\" />";
+
+                title = "<div class=\"form-group\">" +
+                            //"<label>Tytuł:</label>" +
+                            //"<input disabled class=\"form-control showOnly\" id=\"eukQhRRxfSOLpnw\" value=\"" + _context.Note.First(x => x.Id == id).Title + "\" />" +
+                            "<div class=\"form-group-title\">" + _context.Note.First(x => x.Id == id).Title + "</div>" +
+                        "</div>";
+
                 if (_context.Note.FirstOrDefault(x => x.Id == id)?.NoteDescription != null)
                 {
-                    description = "<textarea disabled class=\"form-control\" id=\"jDThjzzlsljpHvT\">" + _context.Note.FirstOrDefault(x => x.Id == id)?.NoteDescription + "</textarea>";
+                    //description = "<textarea disabled class=\"form-control showOnly\" id=\"jDThjzzlsljpHvT\">" + _context.Note.FirstOrDefault(x => x.Id == id)?.NoteDescription + "</textarea>";
+
+                    description = "<div class=\"form-group form-group-margin\">" +
+                                    //"<label>Notatka:</label>" +
+                                    //"<textarea disabled class=\"form-control showOnly\" id=\"jDThjzzlsljpHvT\">" + _context.Note.FirstOrDefault(x => x.Id == id)?.NoteDescription + "</textarea>" +
+                                    "<div class=\"form-group-description\">" + _context.Note.FirstOrDefault(x => x.Id == id)?.NoteDescription + "</div>" +
+                                  "</div>";
                 }
 
                 edit = "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk XyrCtgZmYtYrOIv\" onclick=\"enableEditingNote(this, " + id + ")\" title=\"Edytuj\"><ion-icon name=\"create\"></ion-icon></div>";
+
+                formClass = "form_s";
             }
 
             string removeForm = "$('#QmRrlOQPQW_').remove()";
 
             string form = "<div id=\"QmRrlOQPQW_\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
-                    "<form class=\"form_\">" +
-                        "<div class=\"form-group form-group-margin\">" +
-                            "<label>Notatka:</label>" +
-                            description +
-                        "</div>" +
+                    "<form class=\"form_ "+ formClass +"\">" +
+                        title +
+                        description +
                         "<div class=\"form-group\" id=\"ZCgKNAepuiycabt\">" +
                             button +
                         "</div>" +
@@ -209,13 +237,14 @@ namespace TimeTask.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddNote(string userId, string description)
+        public ActionResult AddNote(string userId, string title, string description)
         {
-            if (userId.Length > 0 && description != null)
+            if (userId.Length > 0 && title != null && description != null)
             {
                 var newData = new Note()
                 {
                     UserID = userId,
+                    Title = title,
                     NoteDescription = description,
                     CreatedDate = DateTime.Now.Date,
                 };
