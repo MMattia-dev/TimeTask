@@ -258,8 +258,12 @@ form#account {
 
 .form_.form_s {
     align-items: start;
-    padding: 15px;
-    
+    justify-content: start;
+    padding: 50px 0px 0px 0px;
+    width: 90%;
+    height: 90%;
+    /*position: relative;*/
+    /*background-color: rgba(34, 36, 48, 0.25);*/
 }
 
 form:not(.logOut) {
@@ -454,10 +458,38 @@ form:not(.logOut) {
 
 .form-group-title, .form-group-description {
     color: rgba(255, 255, 255, 0.8);
+    /*word-wrap: break-word;*/
+    /*width: 88vw;*/
+    /*width: 100%;*/
+    /*background-color: transparent;*/
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    outline: none;
+    min-width: 100%;
+}
+
+    .form-group-title:focus, .form-group-description:focus {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+.form-group-title {
+    font-size: 22px;
+    font-weight: bold;
+    height: 60px;
+    padding-left: 15px;
+    padding-right: 15px;
     
 }
 
+.form-group-description {
+    
+}
 
+.form-group.form-group-notes {
+    width: 100%;
+    position: relative;
+    text-align: center;
+}
 
 .right-nav-forms {
     display: flex;

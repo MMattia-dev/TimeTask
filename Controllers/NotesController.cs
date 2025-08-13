@@ -166,8 +166,8 @@ namespace TimeTask.Controllers
             string title = "";
             string description = "";
             string button = "";
-            string edit = "";
-            string formClass = "";
+            //string edit = "";
+            //string formClass = "";
 
             if (id == 0)
             {
@@ -192,32 +192,35 @@ namespace TimeTask.Controllers
                 //edytuj notatkę
                 //title = "<input disabled class=\"form-control showOnly\" id=\"eukQhRRxfSOLpnw\" value=\"" + _context.Note.First(x => x.Id == id).Title + "\" />";
 
-                title = "<div class=\"form-group\">" +
+                title = "<div class=\"form-group form-group-notes\">" +
                             //"<label>Tytuł:</label>" +
                             //"<input disabled class=\"form-control showOnly\" id=\"eukQhRRxfSOLpnw\" value=\"" + _context.Note.First(x => x.Id == id).Title + "\" />" +
-                            "<div class=\"form-group-title\">" + _context.Note.First(x => x.Id == id).Title + "</div>" +
+                            //"<div class=\"form-group-title\">" + _context.Note.First(x => x.Id == id).Title + "</div>" +
+                            "<input class=\"form-group-title\" value=\"" + _context.Note.First(x => x.Id == id).Title + "\"  />" +
                         "</div>";
 
                 if (_context.Note.FirstOrDefault(x => x.Id == id)?.NoteDescription != null)
                 {
                     //description = "<textarea disabled class=\"form-control showOnly\" id=\"jDThjzzlsljpHvT\">" + _context.Note.FirstOrDefault(x => x.Id == id)?.NoteDescription + "</textarea>";
 
-                    description = "<div class=\"form-group form-group-margin\">" +
+                    description = "<div class=\"form-group form-group-notes form-group-margin\">" +
                                     //"<label>Notatka:</label>" +
                                     //"<textarea disabled class=\"form-control showOnly\" id=\"jDThjzzlsljpHvT\">" + _context.Note.FirstOrDefault(x => x.Id == id)?.NoteDescription + "</textarea>" +
-                                    "<div class=\"form-group-description\">" + _context.Note.FirstOrDefault(x => x.Id == id)?.NoteDescription + "</div>" +
+                                    //"<div class=\"form-group-description\">" + _context.Note.FirstOrDefault(x => x.Id == id)?.NoteDescription + "</div>" +
+                                    "<textarea class=\"form-group-description\">" + _context.Note.FirstOrDefault(x => x.Id == id)?.NoteDescription + "</textarea>" +
                                   "</div>";
                 }
 
-                edit = "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk XyrCtgZmYtYrOIv\" onclick=\"enableEditingNote(this, " + id + ")\" title=\"Edytuj\"><ion-icon name=\"create\"></ion-icon></div>";
+                //edit = "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk XyrCtgZmYtYrOIv\" onclick=\"enableEditingNote(this, " + id + ")\" title=\"Edytuj\"><ion-icon name=\"create\"></ion-icon></div>";
 
-                formClass = "form_s";
+                //formClass = "form_s";
             }
 
             string removeForm = "$('#QmRrlOQPQW_').remove()";
 
             string form = "<div id=\"QmRrlOQPQW_\" class=\"pGKcZvErUB\" style=\"display: none;\">" +
-                    "<form class=\"form_ "+ formClass +"\">" +
+                    //"<form class=\"form_ "+ formClass +"\">" +
+                    "<form class=\"form_ form_s\">" +
                         title +
                         description +
                         "<div class=\"form-group\" id=\"ZCgKNAepuiycabt\">" +
@@ -226,7 +229,7 @@ namespace TimeTask.Controllers
                         "<div class=\"form-group\" id=\"wRuWInrLLyzEnrp\">" +
                         //
                         "</div>" +
-                        edit +
+                        //edit +
                         "<div class=\"BnDZmDEehCCybzG LPbaczkZTGFbIBk\" onclick=\"" + removeForm + "\">" +
                             "<svg viewBox=\"0 0 470 470\" height=\"15\" width=\"15\"><path d=\"M310.4,235.083L459.88,85.527c12.545-12.546,12.545-32.972,0-45.671L429.433,9.409c-12.547-12.546-32.971-12.546-45.67,0L234.282,158.967L85.642,10.327c-12.546-12.546-32.972-12.546-45.67,0L9.524,40.774c-12.546,12.546-12.546,32.972,0,45.671l148.64,148.639L9.678,383.495c-12.546,12.546-12.546,32.971,0,45.67l30.447,30.447c12.546,12.546,32.972,12.546,45.67,0l148.487-148.41l148.792,148.793c12.547,12.546,32.973,12.546,45.67,0l30.447-30.447c12.547-12.546,12.547-32.972,0-45.671L310.4,235.083z\"></path></svg>" +
                         "</div>" +
